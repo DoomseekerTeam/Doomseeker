@@ -47,4 +47,15 @@ class TestDataPathsAppDataDirectoryWrite : public TestUnitBase
 		bool bPortable;
 };
 
+class TestDataPathsResolveTemplated : public TestUnitBase
+{
+public:
+	TestDataPathsResolveTemplated(bool bPortable);
+
+	bool executeTest();
+
+protected:
+	bool bPortable;
+};
+
 #endif

@@ -24,6 +24,10 @@
 #include "datapaths.h"
 #include "strings.hpp"
 
+#include <QCoreApplication>
+#include <QDir>
+#include <QProcessEnvironment>
+
 TestDataPathsAppDataDirectoryAccess::TestDataPathsAppDataDirectoryAccess(bool bPortable)
 : TestUnitBase("Data Paths - App Data directory access")
 {
@@ -112,4 +116,64 @@ bool TestDataPathsAppDataDirectoryWrite::executeTest()
 	appDataDir.rmdir(randomDirName);
 
 	return bReturnValue;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+TestDataPathsResolveTemplated::TestDataPathsResolveTemplated(bool bPortable)
+	: TestUnitBase("Data Paths - Resolve Templated")
+{
+	if (bPortable)
+	{
+		_testName += " - portable";
+	}
+
+	this->bPortable = bPortable;
+}
+
+bool TestDataPathsResolveTemplated::executeTest()
+{
+	DataPaths dataPaths(bPortable);
+
+	// PROGDIR
+	qputenv("PROGDIR", "this env. var should be ignored");
+	QString exeLocation = QCoreApplication::applicationDirPath();
+	if (dataPaths.resolveTemplated("$PROGDIR") != exeLocation)
+	{
+		testLog << QString("simple $PROGDIR resolution failure: %1 != %2")
+			.arg(dataPaths.resolveTemplated("$PROGDIR"), exeLocation);
+		return false;
+	}
+
+	// PROGDIR suffixed
+	if (dataPaths.resolveTemplated("$PROGDIR/logs") != Strings::combinePaths(exeLocation, "logs"))
+	{
+		testLog << QString("suffixed $PROGDIR resolution failure: %1 != %2")
+			.arg(dataPaths.resolveTemplated("$PROGDIR/logs"), exeLocation + "logs");
+		return false;
+	}
+
+	// Just home
+	if (dataPaths.resolveTemplated("~") != QDir::homePath())
+	{
+		testLog << QString("Home resolution failed: %1 != %2")
+			.arg(dataPaths.resolveTemplated("~"), QDir::homePath());
+		return false;
+	}
+
+	// Complex resolution
+	qputenv("G00dV4r", "/data/is/mine");
+	qputenv("an0ther", "ok");
+	{
+		QString templated = "~/logs/$an0ther/$G00dV4r/$an0ther/$badvar44/done";
+		QString expected = QDir::homePath() + "/logs/ok//data/is/mine/ok//done";
+		if (dataPaths.resolveTemplated(templated) != expected)
+		{
+			testLog << QString("complex env resolution failure: %1 != %2")
+				.arg(dataPaths.resolveTemplated(templated), expected);
+			return false;
+		}
+	}
+
+	return true;
 }

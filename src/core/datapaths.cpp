@@ -437,6 +437,49 @@ QString DataPaths::programsDataDirectoryPath() const
 	return d->configDirectory.absolutePath();
 }
 
+QString DataPaths::resolveTemplated(const QString &templatedPath) const
+{
+	QString resolved = templatedPath;
+
+	// $PROGDIR is a special placeholder that always resolves to the directory
+	// where executable is stored, even if an env. var with the same name exists.
+	resolved.replace("$PROGDIR", QCoreApplication::applicationDirPath());
+
+	// Match ~ to home dir.
+	QStringList homePatterns;
+	homePatterns << "^~[/\\\\]" << "^~$";
+	QStringList homeReplaces;
+	homeReplaces << "~/" << "~";
+	for (int idx = 0; idx < homePatterns.size(); ++idx)
+	{
+		QRegExp regex(homePatterns[idx]);
+		if (resolved.contains(regex))
+		{
+			QString replacer = homeReplaces[idx].replace("~", QDir::homePath());
+			resolved = resolved.replace(regex, replacer);
+		}
+	}
+
+	// Match arbitrary env. vars.
+	QRegExp envVarRegex("\\$([a-zA-Z_][a-zA-Z0-9_]*)");
+	int offset = 0;
+	while (true)
+	{
+		int varIdx = envVarRegex.indexIn(resolved, offset);
+		if (varIdx < 0)
+			break;
+		QString name = envVarRegex.cap(1);
+		QString varValue = "";
+		if (QProcessEnvironment::systemEnvironment().contains(name))
+		{
+			varValue = qgetenv(name.toUtf8());
+		}
+		resolved = resolved.left(varIdx) + varValue + resolved.mid(varIdx + envVarRegex.matchedLength());
+		offset = varIdx + varValue.length();
+	}
+	return resolved;
+}
+
 void DataPaths::setWorkingDirectory(const QString &workingDirectory)
 {
 	d->workingDirectory = workingDirectory;

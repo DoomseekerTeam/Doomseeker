@@ -39,6 +39,9 @@ void TestRuns::callTests()
 	pTestCore->executeTest(new TestDataPathsAppDataDirectoryWrite(false));
 	pTestCore->executeTest(new TestDataPathsAppDataDirectoryWrite(true));
 
+	pTestCore->executeTest(new TestDataPathsResolveTemplated(false));
+	pTestCore->executeTest(new TestDataPathsResolveTemplated(true));
+
 	// INI
 	// Note: All of these tests may fail if TestReadINI fails.
 	pTestCore->executeTest(new TestReadINI());
