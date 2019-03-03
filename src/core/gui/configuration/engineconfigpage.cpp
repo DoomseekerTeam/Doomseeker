@@ -33,6 +33,8 @@
 #include <QFileDialog>
 #include <QTimer>
 
+#include "log.h"
+
 DClass<EngineConfigPage> : public Ui::EngineConfigPage
 {
 public:
@@ -98,6 +100,8 @@ EngineConfigPage::EngineConfigPage(EnginePlugin *plugin, IniSection &cfg, QWidge
 
 	if (!plugin->data()->hasMasterClient())
 		d->masterAddressBox->hide();
+	if(!plugin->data()->allowsInternalClients)
+		d->groupInternalClients->hide();
 }
 
 EngineConfigPage::~EngineConfigPage()
@@ -194,7 +198,11 @@ void EngineConfigPage::readSettings()
 	d->cboCustomParameters->setEditText(d->config->value("CustomParameters").toString());
 	if (d->plugin->data()->hasMasterClient())
 		d->leMasterserverAddress->setText(d->config->value("Masterserver").toString());
-
+	if(d->plugin->data()->allowsInternalClients)
+	{
+		d->leInternalClientsPath->setText(d->config->value("InternalClientPath").toString());
+		d->groupInternalClients->setChecked(d->config->value("EnableInternalClient").toBool());
+	}
 	updateCustomParametersSaveState();
 }
 
@@ -244,6 +252,11 @@ void EngineConfigPage::saveSettings()
 	d->config->setValue("CustomParameters", currentCustomParameters());
 	if (d->plugin->data()->hasMasterClient())
 		d->config->setValue("Masterserver", d->leMasterserverAddress->text());
+	if (d->plugin->data()->allowsInternalClients)
+	{
+		d->config->setValue("InternalClientPath", d->leInternalClientsPath->text());
+		d->config->setValue("EnableInternalClient", d->groupInternalClients->isChecked());
+	}
 }
 
 void EngineConfigPage::showError(const QString &error)
@@ -280,4 +293,14 @@ ConfigPage::Validation EngineConfigPage::validate()
 		allFilesOk = allFilesOk && thisFileOk;
 	}
 	return allFilesOk ? VALIDATION_OK : VALIDATION_ERROR;
+}
+
+void EngineConfigPage::btnBrowseInternalClientPathClicked()
+{
+	QString initalDir = QFileInfo(d->leInternalClientsPath->text()).exists() ?
+		d->leInternalClientsPath->text() : QString();
+	QString strDirpath = QFileDialog::getExistingDirectory(this,
+		tr("Doomseeker - choose directory for internal clients"), initalDir);
+	if (!strDirpath.isEmpty())
+		d->leInternalClientsPath->setText(strDirpath);
 }

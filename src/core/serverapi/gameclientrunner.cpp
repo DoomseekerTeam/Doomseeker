@@ -422,7 +422,6 @@ const QString &GameClientRunner::connectPassword() const
 
 void GameClientRunner::createCommandLineArguments_default()
 {
-	BAIL_ON_ERROR(addGamePaths());
 	BAIL_ON_ERROR(addConnectCommand());
 	if (d->server->isLocked())
 	{
@@ -439,6 +438,7 @@ void GameClientRunner::createCommandLineArguments_default()
 	BAIL_ON_ERROR(addWads());
 	BAIL_ON_ERROR(addExtra());
 	BAIL_ON_ERROR(addCustomParameters());
+	BAIL_ON_ERROR(addGamePaths());
 }
 
 JoinError GameClientRunner::createJoinCommandLine(CommandLineInfo &cli,

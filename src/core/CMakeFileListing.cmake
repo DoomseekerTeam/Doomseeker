@@ -37,6 +37,7 @@ set(UI_FILES
 	gui/demomanager.ui
 	gui/dockBuddiesList.ui
 	gui/freedoomdialog.ui
+	gui/internalclientinstaller.ui
 	gui/ip2cupdatebox.ui
 	gui/irc/ircdock.ui
 	gui/irc/ircdocktabcontents.ui
@@ -127,6 +128,7 @@ set(HEADER_FILES
 	gui/helpers/playersdiagram.h
 	gui/helpers/taskbarbutton.h
 	gui/helpers/taskbarprogress.h
+	gui/internalclientinstaller.h
 	gui/ip2cupdatebox.h
 	gui/irc/ircdock.h
 	gui/irc/ircdocktabcontents.h
@@ -360,6 +362,7 @@ set(SOURCE_FILES
 	gui/helpers/playersdiagram.cpp
 	gui/helpers/taskbarbutton.cpp
 	gui/helpers/taskbarprogress.cpp
+	gui/internalclientinstaller.cpp
 	gui/ip2cupdatebox.cpp
 	gui/irc/ircdock.cpp
 	gui/irc/ircdocktabcontents.cpp

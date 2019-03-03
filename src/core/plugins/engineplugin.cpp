@@ -44,6 +44,7 @@ EnginePlugin::Data::Data()
 	allowsClientSlots = true;
 	allowsPlayerSlots = true;
 	allowsEmail = false;
+	allowsInternalClients = false;
 	allowsJoinPassword = false;
 	allowsMOTD = false;
 	allowsRConPassword = false;
@@ -156,6 +157,9 @@ void EnginePlugin::init(const char *name, const char *const icon[], ...)
 			break;
 		case EP_AllowsEmail:
 			d->allowsEmail = true;
+				break;
+			case EP_AllowsInternalClients:
+				d->allowsInternalClients = true;
 			break;
 		case EP_AllowsURL:
 			d->allowsURL = true;

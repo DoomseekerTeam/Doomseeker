@@ -131,6 +131,58 @@
     </widget>
    </item>
    <item>
+    <widget class="QGroupBox" name="groupInternalClients">
+     <property name="toolTip">
+      <string>&lt;p&gt;Allow the Zandronum plugin to handle the releases of Zandronum, allowing you to connect to servers with differing versions, whether those are testing releases or official releases.&lt;/p&gt;</string>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="title">
+      <string>Internal clients mode</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <widget class="QLabel" name="lblGroupInternalClients">
+        <property name="text">
+         <string>Directory for the releases:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="pathInternalClients">
+        <item>
+         <widget class="QLineEdit" name="leInternalClientsPath">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="btnBrowseInternalClientPath">
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <widget class="QLabel" name="lblError">
      <property name="text">
       <string>[error]</string>
@@ -166,8 +218,8 @@
    <slot>saveCustomParameters()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>326</x>
-     <y>133</y>
+     <x>338</x>
+     <y>62</y>
     </hint>
     <hint type="destinationlabel">
      <x>326</x>
@@ -182,8 +234,8 @@
    <slot>removeCurrentCustomParametersFromStorage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>353</x>
-     <y>133</y>
+     <x>372</x>
+     <y>62</y>
     </hint>
     <hint type="destinationlabel">
      <x>357</x>
@@ -198,12 +250,28 @@
    <slot>updateCustomParametersSaveState()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>291</x>
-     <y>132</y>
+     <x>292</x>
+     <y>64</y>
     </hint>
     <hint type="destinationlabel">
      <x>291</x>
      <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnBrowseInternalClientPath</sender>
+   <signal>clicked()</signal>
+   <receiver>EngineConfigPage</receiver>
+   <slot>btnBrowseInternalClientPathClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>343</x>
+     <y>205</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>374</x>
+     <y>249</y>
     </hint>
    </hints>
   </connection>
@@ -212,5 +280,6 @@
   <slot>saveCustomParameters()</slot>
   <slot>removeCurrentCustomParametersFromStorage()</slot>
   <slot>updateCustomParametersSaveState()</slot>
+  <slot>btnBrowseInternalClientPathClicked()</slot>
  </slots>
 </ui>

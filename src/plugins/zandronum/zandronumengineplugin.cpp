@@ -71,6 +71,7 @@ ZandronumEnginePlugin::ZandronumEnginePlugin()
 		EP_AllowsMOTD,
 		EP_AllowsUpnp,
 		EP_AllowsUpnpPort,
+		EP_AllowsInternalClients,
 		#if defined(Q_OS_WIN32) || defined(Q_OS_MAC)
 		EP_ClientOnly,
 		#endif
@@ -94,8 +95,8 @@ ZandronumEnginePlugin::ZandronumEnginePlugin()
 void ZandronumEnginePlugin::setupConfig(IniSection &config)
 {
 	config.createSetting("Masterserver", data()->defaultMaster);
-	config.createSetting("EnableTesting", true);
-	config.createSetting("TestingPath",
+	config.createSetting("EnableInternalClient", true);
+	config.createSetting("InternalClientPath",
 		DataPaths::defaultInstance()->pluginLocalDataLocationPath(*this));
 }
 

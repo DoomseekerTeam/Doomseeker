@@ -492,15 +492,7 @@ DataPaths::DirErrno DataPaths::tryCreateDirectory(const QDir &rootDir, const QSt
 						QObject::tr("parent node is not a directory: %1")
 							.arg(parentDir.filePath()));
 				}
-
-				// BLOCK - keep this to absolute mininum
-				++qt_ntfs_permission_lookup;
-				bool permissions = parentDir.isReadable()
-					&& parentDir.isWritable()
-					&& parentDir.isExecutable();
-				--qt_ntfs_permission_lookup;
-				// END OF BLOCK
-				if (!permissions)
+				if (!checkDirPermissions(parentDir.filePath()))
 				{
 					return DirErrno(fullDirPath, DirErrno::CUSTOM_ERROR,
 						QObject::tr("lack of necessary permissions to the parent directory: %1")
@@ -528,6 +520,19 @@ bool DataPaths::validateDir(const QString &path)
 	bool bCondition3 = fileInfo.isDir();
 
 	return bCondition1 && bCondition2 && bCondition3;
+}
+
+bool DataPaths::checkDirPermissions(const QString &path)
+{
+	// BLOCK - keep this to absolute mininum
+	++qt_ntfs_permission_lookup;
+	QFileInfo dir(path);
+	bool permissions = dir.isReadable()
+		&& dir.isWritable()
+		&& dir.isExecutable();
+	--qt_ntfs_permission_lookup;
+	// END OF BLOCK
+	return permissions;
 }
 
 const QString &DataPaths::workingDirectory() const

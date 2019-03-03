@@ -23,6 +23,7 @@
 #include "exefile.h"
 
 #include "configuration/doomseekerconfig.h"
+#include "gui/internalclientinstaller.h"
 #include "ini/inisection.h"
 #include "ini/inivariable.h"
 #include "message.h"
@@ -57,11 +58,6 @@ const QString &ExeFile::configKey() const
 const QString &ExeFile::exeTypeName() const
 {
 	return d->exeTypeName;
-}
-
-Message ExeFile::install(QWidget *parent)
-{
-	return Message();
 }
 
 QString ExeFile::pathToExe(Message &message)
@@ -121,6 +117,27 @@ QString ExeFile::workingDirectory(Message &message)
 	return fi.absolutePath();
 }
 
+const InstallationPublicData ExeFile::createInstallationData() const
+{
+	return InstallationPublicData();
+}
+
+void ExeFile::preInstallationSteps(Message& message)
+{
+}
+
+const QUrl ExeFile::getUrl(Message& message) const
+{
+	return QUrl();
+}
+
+void ExeFile::postInstallationSteps(Message& message)
+{
+}
+const QStringList ExeFile::getExecutableNames() const
+{
+	return QStringList();
+}
 ///////////////////////////////////////////////////////////////////////////
 
 DClass<ExeFilePath>

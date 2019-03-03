@@ -30,6 +30,7 @@
 #include <QString>
 
 class Message;
+class InstallationPublicData;
 
 /**
  * @ingroup group_pluginapi
@@ -63,34 +64,6 @@ public:
 	 */
 	const QString &exeTypeName() const;
 	/**
-	 * @brief Attempts to install the binary.
-	 *
-	 * Some games may support additional executables (testing binaries,
-	 * for example). If such executables are not available on local
-	 * filesystem, but can be installed automatically, pathToExe()
-	 * should return Message with Message::Type::GAME_NOT_FOUND_BUT_CAN_BE_INSTALLED
-	 * error type and implement install() method.
-	 *
-	 * Default implementation does nothing and returns ignorable message.
-	 *
-	 * Example implementation is provided in Zandronum plugin.
-	 *
-	 * @param parent
-	 *     Should be treated as parent widget for all widgets that need
-	 *     to be created during the process.
-	 *
-	 * @return
-	 * Message with appropriately set type. Type of the message affects
-	 * Doomseeker behavior so it needs to be set correctly.
-	 * - Message::Type::SUCCESSFUL if installation completes properly,
-	 *   in this case Doomseeker continues any operation that was
-	 *   interrupted by the installation procedure (like game launch).
-	 * - Message::Type::CANCELLED if installation was cancelled by the user,
-	 *   in this case Doomseeker aborts silently.
-	 * - Return error type to prompt Doomseeker to display an error message.
-	 */
-	virtual Message install(QWidget *parent);
-	/**
 	 * @brief Name of the program this executable belongs to (ex. "Odamex").
 	 */
 	const QString &programName() const;
@@ -101,10 +74,11 @@ public:
 	 * @param [out] message
 	 *     Information or error message, if any.
 	 *     The type of the message might be relevant in some cases,
-	 *     please review documentation for install() method.
+	 *     for instance Message::Type::GAME_NOT_FOUND_BUT_CAN_BE_INSTALLED
+	 *     will be returned if the plugin is capable of installing its own
+	 *     client.
 	 *
 	 * @return Path to the file if all fine or empty if error.
-	 * @see install()
 	 */
 	virtual QString pathToExe(Message &message);
 
@@ -134,6 +108,42 @@ public:
 	 */
 	virtual QString workingDirectory(Message &message);
 
+	/**
+	 * @brief Create a InstallationPublicData object that contains
+	 * information that will be exposed to the user during the installation
+	 * of an internal client.
+	 *
+	 * Default implementation does nothing and returns ignorable object.
+	 */
+	virtual const InstallationPublicData createInstallationData() const;
+	/**
+	 * @brief Allows the execution of pre-installation steps during the
+	 * installation of an internal client.
+	 *
+	 * Default implementation does nothing.
+	 */
+	virtual void preInstallationSteps(Message &message);
+	/**
+	 * @brief Allows the execution of post-installation steps during the
+	 * installation of an internal client.
+	 *
+	 * Default implementation does nothing.
+	 */
+	virtual void postInstallationSteps(Message &message);
+	/**
+	 * @brief Create a QUrl object that contains the url from which the
+	 * internal client must be downloaded.
+	 *
+	 * Default implementation does nothing and returns ignorable object.
+	 */
+	virtual const QUrl getUrl(Message &message) const;
+	/**
+	 * @brief returns a list of all the executables that a client must have.
+	 * Generally, this list will be platform-dependant.
+	 *
+	 * Default implementation does nothing and returns ignorable list.
+	 */
+	virtual const QStringList getExecutableNames() const;
 private:
 	DPtr<ExeFile> d;
 

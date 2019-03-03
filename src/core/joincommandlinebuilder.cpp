@@ -30,6 +30,7 @@
 #include "gui/passworddlg.h"
 #include "gui/wadseekerinterface.h"
 #include "gui/wadseekershow.h"
+#include "gui/internalclientinstaller.h"
 #include "ini/settingsproviderqt.h"
 #include "log.h"
 #include "plugins/engineplugin.h"
@@ -332,7 +333,11 @@ void JoinCommandLineBuilder::setPasswords(const QString &connectPassword, const 
 
 bool JoinCommandLineBuilder::tryToInstallGame()
 {
-	Message message = d->server->clientExe()->install(gApp->mainWindowAsQWidget());
+	QScopedPointer<InternalClientInstaller> internalClientInstaller(
+		new InternalClientInstaller(gApp->mainWindowAsQWidget(), d->server->clientExe()));
+
+	internalClientInstaller->exec();
+	Message message = internalClientInstaller->getMessage();
 	if (message.isError())
 	{
 		QMessageBox::critical(gApp->mainWindowAsQWidget(), tr("Game installation failure"),

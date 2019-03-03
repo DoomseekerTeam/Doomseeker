@@ -101,6 +101,7 @@ private:
 
 private slots:
 	void autoFindNeighbouringPaths();
+	void btnBrowseInternalClientPathClicked();
 	void removeCurrentCustomParametersFromStorage();
 	void saveCustomParameters();
 	void showFindFailError();

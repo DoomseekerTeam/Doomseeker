@@ -43,18 +43,20 @@ public:
 	ZandronumClientExeFile(const QSharedPointer<const ZandronumServer> &server);
 	~ZandronumClientExeFile();
 
-	Message install(QWidget *parent);
-
 	/**
 	 * If the parent Server is a normal server simple path to executable
 	 * file is returned. If this is a testing server, a shell script is
-	 * created	if necessary and a path to this shell script s returned.
+	 * created if necessary and a path to this shell script is returned.
 	 */
 	QString pathToExe(Message &message);
-	QString workingDirectory(Message &message);
+	QString workingDirectory();
 
+	const InstallationPublicData createInstallationData() const;
+	void preInstallationSteps(Message& message);
+	void postInstallationSteps(Message& message);
+	const QUrl getUrl(Message& message) const;
+	const QStringList getExecutableNames() const;
 protected:
-	bool downloadTestingBinaries(const QDir &destination, QWidget *parent);
 	/**
 	 * Creates Unix .sh file or Windows .bat file to
 	 * launch client for parent server. Returns true if the file
@@ -66,47 +68,15 @@ protected:
 	 * @param [out] error - error if return == false
 	 * @return false if fail
 	 */
-	bool spawnTestingBatchFile(const QString &versionDir, QString &fullPathToFile, Message &message);
+	bool spawnInternalBatchFile(const QString& versionDir, QString& fullPathToFile, Message& message);
 
 private:
 	class PrivData;
 	PrivData *d;
 
 	IniSection &config();
-	/**
-	 * @return true - user accepts installation; false - user refuses.
-	 */
-	bool askToInstallTestingVersion(QWidget *parent) const;
-	QString testingVersion() const;
-	QString testingVersionInstallPath() const;
-};
-
-class TestingProgressDialog : public QProgressDialog
-{
-	Q_OBJECT
-
-public:
-	TestingProgressDialog(const QUrl &url, QWidget *parent);
-
-	const QByteArray &data() const { return downloadedFileData; }
-	QString error() const { return networkError; }
-	const QString &filename() const { return downloadedFilename; }
-
-private slots:
-	void abort();
-	void errorReceived(QNetworkReply::NetworkError);
-	void downloadFinished();
-	void downloadProgress(qint64 value, qint64 max);
-
-
-private:
-	QByteArray downloadedFileData;
-	QString downloadedFilename;
-	QNetworkAccessManager networkAccessManager;
-	QNetworkReply *pNetworkReply;
-	QString networkError;
-
-	void getUrl(const QUrl &url);
+	QString version() const;
+	QString versionInstallPath() const;
 };
 
 #endif

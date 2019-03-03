@@ -39,17 +39,10 @@ public:
 
 	void readSettings();
 
-
-protected slots:
-	void btnBrowseTestingPathClicked();
-
 protected:
 
 	void saveSettings();
 
-	QGroupBox *groupTesting;
-	QLineEdit *leTestingPath;
-	QPushButton *btnBrowseTestingPath;
 };
 
 #endif

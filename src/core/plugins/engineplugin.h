@@ -252,7 +252,14 @@ protected:
 		 * This will show the Logging section in the general game setup
 		 * panel.
 		 */
-		EP_AllowsLogging
+		EP_AllowsLogging,
+		/**
+		 * @brief enables internal clients for the plugin. This will show in
+		 * the plugin configuration a new section that will allow the user
+		 * to set and enable information related to where the internal
+		 * clients should be saved.
+		 */
+		EP_AllowsInternalClients
 	};
 
 	/// Reimplement if you want to perform some ini initialization manually.
@@ -269,6 +276,7 @@ public:
 		unsigned int abiVersion;
 		bool allowsConnectPassword;
 		bool allowsEmail;
+		bool allowsInternalClients;
 		bool allowsJoinPassword;
 		bool allowsMOTD;
 		bool allowsRConPassword;

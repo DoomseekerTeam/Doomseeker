@@ -316,6 +316,11 @@ public:
 	 */
 	const QString &workingDirectory() const;
 
+	/**
+	 * @brief Check directory permissions. returns true if it has propper
+	 * permissions.
+	 */
+	static bool checkDirPermissions(const QString& path);
 protected:
 	/**
 	 * @return True if path is a directory that exists and can be written

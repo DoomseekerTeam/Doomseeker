@@ -34,6 +34,9 @@
 #include "zandronumgamerunner.h"
 #include "zandronumrconprotocol.h"
 #include "zandronumserverdmflagsparser.h"
+
+#include <ini/inisection.h>
+#include <ini/inivariable.h>
 #include <serverapi/message.h>
 #include <serverapi/playerslist.h>
 #include <strings.hpp>
@@ -732,7 +735,9 @@ void ZandronumServer::updatedSlot(ServerPtr server, int response)
 PathFinder ZandronumServer::wadPathFinder()
 {
 	PathFinder pathFinder = Server::wadPathFinder();
-	if (isTestingServer())
+
+	IniSection& config = *ZandronumEnginePlugin::staticInstance()->data()->pConfig;
+	if (!config["EnableInternalClient"])
 	{
 		QScopedPointer<ExeFile> exe(clientExe());
 		Message message;
