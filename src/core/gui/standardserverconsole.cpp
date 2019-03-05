@@ -21,7 +21,7 @@
 // Copyright (C) 2009 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
 #include "standardserverconsole.h"
-
+#include "applogger.h"
 #include <QMessageBox>
 
 #ifndef Q_OS_WIN32
@@ -60,35 +60,7 @@ StandardServerConsole::StandardServerConsole(const QIcon &icon, const QString &p
 
 StandardServerConsole::~StandardServerConsole()
 {
-	#ifndef Q_OS_WIN32
-	if (process->pid() != 0)
-	{
-		// On non-Windows systems try to find child processes and kill them.
-		// Unfrotunately it doesn't look like Qt can help us here (which kind of
-		// makes sense considering it seems like there no real API to do it).
-		// Ideally only one process started and we don't have to do this.
-		QProcess *ps = new QProcess();
-		ps->start(QString("ps h --ppid %1 -o pid").arg(process->pid()));
-		ps->waitForFinished();
-		QByteArray psOutput = ps->readAllStandardOutput();
-		QTextStream stream(&psOutput);
-		stream.skipWhiteSpace();
-		while (!stream.atEnd())
-		{
-			unsigned int cpid;
-			stream >> cpid;
-			stream.skipWhiteSpace();
-			kill(cpid, SIGTERM);
-		}
-		delete ps;
-	}
-	#endif
-
-	process->disconnect(this);
-	process->terminate();
-	process->waitForFinished(1000);
-	process->close();
-	process->waitForFinished();
+	AppLogger::terminateProcess(*process);
 	delete process;
 }
 

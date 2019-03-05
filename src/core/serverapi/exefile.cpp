@@ -60,7 +60,7 @@ const QString &ExeFile::exeTypeName() const
 	return d->exeTypeName;
 }
 
-QString ExeFile::pathToExe(Message &message)
+QString ExeFile::pathToExe(Message &message, const InternalClientsInspection internalCliInspection)
 {
 	IniSection config = gConfig.iniSectionForPlugin(programName());
 	IniVariable setting = config[configKey()];

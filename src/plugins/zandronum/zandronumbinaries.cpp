@@ -24,6 +24,7 @@
 
 #include "log.h"
 
+#include "applogger.h"
 #include "../wadseeker/zip/unarchive.h"
 #include "application.h"
 #include "plugins/engineplugin.h"
@@ -122,16 +123,24 @@ const InstallationPublicData ZandronumClientExeFile::createInstallationData() co
 	return data;
 }
 
-QString ZandronumClientExeFile::pathToExe(Message &message)
+QString ZandronumClientExeFile::pathToExe(Message &message, const InternalClientsInspection internalCliInspection)
 {
 	IniSection &config = *ZandronumEnginePlugin::staticInstance()->data()->pConfig;
 
-	if (!config.value("EnableInternalClient").toBool())
+	if (!config.value("EnableInternalClient").toBool() || internalCliInspection == NoInternalChecking)
 	{
-		return ExeFile::pathToExe(message);
+		return ExeFile::pathToExe(message, internalCliInspection);
 	}
 	else
 	{
+		// We'll first check if system's version is compatible
+		if (internalCliInspection != InternalCheckingWithoutSystemCheck)
+		{
+			QString systemPath = tryFindCompatibleSystemEngine(message);
+			if (!systemPath.isEmpty())
+				return systemPath;
+		}
+
 		message = Message();
 		QString error;
 
@@ -356,4 +365,23 @@ bool ZandronumClientExeFile::spawnInternalBatchFile(const QString &versionDir, Q
 		return false;
 	}
 	return true;
+}
+
+QString ZandronumClientExeFile::tryFindCompatibleSystemEngine(Message &message)
+{
+	CommandLineInfo cmdInfo;
+	cmdInfo.executable = QFileInfo(ExeFile::pathToExe(message));
+	cmdInfo.args << "--version";
+	if (!cmdInfo.executable.absoluteFilePath().isEmpty())
+	{
+		AppLogger app(cmdInfo);
+		OutputAppLogger output = app.runAndLogExecutableUntilTime(1000);
+
+		foreach (const QString &entry, output.stdoutput)
+		{
+			if(entry.startsWith(version()))
+				return cmdInfo.executable.absoluteFilePath();
+		}
+	}
+	return QString();
 }

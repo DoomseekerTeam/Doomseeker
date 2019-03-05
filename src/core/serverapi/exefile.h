@@ -69,6 +69,17 @@ public:
 	const QString &programName() const;
 
 	/**
+	 * @brief Used in pathToExe(), Allows you to adjust the amount of
+	 * checking it's being done in relation to internal clients.
+	 */
+	enum InternalClientsInspection
+	{
+		NoInternalChecking,
+		InternalCheckingWithoutSystemCheck,
+		InternalChecking
+	};
+
+	/**
 	 * @brief Returns the path to the executable file.
 	 *
 	 * @param [out] message
@@ -78,9 +89,15 @@ public:
 	 *     will be returned if the plugin is capable of installing its own
 	 *     client.
 	 *
+	 * @param internalCliInspection
+	 *     Adjusts the amount of checking it's being done in relation to
+	 *     internal clients. For instance, passing InternalChecking will
+	 *     in some cases run the system's client to check if it's
+	 *     compatible.
+	 *
 	 * @return Path to the file if all fine or empty if error.
 	 */
-	virtual QString pathToExe(Message &message);
+	virtual QString pathToExe(Message &message, const InternalClientsInspection internalCliInspection = NoInternalChecking);
 
 	/**
 	 * @brief Plugin setter for configKey().

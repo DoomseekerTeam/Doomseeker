@@ -45,10 +45,11 @@ public:
 
 	/**
 	 * If the parent Server is a normal server simple path to executable
-	 * file is returned. If this is a testing server, a shell script is
-	 * created if necessary and a path to this shell script is returned.
+	 * file is returned. If the client is an internal client, a shell
+	 * script is created if necessary and a path to this shell script is
+	 * returned.
 	 */
-	QString pathToExe(Message &message);
+	QString pathToExe(Message &message, const InternalClientsInspection internalCliInspection = NoInternalChecking);
 	QString workingDirectory();
 
 	const InstallationPublicData createInstallationData() const;
@@ -77,6 +78,7 @@ private:
 	IniSection &config();
 	QString version() const;
 	QString versionInstallPath() const;
+	QString tryFindCompatibleSystemEngine(Message &message);
 };
 
 #endif

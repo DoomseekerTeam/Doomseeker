@@ -741,7 +741,7 @@ PathFinder ZandronumServer::wadPathFinder()
 	{
 		QScopedPointer<ExeFile> exe(clientExe());
 		Message message;
-		QString exePath = exe->pathToExe(message);
+		QString exePath = exe->pathToExe(message, ExeFile::InternalCheckingWithoutSystemCheck);
 		if (!exePath.isNull())
 		{
 			// exePath is path to a .bat/.sh file that resides in

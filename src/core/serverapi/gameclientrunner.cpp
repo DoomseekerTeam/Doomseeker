@@ -480,7 +480,7 @@ GameClientRunner::GamePaths GameClientRunner::gamePaths()
 	GamePaths result;
 
 	QScopedPointer<ExeFile> exeFile(d->server->clientExe());
-	result.clientExe = exeFile->pathToExe(msg);
+	result.clientExe = exeFile->pathToExe(msg, ExeFile::InternalChecking);
 	if (result.clientExe.isEmpty())
 	{
 		if (msg.type() == Message::Type::GAME_NOT_FOUND_BUT_CAN_BE_INSTALLED)
