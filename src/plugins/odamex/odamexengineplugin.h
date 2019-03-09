@@ -35,6 +35,7 @@ public:
 	GameHost *gameHost();
 	QList<GameMode> gameModes() const;
 	ServerPtr mkServer(const QHostAddress &address, unsigned short port) const;
+	void setupConfig(IniSection &config);
 };
 
 #endif

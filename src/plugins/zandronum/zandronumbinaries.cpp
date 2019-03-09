@@ -49,7 +49,7 @@
 
 #ifdef Q_OS_WIN32
 #define TESTING_BINARY_URL TESTING_BINARY_URL_BASE "windows.zip"
-#define RELEASE_BINARY_URL RELEASE_BINARY_URL_BASE"windows.zip"
+#define RELEASE_BINARY_URL RELEASE_BINARY_URL_BASE"win32-base.zip"
 #define ZANDRONUM_BINARY_NAME "zandronum.exe"
 #define SCRIPT_FILE_EXTENSION ".bat"
 #else
@@ -62,7 +62,7 @@
 #define RELEASE_BINARY_URL RELEASE_BINARY_URL_BASE"linux-x86_64.tar.bz2"
 #endif
 
-#ifndef Q_OS_MAC
+#ifndef Q_OS_DARWIN
 #define ZANDRONUM_BINARY_NAME "zandronum"
 #else
 #define ZANDRONUM_BINARY_NAME "Zandronum.app"
@@ -112,11 +112,8 @@ IniSection &ZandronumClientExeFile::config()
 
 const InstallationPublicData ZandronumClientExeFile::createInstallationData() const
 {
-	const // clear warnings
-	#include "zandronum.xpm"
-
 	InstallationPublicData data;
-	data.engineIcon = QPixmap(zandronum_xpm);
+	data.engineIcon = d->server->icon();
 	data.engineName = programName();
 	data.engineVersion = version();
 	data.installationPath = versionInstallPath();
@@ -125,11 +122,14 @@ const InstallationPublicData ZandronumClientExeFile::createInstallationData() co
 
 QString ZandronumClientExeFile::pathToExe(Message &message, const InternalClientsInspection internalCliInspection)
 {
+	#ifndef Q_OS_DARWIN
 	IniSection &config = *ZandronumEnginePlugin::staticInstance()->data()->pConfig;
 
 	if (!config.value("EnableInternalClient").toBool() || internalCliInspection == NoInternalChecking)
 	{
+	#endif
 		return ExeFile::pathToExe(message, internalCliInspection);
+	#ifndef Q_OS_DARWIN
 	}
 	else
 	{
@@ -189,6 +189,7 @@ QString ZandronumClientExeFile::pathToExe(Message &message, const InternalClient
 
 		return retPath;
 	}
+	#endif
 }
 
 QString ZandronumClientExeFile::version() const
@@ -258,11 +259,6 @@ const QUrl ZandronumClientExeFile::getUrl(Message& message) const
 		QString(RELEASE_BINARY_URL).arg(versionPrefix);
 
 	return url;
-}
-
-void ZandronumClientExeFile::postInstallationSteps(Message& message)
-{
-	// Nothing needed
 }
 
 const QStringList ZandronumClientExeFile::getExecutableNames() const

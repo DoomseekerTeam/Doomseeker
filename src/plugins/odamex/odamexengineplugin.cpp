@@ -32,6 +32,10 @@
 #include "odamexmasterclient.h"
 #include "odamexserver.h"
 
+#include <ini/inisection.h>
+#include <ini/inivariable.h>
+#include <datapaths.h>
+
 INSTALL_PLUGIN(OdamexEnginePlugin)
 
 OdamexEnginePlugin::OdamexEnginePlugin()
@@ -61,8 +65,20 @@ OdamexEnginePlugin::OdamexEnginePlugin()
 		EP_GameFileSearchSuffixes, "odamex",
 		EP_AllowsUpnp,
 		EP_AllowsLogging,
+		#ifdef Q_OS_WIN32
+		EP_AllowsInternalClients,
+		#endif
 		EP_Done
 	);
+}
+
+void OdamexEnginePlugin::setupConfig(IniSection &config)
+{
+	#ifdef Q_OS_WIN32
+	config.createSetting("EnableInternalClient", true);
+	config.createSetting("InternalClientPath",
+		DataPaths::defaultInstance()->pluginLocalDataLocationPath(*this));
+	#endif
 }
 
 QList<DMFlagsSection> OdamexEnginePlugin::dmFlags() const

@@ -30,6 +30,7 @@
 #include "odamexengineplugin.h"
 #include "odamexgamehost.h"
 #include "odamexgameinfo.h"
+#include "odamexbinaries.h"
 #include "odamexgamerunner.h"
 #include "plugins/engineplugin.h"
 #include "serverapi/playerslist.h"
@@ -70,6 +71,11 @@ QString OdamexServer::customDetails()
 		cvarList += QString("<li>%1 %2</li>").arg(iter.key()).arg(iter.value());
 	} while (++iter != cvars.constEnd());
 	return cvarList + "</ul>";
+}
+
+ExeFile* OdamexServer::clientExe()
+{
+	return new OdamexClientExeFile(self().toStrongRef().staticCast<OdamexServer>());
 }
 
 GameClientRunner *OdamexServer::gameRunner()

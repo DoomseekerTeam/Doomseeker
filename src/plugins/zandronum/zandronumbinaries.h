@@ -50,11 +50,9 @@ public:
 	 * returned.
 	 */
 	QString pathToExe(Message &message, const InternalClientsInspection internalCliInspection = NoInternalChecking);
-	QString workingDirectory();
 
 	const InstallationPublicData createInstallationData() const;
 	void preInstallationSteps(Message& message);
-	void postInstallationSteps(Message& message);
 	const QUrl getUrl(Message& message) const;
 	const QStringList getExecutableNames() const;
 protected:
@@ -79,6 +77,7 @@ private:
 	QString version() const;
 	QString versionInstallPath() const;
 	QString tryFindCompatibleSystemEngine(Message &message);
+	QString workingDirectory();
 };
 
 #endif

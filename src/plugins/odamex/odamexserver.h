@@ -51,6 +51,8 @@ public:
 
 	EnginePlugin *plugin() const;
 
+	ExeFile *clientExe();
+
 protected:
 	Response readRequest(const QByteArray &data);
 	QByteArray createSendRequest();

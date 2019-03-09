@@ -134,6 +134,7 @@ const QUrl ExeFile::getUrl(Message& message) const
 void ExeFile::postInstallationSteps(Message& message)
 {
 }
+
 const QStringList ExeFile::getExecutableNames() const
 {
 	return QStringList();

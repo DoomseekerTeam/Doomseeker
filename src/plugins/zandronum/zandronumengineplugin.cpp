@@ -71,7 +71,9 @@ ZandronumEnginePlugin::ZandronumEnginePlugin()
 		EP_AllowsMOTD,
 		EP_AllowsUpnp,
 		EP_AllowsUpnpPort,
+#ifndef Q_OS_DARWIN
 		EP_AllowsInternalClients,
+#endif
 		#if defined(Q_OS_WIN32) || defined(Q_OS_MAC)
 		EP_ClientOnly,
 		#endif
@@ -95,9 +97,12 @@ ZandronumEnginePlugin::ZandronumEnginePlugin()
 void ZandronumEnginePlugin::setupConfig(IniSection &config)
 {
 	config.createSetting("Masterserver", data()->defaultMaster);
+	config.createSetting("AllowServersToDisplayMyCountry", false);
+	#ifndef Q_OS_DARWIN
 	config.createSetting("EnableInternalClient", true);
 	config.createSetting("InternalClientPath",
 		DataPaths::defaultInstance()->pluginLocalDataLocationPath(*this));
+	#endif
 }
 
 ConfigPage *ZandronumEnginePlugin::configuration(QWidget *parent)

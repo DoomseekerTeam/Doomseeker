@@ -206,7 +206,6 @@ void InternalClientInstaller::unpackDownload()
 	QByteArray data = d->downloadedFileData;
 	QBuffer dataBuffer(&data);
 	QStringList executableList = d->engine->getExecutableNames();
-	gLog << "Exe names: " + executableList.join(", ");
 	QScopedPointer<UnArchive> archive(UnArchive::openArchive(fi, &dataBuffer));
 	if(!archive.isNull())
 	{
@@ -221,10 +220,18 @@ void InternalClientInstaller::unpackDownload()
 
 			QString fileTargetPath = d->data.installationPath.path() + QDir::separator() + filename;
 			gLog << tr("Unpacking file: %1").arg(fileTargetPath);
+			if (fileTargetPath.contains('/'))
+			{
+				QFileInfo targetPathInfo(fileTargetPath);
+				QString path = targetPathInfo.path();
+				QDir dir;
+				if (!dir.exists(path))
+					dir.mkdir(path);
+			}
 			if(archive->extract(i, fileTargetPath))
 			{
 				// Make sure we can execute the binary.
-				if(executableList.contains(filename, Qt::CaseInsensitive))
+				if(executableList.contains(QFileInfo(filename).fileName(), Qt::CaseInsensitive))
 				{
 					QFile binaryFile(fileTargetPath);
 					binaryFile.setPermissions(binaryFile.permissions() | QFile::ExeUser);

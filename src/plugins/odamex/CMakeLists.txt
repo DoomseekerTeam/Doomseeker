@@ -25,6 +25,7 @@ set(PLUGIN_VERSION 34)
 include(../PluginHeader.cmake)
 
 set(ODAMEX_FILES
+	odamexbinaries.cpp
 	odamexengineplugin.cpp
 	odamexgamehost.cpp
 	odamexgameinfo.cpp
@@ -34,6 +35,7 @@ set(ODAMEX_FILES
 )
 
 set(HEADER_FILES
+	odamexbinaries.h
 	odamexengineplugin.h
 	odamexmasterclient.h
 	odamexgamehost.h
