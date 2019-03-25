@@ -30,7 +30,9 @@
 #include <QString>
 
 class Message;
+class IniSection;
 class InstallationPublicData;
+class Server;
 
 /**
  * @ingroup group_pluginapi
@@ -51,7 +53,7 @@ class MAIN_EXPORT ExeFile : public QObject
 	Q_OBJECT
 
 public:
-	ExeFile();
+	ExeFile(const QSharedPointer<const Server> &server);
 	virtual ~ExeFile();
 
 	/**
@@ -97,7 +99,7 @@ public:
 	 *
 	 * @return Path to the file if all fine or empty if error.
 	 */
-	virtual QString pathToExe(Message &message, const InternalClientsInspection internalCliInspection = NoInternalChecking);
+	virtual const QString pathToExe(Message &message, const InternalClientsInspection internalCliInspection = NoInternalChecking) const;
 
 	/**
 	 * @brief Plugin setter for configKey().
@@ -139,14 +141,14 @@ public:
 	 *
 	 * Default implementation does nothing.
 	 */
-	virtual void preInstallationSteps(Message &message);
+	virtual void preInstallationSteps(Message &message) const;
 	/**
 	 * @brief Allows the execution of post-installation steps during the
 	 * installation of an internal client.
 	 *
 	 * Default implementation does nothing.
 	 */
-	virtual void postInstallationSteps(Message &message);
+	virtual void postInstallationSteps(Message &message) const;
 	/**
 	 * @brief Create a QUrl object that contains the url from which the
 	 * internal client must be downloaded.
@@ -155,16 +157,60 @@ public:
 	 */
 	virtual const QUrl getUrl(Message &message) const;
 	/**
-	 * @brief returns a list of all the executables that a client must have.
-	 * Generally, this list will be platform-dependant.
+	 * @brief Returns a list of all the executables that a client must have.
+	 * Generally, this list will be platform-dependant, and will only be one
+	 * entry.
 	 *
 	 * Default implementation does nothing and returns ignorable list.
 	 */
 	virtual const QStringList getExecutableNames() const;
-private:
-	DPtr<ExeFile> d;
+	/**
+	 * @brief Returns the file extension of a batch script. OS dependant.
+	 */
+	const static QString scriptFileExtension();
 
-	QString obtainBinary(Message &message) const;
+protected:
+	/**
+	 * @brief Path specified in the config.
+	 */
+	const QString configBinaryPath() const;
+	/**
+	 * Creates Unix .sh file or Windows .bat file to
+	 * launch client for parent server. Returns true if the file
+	 * already exists. This implementation can be overwritten.
+	 * @param versionDir - convenience parameter. This is the directory
+	 *        where the internal package was unpacked.
+	 * @param [out] fullPathToFile - path to created script file.
+	 * @param [out] error - error if return == false.
+	 * @return false if fail.
+	 */
+	virtual bool spawnInternalBatchFile(const QString& versionDir, QString& fullPathToFile, Message& message) const;
+	/**
+	 * @brief IniSection of the current plugin.
+	 */
+	const IniSection config() const;
+	/**
+	 * @brief Version of the server.
+	 */
+	const QString version() const;
+	/**
+	 * @brief Path to a directory based on the version of the server.
+	 * This path should be used for the internal client.
+	 */
+	const QString versionInstallPath() const;
+	/**
+	 * @brief Access the Server class.
+	 */
+	const QSharedPointer<const Server> &server() const;
+	/**
+	 * @brief Check if directory is empty.
+	 */
+	const static bool isEmptyDir(const QString &path);
+	/**
+	 * @brief Check if directory is not empty.
+	 */
+	const static bool isNonEmptyDir(const QString &path);
+	DPtr<ExeFile> d;
 };
 
 /**

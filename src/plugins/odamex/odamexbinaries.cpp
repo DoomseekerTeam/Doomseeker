@@ -24,7 +24,6 @@
 #include "odamexbinaries.h"
 #include "odamexengineplugin.h"
 #include "odamexserver.h"
-#include "log.h"
 
 #include <applogger.h>
 #include <ini/inisection.h>
@@ -34,53 +33,29 @@
 #include <serverapi/gameexefactory.h>
 #include <strings.hpp>
 #include <gui/internalclientinstaller.h>
-
 #include <QSharedPointer>
 #include <QTemporaryDir>
 
-#define RELEASE_BINARY_URL_BASE "http://downloads.sourceforge.net/odamex/odamex-"
+#define RELEASE_BINARY_URL_BASE "https://downloads.sourceforge.net/odamex/odamex-"
+#define ODAMEX_BINARY_NAME "odamex.exe"
 
 #ifdef Q_OS_WIN32
 #define RELEASE_BINARY_URL RELEASE_BINARY_URL_BASE"win32-%1.zip"
-#define ODAMEX_BINARY_NAME "odamex.exe"
 #else
-#define RELEASE_BINARY_URL "win64-%1.zip"
-#define ODAMEX_BINARY_NAME "odamex.exe"
+#define RELEASE_BINARY_URL ""
 #endif
 
-DClass<OdamexClientExeFile>
+OdamexClientExeFile::OdamexClientExeFile(const QSharedPointer<const OdamexServer> &server) : ExeFile(server)
 {
-public:
-	QSharedPointer<const OdamexServer> server;
-	bool isEmptyDir(const QString &path) const
-	{
-		QDir dir(path);
-		return dir.exists() && dir.entryList(
-			QDir::NoDotAndDotDot | QDir::AllEntries).isEmpty();
-	}
-
-	bool isNonEmptyDir(const QString &path) const
-	{
-		QDir dir(path);
-		return dir.exists() && !dir.entryList(
-			QDir::NoDotAndDotDot | QDir::AllEntries).isEmpty();
-	}
-};
-DPointered(OdamexClientExeFile)
-
-OdamexClientExeFile::OdamexClientExeFile(const QSharedPointer<const OdamexServer> &server)
-{
-	d->server = server;
 	setProgramName(server->plugin()->data()->name);
 	setExeTypeName(tr("client"));
 	setConfigKey("BinaryPath");
 }
 
-QString OdamexClientExeFile::pathToExe(Message& message, const InternalClientsInspection internalCliInspection)
+const QString OdamexClientExeFile::pathToExe(Message& message, const InternalClientsInspection internalCliInspection) const
 {
 	#ifdef Q_OS_WIN32
-	IniSection &config = *OdamexEnginePlugin::staticInstance()->data()->pConfig;
-	if (!config.value("EnableInternalClient").toBool() || internalCliInspection == NoInternalChecking)
+	if (!config().value("EnableInternalClient").toBool() || internalCliInspection == NoInternalChecking)
 	{
 	#endif
 		return ExeFile::pathToExe(message, internalCliInspection);
@@ -97,7 +72,7 @@ QString OdamexClientExeFile::pathToExe(Message& message, const InternalClientsIn
 	message = Message();
 	QString error;
 
-	QString internalClientPathRoot = config["InternalClientPath"];
+	QString internalClientPathRoot = config()["InternalClientPath"];
 	if (internalClientPathRoot.isEmpty())
 	{
 		error = tr("No internal clients directory specified for Odamex");
@@ -108,7 +83,7 @@ QString OdamexClientExeFile::pathToExe(Message& message, const InternalClientsIn
 	QString path = versionInstallPath();
 
 	QFileInfo fi(path);
-	if (!fi.exists() || d->isEmptyDir(path))
+	if (!fi.exists() || isEmptyDir(path))
 	{
 		error = tr("%1\ndoesn't exist.\nYou need to install new binaries.").arg(path);
 		message = Message(Message::Type::GAME_NOT_FOUND_BUT_CAN_BE_INSTALLED, error);
@@ -139,7 +114,6 @@ QString OdamexClientExeFile::pathToExe(Message& message, const InternalClientsIn
 		// message is already specified inside spawnInternalBatchFile()
 		return QString();
 	}
-
 	return retPath;
 	#endif
 }
@@ -148,19 +122,11 @@ QString OdamexClientExeFile::pathToExe(Message& message, const InternalClientsIn
 const InstallationPublicData OdamexClientExeFile::createInstallationData() const
 {
 	InstallationPublicData data;
-	data.engineIcon = d->server->icon();
+	data.engineIcon = server()->icon();
 	data.engineName = programName();
 	data.engineVersion = version();
 	data.installationPath = versionInstallPath();
 	return data;
-}
-
-QString OdamexClientExeFile::workingDirectory()
-{
-	IniSection& config = *OdamexEnginePlugin::staticInstance()->data()->pConfig;
-
-	QFileInfo fi((QString)config["BinaryPath"]);
-	return fi.absolutePath();
 }
 
 const QUrl OdamexClientExeFile::getUrl(Message& message) const
@@ -168,7 +134,7 @@ const QUrl OdamexClientExeFile::getUrl(Message& message) const
 	return QUrl(QString(RELEASE_BINARY_URL).arg(version()));
 }
 
-void OdamexClientExeFile::postInstallationSteps(Message& message)
+void OdamexClientExeFile::postInstallationSteps(Message& message) const
 {
 	QDir baseDir(versionInstallPath());
 	foreach (QString baseEntry, baseDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot))
@@ -189,113 +155,20 @@ void OdamexClientExeFile::postInstallationSteps(Message& message)
 
 const QStringList OdamexClientExeFile::getExecutableNames() const
 {
-	QStringList list;
-	list << QString(ODAMEX_BINARY_NAME);
-	return list;
+	return QStringList(ODAMEX_BINARY_NAME);
 }
 
-bool OdamexClientExeFile::spawnInternalBatchFile(const QString& versionDir, QString& fullPathToFile, Message& message)
-{
-	QString binaryPath = versionDir + '/' + ODAMEX_BINARY_NAME;
-	// This will create an actual path to file, because there is no '/' at the end
-	// of scriptFilepath.
-	fullPathToFile = versionDir + ".bat";
-	QFileInfo fi(fullPathToFile);
-	QFile file(fullPathToFile);
-	if (fi.isDir())
-	{
-		QString error = tr("%1\n should be a script file but is a directory!").arg(fullPathToFile);
-		message = Message::customError(error);
-		return false;
-	}
-
-	if (fi.exists())
-	{
-		if ((file.permissions() & QFile::ExeUser) == 0)
-		{
-			QString error = tr("You don't have permissions to execute file: %1\n").arg(fullPathToFile);
-			message = Message::customError(error);
-			return false;
-		}
-		return true;
-	}
-
-	QString content;
-	#ifdef Q_OS_WIN32
-	// Create Windows batch file
-	// Extract drive letter:
-	QString driveLetter;
-	QString workDir = workingDirectory();
-	for (int i = 0; i < workDir.length(); ++i)
-	{
-		if (workDir[i] == ':')
-		{
-			driveLetter = workDir.left(i);
-		}
-	}
-
-	if (!driveLetter.isEmpty())
-	{
-		content += driveLetter + ":\r\n";
-	}
-
-	QString cdDir = workingDirectory().replace('/', '\\');
-	QString exePath = binaryPath.replace('/', '\\');
-
-	content += "cd \"" + cdDir + "\"\r\n";
-	content += "\"" + exePath + "\" %*"; // %* deals with all the parameters
-	#else
-	QString cdDir = workingDirectory();
-
-	// Create Unix script file
-	content  = "#!/bin/sh\n";
-	content += "cd \"" + cdDir + "\" \n";
-	content += "export LANG=C\n";
-	#ifdef Q_OS_MAC
-	content += "\"" + binaryPath + ZANDRONUM_APP_BUNDLE_BIN "\" \"$@\"\n";
-	#else
-	content += "\"" + binaryPath + "\" \"$@\"\n"; // "$@" deals with all the parameters
-	#endif
-	#endif
-
-	if (!file.open(QIODevice::WriteOnly))
-	{
-		QString error = tr("Couldn't open batch file \"%1\" for writing").arg(fullPathToFile);
-		message = Message::customError(error);
-		return false;
-	}
-
-	if (file.write(content.toUtf8()) < 0)
-	{
-		QString error = tr("Error while writing batch file \"%1\"").arg(fullPathToFile);
-		message = Message::customError(error);
-		file.close();
-		return false;
-	}
-
-	file.close();
-
-	if (!file.setPermissions(file.permissions() | QFile::ExeUser))
-	{
-		QString error = tr("Cannot set permissions for file:\n%1").arg(fullPathToFile);
-		message = Message::customError(error);
-		return false;
-	}
-	return true;
-}
-
-QString OdamexClientExeFile::tryFindCompatibleSystemEngine(Message &message)
+const QString OdamexClientExeFile::tryFindCompatibleSystemEngine(Message &message) const
 {
 	CommandLineInfo cmdInfo;
-	IniSection &config = *OdamexEnginePlugin::staticInstance()->data()->pConfig;
 	GameFileList files = OdamexEnginePlugin::staticInstance()->gameExe()->gameFiles();
 	QString clientPath;
 	foreach (GameFile file, files.asQList())
 	{
 		if (file.executable() & GameFile::Server)
-			cmdInfo.executable = config.value(file.configName()).toString();
+			cmdInfo.executable = config().value(file.configName()).toString();
 		else if (file.executable() & GameFile::Client)
-			clientPath = config.value(file.configName()).toString();
+			clientPath = config().value(file.configName()).toString();
 	}
 	if (!cmdInfo.executable.absoluteFilePath().isEmpty() && !clientPath.isEmpty())
 	{
@@ -319,18 +192,4 @@ QString OdamexClientExeFile::tryFindCompatibleSystemEngine(Message &message)
 		}
 	}
 	return QString();
-}
-
-QString OdamexClientExeFile::version() const
-{
-	QString version = d->server->gameVersion();
-	// Strip out extraneous data in the version number.
-	return version.left(version.indexOf(' '));
-}
-
-QString OdamexClientExeFile::versionInstallPath() const
-{
-	IniSection &config = *OdamexEnginePlugin::staticInstance()->data()->pConfig;
-	QString path = config.value("InternalClientPath").toString();
-	return Strings::combinePaths(path, version());
 }

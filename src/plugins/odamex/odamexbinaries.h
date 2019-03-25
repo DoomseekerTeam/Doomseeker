@@ -24,12 +24,9 @@
 #ifndef DOOMSEEKER_PLUGIN_ODAMEX_BINARIES_H_
 #define DOOMSEEKER_PLUGIN_ODAMEX_BINARIES_H_
 
-#include "dptr.h"
-
 #include <serverapi/exefile.h>
 
 class OdamexServer;
-class IniSection;
 class InstallationPublicData;
 
 class OdamexClientExeFile : public ExeFile
@@ -37,19 +34,15 @@ class OdamexClientExeFile : public ExeFile
 	Q_OBJECT
 public:
 	OdamexClientExeFile(const QSharedPointer<const OdamexServer> &server);
-	QString pathToExe(Message& message, const InternalClientsInspection internalCliInspection = NoInternalChecking);
+	const QString pathToExe(Message& message, const InternalClientsInspection internalCliInspection = NoInternalChecking) const;
 
 	const InstallationPublicData createInstallationData() const;
-	QString workingDirectory();
 	const QUrl getUrl(Message& message) const;
-	void postInstallationSteps(Message& message);
+	void postInstallationSteps(Message& message) const;
 	const QStringList getExecutableNames() const;
+
 private:
-	bool spawnInternalBatchFile(const QString& versionDir, QString& fullPathToFile, Message& message);
-	QString tryFindCompatibleSystemEngine(Message &message);
-	QString version() const;
-	QString versionInstallPath() const;
-	DPtr<OdamexClientExeFile> d;
+	const QString tryFindCompatibleSystemEngine(Message &message) const;
 };
 
 #endif

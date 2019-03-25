@@ -255,7 +255,7 @@ void Server::clearWads()
 
 ExeFile *Server::clientExe()
 {
-	ExeFile *f = new ExeFile();
+	ExeFile *f = new ExeFile(self().toStrongRef().staticCast<Server>());
 	// TODO: Figure out a way so that plugins don't have to reset following
 	// values if they don't change:
 	f->setProgramName(plugin()->data()->name);

@@ -23,25 +23,17 @@
 #ifndef DOOMSEEKER_PLUGIN_ZANDRONUM_BINARIES_H
 #define DOOMSEEKER_PLUGIN_ZANDRONUM_BINARIES_H
 
-#include <QNetworkReply>
 #include <QProgressDialog>
-
 #include <serverapi/exefile.h>
 
-class EnginePlugin;
-class IniSection;
 class ZandronumServer;
-class QDir;
 
 class ZandronumClientExeFile : public ExeFile
 {
 	Q_OBJECT
 
 public:
-	static QString scriptFileExtension();
-
 	ZandronumClientExeFile(const QSharedPointer<const ZandronumServer> &server);
-	~ZandronumClientExeFile();
 
 	/**
 	 * If the parent Server is a normal server simple path to executable
@@ -49,35 +41,15 @@ public:
 	 * script is created if necessary and a path to this shell script is
 	 * returned.
 	 */
-	QString pathToExe(Message &message, const InternalClientsInspection internalCliInspection = NoInternalChecking);
+	const QString pathToExe(Message &message, const InternalClientsInspection internalCliInspection = NoInternalChecking) const;
 
 	const InstallationPublicData createInstallationData() const;
-	void preInstallationSteps(Message& message);
+	void preInstallationSteps(Message& message) const;
 	const QUrl getUrl(Message& message) const;
 	const QStringList getExecutableNames() const;
-protected:
-	/**
-	 * Creates Unix .sh file or Windows .bat file to
-	 * launch client for parent server. Returns true if the file
-	 * already exists.
-	 * @param versionDir - convenience parameter. This is the directory
-	 *     where testing package was unpacked. This path was
-	 *     already created in clientBinary() method so let's reuse it.
-	 * @param [out] fullPathToFile - path to created script file
-	 * @param [out] error - error if return == false
-	 * @return false if fail
-	 */
-	bool spawnInternalBatchFile(const QString& versionDir, QString& fullPathToFile, Message& message);
 
 private:
-	class PrivData;
-	PrivData *d;
-
-	IniSection &config();
-	QString version() const;
-	QString versionInstallPath() const;
-	QString tryFindCompatibleSystemEngine(Message &message);
-	QString workingDirectory();
+	const QString tryFindCompatibleSystemEngine(Message &message) const;
 };
 
 #endif

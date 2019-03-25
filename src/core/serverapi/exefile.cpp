@@ -28,9 +28,16 @@
 #include "ini/inivariable.h"
 #include "message.h"
 #include "plugins/engineplugin.h"
-
+#include "serverapi/server.h"
+#include "strings.hpp"
 #include <QFileInfo>
 #include <QString>
+
+#ifdef Q_OS_WIN32
+#define SCRIPT_FILE_EXTENSION ".bat"
+#else
+#define SCRIPT_FILE_EXTENSION ".sh"
+#endif
 
 DClass<ExeFile>
 {
@@ -38,12 +45,14 @@ public:
 	QString configKey;
 	QString exeTypeName;
 	QString programName;
+		QSharedPointer<const Server> server;
 };
 
-DPointered(ExeFile)
+DPointeredNoCopy(ExeFile)
 
-ExeFile::ExeFile()
+ExeFile::ExeFile(const QSharedPointer<const Server> &server)
 {
+	d->server = server;
 }
 
 ExeFile::~ExeFile()
@@ -60,10 +69,9 @@ const QString &ExeFile::exeTypeName() const
 	return d->exeTypeName;
 }
 
-QString ExeFile::pathToExe(Message &message, const InternalClientsInspection internalCliInspection)
+const QString ExeFile::pathToExe(Message &message, const InternalClientsInspection internalCliInspection) const
 {
-	IniSection config = gConfig.iniSectionForPlugin(programName());
-	IniVariable setting = config[configKey()];
+	IniVariable setting = config().retrieveSetting(configKey());
 
 	message = Message();
 	QString path = setting.value().toString();
@@ -122,7 +130,7 @@ const InstallationPublicData ExeFile::createInstallationData() const
 	return InstallationPublicData();
 }
 
-void ExeFile::preInstallationSteps(Message& message)
+void ExeFile::preInstallationSteps(Message& message) const
 {
 }
 
@@ -131,7 +139,7 @@ const QUrl ExeFile::getUrl(Message& message) const
 	return QUrl();
 }
 
-void ExeFile::postInstallationSteps(Message& message)
+void ExeFile::postInstallationSteps(Message& message) const
 {
 }
 
@@ -139,6 +147,149 @@ const QStringList ExeFile::getExecutableNames() const
 {
 	return QStringList();
 }
+
+const QSharedPointer<const Server> &ExeFile::server() const
+{
+	return d->server;
+}
+
+const IniSection ExeFile::config() const
+{
+	return gConfig.iniSectionForPlugin(programName());
+}
+
+
+const QString ExeFile::version() const
+{
+	if (!d->server.isNull())
+	{
+		QString version = d->server->gameVersion();
+		// Strip out extraneous data in the version number.
+		return version.left(version.indexOf(' '));
+	}
+	return QString();
+}
+
+const QString ExeFile::versionInstallPath() const
+{
+	QString path = config().value("InternalClientPath").toString();
+	return Strings::combinePaths(path, version());
+}
+
+const QString ExeFile::configBinaryPath() const
+{
+	return QFileInfo((QString) config()["BinaryPath"]).absolutePath();
+}
+
+bool ExeFile::spawnInternalBatchFile(const QString& versionDir, QString& fullPathToFile, Message& message) const
+{
+	QString binaryPath = versionDir + '/' + getExecutableNames().first();
+	// This will create an actual path to file, because there is no '/' at the end
+	// of scriptFilepath.
+	fullPathToFile = versionDir + SCRIPT_FILE_EXTENSION;
+	QFileInfo fi(fullPathToFile);
+	QFile file(fullPathToFile);
+	if (fi.isDir())
+	{
+		QString error = tr("%1\n should be a script file but is a directory!").arg(fullPathToFile);
+		message = Message::customError(error);
+		return false;
+	}
+
+	if (fi.exists())
+	{
+		if ((file.permissions() & QFile::ExeUser) == 0)
+		{
+			QString error = tr("You don't have permissions to execute file: %1\n").arg(fullPathToFile);
+			message = Message::customError(error);
+			return false;
+		}
+		return true;
+	}
+
+	QString content;
+	#ifdef Q_OS_WIN32
+	// Create Windows batch file
+	// Extract drive letter:
+	QString driveLetter;
+	QString workDir = configBinaryPath();
+	for (int i = 0; i < workDir.length(); ++i)
+	{
+		if (workDir[i] == ':')
+		{
+			driveLetter = workDir.left(i);
+		}
+	}
+
+	if (!driveLetter.isEmpty())
+	{
+		content += driveLetter + ":\r\n";
+	}
+
+	QString cdDir = QString(configBinaryPath()).replace('/', '\\');
+	QString exePath = binaryPath.replace('/', '\\');
+
+	content += "cd \"" + cdDir + "\"\r\n";
+	content += "\"" + exePath + "\" %*"; // %* deals with all the parameters
+	#else
+	QString cdDir = configBinaryPath();
+
+	// Create Unix script file
+	content  = "#!/bin/sh\n";
+	content += "cd \"" + cdDir + "\" \n";
+	content += "export LANG=C\n";
+	#ifdef Q_OS_MAC
+	content += "\"" + binaryPath + ZANDRONUM_APP_BUNDLE_BIN "\" \"$@\"\n";
+	#else
+	content += "\"" + binaryPath + "\" \"$@\"\n"; // "$@" deals with all the parameters
+	#endif
+	#endif
+
+	if (!file.open(QIODevice::WriteOnly))
+	{
+		QString error = tr("Couldn't open batch file \"%1\" for writing").arg(fullPathToFile);
+		message = Message::customError(error);
+		return false;
+	}
+
+	if (file.write(content.toUtf8()) < 0)
+	{
+		QString error = tr("Error while writing batch file \"%1\"").arg(fullPathToFile);
+		message = Message::customError(error);
+		file.close();
+		return false;
+	}
+
+	file.close();
+
+	if (!file.setPermissions(file.permissions() | QFile::ExeUser))
+	{
+		QString error = tr("Cannot set permissions for file:\n%1").arg(fullPathToFile);
+		message = Message::customError(error);
+		return false;
+	}
+	return true;
+}
+
+const bool ExeFile::isEmptyDir(const QString &path)
+{
+	QDir dir(path);
+	return dir.exists() && dir.entryList(
+		QDir::NoDotAndDotDot | QDir::AllEntries).isEmpty();
+}
+
+const bool ExeFile::isNonEmptyDir(const QString &path)
+{
+	QDir dir(path);
+	return dir.exists() && !dir.entryList(
+		QDir::NoDotAndDotDot | QDir::AllEntries).isEmpty();
+}
+
+const QString ExeFile::scriptFileExtension()
+{
+	return SCRIPT_FILE_EXTENSION;
+}
+
 ///////////////////////////////////////////////////////////////////////////
 
 DClass<ExeFilePath>

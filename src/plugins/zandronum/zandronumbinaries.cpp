@@ -22,26 +22,24 @@
 //------------------------------------------------------------------------------
 #include "zandronumbinaries.h"
 
-#include "log.h"
 
-#include "applogger.h"
-#include "../wadseeker/zip/unarchive.h"
 #include "application.h"
-#include "plugins/engineplugin.h"
 #include "serverapi/message.h"
-#include "version.h"
-#include "gui/internalclientinstaller.h"
 #include "zandronumengineplugin.h"
 #include "zandronumserver.h"
 
 #include <ini/inisection.h>
 #include <ini/inivariable.h>
-#include <QBuffer>
 #include <QDir>
 #include <QFileInfo>
 #include <QMessageBox>
 #include <QProgressDialog>
 #include <QScopedPointer>
+
+#include <applogger.h>
+#include <gui/internalclientinstaller.h>
+#include <plugins/engineplugin.h>
+#include <serverapi/message.h>
 #include <strings.hpp>
 
 #define TESTING_BINARY_URL_BASE "https://zandronum.com/downloads/testing/%1/ZandroDev%1-%2"
@@ -51,7 +49,6 @@
 #define TESTING_BINARY_URL TESTING_BINARY_URL_BASE "windows.zip"
 #define RELEASE_BINARY_URL RELEASE_BINARY_URL_BASE"win32-base.zip"
 #define ZANDRONUM_BINARY_NAME "zandronum.exe"
-#define SCRIPT_FILE_EXTENSION ".bat"
 #else
 
 #ifndef __x86_64__
@@ -68,64 +65,30 @@
 #define ZANDRONUM_BINARY_NAME "Zandronum.app"
 #define ZANDRONUM_APP_BUNDLE_BIN "/Contents/MacOS/zandronum"
 #endif
-#define SCRIPT_FILE_EXTENSION ".sh"
 #endif
 
-class ZandronumClientExeFile::PrivData
+ZandronumClientExeFile::ZandronumClientExeFile(const QSharedPointer<const ZandronumServer> &server) : ExeFile(server)
 {
-public:
-	QSharedPointer<const ZandronumServer> server;
-
-	bool isEmptyDir(const QString &path) const
-	{
-		QDir dir(path);
-		return dir.exists() && dir.entryList(
-			QDir::NoDotAndDotDot | QDir::AllEntries).isEmpty();
-	}
-
-	bool isNonEmptyDir(const QString &path) const
-	{
-		QDir dir(path);
-		return dir.exists() && !dir.entryList(
-			QDir::NoDotAndDotDot | QDir::AllEntries).isEmpty();
-	}
-};
-
-ZandronumClientExeFile::ZandronumClientExeFile(const QSharedPointer<const ZandronumServer> &server)
-{
-	d = new PrivData();
-	d->server = server;
 	setProgramName(server->plugin()->data()->name);
 	setExeTypeName(tr("client"));
 	setConfigKey("BinaryPath");
 }
 
-ZandronumClientExeFile::~ZandronumClientExeFile()
-{
-	delete d;
-}
-
-IniSection &ZandronumClientExeFile::config()
-{
-	return *ZandronumEnginePlugin::staticInstance()->data()->pConfig;
-}
-
 const InstallationPublicData ZandronumClientExeFile::createInstallationData() const
 {
 	InstallationPublicData data;
-	data.engineIcon = d->server->icon();
+	data.engineIcon = server()->icon();
 	data.engineName = programName();
 	data.engineVersion = version();
 	data.installationPath = versionInstallPath();
 	return data;
 }
 
-QString ZandronumClientExeFile::pathToExe(Message &message, const InternalClientsInspection internalCliInspection)
+const QString ZandronumClientExeFile::pathToExe(Message& message, const InternalClientsInspection internalCliInspection) const
 {
 	#ifndef Q_OS_DARWIN
-	IniSection &config = *ZandronumEnginePlugin::staticInstance()->data()->pConfig;
 
-	if (!config.value("EnableInternalClient").toBool() || internalCliInspection == NoInternalChecking)
+	if (!config().value("EnableInternalClient").toBool() || internalCliInspection == NoInternalChecking)
 	{
 	#endif
 		return ExeFile::pathToExe(message, internalCliInspection);
@@ -144,7 +107,7 @@ QString ZandronumClientExeFile::pathToExe(Message &message, const InternalClient
 		message = Message();
 		QString error;
 
-		QString internalClientPathRoot = config["InternalClientPath"];
+		QString internalClientPathRoot = config()["InternalClientPath"];
 		if (internalClientPathRoot.isEmpty())
 		{
 			error = tr("No internal clients directory specified for Zandronum");
@@ -155,7 +118,7 @@ QString ZandronumClientExeFile::pathToExe(Message &message, const InternalClient
 		QString path = versionInstallPath();
 
 		QFileInfo fi(path);
-		if (!fi.exists() || d->isEmptyDir(path))
+		if (!fi.exists() || isEmptyDir(path))
 		{
 			error = tr("%1\ndoesn't exist.\nYou need to install new binaries.").arg(path);
 			message = Message(Message::Type::GAME_NOT_FOUND_BUT_CAN_BE_INSTALLED, error);
@@ -192,33 +155,11 @@ QString ZandronumClientExeFile::pathToExe(Message &message, const InternalClient
 	#endif
 }
 
-QString ZandronumClientExeFile::version() const
-{
-	QString version = d->server->gameVersion();
-	// Strip out extraneous data in the version number.
-	return version.left(version.indexOf(' '));
-}
-
-QString ZandronumClientExeFile::versionInstallPath() const
-{
-	IniSection &config = *ZandronumEnginePlugin::staticInstance()->data()->pConfig;
-	QString path =  config["InternalClientPath"];
-	return Strings::combinePaths(path, version());
-}
-
-QString ZandronumClientExeFile::workingDirectory()
-{
-	IniSection &config = *ZandronumEnginePlugin::staticInstance()->data()->pConfig;
-
-	QFileInfo fi((QString)config["BinaryPath"]);
-	return fi.absolutePath();
-}
-
-void ZandronumClientExeFile::preInstallationSteps(Message& message)
+void ZandronumClientExeFile::preInstallationSteps(Message& message) const
 {
 	// copy all .ini's. On Linux .ini's are kept in ~/.zandronum so this will
 	// do nothing, but on Windows this should work like magic.
-	QDir baseBinaryDir(workingDirectory());
+	QDir baseBinaryDir(configBinaryPath());
 	QStringList nameFilters;
 	nameFilters << "*.ini";
 	QStringList iniFiles = baseBinaryDir.entryList(nameFilters, QDir::Files);
@@ -234,7 +175,7 @@ void ZandronumClientExeFile::preInstallationSteps(Message& message)
 const QUrl ZandronumClientExeFile::getUrl(Message& message) const
 {
 	// Find the hg revision string
-	ZandronumVersion version(d->server->gameVersion());
+	ZandronumVersion version(server()->gameVersion());
 	QString hgVersion;
 	if (version.hgVersionDate() < 4000) // Arbitrary number here to determine between old and new format
 		hgVersion = QString("%1").arg(version.hgVersionDate());
@@ -254,7 +195,7 @@ const QUrl ZandronumClientExeFile::getUrl(Message& message) const
 			.arg(version.minorVersion());
 	}
 
-	QUrl url = d->server->isTestingServer() ?
+	QUrl url = server()->isTestingServer() ?
 		QString(TESTING_BINARY_URL).arg(versionPrefix).arg(hgVersion) :
 		QString(RELEASE_BINARY_URL).arg(versionPrefix);
 
@@ -263,107 +204,10 @@ const QUrl ZandronumClientExeFile::getUrl(Message& message) const
 
 const QStringList ZandronumClientExeFile::getExecutableNames() const
 {
-	QStringList list;
-	list << QString(ZANDRONUM_BINARY_NAME);
-	return list;
+	return QStringList(QString(ZANDRONUM_BINARY_NAME));
 }
 
-QString ZandronumClientExeFile::scriptFileExtension()
-{
-	return SCRIPT_FILE_EXTENSION;
-}
-
-bool ZandronumClientExeFile::spawnInternalBatchFile(const QString &versionDir, QString &fullPathToFile, Message &message)
-{
-	QString binaryPath = versionDir + '/' + ZANDRONUM_BINARY_NAME;
-	// This will create an actual path to file, because there is no '/' at the end
-	// of scriptFilepath.
-	fullPathToFile = versionDir + SCRIPT_FILE_EXTENSION;
-	QFileInfo fi(fullPathToFile);
-	QFile file(fullPathToFile);
-	if (fi.isDir())
-	{
-		QString error = tr("%1\n should be a script file but is a directory!").arg(fullPathToFile);
-		message = Message::customError(error);
-		return false;
-	}
-
-	if (fi.exists())
-	{
-		if ((file.permissions() & QFile::ExeUser) == 0)
-		{
-			QString error = tr("You don't have permissions to execute file: %1\n").arg(fullPathToFile);
-			message = Message::customError(error);
-			return false;
-		}
-		return true;
-	}
-
-	QString content;
-	#ifdef Q_OS_WIN32
-	// Create Windows batch file
-	// Extract drive letter:
-	QString driveLetter;
-	QString workDir = workingDirectory();
-	for (int i = 0; i < workDir.length(); ++i)
-	{
-		if (workDir[i] == ':')
-		{
-			driveLetter = workDir.left(i);
-		}
-	}
-
-	if (!driveLetter.isEmpty())
-	{
-		content += driveLetter + ":\r\n";
-	}
-
-	QString cdDir = workingDirectory().replace('/', '\\');
-	QString exePath = binaryPath.replace('/', '\\');
-
-	content += "cd \"" + cdDir + "\"\r\n";
-	content += "\"" + exePath + "\" %*"; // %* deals with all the parameters
-	#else
-	QString cdDir = workingDirectory();
-
-	// Create Unix script file
-	content  = "#!/bin/sh\n";
-	content += "cd \"" + cdDir + "\" \n";
-	content += "export LANG=C\n";
-	#ifdef Q_OS_MAC
-	content += "\"" + binaryPath + ZANDRONUM_APP_BUNDLE_BIN "\" \"$@\"\n";
-	#else
-	content += "\"" + binaryPath + "\" \"$@\"\n"; // "$@" deals with all the parameters
-	#endif
-	#endif
-
-	if (!file.open(QIODevice::WriteOnly))
-	{
-		QString error = tr("Couldn't open batch file \"%1\" for writing").arg(fullPathToFile);
-		message = Message::customError(error);
-		return false;
-	}
-
-	if (file.write(content.toUtf8()) < 0)
-	{
-		QString error = tr("Error while writing batch file \"%1\"").arg(fullPathToFile);
-		message = Message::customError(error);
-		file.close();
-		return false;
-	}
-
-	file.close();
-
-	if (!file.setPermissions(file.permissions() | QFile::ExeUser))
-	{
-		QString error = tr("Cannot set permissions for file:\n%1").arg(fullPathToFile);
-		message = Message::customError(error);
-		return false;
-	}
-	return true;
-}
-
-QString ZandronumClientExeFile::tryFindCompatibleSystemEngine(Message &message)
+const QString ZandronumClientExeFile::tryFindCompatibleSystemEngine(Message &message) const
 {
 	CommandLineInfo cmdInfo;
 	cmdInfo.executable = QFileInfo(ExeFile::pathToExe(message));
