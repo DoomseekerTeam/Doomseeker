@@ -509,6 +509,13 @@ GameClientRunner::GamePaths GameClientRunner::gamePaths()
 		return GamePaths();
 	}
 	result.workingDir = exeFile->workingDirectory(msg);
+	if (result.workingDir.isEmpty() && d->server->plugin()->data()->allowsInternalClients &&
+		result.clientExe.endsWith(ExeFile::scriptFileExtension()))
+	{
+		const QString internalPath = exeFile->versionInstallPath();
+		if (result.clientExe.left(result.clientExe.lastIndexOf(ExeFile::scriptFileExtension())) == internalPath)
+			result.workingDir = internalPath;
+	}
 	return result;
 }
 
