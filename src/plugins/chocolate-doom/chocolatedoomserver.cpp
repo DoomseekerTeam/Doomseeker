@@ -22,7 +22,7 @@
 //------------------------------------------------------------------------------
 #include "chocolatedoomserver.h"
 
-#include "chocolatedoomengineplugin.h"
+#include "chocolatedoombinaries.h"
 #include "chocolatedoomgamehost.h"
 #include "chocolatedoomgameinfo.h"
 #include "chocolatedoomgamerunner.h"
@@ -139,4 +139,9 @@ QByteArray ChocolateDoomServer::createSendRequest()
 	char challenge[2] = { NET_PACKET_TYPE_QUERY };
 	QByteArray packet(challenge, 2);
 	return packet;
+}
+
+ExeFile* ChocolateDoomServer::clientExe()
+{
+	return new ChocolateDoomClientExeFile(self().toStrongRef().staticCast<ChocolateDoomServer>());
 }

@@ -138,7 +138,8 @@ public:
 	 * information that will be exposed to the user during the installation
 	 * of an internal client.
 	 *
-	 * Default implementation does nothing and returns ignorable object.
+	 * Default implementation returns info gathered based on the plugin's
+	 * information.
 	 */
 	virtual const InstallationPublicData createInstallationData() const;
 
@@ -173,7 +174,7 @@ public:
 	 *
 	 * Default implementation does nothing and returns ignorable list.
 	 */
-	virtual const QStringList getExecutableNames() const;
+	virtual const QString getClientExecutableName() const;
 
 	/**
 	 * @brief Returns the file extension of a batch script. OS dependant.
@@ -206,7 +207,7 @@ protected:
 	/**
 	 * @brief Version of the server.
 	 */
-	const QString version() const;
+	virtual const QString version() const;
 
 	/**
 	 * @brief Access the Server class.

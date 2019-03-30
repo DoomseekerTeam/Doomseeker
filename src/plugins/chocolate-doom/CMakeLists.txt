@@ -25,6 +25,7 @@ set(PLUGIN_VERSION 27)
 include(../PluginHeader.cmake)
 
 set(CHOCOLATEDOOM_FILES
+	chocolatedoombinaries.cpp
 	chocolatedoomengineplugin.cpp
 	chocolatedoomgameexefactory.cpp
 	chocolatedoomgamehost.cpp
@@ -35,6 +36,7 @@ set(CHOCOLATEDOOM_FILES
 )
 
 set(HEADER_FILES
+	chocolatedoombinaries.h
 	chocolatedoomengineplugin.h
 	chocolatedoomgamehost.h
 	chocolatedoomgameexefactory.h

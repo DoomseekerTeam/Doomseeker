@@ -34,7 +34,7 @@ class ChocolateDoomGameClientRunner : public GameClientRunner
 public:
 	ChocolateDoomGameClientRunner(QSharedPointer<ChocolateDoomServer> server);
 
-	const EnginePlugin *plugin() const
+	EnginePlugin *plugin() const
 	{
 		return ChocolateDoomEnginePlugin::staticInstance();
 	}
@@ -42,6 +42,7 @@ public:
 private:
 	QSharedPointer<ChocolateDoomServer> server;
 	QString overwriteExecutable;
+	QString exeFilePath;
 
 	void addGamePaths();
 	void createCommandLineArguments();
@@ -49,6 +50,12 @@ private:
 	QStringList executables() const;
 	void joinPopulatedServer();
 	void pickExecutableBasingOnIwad();
+
+	/**
+	 * This allows us to guarantee that the user will have tried to install
+	 * the internal client.
+	 */
+	void retrieveExecutableExeFile();
 };
 
 #endif

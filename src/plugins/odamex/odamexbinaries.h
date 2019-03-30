@@ -34,12 +34,11 @@ class OdamexClientExeFile : public ExeFile
 	Q_OBJECT
 public:
 	OdamexClientExeFile(const QSharedPointer<const OdamexServer> &server);
-	const QString pathToExe(Message& message, const InternalClientsInspection internalCliInspection = NoInternalChecking) const;
+	const QString pathToExe(Message& message, const InternalClientsInspection internalCliInspection = NoInternalChecking) const override;
 
-	const InstallationPublicData createInstallationData() const;
-	const QUrl getUrl(Message& message) const;
-	void postInstallationSteps(Message& message) const;
-	const QStringList getExecutableNames() const;
+	const QUrl getUrl(Message& message) const override;
+	void postInstallationSteps(Message& message) const override;
+	const QString getClientExecutableName() const override;
 
 private:
 	const QString tryFindCompatibleSystemEngine(Message &message) const;

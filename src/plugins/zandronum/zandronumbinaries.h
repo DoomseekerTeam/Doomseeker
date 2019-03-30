@@ -41,12 +41,11 @@ public:
 	 * script is created if necessary and a path to this shell script is
 	 * returned.
 	 */
-	const QString pathToExe(Message &message, const InternalClientsInspection internalCliInspection = NoInternalChecking) const;
+	const QString pathToExe(Message &message, const InternalClientsInspection internalCliInspection = NoInternalChecking) const override;
 
-	const InstallationPublicData createInstallationData() const;
-	void preInstallationSteps(Message& message) const;
-	const QUrl getUrl(Message& message) const;
-	const QStringList getExecutableNames() const;
+	void preInstallationSteps(Message& message) const override;
+	const QUrl getUrl(Message& message) const override;
+	const QString getClientExecutableName() const override;
 
 private:
 	const QString tryFindCompatibleSystemEngine(Message &message) const;

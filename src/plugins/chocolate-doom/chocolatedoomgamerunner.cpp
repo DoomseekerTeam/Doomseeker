@@ -22,14 +22,17 @@
 //------------------------------------------------------------------------------
 #include "chocolatedoomgamerunner.h"
 
+#include "chocolatedoombinaries.h"
 #include "chocolatedoomgameexefactory.h"
 #include "chocolatedoomgameinfo.h"
 #include "chocolatedoomserver.h"
+
 #include <gui/createserver/iwadandwadspickerdialog.h>
 #include <ini/inisection.h>
 #include <QFileInfo>
 #include <serverapi/createserverdialogapi.h>
 #include <serverapi/gamefile.h>
+#include <serverapi/message.h>
 #include <serverapi/playerslist.h>
 
 ChocolateDoomGameClientRunner::ChocolateDoomGameClientRunner(QSharedPointer<ChocolateDoomServer> server)
@@ -42,15 +45,23 @@ ChocolateDoomGameClientRunner::ChocolateDoomGameClientRunner(QSharedPointer<Choc
 
 void ChocolateDoomGameClientRunner::createCommandLineArguments()
 {
-	if (server->players().size() == 0)
-		configureEmptyServer();
-	else
-		joinPopulatedServer();
-	if (joinError().type() == JoinError::NoError)
+	retrieveExecutableExeFile();
+	if (!exeFilePath.isEmpty())
 	{
-		addGamePaths();
-		addConnectCommand();
-		addCustomParameters();
+		if (server->players().size() == 0)
+		{
+			configureEmptyServer();
+		}
+		else
+		{
+			joinPopulatedServer();
+		}
+		if (joinError().type() == JoinError::NoError)
+		{
+			addGamePaths();
+			addConnectCommand();
+			addCustomParameters();
+		}
 	}
 }
 
@@ -80,6 +91,12 @@ void ChocolateDoomGameClientRunner::configureEmptyServer()
 QStringList ChocolateDoomGameClientRunner::executables() const
 {
 	QStringList paths;
+	paths << exeFilePath;
+	QList<ExeFilePath> listExeFilePath(plugin()->gameExe()->additionalExecutables(GameFile::CreateGame));
+	foreach (ExeFilePath exeFile, listExeFilePath)
+	{
+		paths << exeFile.path();
+	}
 	GameFile executableForIwad = ChocolateDoomGameExeFactory::executableForIwad(server->iwad());
 	paths << plugin()->data()->pConfig->value(executableForIwad.configName()).toString();
 	for (const GameFile &file : ChocolateDoomGameExeFactory::gameFiles().asQList())
@@ -112,4 +129,15 @@ void ChocolateDoomGameClientRunner::joinPopulatedServer()
 	else
 		setJoinError(JoinError(JoinError::Terminate));
 	delete dialog;
+}
+
+void ChocolateDoomGameClientRunner::retrieveExecutableExeFile()
+{
+	QScopedPointer<ExeFile> exeFile(server->clientExe());
+	Message msg = Message();
+	exeFilePath = exeFile->pathToExe(msg, ExeFile::InternalChecking);
+	if (msg.type() == Message::Type::GAME_NOT_FOUND_BUT_CAN_BE_INSTALLED)
+	{
+		setJoinError(JoinError::CanAutomaticallyInstallGame);
+	}
 }

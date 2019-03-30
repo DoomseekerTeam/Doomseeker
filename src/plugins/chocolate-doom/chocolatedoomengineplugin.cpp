@@ -29,6 +29,11 @@
 #include "chocolatedoomgameinfo.h"
 #include "chocolatedoommasterclient.h"
 #include "chocolatedoomserver.h"
+
+#include <ini/inisection.h>
+#include <ini/inivariable.h>
+#include <datapaths.h>
+
 #include <QSharedPointer>
 
 INSTALL_PLUGIN(ChocolateDoomEnginePlugin)
@@ -53,6 +58,9 @@ ChocolateDoomEnginePlugin::ChocolateDoomEnginePlugin()
 		EP_NoClientSlots,
 		EP_NoPlayerSlots,
 		EP_CanonicalName, "chocolatedoom",
+		#ifdef Q_OS_WIN32
+		EP_AllowsInternalClients,
+		#endif
 		EP_Done
 	);
 }
@@ -70,6 +78,15 @@ QList<GameMode> ChocolateDoomEnginePlugin::gameModes() const
 ServerPtr ChocolateDoomEnginePlugin::mkServer(const QHostAddress &address, unsigned short port) const
 {
 	return ServerPtr(new ChocolateDoomServer(address, port));
+}
+
+void ChocolateDoomEnginePlugin::setupConfig(IniSection &config)
+{
+	#ifdef Q_OS_WIN32
+	config.createSetting("EnableInternalClient", true);
+	config.createSetting("InternalClientPath",
+		DataPaths::defaultInstance()->pluginLocalDataLocationPath(*this));
+	#endif
 }
 
 void ChocolateDoomEnginePlugin::start()

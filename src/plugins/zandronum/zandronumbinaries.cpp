@@ -74,16 +74,6 @@ ZandronumClientExeFile::ZandronumClientExeFile(const QSharedPointer<const Zandro
 	setConfigKey("BinaryPath");
 }
 
-const InstallationPublicData ZandronumClientExeFile::createInstallationData() const
-{
-	InstallationPublicData data;
-	data.engineIcon = server()->icon();
-	data.engineName = programName();
-	data.engineVersion = version();
-	data.installationPath = versionInstallPath();
-	return data;
-}
-
 const QString ZandronumClientExeFile::pathToExe(Message& message, const InternalClientsInspection internalCliInspection) const
 {
 	#ifndef Q_OS_DARWIN
@@ -195,16 +185,20 @@ const QUrl ZandronumClientExeFile::getUrl(Message& message) const
 			.arg(version.minorVersion());
 	}
 
-	QUrl url = server()->isTestingServer() ?
-		QString(TESTING_BINARY_URL).arg(versionPrefix).arg(hgVersion) :
-		QString(RELEASE_BINARY_URL).arg(versionPrefix);
+	QUrl url;
+	if (version.majorVersion() > 2) // Only support testing versions from 3.0 and up.
+		url = (server()->isTestingServer()) ?
+			QString(TESTING_BINARY_URL).arg(versionPrefix).arg(hgVersion) :
+			QString(RELEASE_BINARY_URL).arg(versionPrefix);
+	else
+		url = QString(RELEASE_BINARY_URL).arg(versionPrefix);
 
 	return url;
 }
 
-const QStringList ZandronumClientExeFile::getExecutableNames() const
+const QString ZandronumClientExeFile::getClientExecutableName() const
 {
-	return QStringList(QString(ZANDRONUM_BINARY_NAME));
+	return QString(ZANDRONUM_BINARY_NAME);
 }
 
 const QString ZandronumClientExeFile::tryFindCompatibleSystemEngine(Message &message) const

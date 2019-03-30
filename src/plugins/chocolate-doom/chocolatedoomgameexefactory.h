@@ -26,6 +26,7 @@
 #include <dptr.h>
 #include <serverapi/gameexefactory.h>
 
+class QDir;
 class GameFile;
 class GameFileList;
 
@@ -43,6 +44,10 @@ private:
 	DPtr<ChocolateDoomGameExeFactory> d;
 
 	GameFileList gameFiles_() const;
+	QList<ExeFilePath> additionalExecutables(int execType) const;
+	QStringList execName() const;
+	QList<ExeFilePath> scanSubdir(const QDir &mainDir, const QString &subdirName) const;
+	QStringList serverExecName() const;
 };
 
 #endif

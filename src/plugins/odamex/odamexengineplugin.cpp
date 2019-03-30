@@ -20,13 +20,13 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2009 Braden "Blzut3" Obrzut <admin@maniacsvault.net>
 //------------------------------------------------------------------------------
-
+#include "odamexengineplugin.h"
 #include <QDateTime>
 
 #include "irc/entities/ircnetworkentity.h"
 #include "plugins/engineplugin.h"
 
-#include "odamexengineplugin.h"
+#include "odamexgameexefactory.h"
 #include "odamexgamehost.h"
 #include "odamexgameinfo.h"
 #include "odamexmasterclient.h"
@@ -99,4 +99,10 @@ GameHost *OdamexEnginePlugin::gameHost()
 ServerPtr OdamexEnginePlugin::mkServer(const QHostAddress &address, unsigned short port) const
 {
 	return ServerPtr(new OdamexServer(address, port));
+}
+
+void OdamexEnginePlugin::start()
+{
+	EnginePlugin::start();
+	setGameExeFactory(QSharedPointer<GameExeFactory>(new OdamexGameExeFactory(this)));
 }

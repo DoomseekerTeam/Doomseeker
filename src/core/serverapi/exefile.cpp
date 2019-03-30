@@ -127,7 +127,12 @@ QString ExeFile::workingDirectory(Message &message)
 
 const InstallationPublicData ExeFile::createInstallationData() const
 {
-	return InstallationPublicData();
+	InstallationPublicData data;
+	data.engineIcon = server()->icon();
+	data.engineName = programName();
+	data.engineVersion = version();
+	data.installationPath = versionInstallPath();
+	return data;
 }
 
 void ExeFile::preInstallationSteps(Message& message) const
@@ -143,9 +148,9 @@ void ExeFile::postInstallationSteps(Message& message) const
 {
 }
 
-const QStringList ExeFile::getExecutableNames() const
+const QString ExeFile::getClientExecutableName() const
 {
-	return QStringList();
+	return QString();
 }
 
 const QSharedPointer<const Server> &ExeFile::server() const
@@ -183,7 +188,7 @@ const QString ExeFile::configBinaryPath() const
 
 bool ExeFile::spawnInternalBatchFile(const QString& versionDir, QString& fullPathToFile, Message& message) const
 {
-	QString binaryPath = versionDir + '/' + getExecutableNames().first();
+	QString binaryPath = versionDir + '/' + getClientExecutableName();
 	// This will create an actual path to file, because there is no '/' at the end
 	// of scriptFilepath.
 	fullPathToFile = versionDir + SCRIPT_FILE_EXTENSION;

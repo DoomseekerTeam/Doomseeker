@@ -31,7 +31,6 @@
 #include <serverapi/gamefile.h>
 #include <serverapi/message.h>
 #include <serverapi/gameexefactory.h>
-#include <strings.hpp>
 #include <gui/internalclientinstaller.h>
 #include <QSharedPointer>
 #include <QTemporaryDir>
@@ -118,17 +117,6 @@ const QString OdamexClientExeFile::pathToExe(Message& message, const InternalCli
 	#endif
 }
 
-
-const InstallationPublicData OdamexClientExeFile::createInstallationData() const
-{
-	InstallationPublicData data;
-	data.engineIcon = server()->icon();
-	data.engineName = programName();
-	data.engineVersion = version();
-	data.installationPath = versionInstallPath();
-	return data;
-}
-
 const QUrl OdamexClientExeFile::getUrl(Message& message) const
 {
 	return QUrl(QString(RELEASE_BINARY_URL).arg(version()));
@@ -153,9 +141,9 @@ void OdamexClientExeFile::postInstallationSteps(Message& message) const
 	}
 }
 
-const QStringList OdamexClientExeFile::getExecutableNames() const
+const QString OdamexClientExeFile::getClientExecutableName() const
 {
-	return QStringList(ODAMEX_BINARY_NAME);
+	return QString(ODAMEX_BINARY_NAME);
 }
 
 const QString OdamexClientExeFile::tryFindCompatibleSystemEngine(Message &message) const

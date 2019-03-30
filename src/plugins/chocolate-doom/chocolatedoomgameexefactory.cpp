@@ -22,8 +22,15 @@
 //------------------------------------------------------------------------------
 #include "chocolatedoomgameexefactory.h"
 
-#include <QStringList>
+#include "chocolatedoombinaries.h"
+
 #include <serverapi/gamefile.h>
+#include <ini/inisection.h>
+#include <plugins/engineplugin.h>
+#include <serverapi/exefile.h>
+
+#include <QStringList>
+#include <QDir>
 
 static QStringList searchSuffixes()
 {
@@ -54,6 +61,7 @@ ChocolateDoomGameExeFactory::ChocolateDoomGameExeFactory(EnginePlugin *plugin)
 	: GameExeFactory(plugin)
 {
 	set_gameFiles(&ChocolateDoomGameExeFactory::gameFiles_);
+	set_additionalExecutables(&ChocolateDoomGameExeFactory::additionalExecutables);
 }
 
 ChocolateDoomGameExeFactory::~ChocolateDoomGameExeFactory()
@@ -95,4 +103,43 @@ GameFileList ChocolateDoomGameExeFactory::gameFiles()
 		.setNiceName(tr("Chocolate Strife")).setFileName("chocolate-strife");
 
 	return list;
+}
+
+QList<ExeFilePath> ChocolateDoomGameExeFactory::additionalExecutables(int execType) const
+{
+	QList<ExeFilePath> testingExecutables;
+	IniSection *cfg = plugin()->data()->pConfig;
+	if (cfg != nullptr)
+	{
+		QDir directory(cfg->value("InternalClientPath").toString());
+		QStringList subdirs = directory.entryList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name | QDir::Reversed);
+		foreach (const QString &subdirName, subdirs)
+		{
+			testingExecutables << scanSubdir(directory, subdirName);
+		}
+	}
+	return testingExecutables;
+}
+
+QList<ExeFilePath> ChocolateDoomGameExeFactory::scanSubdir(const QDir &mainDir,
+	const QString &subdirName) const
+{
+	QList<ExeFilePath> paths;
+	QDir subdir = mainDir;
+	subdir.cd(subdirName);
+	if (!subdir.entryList(QStringList(execName()), QDir::Files).isEmpty())
+	{
+		paths << mainDir.absoluteFilePath(
+			subdirName + ChocolateDoomClientExeFile::scriptFileExtension());
+	}
+	return paths;
+}
+
+QStringList ChocolateDoomGameExeFactory::execName() const
+{
+#ifdef Q_OS_WIN32
+	return {"chocolate-doom.exe", "chocolate-heretic.exe", "chocolate-hexen.exe", "chocolate-strife.exe"};
+#else
+	return {"chocolate-doom", "chocolate-heretic", "chocolate-hexen", "chocolate-strife"};
+#endif
 }

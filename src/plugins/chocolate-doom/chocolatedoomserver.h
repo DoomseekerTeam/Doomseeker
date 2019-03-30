@@ -39,6 +39,8 @@ public:
 
 	EnginePlugin *plugin() const;
 
+	ExeFile *clientExe();
+
 protected:
 	QString version;
 	unsigned int serverState;
