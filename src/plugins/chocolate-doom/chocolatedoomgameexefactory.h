@@ -40,13 +40,15 @@ public:
 	ChocolateDoomGameExeFactory(EnginePlugin *plugin);
 	~ChocolateDoomGameExeFactory();
 
+protected:
+	QList<ExeFilePath> scanSubdir(const QDir &mainDir, const QString &subdirName, int execType) const override;
+
 private:
 	DPtr<ChocolateDoomGameExeFactory> d;
 
 	GameFileList gameFiles_() const;
 	QList<ExeFilePath> additionalExecutables(int execType) const;
 	QStringList execName() const;
-	QList<ExeFilePath> scanSubdir(const QDir &mainDir, const QString &subdirName) const;
 	QStringList serverExecName() const;
 };
 

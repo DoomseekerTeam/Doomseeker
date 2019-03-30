@@ -21,10 +21,14 @@
 // Copyright (C) 2013 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
 #include "gameexefactory.h"
-
+#include "configuration/doomseekerconfig.h"
 #include "plugins/engineplugin.h"
 #include "serverapi/exefile.h"
 #include "serverapi/gamefile.h"
+#include <ini/inisection.h>
+#include <ini/inivariable.h>
+
+#include <QDir>
 
 DClass<GameExeFactory>
 {
@@ -58,6 +62,24 @@ EnginePlugin *GameExeFactory::plugin() const
 }
 
 QList<ExeFilePath> GameExeFactory::additionalExecutables_default(int execType) const
+{
+	QList<ExeFilePath> testingExecutables;
+	IniSection cfg = gConfig.iniSectionForPlugin(plugin()->data()->name);
+	if (plugin()->data()->allowsInternalClients && cfg.value("EnableInternalClient").toBool())
+	{
+		QDir directory(cfg.value("InternalClientPath").toString());
+		QStringList subdirs = directory.entryList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name | QDir::Reversed);
+		foreach (const QString &subdirName, subdirs)
+		{
+			testingExecutables << scanSubdir(directory, subdirName, execType);
+		}
+		return testingExecutables;
+	}
+	return QList<ExeFilePath>();
+}
+
+QList<ExeFilePath> GameExeFactory::scanSubdir(const QDir &mainDir,
+	const QString &subdirName, int execType) const
 {
 	return QList<ExeFilePath>();
 }

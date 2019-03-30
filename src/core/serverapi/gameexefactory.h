@@ -32,8 +32,8 @@
 class EnginePlugin;
 class ExeFilePath;
 class GameFileList;
+class QDir;
 class Server;
-
 
 /**
  * @ingroup group_pluginapi
@@ -68,7 +68,9 @@ public:
 	 * users with additional choices, for example to pick a different
 	 * executable when creating a new game.
 	 *
-	 * Default implementation does nothing and returns an empty list.
+	 * Default implementation tries to determine the path of the internal
+	 * clients and calls scanSubdir() for every subdirectory. scanSubdir()
+	 * will return an empty list.
 	 *
 	 * @param execType
 	 *     GameFile::ExecType bitmask field. Return only executables that
@@ -100,6 +102,15 @@ protected:
 	POLYMORPHIC_SETTER_DECLARE_CONST(QList<ExeFilePath>, GameExeFactory, additionalExecutables, (int));
 	QList<ExeFilePath> additionalExecutables_default(int execType) const;
 
+	/**
+	 * @brief Function called for every subdirectory in the default
+	 * implementation of additionalExecutables().
+	 *
+	 * Default implementation does nothing and returns an empty list.
+	 *
+	 * @return QList<ExeFilePath> extra exefiles on a subdirectory.
+	 */
+	virtual QList<ExeFilePath> scanSubdir(const QDir &mainDir, const QString &subdirName, int execType) const;
 private:
 	DPtr<GameExeFactory> d;
 };

@@ -37,12 +37,12 @@ public:
 	ZandronumGameExeFactory(EnginePlugin *plugin);
 	~ZandronumGameExeFactory();
 
+protected:
+	QList<ExeFilePath> scanSubdir(const QDir &mainDir, const QString &subdirName, int execType) const override;
+
 private:
 	DPtr<ZandronumGameExeFactory> d;
-
-	QList<ExeFilePath> additionalExecutables(int execType) const;
 	QString execName() const;
-	QList<ExeFilePath> scanSubdir(const QDir &mainDir, const QString &subdirName, int execType) const;
 	QString serverExecName() const;
 };
 

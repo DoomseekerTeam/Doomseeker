@@ -61,7 +61,6 @@ ChocolateDoomGameExeFactory::ChocolateDoomGameExeFactory(EnginePlugin *plugin)
 	: GameExeFactory(plugin)
 {
 	set_gameFiles(&ChocolateDoomGameExeFactory::gameFiles_);
-	set_additionalExecutables(&ChocolateDoomGameExeFactory::additionalExecutables);
 }
 
 ChocolateDoomGameExeFactory::~ChocolateDoomGameExeFactory()
@@ -105,24 +104,8 @@ GameFileList ChocolateDoomGameExeFactory::gameFiles()
 	return list;
 }
 
-QList<ExeFilePath> ChocolateDoomGameExeFactory::additionalExecutables(int execType) const
-{
-	QList<ExeFilePath> testingExecutables;
-	IniSection *cfg = plugin()->data()->pConfig;
-	if (cfg != nullptr)
-	{
-		QDir directory(cfg->value("InternalClientPath").toString());
-		QStringList subdirs = directory.entryList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name | QDir::Reversed);
-		foreach (const QString &subdirName, subdirs)
-		{
-			testingExecutables << scanSubdir(directory, subdirName);
-		}
-	}
-	return testingExecutables;
-}
-
 QList<ExeFilePath> ChocolateDoomGameExeFactory::scanSubdir(const QDir &mainDir,
-	const QString &subdirName) const
+	const QString &subdirName, int execType) const
 {
 	QList<ExeFilePath> paths;
 	QDir subdir = mainDir;
