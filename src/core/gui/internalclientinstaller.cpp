@@ -66,7 +66,7 @@ InternalClientInstaller::InternalClientInstaller(QWidget *parent, ExeFile *engin
 		d->iconEngine->setPixmap(d->data.engineIcon.scaledToWidth(d->iconEngine->width()));
 	else
 		d->iconEngine->setVisible(false);
-
+	layout()->setSizeConstraint(QLayout::SetFixedSize);
 	isDownloading(false);
 }
 

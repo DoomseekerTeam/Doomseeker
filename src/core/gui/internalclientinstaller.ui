@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>465</width>
-    <height>298</height>
+    <width>286</width>
+    <height>371</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -21,17 +21,34 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="lblOverwriteWarning">
-     <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/icons/exclamation_16.png&quot;/&gt; This installation can potentially &lt;span style=&quot; font-weight:600;&quot;&gt;overwrite&lt;/span&gt; your files.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
-     <property name="pixmap">
-      <pixmap resource="../../../media/resources.qrc">:/icons/exclamation_16.png</pixmap>
-     </property>
-     <property name="scaledContents">
-      <bool>false</bool>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="overwriteWarning">
+     <item>
+      <widget class="QLabel" name="lblOverwriteWarning">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="../../../media/resources.qrc">:/icons/exclamation_16.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="iconOverwriteWarning">
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Installation of these binaries can potentially &lt;span style=&quot; font-weight:600;&quot;&gt;overwrite&lt;/span&gt; your files.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="QLabel" name="lblIntroduction">
