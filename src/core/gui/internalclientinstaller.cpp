@@ -25,7 +25,6 @@
 #include "ui_internalclientinstaller.h"
 
 #include "datapaths.h"
-#include "log.h"
 #include "serverapi/message.h"
 #include "serverapi/exefile.h"
 #include "version.h"
@@ -219,7 +218,6 @@ void InternalClientInstaller::unpackDownload()
 			}
 
 			QString fileTargetPath = d->data.installationPath.path() + QDir::separator() + filename;
-			gLog << tr("Unpacking file: %1").arg(fileTargetPath);
 			if (fileTargetPath.contains('/'))
 			{
 				QFileInfo targetPathInfo(fileTargetPath);

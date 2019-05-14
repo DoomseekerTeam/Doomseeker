@@ -53,7 +53,7 @@ class MAIN_EXPORT ExeFile : public QObject
 	Q_OBJECT
 
 public:
-	ExeFile(const QSharedPointer<const Server> &server);
+	ExeFile(const QSharedPointer<Server> &server);
 	virtual ~ExeFile();
 
 	/**
@@ -212,7 +212,7 @@ protected:
 	/**
 	 * @brief Access the Server class.
 	 */
-	const QSharedPointer<const Server> &server() const;
+	const QSharedPointer<Server> &server() const;
 
 	/**
 	 * @brief Check if directory is empty.

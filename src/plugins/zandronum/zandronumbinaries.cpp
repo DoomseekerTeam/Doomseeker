@@ -67,7 +67,7 @@
 #endif
 #endif
 
-ZandronumClientExeFile::ZandronumClientExeFile(const QSharedPointer<const ZandronumServer> &server) : ExeFile(server)
+ZandronumClientExeFile::ZandronumClientExeFile(const QSharedPointer<ZandronumServer> &server) : ExeFile(server)
 {
 	setProgramName(server->plugin()->data()->name);
 	setExeTypeName(tr("client"));

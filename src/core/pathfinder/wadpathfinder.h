@@ -25,12 +25,14 @@
 
 #include "dptr.h"
 #include "serverapi/serverptr.h"
+#include "global.h"
+
 #include <QString>
 #include <QStringList>
 
 class PathFinder;
 
-class WadFindResult
+class MAIN_EXPORT WadFindResult
 {
 public:
 	WadFindResult();
@@ -65,15 +67,14 @@ private:
  * WadPathFinder considers WAD aliases configured by the user, such
  * as freedoom2.wad being a valid replacement for doom2.wad. It also
  * considers additional OS paths for WAD finding, if given OS has
- * reasonable defaults for WAD files. As WadPathFinder is not
- * MAIN_EXPORT, these features are outside of plugin control.
+ * reasonable defaults for WAD files.
  *
  * Additional paths appended on Linux:
  *
  * 1. `/usr/local/share/games/doom/`
  * 2. `/usr/share/games/doom/`
  */
-class WadPathFinder
+class MAIN_EXPORT WadPathFinder
 {
 public:
 	WadPathFinder(PathFinder pathFinder);

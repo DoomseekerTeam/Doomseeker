@@ -28,12 +28,14 @@
 #include "chocolatedoomgameexefactory.h"
 
 #include <applogger.h>
+#include <gui/internalclientinstaller.h>
 #include <ini/inisection.h>
 #include <ini/inivariable.h>
+#include <pathfinder/wadpathfinder.h>
+#include <pathfinder/pathfinder.h>
 #include <serverapi/gamefile.h>
 #include <serverapi/message.h>
 #include <serverapi/gameexefactory.h>
-#include <gui/internalclientinstaller.h>
 #include "strings.hpp"
 
 #include <QSharedPointer>
@@ -45,7 +47,7 @@
 #define CHOCOLATEHEXEN_BINARY_NAME "chocolate-hexen.exe"
 #define CHOCOLATESTRIFE_BINARY_NAME "chocolate-strife.exe"
 
-ChocolateDoomClientExeFile::ChocolateDoomClientExeFile(const QSharedPointer<const ChocolateDoomServer> &server) : ExeFile(server)
+ChocolateDoomClientExeFile::ChocolateDoomClientExeFile(const QSharedPointer<ChocolateDoomServer> &server) : ExeFile(server)
 {
 	setProgramName(server->plugin()->data()->name);
 	setExeTypeName(tr("client"));
@@ -150,6 +152,43 @@ const QString ChocolateDoomClientExeFile::version() const
 
 const QString ChocolateDoomClientExeFile::tryFindCompatibleSystemEngine(Message &message) const
 {
+	Message msg;
+	CommandLineInfo cmdInfo;
+
+	cmdInfo.executable = QFileInfo(ExeFile::pathToExe(msg, NoInternalChecking));
+	cmdInfo.args << "-connect" << "localhost";
+
+	// We'll need to add the iwad.
+	QString iwad = WadPathFinder(server()->wadPathFinder()).find(server()->iwad()).path();
+	if (!iwad.isEmpty())
+	{
+		cmdInfo.args << "-iwad" << iwad;
+	}
+
+	if (!cmdInfo.executable.absoluteFilePath().isEmpty())
+	{
+		AppLogger app(cmdInfo);
+		QTemporaryDir tmpDir;
+		QString captured = QString();
+		if (tmpDir.isValid())
+		{
+			OutputAppLogger output = app.runAndLogExecutableUntilTime(0);
+			QRegExp regExp("Chocolate Doom [0-9]*.[0-9]*.[0-9]*");
+			if (!output.stdoutput.isEmpty())
+			{
+				regExp.indexIn(output.stdoutput.first());
+				captured = regExp.capturedTexts().first();
+			}
+		}
+		if (!captured.isEmpty())
+		{
+			captured.remove("Chocolate Doom ");
+			if (captured == version())
+			{
+				return cmdInfo.executable.path();
+			}
+		}
+	}
 	return QString();
 }
 

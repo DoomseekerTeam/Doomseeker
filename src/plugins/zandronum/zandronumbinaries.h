@@ -33,7 +33,7 @@ class ZandronumClientExeFile : public ExeFile
 	Q_OBJECT
 
 public:
-	ZandronumClientExeFile(const QSharedPointer<const ZandronumServer> &server);
+	ZandronumClientExeFile(const QSharedPointer<ZandronumServer> &server);
 
 	/**
 	 * If the parent Server is a normal server simple path to executable

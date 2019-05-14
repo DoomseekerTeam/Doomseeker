@@ -45,12 +45,12 @@ public:
 	QString configKey;
 	QString exeTypeName;
 	QString programName;
-		QSharedPointer<const Server> server;
+		QSharedPointer<Server> server;
 };
 
 DPointeredNoCopy(ExeFile)
 
-ExeFile::ExeFile(const QSharedPointer<const Server> &server)
+ExeFile::ExeFile(const QSharedPointer<Server> &server)
 {
 	d->server = server;
 }
@@ -153,7 +153,7 @@ const QString ExeFile::getClientExecutableName() const
 	return QString();
 }
 
-const QSharedPointer<const Server> &ExeFile::server() const
+const QSharedPointer<Server> &ExeFile::server() const
 {
 	return d->server;
 }

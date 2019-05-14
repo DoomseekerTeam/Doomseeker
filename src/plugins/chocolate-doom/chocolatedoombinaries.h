@@ -33,7 +33,7 @@ class ChocolateDoomClientExeFile : public ExeFile
 {
 	Q_OBJECT
 public:
-	ChocolateDoomClientExeFile(const QSharedPointer<const ChocolateDoomServer> &server);
+	ChocolateDoomClientExeFile(const QSharedPointer<ChocolateDoomServer> &server);
 	const QString pathToExe(Message& message, const InternalClientsInspection internalCliInspection = NoInternalChecking) const override;
 
 	const QUrl getUrl(Message& message) const override;

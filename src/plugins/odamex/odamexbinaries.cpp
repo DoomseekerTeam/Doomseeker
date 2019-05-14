@@ -44,7 +44,7 @@
 #define RELEASE_BINARY_URL ""
 #endif
 
-OdamexClientExeFile::OdamexClientExeFile(const QSharedPointer<const OdamexServer> &server) : ExeFile(server)
+OdamexClientExeFile::OdamexClientExeFile(const QSharedPointer<OdamexServer> &server) : ExeFile(server)
 {
 	setProgramName(server->plugin()->data()->name);
 	setExeTypeName(tr("client"));
@@ -167,8 +167,11 @@ const QString OdamexClientExeFile::tryFindCompatibleSystemEngine(Message &messag
 		{
 			OutputAppLogger output = app.runAndLogExecutableUntilTime(1000);
 			QRegExp regExp("Odamex v[0-9]*.[0-9]*.[0-9]* \\([a-z0-9]+\\)");
-			regExp.indexIn(output.stdoutput.first());
-			QString captured = regExp.capturedTexts().first();
+			if (!output.stdoutput.isEmpty())
+			{
+				regExp.indexIn(output.stdoutput.first());
+				captured = regExp.capturedTexts().first();
+			}
 		}
 		if (!captured.isEmpty())
 		{

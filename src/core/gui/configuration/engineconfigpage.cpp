@@ -33,8 +33,6 @@
 #include <QFileDialog>
 #include <QTimer>
 
-#include "log.h"
-
 DClass<EngineConfigPage> : public Ui::EngineConfigPage
 {
 public:

@@ -33,7 +33,7 @@ class OdamexClientExeFile : public ExeFile
 {
 	Q_OBJECT
 public:
-	OdamexClientExeFile(const QSharedPointer<const OdamexServer> &server);
+	OdamexClientExeFile(const QSharedPointer<OdamexServer> &server);
 	const QString pathToExe(Message& message, const InternalClientsInspection internalCliInspection = NoInternalChecking) const override;
 
 	const QUrl getUrl(Message& message) const override;
