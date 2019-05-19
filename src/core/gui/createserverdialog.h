@@ -50,7 +50,9 @@ public:
 	void makeRemoteGameSetupDialog(const EnginePlugin *plugin);
 	MapListPanel *mapListPanel();
 	QString mapName() const;
+
 	void setIwadByName(const QString &iwad);
+	void setRemoteExecutableByPath(const QString &pathRequest);
 	QStringList wadPaths() const;
 
 private slots:

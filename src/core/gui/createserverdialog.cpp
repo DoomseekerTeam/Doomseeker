@@ -428,6 +428,11 @@ void CreateServerDialog::setIwadByName(const QString &iwad)
 	d->generalSetupPanel->setIwadByName(iwad);
 }
 
+void CreateServerDialog::setRemoteExecutableByPath(const QString &pathRequest)
+{
+	d->generalSetupPanel->setRemoteExecutableByPath(pathRequest);
+}
+
 void CreateServerDialog::setupMenu()
 {
 	QMenuBar *mainMenu = new QMenuBar(this);

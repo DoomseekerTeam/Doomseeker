@@ -90,6 +90,8 @@ public:
 	 */
 	void setIwadByName(const QString &iwad);
 
+	void setRemoteExecutableByPath(const QString &pathRequest);
+
 private:
 	Q_DISABLE_COPY(CreateServerDialogApi);
 

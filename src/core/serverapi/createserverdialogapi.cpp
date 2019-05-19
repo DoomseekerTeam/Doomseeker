@@ -75,3 +75,9 @@ void CreateServerDialogApi::setIwadByName(const QString &iwad)
 	assert(d->dialog);
 	d->dialog->setIwadByName(iwad);
 }
+
+void CreateServerDialogApi::setRemoteExecutableByPath(const QString &pathRequest)
+{
+	assert(d->dialog);
+	d->dialog->setRemoteExecutableByPath(pathRequest);
+}

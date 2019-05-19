@@ -45,22 +45,26 @@ ChocolateDoomGameClientRunner::ChocolateDoomGameClientRunner(QSharedPointer<Choc
 
 void ChocolateDoomGameClientRunner::createCommandLineArguments()
 {
-	retrieveExecutableExeFile();
-	if (!exeFilePath.isEmpty())
+	addWads();
+	if (joinError().type() == JoinError::NoError)
 	{
-		if (server->players().size() == 0)
+		retrieveExecutableExeFile();
+		if (!exeFilePath.isEmpty())
 		{
-			configureEmptyServer();
-		}
-		else
-		{
-			joinPopulatedServer();
-		}
-		if (joinError().type() == JoinError::NoError)
-		{
-			addGamePaths();
-			addConnectCommand();
-			addCustomParameters();
+			if (server->players().size() == 0)
+			{
+				configureEmptyServer();
+			}
+			else
+			{
+				joinPopulatedServer();
+			}
+			if (joinError().type() == JoinError::NoError)
+			{
+				addGamePaths();
+				addConnectCommand();
+				addCustomParameters();
+			}
 		}
 	}
 }
@@ -81,6 +85,8 @@ void ChocolateDoomGameClientRunner::configureEmptyServer()
 	CreateServerDialogApi *csd = CreateServerDialogApi::createNew(nullptr);
 	csd->dialog()->setAttribute(Qt::WA_DeleteOnClose, false);
 	csd->makeRemoteGameSetup(plugin());
+	csd->setIwadByName(QFileInfo(iwadPath()).fileName());
+	csd->setRemoteExecutableByPath(exeFilePath);
 	if (csd->dialog()->exec() == QDialog::Accepted)
 		csd->fillInCommandLineArguments(overwriteExecutable, args());
 	else

@@ -53,7 +53,9 @@ public:
 	void setupForEngine(EnginePlugin *engine);
 	void setupForHostMode(GameCreateParams::HostMode hostMode);
 	void setCreateServerDialog(CreateServerDialog *dialog);
+
 	void setIwadByName(const QString &iwad);
+	void setRemoteExecutableByPath(const QString &pathRequest);
 	QStringList getAllWadPaths() const;
 
 signals:

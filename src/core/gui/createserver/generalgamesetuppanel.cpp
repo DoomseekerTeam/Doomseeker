@@ -324,6 +324,11 @@ void GeneralGameSetupPanel::setIwadByName(const QString &iwad)
 	d->iwadPicker->setIwadByName(iwad);
 }
 
+void GeneralGameSetupPanel::setRemoteExecutableByPath(const QString &pathRequest)
+{
+	d->remoteExecutableInput->setPath(pathRequest);
+}
+
 void GeneralGameSetupPanel::showEvent(QShowEvent *event)
 {
 	updateMapWarningVisibility();

@@ -23,11 +23,11 @@
 #include "zandronumbinaries.h"
 
 
-#include "application.h"
-#include "serverapi/message.h"
 #include "zandronumengineplugin.h"
 #include "zandronumserver.h"
 
+#include "application.h"
+#include "serverapi/message.h"
 #include <ini/inisection.h>
 #include <ini/inivariable.h>
 #include <QDir>
