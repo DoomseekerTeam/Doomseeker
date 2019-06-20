@@ -133,7 +133,7 @@
    <item>
     <widget class="QGroupBox" name="groupInternalClients">
      <property name="toolTip">
-      <string>&lt;p&gt;Allow the Zandronum plugin to handle the releases of Zandronum, allowing you to connect to servers with differing versions, whether those are testing releases or official releases.&lt;/p&gt;</string>
+      <string>&lt;p&gt;Allow the game plugin to handle the releases of the game, allowing you to connect to servers with differing versions, whether those are testing releases or official releases.&lt;/p&gt;</string>
      </property>
      <property name="layoutDirection">
       <enum>Qt::LeftToRight</enum>
