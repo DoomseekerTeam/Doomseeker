@@ -83,7 +83,7 @@ ServerPtr ChocolateDoomEnginePlugin::mkServer(const QHostAddress &address, unsig
 void ChocolateDoomEnginePlugin::setupConfig(IniSection &config)
 {
 	#ifdef Q_OS_WIN32
-	config.createSetting("EnableInternalClient", true);
+	config.createSetting("EnableInternalClient", false);
 	config.createSetting("InternalClientPath",
 		DataPaths::defaultInstance()->pluginLocalDataLocationPath(*this));
 	#endif

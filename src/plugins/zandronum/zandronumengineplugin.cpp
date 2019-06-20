@@ -99,7 +99,7 @@ void ZandronumEnginePlugin::setupConfig(IniSection &config)
 	config.createSetting("Masterserver", data()->defaultMaster);
 	config.createSetting("AllowServersToDisplayMyCountry", false);
 	#ifndef Q_OS_DARWIN
-	config.createSetting("EnableInternalClient", true);
+	config.createSetting("EnableInternalClient", false);
 	config.createSetting("InternalClientPath",
 		DataPaths::defaultInstance()->pluginLocalDataLocationPath(*this));
 	#endif
