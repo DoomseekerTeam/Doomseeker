@@ -270,6 +270,7 @@ void GameClientRunner::addWads()
 			d->joinError.setType(JoinError::MissingWads);
 		}
 		d->joinError.setMissingWads(d->missingPwads);
+		d->joinError.setType(JoinError::NoError);
 		for (const PWad &wad : d->missingPwads)
 		{
 			// Only error if there are required missing wads
@@ -528,7 +529,7 @@ bool GameClientRunner::isFatalError() const
 {
 	if (d->joinError.isError())
 	{
-		if (d->joinError.isMissingWadsError() && canDownloadWadsInGame())
+		if (d->joinError.isMissingWadsError() && isIwadFound())
 		{
 			return false;
 		}

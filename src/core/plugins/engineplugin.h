@@ -68,7 +68,6 @@ class Server;
 class QHostAddress;
 class QPixmap;
 class QWidget;
-class TextProvider;
 
 /**
  * @ingroup group_pluginapi
@@ -259,7 +258,12 @@ protected:
 		 * to set and enable information related to where the internal
 		 * clients should be saved.
 		 */
-		EP_AllowsInternalClients
+		EP_AllowsInternalClients,
+		/**
+		 * @brief Provides an optional warning to be shown in the internal
+		 * clients config menu for the specified plugin.
+		 */
+		EP_WarningInternalClientsProvider
 	};
 
 	/// Reimplement if you want to perform some ini initialization manually.
@@ -304,6 +308,12 @@ public:
 		 * the "About" dialog.
 		 */
 		QScopedPointer<TextProvider> aboutProvider;
+		/**
+		 * @brief Warning message for the internal clients present in
+		 * the config menu of the plugin. Pointer may be empty.
+		 */
+		QScopedPointer<TextProvider> warningInternalClientsProvider;
+
 		/**
 		 * @brief Controls behavior of "Create Game" dialog.
 		 *

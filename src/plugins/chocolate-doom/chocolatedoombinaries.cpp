@@ -24,22 +24,24 @@
 #include "chocolatedoombinaries.h"
 
 #include "chocolatedoomengineplugin.h"
-#include "chocolatedoomserver.h"
 #include "chocolatedoomgameexefactory.h"
+#include "chocolatedoomserver.h"
 
+#include "strings.hpp"
 #include <applogger.h>
 #include <gui/internalclientinstaller.h>
 #include <ini/inisection.h>
 #include <ini/inivariable.h>
-#include <pathfinder/wadpathfinder.h>
 #include <pathfinder/pathfinder.h>
+#include <pathfinder/wadpathfinder.h>
+#include <serverapi/gameexefactory.h>
 #include <serverapi/gamefile.h>
 #include <serverapi/message.h>
-#include <serverapi/gameexefactory.h>
-#include "strings.hpp"
 
 #include <QSharedPointer>
 #include <QTemporaryDir>
+
+#include "log.h"
 
 #define RELEASE_BINARY_URL "https://www.chocolate-doom.org/downloads/%1/chocolate-%2-%1-win32.zip"
 #define CHOCOLATEDOOM_BINARY_NAME "chocolate-doom.exe"
@@ -54,23 +56,14 @@ ChocolateDoomClientExeFile::ChocolateDoomClientExeFile(const QSharedPointer<Choc
 	setConfigKey("BinaryPath");
 }
 
-const QString ChocolateDoomClientExeFile::pathToExe(Message& message, const InternalClientsInspection internalCliInspection) const
+const QString ChocolateDoomClientExeFile::pathToExe(Message &message, const InternalClientsInspection internalCliInspection) const
 {
 	#ifdef Q_OS_WIN32
 	if (!config().value("EnableInternalClient").toBool() || internalCliInspection == NoInternalChecking)
 	{
-	#endif
+		#endif
 		return ExeFile::pathToExe(message, internalCliInspection);
-	#ifdef Q_OS_WIN32
-	}
-	// We'll first check if system's version is compatible
-	if (internalCliInspection != InternalCheckingWithoutSystemCheck)
-	{
-		QString systemPath = tryFindCompatibleSystemEngine(message);
-		if (!systemPath.isEmpty())
-		{
-			return systemPath;
-		}
+		#ifdef Q_OS_WIN32
 	}
 
 	message = Message();
@@ -122,7 +115,7 @@ const QString ChocolateDoomClientExeFile::pathToExe(Message& message, const Inte
 	#endif
 }
 
-const QUrl ChocolateDoomClientExeFile::getUrl(Message& message) const
+const QUrl ChocolateDoomClientExeFile::getUrl(Message &message) const
 {
 	return QUrl(QString(RELEASE_BINARY_URL).arg(version(),
 		engineNameForIwad(server()->iwad())));
@@ -145,49 +138,7 @@ const QString ChocolateDoomClientExeFile::version() const
 	{
 		QString version = server()->gameVersion();
 		// Strip out extraneous data in the version number.
-		return version.right(version.size()-1 - version.lastIndexOf(' '));
-	}
-	return QString();
-}
-
-const QString ChocolateDoomClientExeFile::tryFindCompatibleSystemEngine(Message &message) const
-{
-	Message msg;
-	CommandLineInfo cmdInfo;
-
-	cmdInfo.executable = QFileInfo(ExeFile::pathToExe(msg, NoInternalChecking));
-	cmdInfo.args << "-connect" << "localhost";
-
-	// We'll need to add the iwad.
-	QString iwad = WadPathFinder(server()->wadPathFinder()).find(server()->iwad()).path();
-	if (!iwad.isEmpty())
-	{
-		cmdInfo.args << "-iwad" << iwad;
-	}
-
-	if (!cmdInfo.executable.absoluteFilePath().isEmpty())
-	{
-		AppLogger app(cmdInfo);
-		QTemporaryDir tmpDir;
-		QString captured = QString();
-		if (tmpDir.isValid())
-		{
-			OutputAppLogger output = app.runAndLogExecutableUntilTime(0);
-			QRegExp regExp("Chocolate Doom [0-9]*.[0-9]*.[0-9]*");
-			if (!output.stdoutput.isEmpty())
-			{
-				regExp.indexIn(output.stdoutput.first());
-				captured = regExp.capturedTexts().first();
-			}
-		}
-		if (!captured.isEmpty())
-		{
-			captured.remove("Chocolate Doom ");
-			if (captured == version())
-			{
-				return cmdInfo.executable.path();
-			}
-		}
+		return version.right(version.size() - 1 - version.lastIndexOf(' '));
 	}
 	return QString();
 }

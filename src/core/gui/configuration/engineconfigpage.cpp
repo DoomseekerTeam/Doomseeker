@@ -98,8 +98,12 @@ EngineConfigPage::EngineConfigPage(EnginePlugin *plugin, IniSection &cfg, QWidge
 
 	if (!plugin->data()->hasMasterClient())
 		d->masterAddressBox->hide();
-	if(!plugin->data()->allowsInternalClients)
+	if (!plugin->data()->allowsInternalClients)
 		d->groupInternalClients->hide();
+	if (plugin->data()->warningInternalClientsProvider.isNull())
+		d->internalClientsWarningBox->hide();
+	else
+		d->internalClientsWarningMessage->setText(d->plugin->data()->warningInternalClientsProvider->provide());
 }
 
 EngineConfigPage::~EngineConfigPage()
@@ -196,7 +200,7 @@ void EngineConfigPage::readSettings()
 	d->cboCustomParameters->setEditText(d->config->value("CustomParameters").toString());
 	if (d->plugin->data()->hasMasterClient())
 		d->leMasterserverAddress->setText(d->config->value("Masterserver").toString());
-	if(d->plugin->data()->allowsInternalClients)
+	if (d->plugin->data()->allowsInternalClients)
 	{
 		d->leInternalClientsPath->setText(d->config->value("InternalClientPath").toString());
 		d->groupInternalClients->setChecked(d->config->value("EnableInternalClient").toBool());

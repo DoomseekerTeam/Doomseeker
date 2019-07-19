@@ -32,9 +32,9 @@
 #include "odamexmasterclient.h"
 #include "odamexserver.h"
 
+#include <datapaths.h>
 #include <ini/inisection.h>
 #include <ini/inivariable.h>
-#include <datapaths.h>
 
 INSTALL_PLUGIN(OdamexEnginePlugin)
 
@@ -67,6 +67,7 @@ OdamexEnginePlugin::OdamexEnginePlugin()
 		EP_AllowsLogging,
 		#ifdef Q_OS_WIN32
 		EP_AllowsInternalClients,
+		EP_WarningInternalClientsProvider, new OdamexWarningInternalClientsProvider(),
 		#endif
 		EP_Done
 	);

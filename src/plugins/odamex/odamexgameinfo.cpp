@@ -67,3 +67,8 @@ QString OdamexAboutProvider::provide()
 	aboutDescription += tr("This plugin is distributed under the terms of the LGPL v2.1 or later.\n\n");
 	return aboutDescription;
 }
+
+QString OdamexWarningInternalClientsProvider::provide()
+{
+	return tr("Both server and client executables must be set to be able to use the system client executable.");
+}

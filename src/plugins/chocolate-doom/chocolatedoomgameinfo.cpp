@@ -39,3 +39,8 @@ QString ChocolateDoomAboutProvider::provide()
 	aboutDescription += tr("This plugin is distributed under the terms of the LGPL v2.1 or later.\n\n");
 	return aboutDescription;
 }
+
+QString ChocolateDoomWarningInternalClientsProvider::provide()
+{
+	return tr("This plugin cannot use the system client while internal clients mode is enabled.");
+}

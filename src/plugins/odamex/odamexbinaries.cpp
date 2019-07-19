@@ -26,20 +26,20 @@
 #include "odamexserver.h"
 
 #include <applogger.h>
+#include <gui/internalclientinstaller.h>
 #include <ini/inisection.h>
 #include <ini/inivariable.h>
-#include <serverapi/gamefile.h>
-#include <serverapi/message.h>
-#include <serverapi/gameexefactory.h>
-#include <gui/internalclientinstaller.h>
 #include <QSharedPointer>
 #include <QTemporaryDir>
+#include <serverapi/gameexefactory.h>
+#include <serverapi/gamefile.h>
+#include <serverapi/message.h>
 
 #define RELEASE_BINARY_URL_BASE "https://downloads.sourceforge.net/odamex/odamex-"
 #define ODAMEX_BINARY_NAME "odamex.exe"
 
 #ifdef Q_OS_WIN32
-#define RELEASE_BINARY_URL RELEASE_BINARY_URL_BASE"win32-%1.zip"
+#define RELEASE_BINARY_URL RELEASE_BINARY_URL_BASE "win32-%1.zip"
 #else
 #define RELEASE_BINARY_URL ""
 #endif
@@ -51,14 +51,14 @@ OdamexClientExeFile::OdamexClientExeFile(const QSharedPointer<OdamexServer> &ser
 	setConfigKey("BinaryPath");
 }
 
-const QString OdamexClientExeFile::pathToExe(Message& message, const InternalClientsInspection internalCliInspection) const
+const QString OdamexClientExeFile::pathToExe(Message &message, const InternalClientsInspection internalCliInspection) const
 {
 	#ifdef Q_OS_WIN32
 	if (!config().value("EnableInternalClient").toBool() || internalCliInspection == NoInternalChecking)
 	{
-	#endif
+		#endif
 		return ExeFile::pathToExe(message, internalCliInspection);
-	#ifdef Q_OS_WIN32
+		#ifdef Q_OS_WIN32
 	}
 	// We'll first check if system's version is compatible
 	if (internalCliInspection != InternalCheckingWithoutSystemCheck)
@@ -117,12 +117,12 @@ const QString OdamexClientExeFile::pathToExe(Message& message, const InternalCli
 	#endif
 }
 
-const QUrl OdamexClientExeFile::getUrl(Message& message) const
+const QUrl OdamexClientExeFile::getUrl(Message &message) const
 {
 	return QUrl(QString(RELEASE_BINARY_URL).arg(version()));
 }
 
-void OdamexClientExeFile::postInstallationSteps(Message& message) const
+void OdamexClientExeFile::postInstallationSteps(Message &message) const
 {
 	QDir baseDir(versionInstallPath());
 	foreach (QString baseEntry, baseDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot))
@@ -160,22 +160,24 @@ const QString OdamexClientExeFile::tryFindCompatibleSystemEngine(Message &messag
 	}
 	if (!cmdInfo.executable.absoluteFilePath().isEmpty() && !clientPath.isEmpty())
 	{
+		QTemporaryDir dir;
+		if (dir.isValid())
+			cmdInfo.applicationDir.setPath(dir.path());
+
 		AppLogger app(cmdInfo);
-		QTemporaryDir tmpDir;
 		QString captured;
-		if (tmpDir.isValid())
+		OutputAppLogger output = app.runAndLogExecutableUntilTime(500);
+		QRegExp regExp("Odamex v[0-9]*.[0-9]*.[0-9]*");
+
+		if (!output.stdoutput.isEmpty())
 		{
-			OutputAppLogger output = app.runAndLogExecutableUntilTime(1000);
-			QRegExp regExp("Odamex v[0-9]*.[0-9]*.[0-9]* \\([a-z0-9]+\\)");
-			if (!output.stdoutput.isEmpty())
-			{
-				regExp.indexIn(output.stdoutput.first());
-				captured = regExp.capturedTexts().first();
-			}
+			regExp.indexIn(output.stdoutput.first());
+			captured = regExp.capturedTexts().first();
 		}
+
 		if (!captured.isEmpty())
 		{
-			int beginVersion = captured.indexOf('v')+1;
+			int beginVersion = captured.indexOf('v') + 1;
 			QString capturedVersion = captured.mid(beginVersion,
 				captured.indexOf(' ', beginVersion) - beginVersion);
 			if (capturedVersion == version())

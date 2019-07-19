@@ -30,9 +30,9 @@
 #include "chocolatedoommasterclient.h"
 #include "chocolatedoomserver.h"
 
+#include <datapaths.h>
 #include <ini/inisection.h>
 #include <ini/inivariable.h>
-#include <datapaths.h>
 
 #include <QSharedPointer>
 
@@ -60,6 +60,7 @@ ChocolateDoomEnginePlugin::ChocolateDoomEnginePlugin()
 		EP_CanonicalName, "chocolatedoom",
 		#ifdef Q_OS_WIN32
 		EP_AllowsInternalClients,
+		EP_WarningInternalClientsProvider, new ChocolateDoomWarningInternalClientsProvider(),
 		#endif
 		EP_Done
 	);

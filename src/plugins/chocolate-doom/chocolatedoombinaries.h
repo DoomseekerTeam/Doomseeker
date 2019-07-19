@@ -45,7 +45,6 @@ public:
 private:
 	static const QString executableNameForIwad(const QString &iwad);
 	static const QString engineNameForIwad(const QString &iwad);
-	const QString tryFindCompatibleSystemEngine(Message &message) const;
 };
 
 #endif

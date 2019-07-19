@@ -157,9 +157,12 @@ void EnginePlugin::init(const char *name, const char *const icon[], ...)
 			break;
 		case EP_AllowsEmail:
 			d->allowsEmail = true;
-				break;
-			case EP_AllowsInternalClients:
-				d->allowsInternalClients = true;
+			break;
+		case EP_AllowsInternalClients:
+			d->allowsInternalClients = true;
+			break;
+		case EP_WarningInternalClientsProvider:
+			d->warningInternalClientsProvider.reset(va_arg(va, TextProvider *));
 			break;
 		case EP_AllowsURL:
 			d->allowsURL = true;
