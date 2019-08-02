@@ -102,6 +102,7 @@ private:
 private slots:
 	void autoFindNeighbouringPaths();
 	void btnBrowseInternalClientPathClicked();
+	void updateSystemExecBoxOnInternalClientModeState(bool enabled);
 	void removeCurrentCustomParametersFromStorage();
 	void saveCustomParameters();
 	void showFindFailError();

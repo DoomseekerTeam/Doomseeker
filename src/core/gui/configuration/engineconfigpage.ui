@@ -42,7 +42,13 @@
     </widget>
    </item>
    <item>
-    <widget class="QWidget" name="exePickArea" native="true">
+    <widget class="QGroupBox" name="exePickArea">
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;These are the user-defined (or automatically found) executables that will be used by default. In case that Internal clients mode is shown and enabled, Doomseeker may use an internal client to be compatible with the server.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="title">
+      <string>System executables</string>
+     </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <property name="leftMargin">
        <number>0</number>
@@ -277,8 +283,8 @@
    <slot>saveCustomParameters()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>338</x>
-     <y>62</y>
+     <x>335</x>
+     <y>110</y>
     </hint>
     <hint type="destinationlabel">
      <x>326</x>
@@ -294,7 +300,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>372</x>
-     <y>62</y>
+     <y>110</y>
     </hint>
     <hint type="destinationlabel">
      <x>357</x>
@@ -309,8 +315,8 @@
    <slot>updateCustomParametersSaveState()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>292</x>
-     <y>64</y>
+     <x>293</x>
+     <y>113</y>
     </hint>
     <hint type="destinationlabel">
      <x>291</x>
@@ -325,12 +331,28 @@
    <slot>btnBrowseInternalClientPathClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>343</x>
-     <y>205</y>
+     <x>364</x>
+     <y>329</y>
     </hint>
     <hint type="destinationlabel">
      <x>374</x>
      <y>249</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>groupInternalClients</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>EngineConfigPage</receiver>
+   <slot>updateSystemExecBoxOnInternalClientModeState(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>177</x>
+     <y>213</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>260</x>
+     <y>-14</y>
     </hint>
    </hints>
   </connection>
@@ -340,5 +362,6 @@
   <slot>removeCurrentCustomParametersFromStorage()</slot>
   <slot>updateCustomParametersSaveState()</slot>
   <slot>btnBrowseInternalClientPathClicked()</slot>
+  <slot>updateSystemExecBoxOnInternalClientModeState(bool)</slot>
  </slots>
 </ui>

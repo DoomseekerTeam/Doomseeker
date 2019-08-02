@@ -43,7 +43,6 @@ set(ZANDRONUM_FILES
 	huffman/bitwriter.cpp
 	huffman/huffcodec.cpp
 	huffman/huffman.cpp
-	enginezandronumconfigbox.cpp
 	huffmanqt.cpp
 	huffmanudpsocket.cpp
 	zandronumbinaries.cpp
@@ -73,7 +72,6 @@ set(HEADER_FILES
 	huffman/codec.h
 	huffman/huffcodec.h
 	huffman/huffman.h
-	enginezandronumconfigbox.h
 	huffmanqt.h
 	huffmanudpsocket.h
 	zandronumbinaries.h

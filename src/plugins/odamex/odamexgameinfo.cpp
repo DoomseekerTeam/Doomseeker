@@ -70,5 +70,5 @@ QString OdamexAboutProvider::provide()
 
 QString OdamexWarningInternalClientsProvider::provide()
 {
-	return tr("Both server and client executables must be set to be able to use the system client executable.");
+	return tr("Both server and client system executables must be set to be able to use the system client executable.");
 }

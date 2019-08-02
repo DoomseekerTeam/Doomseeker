@@ -263,7 +263,15 @@ protected:
 		 * @brief Provides an optional warning to be shown in the internal
 		 * clients config menu for the specified plugin.
 		 */
-		EP_WarningInternalClientsProvider
+		EP_WarningInternalClientsProvider,
+		/**
+		 * @brief tells Doomseeker that Internal and System clients are mutually
+		 * exclusive.
+		 *
+		 * This will gray out the system executables box in the config menu when
+		 * "internal clients mode" is enabled.
+		 */
+		EP_InternalAndSystemClientsDisjoint
 	};
 
 	/// Reimplement if you want to perform some ini initialization manually.
@@ -356,6 +364,7 @@ public:
 		bool allowsUpnp;
 		bool allowsUpnpPort;
 		bool allowsLogging;
+		bool internalAndSystemClientsDisjoint;
 		QString canonicalName;
 
 		Data();

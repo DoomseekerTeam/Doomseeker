@@ -36,7 +36,6 @@ public:
 
 	void setupConfig(IniSection &config);
 
-	ConfigPage *configuration(QWidget *parent);
 	GameHost *gameHost();
 	QList<GameMode> gameModes() const;
 	QList<GameCVar> gameModifiers() const;

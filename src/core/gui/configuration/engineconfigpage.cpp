@@ -104,6 +104,8 @@ EngineConfigPage::EngineConfigPage(EnginePlugin *plugin, IniSection &cfg, QWidge
 		d->internalClientsWarningBox->hide();
 	else
 		d->internalClientsWarningMessage->setText(d->plugin->data()->warningInternalClientsProvider->provide());
+
+	updateSystemExecBoxOnInternalClientModeState(d->groupInternalClients->isChecked());
 }
 
 EngineConfigPage::~EngineConfigPage()
@@ -305,4 +307,10 @@ void EngineConfigPage::btnBrowseInternalClientPathClicked()
 		tr("Doomseeker - choose directory for internal clients"), initalDir);
 	if (!strDirpath.isEmpty())
 		d->leInternalClientsPath->setText(strDirpath);
+}
+
+void EngineConfigPage::updateSystemExecBoxOnInternalClientModeState(bool enabled)
+{
+	if (d->plugin->data()->internalAndSystemClientsDisjoint)
+		d->exePickArea->setEnabled(!enabled);
 }

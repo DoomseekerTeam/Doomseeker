@@ -29,7 +29,6 @@
 #include <strings.hpp>
 
 #include "createserverdialogpages/flagspage.h"
-#include "enginezandronumconfigbox.h"
 #include "huffman/huffman.h"
 #include "zandronumbinaries.h"
 #include "zandronumbroadcast.h"
@@ -71,9 +70,9 @@ ZandronumEnginePlugin::ZandronumEnginePlugin()
 		EP_AllowsMOTD,
 		EP_AllowsUpnp,
 		EP_AllowsUpnpPort,
-#ifndef Q_OS_DARWIN
+		#ifndef Q_OS_DARWIN
 		EP_AllowsInternalClients,
-#endif
+		#endif
 		#if defined(Q_OS_WIN32) || defined(Q_OS_MAC)
 		EP_ClientOnly,
 		#endif
@@ -103,11 +102,6 @@ void ZandronumEnginePlugin::setupConfig(IniSection &config)
 	config.createSetting("InternalClientPath",
 		DataPaths::defaultInstance()->pluginLocalDataLocationPath(*this));
 	#endif
-}
-
-ConfigPage *ZandronumEnginePlugin::configuration(QWidget *parent)
-{
-	return new EngineZandronumConfigBox(staticInstance(), *data()->pConfig, parent);
 }
 
 QList<CreateServerDialogPage *> ZandronumEnginePlugin::createServerDialogPages(CreateServerDialog *pDialog)

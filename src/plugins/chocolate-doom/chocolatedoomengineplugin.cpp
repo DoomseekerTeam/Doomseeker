@@ -61,6 +61,7 @@ ChocolateDoomEnginePlugin::ChocolateDoomEnginePlugin()
 		#ifdef Q_OS_WIN32
 		EP_AllowsInternalClients,
 		EP_WarningInternalClientsProvider, new ChocolateDoomWarningInternalClientsProvider(),
+		EP_InternalAndSystemClientsDisjoint,
 		#endif
 		EP_Done
 	);

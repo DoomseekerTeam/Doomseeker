@@ -62,6 +62,7 @@ EnginePlugin::Data::Data()
 	hasMapList = true;
 	icon = nullptr;
 	inGameFileDownloads = false;
+	internalAndSystemClientsDisjoint = false;
 	masterClient = nullptr;
 	pConfig = nullptr;
 	refreshThreshold = 2;
@@ -163,6 +164,9 @@ void EnginePlugin::init(const char *name, const char *const icon[], ...)
 			break;
 		case EP_WarningInternalClientsProvider:
 			d->warningInternalClientsProvider.reset(va_arg(va, TextProvider *));
+			break;
+		case EP_InternalAndSystemClientsDisjoint:
+			d->internalAndSystemClientsDisjoint = true;
 			break;
 		case EP_AllowsURL:
 			d->allowsURL = true;

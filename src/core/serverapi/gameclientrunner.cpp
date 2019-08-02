@@ -529,7 +529,7 @@ bool GameClientRunner::isFatalError() const
 {
 	if (d->joinError.isError())
 	{
-		if (d->joinError.isMissingWadsError() && isIwadFound())
+		if (d->joinError.isMissingWadsError() && canDownloadWadsInGame())
 		{
 			return false;
 		}

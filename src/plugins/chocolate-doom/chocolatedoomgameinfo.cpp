@@ -42,5 +42,5 @@ QString ChocolateDoomAboutProvider::provide()
 
 QString ChocolateDoomWarningInternalClientsProvider::provide()
 {
-	return tr("This plugin cannot use the system client while internal clients mode is enabled.");
+	return tr("This plugin cannot use the client system executable while internal clients mode is enabled.");
 }
