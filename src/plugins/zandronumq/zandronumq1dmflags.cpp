@@ -296,6 +296,8 @@ DMFlagsSection Dmflags::dmflags2()
 	section << DMFlag("Do not count monsters in 'end level when dying' sectors towards kill count",
 		DF2_NOCOUNTENDMONST,
 		tr("Do not count monsters in 'end level when dying' sectors towards kill count"));
+	section << DMFlag("Weapons always refill ammo (DM)", DF2_WEAPONS_STAY_REFILL,
+		tr("Weapons always refill ammo (DM)"));
 	return section;
 }
 

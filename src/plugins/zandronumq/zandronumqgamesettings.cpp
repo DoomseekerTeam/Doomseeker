@@ -100,6 +100,7 @@ const QString LOSE_HALF_AMMO = "LoseHalfAmmo";
 const QString RESPAWN_AUTOMATICALLY = "RespawnAutomatically";
 const QString RESPAWN_FARTHEST_AWAY_FROM_OTHERS = "RespawnFarthestAwayFromOthers";
 const QString WEAPONS_STAY_AFTER_PICKUP = "WeaponsStayAfterPickup";
+const QString WEAPONS_STAY_REFILL = "WeaponsStayRefill";
 const QString DONT_SPAWN_HEALTH = "DontSpawnHealth";
 const QString DONT_SPAWN_ARMOR = "DontSpawnArmor";
 const QString BARRELS_RESPAWN = "BarrelsRespawn";

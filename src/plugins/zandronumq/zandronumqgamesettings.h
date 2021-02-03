@@ -105,6 +105,7 @@ extern const QString LOSE_HALF_AMMO;
 extern const QString RESPAWN_AUTOMATICALLY;
 extern const QString RESPAWN_FARTHEST_AWAY_FROM_OTHERS;
 extern const QString WEAPONS_STAY_AFTER_PICKUP;
+extern const QString WEAPONS_STAY_REFILL;
 extern const QString DONT_SPAWN_HEALTH;
 extern const QString DONT_SPAWN_ARMOR;
 extern const QString BARRELS_RESPAWN;

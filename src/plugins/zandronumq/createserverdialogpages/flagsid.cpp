@@ -157,6 +157,7 @@ void FlagsId::assign()
 	f->cbRespawnAutomatically->setProperty("flagname", RESPAWN_AUTOMATICALLY);
 	f->cbRespawnFarthestAwayFromOthers->setProperty("flagname", RESPAWN_FARTHEST_AWAY_FROM_OTHERS);
 	f->cbWeaponsStayAfterPickup->setProperty("flagname", WEAPONS_STAY_AFTER_PICKUP);
+	f->cbWeaponsStayRefill->setProperty("flagname", WEAPONS_STAY_REFILL);
 	f->cbDontSpawnHealth->setProperty("flagname", DONT_SPAWN_HEALTH);
 	f->cbDontSpawnArmor->setProperty("flagname", DONT_SPAWN_ARMOR);
 	f->cbBarrelsRespawn->setProperty("flagname", BARRELS_RESPAWN);

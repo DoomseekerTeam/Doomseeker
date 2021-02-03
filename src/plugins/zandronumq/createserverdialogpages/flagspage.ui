@@ -1034,6 +1034,13 @@ p, li { white-space: pre-wrap; }
                </widget>
               </item>
               <item>
+               <widget class="QCheckBox" name="cbWeaponsStayRefill">
+                <property name="text">
+                 <string>Weapons always refill ammo</string>
+                </property>
+               </widget>
+              </item>
+              <item>
                <widget class="QCheckBox" name="cbDoubleAmmo">
                 <property name="text">
                  <string>Double ammo</string>
@@ -2034,6 +2041,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>rbKillThePlayer</tabstop>
   <tabstop>cbKeepFragsAfterMapChange</tabstop>
   <tabstop>cbWeaponsStayAfterPickup</tabstop>
+  <tabstop>cbWeaponsStayRefill</tabstop>
   <tabstop>cbDoubleAmmo</tabstop>
   <tabstop>cbDontSpawnHealth</tabstop>
   <tabstop>cbDontSpawnArmor</tabstop>
@@ -3046,7 +3054,7 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
-   <sender>cbDoubleAmmo</sender>
+   <sender>cbWeaponsStayRefill</sender>
    <signal>clicked()</signal>
    <receiver>FlagsPage</receiver>
    <slot>applyWidgetsChange()</slot>
@@ -3058,6 +3066,22 @@ p, li { white-space: pre-wrap; }
     <hint type="destinationlabel">
      <x>586</x>
      <y>232</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbDoubleAmmo</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>597</x>
+     <y>229</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>262</y>
     </hint>
    </hints>
   </connection>

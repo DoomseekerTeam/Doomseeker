@@ -307,6 +307,8 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 		m.insert(Dmflags::DF2_YES_KEEPFRAGS,
 			f->cbKeepFragsAfterMapChange);
 		// - Weapons&ammo
+		m.insert(Dmflags::DF2_WEAPONS_STAY_REFILL,
+			f->cbWeaponsStayRefill);
 		m.insert(Dmflags::DF2_YES_DOUBLEAMMO,
 			f->cbDoubleAmmo);
 		// - Don't spawn
