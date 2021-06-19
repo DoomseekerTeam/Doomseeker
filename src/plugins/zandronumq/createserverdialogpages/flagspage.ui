@@ -1701,6 +1701,16 @@ p, li { white-space: pre-wrap; }
              </property>
             </widget>
            </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatEnableProjectileHitboxFix">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Make projectile hitbox work across entire sprite instead of only upper half.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Enable projectile hitbox fix</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </item>
          <item>
@@ -2101,6 +2111,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>cbCompatMaskedMidtex</tabstop>
   <tabstop>cbCompatBadAngles</tabstop>
   <tabstop>cbCompatDisableCrosshairAccurate</tabstop>
+  <tabstop>cbCompatEnableProjectileHitboxFix</tabstop>
   <tabstop>cbCompatFindShortestTexturesLikeDoom</tabstop>
   <tabstop>cbCompatLimitPainElementals</tabstop>
   <tabstop>cbCompatSpawnItemDropsOnTheFloor</tabstop>
@@ -4415,6 +4426,22 @@ p, li { white-space: pre-wrap; }
   </connection>
   <connection>
    <sender>cbCompatDisableCrosshairAccurate</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>89</x>
+     <y>323</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>338</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatEnableProjectileHitboxFix</sender>
    <signal>clicked()</signal>
    <receiver>FlagsPage</receiver>
    <slot>applyWidgetsChange()</slot>

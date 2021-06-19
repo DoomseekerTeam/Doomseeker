@@ -138,6 +138,7 @@ void FlagsId::assign()
 	f->cbCompatBadAngles->setProperty("flagname", COMPAT_BAD_ANGLES);
 	f->cbCompatDisableCrosshairAccurate->setProperty("flagname", COMPAT_DISABLE_CROSSHAIR_ACCURATE);
 	f->cbCompatDisableWallFriction->setProperty("flagname", COMPAT_DISABLE_WALL_FRICTION);
+	f->cbCompatEnableProjectileHitboxFix->setProperty("flagname", COMPAT_ENABLE_PROJECTILE_HITBOX_FIX);
 	f->cbCompatFloorMove->setProperty("flagname", COMPAT_FLOOR_MOVE);
 	f->cbNoMonsters->setProperty("flagname", NO_MONSTERS);
 	f->cbItemsRespawn->setProperty("flagname", ITEMS_RESPAWN);

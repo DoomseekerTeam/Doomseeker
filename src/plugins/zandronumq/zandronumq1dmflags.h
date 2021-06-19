@@ -295,6 +295,9 @@ public:
 
 		// [geNia] Disable wallfriction
 		ZACOMPATF_DISABLE_WALL_FRICTION = 1 << 29,
+
+		// [geNia] Enable projectile hitbox lowering to match it's sprite
+		ZACOMPATF_ENABLE_PROJECTILE_HITBOX_FIX = 1 << 30,
 	};
 
 	QList<DMFlagsSection> flags();

@@ -171,6 +171,8 @@ DMFlagsSection Dmflags::zandronumqCompatFlags()
 		tr("Disable shooting where crosshair is"));
 	section << DMFlag(COMPAT_DISABLE_WALL_FRICTION, ZACOMPATF_DISABLE_WALL_FRICTION,
 		tr("Disable wall friction"));
+	section << DMFlag(COMPAT_ENABLE_PROJECTILE_HITBOX_FIX, ZACOMPATF_ENABLE_PROJECTILE_HITBOX_FIX,
+		tr("Enable projectile hitbox fix"));
 	return section;
 }
 

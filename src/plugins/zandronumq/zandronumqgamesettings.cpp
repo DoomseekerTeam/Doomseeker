@@ -81,6 +81,7 @@ const QString COMPAT_MASKED_MIDTEX = "CompatMaskedMidtex";
 const QString COMPAT_BAD_ANGLES = "CompatBadAngles";
 const QString COMPAT_DISABLE_CROSSHAIR_ACCURATE = "CompatDisableCrosshairAccurate";
 const QString COMPAT_DISABLE_WALL_FRICTION = "CompatDisableWallFriction";
+const QString COMPAT_ENABLE_PROJECTILE_HITBOX_FIX = "CompatEnableProjectileHitboxFix";
 const QString COMPAT_FLOOR_MOVE = "CompatFloorMove";
 const QString NO_MONSTERS = "NoMonsters";
 const QString ITEMS_RESPAWN = "ItemsRespawn";

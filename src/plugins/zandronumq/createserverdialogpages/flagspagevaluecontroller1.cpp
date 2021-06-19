@@ -180,6 +180,8 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 			f->cbCompatDisableCrosshairAccurate);
 		m.insert(Dmflags::ZACOMPATF_DISABLE_WALL_FRICTION,
 			f->cbCompatDisableWallFriction);
+		m.insert(Dmflags::ZACOMPATF_ENABLE_PROJECTILE_HITBOX_FIX,
+			f->cbCompatEnableProjectileHitboxFix);
 	}
 
 	// DMFlags
