@@ -518,7 +518,6 @@ void Wadseeker::setupSitesUrls()
 
 	auto incorporateUrl = [&] (bool isCustom, const QString &strSiteUrl)
 		{
-			printf("%s\n", strSiteUrl.toStdString().c_str());
 			if (UrlParser::isWadnameTemplateUrl(strSiteUrl))
 			{
 				for (const ModFile &wad : d->seekParametersForCurrentSeek->seekedWads.modFiles())
