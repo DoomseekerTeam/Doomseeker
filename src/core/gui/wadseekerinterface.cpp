@@ -65,7 +65,7 @@ WadseekerInterface::WadseekerInterface(ServerPtr server, QWidget *parent)
 	setupAutomatic();
 	d->lblTop->show();
 	d->lblTop->setText(tr("Downloading WADs for server \"%1\"").arg(server->name()));
-	setCustomSite(server->webSite());
+	setCustomSites(server->allWebSites());
 }
 
 WadseekerInterface::~WadseekerInterface()
@@ -481,7 +481,7 @@ void WadseekerInterface::startSeeking(const QList<PWad> &seekedFilesList)
 	setupIdgames();
 
 	wadseeker.setTargetDirectory(gConfig.wadseeker.targetDirectory);
-	wadseeker.setCustomSite(customSite);
+	wadseeker.setCustomSites(customSites);
 	wadseeker.setMaximumConcurrentSeeks(gConfig.wadseeker.maxConcurrentSiteDownloads);
 	wadseeker.setMaximumConcurrentDownloads(gConfig.wadseeker.maxConcurrentWadDownloads);
 	wadseeker.startSeek(listWads);

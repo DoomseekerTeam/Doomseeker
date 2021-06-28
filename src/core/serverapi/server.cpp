@@ -97,7 +97,7 @@ public:
 	QString version;
 	QList<PWad> wads;
 	QString webSite;
-
+	QStringList additionalWebSites;
 	/**
 	 * This is used to make
 	 * sure that refresh isn't run on
@@ -719,6 +719,11 @@ void Server::setWebSite(const QString &webSite)
 	d->webSite = webSite;
 }
 
+void Server::setAdditionalWebSites(const QStringList &list)
+{
+	d->additionalWebSites = list;
+}
+
 QRgb Server::teamColor(int team) const
 {
 	switch (team)
@@ -805,6 +810,18 @@ const QList<PWad> &Server::wads() const
 const QString &Server::webSite() const
 {
 	return d->webSite;
+}
+
+const QStringList &Server::additionalWebSites() const
+{
+	return d->additionalWebSites;
+}
+
+QStringList Server::allWebSites() const
+{
+	QStringList sites = additionalWebSites();
+	sites.prepend(webSite());
+	return sites;
 }
 
 bool Server::isLan() const

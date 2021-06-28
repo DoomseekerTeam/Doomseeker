@@ -602,6 +602,11 @@ public:
 	void setWebSite(const QString &site);
 
 	/**
+	 * @brief Set additional web site URLs parsed from the response packet.
+	 */
+	void setAdditionalWebSites(const QStringList &list);
+
+	/**
 	 * @brief Amount of time until the round is over, expressed in minutes.
 	 */
 	unsigned short timeLeft() const;
@@ -644,6 +649,16 @@ public:
 	 * @brief Website URL provided by this server.
 	 */
 	const QString &webSite() const;
+
+	/**
+	 * @brief Additional website URLs provided by this server.
+	 */
+	const QStringList &additionalWebSites() const;
+
+	/**
+	 * @brief Get both webSite() and additionalWebSites().
+	 */
+	QStringList allWebSites() const;
 
 	/**
 	 * @brief Does this server come from LAN.

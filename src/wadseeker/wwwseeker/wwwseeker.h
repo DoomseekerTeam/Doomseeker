@@ -148,9 +148,9 @@ public:
 	 */
 	void removeSeekedFile(const QString &file);
 
-	void setCustomSiteUrl(const QUrl &url)
+	void addCustomSiteUrl(const QUrl &url)
 	{
-		d.customSiteUrl = url;
+		d.customSiteUrls.append(url);
 	}
 
 	/**
@@ -241,7 +241,7 @@ private:
 		bool bIsAborting;
 		bool bIsWorking;
 
-		QUrl customSiteUrl;
+		QList<QUrl> customSiteUrls;
 
 		/**
 		 * @brief URLs to sites where specified files may reside.

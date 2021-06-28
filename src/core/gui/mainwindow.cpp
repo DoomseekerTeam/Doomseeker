@@ -639,7 +639,7 @@ void MainWindow::findMissingWADs(const ServerPtr &server)
 		if (!gWadseekerShow->checkWadseekerValidity(this))
 			return;
 		WadseekerInterface *wadseeker = WadseekerInterface::createAutoNoGame();
-		wadseeker->setCustomSite(server->webSite());
+		wadseeker->setCustomSites(server->allWebSites());
 		wadseeker->setWads(dialog.filesToDownload());
 		wadseeker->setAttribute(Qt::WA_DeleteOnClose);
 		wadseeker->show();

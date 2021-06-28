@@ -45,7 +45,7 @@
 		return RESPONSE_BAD; \
 	}
 
-#define SERVER_CHALLENGE    0x02, 0x10, 0x01, 0xAD, 0, 7, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0
+#define SERVER_CHALLENGE    0x02, 0x10, 0x01, 0xAD, 0, 7, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0
 
 #define SPECTATOR_INFO      0x01020304
 #define EXTRA_INFO          0x01020305
@@ -109,7 +109,17 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 
 	CHECK_POS;
 
-	strVersion += QString(" r%1").arg(in.readQUInt32());
+	if (protocolVersion >= 7)
+	{
+		static const QString notFound = "HEAD-HASH-NOTFOUND";
+		QString revision(in.readRawUntilByte('\0'));
+		if (notFound != revision && !revision.isEmpty())
+			strVersion += QString(" %1").arg(revision);
+	}
+	else
+	{
+		strVersion += QString(" r%1").arg(in.readQUInt32());
+	}
 	setGameVersion(strVersion);
 
 	CHECK_POS;
@@ -165,16 +175,58 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 			setMaxClients((quint8)cvarValue.toInt());
 		else if (cvarName == "sv_scorelimit")
 			setScoreLimit(cvarValue.toUInt());
-		else if (cvarName == "sv_gametype")
-		{
-			unsigned int mode = cvarValue.toUInt();
-			if (mode < (unsigned)plugin()->gameModes().size())
-				setGameMode(plugin()->gameModes()[cvarValue.toUInt()]);
-		}
 		else if (cvarName == "sv_website")
 			setWebSite(cvarValue);
+		else if (cvarName == "sv_downloadsites")
+			setAdditionalWebSites(cvarValue.split(' '));
+		else if (cvarName == "sv_timelimit")
+			setTimeLimit(cvarValue.toUInt());
 		else
 			cvars.insert(cvarName, cvarValue);
+	}
+
+	/*
+	  Define the gamemode.
+	  From: https://github.com/odamex/odamex/blob/f0e0416fc42ef06ce8ff1f1c462df6a69fc65fd1/common/g_gametype.cpp#L53
+	  Do not use g_gametypename.
+	*/
+	setGameMode([&]()
+	{
+		return plugin()->gameModes()[([&]()
+		{
+			unsigned int mode = cvars.value("sv_gametype", "0").toUInt();
+			unsigned int lives = cvars.value("g_lives", "0").toUInt();
+			bool sides = cvars.value("g_sides", "0").toUInt();
+			if (mode == 0 && lives > 0)
+				return OdamexGameInfo::MODE_SURVIVAL;
+			else if (mode == 0)
+				return OdamexGameInfo::MODE_COOPERATIVE;
+			else if (mode == 1 && lives > 0)
+				return OdamexGameInfo::MODE_LAST_MARINE_STANDING;
+			else if (mode == 1 && maxPlayers() <= 2)
+				return OdamexGameInfo::MODE_DUEL;
+			else if (mode == 1)
+				return OdamexGameInfo::MODE_DEATHMATCH;
+			else if (mode == 2 && lives > 0)
+				return OdamexGameInfo::MODE_TEAM_LAST_MARINE_STANDING;
+			else if (mode == 2)
+				return OdamexGameInfo::MODE_TEAM_DEATHMATCH;
+			else if (mode == 3 && sides)
+				return OdamexGameInfo::MODE_ATTACK_DEFEND_CTF;
+			else if (mode == 3 && lives > 0)
+				return OdamexGameInfo::MODE_LMS_CTF;
+			else if (mode == 3)
+				return OdamexGameInfo::MODE_CAPTURE_THE_FLAG;
+			else
+				return OdamexGameInfo::MODE_COOPERATIVE; // Arbitrary default
+		}())];
+	}());
+
+	if (webSite().isEmpty() && !additionalWebSites().isEmpty())
+	{
+		auto list = additionalWebSites();
+		setWebSite(list.takeFirst());
+		setAdditionalWebSites(list);
 	}
 
 	if (protocolVersion >= 4)
@@ -193,7 +245,13 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 	setMap(in.readRawUntilByte('\0'));
 	CHECK_POS;
 
-	setTimeLeft(in.readQUInt16());
+	if (protocolVersion >= 6)
+	{
+		if (timeLimit() != 0)
+			setTimeLeft(in.readQUInt16());
+	}
+	else
+		setTimeLeft(in.readQUInt16());
 
 	if (protocolVersion < 5 || gameMode().isTeamGame())
 	{
@@ -275,9 +333,6 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 		Player player(playerName, score, ping, team, spectator);
 		addPlayer(player);
 	}
-
-	if (maxPlayers() == 2 && gameMode().index() == GameMode::SGM_Deathmatch)
-		setGameMode(OdamexGameInfo::gameModeDuel());
 
 	return RESPONSE_GOOD;
 }

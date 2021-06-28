@@ -63,7 +63,7 @@ public:
 	public:
 		bool bIdgamesEnabled;
 		bool bWadArchiveEnabled;
-		QString customSiteUrl;
+		QStringList customSiteUrls;
 		QString idgamesUrl;
 		unsigned maxConcurrentDownloads;
 		unsigned maxConcurrentSeeks;
@@ -408,7 +408,12 @@ void Wadseeker::reportBadUrl(const QUrl &url)
 
 void Wadseeker::setCustomSite(const QString &url)
 {
-	d->seekParameters.customSiteUrl = url;
+	d->seekParameters.customSiteUrls = QStringList(url);
+}
+
+void Wadseeker::setCustomSites(const QStringList &urls)
+{
+	d->seekParameters.customSiteUrls = urls;
 }
 
 void Wadseeker::setIdgamesEnabled(bool bEnabled)
@@ -511,47 +516,38 @@ void Wadseeker::setupSitesUrls()
 	const int PRIORITY_NORMAL = 0;
 	d->wwwSeeker->clearVisitedUrlsList();
 
-	if (UrlParser::isWadnameTemplateUrl(d->seekParametersForCurrentSeek->customSiteUrl))
-	{
-		// If URL containts wadname placeholder we need to create a unique
-		// URL for each searched wad.
-		for (const ModFile &wad : d->seekParametersForCurrentSeek->seekedWads.modFiles())
+	auto incorporateUrl = [&] (bool isCustom, const QString &strSiteUrl)
 		{
-			QUrl url = UrlParser::resolveWadnameTemplateUrl(
-				d->seekParametersForCurrentSeek->customSiteUrl, wad.fileName());
-			if (url.isValid())
+			printf("%s\n", strSiteUrl.toStdString().c_str());
+			if (UrlParser::isWadnameTemplateUrl(strSiteUrl))
 			{
-				d->wwwSeeker->addFileSiteUrlWithPriority(wad.fileName(), url, PRIORITY_CUSTOM);
-			}
-		}
-	}
-	else
-	{
-		d->wwwSeeker->setCustomSiteUrl(d->seekParametersForCurrentSeek->customSiteUrl);
-	}
-
-	for (const QString &strSiteUrl : d->seekParametersForCurrentSeek->sitesUrls)
-	{
-		if (UrlParser::isWadnameTemplateUrl(strSiteUrl))
-		{
-			for (const ModFile &wad : d->seekParametersForCurrentSeek->seekedWads.modFiles())
-			{
-				QUrl url = UrlParser::resolveWadnameTemplateUrl(strSiteUrl, wad.fileName());
-				if (url.isValid())
+				for (const ModFile &wad : d->seekParametersForCurrentSeek->seekedWads.modFiles())
 				{
-					d->wwwSeeker->addFileSiteUrlWithPriority(wad.fileName(), url, PRIORITY_NORMAL);
+					QUrl url = UrlParser::resolveWadnameTemplateUrl(strSiteUrl, wad.fileName());
+					if (url.isValid())
+					{
+						d->wwwSeeker->addFileSiteUrlWithPriority(wad.fileName(), url, PRIORITY_NORMAL);
+					}
 				}
 			}
-		}
-		else
-		{
-			QUrl url(strSiteUrl);
-			if (url.isValid())
+			else
 			{
-				d->wwwSeeker->addSiteUrl(url);
+				QUrl url(strSiteUrl);
+				if (url.isValid())
+				{
+					if (isCustom)
+						d->wwwSeeker->addCustomSiteUrl(url);
+					else
+						d->wwwSeeker->addSiteUrl(url);
+				}
 			}
-		}
-	}
+		};
+
+	for (const auto &urlStr : d->seekParametersForCurrentSeek->customSiteUrls)
+		incorporateUrl(true, urlStr);
+
+	for (const QString &strSiteUrl : d->seekParametersForCurrentSeek->sitesUrls)
+		incorporateUrl(false, strSiteUrl);
 }
 
 void Wadseeker::setupWadArchiveClient(const QList<WadDownloadInfo> &wadDownloadInfos)

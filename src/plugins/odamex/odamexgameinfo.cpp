@@ -22,11 +22,6 @@
 //------------------------------------------------------------------------------
 #include "odamexgameinfo.h"
 
-GameMode OdamexGameInfo::gameModeDuel()
-{
-	return GameMode::ffaGame(MODE_DUEL, tr("Duel"));
-}
-
 QList<DMFlagsSection> OdamexGameInfo::dmFlags()
 {
 	DMFlagsSection section("DMFlags");
@@ -58,6 +53,12 @@ QList<GameMode> OdamexGameInfo::gameModes()
 	gameModesList << GameMode::mkDeathmatch();
 	gameModesList << GameMode::mkTeamDeathmatch();
 	gameModesList << GameMode::mkCaptureTheFlag();
+	gameModesList << GameMode::ffaGame(MODE_DUEL, "Duel");
+	gameModesList << GameMode::ffaGame(MODE_SURVIVAL, "Survival");
+	gameModesList << GameMode::ffaGame(MODE_LAST_MARINE_STANDING, "Last Marine Standing");
+	gameModesList << GameMode::teamGame(MODE_TEAM_LAST_MARINE_STANDING, "Teams Last Marine Standing");
+	gameModesList << GameMode::teamGame(MODE_ATTACK_DEFEND_CTF, "Attack & Defend CTF");
+	gameModesList << GameMode::teamGame(MODE_LMS_CTF, "LMS Capture The Flag");
 	return gameModesList;
 }
 
