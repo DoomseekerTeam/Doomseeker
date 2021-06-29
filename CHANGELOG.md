@@ -9,8 +9,13 @@ and this project does not adhere to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-### Fixed
+### Added
+- Wadseeker: multiple custom sites can now be defined
+- Odamex: Support for Odamex version 0.9 (#3878)
+- Q-Zandronum: Plugin added (#3866)
 - SRB2: Support SRB2 version 2.2.6 (#3851)
+
+### Fixed
 - Windows: updater.exe is now linked statically with the runtime libs (#3759)
 
 ## [1.3.1] - 2020-01-27
