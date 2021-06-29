@@ -70,7 +70,7 @@ p, li { white-space: pre-wrap; }
         <translation>Informacje kontaktowe:</translation>
     </message>
     <message>
-        <source>Copyright © 2009 - 2020 The Doomseeker Team
+        <source>Copyright © 2009 - 2021 The Doomseeker Team
 
 This program is distributed under the terms of the LGPL v2.1 or later.
 
@@ -81,7 +81,7 @@ This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unpo
 
 GeoLite2 available at:
 https://dev.maxmind.com/geoip/geoip2/geolite2/</source>
-        <translation type="vanished">Copyright © 2009 - 2020 The Doomseeker Team
+        <translation type="vanished">Copyright © 2009 - 2021 The Doomseeker Team
 
 Ten program jest rozprowadzany na zasadach licencji LGPL v2.1 lub późniejszej.
 
@@ -94,7 +94,7 @@ Baza GeoLite2 dostępna jest pod adresem:
 https://dev.maxmind.com/geoip/geoip2/geolite2/</translation>
     </message>
     <message>
-        <source>Copyright © 2009 - 2020 The Doomseeker Team
+        <source>Copyright © 2009 - 2021 The Doomseeker Team
 
 This program is distributed under the terms of the LGPL v2.1 or later.
 
@@ -115,7 +115,7 @@ This program uses icons (or derivates of) from following sources:
 - Silk Icon Set (C) Mark James (famfamfam.com)
 - Tango Icon Library / Tango Desktop Project
 </source>
-        <translation type="vanished">Copyright © 2009 - 2020 The Doomseeker Team
+        <translation type="vanished">Copyright © 2009 - 2021 The Doomseeker Team
 
 Ten program jest rozprowadzany na zasadach licencji LGPL v2.1 lub późniejszej.
 
