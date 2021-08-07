@@ -25,7 +25,7 @@
 # to update this file before making a new tag or a new release.
 
 # Info used by version.cpp
-set(VERSION_STRING "1.3.2~beta")
+set(VERSION_STRING "1.3.2")
 
 # Info used by windows.rc
 set(FILEVERSION_DEF "1,3,2,HG_REVISION_NUMBER")

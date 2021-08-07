@@ -8,7 +8,7 @@ This file follows the format of
 and this project does not adhere to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.3.2] - 2021-08-07
 ### Added
 - Wadseeker: multiple custom sites can now be defined
 - Odamex: Support for Odamex version 0.9 (#3878)
@@ -538,6 +538,7 @@ without any warranty.
 
 
 [unreleased]: https://bitbucket.org/Doomseeker/doomseeker/commits/all
+[1.3.2]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.3.2
 [1.3.1]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.3.1
 [1.3]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.3
 [1.2]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.2

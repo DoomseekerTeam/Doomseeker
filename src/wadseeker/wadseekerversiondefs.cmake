@@ -21,7 +21,7 @@
 # Copyright (C) 2017 The Doomseeker Team
 #------------------------------------------------------------------------------
 
-set(VERSION_STRING "2.1~beta")
+set(VERSION_STRING "2.1")
 
 # Version given to CMake's VERSION property (should be straight dotted decimal)
 set(WADSEEKER_LIBVERSION "2.1")
