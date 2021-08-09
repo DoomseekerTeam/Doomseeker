@@ -466,13 +466,13 @@ QString Strings::wrapUrlsWithHtmlATags(const QString &str)
 	QString newString = str;
 
 	int offset = 0;
-	int index = -1;
 	for (;;)
 	{
 		auto match = pattern.match(newString, offset);
 		if (!match.hasMatch())
 			break;
 
+		int index = match.capturedStart(1);
 		QString cap = match.captured(1);
 		int capLength = cap.length();
 
