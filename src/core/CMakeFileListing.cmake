@@ -227,6 +227,7 @@ set(HEADER_FILES
 	pathfinder/pathfind.h
 	pathfinder/pathfinder.h
 	pathfinder/wadpathfinder.h
+	pattern.h
 	patternlist.h
 	plugins/enginedefaults.h
 	plugins/engineplugin.h
@@ -458,6 +459,7 @@ set(SOURCE_FILES
 	pathfinder/pathfind.cpp
 	pathfinder/pathfinder.cpp
 	pathfinder/wadpathfinder.cpp
+	pattern.cpp
 	patternlist.cpp
 	plugins/engineplugin.cpp
 	plugins/pluginloader.cpp

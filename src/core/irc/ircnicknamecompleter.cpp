@@ -25,7 +25,7 @@
 #include "gui/irc/ircuserlistmodel.h"
 
 #include <QCompleter>
-#include <QRegExp>
+#include <QRegularExpression>
 
 class IRCNicknameCompleterState
 {
@@ -41,11 +41,8 @@ public:
 	QString extractNicknamePrefix() const
 	{
 		const QString NICKNAME_MATCH = R"(\[\]\{\}\-\^\`\|\\A-Za-z0-9_)";
-		QRegExp regex(QString("(?:.*)[^%1]?([%1]*)").arg(NICKNAME_MATCH));
-		regex.setCaseSensitivity(Qt::CaseInsensitive);
-		regex.setMinimal(false);
-		regex.indexIn(leftText());
-		return regex.cap(1);
+		QRegularExpression regex(QString("(?:.*)[^%1]?([%1]*)").arg(NICKNAME_MATCH), QRegularExpression::CaseInsensitiveOption);
+		return regex.match(leftText()).captured(1);
 	}
 
 	bool isValid() const

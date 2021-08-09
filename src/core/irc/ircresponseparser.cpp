@@ -33,7 +33,7 @@
 #include "strings.hpp"
 #include <cassert>
 #include <QDateTime>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QStringList>
 
 DClass<IRCResponseParser>
@@ -87,10 +87,10 @@ IRCResponseParseResult IRCResponseParser::parse(const QString &message)
 {
 	QString formattedMessage = message.trimmed();
 
-	QRegExp prefixRegExp("(^:\\S+\\s)(.*)");
-	prefixRegExp.indexIn(formattedMessage);
+	QRegularExpression prefixRegExp("(^:\\S+\\s)(.*)");
+	auto match = prefixRegExp.match(formattedMessage);
 
-	QString prefix = prefixRegExp.cap(1);
+	QString prefix = match.captured(1);
 	QString remainder = formattedMessage.mid(prefix.length());
 
 	d->prefix = Strings::triml(prefix, ":").trimmed();

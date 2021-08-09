@@ -24,13 +24,13 @@
 #include "wadseeker/entities/checksum.h"
 #include "wadseeker/entities/hash.h"
 #include "wadseeker/entities/modfile.h"
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QVector>
 
 
 static QString coerceInternalName(const QString &name)
 {
-	return name.toLower().remove(QRegExp("[^a-z0-9]"));
+	return name.toLower().remove(QRegularExpression("[^a-z0-9]"));
 }
 
 

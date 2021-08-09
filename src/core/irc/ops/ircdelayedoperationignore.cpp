@@ -91,7 +91,7 @@ void IRCDelayedOperationIgnore::onWhoIsUser(const QString &nickname, const QStri
 		ChatNetworksCfg cfg;
 		IRCNetworkEntity network = cfg.network(d->networkDescription());
 		PatternList patterns = network.ignoredUsers();
-		patterns << QRegExp(ignorePattern, Qt::CaseInsensitive, QRegExp::Wildcard);
+		patterns << QRegularExpression(QRegularExpression::wildcardToRegularExpression(ignorePattern), QRegularExpression::CaseInsensitiveOption);
 		network.setIgnoredUsers(patterns);
 		cfg.replaceNetwork(network.description(), network, d->parentWidget);
 		d->network->setNetworkEntity(network);

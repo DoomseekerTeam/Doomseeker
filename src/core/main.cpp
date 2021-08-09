@@ -53,6 +53,7 @@
 #include "localization.h"
 #include "log.h"
 #include "main.h"
+#include "pattern.h"
 #include "plugins/engineplugin.h"
 #include "plugins/pluginloader.h"
 #include "refresher/refresher.h"
@@ -88,6 +89,8 @@ Main::Main(int argc, char *argv[])
 	logVerbosity = LV_Default;
 	updateFailedCode = 0;
 
+	qRegisterMetaType<Pattern>("Pattern");
+	qRegisterMetaTypeStreamOperators<Pattern>("Pattern");
 	qRegisterMetaType<ServerPtr>("ServerPtr");
 	qRegisterMetaType<ServerCPtr>("ServerCPtr");
 }

@@ -36,6 +36,7 @@
 
 #include <cstdarg>
 #include <QPixmap>
+#include <QRegularExpression>
 
 EnginePlugin::Data::Data()
 {
@@ -282,7 +283,7 @@ QString EnginePlugin::nameCanonical() const
 		// Derive.
 		QString name = data()->name;
 		name = name.toLower();
-		name = name.replace(QRegExp("\\s"), "_");
+		name = name.replace(QRegularExpression("\\s"), "_");
 		return name;
 	}
 }

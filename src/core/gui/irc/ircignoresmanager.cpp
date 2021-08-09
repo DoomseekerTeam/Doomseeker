@@ -68,9 +68,9 @@ void IRCIgnoresManager::loadItems()
 {
 	ChatNetworksCfg cfg;
 	IRCNetworkEntity network = cfg.network(d->networkDescription);
-	for (const QRegExp &pattern : network.ignoredUsers())
+	for (const auto &pattern : network.ignoredUsers())
 	{
-		QListWidgetItem *item = new QListWidgetItem(pattern.pattern(), d->list);
+		QListWidgetItem *item = new QListWidgetItem(pattern.userPattern(), d->list);
 		item->setFlags(item->flags() | Qt::ItemIsEditable);
 		d->list->addItem(item);
 	}
@@ -91,7 +91,7 @@ PatternList IRCIgnoresManager::patterns() const
 	{
 		QString text = d->list->item(row)->text();
 		if (!text.trimmed().isEmpty())
-			result << QRegExp(text, Qt::CaseInsensitive, QRegExp::Wildcard);
+			result << Pattern(text, QRegularExpression::CaseInsensitiveOption, Pattern::Wildcard);
 	}
 	return result;
 }

@@ -43,7 +43,7 @@
 #include <QDataStream>
 #include <QDateTime>
 #include <QFileInfo>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <utility>
 
 #define SERVER_CHALLENGE    0xC7, 0x00, 0x00, 0x00
@@ -65,15 +65,14 @@
  */
 ZandronumqVersion::ZandronumqVersion(QString version) : version(version)
 {
-	versionExpression.exactMatch(version);
-	QStringList parts = versionExpression.capturedTexts();
-	major = parts[1].toUShort();
-	minor = parts[2].toUShort();
-	revision = parts[3].toUShort();
-	build = parts[4].toUShort();
-	tag = parts[5];
-	hgRevisionDate = parts[6].toUInt();
-	hgRevisionTime = parts[7].toUShort();
+	auto match = versionExpression.match(version);
+	major = match.captured(1).toUShort();
+	minor = match.captured(2).toUShort();
+	revision = match.captured(3).toUShort();
+	build = match.captured(4).toUShort();
+	tag = match.captured(5);
+	hgRevisionDate = match.captured(6).toUInt();
+	hgRevisionTime = match.captured(7).toUShort();
 }
 
 bool ZandronumqVersion::operator> (const ZandronumqVersion &other) const
@@ -92,7 +91,7 @@ bool ZandronumqVersion::operator> (const ZandronumqVersion &other) const
 	return false;
 }
 
-const QRegExp ZandronumqVersion::versionExpression(R"((\d+).(\d+)(?:.(\d+)(?:.(\d+))?)?(?:-([a-zA-Z]*)?)?(?:-r(\d+)(?:-(\d+))?)?)");
+const QRegularExpression ZandronumqVersion::versionExpression(R"(^(\d+).(\d+)(?:.(\d+)(?:.(\d+))?)?(?:-([a-zA-Z]*)?)?(?:-r(\d+)(?:-(\d+))?)?$)");
 
 ////////////////////////////////////////////////////////////////////////////////
 

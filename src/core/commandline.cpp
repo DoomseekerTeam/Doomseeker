@@ -24,7 +24,7 @@
 
 #include "apprunner.h"
 #include "strings.hpp"
-#include <QRegExp>
+#include <QRegularExpression>
 
 void CommandLine::escapeArgs(QStringList &args)
 {
@@ -40,7 +40,7 @@ static bool needsQuoteWrap(const QString &arg)
 {
 	if (arg.isEmpty())
 		return true;
-	QRegExp reallySafestCharsIHope = QRegExp("[^a-z0-9/\\_-+]", Qt::CaseInsensitive);
+	const auto reallySafestCharsIHope = QRegularExpression("[^a-z0-9/\\\\_\\-+]", QRegularExpression::CaseInsensitiveOption);
 	return arg.contains(reallySafestCharsIHope);
 }
 

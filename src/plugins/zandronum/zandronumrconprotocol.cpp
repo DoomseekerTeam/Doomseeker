@@ -30,6 +30,7 @@
 #include <QCryptographicHash>
 #include <QDateTime>
 #include <QMessageBox>
+#include <QRegularExpression>
 
 #define RCON_PROTOCOL_VERSION   3
 
@@ -257,7 +258,7 @@ void ZandronumRConProtocol::processEstablishingPacket(QIODevice &ioDevice)
 
 void ZandronumRConProtocol::processPacket(QIODevice *ioDevice, bool initial, int maxUpdates)
 {
-	static const QRegExp colorCode(R"(\\c(\[[a-zA-Z0-9]*\]|[a-v+\-!*]))");
+	static const QRegularExpression colorCode(R"(\\c(\[[a-zA-Z0-9]*\]|[a-v+\-!*]))");
 
 	// QIODevice is assumed to be already opened at this point.
 	QDataStream dataStream(ioDevice);

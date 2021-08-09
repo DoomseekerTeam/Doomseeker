@@ -31,7 +31,7 @@
 #include "ui_dockBuddiesList.h"
 #include <QMenu>
 #include <QMessageBox>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QStandardItemModel>
 
 class BuddyLocationInfo
@@ -92,9 +92,9 @@ DockBuddiesList::DockBuddiesList(QWidget *parent)
 	// Read config
 	d->patterns = gConfig.doomseeker.buddies;
 
-	for (const QRegExp &pattern : d->patterns)
+	for (const auto &pattern : d->patterns)
 	{
-		d->patternsList->addItem(pattern.pattern());
+		d->patternsList->addItem(pattern.userPattern());
 	}
 
 	connect(d->addButton, SIGNAL(clicked()), this, SLOT(addBuddy()));
@@ -118,9 +118,9 @@ void DockBuddiesList::addBuddy()
 	if (result != QDialog::Accepted)
 		return;
 
-	QRegExp pattern = dlg.pattern();
+	auto pattern = dlg.pattern();
 	d->patterns << pattern;
-	d->patternsList->addItem(pattern.pattern());
+	d->patternsList->addItem(pattern.userPattern());
 
 	scan(masterClient);
 
@@ -295,10 +295,10 @@ void AddBuddyDlg::buttonBoxClicked(QAbstractButton *button)
 		reject();
 }
 
-QRegExp AddBuddyDlg::pattern() const
+Pattern AddBuddyDlg::pattern() const
 {
-	QRegExp::PatternSyntax syntax = d->basicPattern->isChecked() ? QRegExp::Wildcard : QRegExp::RegExp;
-	return QRegExp(d->patternBox->text(), Qt::CaseInsensitive, syntax);
+	auto syntax = d->basicPattern->isChecked() ? Pattern::Wildcard : Pattern::RegExp;
+	return Pattern(d->patternBox->text(), QRegularExpression::CaseInsensitiveOption, syntax);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

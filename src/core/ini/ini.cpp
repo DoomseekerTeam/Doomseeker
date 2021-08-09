@@ -28,6 +28,7 @@
 #include "strings.hpp"
 
 #include <cassert>
+#include <QRegularExpression>
 
 DClass<Ini>
 {
@@ -100,7 +101,7 @@ QVector<IniSection> Ini::sectionsArray(const QString &regexPattern)
 {
 	QVector<IniSection> sectionsReferencesArray;
 
-	QRegExp regExp(regexPattern, Qt::CaseInsensitive);
+	QRegularExpression regExp(regexPattern, QRegularExpression::CaseInsensitiveOption);
 
 	QStringList groups = d->provider->allSections();
 

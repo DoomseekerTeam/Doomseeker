@@ -559,6 +559,6 @@ void ServerList::updateHeaderTitles()
 
 void ServerList::updateSearch(const QString &search)
 {
-	QRegExp pattern(QString("*") + search + "*", Qt::CaseInsensitive, QRegExp::Wildcard);
-	proxyModel->setFilterRegExp(pattern);
+	QRegularExpression pattern(QRegularExpression::escape(search), QRegularExpression::CaseInsensitiveOption);
+	proxyModel->setFilterRegularExpression(pattern);
 }

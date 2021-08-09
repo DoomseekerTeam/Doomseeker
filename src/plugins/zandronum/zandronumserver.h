@@ -54,7 +54,7 @@ public:
 	bool operator> (const ZandronumVersion &other) const;
 
 protected:
-	static const QRegExp versionExpression;
+	static const QRegularExpression versionExpression;
 	QString version;
 
 	unsigned short int major;

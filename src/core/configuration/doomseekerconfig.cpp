@@ -56,16 +56,16 @@ static PatternList readPre1Point2BuddiesList(const QString &configEntry)
 		if (!listReader.checkToken(TK_Identifier))
 			break; // Invalid so lets just use what we have.
 
-		QRegExp::PatternSyntax syntax;
+		Pattern::Syntax syntax;
 		if (listReader->str().compare("basic") == 0)
-			syntax = QRegExp::Wildcard;
+			syntax = Pattern::Wildcard;
 		else
-			syntax = QRegExp::RegExp;
+			syntax = Pattern::RegExp;
 
 		if (!listReader.checkToken(TK_StringConst))
 			break;
 
-		QRegExp pattern(listReader->str(), Qt::CaseInsensitive, syntax);
+		Pattern pattern(listReader->str(), QRegularExpression::CaseInsensitiveOption, syntax);
 		if (pattern.isValid())
 			patterns << pattern;
 
