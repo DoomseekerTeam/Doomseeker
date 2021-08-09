@@ -559,6 +559,11 @@ void ServerList::updateHeaderTitles()
 
 void ServerList::updateSearch(const QString &search)
 {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
 	QRegularExpression pattern(QRegularExpression::escape(search), QRegularExpression::CaseInsensitiveOption);
 	proxyModel->setFilterRegularExpression(pattern);
+#else
+	QRegExp pattern(QString("*") + search + "*", Qt::CaseInsensitive, QRegExp::Wildcard);
+	proxyModel->setFilterRegExp(pattern);
+#endif
 }
