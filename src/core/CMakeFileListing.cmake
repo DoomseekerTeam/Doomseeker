@@ -461,6 +461,7 @@ set(SOURCE_FILES
 	pathfinder/wadpathfinder.cpp
 	pattern.cpp
 	patternlist.cpp
+	patternwildcard.cpp
 	plugins/engineplugin.cpp
 	plugins/pluginloader.cpp
 	random.cpp

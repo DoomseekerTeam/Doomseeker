@@ -58,6 +58,16 @@ public:
 
 	QString userPattern() const;
 	void setUserPattern(const QString &pattern, Syntax syntax = RegExp);
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+	static QString wildcardToRegularExpression(const QString &pattern)
+	{
+		return QRegularExpression::wildcardToRegularExpression(pattern);
+	}
+#else
+	// Copy of Qt 5.15 version of this function is included in patternwildcard.cpp
+	static QString wildcardToRegularExpression(const QString &pattern);
+#endif
 };
 
 QDataStream &operator<<(QDataStream &out, const Pattern &re);

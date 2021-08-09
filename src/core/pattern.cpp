@@ -63,17 +63,21 @@ void Pattern::setUserPattern(const QString &pattern, Syntax syntax)
 	d->syntax = syntax;
 
 	if (syntax == Wildcard)
-		setPattern(QRegularExpression::wildcardToRegularExpression(pattern));
+		setPattern(wildcardToRegularExpression(pattern));
 	else
 		setPattern(pattern);
 }
 
 QDataStream &operator<<(QDataStream &out, const Pattern &re)
 {
-	return out << static_cast<const QRegularExpression &>(re) << re.d->userPattern << re.d->syntax;
+	quint8 syntax = re.d->syntax;
+	return out << static_cast<const QRegularExpression &>(re) << re.d->userPattern << syntax;
 }
 
 QDataStream &operator>>(QDataStream &in, Pattern &re)
 {
-	return in >> static_cast<QRegularExpression &>(re) >> re.d->userPattern >> re.d->syntax;
+	quint8 syntax;
+	in >> static_cast<QRegularExpression &>(re) >> re.d->userPattern >> syntax;
+	re.d->syntax = static_cast<Pattern::Syntax>(syntax);
+	return in;
 }
