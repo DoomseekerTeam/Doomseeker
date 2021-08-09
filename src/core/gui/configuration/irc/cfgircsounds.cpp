@@ -7,12 +7,14 @@
 #include "irc/configuration/ircconfig.h"
 #include "ui_cfgircsounds.h"
 
-#include <QFile>
+#include <QFileInfo>
 #include <QFileDialog>
-#include <QSound>
+#include <QSoundEffect>
 
 DClass<CFGIRCSounds> : public Ui::CFGIRCSounds
 {
+public:
+	QSoundEffect *sfx;
 };
 
 DPointered(CFGIRCSounds)
@@ -20,6 +22,8 @@ DPointered(CFGIRCSounds)
 CFGIRCSounds::CFGIRCSounds(QWidget *parent)
 	: ConfigPage(parent)
 {
+	d->sfx = new QSoundEffect(this);
+
 	d->setupUi(this);
 	d->lblNicknameUsedWarning->hide();
 	d->lblPrivateMessageWarning->hide();
@@ -67,9 +71,12 @@ void CFGIRCSounds::playPrivateMessage()
 
 void CFGIRCSounds::playSound(const QString &path) const
 {
-	QFile file(path);
+	QFileInfo file(path);
 	if (file.exists())
-		QSound::play(path);
+	{
+		d->sfx->setSource(QUrl::fromLocalFile(file.absoluteFilePath()));
+		d->sfx->play();
+	}
 }
 
 void CFGIRCSounds::readSettings()

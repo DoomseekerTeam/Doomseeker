@@ -25,7 +25,7 @@
 
 #include <QMap>
 
-class QSound;
+class QSoundEffect;
 
 /**
  * @brief Part of IRC UI package. Plays IRC related sounds.
@@ -61,9 +61,9 @@ public:
 	void playIfAvailable(SoundType sound);
 
 private:
-	QMap<SoundType, QSound *> sounds;
+	QMap<SoundType, QSoundEffect *> sounds;
 
-	QSound *loadIfExists(const QString &path);
+	QSoundEffect *loadIfExists(const QString &path);
 	void unload();
 };
 
