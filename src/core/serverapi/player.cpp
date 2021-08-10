@@ -96,7 +96,7 @@ QString Player::nameColorTagsStripped() const
 	QString ret;
 	for (int i = 0; i < d->name.length(); ++i)
 	{
-		if (d->name[i] < 32 || d->name[i] > 126)
+		if (d->name[i] < QChar(32) || d->name[i] > QChar(126))
 		{
 			// Strip on \c.
 			// Removing the control characters is still a good idea though.
@@ -134,7 +134,7 @@ QString Player::nameFormatted() const
 	for (const auto &c : d->name)
 	{
 		// cut out bad characters
-		if ((c < 32 || c > 126) && c != ESCAPE_COLOR_CHAR)
+		if ((c < QChar(32) || c > QChar(126)) && c != ESCAPE_COLOR_CHAR)
 			continue;
 
 		switch (c.toLatin1())

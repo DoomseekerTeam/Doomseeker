@@ -85,7 +85,6 @@
 #include <QAction>
 #include <QApplication>
 #include <QDesktopServices>
-#include <QDesktopWidget>
 #include <QDockWidget>
 #include <QFileInfo>
 #include <QHeaderView>

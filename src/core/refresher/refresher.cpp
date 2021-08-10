@@ -55,7 +55,7 @@ public:
 		time.start();
 	}
 
-	bool operator==(const ServerRefreshTime &other)
+	bool operator==(const ServerRefreshTime &other) const
 	{
 		return server == other.server;
 	}

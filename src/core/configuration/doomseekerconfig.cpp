@@ -297,7 +297,7 @@ DoomseekerConfig::DoomseekerCfg::DoomseekerCfg()
 	this->previousCreateServerExecDir = "";
 	this->previousCreateServerLogDir = "";
 	this->previousCreateServerWadDir = "";
-	this->slotStyle = 1;
+	this->slotStyle = "blocks";
 	this->serverListSortIndex = -1;
 	this->serverListSortDirection = Qt::DescendingOrder;
 	this->wadPaths = FileSearchPath::fromStringList(gDefaultDataPaths->defaultWadPaths());

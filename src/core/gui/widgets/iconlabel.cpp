@@ -41,11 +41,6 @@ IconLabel::IconLabel(QWidget *pParent)
 	this->setContentsMargins(0, 0, 0, 0);
 }
 
-const QPixmap *IconLabel::pixmap() const
-{
-	return lblIcon->pixmap();
-}
-
 QString IconLabel::text() const
 {
 	return lblText->text();
