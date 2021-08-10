@@ -97,10 +97,6 @@ configure_file(
 )
 include("CMakeFileListing.cmake")
 
-qt5_add_resources(doomseekerResources
-	${Doomseeker_SOURCE_DIR}/media/resources.qrc
-)
-
 # Translations
 set (TRANSLATIONS_FILES
 	translations/ca_ES.ts
@@ -158,8 +154,8 @@ configure_file(versiondefs.h.in versiondefs.h)
 set(HEADER_FILES "${HEADER_FILES}" versiondefs.h)
 
 add_executable(doomseeker
+	${Doomseeker_SOURCE_DIR}/media/resources.qrc
 	${doomseekerUI}
-	${doomseekerResources}
 	${QM_FILES}
 	${UI_FILES}
 	${SOURCE_FILES}
@@ -212,7 +208,7 @@ foreach(FILE_TO_COPY ${TRANSLATION_FILES_TO_COPY})
 	)
 endforeach(FILE_TO_COPY)
 
-set_target_properties(doomseeker PROPERTIES AUTOMOC ON AUTOUIC ON)
+set_target_properties(doomseeker PROPERTIES AUTOMOC ON AUTOUIC ON AUTORCC ON)
 # Allow plugins to link with doomseeker
 set_target_properties(doomseeker PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR} ENABLE_EXPORTS 1)
 
