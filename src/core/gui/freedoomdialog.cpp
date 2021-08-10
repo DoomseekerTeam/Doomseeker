@@ -30,7 +30,11 @@
 #include "ui_freedoomdialog.h"
 #include <QCheckBox>
 #include <QCompleter>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#include <QFileSystemModel>
+#else
 #include <QDirModel>
+#endif
 #include <QMessageBox>
 #include <wadseeker/entities/checksum.h>
 #include <wadseeker/entities/modset.h>
@@ -227,7 +231,15 @@ ModSet FreedoomDialog::selectedModFiles() const
 void FreedoomDialog::setupInstallPaths()
 {
 	auto completer = new QCompleter(this);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+	// FIXME: QFileSystemModel is the replacement for QDirModel since Qt 4, but
+	// it doesn't seem to work the way it should. Searching suggests others are
+	// struggling with this and not sure if a solution has been found. For now
+	// we use this for the sake of getting Qt 6 working.
+	completer->setModel(new QFileSystemModel(completer));
+#else
 	completer->setModel(new QDirModel(completer));
+#endif
 	d->cboInstallPath->setCompleter(completer);
 
 	for (const FileSearchPath &path : gConfig.combinedWadseekPaths())
