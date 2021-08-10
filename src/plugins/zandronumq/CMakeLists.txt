@@ -19,20 +19,10 @@
 # Copyright (C) 2012 "Zalewa" <zalewapl@gmail.com>
 # Copyright (C) 2020 "geNia" <geniann93@gmail.com>
 #------------------------------------------------------------------------------
-cmake_minimum_required(VERSION 2.8.12)
-
-if(POLICY CMP0071)
-	cmake_policy(SET CMP0071 NEW)
-endif()
 
 set(PLUGIN_NAME zandronumq)
 set(PLUGIN_VERSION 2)
 include(../PluginHeader.cmake)
-
-qt5_wrap_ui(ZANDRONUMQ_UI_FILES
-	createserverdialogpages/flagspage.ui
-	createserverdialogpages/votingsetupwidget.ui
-)
 
 set(ZANDRONUMQ_FILES
 	createserverdialogpages/flagsid.cpp
@@ -106,7 +96,6 @@ add_library(${PLUGIN_NAME}
 	MODULE
 	${ZANDRONUMQ_FILES}
 	${HEADER_FILES}
-	${ZANDRONUMQ_UI_FILES}
 	${QM_FILES}
 )
 

@@ -18,7 +18,6 @@
 #------------------------------------------------------------------------------
 # Copyright (C) 2009 Braden "Blzut3" Obrzut <admin@maniacsvault.net>
 #------------------------------------------------------------------------------
-cmake_minimum_required(VERSION 2.8.12)
 
 set(PLUGIN_NAME odamex)
 set(PLUGIN_VERSION 37)

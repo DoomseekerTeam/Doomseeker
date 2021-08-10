@@ -37,13 +37,6 @@ cmake_minimum_required(VERSION 2.8.12)
 # Conclusion: If current MSVC subsystem setup is changed the code may not
 # compile, as the proper entry point will be missing.
 
-if (POLICY CMP0046)
-	cmake_policy(SET CMP0046 NEW)
-endif()
-if (POLICY CMP0071)
-	cmake_policy(SET CMP0071 NEW)
-endif()
-
 if (WIN32 OR APPLE)
 	set(DEFAULT_NONFREE_INSTALL "yes")
 else()
@@ -103,8 +96,6 @@ configure_file(
 	NEWLINE_STYLE LF
 )
 include("CMakeFileListing.cmake")
-
-qt5_wrap_ui(doomseekerUI ${UI_FILES})
 
 qt5_add_resources(doomseekerResources
 	${Doomseeker_SOURCE_DIR}/media/resources.qrc
@@ -166,10 +157,6 @@ include("versiondefs.cmake")
 configure_file(versiondefs.h.in versiondefs.h)
 set(HEADER_FILES "${HEADER_FILES}" versiondefs.h)
 
-if (POLICY CMP0028)
-	cmake_policy(SET CMP0028 NEW)
-endif()
-
 add_executable(doomseeker
 	${doomseekerUI}
 	${doomseekerResources}
@@ -225,7 +212,7 @@ foreach(FILE_TO_COPY ${TRANSLATION_FILES_TO_COPY})
 	)
 endforeach(FILE_TO_COPY)
 
-set_target_properties(doomseeker PROPERTIES AUTOMOC 1)
+set_target_properties(doomseeker PROPERTIES AUTOMOC ON AUTOUIC ON)
 # Allow plugins to link with doomseeker
 set_target_properties(doomseeker PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR} ENABLE_EXPORTS 1)
 

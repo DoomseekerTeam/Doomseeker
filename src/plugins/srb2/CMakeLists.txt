@@ -18,7 +18,6 @@
 #------------------------------------------------------------------------------
 # Copyright (C) 2016 "Zalewa" <zalewapl@gmail.com>
 #------------------------------------------------------------------------------
-cmake_minimum_required(VERSION 2.8.12)
 
 set(PLUGIN_NAME srb2)
 set(PLUGIN_VERSION 15)

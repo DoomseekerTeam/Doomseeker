@@ -19,12 +19,8 @@
 # Copyright (C) 2009 "Zalewa" <zalewapl@gmail.com>
 #------------------------------------------------------------------------------
 
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.5...3.21)
 project(Wadseeker)
-
-if(POLICY CMP0042)
-	cmake_policy(SET CMP0042 NEW)
-endif()
 
 if (MSVC)
 	set(CMAKE_SHARED_LIBRARY_PREFIX "lib")
@@ -41,16 +37,8 @@ if(NOT DEFINED CMAKE_INSTALL_LIBDIR)
 endif()
 
 # C++ standard
-if(CMAKE_VERSION VERSION_LESS "3.1")
-	if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
-	else()
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-	endif ()
-else ()
-		set(CMAKE_CXX_STANDARD 11)
-		set(CXX_STANDARD_REQUIRED ON)
-endif ()
+set(CMAKE_CXX_STANDARD 11)
+set(CXX_STANDARD_REQUIRED ON)
 
 add_subdirectory(lzma)
 
