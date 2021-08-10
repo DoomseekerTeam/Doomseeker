@@ -127,7 +127,7 @@ ConfigPage::Validation CFGWadseekerGeneral::validate()
 {
 	QString error;
 
-	QFileInfo targetDirectory = d->targetDirectory();
+	QFileInfo targetDirectory(d->targetDirectory());
 	if (error.isEmpty() && d->targetDirectory().isEmpty())
 		error = tr("No path specified.");
 

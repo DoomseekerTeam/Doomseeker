@@ -90,7 +90,7 @@ void ChatLogRotate::purgeOld(const IRCNetworkEntity &network, const QString &rec
 	for (const QString &entry : ChatLogArchive::listArchivedLogsSortedByTime(network, recipient))
 	{
 		QString entryPath = QString("%1/%2").arg(dirPath, entry);
-		if (isEligibleForRemoval(entryPath))
+		if (isEligibleForRemoval(QFileInfo(entryPath)))
 		{
 			gLog << QString("IRC: Removed archived log file '%1'").arg(entryPath);
 			QFile file(entryPath);

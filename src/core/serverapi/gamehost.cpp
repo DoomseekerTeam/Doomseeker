@@ -428,7 +428,7 @@ void GameHost::setupGamePaths()
 		setMessage(Message::customError(error));
 		return;
 	}
-	d->currentCmdLine->executable = params().executablePath();
+	d->currentCmdLine->executable = QFileInfo(params().executablePath());
 	d->currentCmdLine->applicationDir = fileInfo.dir();
 }
 

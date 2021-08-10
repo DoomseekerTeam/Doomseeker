@@ -621,7 +621,7 @@ void GameClientRunner::setArgForDemoRecord(const QString &arg)
 
 void GameClientRunner::setExecutable(const QString &path)
 {
-	d->cli->executable = path;
+	d->cli->executable = QFileInfo(path);
 }
 
 void GameClientRunner::setWorkingDir(const QString &path)

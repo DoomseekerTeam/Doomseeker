@@ -77,9 +77,10 @@ static QStringList uniquePaths(const QStringList &paths)
 	QStringList result;
 	for (const QString &path : paths)
 	{
-		if (!uniqueMarkers.contains(path))
+		QFileInfo fileInfo(path);
+		if (!uniqueMarkers.contains(fileInfo))
 		{
-			uniqueMarkers << path;
+			uniqueMarkers << fileInfo;
 			result << path;
 		}
 	}

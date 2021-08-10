@@ -75,7 +75,7 @@ WadInstaller::WadInstallerResult WadInstaller::installArchive(UnArchive &archive
 			#endif
 			if (archive.extract(entryIndex, filePath))
 			{
-				result.installedWads << filePath;
+				result.installedWads << QFileInfo(filePath);
 			}
 		}
 	}
@@ -129,7 +129,7 @@ WadInstaller::WadInstallerResult WadInstaller::installFile(const QString &fileNa
 
 	file.close();
 
-	return WadInstallerResult::makeSuccess(filePath);
+	return WadInstallerResult::makeSuccess(QFileInfo(filePath));
 }
 
 WadInstaller::WadInstallerResult WadInstaller::makeSureDirPathExists(QDir &dir)
