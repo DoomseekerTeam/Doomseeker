@@ -726,7 +726,7 @@ void DoomseekerConfig::WadseekerCfg::load(IniSection &section)
 
 	// Complex data values
 	this->searchURLs.clear();
-	QStringList urlList = section["SearchURLs"].valueString().split(";", QString::SkipEmptyParts);
+	QStringList urlList = section["SearchURLs"].valueString().split(";", Qt::SkipEmptyParts);
 	for (const QString &url : urlList)
 	{
 		this->searchURLs << QUrl::fromPercentEncoding(url.toUtf8());

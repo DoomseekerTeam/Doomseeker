@@ -99,7 +99,7 @@ void WadseekerInterface::accept()
 		else
 		{
 			seekedWads.clear();
-			QStringList pwadNames = d->leWadName->text().split(',', QString::SkipEmptyParts);
+			QStringList pwadNames = d->leWadName->text().split(',', Qt::SkipEmptyParts);
 			for (QString pwadName : pwadNames)
 			{
 				seekedWads << pwadName.trimmed();

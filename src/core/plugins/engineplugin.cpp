@@ -257,7 +257,7 @@ void EnginePlugin::init(const char *name, const char *const icon[], ...)
 		case EP_GameFileSearchSuffixes:
 		{
 			QString suffixes = va_arg(va, const char *);
-			d->gameFileSearchSuffixes = suffixes.split(";", QString::SkipEmptyParts);
+			d->gameFileSearchSuffixes = suffixes.split(";", Qt::SkipEmptyParts);
 			break;
 		}
 		}

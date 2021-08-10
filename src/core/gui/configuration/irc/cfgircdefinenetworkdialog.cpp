@@ -26,6 +26,7 @@
 #include "irc/chatnetworknamer.h"
 #include "irc/configuration/chatnetworkscfg.h"
 #include "irc/entities/ircnetworkentity.h"
+#include "strings.hpp"
 #include <cassert>
 #include <QMessageBox>
 
@@ -130,7 +131,7 @@ IRCNetworkEntity CFGIRCDefineNetworkDialog::getNetworkEntity() const
 	autojoinChannels.remove('\r').replace('\n', ' ');
 
 	entity.setAddress(d->leAddress->text().trimmed());
-	entity.setAutojoinChannels(autojoinChannels.split(" ", QString::SkipEmptyParts));
+	entity.setAutojoinChannels(autojoinChannels.split(" ", Qt::SkipEmptyParts));
 	entity.setAutojoinCommands(autojoinCommands());
 	entity.setDescription(d->leDescription->text().trimmed());
 	entity.setNickservCommand(d->leNickservCommand->text().trimmed());

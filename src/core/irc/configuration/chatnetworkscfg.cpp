@@ -25,6 +25,7 @@
 #include "ini/inisection.h"
 #include "irc/chatlogs.h"
 #include "irc/configuration/ircconfig.h"
+#include "strings.hpp"
 #include "patternlist.h"
 #include <QString>
 
@@ -156,7 +157,7 @@ IRCNetworkEntity ChatNetworksCfg::loadNetwork(const IniSection &section) const
 	network.setAddress(section["Address"]);
 	network.setAutojoinNetwork(section["bAutojoinNetwork"]);
 	network.setAutojoinChannels(static_cast<QString>(section["AutojoinChannels"])
-		.split(" ", QString::SkipEmptyParts));
+		.split(" ", Qt::SkipEmptyParts));
 	network.setAutojoinCommands(section.value("AutojoinCommands").toStringList());
 	network.setDescription(section["Description"]);
 	network.setIgnoredUsers(PatternList::deserializeQVariant(section.value("IgnoredUsers")));

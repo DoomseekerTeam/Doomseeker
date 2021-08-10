@@ -25,6 +25,7 @@
 
 #include "configuration/doomseekerconfig.h"
 #include "gui/entity/serverlistfilterinfo.h"
+#include "strings.hpp"
 
 #include <QAction>
 
@@ -140,8 +141,8 @@ ServerListFilterInfo ServerFilterDock::filterInfo() const
 	filterInfo.maxPing = d->spinMaxPing->value();
 	filterInfo.testingServers = Doomseeker::checkboxTristateToShowMode(d->cbShowTestingServers->checkState());
 	filterInfo.serverName = d->leServerName->text();
-	filterInfo.wads = d->leWads->text().trimmed().split(",", QString::SkipEmptyParts);
-	filterInfo.wadsExcluded = d->leExcludeWads->text().trimmed().split(",", QString::SkipEmptyParts);
+	filterInfo.wads = d->leWads->text().trimmed().split(",", Qt::SkipEmptyParts);
+	filterInfo.wadsExcluded = d->leExcludeWads->text().trimmed().split(",", Qt::SkipEmptyParts);
 
 	return filterInfo;
 }

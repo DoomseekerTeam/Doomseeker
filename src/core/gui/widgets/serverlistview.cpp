@@ -118,7 +118,7 @@ void ServerListView::mouseReleaseEvent(QMouseEvent *event)
 	QModelIndex index = indexAt(event->pos());
 	switch (event->button())
 	{
-	case Qt::MidButton:
+	case Qt::MiddleButton:
 		if (index.isValid())
 			emit middleMouseClicked(index, event->pos());
 		break;
