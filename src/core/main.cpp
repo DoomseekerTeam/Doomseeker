@@ -28,6 +28,7 @@
 #include <QLabel>
 #include <QMainWindow>
 #include <QMessageBox>
+#include <QMetaType>
 #include <QObject>
 #include <QSslConfiguration>
 #include <QThreadPool>

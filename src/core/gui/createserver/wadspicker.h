@@ -25,9 +25,8 @@
 
 #include "dptr.h"
 
+#include <QtContainerFwd>
 #include <QWidget>
-
-class QStringList;
 
 class WadsPicker : public QWidget
 {

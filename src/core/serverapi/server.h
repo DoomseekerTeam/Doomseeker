@@ -28,6 +28,7 @@
 #include "global.h"
 #include "serverapi/polymorphism.h"
 #include "serverapi/serverptr.h"
+#include "serverapi/serverstructs.h"
 
 #include <QColor>
 #include <QHostAddress>
@@ -45,12 +46,10 @@ class EnginePlugin;
 class ExeFile;
 class GameCVar;
 class GameHost;
-class GameMode;
 class GameClientRunner;
 class PathFinder;
 class Player;
 class PlayersList;
-class PWad;
 class RConProtocol;
 class TooltipGenerator;
 

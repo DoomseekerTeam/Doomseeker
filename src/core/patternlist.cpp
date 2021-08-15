@@ -25,6 +25,7 @@
 #include "log.h"
 #include <QDataStream>
 #include <QDebug>
+#include <QIODevice>
 
 bool PatternList::isExactMatchAny(const QString &candidate) const
 {

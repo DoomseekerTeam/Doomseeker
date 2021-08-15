@@ -24,6 +24,7 @@
 
 #include "strings.hpp"
 #include <cassert>
+#include <QIODevice>
 
 #define RETTYPE(type) \
 	type tmp; \

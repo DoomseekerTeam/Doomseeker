@@ -25,11 +25,11 @@
 
 #include "dptr.h"
 #include "serverapi/serverptr.h"
+#include <QtContainerFwd>
 #include <QDialog>
 
 class EnginePlugin;
 class Server;
-class QStringList;
 
 class PasswordDlg : public QDialog
 {

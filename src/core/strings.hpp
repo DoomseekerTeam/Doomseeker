@@ -27,8 +27,9 @@
 
 #include "global.h"
 
+#include <QtContainerFwd>
+
 class QString;
-class QStringList;
 
 // Keep compatibility with older Qt releases while using identifiers Qt 6 requires
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
