@@ -23,7 +23,6 @@
         "doomseeker.ico",
         "IpToCountry.dat",
         "LICENSE.txt",
-        "LICENSE-json.txt",
         "LICENSE-updater.txt",
         "updater.exe"
     ],

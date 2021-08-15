@@ -43,9 +43,6 @@ private:
 	DPtr<AboutDialog> d;
 
 	QString copyrightVerboseNotice() const;
-
-private slots:
-	void showJsonLicense();
 };
 
 #endif /* DOOMSEEKER_GUI_ABOUTDIALOG_H */

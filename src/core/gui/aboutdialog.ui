@@ -319,68 +319,6 @@
         </widget>
        </item>
        <item>
-        <widget class="Line" name="line_2">
-         <property name="frameShadow">
-          <enum>QFrame::Plain</enum>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="jsonLayout" stretch="1,0">
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_6">
-           <item>
-            <widget class="QLabel" name="label_2">
-             <property name="text">
-              <string>JSON library on BSD License (c) Eeli Reilin 2011 :</string>
-             </property>
-             <property name="textInteractionFlags">
-              <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_6">
-             <property name="text">
-              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://github.com/ereilin/qt-json&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/ereilin/qt-json&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-             <property name="textInteractionFlags">
-              <set>Qt::TextBrowserInteraction</set>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnJsonLicense">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="toolTip">
-            <string>Show JSON library license</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../../../media/resources.qrc">
-             <normaloff>:/icons/text-x-generic.png</normaloff>:/icons/text-x-generic.png</iconset>
-           </property>
-           <property name="autoDefault">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
         <widget class="Line" name="line_3">
          <property name="frameShadow">
           <enum>QFrame::Plain</enum>
@@ -655,25 +593,5 @@ p, li { white-space: pre-wrap; }
  <resources>
   <include location="../../../media/resources.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>btnJsonLicense</sender>
-   <signal>clicked()</signal>
-   <receiver>AboutDialog</receiver>
-   <slot>showJsonLicense()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>323</x>
-     <y>482</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>205</x>
-     <y>299</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
- <slots>
-  <slot>showJsonLicense()</slot>
- </slots>
+ <connections/>
 </ui>

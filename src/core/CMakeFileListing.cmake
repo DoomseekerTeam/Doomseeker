@@ -213,7 +213,6 @@ set(HEADER_FILES
 	irc/ops/ircdelayedoperationban.h
 	irc/ops/ircdelayedoperationignore.h
 	joincommandlinebuilder.h
-	json.h
 	localization.h
 	localizationinfo.h
 	log.h
@@ -445,7 +444,6 @@ set(SOURCE_FILES
 	irc/ops/ircdelayedoperationban.cpp
 	irc/ops/ircdelayedoperationignore.cpp
 	joincommandlinebuilder.cpp
-	json.cpp
 	localization.cpp
 	localizationinfo.cpp
 	log.cpp

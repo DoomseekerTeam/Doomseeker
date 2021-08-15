@@ -128,7 +128,6 @@ set(WADSEEKER_FILES
 	protocols/idgames/idgamesreply.cpp
 	protocols/idgames/idgamesresult.cpp
 	protocols/wadarchive/wadarchiveclient.cpp
-	protocols/json.cpp
 	protocols/http.cpp
 	protocols/networkreply.cpp
 	protocols/networkreplysignalwrapper.cpp
@@ -170,7 +169,6 @@ set(HEADER_FILES
 	protocols/idgames/idgamesreply.h
 	protocols/idgames/idgamesresult.h
 	protocols/wadarchive/wadarchiveclient.h
-	protocols/json.h
 	protocols/http.h
 	protocols/networkreply.h
 	protocols/networkreplysignalwrapper.h
@@ -243,7 +241,6 @@ if(NOT WIN32 AND NOT XCODE_VERSION)
 		EXPORT ${TARGETS_EXPORT_NAME}
 		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT wadseeker-dev NAMELINK_ONLY
 	)
-	install(FILES ${CMAKE_SOURCE_DIR}/LICENSE-json DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/doc/wadseeker COMPONENT wadseeker)
 elseif(WIN32)
 	install(
 		TARGETS wadseeker
@@ -255,7 +252,6 @@ elseif(WIN32)
 	# License files.
 	set(LICENSE_FILES
 		LICENSE
-		LICENSE-json
 	)
 	foreach (LICFILE ${LICENSE_FILES})
 		install(FILES "${CMAKE_SOURCE_DIR}/${LICFILE}" DESTINATION .

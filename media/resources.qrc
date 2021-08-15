@@ -167,8 +167,6 @@
 	<file alias="flags/localhost-small">flags/localhost-small.png</file>
 	<file alias="flags/unknown-small">flags/unknown-small.png</file>
 
-	<file alias="LICENSE-json">../LICENSE-json</file>
-
 	<file alias="7zedWadsTest.7z">test_resources/7zedWadsTest.7z</file>
 </qresource>
 </RCC>

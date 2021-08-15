@@ -24,9 +24,10 @@
 
 #include "entities/checksum.h"
 #include "entities/modset.h"
-#include "protocols/json.h"
 
 #include <QCryptographicHash>
+#include <QJsonDocument>
+#include <QVariant>
 
 DClass<FreedoomInfoParser>
 {
@@ -38,7 +39,7 @@ public:
 	void readRoot()
 	{
 		QString str = QString::fromUtf8(contents.data(), contents.size());
-		root = QtJson::Json::parse(str).toMap();
+		root = QJsonDocument::fromJson(str.toUtf8()).toVariant().toMap();
 	}
 
 	void parseAndAppendModFile(const QString &filename, const QVariantMap &var)

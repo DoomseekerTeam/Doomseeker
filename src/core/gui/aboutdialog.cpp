@@ -64,7 +64,6 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 	connect(d->pluginBox, SIGNAL(currentIndexChanged(int)), SLOT(changePlugin(int)));
 	changePlugin(0);
 
-	d->jsonLayout->setAlignment(d->btnJsonLicense, Qt::AlignTop);
 	adjustSize();
 }
 
@@ -132,15 +131,4 @@ QString AboutDialog::copyrightVerboseNotice() const
 	paragraphs << tr("This program uses icons (or derivates of) from following sources:\n") + icons.join("\n");
 
 	return paragraphs.join("\n\n");
-}
-
-void AboutDialog::showJsonLicense()
-{
-	QResource license("LICENSE-json");
-	QString licenseText = QString::fromUtf8(
-		reinterpret_cast<const char *>(license.data()),
-		license.size());
-	CopyTextDlg dialog(licenseText, tr("JSON library license"), this);
-	dialog.resize(550, dialog.height());
-	dialog.exec();
 }
