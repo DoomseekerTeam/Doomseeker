@@ -140,7 +140,7 @@ DataPaths::DataPaths(bool bPortableModeOn)
 			QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation),
 			Application::NAME));
 		#endif
-		d->dataDirectory.setPath(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
+		d->dataDirectory.setPath(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation));
 	}
 
 	gLog << QString("Cache directory: %1").arg(d->cacheDirectory.absolutePath());

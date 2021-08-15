@@ -81,7 +81,11 @@ void Message::construct()
 {
 	qRegisterMetaType<Message>("Message");
 	d->type = Type::IGNORE_TYPE;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+	d->timestamp = QDateTime::currentDateTime().toSecsSinceEpoch();
+#else
 	d->timestamp = QDateTime::currentDateTime().toTime_t();
+#endif
 }
 
 QString Message::contents() const

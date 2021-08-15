@@ -192,7 +192,7 @@ QString HtmlParser::htmlValue(const QString &key)
 	QByteArray upperByte = byte.toUpper();
 	QString upperKey = key.toUpper();
 
-	int beginIndex = upperByte.indexOf(upperKey);
+	int beginIndex = upperByte.indexOf(upperKey.toUtf8());
 
 	if (beginIndex < 0)
 		return QString();

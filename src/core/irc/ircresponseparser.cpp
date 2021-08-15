@@ -180,7 +180,11 @@ IRCResponseParseResult IRCResponseParser::parseMessage()
 		if (d->params.first().toInt() != 0)
 		{
 			int joinedOn = d->params.takeFirst().toInt();
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+			emit userNetworkJoinDateTime(nick, QDateTime::fromSecsSinceEpoch(joinedOn));
+#else
 			emit userNetworkJoinDateTime(nick, QDateTime::fromTime_t(joinedOn));
+#endif
 		}
 		break;
 	}

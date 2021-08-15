@@ -189,7 +189,7 @@ QVector<IniSection> ChatNetworksCfg::allNetworksSections() const
 
 IniSection ChatNetworksCfg::networkSection(int id)
 {
-	return ini().section(SECTIONS_NAMES_PREFIX + id);
+	return ini().section(SECTIONS_NAMES_PREFIX + QString::number(id));
 }
 
 Ini &ChatNetworksCfg::ini() const
