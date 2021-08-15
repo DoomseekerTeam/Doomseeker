@@ -18,7 +18,6 @@
 #-------------------------------------------------------------------------------
 # Copyright (C) 2011 Braden "Blzut3" Obrzut <admin@maniacsvault.net>
 #-------------------------------------------------------------------------------
-cmake_minimum_required(VERSION 2.8.12)
 
 # Regarding Microsoft Visual Studio:
 # Creating proper builds with MSVC required setting subsystem to windows,

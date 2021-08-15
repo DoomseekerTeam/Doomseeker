@@ -20,6 +20,10 @@
 #------------------------------------------------------------------------------
 
 cmake_minimum_required(VERSION 3.5...3.21)
+if(CMAKE_VERSION VERSION_LESS 3.12)
+	cmake_policy(VERSION ${CMAKE_VERSION})
+endif()
+
 project(Wadseeker)
 
 if (MSVC)

@@ -19,6 +19,10 @@
 # Copyright (C) 2009 Braden "Blzut3" Obrzut <admin@maniacsvault.net>
 #------------------------------------------------------------------------------
 cmake_minimum_required(VERSION 3.5...3.21)
+if(CMAKE_VERSION VERSION_LESS 3.12)
+	cmake_policy(VERSION ${CMAKE_VERSION})
+endif()
+
 project(Doomseeker)
 
 # Multiarch support

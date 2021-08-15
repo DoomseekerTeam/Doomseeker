@@ -18,9 +18,12 @@
 #------------------------------------------------------------------------------
 # Copyright (C) 2009 Braden "Blzut3" Obrzut <admin@maniacsvault.net>
 #------------------------------------------------------------------------------
-project(WadseekerApp)
-
 cmake_minimum_required(VERSION 3.5...3.21)  # Ubuntu 16.04
+if(CMAKE_VERSION VERSION_LESS 3.12)
+	cmake_policy(VERSION ${CMAKE_VERSION})
+endif()
+
+project(WadseekerApp)
 
 set(Qt_PACKAGE "Qt5" CACHE STRING "Qt package name")
 

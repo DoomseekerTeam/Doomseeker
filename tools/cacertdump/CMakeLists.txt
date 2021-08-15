@@ -1,5 +1,9 @@
 # Public Domain. Authored by Zalewa <zalewapl@gmail.com>, 2017.
 cmake_minimum_required(VERSION 3.5...3.21)
+if(CMAKE_VERSION VERSION_LESS 3.12)
+	cmake_policy(VERSION ${CMAKE_VERSION})
+endif()
+
 project(cacertdump)
 
 set(Qt_PACKAGE "Qt5" CACHE STRING "Qt package name")
