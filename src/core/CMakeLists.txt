@@ -62,20 +62,20 @@ if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/gitinfo.h")
 	file(WRITE "${CMAKE_CURRENT_SOURCE_DIR}/gitinfo.h" "")
 endif()
 
-find_package(Qt5 COMPONENTS Widgets)
+find_package(${Qt_PACKAGE} COMPONENTS Widgets)
 
-if(NOT Qt5Widgets_FOUND)
-	message(FATAL_ERROR "Qt5 not found. Please make sure to set the Qt5_DIR variable")
+if(NOT ${Qt_PACKAGE}Widgets_FOUND)
+	message(FATAL_ERROR "${Qt_PACKAGE} not found. Please make sure to set the ${Qt_PACKAGE}_DIR variable")
 else()
-	find_package(Qt5 COMPONENTS Core Gui LinguistTools Multimedia Network Xml REQUIRED)
+	find_package(${Qt_PACKAGE} COMPONENTS Core Gui LinguistTools Multimedia Network Xml REQUIRED)
 	if (WIN32)
-		find_package(Qt5 COMPONENTS WinExtras REQUIRED)
+		find_package(${Qt_PACKAGE} COMPONENTS WinExtras REQUIRED)
 	endif()
-	set(QT_LIBRARIES Qt5::Widgets Qt5::Multimedia Qt5::Network Qt5::Xml Qt5::Gui Qt5::Core)
-	if(Qt5WinExtras_FOUND)
-		set(QT_LIBRARIES ${QT_LIBRARIES} Qt5::WinExtras)
+	set(QT_LIBRARIES ${Qt_PACKAGE}::Widgets ${Qt_PACKAGE}::Multimedia ${Qt_PACKAGE}::Network ${Qt_PACKAGE}::Xml ${Qt_PACKAGE}::Gui ${Qt_PACKAGE}::Core)
+	if(${Qt_PACKAGE}WinExtras_FOUND)
+		list(APPEND QT_LIBRARIES ${Qt_PACKAGE}::WinExtras)
 	endif()
-	get_target_property(QMAKE_EXEC Qt5::qmake LOCATION)
+	get_target_property(QMAKE_EXEC ${Qt_PACKAGE}::qmake LOCATION)
 endif()
 
 if(NOT TARGET ZLIB::ZLIB)
@@ -111,7 +111,7 @@ if (UPDATE_TRANSLATIONS)
 		${SOURCE_FILES}
 		${HEADER_FILES}
 	)
-	qt5_create_translation(TS_FILES
+	qtx_create_translation(TS_FILES
 		${FILES_TO_TRANSLATE}
 		${TRANSLATIONS_FILES}
 	)
@@ -124,9 +124,9 @@ else ()
 	add_custom_target(translations_target)
 endif ()
 
-qt5_add_translation(QM_FILES ${TRANSLATIONS_FILES})
+qtx_add_translation(QM_FILES ${TRANSLATIONS_FILES})
 
-if (WIN32 AND Qt5Widgets_FOUND)
+if (WIN32 AND ${Qt_PACKAGE}Widgets_FOUND)
 	# Copy Qt5 translations that need to be redistributed with the .exe.
 	# WARNING: This should always be defined after qt5_add_translation.
 	execute_process(COMMAND ${QMAKE_EXEC} -query QT_INSTALL_TRANSLATIONS
@@ -257,7 +257,7 @@ if(WIN32)
 	# then program.exe will be dumped to "C:\Program Files\program.exe"
 	install(TARGETS doomseeker RUNTIME DESTINATION . COMPONENT doomseeker)
 	# Install Qt libraries.
-	if (Qt5Widgets_FOUND)
+	if (${Qt_PACKAGE}Widgets_FOUND)
 		# Qt5*.dll
 		foreach(qtlib ${QT_LIBRARIES})
 			get_target_property(qtlib_location ${qtlib} LOCATION)

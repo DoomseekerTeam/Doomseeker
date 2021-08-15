@@ -20,13 +20,15 @@
 #------------------------------------------------------------------------------
 project(WadseekerApp)
 
-cmake_minimum_required(VERSION 3.5.1)  # Ubuntu 16.04
+cmake_minimum_required(VERSION 3.5...3.21)  # Ubuntu 16.04
 
-find_package(Qt5 COMPONENTS Core REQUIRED)
+set(Qt_PACKAGE "Qt5" CACHE STRING "Qt package name")
+
+find_package(${Qt_PACKAGE} COMPONENTS Core REQUIRED)
 find_package(wadseeker CONFIG REQUIRED)
 
 add_executable(wadseeker main.cpp)
 set_target_properties(wadseeker PROPERTIES
 	CXX_STANDARD 11
 	AUTOMOC 1)
-target_link_libraries(wadseeker Qt5::Core Wadseeker::wadseeker)
+target_link_libraries(wadseeker ${Qt_PACKAGE}::Core Wadseeker::wadseeker)

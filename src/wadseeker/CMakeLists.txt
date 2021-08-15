@@ -44,13 +44,13 @@ add_subdirectory(lzma)
 
 include(${CMAKE_SOURCE_DIR}/cmake/Modules/Macros.cmake)
 
-find_package(Qt5 COMPONENTS Core)
+find_package(${Qt_PACKAGE} COMPONENTS Core)
 
-if(NOT Qt5_FOUND)
-	message(FATAL_ERROR "Qt5 not found. Please make sure to set the Qt5_DIR variable")
+if(NOT ${Qt_PACKAGE}_FOUND)
+	message(FATAL_ERROR "${Qt_PACKAGE} not found. Please make sure to set the ${Qt_PACKAGE}_DIR variable")
 else()
-	find_package(Qt5 COMPONENTS LinguistTools Network REQUIRED)
-	set(QT_LIBRARIES Qt5::Core Qt5::Network)
+	find_package(${Qt_PACKAGE} COMPONENTS LinguistTools Network REQUIRED)
+	set(QT_LIBRARIES ${Qt_PACKAGE}::Core ${Qt_PACKAGE}::Network)
 endif()
 
 if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
