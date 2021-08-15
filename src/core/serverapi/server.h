@@ -796,6 +796,9 @@ private slots:
 };
 
 Q_DECLARE_METATYPE(ServerPtr)
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+// Qt6 normalizes smart pointer meta types so we only need the non-const version
 Q_DECLARE_METATYPE(ServerCPtr)
+#endif
 
 #endif /* __SERVER_H__ */

@@ -91,9 +91,12 @@ Main::Main(int argc, char *argv[])
 	updateFailedCode = 0;
 
 	qRegisterMetaType<Pattern>("Pattern");
-	qRegisterMetaTypeStreamOperators<Pattern>("Pattern");
 	qRegisterMetaType<ServerPtr>("ServerPtr");
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+	qRegisterMetaTypeStreamOperators<Pattern>("Pattern");
 	qRegisterMetaType<ServerCPtr>("ServerCPtr");
+#endif
 }
 
 Main::~Main()
