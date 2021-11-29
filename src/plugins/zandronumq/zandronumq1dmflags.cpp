@@ -167,12 +167,6 @@ DMFlagsSection Dmflags::zandronumqCompatFlags()
 		tr("Disable crosshair"));
 	section << DMFlag(COMPAT_ORIGINAL_WEAPON_SWITCH, ZACOMPATF_OLD_WEAPON_SWITCH,
 		tr("Force weapon switch"));
-	section << DMFlag(COMPAT_DISABLE_CROSSHAIR_ACCURATE, ZACOMPATF_DISABLE_CROSSHAIR_ACCURATE,
-		tr("Disable shooting where crosshair is"));
-	section << DMFlag(COMPAT_DISABLE_WALL_FRICTION, ZACOMPATF_DISABLE_WALL_FRICTION,
-		tr("Disable wall friction"));
-	section << DMFlag(COMPAT_ENABLE_PROJECTILE_HITBOX_FIX, ZACOMPATF_ENABLE_PROJECTILE_HITBOX_FIX,
-		tr("Enable projectile hitbox fix"));
 	return section;
 }
 
@@ -305,6 +299,8 @@ DMFlagsSection Dmflags::dmflags2()
 
 DMFlagsSection Dmflags::zandronumqDmflags()
 {
+	using namespace ZandronumqGameSettingsNames;
+
 	DMFlagsSection section("Q-Zandronum Flags");
 	section << DMFlag("Clients can't identify targets", ZADF_NO_IDENTIFY_TARGET,
 		tr("Clients can't identify targets"));
@@ -344,6 +340,12 @@ DMFlagsSection Dmflags::zandronumqDmflags()
 		tr("No map reset on death in survival"));
 	section << DMFlag("Dead players can keep inventory", ZADF_DEAD_PLAYERS_CAN_KEEP_INVENTORY,
 		tr("Dead players can keep inventory"));
+	section << DMFlag(DISABLE_CROSSHAIR_ACCURATE, ZADF_DISABLE_CROSSHAIR_ACCURATE,
+		tr("Disable shooting where crosshair is"));
+	section << DMFlag(DISABLE_WALL_FRICTION, ZADF_DISABLE_WALL_FRICTION,
+		tr("Disable wall friction"));
+	section << DMFlag(ENABLE_PROJECTILE_HITBOX_FIX, ZADF_ENABLE_PROJECTILE_HITBOX_FIX,
+		tr("Enable projectile hitbox fix"));
 	return section;
 }
 

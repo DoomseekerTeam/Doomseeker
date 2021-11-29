@@ -176,12 +176,6 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 			f->cbCompatUseVanillaAutoaimTracerBehavior);
 		m.insert(Dmflags::ZACOMPATF_SILENT_WEST_SPAWNS,
 			f->cbCompatWestSpawnsAreSilent);
-		m.insert(Dmflags::ZACOMPATF_DISABLE_CROSSHAIR_ACCURATE,
-			f->cbCompatDisableCrosshairAccurate);
-		m.insert(Dmflags::ZACOMPATF_DISABLE_WALL_FRICTION,
-			f->cbCompatDisableWallFriction);
-		m.insert(Dmflags::ZACOMPATF_ENABLE_PROJECTILE_HITBOX_FIX,
-			f->cbCompatEnableProjectileHitboxFix);
 	}
 
 	// DMFlags
@@ -254,8 +248,6 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 			f->cbServerPicksTeams);
 		m.insert(Dmflags::DF2_NO_TEAM_SWITCH,
 			f->cbPlayersCantSwitchTeams);
-		m.insert(Dmflags::ZADF_YES_KEEP_TEAMS,
-			f->cbKeepTeamsAfterAMapChange);
 		m.insert(Dmflags::DF2_NO_AUTOMAP_ALLIES,
 			f->cbHideAlliesOnTheAutomap);
 		m.insert(Dmflags::DF2_DISALLOW_SPYING,
@@ -331,6 +323,14 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 			f->cbNoMedals);
 		m.insert(Dmflags::ZADF_AWARD_DAMAGE_INSTEAD_KILLS,
 			f->cbScoreDamageNotKills);
+		m.insert(Dmflags::ZADF_YES_KEEP_TEAMS,
+			f->cbKeepTeamsAfterAMapChange);
+		m.insert(Dmflags::ZADF_DISABLE_CROSSHAIR_ACCURATE,
+			f->cbDisableCrosshairAccurate);
+		m.insert(Dmflags::ZADF_DISABLE_WALL_FRICTION,
+			f->cbDisableWallFriction);
+		m.insert(Dmflags::ZADF_ENABLE_PROJECTILE_HITBOX_FIX,
+			f->cbEnableProjectileHitboxFix);
 		// - Environment
 		m.insert(Dmflags::ZADF_COOP_SP_ACTOR_SPAWN,
 			f->cbDontSpawnAnyMultiplayerItem);

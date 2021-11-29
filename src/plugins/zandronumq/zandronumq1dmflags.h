@@ -176,6 +176,15 @@ public:
 		// If unset, players who lose all lives will lose entire inventory
 		// regardless of the DF_COOP_* flags.
 		ZADF_DEAD_PLAYERS_CAN_KEEP_INVENTORY = 1 << 17,
+
+		// [geNia] Disable crosshair accurate weapons
+		ZADF_DISABLE_CROSSHAIR_ACCURATE = 1 << 18,
+
+		// [geNia] Disable wall friction
+		ZADF_DISABLE_WALL_FRICTION = 1 << 19,
+
+		// [geNia] Enable projectile hitbox lowering to match it's sprite
+		ZADF_ENABLE_PROJECTILE_HITBOX_FIX = 1 << 20,
 	};
 
 	// [RH] Compatibility flags.
@@ -286,18 +295,9 @@ public:
 		// [BB] Clients use the vanilla Doom weapon on pickup behavior.
 		ZACOMPATF_OLD_WEAPON_SWITCH		= 1 << 26,
 
-		// [geNia] Disable crosshair accurate weapons
-		ZACOMPATF_DISABLE_CROSSHAIR_ACCURATE = 1 << 27,
-
 		// [geNia] Disable executing ACS_ExecuteWithResult on client
 		// TODO add new prediction ACS type for this
-		ZACOMPATF_NO_PREDICTION_ACS = 1 << 28,
-
-		// [geNia] Disable wallfriction
-		ZACOMPATF_DISABLE_WALL_FRICTION = 1 << 29,
-
-		// [geNia] Enable projectile hitbox lowering to match it's sprite
-		ZACOMPATF_ENABLE_PROJECTILE_HITBOX_FIX = 1 << 30,
+		ZACOMPATF_NO_PREDICTION_ACS = 1 << 27,
 	};
 
 	QList<DMFlagsSection> flags();

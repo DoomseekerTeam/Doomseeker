@@ -1692,7 +1692,7 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="cbCompatDisableCrosshairAccurate">
+            <widget class="QCheckBox" name="cbDisableCrosshairAccurate">
              <property name="toolTip">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bring back vanilla ZDoom shooting below the crosshair.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
@@ -1702,7 +1702,7 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="cbCompatEnableProjectileHitboxFix">
+            <widget class="QCheckBox" name="cbEnableProjectileHitboxFix">
              <property name="toolTip">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Make projectile hitbox work across entire sprite instead of only upper half.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
@@ -1822,7 +1822,7 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="cbCompatDisableWallFriction">
+            <widget class="QCheckBox" name="cbDisableWallFriction">
              <property name="text">
               <string>Disable wall friction</string>
              </property>
@@ -2110,8 +2110,8 @@ p, li { white-space: pre-wrap; }
   <tabstop>cbCompatUseVanillaAutoaimTracerBehavior</tabstop>
   <tabstop>cbCompatMaskedMidtex</tabstop>
   <tabstop>cbCompatBadAngles</tabstop>
-  <tabstop>cbCompatDisableCrosshairAccurate</tabstop>
-  <tabstop>cbCompatEnableProjectileHitboxFix</tabstop>
+  <tabstop>cbDisableCrosshairAccurate</tabstop>
+  <tabstop>cbEnableProjectileHitboxFix</tabstop>
   <tabstop>cbCompatFindShortestTexturesLikeDoom</tabstop>
   <tabstop>cbCompatLimitPainElementals</tabstop>
   <tabstop>cbCompatSpawnItemDropsOnTheFloor</tabstop>
@@ -2125,7 +2125,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>cbCompatFullWeaponLower</tabstop>
   <tabstop>cbCompatWestSpawnsAreSilent</tabstop>
   <tabstop>cbCompatFloorMove</tabstop>
-  <tabstop>cbCompatDisableWallFriction</tabstop>
+  <tabstop>cbDisableWallFriction</tabstop>
   <tabstop>votingPage</tabstop>
   <tabstop>leDmflags</tabstop>
   <tabstop>leDmflags2</tabstop>
@@ -4425,7 +4425,7 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
-   <sender>cbCompatDisableCrosshairAccurate</sender>
+   <sender>cbDisableCrosshairAccurate</sender>
    <signal>clicked()</signal>
    <receiver>FlagsPage</receiver>
    <slot>applyWidgetsChange()</slot>
@@ -4441,7 +4441,7 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
-   <sender>cbCompatEnableProjectileHitboxFix</sender>
+   <sender>cbEnableProjectileHitboxFix</sender>
    <signal>clicked()</signal>
    <receiver>FlagsPage</receiver>
    <slot>applyWidgetsChange()</slot>
@@ -4473,7 +4473,7 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
-   <sender>cbCompatDisableWallFriction</sender>
+   <sender>cbDisableWallFriction</sender>
    <signal>clicked()</signal>
    <receiver>FlagsPage</receiver>
    <slot>applyWidgetsChange()</slot>
