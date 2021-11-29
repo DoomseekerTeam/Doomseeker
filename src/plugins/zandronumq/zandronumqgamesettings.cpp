@@ -83,6 +83,7 @@ const QString COMPAT_FLOOR_MOVE = "CompatFloorMove";
 const QString DISABLE_CROSSHAIR_ACCURATE = "DisableCrosshairAccurate";
 const QString DISABLE_WALL_FRICTION = "DisableWallFriction";
 const QString ENABLE_PROJECTILE_HITBOX_FIX = "EnableProjectileHitboxFix";
+const QString QUAKE_THRUST = "QuakeThrust";
 const QString NO_MONSTERS = "NoMonsters";
 const QString ITEMS_RESPAWN = "ItemsRespawn";
 const QString MEGA_POWERUPS_RESPAWN = "MegaPowerupsRespawn";

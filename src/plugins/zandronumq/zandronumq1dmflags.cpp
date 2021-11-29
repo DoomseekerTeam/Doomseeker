@@ -346,6 +346,8 @@ DMFlagsSection Dmflags::zandronumqDmflags()
 		tr("Disable wall friction"));
 	section << DMFlag(ENABLE_PROJECTILE_HITBOX_FIX, ZADF_ENABLE_PROJECTILE_HITBOX_FIX,
 		tr("Enable projectile hitbox fix"));
+	section << DMFlag(QUAKE_THRUST, ZADF_QUAKE_THRUST,
+		tr("Use Quake thrust formula"));
 	return section;
 }
 

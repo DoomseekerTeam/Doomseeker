@@ -1828,6 +1828,16 @@ p, li { white-space: pre-wrap; }
              </property>
             </widget>
            </item>
+           <item>
+            <widget class="QCheckBox" name="cbQuakeThrust">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The Quake thrust formula considers damage source and victim positions and applies thrust properly among all three axes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Use Quake thrust formula</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </item>
         </layout>
@@ -2112,6 +2122,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>cbCompatBadAngles</tabstop>
   <tabstop>cbDisableCrosshairAccurate</tabstop>
   <tabstop>cbEnableProjectileHitboxFix</tabstop>
+  <tabstop>cbQuakeThrust</tabstop>
   <tabstop>cbCompatFindShortestTexturesLikeDoom</tabstop>
   <tabstop>cbCompatLimitPainElementals</tabstop>
   <tabstop>cbCompatSpawnItemDropsOnTheFloor</tabstop>
@@ -4442,6 +4453,22 @@ p, li { white-space: pre-wrap; }
   </connection>
   <connection>
    <sender>cbEnableProjectileHitboxFix</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>89</x>
+     <y>323</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>338</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbQuakeThrust</sender>
    <signal>clicked()</signal>
    <receiver>FlagsPage</receiver>
    <slot>applyWidgetsChange()</slot>

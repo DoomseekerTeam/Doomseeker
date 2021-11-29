@@ -331,6 +331,8 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 			f->cbDisableWallFriction);
 		m.insert(Dmflags::ZADF_ENABLE_PROJECTILE_HITBOX_FIX,
 			f->cbEnableProjectileHitboxFix);
+		m.insert(Dmflags::ZADF_QUAKE_THRUST,
+			f->cbQuakeThrust);
 		// - Environment
 		m.insert(Dmflags::ZADF_COOP_SP_ACTOR_SPAWN,
 			f->cbDontSpawnAnyMultiplayerItem);
