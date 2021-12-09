@@ -3,7 +3,7 @@ if( WIN32 )
 		# VC 8+ adds a manifest automatically to the executable. We need to
 		# merge ours with it.
 		set( MT_MERGE ON )
-	else( MSVC_VERSION GREATER 1399 )
+	else()
 		set( TRUSTINFO trustinfo.rc )
 	endif()
 endif()

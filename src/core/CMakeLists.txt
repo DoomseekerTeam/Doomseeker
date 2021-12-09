@@ -237,7 +237,7 @@ if(WIN32)
 			LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS"
 			LINK_FLAGS_RELWITHDEBINFO "/SUBSYSTEM:WINDOWS"
 			LINK_FLAGS_MINSIZEREL "/SUBSYSTEM:WINDOWS")
-	else(MSVC)
+	else()
 		set_target_properties(doomseeker PROPERTIES
 			LINK_FLAGS_RELEASE "-Wl,-subsystem,windows"
 			LINK_FLAGS_MINSIZEREL "-Wl,-subsystem,windows")
