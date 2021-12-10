@@ -8,6 +8,11 @@ This file follows the format of
 and this project does not adhere to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+### Fixed
+- Zandronum, QZandronum: fix a crash if server sends more PWAD hashes than
+it sent PWADs (#3927)
+
 ## [1.3.2] - 2021-08-07
 ### Added
 - Wadseeker: multiple custom sites can now be defined

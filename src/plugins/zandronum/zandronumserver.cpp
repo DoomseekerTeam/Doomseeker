@@ -606,7 +606,7 @@ Server::Response ZandronumServer::readRequest(const QByteArray &data)
 	//Extended flags
 	if ((flags & SQF_EXTENDED_INFO) == SQF_EXTENDED_INFO)
 	{
-		RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
+		RETURN_BAD_IF_NOT_ENOUGH_DATA(4);
 		quint32 flags2 = in.readQInt32();
 
 		if ((flags2 & SQF2_PWAD_HASHES) == SQF2_PWAD_HASHES)
@@ -616,10 +616,16 @@ Server::Response ZandronumServer::readRequest(const QByteArray &data)
 
 			RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
 			unsigned int numHashes = in.readQInt8();
-			RETURN_BAD_IF_NOT_ENOUGH_DATA(numHashes);
+
+			if (numHashes != pwads.length())
+			{
+				return RESPONSE_BAD;
+			}
 
 			for (unsigned int index = 0; index < numHashes; index++)
 			{
+				RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
+
 				PWad pwad(pwads[index].name(),
 					pwads[index].isOptional());
 				pwad.addChecksum(QByteArray::fromHex(in.readRawUntilByte('\0')),
