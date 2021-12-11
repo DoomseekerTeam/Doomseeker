@@ -45,7 +45,8 @@
 		return RESPONSE_BAD; \
 	}
 
-#define SERVER_CHALLENGE    0x02, 0x10, 0x01, 0xAD, 0, 7, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0
+// Server challenge, max supported engine version and max protocol version
+#define SERVER_CHALLENGE    0x02, 0x10, 0x01, 0xAD, 0xFF, 0xFF, 0xFF, 0xFF, 7, 0, 0, 0, 0, 0, 0, 0
 
 #define SPECTATOR_INFO      0x01020304
 #define EXTRA_INFO          0x01020305
@@ -217,6 +218,10 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 				return OdamexGameInfo::MODE_LMS_CTF;
 			else if (mode == 3)
 				return OdamexGameInfo::MODE_CAPTURE_THE_FLAG;
+			else if (mode == 4 && lives > 0)
+				return OdamexGameInfo::MODE_SURVIVAL_HORDE;
+			else if (mode == 4)
+				return OdamexGameInfo::MODE_HORDE;
 			else
 				return OdamexGameInfo::MODE_COOPERATIVE; // Arbitrary default
 		}())];
