@@ -44,6 +44,8 @@ public:
 		MODE_TEAM_LAST_MARINE_STANDING,
 		MODE_ATTACK_DEFEND_CTF,
 		MODE_LMS_CTF,
+		MODE_SURVIVAL_HORDE,
+		MODE_HORDE,
 	};
 
 	static QList<DMFlagsSection> dmFlags();
