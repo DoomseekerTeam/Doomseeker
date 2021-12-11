@@ -9,6 +9,9 @@ and this project does not adhere to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [unreleased]
+### Added:
+- Odamex: Support for Odamex version 10.0 (#3909)
+
 ### Fixed
 - Zandronum, QZandronum: fix a crash if server sends more PWAD hashes than
 it sent PWADs (#3927)
