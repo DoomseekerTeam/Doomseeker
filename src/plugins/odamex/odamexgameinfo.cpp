@@ -59,7 +59,7 @@ QList<GameMode> OdamexGameInfo::gameModes()
 	gameModesList << GameMode::teamGame(MODE_TEAM_LAST_MARINE_STANDING, "Teams Last Marine Standing");
 	gameModesList << GameMode::teamGame(MODE_ATTACK_DEFEND_CTF, "Attack & Defend CTF");
 	gameModesList << GameMode::teamGame(MODE_LMS_CTF, "LMS Capture The Flag");
-	gameModesList << GameMode::ffaGame(MODE_SURVIVAL_HORDE, "Survival horde");
+	gameModesList << GameMode::ffaGame(MODE_SURVIVAL_HORDE, "Survival Horde");
 	gameModesList << GameMode::ffaGame(MODE_HORDE, "Horde");
 	return gameModesList;
 }
