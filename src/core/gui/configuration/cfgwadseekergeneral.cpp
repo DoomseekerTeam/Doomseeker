@@ -79,11 +79,14 @@ void CFGWadseekerGeneral::activateCompleter()
 	if (!d->completerActive)
 	{
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-		// FIXME: QFileSystemModel is the replacement for QDirModel since Qt 4,
-		// but it doesn't seem to work the way it should. Searching suggests
-		// others are struggling with this and not sure if a solution has been
-		// found. For now we use this for the sake of getting Qt 6 working.
-		d->cbTargetDirectory->setCompleter(new QCompleter(new QFileSystemModel()));
+		// NOTE: Although QFileSystemModel is available since Qt 4, there were
+		// some issues with it and QCompleter until at least Qt 5.12 (i.e.
+		// QTBUG-38014). We'll conservatively use QFileSystemModel on Qt 6 only.
+		auto completer = new QCompleter(this);
+		auto model = new QFileSystemModel(completer);
+		model->setRootPath(d->targetDirectory());
+		completer->setModel(model);
+		d->cbTargetDirectory->setCompleter(completer);
 #else
 		d->cbTargetDirectory->setCompleter(new QCompleter(new QDirModel()));
 #endif
