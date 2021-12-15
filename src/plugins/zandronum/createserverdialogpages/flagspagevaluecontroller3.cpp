@@ -339,11 +339,6 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 			f->cbNoMaxBloodScalar);
 		m.insert(Dmflags::ZADF_NODROP, f->cbNoItemDrop);
 		// - Behavior
-		m.insert(Dmflags::ZADF_UNBLOCK_PLAYERS,
-			f->rbPlayersCanWalkThroughEachOther);
-		m.insert(Dmflags::ZADF_UNBLOCK_ALLIES,
-			f->rbAlliesCanWalkThroughEachOther);
-
 		m.insert(Dmflags::ZADF_NO_ROCKET_JUMPING,
 			f->cbNoRocketJump);
 		m.insert(Dmflags::ZADF_FORCE_GL_DEFAULTS,
@@ -546,6 +541,22 @@ void FlagsPageValueController::convertToNumericalPlayers()
 		dmflags |= Dmflags::DF_NO_CROUCH;
 		break;
 	}
+
+	// Reset the value.
+	zandronumDmflags &= ~(Dmflags::ZADF_UNBLOCK_PLAYERS
+		| Dmflags::ZADF_UNBLOCK_ALLIES);
+	switch (f->cboPlayerBlock->currentData().toInt()) {
+	case FlagsPage::PB_Noclip:
+		zandronumDmflags |= Dmflags::ZADF_UNBLOCK_PLAYERS;
+		break;
+	case FlagsPage::PB_AllyNoclip:
+		zandronumDmflags |= Dmflags::ZADF_UNBLOCK_ALLIES;
+		break;
+	case FlagsPage::PB_Block:
+	default:
+		// pass
+		break;
+	}
 }
 ////////////////////////////////////////////////////////////////////////////////
 void FlagsPageValueController::convertToNumericalCooperative()
@@ -633,10 +644,20 @@ void FlagsPageValueController::convertToWidgetPlayers()
 		f->cboCrouching->setCurrentIndex(FlagsPage::JCA_Default);
 	}
 
-	if ((zandronumDmflags & Dmflags::ZADF_UNBLOCK_PLAYERS) == 0 &&
-		(zandronumDmflags & Dmflags::ZADF_UNBLOCK_ALLIES) == 0)
+	if (zandronumDmflags & Dmflags::ZADF_UNBLOCK_PLAYERS)
 	{
-		f->rbPlayersBlockEachOtherNormally->setChecked(true);
+		f->cboPlayerBlock->setCurrentIndex(
+			f->cboPlayerBlock->findData(FlagsPage::PB_Noclip));
+	}
+	else if (zandronumDmflags & Dmflags::ZADF_UNBLOCK_ALLIES)
+	{
+		f->cboPlayerBlock->setCurrentIndex(
+			f->cboPlayerBlock->findData(FlagsPage::PB_AllyNoclip));
+	}
+	else
+	{
+		f->cboPlayerBlock->setCurrentIndex(
+			f->cboPlayerBlock->findData(FlagsPage::PB_Block));
 	}
 }
 ////////////////////////////////////////////////////////////////////////////////

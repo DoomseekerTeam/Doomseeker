@@ -113,6 +113,9 @@ FlagsPage::FlagsPage(CreateServerDialog *pParentDialog)
 	initJumpCrouchComboBoxes(cboJumping);
 	initJumpCrouchComboBoxes(cboCrouching);
 
+	cboPlayerBlock->addItem(tr("Players block each other normally"), PB_Block);
+	cboPlayerBlock->addItem(tr("Players can walk through each other"), PB_Noclip);
+	cboPlayerBlock->addItem(tr("Allies can walk through each other"), PB_AllyNoclip);
 	setGameVersion(ZandronumGameInfo::GV_Zandronum3);
 
 	// Widget states
@@ -339,34 +342,19 @@ ZandronumGameInfo::GameVersion FlagsPage::gameVersion() const
 
 FlagsPage::PlayerBlock FlagsPage::playerBlock() const
 {
-	if (rbPlayersCanWalkThroughEachOther->isChecked())
-		return PB_Noclip;
-	if (rbAlliesCanWalkThroughEachOther->isChecked())
-		return PB_AllyNoclip;
-	if (rbPlayersBlockEachOtherNormally->isChecked())
-		return PB_Block;
-	return PB_NotSet;
+	return static_cast<FlagsPage::PlayerBlock>(cboPlayerBlock->currentData().toInt());
 }
 
 void FlagsPage::setPlayerBlock(PlayerBlock playerBlock)
 {
-	switch (playerBlock)
+	const int idx = cboPlayerBlock->findData(static_cast<int>(playerBlock));
+	if (idx >= 0)
 	{
-	case PB_NotSet:
-		// do nothing
-		break;
-	case PB_Noclip:
-		rbPlayersCanWalkThroughEachOther->setChecked(true);
-		break;
-	case PB_AllyNoclip:
-		rbAlliesCanWalkThroughEachOther->setChecked(true);
-		break;
-	case PB_Block:
-		rbPlayersBlockEachOtherNormally->setChecked(true);
-		break;
-	default:
-		qDebug() << "FlagsPage::setPlayerBlock - unhandled PlayerBlock " << playerBlock;
-		break;
+		cboPlayerBlock->setCurrentIndex(idx);
+	}
+	else
+	{
+		cboPlayerBlock->setCurrentIndex(cboPlayerBlock->findData(PB_Block));
 	}
 }
 
