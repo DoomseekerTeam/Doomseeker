@@ -116,6 +116,11 @@ FlagsPage::FlagsPage(CreateServerDialog *pParentDialog)
 	cboPlayerBlock->addItem(tr("Players block each other normally"), PB_Block);
 	cboPlayerBlock->addItem(tr("Players can walk through each other"), PB_Noclip);
 	cboPlayerBlock->addItem(tr("Allies can walk through each other"), PB_AllyNoclip);
+
+	cboPrivateChat->addItem(tr("Allowed"), PrivChat_Allowed);
+	cboPrivateChat->addItem(tr("Only team"), PrivChat_Team);
+	cboPrivateChat->addItem(tr("Forbidden"), PrivChat_Forbidden);
+
 	setGameVersion(ZandronumGameInfo::GV_Zandronum3);
 
 	// Widget states
@@ -158,6 +163,10 @@ void FlagsPage::fillInGameCreateParams(GameCreateParams &gameCreateParams)
 		QString::number(spinMonstersDamageFactor->value());
 
 	params << "+sv_defaultdmflags" << (cbDefaultDmflags->isChecked() ? "1" : "0");
+	if (gameVersion() == ZandronumGameInfo::GV_Zandronum3)
+	{
+		params << "+sv_allowprivatechat" << cboPrivateChat->currentData().toString();
+	}
 
 	params << votingPage->generateGameRunParameters();
 
@@ -219,6 +228,15 @@ bool FlagsPage::loadConfig(Ini &ini)
 	{
 		spinMonstersDamageFactor->setValue(varMonstersDamageFactor);
 	}
+	IniVariable varPrivateChat = section["private_chat"];
+	if (!varPrivateChat.value().isNull())
+	{
+		const int idx = cboPrivateChat->findData(varPrivateChat.value().toInt());
+		if (idx >= 0)
+		{
+			cboPrivateChat->setCurrentIndex(idx);
+		}
+	}
 
 	if (section.hasSetting("falling_damage_type"))
 		cboFallingDamage->setCurrentIndex(section["falling_damage_type"]);
@@ -275,6 +293,7 @@ bool FlagsPage::saveConfig(Ini &ini)
 		spinForceInactivePlayersSpectatingMins->value();
 	section["monsters_damage_factor"] =
 		static_cast<float>(spinMonstersDamageFactor->value());
+	section["private_chat"] = cboPrivateChat->currentData().toInt();
 
 	return votingPage->saveConfig(ini);
 }

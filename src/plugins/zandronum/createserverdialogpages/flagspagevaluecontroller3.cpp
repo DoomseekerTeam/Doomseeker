@@ -706,6 +706,7 @@ void FlagsPageValueController::setVisible(bool visible)
 	flagsPage->cbNoItemDrop->setVisible(visible);
 	flagsPage->cbSurvivalNoMapResetOnDeath->setVisible(visible);
 	flagsPage->cbDeadPlayersCanKeepInventory->setVisible(visible);
+	flagsPage->cboPrivateChat->setVisible(visible);
 	for (QWidget *checkbox : compatflags2Checkboxes.values())
 	{
 		checkbox->setVisible(visible);

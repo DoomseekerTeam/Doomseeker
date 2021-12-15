@@ -80,6 +80,13 @@ public:
 		PB_Block = 3
 	};
 
+	enum PrivateChat
+	{
+		PrivChat_Forbidden = 0,
+		PrivChat_Allowed = 1,
+		PrivChat_Team = 2,
+	};
+
 	/**
 	 * This is stored in config and indexing cannot change between versions.
 	 */
