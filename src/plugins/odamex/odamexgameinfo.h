@@ -53,15 +53,4 @@ public:
 	static GameMode gameModeDuel();
 };
 
-/**
- * @brief Provides a (translated) About text for Odamex.
- */
-class OdamexAboutProvider : public TextProvider
-{
-	Q_OBJECT
-
-public:
-	QString provide() override;
-};
-
 #endif

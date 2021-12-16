@@ -32,6 +32,26 @@
 #include "odamexmasterclient.h"
 #include "odamexserver.h"
 
+namespace
+{
+/**
+ * @brief Provides a (translated) About text for Odamex.
+ */
+class OdamexAboutProvider : public TextProvider
+{
+	Q_OBJECT
+
+public:
+	QString provide() override
+	{
+		QString aboutDescription = "Odamex (https://odamex.net/)\n\n";
+		aboutDescription += tr("This plugin is distributed under the terms of the LGPL v2.1 or later.\n\n");
+		return aboutDescription;
+	}
+};
+}
+
+
 INSTALL_PLUGIN(OdamexEnginePlugin)
 
 OdamexEnginePlugin::OdamexEnginePlugin()
@@ -84,3 +104,5 @@ ServerPtr OdamexEnginePlugin::mkServer(const QHostAddress &address, unsigned sho
 {
 	return ServerPtr(new OdamexServer(address, port));
 }
+
+#include "odamexengineplugin.moc"
