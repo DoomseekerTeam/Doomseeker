@@ -175,6 +175,23 @@ public:
 		// If unset, players who lose all lives will lose entire inventory
 		// regardless of the DF_COOP_* flags.
 		ZADF_DEAD_PLAYERS_CAN_KEEP_INVENTORY = 1 << 17,
+
+		// [Proteh] Don't use backwards reconcilation for the hitscan tracers fired from the BFG9000
+		ZADF_NOUNLAGGED_BFG_TRACERS = 1 << 18,
+
+		// If set, stops doors from being manually closed.
+		// This prevents players intentionally (or unintentionally) griefing
+		// by closing doors that other players (or the same player) have opened.
+		ZADF_NODOORCLOSE = 1 << 19,
+
+		// [AK] Forces the player's pitch to be limited to what's allowed in the software renderer.
+		ZADF_FORCE_SOFTWARE_PITCH_LIMITS = 1 << 20,
+
+		// [AK] Allows players to fire hitscans and projectiles through teammates.
+		ZADF_SHOOT_THROUGH_ALLIES = 1 << 21,
+
+		// [AK] Players aren't pushed by attacks caused by their teammates (e.g. BFG tracers).
+		ZADF_DONT_PUSH_ALLIES = 1 << 22,
 	};
 
 	// [RH] Compatibility flags.
@@ -216,6 +233,7 @@ public:
 
 		COMPATF2_BADANGLES		= 1 << 0,	// It is impossible to face directly NSEW.
 		COMPATF2_FLOORMOVE		= 1 << 1,	// Use the same floor motion behavior as Doom.
+		COMPATF2_PUSHWINDOW		= 1 << 6,	// Disable the window check in CheckForPushSpecial()
 	};
 
 	// [BB] Zandronum compatibility flags.
@@ -256,6 +274,10 @@ public:
 		ZACOMPATF_SILENT_WEST_SPAWNS = 1 << 11,
 		// [BB] Restore the jumping behavior known from Skulltag. This reverts the jumping change from ZDoom SVN revision 2970.
 		ZACOMPATF_SKULLTAG_JUMPING		= 1 << 12,
+		// [AK] World and global-scope ACS variables/arrays will be reset upon resetting the map like in survival.
+		ZACOMPATF_RESET_GLOBALVARS_ON_MAPRESET = 1 << 13,
+		// [AK] Prevent obituary messages from being printed to the console when a player dies.
+		ZACOMPATF_NO_OBITUARIES = 1 << 14,
 
 		// Limited movement in the air.
 		ZACOMPATF_LIMITED_AIRMOVEMENT	= 1 << 17,

@@ -134,9 +134,13 @@ void FlagsId::assign()
 	f->cbCompatOriginalSoundCurve->setProperty("flagname", COMPAT_ORIGINAL_SOUND_CURVE);
 	f->cbCompatUseVanillaAutoaimTracerBehavior->setProperty("flagname", COMPAT_USE_VANILLA_AUTOAIM_TRACER_BEHAVIOR);
 	f->cbCompatWestSpawnsAreSilent->setProperty("flagname", COMPAT_WEST_SPAWNS_ARE_SILENT);
+	f->cbCompatSkulltagJumping->setProperty("flagname", COMPAT_SKULLTAG_JUMPING);
+	f->cbCompatResetWorldAcsVarsOnMapReset->setProperty("flagname", COMPAT_RESET_GLOBALVARS_ON_MAPRESET);
+	f->cbCompatNoObituaries->setProperty("flagname", COMPAT_NO_OBITUARIES);
 	f->cbCompatMaskedMidtex->setProperty("flagname", COMPAT_MASKED_MIDTEX);
 	f->cbCompatBadAngles->setProperty("flagname", COMPAT_BAD_ANGLES);
 	f->cbCompatFloorMove->setProperty("flagname", COMPAT_FLOOR_MOVE);
+	f->cbCompatPushWindow->setProperty("flagname", COMPAT_PUSH_WINDOW);
 	f->cbNoMonsters->setProperty("flagname", NO_MONSTERS);
 	f->cbItemsRespawn->setProperty("flagname", ITEMS_RESPAWN);
 	f->cbMegaPowerupsRespawn->setProperty("flagname", MEGA_POWERUPS_RESPAWN);
@@ -199,6 +203,11 @@ void FlagsId::assign()
 	f->cbShareKeys->setProperty("flagname", SHARE_KEYS);
 	f->cbSurvivalNoMapResetOnDeath->setProperty("flagname", SURVIVAL_NO_MAP_RESET_ON_DEATH);
 	f->cbDeadPlayersCanKeepInventory->setProperty("flagname", DEAD_PLAYERS_CAN_KEEP_INVENTORY);
+	f->cbNoUnlaggedBfgTracers->setProperty("flagname", NO_UNLAGGED_BFG_TRACERS);
+	f->cbNoClosingDoors->setProperty("flagname", NO_DOOR_CLOSE);
+	f->cbLimitVerticalLook->setProperty("flagname", FORCE_SOFTWARE_PITCH_LIMITS);
+	f->cbShootThroughAllies->setProperty("flagname", SHOOT_THROUGH_ALLIES);
+	f->cbDontPushAllies->setProperty("flagname", DONT_PUSH_ALLIES);
 	f->cbLMSChainsaw->setProperty("flagname", LMSCHAINSAW);
 	f->cbLMSPistol->setProperty("flagname", LMSPISTOL);
 	f->cbLMSShotgun->setProperty("flagname", LMSSHOTGUN);

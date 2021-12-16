@@ -123,6 +123,7 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 
 		m.insert(Dmflags::COMPATF2_BADANGLES, f->cbCompatBadAngles);
 		m.insert(Dmflags::COMPATF2_FLOORMOVE, f->cbCompatFloorMove);
+		m.insert(Dmflags::COMPATF2_PUSHWINDOW, f->cbCompatPushWindow);
 	}
 
 	// Zandronum compatflags
@@ -176,6 +177,12 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 			f->cbCompatUseVanillaAutoaimTracerBehavior);
 		m.insert(Dmflags::ZACOMPATF_SILENT_WEST_SPAWNS,
 			f->cbCompatWestSpawnsAreSilent);
+		m.insert(Dmflags::ZACOMPATF_SKULLTAG_JUMPING,
+			f->cbCompatSkulltagJumping);
+		m.insert(Dmflags::ZACOMPATF_RESET_GLOBALVARS_ON_MAPRESET,
+			f->cbCompatResetWorldAcsVarsOnMapReset);
+		m.insert(Dmflags::ZACOMPATF_NO_OBITUARIES,
+			f->cbCompatNoObituaries);
 	}
 
 	// DMFlags
@@ -319,6 +326,8 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 		// General
 		m.insert(Dmflags::ZADF_NOUNLAGGED,
 			f->cbNoUnlagged);
+		m.insert(Dmflags::ZADF_NOUNLAGGED_BFG_TRACERS,
+			f->cbNoUnlaggedBfgTracers);
 		m.insert(Dmflags::ZADF_ALWAYS_APPLY_LMS_SPECTATORSETTINGS,
 			f->cbAlwaysApplyLMSSpectatorSettings);
 		m.insert(Dmflags::ZADF_NO_MEDALS,
@@ -338,6 +347,7 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 		m.insert(Dmflags::ZADF_MAX_BLOOD_SCALAR,
 			f->cbNoMaxBloodScalar);
 		m.insert(Dmflags::ZADF_NODROP, f->cbNoItemDrop);
+		m.insert(Dmflags::ZADF_NODOORCLOSE, f->cbNoClosingDoors);
 		// - Behavior
 		m.insert(Dmflags::ZADF_NO_ROCKET_JUMPING,
 			f->cbNoRocketJump);
@@ -345,6 +355,12 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 			f->cbNoUseCustomGLLightingSettings);
 		m.insert(Dmflags::ZADF_FORCE_ALPHA,
 			f->cbNoTurnOffTranslucency);
+		m.insert(Dmflags::ZADF_FORCE_SOFTWARE_PITCH_LIMITS,
+			f->cbLimitVerticalLook);
+		m.insert(Dmflags::ZADF_SHOOT_THROUGH_ALLIES,
+			f->cbShootThroughAllies);
+		m.insert(Dmflags::ZADF_DONT_PUSH_ALLIES,
+			f->cbDontPushAllies);
 
 		// Cooperative
 		m.insert(Dmflags::ZADF_SHARE_KEYS,
@@ -707,6 +723,14 @@ void FlagsPageValueController::setVisible(bool visible)
 	flagsPage->cbSurvivalNoMapResetOnDeath->setVisible(visible);
 	flagsPage->cbDeadPlayersCanKeepInventory->setVisible(visible);
 	flagsPage->cboPrivateChat->setVisible(visible);
+	flagsPage->cbNoUnlaggedBfgTracers->setVisible(visible);
+	flagsPage->cbNoClosingDoors->setVisible(visible);
+	flagsPage->cbLimitVerticalLook->setVisible(visible);
+	flagsPage->cbShootThroughAllies->setVisible(visible);
+	flagsPage->cbDontPushAllies->setVisible(visible);
+	flagsPage->cbCompatNoObituaries->setVisible(visible);
+	flagsPage->cbCompatSkulltagJumping->setVisible(visible);
+	flagsPage->cbCompatResetWorldAcsVarsOnMapReset->setVisible(visible);
 	for (QWidget *checkbox : compatflags2Checkboxes.values())
 	{
 		checkbox->setVisible(visible);
