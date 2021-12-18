@@ -11,6 +11,9 @@ and this project does not adhere to
 ## [unreleased]
 ### Added:
 - Odamex: Support for Odamex version 10.0 (#3909)
+- Zandronum: Add the new settings from Zandronum 3.1 to the Create
+Game box: DM and compat. flags, server country, voting permissions,
+respawn delay times. (#3938)
 
 ### Fixed
 - Zandronum, QZandronum: fix a crash if server sends more PWAD hashes than

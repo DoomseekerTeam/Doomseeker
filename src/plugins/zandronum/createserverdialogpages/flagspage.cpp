@@ -162,6 +162,9 @@ void FlagsPage::fillInGameCreateParams(GameCreateParams &gameCreateParams)
 	params << "+sv_coop_damagefactor" <<
 		QString::number(spinMonstersDamageFactor->value());
 
+	if (cbRespawnDelayEnabled->isChecked())
+		params << "+sv_respawndelaytime" << QString::number(spinRespawnDelay->value());
+
 	params << "+sv_defaultdmflags" << (cbDefaultDmflags->isChecked() ? "1" : "0");
 	if (gameVersion() == ZandronumGameInfo::GV_Zandronum3)
 	{
@@ -225,6 +228,12 @@ bool FlagsPage::loadConfig(Ini &ini)
 	if (!varForceInactivePlayersSpectatingMins.value().isNull())
 	{
 		spinForceInactivePlayersSpectatingMins->setValue(varForceInactivePlayersSpectatingMins);
+	}
+	IniVariable varRespawnDelaySecs = section["respawn_delay_secs"];
+	cbRespawnDelayEnabled->setChecked(!varRespawnDelaySecs.value().isNull());
+	if (!varRespawnDelaySecs.value().isNull())
+	{
+		spinRespawnDelay->setValue(varRespawnDelaySecs);
 	}
 	IniVariable varMonstersDamageFactor = section["monsters_damage_factor"];
 	if (!varMonstersDamageFactor.value().isNull())
@@ -296,6 +305,8 @@ bool FlagsPage::saveConfig(Ini &ini)
 	section["killmonsters_percentage"] = spinMonsterKillPercentage->value();
 	section["force_inactive_players_spectating_mins"] =
 		spinForceInactivePlayersSpectatingMins->value();
+	if (cbRespawnDelayEnabled->isChecked())
+		section["respawn_delay_secs"] = spinRespawnDelay->value();
 	section["monsters_damage_factor"] =
 		static_cast<float>(spinMonstersDamageFactor->value());
 	section["private_chat"] = cboPrivateChat->currentData().toInt();

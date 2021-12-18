@@ -732,6 +732,7 @@ void FlagsPageValueController::setVisible(bool visible)
 	flagsPage->cbCompatSkulltagJumping->setVisible(visible);
 	flagsPage->cbCompatResetWorldAcsVarsOnMapReset->setVisible(visible);
 	flagsPage->serverCountryPanel->setVisible(visible);
+	flagsPage->respawnDelayPanel->setVisible(visible);
 	for (QWidget *checkbox : compatflags2Checkboxes.values())
 	{
 		checkbox->setVisible(visible);
