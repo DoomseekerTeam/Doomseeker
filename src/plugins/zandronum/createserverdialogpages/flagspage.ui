@@ -63,6 +63,63 @@
            </spacer>
           </item>
           <item>
+           <widget class="QWidget" name="serverCountryPanel" native="true">
+            <layout class="QHBoxLayout" name="horizontalLayout_9">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="label_18">
+               <property name="text">
+                <string>Server country:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="leServerCountry">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>50</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Zandronum 3.1 introduces the ability to server hosts to specify the country their server is located in via a new CVAR, &lt;span style=&quot; font-family:'monospace';&quot;&gt;sv_country&lt;/span&gt;. This was introduced to allow hosts to combat the inaccuracies of IP geolocation that launchers rely on. This value is specified to launchers via the new &lt;span style=&quot; font-family:'monospace';&quot;&gt;SQF2_COUNTRY&lt;/span&gt; field, which can have the following values: &lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;an ISO 3166-1 alpha-3 country code.&lt;/span&gt; Note that Zandronum doesn't validate whether the country code supplied in &lt;span style=&quot; font-family:'monospace';&quot;&gt;sv_country&lt;/span&gt; is a registered country code. If the launcher does not recognise the given code, then it should display the server's country as unknown.&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;the value &lt;/span&gt;&lt;span style=&quot; font-family:'monospace'; font-weight:600;&quot;&gt;XIP&lt;/span&gt;, which suggests to the launcher that it should attempt IP geolocation to determine the server's country. The default value of &lt;span style=&quot; font-family:'monospace';&quot;&gt;sv_country&lt;/span&gt; will cause it to return this by default, to preserve existing behaviour and make it easier for casual hosts. If geolocation is unsupported, disabled, or fails, then the server's country should be displayed as unknown.&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;the value &lt;/span&gt;&lt;span style=&quot; font-family:'monospace'; font-weight:600;&quot;&gt;XUN&lt;/span&gt;, in which case the launcher should display the server's country as unknown.&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="placeholderText">
+                <string>XIP</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="Line" name="line">
+            <property name="frameShadow">
+             <enum>QFrame::Plain</enum>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QCheckBox" name="cbDefaultDmflags">
             <property name="toolTip">
              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -2021,6 +2078,7 @@ p, li { white-space: pre-wrap; }
  <tabstops>
   <tabstop>tabWidget</tabstop>
   <tabstop>cboGameVersion</tabstop>
+  <tabstop>leServerCountry</tabstop>
   <tabstop>cbDefaultDmflags</tabstop>
   <tabstop>cboFallingDamage</tabstop>
   <tabstop>cbNoMonsters</tabstop>

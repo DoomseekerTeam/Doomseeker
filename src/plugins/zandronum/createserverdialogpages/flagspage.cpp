@@ -168,6 +168,9 @@ void FlagsPage::fillInGameCreateParams(GameCreateParams &gameCreateParams)
 		params << "+sv_allowprivatechat" << cboPrivateChat->currentData().toString();
 	}
 
+	if (!leServerCountry->text().trimmed().isEmpty())
+		params << "+sv_country" << leServerCountry->text().trimmed();
+
 	params << votingPage->generateGameRunParameters();
 
 	gameCreateParams.setOption("GameVersion", gameVersion());
@@ -244,6 +247,8 @@ bool FlagsPage::loadConfig(Ini &ini)
 		cboJumping->setCurrentIndex(section["jump_ability"]);
 	if (section.hasSetting("crouch_ability"))
 		cboCrouching->setCurrentIndex(section["crouch_ability"]);
+	if (section.hasSetting("country"))
+		leServerCountry->setText(section["country"]);
 	setPlayerBlock(static_cast<PlayerBlock>(section.value("player_block", PB_NotSet).toInt()));
 	setLevelExit(static_cast<LevelExit>(section.value("level_exit", EXIT_NotSet).toInt()));
 
@@ -294,6 +299,8 @@ bool FlagsPage::saveConfig(Ini &ini)
 	section["monsters_damage_factor"] =
 		static_cast<float>(spinMonstersDamageFactor->value());
 	section["private_chat"] = cboPrivateChat->currentData().toInt();
+	if (!leServerCountry->text().trimmed().isEmpty())
+		section["country"] = leServerCountry->text().trimmed();
 
 	return votingPage->saveConfig(ini);
 }
