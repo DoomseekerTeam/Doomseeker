@@ -330,7 +330,7 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 		m.insert(Dmflags::ZADF_NO_ROCKET_JUMPING,
 			f->cbNoRocketJump);
 		m.insert(Dmflags::ZADF_FORCE_GL_DEFAULTS,
-			f->cbNoUseCustomGLLightingSettings);
+			f->cbNoUseCustomRendererSettings);
 		m.insert(Dmflags::ZADF_FORCE_ALPHA,
 			f->cbNoTurnOffTranslucency);
 

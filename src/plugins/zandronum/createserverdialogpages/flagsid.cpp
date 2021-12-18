@@ -198,7 +198,7 @@ void FlagsId::assign()
 	f->cbNoMaxBloodScalar->setProperty("flagname", NO_MAX_BLOOD_SCALAR);
 	f->cbNoItemDrop->setProperty("flagname", NO_ITEM_DROP);
 	f->cbNoRocketJump->setProperty("flagname", NO_ROCKET_JUMP);
-	f->cbNoUseCustomGLLightingSettings->setProperty("flagname", NO_USE_CUSTOM_GLLIGHTING_SETTINGS);
+	f->cbNoUseCustomRendererSettings->setProperty("flagname", NO_USE_CUSTOM_RENDERER_SETTINGS);
 	f->cbNoTurnOffTranslucency->setProperty("flagname", NO_TURN_OFF_TRANSLUCENCY);
 	f->cbShareKeys->setProperty("flagname", SHARE_KEYS);
 	f->cbSurvivalNoMapResetOnDeath->setProperty("flagname", SURVIVAL_NO_MAP_RESET_ON_DEATH);

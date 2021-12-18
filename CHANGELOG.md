@@ -18,6 +18,9 @@ respawn delay times. (#3938)
 ### Changed
 - Zandronum: Clean-up the layout of the "Zandronum" tab in the
 Create Game box.
+- Zandronum: Rename the "Disallow - Use custom GL lighting settings"
+to "Disallow - Use custom renderer settings" because this is what it
+actually does.
 
 ### Fixed
 - Zandronum, QZandronum: fix a crash if server sends more PWAD hashes than

@@ -351,8 +351,8 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 		// - Behavior
 		m.insert(Dmflags::ZADF_NO_ROCKET_JUMPING,
 			f->cbNoRocketJump);
-		m.insert(Dmflags::ZADF_FORCE_GL_DEFAULTS,
-			f->cbNoUseCustomGLLightingSettings);
+		m.insert(Dmflags::ZADF_FORCE_VIDEO_DEFAULTS,
+			f->cbNoUseCustomRendererSettings);
 		m.insert(Dmflags::ZADF_FORCE_ALPHA,
 			f->cbNoTurnOffTranslucency);
 		m.insert(Dmflags::ZADF_FORCE_SOFTWARE_PITCH_LIMITS,

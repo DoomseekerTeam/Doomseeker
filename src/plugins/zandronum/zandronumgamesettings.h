@@ -146,7 +146,7 @@ extern const QString NO_DISPLAY_COOP_INFO;
 extern const QString NO_MAX_BLOOD_SCALAR;
 extern const QString NO_ITEM_DROP;
 extern const QString NO_ROCKET_JUMP;
-extern const QString NO_USE_CUSTOM_GLLIGHTING_SETTINGS;
+extern const QString NO_USE_CUSTOM_RENDERER_SETTINGS;
 extern const QString NO_TURN_OFF_TRANSLUCENCY;
 extern const QString SHARE_KEYS;
 extern const QString SURVIVAL_NO_MAP_RESET_ON_DEATH;

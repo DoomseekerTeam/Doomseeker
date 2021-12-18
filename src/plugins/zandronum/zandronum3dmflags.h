@@ -140,7 +140,7 @@ public:
 		ZADF_YES_KEEP_TEAMS		= 1 << 7,
 
 		// [BB] Enforces some Gl rendering options to their default values.
-		ZADF_FORCE_GL_DEFAULTS		= 1 << 8,
+		ZADF_FORCE_VIDEO_DEFAULTS		= 1 << 8,
 
 		// [BB] P_RadiusAttack doesn't give players any z-velocity if the attack was made by a player. This essentially disables rocket jumping.
 		ZADF_NO_ROCKET_JUMPING		= 1 << 9,

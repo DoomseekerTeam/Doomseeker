@@ -329,8 +329,8 @@ DMFlagsSection Dmflags::zandronumDmflags()
 		tr("Keys are shared between players"));
 	section << DMFlag("Player teams are preserved between maps", ZADF_YES_KEEP_TEAMS,
 		tr("Player teams are preserved between maps"));
-	section << DMFlag("Force OpenGL defaults", ZADF_FORCE_GL_DEFAULTS,
-		tr("Force OpenGL defaults"));
+	section << DMFlag("Force renderer defaults", ZADF_FORCE_VIDEO_DEFAULTS,
+		tr("Force renderer defaults"));
 	section << DMFlag("No rocket jumping", ZADF_NO_ROCKET_JUMPING,
 		tr("No rocket jumping"));
 	section << DMFlag("Award damage instead of kills", ZADF_AWARD_DAMAGE_INSTEAD_KILLS,

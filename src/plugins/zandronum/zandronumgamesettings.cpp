@@ -141,7 +141,11 @@ const QString NO_DISPLAY_COOP_INFO = "NoDisplayCoopInfo";
 const QString NO_MAX_BLOOD_SCALAR = "NoMaxBloodScalar";
 const QString NO_ITEM_DROP = "NoItemDrop";
 const QString NO_ROCKET_JUMP = "NoRocketJump";
-const QString NO_USE_CUSTOM_GLLIGHTING_SETTINGS = "NoUseCustomGLLightingSettings";
+// The "NoUseCustomGLLightingSettings" name is no longer accurate but
+// kept for compatibility with existing saved server configs; the name
+// has been changed in the source-port because this settings now affects
+// more than just the "GL" renderer and more than just "LIGHTING".
+const QString NO_USE_CUSTOM_RENDERER_SETTINGS = "NoUseCustomGLLightingSettings";
 const QString NO_TURN_OFF_TRANSLUCENCY = "NoTurnOffTranslucency";
 const QString SHARE_KEYS = "ShareKeys";
 const QString SURVIVAL_NO_MAP_RESET_ON_DEATH = "SurvivalNoMapResetOnDeath";

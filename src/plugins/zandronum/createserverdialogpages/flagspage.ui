@@ -467,9 +467,9 @@ p, li { white-space: pre-wrap; }
                </widget>
               </item>
               <item row="0" column="1">
-               <widget class="QCheckBox" name="cbNoUseCustomGLLightingSettings">
+               <widget class="QCheckBox" name="cbNoUseCustomRendererSettings">
                 <property name="text">
-                 <string>Use custom GL lighting settings</string>
+                 <string>Use custom renderer settings</string>
                 </property>
                </widget>
               </item>
@@ -2201,7 +2201,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>cbNoRocketJump</tabstop>
   <tabstop>cbNoTaunt</tabstop>
   <tabstop>cbNoUseAutomap</tabstop>
-  <tabstop>cbNoUseCustomGLLightingSettings</tabstop>
+  <tabstop>cbNoUseCustomRendererSettings</tabstop>
   <tabstop>cbNoUseCrosshairs</tabstop>
   <tabstop>cbNoTurnOffTranslucency</tabstop>
   <tabstop>cbNoTargetIdentify</tabstop>
@@ -2697,7 +2697,7 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
-   <sender>cbNoUseCustomGLLightingSettings</sender>
+   <sender>cbNoUseCustomRendererSettings</sender>
    <signal>clicked()</signal>
    <receiver>FlagsPage</receiver>
    <slot>applyWidgetsChange()</slot>
