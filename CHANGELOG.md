@@ -15,6 +15,10 @@ and this project does not adhere to
 Game box: DM and compat. flags, server country, voting permissions,
 respawn delay times. (#3938)
 
+### Changed
+- Zandronum: Clean-up the layout of the "Zandronum" tab in the
+Create Game box.
+
 ### Fixed
 - Zandronum, QZandronum: fix a crash if server sends more PWAD hashes than
 it sent PWADs (#3927)
