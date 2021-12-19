@@ -27,6 +27,8 @@
 #include "zandronumserver.h"
 #include <serverapi/gamecreateparams.h>
 
+#include <cstdint>
+
 ZandronumGameHost::ZandronumGameHost()
 	: GameHost(ZandronumEnginePlugin::staticInstance())
 {
@@ -42,7 +44,7 @@ void ZandronumGameHost::addDMFlags()
 	const QString argNames[] = { "+dmflags", "+dmflags2", "+compatflags" };
 	for (int i = 0; i < qMin(dmFlags.size(), 3); ++i)
 	{
-		unsigned flagsValue = 0;
+		int32_t flagsValue = 0;
 		const DMFlagsSection &section = dmFlags[i];
 
 		for (int j = 0; j < section.count(); ++j)

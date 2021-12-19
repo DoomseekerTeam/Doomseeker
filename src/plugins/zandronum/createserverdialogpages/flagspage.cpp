@@ -35,9 +35,10 @@
 #include "createserverdialogpages/flagspagevaluecontroller3.h"
 #include "createserverdialogpages/votingsetupwidget.h"
 #include "zandronumgameinfo.h"
+#include <cstdint>
 
-const unsigned DEFAULT_LMSALLOWEDWEAPONS = 1023;
-const unsigned DEFAULT_LMSSPECTATORSETTINGS = 3;
+const int32_t DEFAULT_LMSALLOWEDWEAPONS = 1023;
+const int32_t DEFAULT_LMSSPECTATORSETTINGS = 3;
 
 class DmflagsValidator : public QValidator
 {
@@ -53,13 +54,13 @@ public:
 	State validate(QString &input, int &pos) const override
 	{
 		Q_UNUSED(pos);
-		if (input.trimmed().isEmpty())
+		if (input.trimmed().isEmpty() || input.trimmed() == "-")
 		{
 			return QValidator::Intermediate;
 		}
 
 		bool bOk;
-		input.toUInt(&bOk);
+		input.toInt(&bOk);
 		return bOk ? QValidator::Acceptable : QValidator::Invalid;
 	}
 };
@@ -86,7 +87,7 @@ FlagsPage::FlagsPage(CreateServerDialog *pParentDialog)
 	flagsId.assign();
 
 	// The validator makes sure that the line edit will accept only
-	// 32-bit unsigned values.
+	// 32-bit signed values.
 	leDmflags->setValidator(&d->validator);
 	leDmflags2->setValidator(&d->validator);
 	leZandronumDmflags->setValidator(&d->validator);
@@ -187,7 +188,7 @@ void FlagsPage::initJumpCrouchComboBoxes(QComboBox *pComboBox)
 	pComboBox->insertItem(JCA_Yes, tr("Yes"));
 }
 
-void FlagsPage::insertFlagsIfValid(QLineEdit *dst, QString flags, unsigned valIfInvalid)
+void FlagsPage::insertFlagsIfValid(QLineEdit *dst, QString flags, int32_t valIfInvalid)
 {
 	int dummy;
 	if (d->validator.validate(flags, dummy) == QValidator::Acceptable)

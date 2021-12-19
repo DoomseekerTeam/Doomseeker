@@ -26,6 +26,7 @@
 #include "ui_flagspage.h"
 #include "zandronumgameinfo.h"
 #include <gui/widgets/createserverdialogpage.h>
+#include <cstdint>
 
 namespace Zandronum2
 {
@@ -113,7 +114,7 @@ private:
 	PrivData *d;
 
 	void initJumpCrouchComboBoxes(QComboBox *pComboBox);
-	void insertFlagsIfValid(QLineEdit *dst, QString flags, unsigned valIfInvalid = 0);
+	void insertFlagsIfValid(QLineEdit *dst, QString flags, int32_t valIfInvalid = 0);
 
 	ZandronumGameInfo::GameVersion gameVersion() const;
 	void loadGameVersion(ZandronumGameInfo::GameVersion version);

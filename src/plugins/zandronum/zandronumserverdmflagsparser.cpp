@@ -29,6 +29,8 @@
 #include <datastreamoperatorwrapper.h>
 #include <serverapi/serverstructs.h>
 
+#include <cstdint>
+
 ZandronumServerDmflagsParser *ZandronumServerDmflagsParser::mkParser(
 	ZandronumServer *server, QDataStream *in)
 {
@@ -54,7 +56,7 @@ QList<DMFlagsSection> ZandronumServerDmflagsParser::sequential32Parse(const QLis
 	// Read each dmflags section separately.
 	for (int i = 0; i < knownFlags.count() && i < numSections; ++i)
 	{
-		quint32 dmflags = in.readQUInt32();
+		int32_t dmflags = in.readQInt32();
 
 		const DMFlagsSection &knownSection = knownFlags[i];
 		DMFlagsSection detectedSection = knownSection.copyEmpty();

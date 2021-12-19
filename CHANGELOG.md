@@ -39,6 +39,7 @@ MSVC 2013, which really should not be there since the program's executable
 distribution is built in MinGW. (#3955)
 - Zandronum, QZandronum: fix a crash if server sends more PWAD hashes than
 it sent PWADs. (#3927)
+- Zandronum: dmflags and compatflags are signed integers, not unsigned. (#3944)
 
 ## [1.3.2] - 2021-08-07
 ### Added
