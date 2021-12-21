@@ -97,19 +97,10 @@ void DoomseekerConfigurationDialog::appendWadseekerConfigurationBoxes()
 	QStandardItem *wadseekerRoot = addLabel(nullptr, tr("Wadseeker"));
 	wadseekerRoot->setIcon(QIcon(":/icons/get-wad.png"));
 
-	ConfigPage *configPage = nullptr;
-
-	configPage = new CFGWadseekerAppearance(this);
-	addConfigPage(wadseekerRoot, configPage);
-
-	configPage = new CFGWadseekerGeneral(this);
-	addConfigPage(wadseekerRoot, configPage);
-
-	configPage = new CFGWadseekerSites(this);
-	addConfigPage(wadseekerRoot, configPage);
-
-	configPage = new CFGWadseekerIdgames(this);
-	addConfigPage(wadseekerRoot, configPage);
+	addConfigPage(wadseekerRoot, new CFGWadseekerAppearance(this));
+	addConfigPage(wadseekerRoot, new CFGWadseekerGeneral(this));
+	addConfigPage(wadseekerRoot, new CFGWadseekerSites(this));
+	addConfigPage(wadseekerRoot, new CFGWadseekerIdgames(this));
 }
 
 void DoomseekerConfigurationDialog::doSaveSettings()
@@ -126,26 +117,16 @@ void DoomseekerConfigurationDialog::initOptionsList()
 	enginesRoot = addLabel(nullptr, tr("Games"));
 	enginesRoot->setIcon(QIcon(":/icons/joystick.png"));
 
-	ConfigPage *configPage = nullptr;
-
-	configPage = new CFGAppearance(this);
-	addConfigPage(nullptr, configPage);
-
+	addConfigPage(nullptr, new CFGAppearance(this));
 	#ifdef WITH_AUTOUPDATES
-	configPage = new CFGAutoUpdates(this);
-	addConfigPage(nullptr, configPage);
+	addConfigPage(nullptr, new CFGAutoUpdates(this));
 	#endif
 
-	configPage = new CFGCustomServers(this);
-	addConfigPage(nullptr, configPage);
-	customServersCfgBox = configPage;
+	customServersCfgBox = new CFGCustomServers(this);
+	addConfigPage(nullptr, customServersCfgBox);
 
-	configPage = new CFGServerPasswords(this);
-	addConfigPage(nullptr, configPage);
-
-	configPage = new CFGQuery(this);
-	addConfigPage(nullptr, configPage);
-
+	addConfigPage(nullptr, new CFGServerPasswords(this));
+	addConfigPage(nullptr, new CFGQuery(this));
 	addConfigPage(nullptr, new CFGIP2C(this));
 
 	appendFilePathsConfigurationBoxes();
