@@ -14,6 +14,7 @@ and this project does not adhere to
 - Zandronum: Add the new settings from Zandronum 3.1 to the Create
 Game box: DM and compat. flags, server country, voting permissions,
 respawn delay times. (#3938)
+- Zandronum: honor the country code sent by the server in lieu of IP2C (#3939)
 
 ### Changed
 - Zandronum: Clean-up the layout of the "Zandronum" tab in the

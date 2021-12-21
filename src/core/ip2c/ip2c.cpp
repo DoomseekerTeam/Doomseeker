@@ -89,6 +89,17 @@ bool IP2C::hasData() const
 	return !database.empty();
 }
 
+IP2C::Lookup IP2C::howLookup(const QString &countryCode)
+{
+	QString code = countryCode.toUpper().trimmed();
+	if (code.isEmpty() || code == "XIP")
+		return LOOKUP_IP;
+	else if (code == "XUN")
+		return LOOKUP_DONT;
+	else
+		return LOOKUP_DIRECT;
+}
+
 const IP2C::IP2CData &IP2C::lookupIP(unsigned int ipaddress)
 {
 	if (database.empty())

@@ -43,6 +43,35 @@ DClass<ServerListRowHandler>
 {
 public:
 	ServerPtr server;
+
+	QPixmap flag()
+	{
+		IP2C *ip2c = IP2C::instance();
+		IP2C::Lookup lookup = IP2C::howLookup(server->country());
+		switch (lookup)
+		{
+		case IP2C::LOOKUP_DIRECT:
+			if (!ip2c->isDataAccessLocked())
+			{
+				return ip2c->flag(server->country());
+			}
+			break;
+		case IP2C::LOOKUP_DONT:
+			return ip2c->flagUnknown;
+		case IP2C::LOOKUP_IP:
+		default:
+			if (!ip2c->isDataAccessLocked())
+			{
+				IP2CCountryInfo countryInfo = ip2c->obtainCountryInfo(server->address());
+				if (countryInfo.isValid())
+				{
+					return *countryInfo.flag;
+				}
+			}
+			break;
+		}
+		return QPixmap();
+	}
 };
 
 DPointered(ServerListRowHandler)
@@ -277,16 +306,9 @@ void ServerListRowHandler::setBanned()
 void ServerListRowHandler::setCountryFlag()
 {
 	QStandardItem *pItem = item(IDServerName);
-
-	if (!IP2C::instance()->isDataAccessLocked())
-	{
-		IP2CCountryInfo countryInfo = IP2C::instance()->obtainCountryInfo(d->server->address());
-		if (countryInfo.isValid())
-		{
-			QPixmap flag = *countryInfo.flag;
-			pItem->setIcon(flag);
-		}
-	}
+	const QPixmap flag = d->flag();
+	if (!flag.isNull())
+		pItem->setIcon(flag);
 }
 
 void ServerListRowHandler::setFirstQuery()

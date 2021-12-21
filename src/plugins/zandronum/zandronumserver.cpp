@@ -634,6 +634,13 @@ Server::Response ZandronumServer::readRequest(const QByteArray &data)
 			}
 			resetPwadsList(pwads);
 		}
+
+		if ((flags2 & SQF2_COUNTRY) == SQF2_COUNTRY)
+		{
+			RETURN_BAD_IF_NOT_ENOUGH_DATA(3);
+			QByteArray countryCode = in.readRaw(3);
+			setCountry(QString::fromLatin1(countryCode));
+		}
 	}
 	return RESPONSE_GOOD;
 }

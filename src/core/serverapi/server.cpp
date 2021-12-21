@@ -68,6 +68,7 @@ public:
 	bool bPingIsSet;
 
 	bool bSecure;
+	QString country;
 	GameMode gameMode;
 	unsigned int ping;
 	bool custom;
@@ -261,6 +262,11 @@ ExeFile *Server::clientExe()
 	f->setExeTypeName(tr("client"));
 	f->setConfigKey("BinaryPath");
 	return f;
+}
+
+const QString &Server::country() const
+{
+	return d->country;
 }
 
 QString Server::customDetails_default()
@@ -555,6 +561,11 @@ bool Server::sendRefreshQuery(QUdpSocket *socket)
 	socket->writeDatagram(request, address(), port());
 
 	return true;
+}
+
+void Server::setCountry(const QString &country)
+{
+	d->country = country.trimmed().toUpper();
 }
 
 void Server::setCustom(bool custom)

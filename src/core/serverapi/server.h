@@ -292,6 +292,8 @@ public:
 	 */
 	QString customDetails();
 
+	const QString &country() const;
+
 	/**
 	 * @brief dmflags used by this server.
 	 */
@@ -540,6 +542,20 @@ public:
 	 */
 	bool sendRefreshQuery(QUdpSocket *socket);
 
+	/**
+	 * @brief Set the server's location country.
+	 *
+	 * This should be the ISO 3166-1 alpha-3 country code. If set, it will
+	 * overrule IP2C - the country detected from the IP address.
+	 *
+	 * These are the possible values:
+	 *
+	 * - ISO 3166-1 alpha-3 code for an existing country
+	 * - "XUN" or a code of a not existing country - Doomseeker will
+	 *   consider the country as "Unknown"
+	 * - "XIP" or empty - force IP2C recognition
+	 */
+	void setCountry(const QString &country);
 	/**
 	 * @brief Set whether this server is custom, should be called
 	 *        by Doomseeker only.

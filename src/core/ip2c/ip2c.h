@@ -50,6 +50,19 @@ class IP2C : public QObject
 	Q_OBJECT
 
 public:
+	/**
+	 * @brief Indicate how the IP2C resolution should occur.
+	 */
+	enum Lookup
+	{
+		/// Lookup the country by IP.
+		LOOKUP_IP,
+		/// The country info is known; use it directly.
+		LOOKUP_DIRECT,
+		/// Don't look-up the country; force an unknown country.
+		LOOKUP_DONT,
+	};
+
 	class IP2CData
 	{
 	public:
@@ -77,6 +90,12 @@ public:
 
 	static IP2C *instance();
 	static void deinstantiate();
+
+	/**
+	 * Interpret the country code or a special value to see if and how
+	 * the IP2C should be resolved.
+	 */
+	static Lookup howLookup(const QString &countryCode);
 
 	const QPixmap flagLan;
 	const QPixmap flagLocalhost;
