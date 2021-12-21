@@ -27,6 +27,7 @@
 #include "gui/configuration/cfgautoupdates.h"
 #include "gui/configuration/cfgcustomservers.h"
 #include "gui/configuration/cfgfilepaths.h"
+#include "gui/configuration/cfgip2c.h"
 #include "gui/configuration/cfgquery.h"
 #include "gui/configuration/cfgserverpasswords.h"
 #include "gui/configuration/cfgwadalias.h"
@@ -130,8 +131,10 @@ void DoomseekerConfigurationDialog::initOptionsList()
 	configPage = new CFGAppearance(this);
 	addConfigPage(nullptr, configPage);
 
+	#ifdef WITH_AUTOUPDATES
 	configPage = new CFGAutoUpdates(this);
 	addConfigPage(nullptr, configPage);
+	#endif
 
 	configPage = new CFGCustomServers(this);
 	addConfigPage(nullptr, configPage);
@@ -142,6 +145,8 @@ void DoomseekerConfigurationDialog::initOptionsList()
 
 	configPage = new CFGQuery(this);
 	addConfigPage(nullptr, configPage);
+
+	addConfigPage(nullptr, new CFGIP2C(this));
 
 	appendFilePathsConfigurationBoxes();
 	appendWadseekerConfigurationBoxes();

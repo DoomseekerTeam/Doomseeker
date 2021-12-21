@@ -79,9 +79,15 @@ icons/refresh.png
 icons/server_details.png
 icons/x.png
 
+
 - Copyright (C) 2019 Pol Marcet Sardà
 
 icons/file.png
+
+
+- Copyright (C) 2021 Zalewa
+
+icons/location.png
 
 
 - Crystal Clear (crystal_clear) by Everaldo Coelho

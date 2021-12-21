@@ -92,7 +92,6 @@ void CFGAutoUpdates::readSettings()
 		channelIdx = d->cboUpdateChannel->findData(UpdateChannel::mkStable().name());
 	}
 	d->cboUpdateChannel->setCurrentIndex(channelIdx);
-	d->cbIp2cAutoUpdate->setChecked(gConfig.doomseeker.bIP2CountryAutoUpdate);
 }
 
 void CFGAutoUpdates::saveSettings()
@@ -107,5 +106,4 @@ void CFGAutoUpdates::saveSettings()
 		assert(false && "CFGAutoUpdates::saveSettings() - No radio button is checked.");
 	gConfig.autoUpdates.updateChannelName = d->cboUpdateChannel->itemData(
 		d->cboUpdateChannel->currentIndex()).toString();
-	gConfig.doomseeker.bIP2CountryAutoUpdate = d->cbIp2cAutoUpdate->isChecked();
 }

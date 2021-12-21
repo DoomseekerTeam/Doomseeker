@@ -272,6 +272,7 @@ DoomseekerConfig::DoomseekerCfg::DoomseekerCfg()
 	this->bColorizeServerConsole = true;
 	this->bDrawGridInServerTable = false;
 	this->bHidePasswords = false;
+	this->bHonorServerCountries = true;
 	this->bGroupServersWithPlayersAtTheTopOfTheList = true;
 	this->bIP2CountryAutoUpdate = true;
 	this->bLogCreatedServer = false;
@@ -338,6 +339,7 @@ void DoomseekerConfig::DoomseekerCfg::init(IniSection &section)
 	section.createSetting("ColorizeServerConsole", this->bColorizeServerConsole);
 	section.createSetting("DrawGridInServerTable", this->bDrawGridInServerTable);
 	section.createSetting("HidePasswords", this->bHidePasswords);
+	section.createSetting("HonorServerCountries", this->bHonorServerCountries);
 	section.createSetting("GroupServersWithPlayersAtTheTopOfTheList", this->bGroupServersWithPlayersAtTheTopOfTheList);
 	section.createSetting("IP2CAutoUpdate", this->bIP2CountryAutoUpdate);
 	section.createSetting("LogCreatedServers", this->bLogCreatedServer);
@@ -379,6 +381,7 @@ void DoomseekerConfig::DoomseekerCfg::load(IniSection &section)
 	this->bColorizeServerConsole = section["ColorizeServerConsole"];
 	this->bDrawGridInServerTable = section["DrawGridInServerTable"];
 	this->bHidePasswords = section["HidePasswords"];
+	this->bHonorServerCountries = section["HonorServerCountries"];
 	this->bGroupServersWithPlayersAtTheTopOfTheList = section["GroupServersWithPlayersAtTheTopOfTheList"];
 	this->bIP2CountryAutoUpdate = section["IP2CAutoUpdate"];
 	this->bLogCreatedServer = section["LogCreatedServers"];
@@ -476,6 +479,7 @@ void DoomseekerConfig::DoomseekerCfg::save(IniSection &section)
 	section["ColorizeServerConsole"] = this->bColorizeServerConsole;
 	section["DrawGridInServerTable"] = this->bDrawGridInServerTable;
 	section["HidePasswords"] = this->bHidePasswords;
+	section["HonorServerCountries"] = this->bHonorServerCountries;
 	section["GroupServersWithPlayersAtTheTopOfTheList"] = this->bGroupServersWithPlayersAtTheTopOfTheList;
 	section["IP2CAutoUpdate"] = this->bIP2CountryAutoUpdate;
 	section["LogCreatedServers"] = this->bLogCreatedServer;

@@ -6,6 +6,7 @@ set(UI_FILES
 	gui/configuration/cfgautoupdates.ui
 	gui/configuration/cfgcustomservers.ui
 	gui/configuration/cfgfilepaths.ui
+	gui/configuration/cfgip2c.ui
 	gui/configuration/cfgquery.ui
 	gui/configuration/cfgserverpasswords.ui
 	gui/configuration/cfgwadalias.ui
@@ -86,6 +87,7 @@ set(HEADER_FILES
 	gui/configuration/cfgautoupdates.h
 	gui/configuration/cfgcustomservers.h
 	gui/configuration/cfgfilepaths.h
+	gui/configuration/cfgip2c.h
 	gui/configuration/cfgquery.h
 	gui/configuration/cfgserverpasswords.h
 	gui/configuration/cfgwadalias.h
@@ -320,6 +322,7 @@ set(SOURCE_FILES
 	gui/configuration/cfgautoupdates.cpp
 	gui/configuration/cfgcustomservers.cpp
 	gui/configuration/cfgfilepaths.cpp
+	gui/configuration/cfgip2c.cpp
 	gui/configuration/cfgquery.cpp
 	gui/configuration/cfgserverpasswords.cpp
 	gui/configuration/cfgwadalias.cpp

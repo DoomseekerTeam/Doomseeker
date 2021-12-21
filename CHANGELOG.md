@@ -10,13 +10,16 @@ and this project does not adhere to
 
 ## [unreleased]
 ### Added:
+- An IP2C option to toggle honoring of the countries received from
+the game servers; enabled by default. (#3939)
 - Odamex: Support for Odamex version 10.0 (#3909)
 - Zandronum: Add the new settings from Zandronum 3.1 to the Create
 Game box: DM and compat. flags, server country, voting permissions,
 respawn delay times. (#3938)
-- Zandronum: honor the country code sent by the server in lieu of IP2C (#3939)
+- Zandronum: accept the country code sent by the game servers. (#3939)
 
 ### Changed
+- Move the IP2C options to a separate configuration page.
 - Zandronum: Clean-up the layout of the "Zandronum" tab in the
 Create Game box.
 - Zandronum: Rename the "Disallow - Use custom GL lighting settings"

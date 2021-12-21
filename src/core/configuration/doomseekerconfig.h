@@ -64,6 +64,7 @@ public:
 		bool bColorizeServerConsole;
 		bool bDrawGridInServerTable;
 		bool bHidePasswords;
+		bool bHonorServerCountries;
 		bool bGroupServersWithPlayersAtTheTopOfTheList;
 		bool bIP2CountryAutoUpdate;
 		bool bLogCreatedServer;
