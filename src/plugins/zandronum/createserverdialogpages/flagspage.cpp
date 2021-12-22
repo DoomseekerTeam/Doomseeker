@@ -143,15 +143,35 @@ void FlagsPage::fillInGameCreateParams(GameCreateParams &gameCreateParams)
 {
 	QStringList params;
 
-	params << "+dmflags" << leDmflags->text();
-	params << "+dmflags2" << leDmflags2->text();
-	params << "+zadmflags" << leZandronumDmflags->text();
-	params << "+compatflags" << leCompatflags->text();
+	QList<std::pair<QString, QString>> flags;
+	flags << std::make_pair("dmflags", leDmflags->text());
+	flags << std::make_pair("dmflags2", leDmflags2->text());
+	flags << std::make_pair("zadmflags", leZandronumDmflags->text());
+	flags << std::make_pair("compatflags", leCompatflags->text());
 	if (leCompatflags2->isEnabled() && leCompatflags2->isVisible())
-		params << "+compatflags2" << leCompatflags2->text();
-	params << "+zacompatflags" << leZandronumCompatflags->text();
-	params << "+lmsallowedweapons" << leLMSAllowedWeapons->text();
-	params << "+lmsspectatorsettings" << leLMSSpectatorSettings->text();
+		flags << std::make_pair("compatflags2", leCompatflags2->text());
+	flags << std::make_pair("zacompatflags", leZandronumCompatflags->text());
+	flags << std::make_pair("lmsallowedweapons", leLMSAllowedWeapons->text());
+	flags << std::make_pair("lmsspectatorsettings", leLMSSpectatorSettings->text());
+
+	for (auto flag : flags)
+	{
+		const QString name = flag.first;
+		const QString valueAsStr = flag.second;
+		bool ok = false;
+		const int32_t value = valueAsStr.toLong(&ok);
+		if (!ok)
+			continue;
+
+		if (value >= 0)
+		{
+			params << QString("+%1").arg(name) << valueAsStr;
+		}
+		else
+		{
+			params << QString("+%1 %2").arg(name).arg(value);
+		}
+	}
 
 	if (cbMonstersMustBeKilledToExit->isChecked())
 	{
