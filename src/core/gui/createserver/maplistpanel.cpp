@@ -123,8 +123,13 @@ bool MapListPanel::isMapOnList(const QString &mapName) const
 {
 	for (const QString &candidate : CommonGUI::listViewStandardItemsToStringList(d->lstMaplist))
 	{
-		if (candidate.compare(mapName, Qt::CaseInsensitive) == 0)
-			return true;
+		const QStringList tokens = candidate.trimmed().split(" ");
+		if (!tokens.isEmpty())
+		{
+			const QString mapFromList = tokens[0];
+			if (mapFromList.compare(mapName, Qt::CaseInsensitive) == 0)
+				return true;
+		}
 	}
 	return false;
 }
