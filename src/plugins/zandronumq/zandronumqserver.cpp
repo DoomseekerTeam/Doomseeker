@@ -600,7 +600,7 @@ Server::Response ZandronumqServer::readRequest(const QByteArray &data)
 			RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
 			unsigned int numHashes = in.readQInt8();
 
-			if (numHashes != pwads.length())
+			if (numHashes > pwads.length())
 			{
 				return RESPONSE_BAD;
 			}
