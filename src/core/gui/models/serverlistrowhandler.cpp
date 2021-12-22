@@ -47,30 +47,9 @@ public:
 	QPixmap flag()
 	{
 		IP2C *ip2c = IP2C::instance();
-		if (gConfig.doomseeker.bHonorServerCountries)
-		{
-			IP2C::Lookup lookup = IP2C::howLookup(server->country());
-			if (lookup == IP2C::LOOKUP_DIRECT)
-			{
-				if (!ip2c->isDataAccessLocked())
-					return ip2c->flag(server->country());
-				else
-					return QPixmap();
-			}
-
-			if (lookup == IP2C::LOOKUP_DONT)
-				return ip2c->flagUnknown;
-		}
-
-		if (!ip2c->isDataAccessLocked())
-		{
-			IP2CCountryInfo countryInfo = ip2c->obtainCountryInfo(server->address());
-			if (countryInfo.isValid())
-			{
-				return *countryInfo.flag;
-			}
-		}
-		return QPixmap();
+		const IP2CCountry countryInfo = ip2c->countryInfoForServer(*server);
+		return (countryInfo.isValid() && countryInfo.flag != nullptr) ?
+			*countryInfo.flag : QPixmap();
 	}
 };
 

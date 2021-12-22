@@ -25,17 +25,17 @@
 #define __IP2C_H__
 
 #include "global.h"
-#include "ip2c/entities/ip2ccountryinfo.h"
+#include "ip2c/ip2ccountry.h"
+#include "ip2c/ip2crange.h"
 
 #include <QHash>
 #include <QHostAddress>
 #include <QList>
 #include <QMutex>
 #include <QPixmap>
-#include <QProgressBar>
-#include <QStatusBar>
 #include <QString>
-#include <QUrl>
+
+class Server;
 
 /**
  * @brief IP to Country database handler.
@@ -63,31 +63,6 @@ public:
 		LOOKUP_DONT,
 	};
 
-	class IP2CData
-	{
-	public:
-		unsigned int ipStart;
-		unsigned int ipEnd;
-		QString country;
-		QString countryFullName;
-
-		IP2CData()
-		{
-			ipStart = ipEnd = 0;
-		}
-
-		bool isCountryKnown() const;
-
-		/**
-		 * IP2CData class is valid when ipStart is different from
-		 * ipEnd.
-		 */
-		bool isValid() const
-		{
-			return ipStart != ipEnd;
-		}
-	};
-
 	static IP2C *instance();
 	static void deinstantiate();
 
@@ -101,21 +76,12 @@ public:
 	const QPixmap flagLocalhost;
 	const QPixmap flagUnknown;
 
-	const QPixmap &flag(const QString &countryShortName);
+	const QPixmap &flag(const QString &countryCode);
 	bool hasData() const;
 
 	bool isDataAccessLocked() const
 	{
 		return bDataAccessLocked;
-	}
-
-	/**
-	 * Returns a reference to the structure describing the country.
-	 */
-	const IP2CData &lookupIP(unsigned int ipaddress);
-	const IP2CData &lookupIP(const QHostAddress &ipaddress)
-	{
-		return lookupIP(ipaddress.toIPv4Address());
 	}
 
 	int numKnownEntries() const
@@ -124,13 +90,19 @@ public:
 	}
 
 	/**
+	 * Returns country information based on the ISO 3166-1 alpha-3 code.
+	 */
+	IP2CCountry countryInfo(const QString &countryCode);
+
+	/**
 	 * Returns country information based on given IP.
 	 */
-	IP2CCountryInfo obtainCountryInfo(unsigned int ipaddress);
-	IP2CCountryInfo obtainCountryInfo(const QHostAddress &ipaddress)
+	IP2CCountry countryInfoForIPv4(unsigned int ipaddress);
+	IP2CCountry countryInfoForAddress(const QHostAddress &ipaddress)
 	{
-		return obtainCountryInfo(ipaddress.toIPv4Address());
+		return countryInfoForIPv4(ipaddress.toIPv4Address());
 	}
+	IP2CCountry countryInfoForServer(const Server &server);
 
 	void setDataAccessLockEnabled(bool b)
 	{
@@ -138,17 +110,56 @@ public:
 	}
 
 	/**
-	 * @brief Sets database contents to the list specified.
+	 * @brief Sets the IP range database to the list specified.
 	 *
 	 * To avoid performance issues it is already assumed that the specified
 	 * list is sorted.
 	 */
-	void setDatabase(const QList<IP2CData> &sortedCountryData)
+	void setRangesDatabase(const QList<IP2CRange> &sortedRanges)
 	{
-		database = sortedCountryData;
+		this->database = sortedRanges;
 	}
 
-protected:
+	void setCountries(const QHash<QString, IP2CCountry> &countries);
+
+private:
+	static QMutex instanceMutex;
+	static IP2C *staticInstance;
+
+	/**
+	 * @brief Performs only an informative role for the application.
+	 *
+	 * This might be set to true by either updater or parser. Application
+	 * should not read from the database when this is true because
+	 * data inside might still be invalid.
+	 */
+	bool bDataAccessLocked;
+	QList<IP2CRange> database;
+	QHash<QString, IP2CCountry> countries;
+
+	// Caches all flags. It's important to not touch the flags structure
+	// anymore after it's been created as the program will refer to the flags
+	// by pointer.
+	const QHash<QString, QPixmap> flags;
+
+	const IP2CRange invalidRange;
+
+	QSet<QString> unknownCountries;
+	QSet<QString> unknownFlags;
+
+	IP2C();
+	~IP2C() override;
+	Q_DISABLE_COPY(IP2C);
+
+	/**
+	 * Returns a reference to the structure describing the country.
+	 */
+	const IP2CRange &lookupIP(unsigned int ipaddress);
+	IP2CCountry unknownCountry() const;
+
+	void logUnknownCountry(const QString &countryCode);
+	void logUnknownFlag(const QString &countryCode);
+
 	inline bool isLANAddress(unsigned ipv4Address)
 	{
 		const static unsigned LAN_1_BEGIN = QHostAddress("10.0.0.0").toIPv4Address();
@@ -172,25 +183,6 @@ protected:
 
 		return ipv4Address >= LOCALHOST_BEGIN && ipv4Address <= LOCALHOST_END;
 	}
-
-private:
-	static QMutex instanceMutex;
-	static IP2C *staticInstance;
-
-	/**
-	 * @brief Performs only an informative role for the application.
-	 *
-	 * This might be set to true by either updater or parser. Application
-	 * should not read from the database when this is true because
-	 * data inside might still be invalid.
-	 */
-	bool bDataAccessLocked;
-	QList<IP2CData> database;
-	QHash<QString, QPixmap> flags;
-	const IP2CData invalidData;
-
-	IP2C();
-	~IP2C() override;
 };
 
 #endif /* __IP2C_H__ */

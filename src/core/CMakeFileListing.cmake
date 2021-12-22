@@ -179,10 +179,11 @@ set(HEADER_FILES
 	ini/inivariable.h
 	ini/settingsprovider.h
 	ini/settingsproviderqt.h
-	ip2c/entities/ip2ccountryinfo.h
 	ip2c/ip2c.h
+	ip2c/ip2ccountry.h
 	ip2c/ip2cloader.h
 	ip2c/ip2cparser.h
+	ip2c/ip2crange.h
 	ip2c/ip2cupdater.h
 	irc/chatlogarchive.h
 	irc/chatlogrotate.h
@@ -412,8 +413,8 @@ set(SOURCE_FILES
 	ini/inivariable.cpp
 	ini/settingsprovider.cpp
 	ini/settingsproviderqt.cpp
-	ip2c/entities/ip2ccountryinfo.cpp
 	ip2c/ip2c.cpp
+	ip2c/ip2ccountry.cpp
 	ip2c/ip2cloader.cpp
 	ip2c/ip2cparser.cpp
 	ip2c/ip2cupdater.cpp

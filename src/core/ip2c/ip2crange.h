@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------
-// ip2ccountryinfo.cpp
+// ip2crange.h
 //------------------------------------------------------------------------------
 //
 // This library is free software; you can redistribute it and/or
@@ -18,24 +18,33 @@
 // 02110-1301  USA
 //
 //------------------------------------------------------------------------------
-// Copyright (C) 2011 "Zalewa" <zalewapl@gmail.com>
+// Copyright (C) 2021 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
-#include "ip2ccountryinfo.h"
+#ifndef DOOMSEEKER_IP2C_IP2CRANGE_H
+#define DOOMSEEKER_IP2C_IP2CRANGE_H
 
-IP2CCountryInfo::IP2CCountryInfo()
-{
-	flag = nullptr;
-}
+#include <QString>
+#include <cstdint>
 
-IP2CCountryInfo::IP2CCountryInfo(const QPixmap *flag, QString name)
+struct IP2CRange
 {
-	this->flag = flag;
-	this->name = name;
-}
+	uint32_t ipStart;
+	uint32_t ipEnd;
+	QString country;
 
-bool IP2CCountryInfo::isValid() const
-{
-	return flag != nullptr
-		&& !flag->isNull()
-		&& !name.isEmpty();
-}
+	IP2CRange()
+	{
+		ipStart = ipEnd = 0;
+	}
+
+	/**
+	 * IP2CRange is valid when ipStart is different from
+	 * ipEnd.
+	 */
+	bool isValid() const
+	{
+		return ipStart != ipEnd;
+	}
+};
+
+#endif

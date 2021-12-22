@@ -83,7 +83,8 @@ bool IP2CParser::doReadDatabase(const QString &filePath)
 	if (!wasReadSuccessful)
 		return false;
 
-	gLog << tr("IP2C database read in %1 ms. Entries read: %2").arg(time.elapsed()).arg(parsedValues.size());
+	gLog << tr("IP2C database read in %1 ms; IP ranges: %2, countries: %3")
+		.arg(time.elapsed()).arg(ranges_.size()).arg(countries_.size());
 	return true;
 }
 
@@ -132,15 +133,18 @@ bool IP2CParser::readDatabaseVersion2(const QByteArray &dataArray)
 	// We need to store the addresses in such hash table to make sure they
 	// are ordered in proper, ascending order. Otherwise the whole library
 	// will not work!
-	QMap<unsigned, IP2C::IP2CData> hashTable;
+	QMap<unsigned, IP2CRange> hashTable;
 
 	while (stream.hasRemaining())
 	{
-		// Base entry for each IP read from the file
-		IP2C::IP2CData baseEntry;
+		IP2CCountry country;
+		country.name = QString::fromUtf8(stream.readRawUntilByte('\0'));
+		QString countryCode = QString::fromUtf8(stream.readRawUntilByte('\0'));
+		this->countries_[countryCode] = country;
 
-		baseEntry.countryFullName = QString::fromUtf8(stream.readRawUntilByte('\0'));
-		baseEntry.country = QString::fromUtf8(stream.readRawUntilByte('\0'));
+		// Base entry for each IP read from the file
+		IP2CRange baseEntry;
+		baseEntry.country = countryCode;
 		if (!stream.hasRemaining())
 			return false;
 
@@ -149,7 +153,7 @@ bool IP2CParser::readDatabaseVersion2(const QByteArray &dataArray)
 		for (quint32 x = 0; x < numOfIpBlocks; ++x)
 		{
 			// Create new entry from the base.
-			IP2C::IP2CData entry = baseEntry;
+			IP2CRange entry = baseEntry;
 
 			entry.ipStart = stream.readQUInt32();
 			if (!stream.hasRemaining())
@@ -160,7 +164,7 @@ bool IP2CParser::readDatabaseVersion2(const QByteArray &dataArray)
 		}
 	}
 
-	this->parsedValues = hashTable.values();
+	this->ranges_ = hashTable.values();
 
 	return true;
 }

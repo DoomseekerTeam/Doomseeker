@@ -23,7 +23,8 @@
 #ifndef __IP2CPARSER_H__
 #define __IP2CPARSER_H__
 
-#include "ip2c.h"
+#include "ip2ccountry.h"
+#include "ip2crange.h"
 #include <QMutex>
 #include <QThread>
 
@@ -68,9 +69,15 @@ public:
 		return bIsParsing;
 	}
 
-	const QList<IP2C::IP2CData> parsed() const
+	const QList<IP2CRange> ranges() const
 	{
-		return parsedValues;
+		return ranges_;
+	}
+
+	/// The 'key' is the country code.
+	const QHash<QString, IP2CCountry> countries() const
+	{
+		return countries_;
 	}
 
 	bool readDatabase(const QString &filePath);
@@ -119,16 +126,10 @@ private:
 		void run() override;
 	};
 
-	/**
-	 * Key value is the abbreviation of the country name.
-	 */
-	typedef QHash<QString, QList<IP2C::IP2CData> > Countries;
-	typedef QHash<QString, QList<IP2C::IP2CData> >::iterator CountriesIt;
-	typedef QHash<QString, QList<IP2C::IP2CData> >::const_iterator CountriesConstIt;
-
 	bool bIsParsing;
 	ParsingThread *currentParsingThread;
-	QList<IP2C::IP2CData> parsedValues;
+	QHash<QString, IP2CCountry> countries_;
+	QList<IP2CRange> ranges_;
 
 	QMutex thisLock;
 

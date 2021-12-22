@@ -53,8 +53,7 @@ QString GeneralInfoTip::generateHTML()
 		ret += labelString(tr("URL"), d->server->webSite());
 	}
 
-	IP2CCountryInfo countryInfo = IP2C::instance()->obtainCountryInfo(d->server->address());
-
+	IP2CCountry countryInfo = IP2C::instance()->countryInfoForServer(*d->server);
 	if (countryInfo.isValid())
 	{
 		if (!ret.isEmpty())

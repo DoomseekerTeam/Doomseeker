@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------
-// ip2ccountryinfo.h
+// ip2ccountry.h
 //------------------------------------------------------------------------------
 //
 // This library is free software; you can redistribute it and/or
@@ -18,10 +18,10 @@
 // 02110-1301  USA
 //
 //------------------------------------------------------------------------------
-// Copyright (C) 2011 "Zalewa" <zalewapl@gmail.com>
+// Copyright (C) 2021 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
-#ifndef __IP2CCOUNTRYINFO_H__
-#define __IP2CCOUNTRYINFO_H__
+#ifndef DOOMSEEKER_IP2C_IP2CCOUNTRY_H
+#define DOOMSEEKER_IP2C_IP2CCOUNTRY_H
 
 #include "global.h"
 
@@ -31,14 +31,13 @@
 /**
  *	@brief Flag and name of the country.
  */
-class IP2CCountryInfo
+struct IP2CCountry
 {
-public:
 	const QPixmap *flag;
 	QString name;
 
-	IP2CCountryInfo();
-	IP2CCountryInfo(const QPixmap *flag, QString name);
+	IP2CCountry();
+	IP2CCountry(const QPixmap *flag, QString name);
 
 	bool isValid() const;
 };
