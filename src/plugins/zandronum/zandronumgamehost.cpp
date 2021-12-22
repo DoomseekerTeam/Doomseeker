@@ -95,9 +95,16 @@ void ZandronumGameHost::addExtra()
 		args() << "+map" << strArg(params().map());
 	}
 
-	for (const QString &map : params().mapList())
+	for (QString mapRecord : params().mapList())
 	{
-		args() << "+addmap" << strArg(map);
+		mapRecord = mapRecord.simplified();
+		const QStringList mapArgs = mapRecord.split(" ");
+		if (!mapArgs.isEmpty() && !mapArgs[0].isEmpty())
+		{
+			args() << "+addmap";
+			for (const QString &mapArg : mapArgs)
+				args() << strArg(mapArg);
+		}
 	}
 
 	args() << "+sv_maprotation" << QString::number(

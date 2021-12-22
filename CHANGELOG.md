@@ -18,6 +18,7 @@ flags and the locations basing on this info. (#3939)
 Game box: DM and compat. flags, server country, voting permissions,
 respawn delay times. (#3938)
 - Zandronum: accept the country code sent by the game servers. (#3939)
+- Zandronum: accept the minplayers/maxplayers arguments on the maplist. (#3940)
 
 ### Changed
 - Move the IP2C options to a separate configuration page.
