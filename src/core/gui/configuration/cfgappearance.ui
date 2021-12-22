@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>441</width>
-    <height>395</height>
+    <width>442</width>
+    <height>464</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -169,19 +169,19 @@
      <item row="4" column="1">
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QCheckBox" name="cbMarkServersWithBuddies">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="ColorButton" name="btnBuddyServersColor">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="cbMarkServersWithBuddies">
+         <property name="text">
+          <string/>
          </property>
         </widget>
        </item>
@@ -200,77 +200,42 @@
        </item>
       </layout>
      </item>
-     <item row="5" column="0">
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>Bots are not players</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1">
-      <widget class="QCheckBox" name="cbBotsNotPlayers">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Hide passwords</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="1">
-      <widget class="QCheckBox" name="cbHidePasswords">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>Lookup server hosts</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="1">
-      <widget class="QCheckBox" name="cbLookupHosts">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="0">
-      <widget class="QLabel" name="label_7">
-       <property name="text">
-        <string>Colorize server console</string>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="1">
-      <widget class="QCheckBox" name="cbColorizeConsole">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="0">
-      <widget class="QLabel" name="label_8">
-       <property name="text">
-        <string>Draw grid in server table</string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="1">
-      <widget class="QCheckBox" name="cbDrawGridInServerTable">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="cbHidePasswords">
+     <property name="text">
+      <string>Hide passwords</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="cbLookupHosts">
+     <property name="text">
+      <string>Lookup server hosts</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="cbColorizeConsole">
+     <property name="text">
+      <string>Colorize server console</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="cbBotsNotPlayers">
+     <property name="text">
+      <string>Bots are not players</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="cbDrawGridInServerTable">
+     <property name="text">
+      <string>Draw grid in server table</string>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="QGroupBox" name="gboUseTrayIcon">

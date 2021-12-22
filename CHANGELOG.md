@@ -20,6 +20,7 @@ respawn delay times. (#3938)
 
 ### Changed
 - Move the IP2C options to a separate configuration page.
+- Stick the description labels to the checkboxes in the appearance config.
 - Zandronum: Clean-up the layout of the "Zandronum" tab in the
 Create Game box.
 - Zandronum: Rename the "Disallow - Use custom GL lighting settings"
