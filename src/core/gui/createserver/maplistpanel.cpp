@@ -45,7 +45,10 @@ MapListPanel::MapListPanel(QWidget *parent)
 	: QWidget(parent)
 {
 	d->setupUi(this);
-	d->lstMaplist->setModel(new QStandardItemModel(this));
+	auto model = new QStandardItemModel(this);
+	d->lstMaplist->setModel(model);
+	this->connect(model, SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &)),
+		SLOT(updateMapWarningVisibility()));
 	this->connect(QApplication::instance(), SIGNAL(focusChanged(QWidget*,QWidget*)),
 		SLOT(onFocusChanged(QWidget*,QWidget*)));
 

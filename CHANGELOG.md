@@ -29,6 +29,8 @@ to "Disallow - Use custom renderer settings" because this is what it
 actually does.
 
 ### Fixed
+- The warning that warns about the current map not being on the map list
+wouldn't appear or disappear if the map entry was edited directly.
 - Windows: Update OpenSSL to version 1.0.2u and remove OpenSSL's dependency on
 MSVC 2013, which really should not be there since the program's executable
 distribution is built in MinGW. (#3955)
