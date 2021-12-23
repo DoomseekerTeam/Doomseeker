@@ -423,14 +423,14 @@ public:
 
 	/**
 	 * @brief Game modes (cooperative, deathmatch, ctf).
-	 *
-	 * Modifiers are used and displayed in Create Game dialog.
-	 * If an empty list (or nullptr) is returned, Modifier combo box
-	 * will be disabled.
 	 */
 	virtual QList<GameMode> gameModes() const;
 	/**
 	 * @brief Modifier that apply to all game modes (ex. instagib).
+	 *
+	 * Modifiers are used and displayed in Create Game dialog.
+	 * If an empty list (or nullptr) is returned, Modifier combo box
+	 * will be disabled.
 	 */
 	virtual QList<GameCVar> gameModifiers() const;
 
