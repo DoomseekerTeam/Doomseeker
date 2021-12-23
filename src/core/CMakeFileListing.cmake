@@ -108,6 +108,7 @@ set(HEADER_FILES
 	gui/copytextdlg.h
 	gui/createserver/customparamspanel.h
 	gui/createserver/dmflagspanel.h
+	gui/createserver/gamecvaredit.h
 	gui/createserver/gameexecutablepicker.h
 	gui/createserver/gamerulespanel.h
 	gui/createserver/generalgamesetuppanel.h
@@ -345,6 +346,7 @@ set(SOURCE_FILES
 	gui/copytextdlg.cpp
 	gui/createserver/customparamspanel.cpp
 	gui/createserver/dmflagspanel.cpp
+	gui/createserver/gamecvaredit.cpp
 	gui/createserver/gameexecutablepicker.cpp
 	gui/createserver/gamerulespanel.cpp
 	gui/createserver/generalgamesetuppanel.cpp

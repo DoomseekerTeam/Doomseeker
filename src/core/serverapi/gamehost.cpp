@@ -279,7 +279,15 @@ void GameHost::createCommandLineArguments()
 	const QList<GameCVar> &cvars = params().cvars();
 	for (const GameCVar &c : cvars)
 	{
-		args() << QString(c.command()) << c.valueString();
+		if (c.value().type() == QVariant::Bool)
+		{
+			// Games like their bools passed in as 0/1 numbers.
+			args() << c.command() << QString::number(c.valueInt());
+		}
+		else
+		{
+			args() << c.command() << c.valueString();
+		}
 	}
 
 	if (params().hostMode() == GameCreateParams::Host)

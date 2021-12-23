@@ -13,6 +13,9 @@ and this project does not adhere to
 - An IP2C option to toggle honoring of the countries received from
 the game servers; enabled by default. If enabled, display the country
 flags and the locations basing on this info. (#3939)
+- The game settings inputs in the "Rules" panel of the Create Game box can now
+be more elaborate than just "setters for numeric values". If a game requires it,
+these inputs can be rendered as checkboxes or text editors.
 - Odamex: Support for Odamex version 10.0 (#3909)
 - Zandronum: Add the new settings from Zandronum 3.1 to the Create
 Game box: DM and compat. flags, server country, voting permissions,

@@ -23,32 +23,39 @@
 #include "gamerulespanel.h"
 #include "ui_gamerulespanel.h"
 
+#include "gui/createserver/gamecvaredit.h"
 #include "ini/ini.h"
 #include "plugins/engineplugin.h"
 #include "serverapi/gamecreateparams.h"
 #include "serverapi/serverstructs.h"
 
-#include <climits>
 #include <QVariant>
+#include <memory>
+
+namespace
+{
+struct CVarUi
+{
+	std::shared_ptr<QLabel> label;
+	std::shared_ptr<GameCVarEdit> edit;
+
+	QString command() const { return cvar().command(); }
+	GameCVar cvar() const { return edit->cvar(); }
+	QVariant value() const { return edit->value(); }
+	void setValue(const QVariant &value) { edit->setValue(value); }
+};
+}
 
 DClass<GameRulesPanel> : public Ui::GameRulesPanel
 {
 public:
-	class GameLimitWidget
-	{
-	public:
-		QWidget *label;
-		QSpinBox *spinBox;
-		GameCVar limit;
-	};
-
 	bool anythingAvailable;
 	const EnginePlugin *engine;
 	GameCreateParams::HostMode hostMode;
 	GameMode gameMode;
 	QList<GameCVar> gameModifiers;
-	QList<GameLimitWidget *> limitWidgets;
-	QMap<QString, QMap<QString, int> > memorizedLimits;
+	QList<std::shared_ptr<CVarUi> > cvarWidgets;
+	QMap<QString, QMap<QString, QVariant> > memorizedCVars;
 };
 
 DPointered(GameRulesPanel)
@@ -64,7 +71,7 @@ GameRulesPanel::GameRulesPanel(QWidget *parent)
 
 GameRulesPanel::~GameRulesPanel()
 {
-	qDeleteAll(d->limitWidgets);
+	d->cvarWidgets.clear();
 }
 
 void GameRulesPanel::applyModeToUi()
@@ -77,7 +84,7 @@ void GameRulesPanel::applyModeToUi()
 	{
 		setupModifiers(d->engine);
 		d->mapListPanel->setupForEngine(d->engine);
-		setupLimitWidgets(d->engine, d->gameMode);
+		setupCVarWidgets(d->engine, d->gameMode);
 
 		auto ecfg = d->engine->data();
 
@@ -103,13 +110,13 @@ void GameRulesPanel::applyModeToUi()
 		engineHasModifiers = !d->engine->gameModifiers().isEmpty();
 	}
 
-	d->gameLimitsBox->setVisible(!d->limitWidgets.isEmpty());
+	d->extraSettingsBox->setVisible(!d->cvarWidgets.isEmpty());
 
 	bool slotLimitsBoxAvailable = d->hostMode == GameCreateParams::Host && engineAllowsSlotsLimits;
 	d->hostLimitsBox->setVisible(slotLimitsBoxAvailable);
 	d->mapListBox->setVisible(engineHasMapList);
 
-	d->anythingAvailable = !d->limitWidgets.isEmpty()
+	d->anythingAvailable = !d->cvarWidgets.isEmpty()
 		|| engineHasModifiers
 		|| engineHasMapList
 		|| slotLimitsBoxAvailable;
@@ -120,18 +127,17 @@ void GameRulesPanel::fillInParams(GameCreateParams &params)
 	params.setMaxClients(d->spinMaxClients->value());
 	params.setMaxPlayers(d->spinMaxPlayers->value());
 
-	fillInLimits(params);
+	fillInCVars(params);
 	fillInModifiers(params);
 
 	d->mapListPanel->fillInParams(params);
 }
 
-void GameRulesPanel::fillInLimits(GameCreateParams &params)
+void GameRulesPanel::fillInCVars(GameCreateParams &params)
 {
-	for (PrivData<GameRulesPanel>::GameLimitWidget *p : d->limitWidgets)
+	for (auto &cvarUi : d->cvarWidgets)
 	{
-		p->limit.setValue(p->spinBox->value());
-		params.cvars() << p->limit;
+		params.cvars() << cvarUi->cvar();
 	}
 }
 
@@ -156,29 +162,26 @@ MapListPanel *GameRulesPanel::mapListPanel()
 	return d->mapListPanel;
 }
 
-void GameRulesPanel::memorizeLimits()
+void GameRulesPanel::memorizeCVars()
 {
 	if (d->engine != nullptr)
 	{
-		if (!d->memorizedLimits.contains(d->engine->nameCanonical()))
-			d->memorizedLimits[d->engine->nameCanonical()] = QMap<QString, int>();
-		QMap<QString, int> &limits = d->memorizedLimits[d->engine->nameCanonical()];
-		for (const PrivData<GameRulesPanel>::GameLimitWidget *limitWidget : d->limitWidgets)
-		{
-			limits[limitWidget->limit.command()] = limitWidget->spinBox->value();
-		}
+		const QString &engineName = d->engine->nameCanonical();
+		QMap<QString, QVariant> &cvars = d->memorizedCVars[engineName];
+		for (auto &cvarUi : d->cvarWidgets)
+			cvars[cvarUi->command()] = cvarUi->value();
 	}
 }
 
-void GameRulesPanel::loadMemorizedLimits(const EnginePlugin *engine)
+void GameRulesPanel::loadMemorizedCVars(const EnginePlugin *engine)
 {
-	if (d->memorizedLimits.contains(engine->nameCanonical()))
+	if (d->memorizedCVars.contains(engine->nameCanonical()))
 	{
-		QMap<QString, int> &limits = d->memorizedLimits[engine->nameCanonical()];
-		for (const PrivData<GameRulesPanel>::GameLimitWidget *limitWidget : d->limitWidgets)
+		const QMap<QString, QVariant> &cvars = d->memorizedCVars[engine->nameCanonical()];
+		for (auto &cvarUi : d->cvarWidgets)
 		{
-			if (limits.contains(limitWidget->limit.command()))
-				limitWidget->spinBox->setValue(limits[limitWidget->limit.command()]);
+			if (cvars.contains(cvarUi->command()))
+				cvarUi->setValue(cvars[cvarUi->command()]);
 		}
 	}
 }
@@ -190,9 +193,9 @@ void GameRulesPanel::loadConfig(Ini &config)
 	d->cboModifier->setCurrentIndex(section["modifier"]);
 	d->spinMaxClients->setValue(section["maxClients"]);
 	d->spinMaxPlayers->setValue(section["maxPlayers"]);
-	for (PrivData<GameRulesPanel>::GameLimitWidget *widget : d->limitWidgets)
+	for (auto &cvarUi : d->cvarWidgets)
 	{
-		widget->spinBox->setValue(section[widget->limit.command()]);
+		cvarUi->setValue(section[cvarUi->command()].value());
 	}
 
 	d->mapListPanel->loadConfig(config);
@@ -205,9 +208,9 @@ void GameRulesPanel::saveConfig(Ini &config)
 	section["modifier"] = d->cboModifier->currentIndex();
 	section["maxClients"] = d->spinMaxClients->value();
 	section["maxPlayers"] = d->spinMaxPlayers->value();
-	for (PrivData<GameRulesPanel>::GameLimitWidget *widget : d->limitWidgets)
+	for (auto &cvarUi : d->cvarWidgets)
 	{
-		section[widget->limit.command()] = widget->spinBox->value();
+		section[cvarUi->command()].setValue(cvarUi->value());
 	}
 
 	d->mapListPanel->saveConfig(config);
@@ -263,42 +266,26 @@ void GameRulesPanel::setupModifiers(const EnginePlugin *engine)
 	}
 }
 
-void GameRulesPanel::removeLimitWidgets()
+void GameRulesPanel::setupCVarWidgets(const EnginePlugin *engine, const GameMode &gameMode)
 {
-	for (PrivData<GameRulesPanel>::GameLimitWidget *widget : d->limitWidgets)
+	memorizeCVars();
+
+	d->cvarWidgets.clear();
+	QList<GameCVar> cvars = engine->limits(gameMode);
+
+	for (const GameCVar &cvar : cvars)
 	{
-		delete widget->label;
-		delete widget->spinBox;
-		delete widget;
+		std::shared_ptr<CVarUi> cvarUi(new CVarUi);
+		cvarUi->edit.reset(new GameCVarEdit(cvar, this));
+		if (cvarUi->edit->externalLabel())
+		{
+			cvarUi->label.reset(new QLabel(this));
+			cvarUi->label->setText(cvar.name());
+		}
+
+		d->extraSettingsLayout->addRow(cvarUi->label.get(), cvarUi->edit.get());
+		d->cvarWidgets << std::move(cvarUi);
 	}
 
-	d->limitWidgets.clear();
-}
-
-void GameRulesPanel::setupLimitWidgets(const EnginePlugin *engine, const GameMode &gameMode)
-{
-	memorizeLimits();
-	removeLimitWidgets();
-	QList<GameCVar> limits = engine->limits(gameMode);
-
-	for (const GameCVar &limit : limits)
-	{
-		QLabel *label = new QLabel(this);
-		label->setText(limit.name());
-		auto spinBox = new QSpinBox(this);
-		spinBox->setMaximum(INT_MAX);
-		spinBox->setMinimum(INT_MIN);
-		spinBox->setCorrectionMode(QAbstractSpinBox::CorrectToNearestValue);
-		spinBox->setValue(limit.value().toInt());
-
-		d->limitsLayout->addRow(label, spinBox);
-
-		auto glw = new PrivData<GameRulesPanel>::GameLimitWidget();
-		glw->label = label;
-		glw->spinBox = spinBox;
-		glw->limit = limit;
-		d->limitWidgets << glw;
-	}
-
-	loadMemorizedLimits(engine);
+	loadMemorizedCVars(engine);
 }

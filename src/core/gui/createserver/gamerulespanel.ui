@@ -141,13 +141,13 @@
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="gameLimitsBox">
+       <widget class="QGroupBox" name="extraSettingsBox">
         <property name="title">
-         <string>Game limits</string>
+         <string>Extra settings</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1">
          <item>
-          <layout class="QFormLayout" name="limitsLayout">
+          <layout class="QFormLayout" name="extraSettingsLayout">
            <property name="fieldGrowthPolicy">
             <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
            </property>

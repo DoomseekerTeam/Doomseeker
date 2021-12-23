@@ -435,8 +435,16 @@ public:
 	virtual QList<GameCVar> gameModifiers() const;
 
 	/**
-	 *	@brief Returns a list of limits (like fraglimit) supported by passed
-	 *	gamemode.
+	 * @brief Returns a list of extra settings (like fraglimit) supported by
+	 * the passed-in GameMode.
+	 *
+	 * The name `limits()` is legacy as this was its original purpose. A proper
+	 * name should be `extraSettings()`, as any setting can be returned here.
+	 *
+	 * Doomseeker will render those in the "Create Game" box. Depending on the
+	 * type of the default value of the GameCVar, it may render a different
+	 * input widget for that setting. Booleans get checkboxes, ints get
+	 * spin-boxes, other values get line-edits.
 	 */
 	virtual QList<GameCVar> limits(const GameMode &mode) const
 	{
