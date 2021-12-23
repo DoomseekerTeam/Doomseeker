@@ -126,6 +126,9 @@ private:
 	LevelExit levelExit() const;
 	void setLevelExit(LevelExit levelExit);
 
+	QString country() const;
+	void setCountry(const QString &country);
+
 private slots:
 	void applyGameVersion();
 

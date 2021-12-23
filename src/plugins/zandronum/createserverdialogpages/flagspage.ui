@@ -229,24 +229,17 @@ p, li { white-space: pre-wrap; }
                   </widget>
                  </item>
                  <item row="0" column="1">
-                  <widget class="QLineEdit" name="leServerCountry">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>50</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
+                  <widget class="QComboBox" name="cbServerCountry">
                    <property name="toolTip">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Zandronum 3.1 introduces the ability to server hosts to specify the country their server is located in via a new CVAR, &lt;span style=&quot; font-family:'monospace';&quot;&gt;sv_country&lt;/span&gt;. This was introduced to allow hosts to combat the inaccuracies of IP geolocation that launchers rely on. This value is specified to launchers via the new &lt;span style=&quot; font-family:'monospace';&quot;&gt;SQF2_COUNTRY&lt;/span&gt; field, which can have the following values: &lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;an ISO 3166-1 alpha-3 country code.&lt;/span&gt; Note that Zandronum doesn't validate whether the country code supplied in &lt;span style=&quot; font-family:'monospace';&quot;&gt;sv_country&lt;/span&gt; is a registered country code. If the launcher does not recognise the given code, then it should display the server's country as unknown.&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;the value &lt;/span&gt;&lt;span style=&quot; font-family:'monospace'; font-weight:600;&quot;&gt;XIP&lt;/span&gt;, which suggests to the launcher that it should attempt IP geolocation to determine the server's country. The default value of &lt;span style=&quot; font-family:'monospace';&quot;&gt;sv_country&lt;/span&gt; will cause it to return this by default, to preserve existing behaviour and make it easier for casual hosts. If geolocation is unsupported, disabled, or fails, then the server's country should be displayed as unknown.&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;the value &lt;/span&gt;&lt;span style=&quot; font-family:'monospace'; font-weight:600;&quot;&gt;XUN&lt;/span&gt;, in which case the launcher should display the server's country as unknown.&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    <string>&lt;p&gt;Sets the country of the server, which will be presented to server browsers.&lt;/p&gt; &lt;p&gt;The value of this variable can be one of:&lt;ul&gt;&lt;li&gt;an ISO 3166-1 alpha-3 country code, for example GBR for the United Kingdom, USA for the United States&lt;/li&gt;&lt;li&gt;&amp;quot;automatic&amp;quot;, to tell the launcher to use IP geolocation (default)&lt;/li&gt;&lt;li&gt;or &amp;quot;unknown&amp;quot;.&lt;/li&gt;&lt;/p&gt;
+
+&lt;p&gt;This was introduced to allow hosts to combat the inaccuracies of the IP geolocation that launchers rely on. Not all servers browsers may support this feature and will use the IP geolocation instead.&lt;/p&gt;</string>
                    </property>
-                   <property name="placeholderText">
-                    <string>XIP</string>
+                   <property name="editable">
+                    <bool>true</bool>
+                   </property>
+                   <property name="maxVisibleItems">
+                    <number>20</number>
                    </property>
                   </widget>
                  </item>
@@ -2187,7 +2180,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>cbMegaPowerupsRespawn</tabstop>
   <tabstop>cbNoUnlagged</tabstop>
   <tabstop>cbNoUnlaggedBfgTracers</tabstop>
-  <tabstop>leServerCountry</tabstop>
+  <tabstop>cbServerCountry</tabstop>
   <tabstop>cbServerPicksTeams</tabstop>
   <tabstop>cbPlayersCantSwitchTeams</tabstop>
   <tabstop>cbKeepTeamsAfterAMapChange</tabstop>

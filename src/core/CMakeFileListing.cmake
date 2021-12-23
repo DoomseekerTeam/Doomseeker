@@ -180,6 +180,7 @@ set(HEADER_FILES
 	ini/settingsprovider.h
 	ini/settingsproviderqt.h
 	ip2c/ip2c.h
+	ip2c/ip2capi.h
 	ip2c/ip2ccountry.h
 	ip2c/ip2cloader.h
 	ip2c/ip2cparser.h
@@ -414,6 +415,7 @@ set(SOURCE_FILES
 	ini/settingsprovider.cpp
 	ini/settingsproviderqt.cpp
 	ip2c/ip2c.cpp
+	ip2c/ip2capi.cpp
 	ip2c/ip2ccountry.cpp
 	ip2c/ip2cloader.cpp
 	ip2c/ip2cparser.cpp

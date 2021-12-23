@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 #include "flagspage.h"
 
+#include <ip2c/ip2capi.h>
 #include <ini/ini.h>
 #include <ini/inisection.h>
 #include <log.h>
@@ -122,6 +123,13 @@ FlagsPage::FlagsPage(CreateServerDialog *pParentDialog)
 	cboPrivateChat->addItem(tr("Only team"), PrivChat_Team);
 	cboPrivateChat->addItem(tr("Forbidden"), PrivChat_Forbidden);
 
+	cbServerCountry->addItem(tr("Automatic"), "automatic");
+	cbServerCountry->addItem(tr("Unknown"), "unknown");
+
+	QStringList countryCodes = ::countryCodes();
+	countryCodes.removeOne("EU"); // Zandronum just converts this to XUN.
+	cbServerCountry->addItems(countryCodes);
+
 	setGameVersion(ZandronumGameInfo::GV_Zandronum3);
 
 	// Widget states
@@ -192,8 +200,8 @@ void FlagsPage::fillInGameCreateParams(GameCreateParams &gameCreateParams)
 		params << "+sv_allowprivatechat" << cboPrivateChat->currentData().toString();
 	}
 
-	if (!leServerCountry->text().trimmed().isEmpty())
-		params << "+sv_country" << leServerCountry->text().trimmed();
+	if (!country().isEmpty())
+		params << "+sv_country" << country();
 
 	params << votingPage->generateGameRunParameters();
 
@@ -278,7 +286,7 @@ bool FlagsPage::loadConfig(Ini &ini)
 	if (section.hasSetting("crouch_ability"))
 		cboCrouching->setCurrentIndex(section["crouch_ability"]);
 	if (section.hasSetting("country"))
-		leServerCountry->setText(section["country"]);
+		setCountry(section["country"]);
 	setPlayerBlock(static_cast<PlayerBlock>(section.value("player_block", PB_NotSet).toInt()));
 	setLevelExit(static_cast<LevelExit>(section.value("level_exit", EXIT_NotSet).toInt()));
 
@@ -331,8 +339,8 @@ bool FlagsPage::saveConfig(Ini &ini)
 	section["monsters_damage_factor"] =
 		static_cast<float>(spinMonstersDamageFactor->value());
 	section["private_chat"] = cboPrivateChat->currentData().toInt();
-	if (!leServerCountry->text().trimmed().isEmpty())
-		section["country"] = leServerCountry->text().trimmed();
+	if (!country().isEmpty())
+		section["country"] = country();
 
 	return votingPage->saveConfig(ini);
 }
@@ -446,5 +454,52 @@ void FlagsPage::setLevelExit(LevelExit levelExit)
 	default:
 		qDebug() << "FlagsPage::setLevelExit - unhandled LevelExit " << levelExit;
 		break;
+	}
+}
+
+QString FlagsPage::country() const
+{
+	if (cbServerCountry->currentData().isValid())
+	{
+		return cbServerCountry->currentData().toString();
+	}
+	else
+	{
+		const QString typedIn = cbServerCountry->currentText().trimmed();
+		// Case-insensitive find.
+		int idx = cbServerCountry->findText(typedIn, 0);
+		// If the text matches another text, case-insensitively, that
+		// already is in the box, then return the text that's already
+		// there.
+		if (idx >= 0)
+		{
+			const QVariant itemData = cbServerCountry->itemData(idx);
+			return itemData.isValid() ? itemData.toString()
+				: cbServerCountry->itemText(idx);
+		}
+		else
+		{
+			return typedIn;
+		}
+	}
+}
+
+void FlagsPage::setCountry(const QString &country)
+{
+	// Try hard to find the text in the box and select it. If not found
+	// just add the text as-is.
+	int idx = cbServerCountry->findData(country);
+	if (idx < 0)
+	{
+		// Case-insensitive find.
+		idx = cbServerCountry->findText(country, 0);
+	}
+	if (idx >= 0)
+	{
+		cbServerCountry->setCurrentIndex(idx);
+	}
+	else
+	{
+		cbServerCountry->setCurrentText(country);
 	}
 }
