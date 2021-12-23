@@ -49,7 +49,7 @@ public:
 		IP2C *ip2c = IP2C::instance();
 		const IP2CCountry countryInfo = ip2c->countryInfoForServer(*server);
 		return (countryInfo.isValid() && countryInfo.flag != nullptr) ?
-			*countryInfo.flag : QPixmap();
+			*countryInfo.flag : ip2c->flagUnknown;
 	}
 };
 
@@ -284,10 +284,7 @@ void ServerListRowHandler::setBanned()
 
 void ServerListRowHandler::setCountryFlag()
 {
-	QStandardItem *pItem = item(IDServerName);
-	const QPixmap flag = d->flag();
-	if (!flag.isNull())
-		pItem->setIcon(flag);
+	item(IDServerName)->setIcon(d->flag());
 }
 
 void ServerListRowHandler::setFirstQuery()
