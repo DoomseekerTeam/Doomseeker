@@ -30,6 +30,7 @@
 #include "odamexengineplugin.h"
 #include "odamexgamehost.h"
 #include "odamexgameinfo.h"
+#include "odamexgamemode.h"
 #include "odamexgamerunner.h"
 #include "plugins/engineplugin.h"
 #include "serverapi/playerslist.h"
@@ -193,37 +194,37 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 	*/
 	setGameMode([&]()
 	{
-		return plugin()->gameModes()[([&]()
+		return OdamexGameMode::derived()[([&]()
 		{
 			unsigned int mode = cvars.value("sv_gametype", "0").toUInt();
 			unsigned int lives = cvars.value("g_lives", "0").toUInt();
 			bool sides = cvars.value("g_sides", "0").toUInt();
-			if (mode == 0 && lives > 0)
-				return OdamexGameInfo::MODE_SURVIVAL;
-			else if (mode == 0)
-				return OdamexGameInfo::MODE_COOPERATIVE;
-			else if (mode == 1 && lives > 0)
-				return OdamexGameInfo::MODE_LAST_MARINE_STANDING;
-			else if (mode == 1 && maxPlayers() <= 2)
-				return OdamexGameInfo::MODE_DUEL;
-			else if (mode == 1)
-				return OdamexGameInfo::MODE_DEATHMATCH;
-			else if (mode == 2 && lives > 0)
-				return OdamexGameInfo::MODE_TEAM_LAST_MARINE_STANDING;
-			else if (mode == 2)
-				return OdamexGameInfo::MODE_TEAM_DEATHMATCH;
-			else if (mode == 3 && sides)
-				return OdamexGameInfo::MODE_ATTACK_DEFEND_CTF;
-			else if (mode == 3 && lives > 0)
-				return OdamexGameInfo::MODE_LMS_CTF;
-			else if (mode == 3)
-				return OdamexGameInfo::MODE_CAPTURE_THE_FLAG;
-			else if (mode == 4 && lives > 0)
-				return OdamexGameInfo::MODE_SURVIVAL_HORDE;
-			else if (mode == 4)
-				return OdamexGameInfo::MODE_HORDE;
+			if (mode == OdamexGameMode::BASE_COOPERATIVE && lives > 0)
+				return OdamexGameMode::DERIVED_SURVIVAL;
+			else if (mode == OdamexGameMode::BASE_COOPERATIVE)
+				return OdamexGameMode::DERIVED_COOPERATIVE;
+			else if (mode == OdamexGameMode::BASE_DEATHMATCH && lives > 0)
+				return OdamexGameMode::DERIVED_LAST_MARINE_STANDING;
+			else if (mode == OdamexGameMode::BASE_DEATHMATCH && maxPlayers() <= 2)
+				return OdamexGameMode::DERIVED_DUEL;
+			else if (mode == OdamexGameMode::BASE_DEATHMATCH)
+				return OdamexGameMode::DERIVED_DEATHMATCH;
+			else if (mode == OdamexGameMode::BASE_TEAM_DEATHMATCH && lives > 0)
+				return OdamexGameMode::DERIVED_TEAM_LAST_MARINE_STANDING;
+			else if (mode == OdamexGameMode::BASE_TEAM_DEATHMATCH)
+				return OdamexGameMode::DERIVED_TEAM_DEATHMATCH;
+			else if (mode == OdamexGameMode::BASE_CTF && sides)
+				return OdamexGameMode::DERIVED_ATTACK_DEFEND_CTF;
+			else if (mode == OdamexGameMode::BASE_CTF && lives > 0)
+				return OdamexGameMode::DERIVED_LMS_CTF;
+			else if (mode == OdamexGameMode::BASE_CTF)
+				return OdamexGameMode::DERIVED_CAPTURE_THE_FLAG;
+			else if (mode == OdamexGameMode::BASE_HORDE && lives > 0)
+				return OdamexGameMode::DERIVED_SURVIVAL_HORDE;
+			else if (mode == OdamexGameMode::BASE_HORDE)
+				return OdamexGameMode::DERIVED_HORDE;
 			else
-				return OdamexGameInfo::MODE_COOPERATIVE; // Arbitrary default
+				return OdamexGameMode::DERIVED_COOPERATIVE; // Arbitrary default
 		}())];
 	}());
 

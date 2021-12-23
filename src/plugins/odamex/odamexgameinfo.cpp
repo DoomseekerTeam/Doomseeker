@@ -46,20 +46,11 @@ QList<DMFlagsSection> OdamexGameInfo::dmFlags()
 	return result;
 }
 
-QList<GameMode> OdamexGameInfo::gameModes()
+QList<GameCVar> OdamexGameInfo::extraSettings()
 {
-	QList<GameMode> gameModesList;
-	gameModesList << GameMode::mkCooperative();
-	gameModesList << GameMode::mkDeathmatch();
-	gameModesList << GameMode::mkTeamDeathmatch();
-	gameModesList << GameMode::mkCaptureTheFlag();
-	gameModesList << GameMode::ffaGame(MODE_DUEL, "Duel");
-	gameModesList << GameMode::ffaGame(MODE_SURVIVAL, "Survival");
-	gameModesList << GameMode::ffaGame(MODE_LAST_MARINE_STANDING, "Last Marine Standing");
-	gameModesList << GameMode::teamGame(MODE_TEAM_LAST_MARINE_STANDING, "Teams Last Marine Standing");
-	gameModesList << GameMode::teamGame(MODE_ATTACK_DEFEND_CTF, "Attack & Defend CTF");
-	gameModesList << GameMode::teamGame(MODE_LMS_CTF, "LMS Capture The Flag");
-	gameModesList << GameMode::ffaGame(MODE_SURVIVAL_HORDE, "Survival Horde");
-	gameModesList << GameMode::ffaGame(MODE_HORDE, "Horde");
-	return gameModesList;
+	QList<GameCVar> settings;
+	settings << GameCVar(tr("Lives"), "+g_lives", 0);
+	settings << GameCVar(tr("Teams"), "+sv_teamsinplay", 2);
+	settings << GameCVar(tr("Attack && Defend"), "+g_sides", false);
+	return settings;
 }

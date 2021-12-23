@@ -34,6 +34,7 @@ public:
 	QList<DMFlagsSection> dmFlags() const override;
 	GameHost *gameHost() override;
 	QList<GameMode> gameModes() const override;
+	QList<GameCVar> limits(const GameMode &mode) const override;
 	ServerPtr mkServer(const QHostAddress &address, unsigned short port) const override;
 };
 

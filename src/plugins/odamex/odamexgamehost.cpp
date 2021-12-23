@@ -23,6 +23,8 @@
 #include "odamexgamehost.h"
 
 #include "odamexengineplugin.h"
+#include "odamexgameinfo.h"
+#include "odamexgamemode.h"
 #include <climits>
 #include <QDateTime>
 #include <serverapi/gamecreateparams.h>
@@ -56,16 +58,16 @@ void OdamexGameHost::addExtra()
 	}
 	args() << "+shufflemaplist" << QString::number( static_cast<int>(params().isRandomMapRotation()));
 
-	unsigned int modeNum = INT_MAX;
-	switch (params().gameMode().index())
-	{
-	case GameMode::SGM_Cooperative: modeNum = 0; break;
-	case GameMode::SGM_Deathmatch: modeNum = 1; break;
-	case GameMode::SGM_TeamDeathmatch: modeNum = 2; break;
-	case GameMode::SGM_CTF: modeNum = 3; break;
-	}
-	if (modeNum != INT_MAX)
-		args() << "+sv_gametype" << QString::number(modeNum);
+	const int gameModeIdx = [&](){
+		for (int i = 0; i < OdamexGameMode::base().size(); ++i)
+		{
+			if (params().gameMode().index() == OdamexGameMode::base()[i].index())
+				return i;
+		}
+		return INT_MAX;
+	}();
+	if (gameModeIdx != INT_MAX)
+		args() << "+sv_gametype" << QString::number(gameModeIdx);
 
 	if (!params().map().isEmpty())
 		args() << "+map" << params().map();

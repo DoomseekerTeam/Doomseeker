@@ -29,6 +29,7 @@
 #include "odamexengineplugin.h"
 #include "odamexgamehost.h"
 #include "odamexgameinfo.h"
+#include "odamexgamemode.h"
 #include "odamexmasterclient.h"
 #include "odamexserver.h"
 
@@ -92,12 +93,17 @@ QList<DMFlagsSection> OdamexEnginePlugin::dmFlags() const
 
 QList<GameMode> OdamexEnginePlugin::gameModes() const
 {
-	return OdamexGameInfo::gameModes();
+	return OdamexGameMode::base();
 }
 
 GameHost *OdamexEnginePlugin::gameHost()
 {
 	return new OdamexGameHost();
+}
+
+QList<GameCVar> OdamexEnginePlugin::limits(const GameMode &mode) const
+{
+	return OdamexGameInfo::extraSettings();
 }
 
 ServerPtr OdamexEnginePlugin::mkServer(const QHostAddress &address, unsigned short port) const
