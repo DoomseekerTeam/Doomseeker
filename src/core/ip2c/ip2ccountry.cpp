@@ -40,9 +40,7 @@ IP2CCountry::IP2CCountry(const QPixmap *flag, QString name)
 
 bool IP2CCountry::isValid() const
 {
-	return flag != nullptr
-		&& !flag->isNull()
-		&& !name.isEmpty();
+	return !name.isEmpty();
 }
 
 namespace
