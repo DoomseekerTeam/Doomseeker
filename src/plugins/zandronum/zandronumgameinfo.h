@@ -83,6 +83,7 @@ public:
 
 	static const QString OPTION_GAMEVERSION;
 
+	static QList<GameCVar> extraSettings(const GameMode &gameMode);
 	static QList<GameMode> gameModes();
 	static QList<GameCVar> gameModifiers();
 };

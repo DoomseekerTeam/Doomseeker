@@ -24,6 +24,55 @@
 
 const QString ZandronumGameInfo::OPTION_GAMEVERSION = "GameVersion";
 
+QList<GameCVar> ZandronumGameInfo::extraSettings(const GameMode &gameMode)
+{
+	QList<GameCVar> settings;
+
+	const int modeIdx = gameMode.index();
+
+	if (modeIdx != GameMode::SGM_Cooperative
+		&& modeIdx != GAMEMODE_INVASION
+		&& modeIdx != GAMEMODE_SURVIVAL)
+	{
+		settings << GameCVar(tr("Time limit"), "+timelimit", 0);
+	}
+
+	if (modeIdx == GameMode::SGM_Deathmatch
+		|| modeIdx == GAMEMODE_DUEL
+		|| modeIdx == GameMode::SGM_TeamDeathmatch
+		|| modeIdx == GAMEMODE_TERMINATOR)
+	{
+		settings << GameCVar(tr("Frag limit"), "+fraglimit", 0);
+	}
+
+	if (modeIdx == GameMode::SGM_CTF
+		|| modeIdx == GAMEMODE_DOMINATION
+		|| modeIdx == GAMEMODE_ONEFLAGCTF
+		|| modeIdx == GAMEMODE_POSSESSION
+		|| modeIdx == GAMEMODE_SKULLTAG
+		|| modeIdx == GAMEMODE_TEAMGAME
+		|| modeIdx == GAMEMODE_TEAMPOSSESSION)
+	{
+		settings << GameCVar(tr("Point limit"), "+pointlimit", 0);
+	}
+
+	if (modeIdx == GAMEMODE_DUEL
+		|| modeIdx == GAMEMODE_LASTMANSTANDING
+		|| modeIdx == GAMEMODE_TEAMLMS)
+	{
+		settings << GameCVar(tr("Win limit"), "+winlimit", 0);
+	}
+
+	if (modeIdx == GAMEMODE_DUEL)
+	{
+		settings << GameCVar(tr("Duel limit"), "+duellimit", 0);
+	}
+
+	settings << GameCVar(tr("Max. lives"), "+sv_maxlives", 0);
+
+	return settings;
+}
+
 QList<GameMode> ZandronumGameInfo::gameModes()
 {
 	QList<GameMode> gameModesList;

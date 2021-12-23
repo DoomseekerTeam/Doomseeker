@@ -20,7 +20,7 @@
 #------------------------------------------------------------------------------
 
 set(PLUGIN_NAME srb2)
-set(PLUGIN_VERSION 15)
+set(PLUGIN_VERSION 16)
 include(../PluginHeader.cmake)
 
 set(SRB2_FILES

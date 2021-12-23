@@ -126,6 +126,7 @@ QList<GameCVar> ZandronumqEnginePlugin::gameModifiers() const
 
 QList<GameCVar> ZandronumqEnginePlugin::limits(const GameMode &gm) const
 {
+	return ZandronumqGameInfo::extraSettings(gm);
 	QList<GameCVar> gl;
 
 	int m = gm.index();
