@@ -120,8 +120,6 @@ public:
 		this->database = sortedRanges;
 	}
 
-	void setCountries(const QHash<QString, IP2CCountry> &countries);
-
 private:
 	static QMutex instanceMutex;
 	static IP2C *staticInstance;

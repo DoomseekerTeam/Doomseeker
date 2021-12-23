@@ -74,8 +74,16 @@ void IP2C::deinstantiate()
 
 IP2C::IP2C()
 	: flagLan(":flags/lan-small"), flagLocalhost(":flags/localhost-small"),
-	flagUnknown(":flags/unknown-small"), flags(cacheFlags())
+	flagUnknown(":flags/unknown-small"), countries(IP2CCountry::all()),
+	flags(cacheFlags())
 {
+	for (auto it = countries.begin(); it != countries.end(); ++it)
+	{
+		const QString &code = it.key();
+		auto flagIt = flags.find(code);
+		if (flagIt != flags.end())
+			it->flag = &flagIt.value();
+	}
 }
 
 IP2C::~IP2C()
@@ -219,19 +227,6 @@ void IP2C::logUnknownFlag(const QString &countryCode)
 		unknownFlags.insert(countryCode);
 		gLog << tr("No flag for country: %1").arg(countryCode);
 	}
-}
-
-void IP2C::setCountries(const QHash<QString, IP2CCountry> &countries)
-{
-	QHash<QString, IP2CCountry> processed = countries;
-	for (auto it = processed.begin(); it != processed.end(); ++it)
-	{
-		const QString &code = it.key();
-		auto flagIt = flags.find(code);
-		if (flagIt != flags.end())
-			it->flag = &flagIt.value();
-	}
-	this->countries = processed;
 }
 
 IP2CCountry IP2C::unknownCountry() const

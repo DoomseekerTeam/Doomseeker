@@ -29,14 +29,18 @@
 #include <QString>
 
 /**
- *	@brief Flag and name of the country.
+ * @brief Flag and name of the country.
  */
 struct IP2CCountry
 {
+	/// All countries.
+	static QHash<QString, IP2CCountry> all();
+
 	const QPixmap *flag;
 	QString name;
 
 	IP2CCountry();
+	explicit IP2CCountry(QString name);
 	IP2CCountry(const QPixmap *flag, QString name);
 
 	bool isValid() const;

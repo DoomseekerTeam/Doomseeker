@@ -83,8 +83,8 @@ bool IP2CParser::doReadDatabase(const QString &filePath)
 	if (!wasReadSuccessful)
 		return false;
 
-	gLog << tr("IP2C database read in %1 ms; IP ranges: %2, countries: %3")
-		.arg(time.elapsed()).arg(ranges_.size()).arg(countries_.size());
+	gLog << tr("IP2C database read in %1 ms; IP ranges: %2")
+		.arg(time.elapsed()).arg(ranges_.size());
 	return true;
 }
 
@@ -137,10 +137,10 @@ bool IP2CParser::readDatabaseVersion2(const QByteArray &dataArray)
 
 	while (stream.hasRemaining())
 	{
-		IP2CCountry country;
-		country.name = QString::fromUtf8(stream.readRawUntilByte('\0'));
+		// Discard the first field as it is the country name. As of Doomseeker
+		// 1.3.3, the country names and their alpha-3 codes are hardcoded.
+		QString::fromUtf8(stream.readRawUntilByte('\0'));
 		QString countryCode = QString::fromUtf8(stream.readRawUntilByte('\0'));
-		this->countries_[countryCode] = country;
 
 		// Base entry for each IP read from the file
 		IP2CRange baseEntry;

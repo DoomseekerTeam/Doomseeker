@@ -189,7 +189,6 @@ void IP2CLoader::ip2cFinishedParsing(bool bSuccess)
 	{
 		gLog << tr("IP2C parsing finished.");
 		IP2C::instance()->setRangesDatabase(d->ip2cParser->ranges());
-		IP2C::instance()->setCountries(d->ip2cParser->countries());
 		ip2cJobsFinished();
 	}
 }

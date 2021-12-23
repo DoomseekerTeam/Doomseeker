@@ -25,6 +25,9 @@ respawn delay times. (#3938)
 - Stick the description labels to the checkboxes in the appearance config.
 - Permit parameters on the map list, ignore them when checking if a map is
 on the map list. (#3940)
+- Doomseeker now knows the list of countries and their alpha-3 codes
+by heart (it's hardcoded), instead of drawing them from the IP2C
+database. The country names can now be translated. (#3957)
 - Zandronum: Clean-up the layout of the "Zandronum" tab in the
 Create Game box.
 - Zandronum: Rename the "Disallow - Use custom GL lighting settings"

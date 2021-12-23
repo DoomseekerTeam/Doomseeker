@@ -74,12 +74,6 @@ public:
 		return ranges_;
 	}
 
-	/// The 'key' is the country code.
-	const QHash<QString, IP2CCountry> countries() const
-	{
-		return countries_;
-	}
-
 	bool readDatabase(const QString &filePath);
 	void readDatabaseThreaded(const QString &filePath);
 
@@ -128,7 +122,6 @@ private:
 
 	bool bIsParsing;
 	ParsingThread *currentParsingThread;
-	QHash<QString, IP2CCountry> countries_;
 	QList<IP2CRange> ranges_;
 
 	QMutex thisLock;
