@@ -105,13 +105,8 @@ set (TRANSLATIONS_FILES
 
 option (UPDATE_TRANSLATIONS "Update source translation translations/*.ts files (WARNING: make clean will delete the source .ts files! Danger!)")
 if (UPDATE_TRANSLATIONS)
-	set(FILES_TO_TRANSLATE
-		${doomseekerUI}
-		${SOURCE_FILES}
-		${HEADER_FILES}
-	)
 	qtx_create_translation(TS_FILES
-		${FILES_TO_TRANSLATE}
+		${CMAKE_CURRENT_SOURCE_DIR}
 		${TRANSLATIONS_FILES}
 	)
 	add_custom_target(translations_target DEPENDS ${TS_FILES})
@@ -154,7 +149,6 @@ set(HEADER_FILES "${HEADER_FILES}" versiondefs.h)
 
 add_executable(doomseeker
 	${Doomseeker_SOURCE_DIR}/media/resources.qrc
-	${doomseekerUI}
 	${QM_FILES}
 	${UI_FILES}
 	${SOURCE_FILES}

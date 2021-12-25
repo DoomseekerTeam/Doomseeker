@@ -47,10 +47,6 @@ set(TRANSLATIONS_FILES
 	translations/chocolatedoom_es_ES.ts
 	translations/chocolatedoom_pl_PL.ts
 )
-set(FILES_TO_TRANSLATE
-	${HEADER_FILES}
-	${CHOCOLATEDOOM_FILES}
-)
 
 include(../Translation.cmake)
 

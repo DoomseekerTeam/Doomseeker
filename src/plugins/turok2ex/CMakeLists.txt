@@ -27,10 +27,6 @@ set(TRANSLATIONS_FILES
 	translations/turok2ex_es_ES.ts
 	translations/turok2ex_pl_PL.ts
 )
-set(FILES_TO_TRANSLATE
-	${HEADER_FILES}
-	${TUROK2EX_FILES}
-)
 
 include(../Translation.cmake)
 

@@ -48,10 +48,6 @@ set(TRANSLATIONS_FILES
 	translations/odamex_es_ES.ts
 	translations/odamex_pl_PL.ts
 )
-set(FILES_TO_TRANSLATE
-	${ODAMEX_HEADER_FILES}
-	${ODAMEX_FILES}
-)
 
 include(../Translation.cmake)
 

@@ -84,11 +84,6 @@ set(TRANSLATIONS_FILES
 	translations/zandronumq_es_ES.ts
 	translations/zandronumq_pl_PL.ts
 )
-set(FILES_TO_TRANSLATE
-	${HEADER_FILES}
-	${ZANDRONUMQ_UI_FILES}
-	${ZANDRONUMQ_FILES}
-)
 
 include(../Translation.cmake)
 

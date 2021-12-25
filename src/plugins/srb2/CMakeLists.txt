@@ -46,10 +46,6 @@ set(TRANSLATIONS_FILES
 	translations/srb2_es_ES.ts
 	translations/srb2_pl_PL.ts
 )
-set(FILES_TO_TRANSLATE
-	${HEADER_FILES}
-	${SRB2_FILES}
-)
 
 include(../Translation.cmake)
 

@@ -87,11 +87,6 @@ set(TRANSLATIONS_FILES
 	translations/zandronum_es_ES.ts
 	translations/zandronum_pl_PL.ts
 )
-set(FILES_TO_TRANSLATE
-	${HEADER_FILES}
-	${ZANDRONUM_UI_FILES}
-	${ZANDRONUM_FILES}
-)
 
 include(../Translation.cmake)
 

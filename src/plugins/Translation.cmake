@@ -21,7 +21,7 @@
 message(STATUS "    ${PLUGIN_NAME} provides translations")
 if (UPDATE_TRANSLATIONS)
 	qtx_create_translation(TS_FILES
-		${FILES_TO_TRANSLATE}
+		${CMAKE_CURRENT_SOURCE_DIR}
 		${TRANSLATIONS_FILES}
 	)
 	add_custom_target(${PLUGIN_NAME}_translations_target DEPENDS ${TS_FILES})
