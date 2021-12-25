@@ -917,14 +917,14 @@ p, li { white-space: pre-wrap; }
               <item>
                <widget class="QCheckBox" name="cbScoreDamageNotKills">
                 <property name="text">
-                 <string>Score damage, not kills</string>
+                 <string>score damage, not kills</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QCheckBox" name="cbShareKeys">
                 <property name="text">
-                 <string>Share keys</string>
+                 <string>share keys</string>
                 </property>
                </widget>
               </item>

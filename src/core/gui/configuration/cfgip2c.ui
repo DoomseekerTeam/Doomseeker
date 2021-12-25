@@ -26,7 +26,7 @@
    <item>
     <widget class="QCheckBox" name="cbAutoUpdate">
      <property name="toolTip">
-      <string>&lt;p&gt;New IP2C database will be downloaded if locally stored one is missing or has a different checksum than the one stored on Doomseeker's web page.&lt;/p&gt;</string>
+      <string>&lt;p&gt;A new IP2C database will be downloaded if the local one is missing or has a different checksum than the one stored on Doomseeker's web page.&lt;/p&gt;</string>
      </property>
      <property name="text">
       <string>IP2C auto update</string>
