@@ -498,8 +498,7 @@ GameClientRunner::GamePaths GameClientRunner::gamePaths()
 		else
 		{
 			d->joinError.setType(JoinError::ConfigurationError);
-			QString error = tr("Client binary cannot be obtained for %1, please "
-				"check the location given in the configuration.").arg(pluginName());
+			QString error = tr("Game %1 cannot be found.").arg(pluginName());
 			if (!msg.isIgnore())
 			{
 				error += "\n\n" + msg.contents();

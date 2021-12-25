@@ -126,6 +126,6 @@ ConfigPage::Validation CfgChatLogsPage::validate()
 QString CfgChatLogsPage::validateChatLogsPath(const QFileInfo &path) const
 {
 	if (path.exists() && !path.isDir())
-		return tr("Specified path isn't a directory.");
+		return tr("The specified path isn't a directory.");
 	return "";
 }

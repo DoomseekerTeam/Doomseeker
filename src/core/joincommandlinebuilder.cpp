@@ -306,7 +306,6 @@ void JoinCommandLineBuilder::obtainJoinCommandLine()
 
 void JoinCommandLineBuilder::onWadseekerDone(int result)
 {
-	qDebug() << "onWadseekerDone:" << result;
 	if (result == QDialog::Accepted)
 	{
 		obtainJoinCommandLine();

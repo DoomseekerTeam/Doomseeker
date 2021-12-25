@@ -202,7 +202,7 @@ QString ZandronumClientExeFile::pathToExe(Message &message)
 		QString testingPathRoot = config["TestingPath"];
 		if (testingPathRoot.isEmpty())
 		{
-			error = tr("No testing directory specified for Zandronum");
+			error = tr("No testing directory configured for Zandronum");
 			message = Message::customError(error);
 			return QString();
 		}
@@ -228,7 +228,7 @@ QString ZandronumClientExeFile::pathToExe(Message &message)
 		fi = QFileInfo(binPath);
 		if (!fi.exists() || (fi.isDir() && !fi.isBundle()))
 		{
-			error = tr("%1\nexists but doesn't contain Zandronum executable.\n\n"
+			error = tr("%1\nexists but doesn't contain a Zandronum executable.\n\n"
 				"Doomseeker can still install the game there if you want.").arg(path);
 			message = Message(Message::Type::GAME_NOT_FOUND_BUT_CAN_BE_INSTALLED, error);
 			return QString();

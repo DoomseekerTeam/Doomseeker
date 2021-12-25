@@ -379,7 +379,7 @@ void Main::runRemoteConsole()
 		int pIndex = gPlugins->pluginIndexFromName(rconPluginName);
 		if (pIndex == -1)
 		{
-			gLog << tr("Couldn't find specified plugin: ") + rconPluginName;
+			gLog << tr("Couldn't find the specified plugin: ") + rconPluginName;
 			gApp->exit(2);
 			return;
 		}

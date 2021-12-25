@@ -99,7 +99,7 @@ Message AppRunner::runExecutable(const CommandLineInfo &cmdInfo)
 
 	if (!result)
 	{
-		QString error = tr("File: %1\ncannot be run").arg(cmdInfo.executable.absoluteFilePath());
+		QString error = tr("Cannot run file: %1").arg(cmdInfo.executable.absoluteFilePath());
 		gLog << error;
 		message = Message::customError(error);
 		return message;

@@ -75,7 +75,7 @@ QString ExeFile::pathToExe(Message &message)
 	QString error = "";
 	if (path.trimmed().isEmpty())
 	{
-		error = tr("No %1 executable specified for %2").arg(exeTypeName()).arg(programName());
+		error = tr("No %1 executable configured for %2").arg(exeTypeName()).arg(programName());
 		message = Message::customError(error);
 		return QString();
 	}
@@ -86,7 +86,7 @@ QString ExeFile::pathToExe(Message &message)
 	{
 		// Remember: if the file doesn't exist
 		// canonicalFilePath() will return an empty string!
-		error = tr("Executable for %1 %2:\n%3\nis a directory or doesn't exist.")
+		error = tr("The executable path for %1 %2:\n%3\nis a directory or doesn't exist.")
 			.arg(programName()).arg(exeTypeName())
 			.arg(fi.absoluteFilePath());
 		message = Message::customError(error);

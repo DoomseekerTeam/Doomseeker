@@ -1462,7 +1462,7 @@ void MainWindow::showServerJoinCommandLineOnBuilderFinished()
 		if (!builder->error().isEmpty())
 		{
 			QMessageBox::critical(this, tr("Doomseeker - show join command line"),
-				tr("Command line cannot be built:\n%1").arg(builder->error()));
+				tr("The command line cannot be built:\n%1").arg(builder->error()));
 		}
 	}
 	builder->deleteLater();
