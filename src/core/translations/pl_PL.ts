@@ -36,9 +36,8 @@
         <translation>Rewizja:</translation>
     </message>
     <message>
-        <location filename="../gui/aboutdialog.ui" line="147"/>
         <source>This value is relevant to auto updater feature.</source>
-        <translation>Ta wartość ma znaczenie dla automatycznych aktualizacji.</translation>
+        <translation type="vanished">Ta wartość ma znaczenie dla automatycznych aktualizacji.</translation>
     </message>
     <message>
         <location filename="../gui/aboutdialog.ui" line="150"/>
@@ -163,9 +162,8 @@ Ten program używa ikon (lub opartych na nich) z następujących źródeł:
         <translation>- Logo Doomseeker i projekt głównej ikony - Rachael &quot;Eruanna&quot; Alexanderson</translation>
     </message>
     <message>
-        <location filename="../gui/aboutdialog.ui" line="314"/>
         <source>- Improved Doomseeker icons by MazterQyoun-ae and CarpeDiem</source>
-        <translation>- Ulepszone ikony Doomseeker - MazterQyoun-ae i CarpeDiem</translation>
+        <translation type="vanished">- Ulepszone ikony Doomseeker - MazterQyoun-ae i CarpeDiem</translation>
     </message>
     <message>
         <source>JSON library on BSD License (c) Eeli Reilin 2011 :</source>
@@ -174,6 +172,16 @@ Ten program używa ikon (lub opartych na nich) z następujących źródeł:
     <message>
         <source>Show JSON library license</source>
         <translation type="vanished">Pokaż licencję biblioteki JSON</translation>
+    </message>
+    <message>
+        <location filename="../gui/aboutdialog.ui" line="147"/>
+        <source>The auto updater compares the versions by this revision number.</source>
+        <translation>Numer rewizji jest porównywany do wykrycia automatycznych aktualizacji.</translation>
+    </message>
+    <message>
+        <location filename="../gui/aboutdialog.ui" line="314"/>
+        <source>- Doomseeker icons by MazterQyoun-ae and CarpeDiem</source>
+        <translation>- Ikony Doomseeker - MazterQyoun-ae i CarpeDiem</translation>
     </message>
     <message>
         <location filename="../gui/aboutdialog.ui" line="334"/>
@@ -341,14 +349,24 @@ https://dev.maxmind.com/geoip/geoip2/geolite2/</translation>
 <context>
     <name>AddBuddyDlg</name>
     <message>
-        <location filename="../gui/dockBuddiesList.cpp" line="289"/>
+        <location filename="../gui/dockBuddiesList.cpp" line="290"/>
         <source>Invalid Pattern</source>
-        <translation>Nieprawidłowy wzór</translation>
+        <translation>Nieprawidłowy wzorzec</translation>
     </message>
     <message>
-        <location filename="../gui/dockBuddiesList.cpp" line="289"/>
+        <location filename="../gui/dockBuddiesList.cpp" line="290"/>
         <source>The pattern you have specified is invalid.</source>
-        <translation>Podany wzór nie jest prawidłowy.</translation>
+        <translation>Podany wzorzec nie jest prawidłowy.</translation>
+    </message>
+    <message>
+        <location filename="../gui/dockBuddiesList.cpp" line="309"/>
+        <source>The asterisk (*) can be used as a wild card.</source>
+        <translation>Gwiazdka (*) dopasowuje dowolny tekst.</translation>
+    </message>
+    <message>
+        <location filename="../gui/dockBuddiesList.cpp" line="313"/>
+        <source>Use the Regular Expression format.</source>
+        <translation>Użyj Wyrażenia Regularnego (RegExp).</translation>
     </message>
     <message>
         <source>The pattern you have specified is not a valid regular expression.</source>
@@ -364,24 +382,33 @@ https://dev.maxmind.com/geoip/geoip2/geolite2/</translation>
         <translation type="obsolete">W tym miejscu podaj nicka swojego znajomego. Jeżeli typ wzoru ustawiony jest na podstawowy, możesz użyć gwiazdki (*) jako dowolnego ciągu znaków,</translation>
     </message>
     <message>
-        <location filename="../gui/addBuddyDlg.ui" line="26"/>
         <source>Type the name of your buddy here.  If the pattern type is set to basic you may use an asterisk (*) as a wild card.</source>
-        <translation>W tym miejscu podaj nicka swojego znajomego. Jeżeli typ wzoru ustawiony jest na podstawowy, możesz użyć gwiazdki (*) jako dowolnego ciągu znaków.</translation>
+        <translation type="vanished">Podaj nicka swojego znajomego. Jeżeli typ wzoru ustawiony jest na podstawowy, możesz użyć gwiazdki (*) jako dowolnego ciągu znaków.</translation>
     </message>
     <message>
-        <location filename="../gui/addBuddyDlg.ui" line="39"/>
+        <location filename="../gui/addBuddyDlg.ui" line="26"/>
+        <source>Buddy name:</source>
+        <translation>Nick znajomego:</translation>
+    </message>
+    <message>
+        <location filename="../gui/addBuddyDlg.ui" line="36"/>
         <source>Pattern Type</source>
         <translation>Typ wzorca</translation>
     </message>
     <message>
-        <location filename="../gui/addBuddyDlg.ui" line="45"/>
+        <location filename="../gui/addBuddyDlg.ui" line="42"/>
         <source>Basic</source>
         <translation>Podstawowy</translation>
     </message>
     <message>
-        <location filename="../gui/addBuddyDlg.ui" line="55"/>
+        <location filename="../gui/addBuddyDlg.ui" line="52"/>
         <source>Advanced</source>
         <translation>Zaawansowany</translation>
+    </message>
+    <message>
+        <location filename="../gui/addBuddyDlg.ui" line="62"/>
+        <source>&lt;tip&gt;</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -449,22 +476,22 @@ nie może zostać uruchomiony</translation>
     <message>
         <location filename="../updater/autoupdater.cpp" line="203"/>
         <source>Cannot parse updater info file.</source>
-        <translation>Nie można przetworzyć pliku z danymi o aktualizacjach.</translation>
+        <translation>Nie można odczytać pliku z danymi o aktualizacjach.</translation>
     </message>
     <message>
         <location filename="../updater/autoupdater.cpp" line="205"/>
         <source>Main program node is missing from updater info file.</source>
-        <translation>W pliku z danymi o aktualizacjach brakuje węzła programu głównego.</translation>
+        <translation>W pliku z danymi o aktualizacjach brakuje informacji o programie głównym.</translation>
     </message>
     <message>
         <location filename="../updater/autoupdater.cpp" line="207"/>
         <source>Revision info on one of the packages is missing from the updater info file. Check the log for details.</source>
-        <translation>Dane o rewizji jednego z pakietów nie istnieją w pliku z danymi o aktualizacjach. Szczegóły w logu.</translation>
+        <translation>Brakuje danych o rewizji jednego z pakietów w pliku z danymi o aktualizacjach. Szczegóły w logu.</translation>
     </message>
     <message>
         <location filename="../updater/autoupdater.cpp" line="210"/>
         <source>Download URL for one of the packages is missing from the updater info file. Check the log for details.</source>
-        <translation>Brak URLa do pobrania jednego z pakietów w pliku z danymi o aktualizacjac. Szczegóły w logu.</translation>
+        <translation>Brak URLa do pobrania jednego z pakietów w pliku z danymi o aktualizacjach. Szczegóły w logu.</translation>
     </message>
     <message>
         <location filename="../updater/autoupdater.cpp" line="213"/>
@@ -484,12 +511,12 @@ nie może zostać uruchomiony</translation>
     <message>
         <location filename="../updater/autoupdater.cpp" line="220"/>
         <source>Failed to save update package.</source>
-        <translation>Błąd zapisu pakietu aktualizacyjnego.</translation>
+        <translation>Nie można zapisać pakietu aktualizacyjnego.</translation>
     </message>
     <message>
         <location filename="../updater/autoupdater.cpp" line="222"/>
         <source>Failed to save update script.</source>
-        <translation>Błąd zapisu skryptu aktualizacyjnego.</translation>
+        <translation>Nie można zapisać skryptu aktualizacyjnego.</translation>
     </message>
     <message>
         <location filename="../updater/autoupdater.cpp" line="351"/>
@@ -504,7 +531,7 @@ nie może zostać uruchomiony</translation>
     <message>
         <location filename="../updater/autoupdater.cpp" line="470"/>
         <source>Package: %1</source>
-        <translation>Paczka: %1</translation>
+        <translation>Pakiet: %1</translation>
     </message>
     <message>
         <location filename="../updater/autoupdater.cpp" line="516"/>
@@ -549,7 +576,7 @@ nie może zostać uruchomiony</translation>
     <message>
         <location filename="../updater/autoupdater.cpp" line="350"/>
         <source>Requesting update confirmation.</source>
-        <translation>Żądanie potwierdzenia aktualizacji.</translation>
+        <translation>Potwierdź aktualizację.</translation>
     </message>
     <message>
         <location filename="../updater/autoupdater.cpp" line="362"/>
@@ -594,7 +621,7 @@ nie może zostać uruchomiony</translation>
     <message>
         <location filename="../updater/updaterscriptparser.cpp" line="136"/>
         <source>Missing text node for &quot;package&quot; element for &quot;file&quot; element %1</source>
-        <translation>Brakuje węzła tekstowego dla elementu &quot;package&quot; w elemencie &quot;file&quot; %1</translation>
+        <translation>Brakuje tekstu w elemencie &quot;package&quot; w elemencie &quot;file&quot; %1</translation>
     </message>
     <message>
         <location filename="../updater/updaterscriptparser.cpp" line="158"/>
@@ -673,9 +700,8 @@ jest katalogiem lub nie istnieje.</translation>
         <translation>Liczbowy</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgappearance.ui" line="131"/>
         <source>Custom servers color:</source>
-        <translation>Kolor serwerów własnych:</translation>
+        <translation type="vanished">Kolor serwerów własnych:</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgappearance.ui" line="229"/>
@@ -726,6 +752,11 @@ jest katalogiem lub nie istnieje.</translation>
         <translation>Pełne przetłumaczenie wymaga restartu.</translation>
     </message>
     <message>
+        <location filename="../gui/configuration/cfgappearance.ui" line="131"/>
+        <source>Pinned servers color:</source>
+        <translation>Kolor przypiętych serwerów:</translation>
+    </message>
+    <message>
         <location filename="../gui/configuration/cfgappearance.ui" line="148"/>
         <source>LAN servers color:</source>
         <translation>Kolor serwerów LAN:</translation>
@@ -738,12 +769,12 @@ jest katalogiem lub nie istnieje.</translation>
     <message>
         <location filename="../gui/configuration/cfgappearance.ui" line="252"/>
         <source>When close button is pressed, minimize to tray icon.</source>
-        <translation>Gdy wciśnięto przycisk zamykania, zminimalizuj do tacki.</translation>
+        <translation>Przycisk zamykania minimalizuje do tacki.</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgappearance.cpp" line="95"/>
         <source>Use system language</source>
-        <translation>Używaj języka systemowego</translation>
+        <translation>Używaj języka systemu</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgappearance.cpp" line="187"/>
@@ -764,13 +795,13 @@ jest katalogiem lub nie istnieje.</translation>
 <context>
     <name>CFGAutoUpdates</name>
     <message>
+        <location filename="../gui/configuration/cfgautoupdates.h" line="44"/>
         <source>Auto updates</source>
-        <translation type="obsolete">Automa</translation>
+        <translation>Automatyczne aktualizacje</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgautoupdates.h" line="44"/>
         <source>Auto Updates</source>
-        <translation>Automatyczne aktualizacje</translation>
+        <translation type="vanished">Automatyczne aktualizacje</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgautoupdates.ui" line="44"/>
@@ -810,22 +841,22 @@ jest katalogiem lub nie istnieje.</translation>
     <message>
         <location filename="../gui/configuration/cfgcustomservers.cpp" line="89"/>
         <source>Toggle enabled state</source>
-        <translation>Przełącz stan aktywności</translation>
+        <translation>Włącz/wyłącz</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgcustomservers.cpp" line="114"/>
         <source>Doomseeker - pinned servers</source>
-        <translation>Doomseeker - przypięte serwery</translation>
+        <translation>Doomseeker - serwery przypięte</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgcustomservers.cpp" line="128"/>
         <source>Port must be within range 1 - 65535</source>
-        <translation>Port musi być w zasięgu 1 - 65535</translation>
+        <translation>Port musi być w zakresie 1 - 65535</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgcustomservers.cpp" line="132"/>
         <source>Unimplemented behavior!</source>
-        <translation></translation>
+        <translation>Niezaimplementowana funkcja!</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgcustomservers.cpp" line="207"/>
@@ -842,55 +873,63 @@ jest katalogiem lub nie istnieje.</translation>
         <translation type="vanished">Serwery własne</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgcustomservers.ui" line="46"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Adds a new entry to the list. To specify the address and port of the custom server double-click on the cells in the table. Domain names are supported.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation type="vanished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Dodaje nowy wpis do lity. Aby podać adres i port serwera własnego, kliknij podwójnie na komórki w tabelce. Nazwy domen są wspierane.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgcustomservers.ui" line="53"/>
+        <location filename="../gui/configuration/cfgcustomservers.ui" line="46"/>
+        <source>&lt;p&gt;Add a new entry to the list. To specify the address and port of the custom server double-click on the cells in the table. Domain names are supported.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Dodaj nowy wpis do listy. Adres i port serwera podaje się poprzez dwuklik na komórkach w tabelce. Można też używać nazw domenowych.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgcustomservers.ui" line="49"/>
         <source>Add</source>
         <translation>Dodaj</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgcustomservers.ui" line="64"/>
+        <location filename="../gui/configuration/cfgcustomservers.ui" line="60"/>
         <source>Remove</source>
         <translation>Usuń</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgcustomservers.ui" line="82"/>
+        <location filename="../gui/configuration/cfgcustomservers.ui" line="78"/>
         <source>Enable selected</source>
         <translation>Włącz zaznaczone</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgcustomservers.ui" line="85"/>
+        <location filename="../gui/configuration/cfgcustomservers.ui" line="81"/>
         <source>Enable</source>
         <translation>Włącz</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgcustomservers.ui" line="96"/>
+        <location filename="../gui/configuration/cfgcustomservers.ui" line="92"/>
         <source>Disable selected</source>
         <translation>Wyłącz zaznaczone</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgcustomservers.ui" line="99"/>
+        <location filename="../gui/configuration/cfgcustomservers.ui" line="95"/>
         <source>Disable</source>
         <translation>Wyłącz</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgcustomservers.ui" line="117"/>
-        <source>Changes engine on selected servers.</source>
-        <translation>Zmień grę na zaznaczonych serwerach.</translation>
+        <location filename="../gui/configuration/cfgcustomservers.ui" line="113"/>
+        <source>Change the game on the selected servers.</source>
+        <translation>Zmień grę dla zaznaczonych serwerów.</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgcustomservers.ui" line="120"/>
+        <source>Changes engine on selected servers.</source>
+        <translation type="vanished">Zmień grę na zaznaczonych serwerach.</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgcustomservers.ui" line="116"/>
         <source>Set Game</source>
         <translation>Ustaw Grę</translation>
     </message>
@@ -899,9 +938,13 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">Ustaw grę</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgcustomservers.h" line="50"/>
         <source>Pinned Servers</source>
-        <translation>Przypięte serwery</translation>
+        <translation type="vanished">Przypięte serwery</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgcustomservers.h" line="50"/>
+        <source>Pinned servers</source>
+        <translation>Serwery przypięte</translation>
     </message>
 </context>
 <context>
@@ -917,9 +960,13 @@ p, li { white-space: pre-wrap; }
         <translation>Rekursywnie</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgfilepaths.cpp" line="92"/>
         <source>Doomseeker - Add wad path</source>
-        <translation>Doomseeker - dodaj ścieżkę do WADów</translation>
+        <translation type="vanished">Doomseeker - dodaj ścieżkę do WADów</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgfilepaths.cpp" line="92"/>
+        <source>Doomseeker - Add game mod path</source>
+        <translation>Doomseeker - Dodaj ścieżkę do modów</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgfilepaths.cpp" line="185"/>
@@ -937,22 +984,31 @@ p, li { white-space: pre-wrap; }
         <translation>Ścieżka nie jest katalogiem.</translation>
     </message>
     <message>
+        <location filename="../gui/configuration/cfgfilepaths.h" line="53"/>
         <source>File paths</source>
-        <translation type="obsolete">Ścieżki plików</translation>
+        <translation>Ścieżki do plików</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgfilepaths.ui" line="29"/>
         <source>IWAD and PWAD paths:</source>
-        <translation>Ścieżki do IWADów i PWADów:</translation>
+        <translation type="vanished">Ścieżki do IWADów i PWADów:</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;WARNING: &lt;/span&gt;It&apos;s highly discouraged to enable recursion for directories with lots of subdirectories. You may experience heavy performance loss and high hard drive usage if recursion is used recklessly. When recursion is enabled, file search operations will go the entire way down to the bottom of the directory tree if necessary.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;UWAGA: &lt;/span&gt;Włączanie rekursji dla katalogów z wieloma podkatalogami jest wielce niezalecane. Możesz doświadczyć ciężkej utraty wydajności i dużego zużycia dysku twardego, jeżeli rekursja zostanie użyta lekkomyślnie. Gdy rekursja jest włączona, operacje poszukujące pliki będą przeszukiwały całe drzewo katalogów aż do ostatniego liścia w razie potrzeby.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgfilepaths.ui" line="64"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;WARNING: &lt;/span&gt;It&apos;s not recommended to enable recursion for directories with lots of subdirectories. With such directories you may experience heavy performance loss and high hard drive usage. When recursion is enabled, file search operations will go the entire way down to the bottom of the directory tree if necessary.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;UWAGA: &lt;/span&gt;Włączanie rekursji dla katalogów z wieloma podkatalogami jest niezalecane. Po oznaczeniu takich katalogów możesz doświadczyć ciężkej utraty wydajności i dużego zużycia dysku twardego. Gdy rekursja jest włączona, operacje wyszukujące pliki będą przeszukiwały całe drzewo katalogów, aż do ostatniego liścia w razie potrzeby.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;UWAGA: &lt;/span&gt;Nie jest zalecane włączanie rekursji dla katalogów z wieloma podkatalogami. Przeszukiwanie takich katalogów może być mało wydajne i powodować duże zużycie dysku twardego. Przy włączonej rekursji, pliki będą wyszukiwane w całym drzewie katalogów, aż do ostatniego podkatalogu w razie potrzeby.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="29"/>
+        <source>Where are the game mods, IWADs, PWADs:</source>
+        <translation>Gdzie są mody, IWADy, PWADy:</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="64"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;WARNING: &lt;/span&gt;It&apos;s not recommended to enable recursion for directories with lots of subdirectories. With such directories you may experience heavy performance loss and high hard drive usage. When recursion is enabled, the file search will go the entire way down to the bottom of the directory tree if necessary.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;UWAGA: &lt;/span&gt;Nie jest zalecane włączanie rekursji dla katalogów z wieloma podkatalogami. Przeszukiwanie takich katalogów może być mało wydajne i powodować duże zużycie dysku twardego. Przy włączonej rekursji, pliki będą wyszukiwane w całym drzewie katalogów, aż do ostatniego podkatalogu w razie potrzeby.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgfilepaths.ui" line="92"/>
@@ -966,13 +1022,24 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/configuration/cfgfilepaths.ui" line="116"/>
+        <source>&lt;p&gt;If selected Doomseeker will attempt to find the files used on a particular server when the mouse cursor is hovered over the WADs and IWAD columns. This requires a hard drive access to search in all the directories specified above each time a new tooltip is generated. If it takes too long to create such tooltip, you may try disabling this option.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Po włączeniu tej opcji, Doomseeker będzie wyszukiwał na dysku pliki używane na poszczególnych serwerach zawsze gdy zawiesisz kursor myszy nad kolumną WADów albo IWADa. To wymaga dostępu do dysku twardego i będzie przeszukiwać wszystkie katalogi podane powyżej, za każdym razem, gdy będzie trzeba wygenerować nowy dymek z podpowiedzią. Jeżeli generowanie tych dymków okaże się zbyt długotrwałe, możesz spróbować wyłączyć tą opcję.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="126"/>
+        <source>&lt;p&gt;If selected Doomseeker will attempt to check the integrity of the local WADs, compared to the ones used on a particular server. This requires a hard drive access to read the entirety of the WADs. If it takes too long to join servers, you may want to disable this feature.&lt;/p&gt;
+&lt;p&gt;This setting is used when joining a server and when clicking the &amp;quot;Find missing WADs&amp;quot; button in the context menu.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Po włączeniu tej opcji, Doomseeker będzie sprawdzać spójność lokalnych WADów, porównując je do tych używanych na serwerze gry. To wymaga dostępu do dysku twardego i odczytania każdego WADa w całości. Jeżeli okaże się to zbyt długotrwałe, możesz spróbować wyłączyć tą opcję.&lt;/p&gt;
+&lt;p&gt;Doomseeker robi to gdy dołączasz się do serwera, a także gdy używasz akcji &quot;Odszukaj brakujące WADy&quot; z menu kontekstowego serwera.&lt;/p&gt;</translation>
+    </message>
+    <message>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;If selected Doomseeker will attempt to find files used on a particular server if mouse cursor is hovered over the WADS column. This requires hard drive access and search in all directories specified above each time a new tooltip is generated. If it takes too long to create such tooltip you may try disabling this option.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;This also applies to IWAD column.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation type="vanished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -980,19 +1047,18 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Powyższe także dotyczy kolumny IWAD.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgfilepaths.ui" line="124"/>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="119"/>
         <source>Tell me where are my WADs located</source>
         <translation>Mów mi, gdzie znajdują się moje WADy</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgfilepaths.ui" line="131"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Noto Sans Regular&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt;&quot;&gt;If selected Doomseeker will attempt to check the integrity of the local WADs, compared to the ones used on a particular server. This requires hard drive access to read the entirety of the WADs. If it takes too long to join servers you may want to disable this feature.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt;&quot;&gt;This setting is used when joining a server and when clicking the &amp;quot;Find missing WADs&amp;quot; button on the right-click menu.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation type="vanished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Noto Sans Regular&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -1000,22 +1066,25 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt;&quot;&gt;Ta opcja jest używana gdy dołączasz się do serwera oraz gdy używasz opcji &amp;quot;Odszukaj brakujące WADy&amp;quot; z menu kontekstowego.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgfilepaths.ui" line="139"/>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="130"/>
         <source>Check the integrity of local WADs</source>
-        <translation>Sprawdzaj integralność lokalnych WADów</translation>
+        <translation>Sprawdzaj spójność WADów na dysku</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgfilepaths.h" line="53"/>
         <source>File Paths</source>
-        <translation>Scieżki plików</translation>
+        <translation type="vanished">Scieżki plików</translation>
     </message>
 </context>
 <context>
     <name>CFGIP2C</name>
     <message>
-        <location filename="../gui/configuration/cfgip2c.ui" line="29"/>
         <source>&lt;p&gt;New IP2C database will be downloaded if locally stored one is missing or has a different checksum than the one stored on Doomseeker&apos;s web page.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Nowa baza IP2C zostanie pobrana jeśli nie ma jej na dysku, albo jeśli ta lokalna ma inną sumę kontrolną niż ta, która jest przechowywana na stronie Internetowej Doomseekera.&lt;/p&gt;</translation>
+        <translation type="vanished">&lt;p&gt;Nowa baza IP2C zostanie pobrana jeśli nie ma jej na dysku, albo jeśli ta lokalna ma inną sumę kontrolną niż ta, która jest przechowywana na stronie Internetowej Doomseekera.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgip2c.ui" line="29"/>
+        <source>&lt;p&gt;A new IP2C database will be downloaded if the local one is missing or has a different checksum than the one stored on Doomseeker&apos;s web page.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Nowa baza IP2C zostanie pobrana jeśli nie ma jej na dysku, albo jeśli ta na dysku ma inną sumę kontrolną niż ta, która jest przechowywana na stronie Internetowej Doomseekera.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgip2c.ui" line="32"/>
@@ -1025,7 +1094,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/configuration/cfgip2c.ui" line="39"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Servers of some games are able to directly tell Doomseeker in which country they are located in. If this is checked, Doomseeker will honor this information. If unchecked, Doomseeker will always try to detect the country by server&apos;s IP. &lt;/p&gt;&lt;p&gt;Neither of these methods may be accurate - the server can tell false info and the IP2C database may contain inaccuracies. Either method can lead to the wrong country being displayed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Serwery niektórych gier potrafią powiedzieć Doomseekerowi w jakim kraju się znajdują. Jeśli zaznaczysz tą opcję, Doomseeker będzie z tego korzystał. Jeśli ją odznaczysz, Doomseeker będzie wykrywał kraj na podstawie adresu IP serwera.&lt;/p&gt;&lt;p&gt;Obie te metody mogą być niedokładne. Serwery mogą specjalnie podawać inny kraj, a baza adresów IP2C jest niedoskonała. Doomseeker może czasami wyświetlić nie ten kraj niezależnie od wybranej metody.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Serwery niektórych gier potrafią powiedzieć Doomseekerowi w jakim kraju się znajdują. Jeśli zaznaczysz tą opcję, Doomseeker będzie z tego korzystał. Jeśli ją odznaczysz, Doomseeker będzie wykrywał kraj na podstawie adresu IP serwera.&lt;/p&gt;&lt;p&gt;Obie te metody mogą być niedokładne. Serwery mogą specjalnie podawać inny kraj, a baza adresów IP2C jest niedoskonała. Doomseeker może czasami wyświetlić niewłaściwy kraj niezależnie od wybranej metody.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgip2c.ui" line="42"/>
@@ -1144,7 +1213,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/configuration/irc/cfgircappearance.ui" line="248"/>
         <source>Prepends all entries with [hh:mm:ss] timestamps.</source>
-        <translation>Dodawaj znaki czasowe [hh:mm:ss] do tekstu.</translation>
+        <translation>Dodawaj sygnatury czasowe [hh:mm:ss] do tekstu.</translation>
     </message>
     <message>
         <location filename="../gui/configuration/irc/cfgircappearance.ui" line="251"/>
@@ -1186,7 +1255,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.ui" line="93"/>
         <source>Server password (usually this should remain empty):</source>
-        <translation>Hasło serwera (zazwyczaj powinno pozotać puste):</translation>
+        <translation>Hasło serwera (zazwyczaj powinno pozostać puste):</translation>
     </message>
     <message>
         <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.ui" line="24"/>
@@ -1246,17 +1315,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.ui" line="223"/>
         <source>Execute following commands on network join:</source>
-        <translation>Wykonaj następujące komendy po podłączeniu do sieci:</translation>
+        <translation>Wykonaj te komendy po podłączeniu do sieci:</translation>
     </message>
     <message>
         <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.ui" line="246"/>
         <source>Put each command on a separate line.</source>
-        <translation>Wprowadź każdą komendę na osobnej linii.</translation>
+        <translation>Wprowadź każdą komendę w osobnej linii.</translation>
     </message>
     <message>
         <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.ui" line="253"/>
         <source>Max. 512 characters per command.</source>
-        <translation>Max. 512 znaków na komendę.</translation>
+        <translation>Maks. 512 znaków na komendę.</translation>
     </message>
     <message>
         <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.ui" line="217"/>
@@ -1277,11 +1346,19 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Uwaga:&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt; hasła są przechowywane w pliku konfiguracyjnym jako zwykły tekst.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="80"/>
         <source>Following commands have violated the IRC maximum byte number limit (%1):
 
 </source>
-        <translation>Następujące komendy przekroczyły maksymalny limit IRCa na ilość bajtów (%1):
+        <translation type="vanished">Następujące komendy przekroczyły maksymalny limit IRCa na ilość bajtów (%1):
+
+</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="80"/>
+        <source>These commands have violated the IRC maximum byte number limit (%1):
+
+</source>
+        <translation>Te komendy przekroczyły maksymalny limit IRCa na ilość bajtów (%1):
 
 </translation>
     </message>
@@ -1294,7 +1371,7 @@ If saved, the script may not run properly.
 Do you wish to save the script anyway?</source>
         <translation>
 
-Jeżeli zotanie zapisany, ten skrypt może nie działać poprawnie.
+Ten skrypt może nie zadziałać poprawnie.
 
 Czy chcesz zapisać skrypt mimo wszystko?</translation>
     </message>
@@ -1318,7 +1395,7 @@ Czy chcesz zapisać skrypt mimo wszystko?</translation>
     <message>
         <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="90"/>
         <source>Doomseeker - IRC Commands Problem</source>
-        <translation>Doomseeker - problem komend IRC</translation>
+        <translation>Doomseeker - problem z komendami IRC</translation>
     </message>
     <message>
         <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="121"/>
@@ -1353,7 +1430,7 @@ Czy chcesz zapisać skrypt mimo wszystko?</translation>
 Only letters, digits, spaces and &quot;%1&quot; are allowed.</source>
         <translation>Opis sieci zawiera błąd.
 
-Tylko litery, cyfry, spacje i &quot;%1&quot; są dozwolone.</translation>
+Dozwolone są tylko litery, cyfry, spacje i &quot;%1&quot;.</translation>
     </message>
 </context>
 <context>
@@ -1409,7 +1486,7 @@ Tylko litery, cyfry, spacje i &quot;%1&quot; są dozwolone.</translation>
     <message>
         <location filename="../gui/configuration/irc/cfgircsounds.cpp" line="59"/>
         <source>WAVE (*.wav)</source>
-        <translation></translation>
+        <translation>WAVE (*.wav)</translation>
     </message>
     <message>
         <location filename="../gui/configuration/irc/cfgircsounds.cpp" line="131"/>
@@ -1475,7 +1552,7 @@ Tylko litery, cyfry, spacje i &quot;%1&quot; są dozwolone.</translation>
     <message>
         <location filename="../gui/configuration/cfgquery.h" line="45"/>
         <source>Query</source>
-        <translation>Odpytywanie</translation>
+        <translation>Odświeżanie</translation>
     </message>
     <message>
         <source>Query Settings</source>
@@ -1574,7 +1651,7 @@ Tylko litery, cyfry, spacje i &quot;%1&quot; są dozwolone.</translation>
     <message>
         <location filename="../gui/configuration/cfgquery.ui" line="188"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sleep delay that occurs after querying a server and before querying a next one. Increasing this value may negatively affect the speed of server list refresh, but will free up CPU and decrease bandwidth usage.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opóźnienie pomiędzy odpytywaniem kolejnych serwerów. Zwiększenie tej wartości może wpłynąć negatywnie na prędkość odświeżania listy serwerów, ale zwolni zasoby procesora i obniży zużycie łącza.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opóźnienie pomiędzy odpytywaniem kolejnych serwerów. Im to opóźnienie będzie większe, tym wolniej będzie odświeżana cała lista serwerów, ale obniży to też zużycie łącza.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgquery.ui" line="211"/>
@@ -1608,11 +1685,11 @@ Tylko litery, cyfry, spacje i &quot;%1&quot; są dozwolone.</translation>
 If you&apos;re experiencing problems with refreshing servers, you might prefer &quot;Cautious&quot; preset, while &quot;Aggressive&quot; presets should be preferred with good connection quality.
 
 These values can be also modified by hand.</source>
-        <translation>Te przyciski zmieniają prędkość odświeżania. Ustawienia tej prędkości określają, jak dużo czasu zajmie zapełnianie listy serwerów i jak dokładnie będzie to zrobione. Większe prędkości oznaczają mniejszą dokładność.
+        <translation>Możesz zmienić prędkość odświeżania za pomocą tych przycisków. Większa prędkość może obniżać dokładność.
 
-Jeżeli masz problemy z odświeżaniem serwerów, powinieneś wybrać tryb &quot;Ostrożny&quot;, podczas gdy tryby &quot;Agresywne&quot; zalecane są dla osób z dobrymi połączeniami internetowymi.
+Jeżeli wystąpią problemy z odświeżaniem serwerów, wybierz tryb &quot;Ostrożny&quot;. Tryby &quot;Agresywne&quot; zalecane są przy dobrych połączeniach internetowych.
 
-Te wartości mogą być też dostosowywane ręcznie.</translation>
+Poszczególne parametry możesz też dostosowywać własnoręcznie.</translation>
     </message>
     <message>
         <source>The three buttons change refresh speed settings to different values. Speed settings determine how long will it take to populate the server list and how accurate the refresh will be. Higher speed can mean lesser accuracy.
@@ -1665,12 +1742,11 @@ Te wartości mogą być też dostosowywane ręcznie.</translation>
     <message>
         <location filename="../gui/configuration/cfgserverpasswords.cpp" line="255"/>
         <source>Hide</source>
-        <translation>Zakryj</translation>
+        <translation>Ukryj</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgserverpasswords.h" line="48"/>
         <source>Server Passwords</source>
-        <translation>Hasła serwerów</translation>
+        <translation type="vanished">Hasła serwerów</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgserverpasswords.ui" line="51"/>
@@ -1726,7 +1802,7 @@ Te wartości mogą być też dostosowywane ręcznie.</translation>
     <message>
         <location filename="../gui/configuration/cfgserverpasswords.ui" line="191"/>
         <source>Max number of servers to remember per password:</source>
-        <translation>Max. liczba serwerów do zapamiętania na hasło:</translation>
+        <translation>Maks. liczba serwerów do zapamiętania na hasło:</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgserverpasswords.ui" line="210"/>
@@ -1739,15 +1815,19 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Uwaga:&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt; Niektóre serwery mogą zostać utracone.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Uwaga:&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt; niektóre serwery mogą zostać utracone.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgserverpasswords.h" line="48"/>
+        <source>Server passwords</source>
+        <translation>Hasła serwerów</translation>
     </message>
 </context>
 <context>
     <name>CFGWadAlias</name>
     <message>
-        <location filename="../gui/configuration/cfgwadalias.h" line="44"/>
         <source>WAD Aliases</source>
-        <translation>Zamienniki WADów</translation>
+        <translation type="vanished">Zamienniki WADów</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgwadalias.ui" line="14"/>
@@ -1757,7 +1837,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/configuration/cfgwadalias.ui" line="32"/>
         <source>Aliases listed here will be used if WADs are not found.</source>
-        <translation>Zamienniki wymienione tutaj będą używane, jeżeli oryginalne WADy nie zostaną odnalezione.</translation>
+        <translation>Zamienniki są używane, gdy oryginalne WADy nie zostaną odnalezione.</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgwadalias.ui" line="55"/>
@@ -1792,17 +1872,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/configuration/cfgwadalias.ui" line="123"/>
         <source>Multiple aliases can be separated with semicolon &apos;;&apos;</source>
-        <translation>Zamienniki powinny być oddzielone średnikami &apos;;&apos;</translation>
+        <translation>Oddzielaj wiele zamienników średnikami &apos;;&apos;</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgwadalias.cpp" line="65"/>
         <source>Left-to-Right will use the alias files instead of the main file but not vice-versa.</source>
-        <translation>Lewy-do-Prawych będzie używał zamienników zamiast głównego pliku, ale nie odwrotnie.</translation>
+        <translation>Lewy-do-Prawych - użyj zamienników zamiast głównego pliku, ale nie odwrotnie.</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgwadalias.cpp" line="68"/>
         <source>All Equal will treat all files as equal and try to match them in any combination.</source>
-        <translation>Wszystkie Równe potrakuje wszystkie pliki jako równoznaczne i będzie próbował dopasowania w dowolnej kombinacji.</translation>
+        <translation>Wszystkie Równe - potrakuj wszystkie pliki jako równoznaczne i używaj ich w dowolnej kombinacji.</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgwadalias.cpp" line="185"/>
@@ -1813,6 +1893,11 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/configuration/cfgwadalias.cpp" line="186"/>
         <source>All Equal</source>
         <translation>Wszytkie Równe</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgwadalias.h" line="44"/>
+        <source>WAD aliases</source>
+        <translation>Zamienniki WADów</translation>
     </message>
 </context>
 <context>
@@ -1825,7 +1910,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/configuration/cfgwadseekerappearance.h" line="49"/>
         <source>Wadseeker - Appearance</source>
-        <translation>Wadseeker - wygląd</translation>
+        <translation>Wadseeker - Wygląd</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgwadseekerappearance.ui" line="31"/>
@@ -1863,22 +1948,22 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">W tym katalogu wybranym dla Wadseekera nie można tworzyć plików do zapisu.</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgwadseekergeneral.cpp" line="135"/>
+        <location filename="../gui/configuration/cfgwadseekergeneral.cpp" line="130"/>
         <source>No path specified.</source>
         <translation>Nie podano ścieżki.</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgwadseekergeneral.cpp" line="138"/>
+        <location filename="../gui/configuration/cfgwadseekergeneral.cpp" line="133"/>
         <source>This path doesn&apos;t exist.</source>
         <translation>Ta ścieżka nie istnieje.</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgwadseekergeneral.cpp" line="141"/>
+        <location filename="../gui/configuration/cfgwadseekergeneral.cpp" line="136"/>
         <source>This is not a directory.</source>
         <translation>To nie jest katalog.</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgwadseekergeneral.cpp" line="144"/>
+        <location filename="../gui/configuration/cfgwadseekergeneral.cpp" line="139"/>
         <source>This directory cannot be written to.</source>
         <translation>Do tego katalogu nie można zapisywać.</translation>
     </message>
@@ -1906,28 +1991,25 @@ Doomseeker doda tą ścieżkę automatycznie do ścieżek wyszukiwania plików.<
     <message>
         <location filename="../gui/configuration/cfgwadseekergeneral.h" line="48"/>
         <source>Wadseeker - General</source>
-        <translation>Wadseeker - ogólne</translation>
+        <translation>Wadseeker - Ogólne</translation>
     </message>
     <message>
         <source>Directory where Wadseeker will put wads into:</source>
         <translation type="obsolete">Katalog do którego Wadseeker będzie zapisywał WADy:</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgwadseekergeneral.ui" line="34"/>
+        <location filename="../gui/configuration/cfgwadseekergeneral.ui" line="29"/>
         <source>Directory where Wadseeker will put WADs into:</source>
         <translation>Katalog do którego Wadseeker będzie zapisywał WADy:</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgwadseekergeneral.ui" line="56"/>
-        <location filename="../gui/configuration/cfgwadseekergeneral.ui" line="104"/>
-        <location filename="../gui/configuration/cfgwadseekergeneral.ui" line="207"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Time after which Wadseeker stops connecting if no response is received.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;(min: 20 seconds, max: 360 seconds)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation type="vanished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -1935,21 +2017,17 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;(min: 20 sekund, max: 360 sekund)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgwadseekergeneral.ui" line="64"/>
         <source>Connect timeout (seconds):</source>
-        <translation>Timeout połączenia (sekundy):</translation>
+        <translation type="vanished">Timeout połączenia (sekundy):</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgwadseekergeneral.ui" line="127"/>
-        <location filename="../gui/configuration/cfgwadseekergeneral.ui" line="166"/>
-        <location filename="../gui/configuration/cfgwadseekergeneral.ui" line="273"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Time after which Wadseeker stops downloading if data stops coming.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;(min: 60 seconds, max: 360 seconds)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation type="vanished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -1957,19 +2035,26 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;(min: 60 sekund, max: 360 sekund)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgwadseekergeneral.ui" line="135"/>
+        <source>&lt;p&gt;Time after which Wadseeker stops connecting if no response is received. (min: 20 seconds, max: 360 seconds)&lt;/p&gt;</source>
+        <translation type="vanished">&lt;p&gt;Czas po którym Wadseeker przerwie połączenie, jeżeli nie otrzyma żadnej odpowiedzi (min: 20 sekund, maks: 360 sekund)&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Time after which Wadseeker stops downloading if data stops coming. (min: 60 seconds, max: 360 seconds)&lt;/p&gt;</source>
+        <translation type="vanished">&lt;p&gt;Czas po którym Wadseeker przerwie pobieranie gdy się zawiesi (min: 20 sekund, maks: 360 sekund)&lt;/p&gt;</translation>
+    </message>
+    <message>
         <source>Download timeout (seconds):</source>
-        <translation>Timeout pobierania (sekundy):</translation>
+        <translation type="vanished">Timeout pobierania (sekundy):</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgwadseekergeneral.ui" line="215"/>
+        <location filename="../gui/configuration/cfgwadseekergeneral.ui" line="48"/>
         <source>Max concurrent site seeks:</source>
-        <translation>Max. liczba jednoczesnych poszukiwań:</translation>
+        <translation>Maks. liczba jednoczesnych poszukiwań:</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgwadseekergeneral.ui" line="281"/>
+        <location filename="../gui/configuration/cfgwadseekergeneral.ui" line="83"/>
         <source>Max concurrent WAD downloads:</source>
-        <translation>Max. liczba jednoczesnych pobierań WADów:</translation>
+        <translation>Maks. liczba jednoczesnych pobierań WADów:</translation>
     </message>
 </context>
 <context>
@@ -1987,7 +2072,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/configuration/cfgwadseekeridgames.ui" line="45"/>
         <source>Idgames archive URL (changing this is NOT recommended):</source>
-        <translation>Adres archiwum Idgames (zmienianie tego jest NIE zalecane):</translation>
+        <translation>Adres archiwum Idgames (zmienianie tego NIE jest zalecane):</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgwadseekeridgames.ui" line="57"/>
@@ -2025,7 +2110,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/configuration/cfgwadseekersites.h" line="46"/>
         <source>Sites</source>
-        <translation>Strony</translation>
+        <translation>Źródła</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgwadseekersites.h" line="51"/>
@@ -2052,17 +2137,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/configuration/cfgwadseekersites.ui" line="42"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wadseeker library comes with its own list of file storage sites. As these sites come and go the list is modified with new updates of the library. Leave this option to be always up-to-date with the current list. &lt;/p&gt;&lt;p&gt;When enabled the list of hardcoded default sites will always be used in addition to the list above.&lt;/p&gt;&lt;p&gt;When disabled only the list above is used.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wadseeker posiada swoją własną listę stron z plikami. Ta lista jest aktualizowana wraz z Wadseekerem gdy strony przestają działać lub pojawiają się nowe. Pozostaw tą opcję zaznaczoną, aby zawsze korzystać z aktualnej listy.&lt;/p&gt;&lt;p&gt;Gdy włączone, lista stron zakodowanych w programie będzie zawsze dodawana do listy powyżej.&lt;/p&gt;&lt;p&gt;Gdy wyłączone, tylko lista powyżej będzie użyta.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wadseeker posiada swoją własną listę stron z plikami. Ta lista jest aktualizowana wraz z Wadseekerem wtedy, gdy strony przestają działać lub pojawiają się nowe. Pozostaw tą opcję zaznaczoną, aby zawsze korzystać z aktualnej listy.&lt;/p&gt;&lt;p&gt;Gdy ta opcja jest włączona, lista stron zakodowanych w programie będzie zawsze dodawana do listy powyżej.&lt;/p&gt;&lt;p&gt;Gdy ta opcja jest wyłączona, tylko ta lista powyżej będzie używana.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgwadseekersites.ui" line="45"/>
         <source>Always use Wadseeker&apos;s default sites</source>
-        <translation>Zawsze używaj domyślnych stron z plikami z Wadseekera.</translation>
+        <translation>Zawsze używaj domyślnych źródeł Wadseekera</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgwadseekersites.ui" line="54"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adds sites hardcoded within the Wadseeker library to the list. No URL that is currently on the list will be removed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dodaje strony zakodowane w Wadseekerze do listy. Żaden URL będący obecnie na liście nie zostanie usunięty.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dodaj źródła zakodowane w Wadseekerze do listy. Żaden URL będący obecnie na liście nie zostanie usunięty.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgwadseekersites.ui" line="81"/>
@@ -2146,7 +2231,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/configuration/irc/cfgchatlogspage.ui" line="81"/>
         <source> days</source>
-        <translation>dni</translation>
+        <translation> dni</translation>
     </message>
     <message>
         <location filename="../gui/configuration/irc/cfgchatlogspage.ui" line="126"/>
@@ -2167,8 +2252,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ChatLogs</name>
     <message>
-        <location filename="../irc/chatlogs.cpp" line="89"/>
         <source>Won&apos;t transfer chat logs from &quot;%1&quot; to &quot;%2&quot; as directory &quot;%2&quot;already exists.</source>
+        <translation type="vanished">Logi chata nie zostaną przeniesione z &quot;%1&quot; do &quot;%2&quot;, ponieważ katalog &quot;%2&quot; już istnieje.</translation>
+    </message>
+    <message>
+        <location filename="../irc/chatlogs.cpp" line="89"/>
+        <source>Won&apos;t transfer chat logs from &quot;%1&quot; to &quot;%2&quot; as directory &quot;%2&quot; already exists.</source>
         <translation>Logi chata nie zostaną przeniesione z &quot;%1&quot; do &quot;%2&quot;, ponieważ katalog &quot;%2&quot; już istnieje.</translation>
     </message>
     <message>
@@ -2186,13 +2275,13 @@ p, li { white-space: pre-wrap; }
     <name>CheckWadsDlg</name>
     <message>
         <location filename="../gui/checkwadsdlg.ui" line="17"/>
-        <source>Doomseeker - Checking wads</source>
+        <source>Doomseeker - Checking WADs</source>
         <translation>Doomseeker - Sprawdzanie WADów</translation>
     </message>
     <message>
         <location filename="../gui/checkwadsdlg.ui" line="32"/>
-        <source>Checking the location and integrity of your wads</source>
-        <translation>Sprawdzanie położenia i integralności Twoich WADów</translation>
+        <source>Checking the location and integrity of your WADs</source>
+        <translation>Sprawdzanie położenia i spójności Twoich WADów</translation>
     </message>
 </context>
 <context>
@@ -2233,7 +2322,7 @@ p, li { white-space: pre-wrap; }
     Attempts to connect to the specified server.
 </source>
         <translation>--connect &lt;protokół://ip[:port]&gt;
-    Próbuje połączyć się z podanym serwerem.
+    Połącz się z podanym serwerem.
 </translation>
     </message>
     <message>
@@ -2253,8 +2342,8 @@ p, li { white-space: pre-wrap; }
     Can be specified multiple times.
 </source>
         <translation>--datadir &lt;katalog&gt;
-    Ustawia lokację, w której program
-    będzie szukał bazy IP2C oraz wtyczek.
+    Ustawia katalog, w którym program
+    będzie szukał wtyczek oraz bazy IP2C.
     Może zostać podany wiele razy.
 </translation>
     </message>
@@ -2264,7 +2353,7 @@ p, li { white-space: pre-wrap; }
     Prints this list of command line arguments.
 </source>
         <translation>--help
-    Wypisuje listę argumentów linii komend.
+    Wypisuje tą pomoc.
 </translation>
     </message>
     <message>
@@ -2307,7 +2396,7 @@ p, li { white-space: pre-wrap; }
     wszystkich wtyczek w formacie JSON
     do podanego pliku, a następnie zamyka
     program. Jeżeli plik nie zostanie podany,
-    lub zostanie podany jako znak &apos;-&apos;, wersje
+    lub zamiast niego zostanie podany znak &apos;-&apos;, wersje
     zostaną wypisane na standardowe wyjście.
 </translation>
     </message>
@@ -2337,7 +2426,7 @@ p, li { white-space: pre-wrap; }
         <location filename="../cmdargshelp.cpp" line="71"/>
         <source>Available command line parameters:
 </source>
-        <translation>Dostępne parametry linii komend:
+        <translation>Dostępne parametry wiersza poleceń:
 </translation>
     </message>
     <message numerus="yes">
@@ -2362,7 +2451,7 @@ p, li { white-space: pre-wrap; }
         <source>doomseeker: unrecognized option &apos;%1&apos;
 
 </source>
-        <translation>doomseeker: nie rozpoznana opcja &apos;%1
+        <translation>doomseeker: nierozpoznana opcja &apos;%1
 
 &apos;</translation>
     </message>
@@ -2372,7 +2461,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/configuration/configurationdialog.ui" line="14"/>
         <source>Doomseeker - Configuration</source>
-        <translation>Doomseeker - konfiguracja</translation>
+        <translation>Doomseeker - Konfiguracja</translation>
     </message>
 </context>
 <context>
@@ -2397,6 +2486,16 @@ p, li { white-space: pre-wrap; }
         <location filename="../connectionhandler.cpp" line="162"/>
         <source>Doomseeker - join game</source>
         <translation>Doomseeker - dołączanie do gry</translation>
+    </message>
+    <message>
+        <location filename="../connectionhandler.cpp" line="175"/>
+        <source>Error while launching game &quot;%2&quot; for server &quot;%1&quot;: %3</source>
+        <translation>Błąd uruchamiania gry &quot;%2&quot; dla serwera &quot;%1&quot;: %3</translation>
+    </message>
+    <message>
+        <location filename="../connectionhandler.cpp" line="177"/>
+        <source>Doomseeker - launch game</source>
+        <translation>Doomseeker - uruchamianie gry</translation>
     </message>
     <message>
         <source>Wadseeker will not work correctly:
@@ -2489,14 +2588,12 @@ Alternatively use ignore to connect anyways.</source>
 Alternatywnie użyj &quot;Ignoruj&quot; aby połączyć się mimo wszystko.</translation>
     </message>
     <message>
-        <location filename="../connectionhandler.cpp" line="175"/>
         <source>Error while launching executable for server &quot;%1&quot;, game &quot;%2&quot;: %3</source>
-        <translation>Błąd uruchamiania programu dla serwera &quot;%1&quot;, gra &quot;%2&quot;: %3</translation>
+        <translation type="vanished">Błąd uruchamiania programu dla serwera &quot;%1&quot;, gra &quot;%2&quot;: %3</translation>
     </message>
     <message>
-        <location filename="../connectionhandler.cpp" line="177"/>
         <source>Doomseeker - launch executable</source>
-        <translation>Doomseeker - uruchamianie programu</translation>
+        <translation type="vanished">Doomseeker - uruchamianie programu</translation>
     </message>
 </context>
 <context>
@@ -2504,7 +2601,7 @@ Alternatywnie użyj &quot;Ignoruj&quot; aby połączyć się mimo wszystko.</tra
     <message>
         <location filename="../gui/copytextdlg.ui" line="13"/>
         <source>Doomseeker - Copy Text</source>
-        <translation>Doomseeker - kopiuj tekst</translation>
+        <translation>Doomseeker - Kopiuj tekst</translation>
     </message>
     <message>
         <location filename="../gui/copytextdlg.ui" line="19"/>
@@ -2588,7 +2685,7 @@ Alternatywnie użyj &quot;Ignoruj&quot; aby połączyć się mimo wszystko.</tra
     <message>
         <location filename="../gui/createserverdialog.cpp" line="145"/>
         <source>Doomseeker - Setup Remote Game</source>
-        <translation>Doomseeker - ustaw zdalną grę</translation>
+        <translation>Doomseeker - skonfiguruj zdalną grę</translation>
     </message>
     <message>
         <location filename="../gui/createserverdialog.cpp" line="148"/>
@@ -2655,12 +2752,12 @@ Alternatywnie użyj &quot;Ignoruj&quot; aby połączyć się mimo wszystko.</tra
     <message>
         <location filename="../gui/createserverdialog.cpp" line="481"/>
         <source>Run game command line:</source>
-        <translation>Pokaż komendę uruchomienia gry:</translation>
+        <translation>Wiersz poleceń do uruchomienia gry:</translation>
     </message>
     <message>
         <location filename="../gui/createserverdialog.cpp" line="482"/>
         <source>Host server command line:</source>
-        <translation>Pokaż komendę uruchomienia serwera:</translation>
+        <translation>Wiersz poleceń do uruchomienia serwera:</translation>
     </message>
     <message>
         <source>Doomseeker - create server</source>
@@ -2902,7 +2999,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/createserverdialog.ui" line="158"/>
         <source>Obtain command line required to launch this game.</source>
-        <translation>Wyświetl linię komend startującą tą grę.</translation>
+        <translation>Wyświetl wiersz poleceń do wystartowania gry.</translation>
     </message>
     <message>
         <source>Offline command line</source>
@@ -3037,7 +3134,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/demomanager.cpp" line="246"/>
         <source>Could not write to the specified location.</source>
-        <translation>Nie można zapisywać do podanej lokacji.</translation>
+        <translation>Nie można zapisywać do podanego miejsca.</translation>
     </message>
     <message>
         <location filename="../gui/demomanager.cpp" line="188"/>
@@ -3077,7 +3174,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/demomanager.cpp" line="293"/>
         <source>The following files could not be located: </source>
-        <translation>Następujące pliki nie mogły zostać odnalezione:</translation>
+        <translation>Następujące pliki nie mogły zostać odnalezione: </translation>
     </message>
     <message>
         <location filename="../gui/demomanager.cpp" line="317"/>
@@ -3119,7 +3216,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/dockBuddiesList.cpp" line="86"/>
         <source>Location</source>
-        <translation>Lokacja</translation>
+        <translation>Miejsce</translation>
     </message>
     <message>
         <location filename="../gui/dockBuddiesList.cpp" line="136"/>
@@ -3247,7 +3344,7 @@ Musisz użyć przycisku przeglądaj.</translation>
     <message>
         <location filename="../gui/configuration/engineconfigpage.ui" line="65"/>
         <source>Custom parameters:</source>
-        <translation>Dodatkowe parametry:</translation>
+        <translation>Parametry własne:</translation>
     </message>
     <message>
         <location filename="../gui/configuration/engineconfigpage.ui" line="136"/>
@@ -3301,8 +3398,8 @@ jest katalogiem lub nie istnieje.</translation>
     </message>
     <message>
         <location filename="../filefilter.cpp" line="27"/>
-        <source>All files(*)</source>
-        <translation>Wszystkie pliki(*)</translation>
+        <source>All files (*)</source>
+        <translation>Wszystkie pliki (*)</translation>
     </message>
     <message>
         <location filename="../filefilter.cpp" line="33"/>
@@ -3389,7 +3486,7 @@ jest katalogiem lub nie istnieje.</translation>
     <message>
         <location filename="../gui/freedoomdialog.cpp" line="112"/>
         <source>Downloading Freedoom version info ...</source>
-        <translation>Pobieranie danych o wersji Freedooma ...</translation>
+        <translation>Pobieranie informacji o wersji Freedooma ...</translation>
     </message>
     <message>
         <location filename="../gui/freedoomdialog.cpp" line="118"/>
@@ -3409,7 +3506,7 @@ jest katalogiem lub nie istnieje.</translation>
     <message>
         <location filename="../gui/freedoomdialog.cpp" line="162"/>
         <source>Missing</source>
-        <translation>Brakuje</translation>
+        <translation>Nie ma</translation>
     </message>
     <message>
         <location filename="../gui/freedoomdialog.cpp" line="171"/>
@@ -3434,7 +3531,7 @@ jest katalogiem lub nie istnieje.</translation>
     <message>
         <location filename="../gui/freedoomdialog.ui" line="30"/>
         <source>Freedoom is a free-of-charge data set replacement for commercial Doom games. It will allow you to play on most servers that host modded content without having to purchase Doom games. It won&apos;t allow you to join unmodded servers.</source>
-        <translation>Freedoom jest darmowym zastępnikiem danych dla komercyjnych gier z serii Doom. Pozwoli ci on na grę na większości z serwerów, które hostują modyfikowaną zawartość, bez potrzeby kupowania gier z serii Doom. Nie pozwoli ci dołączać się do niezmodyfikowanych serwerów.</translation>
+        <translation>Freedoom jest darmowy i zastępuje oficjalne pliki z danymi gier Doom. Będziesz mógł grać z nim na większości serwerów z modami bez potrzeby zakupu gier z serii Doom. Ale Freedoom nie pozwoli ci dołączać się do serwerów bez modów.</translation>
     </message>
     <message>
         <location filename="../gui/freedoomdialog.ui" line="40"/>
@@ -3444,7 +3541,7 @@ jest katalogiem lub nie istnieje.</translation>
     <message>
         <location filename="../gui/freedoomdialog.ui" line="66"/>
         <source>Install path:</source>
-        <translation>Ścieżka instalacji:</translation>
+        <translation>Ścieżka do instalacji:</translation>
     </message>
     <message>
         <location filename="../gui/freedoomdialog.ui" line="99"/>
@@ -3491,7 +3588,7 @@ jest katalogiem lub nie istnieje.</translation>
 Make sure the configuration for the client executable is set properly.</source>
         <translation>Ścieżka do katalogu roboczego dla gry &quot;%1&quot; jest pusta.
 
-Upewnij się, że konfiguracja klienta gry jest ustawiona poprawnie.</translation>
+Upewnij się, że klient gry jest skonfigurowany poprawnie.</translation>
     </message>
     <message>
         <location filename="../serverapi/gameclientrunner.cpp" line="223"/>
@@ -3641,21 +3738,27 @@ Plik wykonywalny: %3</translation>
         <location filename="../serverapi/gamehost.cpp" line="156"/>
         <source>IWAD Path error:
 &quot;%1&quot; doesn&apos;t exist or is a directory!</source>
-        <translation>Błąd ściezki IWADa:
+        <translation>Błąd ściezki do IWADa:
 &quot;%1&quot; nie istnieje lub jest katalogiem!</translation>
     </message>
     <message>
         <location filename="../serverapi/gamehost.cpp" line="435"/>
         <source>%1
- doesn&apos;t exist or is not a file.</source>
+doesn&apos;t exist or is not a file.</source>
         <translation>%1
+nie istnieje lub nie jest plikiem.</translation>
+    </message>
+    <message>
+        <source>%1
+ doesn&apos;t exist or is not a file.</source>
+        <translation type="vanished">%1
 nie istnieje lub nie jest plikiem.</translation>
     </message>
     <message>
         <location filename="../serverapi/gamehost.cpp" line="450"/>
         <source>PWAD path error:
 &quot;%1&quot; doesn&apos;t exist or is a directory!</source>
-        <translation>Błąd ścieżki PWADa:
+        <translation>Błąd ścieżki do PWADa:
 &quot;%1&quot; nie istnieje lub jest katalogiem!</translation>
     </message>
 </context>
@@ -3664,20 +3767,25 @@ nie istnieje lub nie jest plikiem.</translation>
     <message>
         <location filename="../serverapi/tooltips/gameinfotip.cpp" line="61"/>
         <source>Players</source>
-        <translation>Gracze</translation>
+        <translation>Graczy</translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/gameinfotip.cpp" line="94"/>
+        <location filename="../serverapi/tooltips/gameinfotip.cpp" line="71"/>
+        <source>%1 / %2 (%3 can join)</source>
+        <translation>%1 / %2 (%3 może się dołączyć)</translation>
+    </message>
+    <message>
+        <location filename="../serverapi/tooltips/gameinfotip.cpp" line="93"/>
         <source>Scorelimit</source>
         <translation>Limit punktów</translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/gameinfotip.cpp" line="128"/>
+        <location filename="../serverapi/tooltips/gameinfotip.cpp" line="127"/>
         <source>Timelimit</source>
         <translation>Limit czasu</translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/gameinfotip.cpp" line="135"/>
+        <location filename="../serverapi/tooltips/gameinfotip.cpp" line="134"/>
         <source>(%1 left)</source>
         <translation>(pozostało %1)</translation>
     </message>
@@ -3710,12 +3818,12 @@ nie istnieje lub nie jest plikiem.</translation>
     <message>
         <location filename="../gui/createserver/gamerulespanel.ui" line="90"/>
         <source>Max. clients:</source>
-        <translation>Max. klientów:</translation>
+        <translation>Maks. klientów:</translation>
     </message>
     <message>
         <location filename="../gui/createserver/gamerulespanel.ui" line="107"/>
         <source>Max. players:</source>
-        <translation>Max. graczy:</translation>
+        <translation>Maks. graczy:</translation>
     </message>
     <message>
         <location filename="../gui/createserver/gamerulespanel.ui" line="127"/>
@@ -3855,7 +3963,7 @@ Nastąpił błąd:
     <message>
         <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="377"/>
         <source>Plugin for engine &quot;%1&quot; is not present!</source>
-        <translation>Wtyczka dla gry &quot;%1&quot; jest nie załadowana!</translation>
+        <translation>Wtyczka dla gry &quot;%1&quot; nie jest załadowana!</translation>
     </message>
     <message>
         <location filename="../gui/createserver/generalgamesetuppanel.ui" line="34"/>
@@ -3878,7 +3986,7 @@ Nastąpił błąd:
     <message>
         <location filename="../gui/createserver/generalgamesetuppanel.ui" line="92"/>
         <source>If locked, executable won&apos;t change when new config for the same engine is loaded</source>
-        <translation>Gdy zakluczone, plik wykonywalny pozostanie taki sam po załadowaniu innej konfiguracji dla tej samej gry</translation>
+        <translation>Zaklucz, aby zachować ten plik wykonywalny po załadowaniu innej konfiguracji dla tej samej gry</translation>
     </message>
     <message>
         <location filename="../gui/createserver/generalgamesetuppanel.ui" line="95"/>
@@ -3931,19 +4039,23 @@ Nastąpił błąd:
         <translation>IWAD:</translation>
     </message>
     <message>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="292"/>
+        <source>Additional WADs and files (check the required ones):</source>
+        <translation>Dodatkowe WADy i pliki (zaznacz te wymagane):</translation>
+    </message>
+    <message>
         <location filename="../gui/createserver/generalgamesetuppanel.ui" line="202"/>
         <source>Difficulty:</source>
         <translation>Poziom trudności:</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="292"/>
         <source>Additional WADs and files (check required):</source>
-        <translation>Dodatkowe WADy i pliki (zaznacz wymagane):</translation>
+        <translation type="vanished">Dodatkowe WADy i pliki (zaznacz wymagane):</translation>
     </message>
     <message>
         <location filename="../gui/createserver/generalgamesetuppanel.ui" line="359"/>
         <source>If checked, the game will try to tell your router to forward necessary ports.</source>
-        <translation>Jeżeli zaznaczone, gra będzie próbowała prosić Twój router of przekierowanie niezbędnych portów.</translation>
+        <translation>Zaznacz by gra poprosiła Twój router o automatyczne przekierowanie niezbędnych portów.</translation>
     </message>
     <message>
         <location filename="../gui/createserver/generalgamesetuppanel.ui" line="362"/>
@@ -3953,7 +4065,7 @@ Nastąpił błąd:
     <message>
         <location filename="../gui/createserver/generalgamesetuppanel.ui" line="372"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;UPnP port. Set this to 0 to let Doomseeker or game decide.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Port UPnP. Ustaw tutaj 0 aby pozwolić zadecydować Doomseekerowi albo grze.&lt;/p&gt;&lt;/body&gt;&lt;/html</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Port UPnP. Ustaw tutaj 0 aby pozwolić Doomseekerowi albo grze wybrać własny.&lt;/p&gt;&lt;/body&gt;&lt;/html</translation>
     </message>
     <message>
         <source>Additional WADs and files:</source>
@@ -3962,12 +4074,12 @@ Nastąpił błąd:
     <message>
         <location filename="../gui/createserver/generalgamesetuppanel.ui" line="324"/>
         <source>Broadcast to LAN</source>
-        <translation>Rozsyłaj po LANie</translation>
+        <translation>Opublikuj po LANie</translation>
     </message>
     <message>
         <location filename="../gui/createserver/generalgamesetuppanel.ui" line="334"/>
         <source>Broadcast to Master</source>
-        <translation>Rozsyłaj do mastera</translation>
+        <translation>Opublikuj na masterze</translation>
     </message>
 </context>
 <context>
@@ -5256,7 +5368,7 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2cloader.cpp" line="155"/>
         <source>Failed to read IP2C fallback. Stopping.</source>
-        <translation>Odczytanie zapasowej bazy IP2C nie powiodło się. Zakańczam.</translation>
+        <translation>Nie można odczytać zapasowej bazy IP2C. Zakańczam.</translation>
     </message>
     <message>
         <source>IP2C parser is still working. Program will close once this job is done.</source>
@@ -5265,7 +5377,7 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2cloader.cpp" line="70"/>
         <source>IP2C parser is still working, awaiting stop...</source>
-        <translation>Parser IP2C wciąż działa, czekam na zakończenie...</translation>
+        <translation>Parser IP2C wciąż pracuje, czekam na zakończenie...</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2cloader.cpp" line="97"/>
@@ -5283,19 +5395,23 @@ Nastąpił błąd:
         <translation>Aktualizacja IP2C zbugowała się.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="122"/>
         <source>IP2C update must wait until parsing of current database finishes. Waiting 1 second</source>
+        <translation type="vanished">Aktualizacja IP2C musi poczekać, aż skończy się parsowanie obecnej bazy danych. Czekam 1 sekundę.</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2cloader.cpp" line="122"/>
+        <source>IP2C update must wait until parsing of current database finishes. Waiting 1 second.</source>
         <translation>Aktualizacja IP2C musi poczekać, aż skończy się parsowanie obecnej bazy danych. Czekam 1 sekundę.</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2cloader.cpp" line="133"/>
         <source>IP2C database finished downloading.</source>
-        <translation>Ukończono pobieranie bazy IP2C.</translation>
+        <translation>Pobrano bazę IP2C.</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2cloader.cpp" line="137"/>
         <source>Unable to save IP2C database at path: %1</source>
-        <translation>Nie można zapisać bazy IP2C w ścieżce: %1</translation>
+        <translation>Nie można zapisać bazy IP2C pod ścieżką: %1</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2cloader.cpp" line="142"/>
@@ -5305,12 +5421,12 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2cloader.cpp" line="159"/>
         <source>Failed to read IP2C database. Reverting...</source>
-        <translation>Błąd odczytywania bazy IP2C. Przywracam starą kopię...</translation>
+        <translation>Błąd odczytywania bazy IP2C. Przywracam poprzednią kopię...</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2cloader.cpp" line="164"/>
         <source>IP2C revert attempt failed. Nothing to go back to.</source>
-        <translation>Próba przywrócenia bazy IP2C zawiodła. Nie ma do czego wracać.</translation>
+        <translation>Nie udało się przywrócić poprzedniej bazy IP2C. Nie ma do czego wracać.</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2cloader.cpp" line="173"/>
@@ -5431,7 +5547,7 @@ Nastąpił błąd:
     <message>
         <location filename="../gui/ip2cupdatebox.ui" line="20"/>
         <source>Doomseeker - Update IP2C</source>
-        <translation>Doomeeker - aktualizuj IP2C</translation>
+        <translation>Doomeeker - Aktualizuj IP2C</translation>
     </message>
     <message>
         <location filename="../gui/ip2cupdatebox.ui" line="26"/>
@@ -5441,7 +5557,7 @@ Nastąpił błąd:
     <message>
         <location filename="../gui/ip2cupdatebox.ui" line="134"/>
         <source>The downloaded database will be placed in the following location:</source>
-        <translation>Pobrana baza zostanie umieszczona pod następującą ścieżką:</translation>
+        <translation>Pobrana baza zostanie umieszczona pod tą ścieżką:</translation>
     </message>
     <message>
         <location filename="../gui/ip2cupdatebox.ui" line="180"/>
@@ -5569,7 +5685,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../irc/ircchanneladapter.cpp" line="198"/>
         <source>Unknown quit type from user %1.</source>
-        <translation></translation>
+        <translation>Użytkownik %1 odszedł, ale nie wiadomo jak.</translation>
     </message>
 </context>
 <context>
@@ -5593,7 +5709,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/configuration/irc/ircconfigurationdialog.cpp" line="35"/>
         <source>Doomseeker - IRC Options</source>
-        <translation>Doomseeker - opcje IRC</translation>
+        <translation>Doomseeker - Opcje IRC</translation>
     </message>
     <message>
         <location filename="../gui/configuration/irc/ircconfigurationdialog.cpp" line="41"/>
@@ -5603,7 +5719,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/configuration/irc/ircconfigurationdialog.cpp" line="43"/>
         <source>Settings save failed!</source>
-        <translation>Zapis ustawień nie powiódł się!</translation>
+        <translation>Zapisywanie ustawień nie powiodło się!</translation>
     </message>
     <message>
         <location filename="../gui/configuration/irc/ircconfigurationdialog.cpp" line="81"/>
@@ -5613,7 +5729,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/configuration/irc/ircconfigurationdialog.cpp" line="81"/>
         <source>You have chosen one or more networks for autojoin startup but you have not defined any nickname. Please define it now.</source>
-        <translation>Wybrałeś jedną lub więcej sieci do automatycznego połączenia przy starcie ale nie podałeś swojego nicka. Proszę podaj go teraz.</translation>
+        <translation>Wybrałeś jedną lub więcej sieci do automatycznego połączenia przy starcie ale nie podałeś swojego nicka. Podaj go teraz.</translation>
     </message>
 </context>
 <context>
@@ -5674,12 +5790,12 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/irc/ircdock.cpp" line="255"/>
         <location filename="../gui/irc/ircdock.cpp" line="257"/>
         <source>Doomseeker IRC - Open chat window</source>
-        <translation>Doomseeker IRC - otwórz okno czata</translation>
+        <translation>Doomseeker IRC - Otwórz okno czata</translation>
     </message>
     <message>
         <location filename="../gui/irc/ircdock.cpp" line="255"/>
         <source>Cannot obtain network connection adapter.</source>
-        <translation>Nie można pobrać adaptera połączenia z siecią.</translation>
+        <translation>Nie znaleziono adaptera połączenia z siecią.</translation>
     </message>
     <message>
         <location filename="../gui/irc/ircdock.cpp" line="257"/>
@@ -6031,7 +6147,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/irc/ircnetworkselectionbox.cpp" line="196"/>
         <source>Cannot remove as no valid network is selected.</source>
-        <translation>Nie można usunąć, bo nie wybrano żadnej prawidłowej sieci.</translation>
+        <translation>Nie można usunąć, ponieważ nie wybrano żadnej prawidłowej sieci.</translation>
     </message>
     <message>
         <location filename="../gui/irc/ircnetworkselectionbox.cpp" line="200"/>
@@ -6090,13 +6206,17 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/irc/ircnetworkselectionbox.ui" line="67"/>
+        <source>User name:</source>
+        <translation>Nazwa użytkownika:</translation>
+    </message>
+    <message>
         <source>User name</source>
-        <translation>Nazwa użytkownika</translation>
+        <translation type="vanished">Nazwa użytkownika</translation>
     </message>
     <message>
         <location filename="../gui/irc/ircnetworkselectionbox.ui" line="74"/>
         <source>Sent to the IRC network during login. If not specified, defaults to nick.</source>
-        <translation>Wysyłana do sieci IRC podczas logowania. Jeżeli nie zostanie podana, jest zastępowana nickiem.</translation>
+        <translation>Wysyłana do sieci IRC podczas logowania. Jeżeli nie zostanie podana, nick jest używany zamiast niej.</translation>
     </message>
     <message>
         <location filename="../gui/irc/ircnetworkselectionbox.ui" line="77"/>
@@ -6252,7 +6372,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../irc/ircresponseparser.cpp" line="638"/>
         <source>IRCResponseParser::parseUserModeMessage(): wrong FlagMode. Information for channel &quot;%2&quot; might not be correct anymore.</source>
-        <translation>IRCResponseParser::parseUserModeMessage(): zły FlagMode.Informacje o kanale &quot;%2&quot; mogą być teraz nieprawidłowe.</translation>
+        <translation>IRCResponseParser::parseUserModeMessage(): zły FlagMode. Informacje o kanale &quot;%2&quot; mogą być teraz nieprawidłowe.</translation>
     </message>
 </context>
 <context>
@@ -6265,7 +6385,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../irc/ircnetworkadapter.cpp" line="772"/>
         <source>IRC: Disconnected from network %1</source>
-        <translation>IRC: rozłączono z sieci %1</translation>
+        <translation>IRC: rozłączono z siecią %1</translation>
     </message>
 </context>
 <context>
@@ -6335,13 +6455,13 @@ p, li { white-space: pre-wrap; }
         <location filename="../joincommandlinebuilder.cpp" line="122"/>
         <source>This server is still refreshing.
 Please wait until it is finished.</source>
-        <translation>Ten serwer jest wciąż odświeżany.
-Proszę poczekać, aż zostanie to zakończone.</translation>
+        <translation>Ten serwer jest nadal odświeżany.
+Poczekaj na zakończenie.</translation>
     </message>
     <message>
         <location filename="../joincommandlinebuilder.cpp" line="123"/>
         <source>Attempted to obtain a join command line for a &quot;%1&quot; server that is under refresh.</source>
-        <translation>Próba otrzymania komendy dołączenia dla serwera &quot;%1&quot;, który wciąż jest odświeżany.</translation>
+        <translation>Próba stworzenia komendy dołączenia do serwera &quot;%1&quot;, który wciąż jest odświeżany.</translation>
     </message>
     <message>
         <location filename="../joincommandlinebuilder.cpp" line="130"/>
@@ -6353,7 +6473,7 @@ Operacja nieudana.</translation>
     <message>
         <location filename="../joincommandlinebuilder.cpp" line="131"/>
         <source>Attempted to obtain a join command line for an unknown server &quot;%1&quot;</source>
-        <translation>Próba otrzymania komendy dołączenia dla nieznanego serwera &quot;%1&quot;</translation>
+        <translation>Próba stworzenia komendy dołączenia do nieznanego serwera &quot;%1&quot;</translation>
     </message>
     <message>
         <source>
@@ -6566,7 +6686,7 @@ Proszę sprawdzić konfigurację i/lub odnieść się do pomocy online dostępne
     <message>
         <location filename="../main.cpp" line="366"/>
         <source>None of the currently loaded game plugins supports RCon.</source>
-        <translation>Żaden z obecnie załadowanych pluginów od gier nie wspiera konsoli zdalnej.</translation>
+        <translation>Żadna z obecnie załadowanych wtyczek do gier nie wspiera konsoli zdalnej.</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="368"/>
@@ -6621,7 +6741,7 @@ Proszę sprawdzić konfigurację i/lub odnieść się do pomocy online dostępne
     <message>
         <location filename="../main.cpp" line="489"/>
         <source>Loading translations definitions</source>
-        <translation>Wczytuję  definicje tłumaczeń</translation>
+        <translation>Wczytuję definicje tłumaczeń</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="497"/>
@@ -6656,7 +6776,7 @@ Proszę sprawdzić konfigurację i/lub odnieść się do pomocy online dostępne
     <message>
         <location filename="../main.cpp" line="553"/>
         <source>Initializing configuration for plugins.</source>
-        <translation>Inicjalizuję konfigurację dla wtyczek.</translation>
+        <translation>Inicjalizuję konfigurację wtyczek.</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="672"/>
@@ -6786,7 +6906,7 @@ Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
     <message>
         <location filename="../gui/mainwindow.cpp" line="630"/>
         <source>All of the WADs used by this server are present.</source>
-        <translation>Wszystkie WADy używane przez ten serwer są obecne.</translation>
+        <translation>Wszystkie WADy używane przez ten serwer znajdują się na dysku.</translation>
     </message>
     <message>
         <source>Senseless refresh operation attempted.</source>
@@ -6808,7 +6928,7 @@ Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
     <message>
         <location filename="../gui/mainwindow.cpp" line="713"/>
         <source>No master servers are enabled in the &quot;Query&quot; menu.</source>
-        <translation>Żaden master serwer nie został włączony w menu &quot;Odpytywanie&quot;.</translation>
+        <translation>Żaden master serwer nie został włączony w menu &quot;Odświeżanie&quot;.</translation>
     </message>
     <message>
         <source>Unknown error occured.</source>
@@ -6839,7 +6959,7 @@ Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
     <message>
         <location filename="../gui/mainwindow.cpp" line="734"/>
         <source>Warning: No master servers were enabled for this refresh. Check your Query menu or &quot;engines/&quot; directory.</source>
-        <translation>Ostrzeżenie: żaden master serwer nie został włączony dla tego odświeżenia. Sprawdź menu &quot;Odpytywanie&quot; lub katalog &quot;engines/&quot;.</translation>
+        <translation>Ostrzeżenie: nie włączono żadnego master serwera do odświeżenia. Sprawdź menu &quot;Odświeżanie&quot; lub katalog &quot;engines/&quot;.</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.cpp" line="794"/>
@@ -6912,7 +7032,7 @@ Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
     <message>
         <location filename="../gui/mainwindow.cpp" line="1576"/>
         <source>Human players: %1</source>
-        <translation>Ludzcy gracze: %1</translation>
+        <translation>Graczy: %1</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.cpp" line="1588"/>
@@ -6991,12 +7111,12 @@ Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
     <message>
         <location filename="../gui/mainwindow.cpp" line="1124"/>
         <source>Welcome to Doomseeker</source>
-        <translation>Witamy w programie Doomseeker</translation>
+        <translation>Witaj w programie Doomseeker</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.cpp" line="1125"/>
         <source>Before you start browsing for servers, please ensure that Doomseeker is properly configured.</source>
-        <translation>Zanim zaczniesz przeglądać serwery, proszę poświęć chwilę aby skonfigurować Doomseekera poprawnie.</translation>
+        <translation>Zanim zaczniesz przeglądać serwery, proszę poświęć chwilę aby skonfigurować Doomseekera.</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.cpp" line="1142"/>
@@ -7020,12 +7140,12 @@ Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
     <message>
         <location filename="../gui/mainwindow.cpp" line="1200"/>
         <source>Query on startup warning: No master servers are enabled in the Query menu.</source>
-        <translation>Ostrzeżenie odpytywania na starcie: żaden master serwer nie jest włączony w menu &quot;Odpytywanie&quot;.</translation>
+        <translation>Ostrzeżenie odświeżenia na starcie: żaden master serwer nie jest włączony w menu &quot;Odświeżanie&quot;.</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.cpp" line="1224"/>
         <source>Doomseeker critical error</source>
-        <translation>Doomseeker - krytyczny błąd</translation>
+        <translation>Doomseeker - błąd krytyczny</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.cpp" line="1217"/>
@@ -7035,17 +7155,17 @@ Although the application will still work it will not be possible to fetch any se
 Please check if there are any files in &quot;engines/&quot; directory.
 To fix this problem you may try downloading Doomseeker again from the site specified in the Help|About box and reinstalling Doomseeker.</source>
         <translation>Doomseeker nie mógł odnaleźć żadnych wtyczek.
-Pomimo tego, że program będzie działać, nie będzie możliwe pobieranie żadnych serwerów ani wystartowanie gry.
+Program będzie działać, ale nie będzie możliwe przeszukiwanie żadnych serwerów ani wystartowanie gry.
 
-Proszę sprawdź, czy w katalogu &quot;engines/&quot; znajdują się jakiekolwiek pliki.
-Aby naprawić ten błąd można spróbować pobrać Doomseekera jeszcze raz ze strony podanej w menu Pomoc|O programie i przeinstalować Doomseekera.</translation>
+Sprawdź, czy w katalogu &quot;engines/&quot; znajdują się jakiekolwiek pliki.
+Aby naprawić ten błąd możesz spróbować pobrać Doomseekera jeszcze raz ze strony podanej w menu Pomoc|O programie i przeinstalować Doomseekera.</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.cpp" line="707"/>
         <source>Doomseeker is unable to proceed with the refresh operation because the following problem has occurred:
 
 </source>
-        <translation>Doomseeker nie jest w stanie wykonać odświeżenia ponieważ wystąpił problem:
+        <translation>Doomseeker nie mógł odświeżyć, ponieważ wystąpił problem:
 
 </translation>
     </message>
@@ -7057,7 +7177,7 @@ Aby naprawić ten błąd można spróbować pobrać Doomseekera jeszcze raz ze s
     <message>
         <location filename="../gui/mainwindow.cpp" line="1264"/>
         <source>Querying...</source>
-        <translation>Odpytywanie...</translation>
+        <translation>Odświeżanie...</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.cpp" line="1273"/>
@@ -7067,7 +7187,7 @@ Aby naprawić ten błąd można spróbować pobrać Doomseekera jeszcze raz ze s
     <message>
         <location filename="../gui/mainwindow.cpp" line="1355"/>
         <source>Main Toolbar</source>
-        <translation>Główny Pasek Narzędziowy</translation>
+        <translation>Główny pasek narzędziowy</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.cpp" line="1360"/>
@@ -7155,7 +7275,7 @@ Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
     <message>
         <location filename="../gui/mainwindow.cpp" line="1464"/>
         <source>Doomseeker - show join command line</source>
-        <translation>Doomseeker - pokaż komendę dołączenia</translation>
+        <translation>Doomseeker - pokaż wiersz poleceń do dołączenia</translation>
     </message>
     <message>
         <source>Command line cannot be built:
@@ -7330,7 +7450,7 @@ Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
     <message>
         <location filename="../gui/mainwindow.ui" line="60"/>
         <source>New updates are available:</source>
-        <translation>Nowe aktualizacje są dostępne:</translation>
+        <translation>Jest dostępna aktualizacja:</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.ui" line="79"/>
@@ -7345,7 +7465,7 @@ Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
     <message>
         <location filename="../gui/mainwindow.ui" line="158"/>
         <source>Updates have been downloaded:</source>
-        <translation>Aktualizacje zostały pobrane:</translation>
+        <translation>Aktualizacja została pobrana:</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.ui" line="177"/>
@@ -7360,7 +7480,7 @@ Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
     <message>
         <location filename="../gui/mainwindow.ui" line="225"/>
         <source>Server filter is applied</source>
-        <translation>Filtr serwerów jest nałożony</translation>
+        <translation>Nałożony filtr serwerów</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.ui" line="270"/>
@@ -7385,14 +7505,18 @@ Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
     <message>
         <location filename="../gui/mainwindow.ui" line="307"/>
         <source>&amp;Query</source>
-        <translation>O&amp;dpytywanie</translation>
+        <translation>O&amp;dświeżanie</translation>
     </message>
 </context>
 <context>
     <name>MapListPanel</name>
     <message>
-        <location filename="../gui/createserver/maplistpanel.ui" line="51"/>
         <source>Add from loaded wads</source>
+        <translation type="vanished">Dodaj z załadowanych WADów</translation>
+    </message>
+    <message>
+        <location filename="../gui/createserver/maplistpanel.ui" line="51"/>
+        <source>Add from loaded WADs</source>
         <translation>Dodaj z załadowanych WADów</translation>
     </message>
     <message>
@@ -7426,7 +7550,7 @@ Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
     <message>
         <location filename="../gui/createserver/maplistselector.ui" line="26"/>
         <source>Doomseeker - Select Maps</source>
-        <translation>Doomseeker - wybierz mapy</translation>
+        <translation>Doomseeker - Wybierz mapy</translation>
     </message>
     <message>
         <location filename="../gui/createserver/maplistselector.ui" line="35"/>
@@ -7434,8 +7558,12 @@ Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
         <translation>Wszystkie wybrane mapy zostaną dodane do listy map</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/maplistselector.ui" line="71"/>
         <source>Reading wads...</source>
+        <translation type="vanished">Czytam WADy...</translation>
+    </message>
+    <message>
+        <location filename="../gui/createserver/maplistselector.ui" line="71"/>
+        <source>Reading WADs...</source>
         <translation>Czytam WADy...</translation>
     </message>
     <message>
@@ -7463,7 +7591,7 @@ Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
     <message>
         <location filename="../serverapi/masterclient.cpp" line="156"/>
         <source>Could not fetch a new server list from the master because not enough time has passed.</source>
-        <translation>Nie można było pobrać nowej listy serwerów z mastera, ponieważ upłynęło zbyt mało czasu.</translation>
+        <translation>Nie można pobrać nowej listy serwerów z mastera, ponieważ upłynęło zbyt mało czasu.</translation>
     </message>
     <message>
         <location filename="../serverapi/masterclient.cpp" line="161"/>
@@ -7482,7 +7610,7 @@ Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
     <message>
         <location filename="../serverapi/masterclient.cpp" line="166"/>
         <source>Could not fetch a new server list. The protocol you are using is too old. An update may be available.</source>
-        <translation>Nie można było pobrać nowej listy serwerów. Wersja protokołu jest zbyt stara. Aktualizacja może być dostępna.</translation>
+        <translation>Nie można było pobrać nowej listy serwerów. Wersja protokołu jest zbyt stara. Być może jest dostępna aktualizacja.</translation>
     </message>
     <message>
         <location filename="../serverapi/masterclient.cpp" line="263"/>
@@ -7561,12 +7689,12 @@ Możesz wcisnąć &quot;Ignoruj&quot;, aby dołączyć się mimo wszystko.</tran
     <message>
         <location filename="../gui/missingwadsdialog.ui" line="57"/>
         <source>Press &apos;Ignore&apos; to join anyway.</source>
-        <translation>Możesz wcisnąć &quot;Ignoruj&quot;, aby dołączyć się mimo wszystko.</translation>
+        <translation>Wciśnij &quot;Ignoruj&quot;, aby dołączyć mimo wszystko.</translation>
     </message>
     <message>
         <location filename="../gui/missingwadsdialog.ui" line="103"/>
         <source>These files belong to a commercial game or are otherwise blocked from download:</source>
-        <translation>Te pliki należą do gry w sprzedaży, bądź są po prostu zablokowane przed pobraniem:</translation>
+        <translation>Te pliki należą do gry, która jest w sprzedaży, bądź są po prostu zablokowane przed pobraniem:</translation>
     </message>
     <message>
         <location filename="../gui/missingwadsdialog.ui" line="116"/>
@@ -7575,13 +7703,21 @@ Możesz wcisnąć &quot;Ignoruj&quot;, aby dołączyć się mimo wszystko.</tran
         <translation>&lt;pliki&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/missingwadsdialog.ui" line="135"/>
         <source>Make sure that this file is in one of the paths specified in Options -&gt; File Paths.
 
 If you don&apos;t have this file, and it belongs to a commercial game, you need to purchase the game associated with this file. Wadseeker will not download commercial IWADs or modifications.</source>
-        <translation>Upewnij się, że ten plik znajduje się pod jedną ze ścieżek w Options -&gt; File Paths.
+        <translation type="vanished">Upewnij się, że ten plik znajduje się pod jedną ze ścieżek w Opcje -&gt; Ścieżki plików.
 
-Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić grę związaną z tym plikiem. Wadseeker nie będzie pobierał komercyjnych IWADów bądź modyfikacji.</translation>
+Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić grę związaną z tym plikiem. Wadseeker nie będzie pobierał komercyjnych IWADów lub modyfikacji.</translation>
+    </message>
+    <message>
+        <location filename="../gui/missingwadsdialog.ui" line="135"/>
+        <source>Make sure that this file is in one of the paths specified in Options -&gt; File paths.
+
+If you don&apos;t have this file, and it belongs to a commercial game, you need to purchase the game associated with this file. Wadseeker will not download commercial IWADs or modifications.</source>
+        <translation>Upewnij się, że ten plik znajduje się pod jedną ze ścieżek w Opcje -&gt; Ścieżki plików.
+
+Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić grę związaną z tym plikiem. Wadseeker nie będzie pobierał komercyjnych IWADów lub modyfikacji.</translation>
     </message>
     <message>
         <location filename="../gui/missingwadsdialog.ui" line="147"/>
@@ -7596,7 +7732,7 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
     <message>
         <location filename="../gui/missingwadsdialog.ui" line="236"/>
         <source>Incompatible files:</source>
-        <translation>Niekompatybilne pliki:</translation>
+        <translation>Pliki niekompatybilne:</translation>
     </message>
     <message>
         <location filename="../gui/missingwadsdialog.ui" line="243"/>
@@ -7653,20 +7789,20 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
     <message>
         <location filename="../gui/passworddlg.ui" line="38"/>
         <source>This server requires a password in order to connect, please enter this password below.</source>
-        <translation>Ten serwerj wymaga hasła do połączenia, proszę wpisz to hasło poniżej.</translation>
+        <translation>Ten serwer wymaga hasła do połączenia, wpisz to hasło poniżej.</translation>
     </message>
     <message>
-        <location filename="../gui/passworddlg.ui" line="54"/>
+        <location filename="../gui/passworddlg.ui" line="63"/>
         <source>Connect password:</source>
-        <translation>Hasło połączenia:</translation>
+        <translation>Hasło do podłączenia:</translation>
     </message>
     <message>
-        <location filename="../gui/passworddlg.ui" line="94"/>
+        <location filename="../gui/passworddlg.ui" line="112"/>
         <source>Ingame password:</source>
         <translation>Hasło w grze:</translation>
     </message>
     <message>
-        <location filename="../gui/passworddlg.ui" line="128"/>
+        <location filename="../gui/passworddlg.ui" line="146"/>
         <source>Remember password</source>
         <translation>Zapamiętaj hasło</translation>
     </message>
@@ -7793,7 +7929,7 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
     <message>
         <location filename="../plugins/pluginloader.cpp" line="81"/>
         <source>plugin doesn&apos;t report its ABI version</source>
-        <translation>wtyczka  nie zgłasza swojej wersji ABI</translation>
+        <translation>wtyczka nie zgłasza swojej wersji ABI</translation>
     </message>
     <message>
         <location filename="../plugins/pluginloader.cpp" line="83"/>
@@ -7870,7 +8006,7 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
     <message>
         <location filename="../gui/rconpassworddialog.ui" line="20"/>
         <source>Connect to Remote Console</source>
-        <translation>Połącz ze zdalną konsolą</translation>
+        <translation>Połącz z konsolą zdalną</translation>
     </message>
     <message>
         <location filename="../gui/rconpassworddialog.ui" line="26"/>
@@ -7878,8 +8014,12 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
         <translation>Połączenie</translation>
     </message>
     <message>
-        <location filename="../gui/rconpassworddialog.ui" line="32"/>
         <source>Source Port:</source>
+        <translation type="vanished">Gra:</translation>
+    </message>
+    <message>
+        <location filename="../gui/rconpassworddialog.ui" line="32"/>
+        <source>Game:</source>
         <translation>Gra:</translation>
     </message>
     <message>
@@ -7890,7 +8030,7 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
     <message>
         <location filename="../gui/rconpassworddialog.ui" line="55"/>
         <source>Please enter your remote console password.</source>
-        <translation>Proszę podaj hasło do konsoli zdalnej.</translation>
+        <translation>Podaj hasło do konsoli zdalnej.</translation>
     </message>
     <message>
         <location filename="../gui/rconpassworddialog.ui" line="67"/>
@@ -7900,7 +8040,7 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
     <message>
         <location filename="../gui/rconpassworddialog.ui" line="70"/>
         <source>Hide</source>
-        <translation>Zakryj</translation>
+        <translation>Ukryj</translation>
     </message>
 </context>
 <context>
@@ -7915,9 +8055,13 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
         <translation>Brak wsparcia konsoli zdalnej</translation>
     </message>
     <message>
-        <location filename="../gui/remoteconsole.cpp" line="68"/>
         <source>The selected source port has no RCon support.</source>
-        <translation>Wybrany port nie wspiera konsoli zdalnej.</translation>
+        <translation type="vanished">Wybrany port nie wspiera konsoli zdalnej.</translation>
+    </message>
+    <message>
+        <location filename="../gui/remoteconsole.cpp" line="68"/>
+        <source>The selected game has no RCon support.</source>
+        <translation>Wybrana gra nie ma wsparcia dla konsoli zdalnej.</translation>
     </message>
     <message>
         <location filename="../gui/remoteconsole.cpp" line="83"/>
@@ -8049,12 +8193,12 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
     <message>
         <location filename="../gui/widgets/serverfilterbuildermenu.cpp" line="66"/>
         <source>Include WAD ...</source>
-        <translation>Załącz WAD ...</translation>
+        <translation>Z WADem ...</translation>
     </message>
     <message>
         <location filename="../gui/widgets/serverfilterbuildermenu.cpp" line="67"/>
         <source>Exclude WAD ...</source>
-        <translation>Wyłącz WAD ...</translation>
+        <translation>Bez WADa ...</translation>
     </message>
 </context>
 <context>
@@ -8091,14 +8235,12 @@ z graczami na górze listy</translation>
         <translation>Filtrowanie włączone</translation>
     </message>
     <message>
-        <location filename="../gui/serverfilterdock.ui" line="27"/>
         <source>Server Name:</source>
-        <translation>Nazwa serwera:</translation>
+        <translation type="vanished">Nazwa serwera:</translation>
     </message>
     <message>
-        <location filename="../gui/serverfilterdock.ui" line="104"/>
         <source>Max. Ping:</source>
-        <translation>Max. ping:</translation>
+        <translation type="vanished">Maks. ping:</translation>
     </message>
     <message>
         <location filename="../gui/serverfilterdock.ui" line="111"/>
@@ -8115,6 +8257,16 @@ z graczami na górze listy</translation>
         <translation type="vanished">Użyj &apos;,&apos; (przecinka) aby oddzielić wiele WADów.</translation>
     </message>
     <message>
+        <location filename="../gui/serverfilterdock.ui" line="27"/>
+        <source>Server name:</source>
+        <translation>Nazwa serwera:</translation>
+    </message>
+    <message>
+        <location filename="../gui/serverfilterdock.ui" line="104"/>
+        <source>Max. ping:</source>
+        <translation>Maks. ping:</translation>
+    </message>
+    <message>
         <location filename="../gui/serverfilterdock.ui" line="134"/>
         <source>Use &apos;,&apos; (a comma) to separate multiple WADs.</source>
         <translation>Użyj &apos;,&apos; (przecinka) aby oddzielić wiele WADów.</translation>
@@ -8122,7 +8274,7 @@ z graczami na górze listy</translation>
     <message>
         <location filename="../gui/serverfilterdock.ui" line="141"/>
         <source>Exclude WADs:</source>
-        <translation>Wyłączone WADy:</translation>
+        <translation>Bez WADów:</translation>
     </message>
     <message>
         <location filename="../gui/serverfilterdock.ui" line="148"/>
@@ -8137,7 +8289,7 @@ z graczami na górze listy</translation>
     <message>
         <location filename="../gui/serverfilterdock.ui" line="165"/>
         <source>Exclude game modes:</source>
-        <translation>Wyłącz tryby gry:</translation>
+        <translation>Bez trybów gry:</translation>
     </message>
     <message>
         <location filename="../gui/serverfilterdock.ui" line="172"/>
@@ -8314,7 +8466,7 @@ z graczami na górze listy</translation>
     <message>
         <location filename="../gui/widgets/serverlistcontextmenu.cpp" line="128"/>
         <source>Show join command line</source>
-        <translation>Pokaż komendę dołączenia</translation>
+        <translation>Pokaż wierz poleceń dołączenia</translation>
     </message>
     <message>
         <location filename="../gui/widgets/serverlistcontextmenu.cpp" line="129"/>
@@ -8339,7 +8491,7 @@ z graczami na górze listy</translation>
     <message>
         <location filename="../gui/widgets/serverlistcontextmenu.cpp" line="155"/>
         <source>Remote Console</source>
-        <translation>Zdalna konsola</translation>
+        <translation>Konsola zdalna</translation>
     </message>
     <message>
         <location filename="../gui/widgets/serverlistcontextmenu.cpp" line="162"/>
@@ -8469,7 +8621,7 @@ z graczami na górze listy</translation>
     <message>
         <location filename="../updater/updatechannel.cpp" line="110"/>
         <source>Beta versions have newer features but they are untested. Releases on this update channel are more often and are suggested for users who want newest functionalities and minor bug fixes as soon as they become implemented and available.</source>
-        <translation>Wersje Beta mają nowsze funkcje, ale nie zostały przetestowane. Nowe wersje na tym kanale pojawiają się częściej i są polecane użytkownikom, którzy chcą nowych funkcji, oraz mniejszych poprawek, tak szybko, jak tylko zostaną one zaimplementowane i udostępnione.</translation>
+        <translation>Wersje Beta mają nowsze funkcje, ale nie zostały przetestowane. Nowe wersje na tym kanale pojawiają się częściej i są polecane użytkownikom, którzy chcą nowych funkcji i poprawek, gdy tylko zostaną one zaimplementowane i udostępnione.</translation>
     </message>
     <message>
         <location filename="../updater/updatechannel.cpp" line="120"/>
@@ -8618,7 +8770,7 @@ z graczami na górze listy</translation>
     <message>
         <location filename="../gui/createserver/wadspicker.cpp" line="90"/>
         <source>Doomseeker - Add file(s)</source>
-        <translation>Doomseeker - dodaj plik(i)</translation>
+        <translation>Doomseeker - Dodaj plik(i)</translation>
     </message>
     <message>
         <location filename="../gui/createserver/wadspicker.ui" line="41"/>
@@ -8680,6 +8832,11 @@ z graczami na górze listy</translation>
         <translation></translation>
     </message>
     <message>
+        <location filename="../gui/wadseekerinterface.ui" line="22"/>
+        <source>Seek WADs, comma (&apos;,&apos;) separated:</source>
+        <translation>Szukaj WADów, oddzielając kolejne przecinkiem:</translation>
+    </message>
+    <message>
         <location filename="../gui/wadseekerinterface.ui" line="59"/>
         <location filename="../gui/wadseekerinterface.cpp" line="379"/>
         <source>Abort</source>
@@ -8711,9 +8868,8 @@ z graczami na górze listy</translation>
         <translation type="obsolete">Szukaj WADa (lub wielu WADów, rozdzielonych przecinkiem):</translation>
     </message>
     <message>
-        <location filename="../gui/wadseekerinterface.ui" line="22"/>
         <source>Seek WAD or multiple WADs, comma (&apos;,&apos;) separated:</source>
-        <translation>Szukaj WADa, lub wielu WADów, oddzielając je przecinkiem (&apos;,&apos;):</translation>
+        <translation type="vanished">Szukaj WADa, lub wielu WADów, oddzielając je przecinkiem (&apos;,&apos;):</translation>
     </message>
     <message>
         <location filename="../gui/wadseekerinterface.ui" line="49"/>
@@ -8769,12 +8925,24 @@ z graczami na górze listy</translation>
         <location filename="../gui/wadseekershow.cpp" line="62"/>
         <source>Wadseeker will not work correctly:
 
+The target directory is either not configured, is invalid or cannot be written to.
+
+Please review your Configuration and/or refer to the online help available from the Help menu.</source>
+        <translation>Wadseeker nie zadziała poprawnie:
+
+Docelowy katalog nie jest skonfigurowany, jest nieprawidłowy, albo nie można w nim zapisywać.
+
+Przejrzyj konfigurację, albo skorzystaj z pomocy online dostępnej z menu Pomoc.</translation>
+    </message>
+    <message>
+        <source>Wadseeker will not work correctly:
+
 Target directory is either not set, is invalid or cannot be written to.
 
 Please review your Configuration and/or refer to online help available from the Help menu.</source>
-        <translation>Wadseeker nie zadziała poprawnie:
+        <translation type="vanished">Wadseeker nie zadziała poprawnie:
 
-Docelowy katalog jest nie ustawiony, jest nieprawidłowy, albo nie można w nim zapisywać.
+Docelowy katalog nie jest skonfigurowany, jest nieprawidłowy, albo nie można w nim zapisywać.
 
 Proszę przejrzeć konfigurację, albo odnieść się do pomocy online dostępnej z menu Pomoc.</translation>
     </message>
