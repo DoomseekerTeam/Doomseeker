@@ -4028,12 +4028,12 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="56"/>
         <source>Aruba</source>
-        <translation type="unfinished"></translation>
+        <translation>Aruba</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="57"/>
         <source>Afghanistan</source>
-        <translation type="unfinished"></translation>
+        <translation>Afganistan</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="58"/>
@@ -4068,7 +4068,7 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="64"/>
         <source>Argentina</source>
-        <translation type="unfinished"></translation>
+        <translation>Argentyna</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="65"/>
@@ -4083,7 +4083,7 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="67"/>
         <source>Antarctica</source>
-        <translation type="unfinished"></translation>
+        <translation>Antarktyka</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="68"/>
@@ -4098,17 +4098,17 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="70"/>
         <source>Australia</source>
-        <translation type="unfinished"></translation>
+        <translation>Australia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="71"/>
         <source>Austria</source>
-        <translation type="unfinished"></translation>
+        <translation>Austria</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="72"/>
         <source>Azerbaijan</source>
-        <translation type="unfinished"></translation>
+        <translation>Azerbejdżan</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="73"/>
@@ -4118,7 +4118,7 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="74"/>
         <source>Belgium</source>
-        <translation type="unfinished"></translation>
+        <translation>Belgia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="75"/>
@@ -4133,12 +4133,12 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="77"/>
         <source>Bangladesh</source>
-        <translation type="unfinished"></translation>
+        <translation>Bangladesz</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="78"/>
         <source>Bulgaria</source>
-        <translation type="unfinished"></translation>
+        <translation>Bułgaria</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="79"/>
@@ -4153,12 +4153,12 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="81"/>
         <source>Bosnia and Herzegovina</source>
-        <translation type="unfinished"></translation>
+        <translation>Bośnia i Hercegowina</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="82"/>
         <source>Belarus</source>
-        <translation type="unfinished"></translation>
+        <translation>Białoruś</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="83"/>
@@ -4173,12 +4173,12 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="85"/>
         <source>Bolivia</source>
-        <translation type="unfinished"></translation>
+        <translation>Boliwia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="86"/>
         <source>Brazil</source>
-        <translation type="unfinished"></translation>
+        <translation>Brazylia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="87"/>
@@ -4213,7 +4213,7 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="93"/>
         <source>Canada</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanada</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="94"/>
@@ -4223,27 +4223,27 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="95"/>
         <source>Switzerland</source>
-        <translation type="unfinished"></translation>
+        <translation>Szwajcaria</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="96"/>
         <source>Chile</source>
-        <translation type="unfinished"></translation>
+        <translation>Chile</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="97"/>
         <source>China</source>
-        <translation type="unfinished"></translation>
+        <translation>Chiny</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="98"/>
         <source>Ivory Coast</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybrzeże Kości Słoniowej</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="99"/>
         <source>Cameroon</source>
-        <translation type="unfinished"></translation>
+        <translation>Kamerun</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="100"/>
@@ -4263,7 +4263,7 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="103"/>
         <source>Colombia</source>
-        <translation type="unfinished"></translation>
+        <translation>Kolumbia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="104"/>
@@ -4283,7 +4283,7 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="107"/>
         <source>Cuba</source>
-        <translation type="unfinished"></translation>
+        <translation>Kuba</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="108"/>
@@ -4298,17 +4298,17 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="110"/>
         <source>Cyprus</source>
-        <translation type="unfinished"></translation>
+        <translation>Cypr</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="111"/>
         <source>Czech Republic</source>
-        <translation type="unfinished"></translation>
+        <translation>Republika Czeska</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="112"/>
         <source>Germany</source>
-        <translation type="unfinished"></translation>
+        <translation>Niemcy</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="113"/>
@@ -4323,7 +4323,7 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="115"/>
         <source>Denmark</source>
-        <translation type="unfinished"></translation>
+        <translation>Dania</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="116"/>
@@ -4333,17 +4333,17 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="117"/>
         <source>Algeria</source>
-        <translation type="unfinished"></translation>
+        <translation>Algieria</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="118"/>
         <source>Ecuador</source>
-        <translation type="unfinished"></translation>
+        <translation>Ekwador</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="119"/>
         <source>Egypt</source>
-        <translation type="unfinished"></translation>
+        <translation>Egipt</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="120"/>
@@ -4358,27 +4358,27 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="122"/>
         <source>Spain</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiszpania</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="123"/>
         <source>Estonia</source>
-        <translation type="unfinished"></translation>
+        <translation>Estonia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="124"/>
         <source>Ethiopia</source>
-        <translation type="unfinished"></translation>
+        <translation>Etiopia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="125"/>
         <source>European Union</source>
-        <translation type="unfinished"></translation>
+        <translation>Unia Europejska</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="126"/>
         <source>Finland</source>
-        <translation type="unfinished"></translation>
+        <translation>Finlandia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="127"/>
@@ -4393,7 +4393,7 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="129"/>
         <source>France</source>
-        <translation type="unfinished"></translation>
+        <translation>Francja</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="130"/>
@@ -4413,12 +4413,12 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="133"/>
         <source>United Kingdom</source>
-        <translation type="unfinished"></translation>
+        <translation>Zjednoczone Królestwo</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="134"/>
         <source>Georgia</source>
-        <translation type="unfinished"></translation>
+        <translation>Gruzja</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="135"/>
@@ -4433,12 +4433,12 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="137"/>
         <source>Gibraltar</source>
-        <translation type="unfinished"></translation>
+        <translation>Gibraltar</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="138"/>
         <source>Guinea</source>
-        <translation type="unfinished"></translation>
+        <translation>Gwinea</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="139"/>
@@ -4463,22 +4463,22 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="143"/>
         <source>Greece</source>
-        <translation type="unfinished"></translation>
+        <translation>Grecja</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="144"/>
         <source>Grenada</source>
-        <translation type="unfinished"></translation>
+        <translation>Grenada</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="145"/>
         <source>Greenland</source>
-        <translation type="unfinished"></translation>
+        <translation>Grenlandia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="146"/>
         <source>Guatemala</source>
-        <translation type="unfinished"></translation>
+        <translation>Gwatemala</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="147"/>
@@ -4498,7 +4498,7 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="150"/>
         <source>Hong Kong</source>
-        <translation type="unfinished"></translation>
+        <translation>Hong Kong</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="151"/>
@@ -4508,37 +4508,37 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="152"/>
         <source>Honduras</source>
-        <translation type="unfinished"></translation>
+        <translation>Honduras</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="153"/>
         <source>Croatia</source>
-        <translation type="unfinished"></translation>
+        <translation>Chorwacja</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="154"/>
         <source>Haiti</source>
-        <translation type="unfinished"></translation>
+        <translation>Haiti</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="155"/>
         <source>Hungary</source>
-        <translation type="unfinished"></translation>
+        <translation>Węgry</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="156"/>
         <source>Indonesia</source>
-        <translation type="unfinished"></translation>
+        <translation>Indonezja</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="157"/>
         <source>Isle of Man</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyspa Man</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="158"/>
         <source>India</source>
-        <translation type="unfinished"></translation>
+        <translation>Indie</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="159"/>
@@ -4548,37 +4548,37 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="160"/>
         <source>Ireland</source>
-        <translation type="unfinished"></translation>
+        <translation>Irlandia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="161"/>
         <source>Iran, Islamic Republic of</source>
-        <translation type="unfinished"></translation>
+        <translation>Iran</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="162"/>
         <source>Iraq</source>
-        <translation type="unfinished"></translation>
+        <translation>Irak</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="163"/>
         <source>Iceland</source>
-        <translation type="unfinished"></translation>
+        <translation>Islandia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="164"/>
         <source>Israel</source>
-        <translation type="unfinished"></translation>
+        <translation>Izrael</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="165"/>
         <source>Italy</source>
-        <translation type="unfinished"></translation>
+        <translation>Włochy</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="166"/>
         <source>Jamaica</source>
-        <translation type="unfinished"></translation>
+        <translation>Jamajka</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="167"/>
@@ -4588,32 +4588,32 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="168"/>
         <source>Jordan</source>
-        <translation type="unfinished"></translation>
+        <translation>Jordan</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="169"/>
         <source>Japan</source>
-        <translation type="unfinished"></translation>
+        <translation>Japonia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="170"/>
         <source>Kazakhstan</source>
-        <translation type="unfinished"></translation>
+        <translation>Kazachstan</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="171"/>
         <source>Kenya</source>
-        <translation type="unfinished"></translation>
+        <translation>Kenia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="172"/>
         <source>Kyrgyzstan</source>
-        <translation type="unfinished"></translation>
+        <translation>Kirgistan</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="173"/>
         <source>Cambodia</source>
-        <translation type="unfinished"></translation>
+        <translation>Kambodża</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="174"/>
@@ -4628,12 +4628,12 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="176"/>
         <source>South Korea</source>
-        <translation type="unfinished"></translation>
+        <translation>Korea Południowa</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="177"/>
         <source>Kuwait</source>
-        <translation type="unfinished"></translation>
+        <translation>Kuwejt</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="178"/>
@@ -4663,7 +4663,7 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="183"/>
         <source>Liechtenstein</source>
-        <translation type="unfinished"></translation>
+        <translation>Liechtenstein</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="184"/>
@@ -4678,17 +4678,17 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="186"/>
         <source>Lithuania</source>
-        <translation type="unfinished"></translation>
+        <translation>Litwa</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="187"/>
         <source>Luxembourg</source>
-        <translation type="unfinished"></translation>
+        <translation>Luksemburg</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="188"/>
         <source>Latvia</source>
-        <translation type="unfinished"></translation>
+        <translation>Łotwa</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="189"/>
@@ -4698,32 +4698,32 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="190"/>
         <source>Morocco</source>
-        <translation type="unfinished"></translation>
+        <translation>Maroko</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="191"/>
         <source>Monaco</source>
-        <translation type="unfinished"></translation>
+        <translation>Monako</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="192"/>
         <source>Moldova, Republic of</source>
-        <translation type="unfinished"></translation>
+        <translation>Mołdawia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="193"/>
         <source>Madagascar</source>
-        <translation type="unfinished"></translation>
+        <translation>Madagaskar</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="194"/>
         <source>Maldives</source>
-        <translation type="unfinished"></translation>
+        <translation>Malediwy</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="195"/>
         <source>Mexico</source>
-        <translation type="unfinished"></translation>
+        <translation>Meksyk</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="196"/>
@@ -4733,7 +4733,7 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="197"/>
         <source>Macedonia, the former Yugoslav Republic of</source>
-        <translation type="unfinished"></translation>
+        <translation>Macedonia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="198"/>
@@ -4743,7 +4743,7 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="199"/>
         <source>Malta</source>
-        <translation type="unfinished"></translation>
+        <translation>Malta</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="200"/>
@@ -4758,7 +4758,7 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="202"/>
         <source>Mongolia</source>
-        <translation type="unfinished"></translation>
+        <translation>Mongolia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="203"/>
@@ -4768,12 +4768,12 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="204"/>
         <source>Mozambique</source>
-        <translation type="unfinished"></translation>
+        <translation>Mozambik</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="205"/>
         <source>Mauritania</source>
-        <translation type="unfinished"></translation>
+        <translation>Mauretania</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="206"/>
@@ -4798,7 +4798,7 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="210"/>
         <source>Malaysia</source>
-        <translation type="unfinished"></translation>
+        <translation>Malezja</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="211"/>
@@ -4828,7 +4828,7 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="216"/>
         <source>Nigeria</source>
-        <translation type="unfinished"></translation>
+        <translation>Nigeria</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="217"/>
@@ -4843,17 +4843,17 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="219"/>
         <source>Netherlands</source>
-        <translation type="unfinished"></translation>
+        <translation>Holandia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="220"/>
         <source>Norway</source>
-        <translation type="unfinished"></translation>
+        <translation>Norwegia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="221"/>
         <source>Nepal</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepal</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="222"/>
@@ -4863,7 +4863,7 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="223"/>
         <source>New Zealand</source>
-        <translation type="unfinished"></translation>
+        <translation>Nowa Zelandia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="224"/>
@@ -4873,12 +4873,12 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="225"/>
         <source>Pakistan</source>
-        <translation type="unfinished"></translation>
+        <translation>Pakistan</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="226"/>
         <source>Panama</source>
-        <translation type="unfinished"></translation>
+        <translation>Panama</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="227"/>
@@ -4888,12 +4888,12 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="228"/>
         <source>Peru</source>
-        <translation type="unfinished"></translation>
+        <translation>Peru</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="229"/>
         <source>Philippines</source>
-        <translation type="unfinished"></translation>
+        <translation>Filipiny</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="230"/>
@@ -4903,37 +4903,37 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="231"/>
         <source>Papua New Guinea</source>
-        <translation type="unfinished"></translation>
+        <translation>Papua Nowa Gwinea</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="232"/>
         <source>Poland</source>
-        <translation type="unfinished"></translation>
+        <translation>Polska</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="233"/>
         <source>Puerto Rico</source>
-        <translation type="unfinished"></translation>
+        <translation>Portoryko</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="234"/>
         <source>Korea, Democratic People&apos;s Republic of</source>
-        <translation type="unfinished"></translation>
+        <translation>Korea Północna</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="235"/>
         <source>Portugal</source>
-        <translation type="unfinished"></translation>
+        <translation>Portugalia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="236"/>
         <source>Paraguay</source>
-        <translation type="unfinished"></translation>
+        <translation>Paragwaj</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="237"/>
         <source>Palestinian Territory, Occupied</source>
-        <translation type="unfinished"></translation>
+        <translation>Palestyna</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="238"/>
@@ -4943,7 +4943,7 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="239"/>
         <source>Qatar</source>
-        <translation type="unfinished"></translation>
+        <translation>Katar</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="240"/>
@@ -4953,37 +4953,37 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="241"/>
         <source>Romania</source>
-        <translation type="unfinished"></translation>
+        <translation>Rumunia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="242"/>
         <source>Russian Federation</source>
-        <translation type="unfinished"></translation>
+        <translation>Rosja</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="243"/>
         <source>Rwanda</source>
-        <translation type="unfinished"></translation>
+        <translation>Rwanda</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="244"/>
         <source>Saudi Arabia</source>
-        <translation type="unfinished"></translation>
+        <translation>Arabia Saudyjska</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="245"/>
         <source>Sudan</source>
-        <translation type="unfinished"></translation>
+        <translation>Sudan</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="246"/>
         <source>Senegal</source>
-        <translation type="unfinished"></translation>
+        <translation>Senegal</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="247"/>
         <source>Singapore</source>
-        <translation type="unfinished"></translation>
+        <translation>Singapur</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="248"/>
@@ -5018,12 +5018,12 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="254"/>
         <source>San Marino</source>
-        <translation type="unfinished"></translation>
+        <translation>San Marino</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="255"/>
         <source>Somalia</source>
-        <translation type="unfinished"></translation>
+        <translation>Somalia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="256"/>
@@ -5033,12 +5033,12 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="257"/>
         <source>Serbia</source>
-        <translation type="unfinished"></translation>
+        <translation>Serbia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="258"/>
         <source>South Sudan</source>
-        <translation type="unfinished"></translation>
+        <translation>Południowy Sudan</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="259"/>
@@ -5048,22 +5048,22 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="260"/>
         <source>Suriname</source>
-        <translation type="unfinished"></translation>
+        <translation>Surinam</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="261"/>
         <source>Slovakia</source>
-        <translation type="unfinished"></translation>
+        <translation>Słowacja</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="262"/>
         <source>Slovenia</source>
-        <translation type="unfinished"></translation>
+        <translation>Słowenia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="263"/>
         <source>Sweden</source>
-        <translation type="unfinished"></translation>
+        <translation>Szwecja</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="264"/>
@@ -5088,7 +5088,7 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="268"/>
         <source>Chad</source>
-        <translation type="unfinished"></translation>
+        <translation>Czad</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="269"/>
@@ -5098,12 +5098,12 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="270"/>
         <source>Thailand</source>
-        <translation type="unfinished"></translation>
+        <translation>Tajlandia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="271"/>
         <source>Tajikistan</source>
-        <translation type="unfinished"></translation>
+        <translation>Tadżykistan</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="272"/>
@@ -5113,7 +5113,7 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="273"/>
         <source>Turkmenistan</source>
-        <translation type="unfinished"></translation>
+        <translation>Turkmenistan</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="274"/>
@@ -5133,12 +5133,12 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="277"/>
         <source>Tunisia</source>
-        <translation type="unfinished"></translation>
+        <translation>Tunezja</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="278"/>
         <source>Turkey</source>
-        <translation type="unfinished"></translation>
+        <translation>Turcja</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="279"/>
@@ -5148,7 +5148,7 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="280"/>
         <source>Taiwan</source>
-        <translation type="unfinished"></translation>
+        <translation>Tajwan</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="281"/>
@@ -5158,32 +5158,32 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="282"/>
         <source>Uganda</source>
-        <translation type="unfinished"></translation>
+        <translation>Uganda</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="283"/>
         <source>Ukraine</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukraina</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="284"/>
         <source>United States Minor Outlying Islands</source>
-        <translation type="unfinished"></translation>
+        <translation>Dalekie Wyspy Mniejsze Stanów Zjednoczonych</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="285"/>
         <source>Uruguay</source>
-        <translation type="unfinished"></translation>
+        <translation>Urugwaj</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="286"/>
         <source>United States</source>
-        <translation type="unfinished"></translation>
+        <translation>Stany Zjednoczone</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="287"/>
         <source>Uzbekistan</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzbekistan</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="288"/>
@@ -5198,7 +5198,7 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="290"/>
         <source>Venezuela</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenezuela</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="291"/>
@@ -5213,7 +5213,7 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="293"/>
         <source>Vietnam</source>
-        <translation type="unfinished"></translation>
+        <translation>Wietnam</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="294"/>
@@ -5228,17 +5228,17 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="296"/>
         <source>Samoa</source>
-        <translation type="unfinished"></translation>
+        <translation>Samoa</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="297"/>
         <source>Yemen</source>
-        <translation type="unfinished"></translation>
+        <translation>Jemen</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="298"/>
         <source>South Africa</source>
-        <translation type="unfinished"></translation>
+        <translation>Południowa Afryka</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="299"/>
@@ -5248,7 +5248,7 @@ Nastąpił błąd:
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="300"/>
         <source>Zimbabwe</source>
-        <translation type="unfinished"></translation>
+        <translation>Zimbabwe</translation>
     </message>
 </context>
 <context>
