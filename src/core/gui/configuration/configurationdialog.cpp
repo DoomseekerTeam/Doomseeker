@@ -103,7 +103,7 @@ ConfigurationDialog::ConfigurationDialog(QWidget *parent)
 	d->tvOptionsList->header()->setSectionResizeMode(
 		PrivData<ConfigurationDialog>::COL_NAME, QHeaderView::Stretch);
 	d->tvOptionsList->header()->setSectionResizeMode(
-		PrivData<ConfigurationDialog>::COL_VALIDATION, QHeaderView::Fixed);
+		PrivData<ConfigurationDialog>::COL_VALIDATION, QHeaderView::ResizeToContents);
 
 	d->currentlyDisplayedPage = nullptr;
 	connect(d->buttonBox, SIGNAL(clicked(QAbstractButton*)), this, SLOT (btnClicked(QAbstractButton*)));
@@ -134,6 +134,7 @@ QStandardItem *ConfigurationDialog::addConfigPage(
 
 	QStandardItem *nameItem = new QStandardItem(configPage->name());
 	nameItem->setIcon(configPage->icon());
+	nameItem->setToolTip(configPage->title());
 
 	row.insert(PrivData<ConfigurationDialog>::COL_NAME, nameItem);
 
