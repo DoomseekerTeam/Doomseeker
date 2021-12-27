@@ -132,7 +132,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Make sure that this file is in one of the paths specified in Options -&gt; File Paths.
+            <string>Make sure that this file is in one of the paths specified in Options -&gt; File paths.
 
 If you don't have this file, and it belongs to a commercial game, you need to purchase the game associated with this file. Wadseeker will not download commercial IWADs or modifications.</string>
            </property>

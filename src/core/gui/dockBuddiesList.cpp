@@ -274,6 +274,7 @@ AddBuddyDlg::AddBuddyDlg(QWidget *parent) : QDialog(parent)
 	d->setupUi(this);
 
 	connect(d->buttonBox, SIGNAL(clicked(QAbstractButton*)), this, SLOT(buttonBoxClicked(QAbstractButton*)));
+	updateTip();
 }
 
 AddBuddyDlg::~AddBuddyDlg()
@@ -299,6 +300,22 @@ Pattern AddBuddyDlg::pattern() const
 {
 	auto syntax = d->basicPattern->isChecked() ? Pattern::Wildcard : Pattern::RegExp;
 	return Pattern(d->patternBox->text(), QRegularExpression::CaseInsensitiveOption, syntax);
+}
+
+void AddBuddyDlg::updateTip()
+{
+	if (d->basicPattern->isChecked())
+	{
+		d->lblTip->setText(tr("The asterisk (*) can be used as a wild card."));
+	}
+	else if (d->advancedPattern->isChecked())
+	{
+		d->lblTip->setText(tr("Use the Regular Expression format."));
+	}
+	else
+	{
+		d->lblTip->setText("");
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////

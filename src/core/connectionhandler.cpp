@@ -172,9 +172,9 @@ void ConnectionHandler::runCommandLine(const CommandLineInfo &cli)
 	Message message = AppRunner::runExecutable(cli);
 	if (message.isError())
 	{
-		gLog << tr(R"(Error while launching executable for server "%1", game "%2": %3)")
+		gLog << tr(R"(Error while launching game "%2" for server "%1": %3)")
 			.arg(d->server->name()).arg(d->server->engineName()).arg(message.contents());
-		QMessageBox::critical(d->parentWidget, tr("Doomseeker - launch executable"), message.contents());
+		QMessageBox::critical(d->parentWidget, tr("Doomseeker - launch game"), message.contents());
 	}
 }
 

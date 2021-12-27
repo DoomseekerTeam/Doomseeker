@@ -24,7 +24,7 @@
     <item>
      <widget class="QLabel" name="label">
       <property name="text">
-       <string>Server Name:</string>
+       <string>Server name:</string>
       </property>
      </widget>
     </item>
@@ -101,7 +101,7 @@
         <item>
          <widget class="QLabel" name="label_2">
           <property name="text">
-           <string>Max. Ping:</string>
+           <string>Max. ping:</string>
           </property>
          </widget>
         </item>

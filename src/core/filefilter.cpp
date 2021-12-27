@@ -24,7 +24,7 @@
 
 QString FileFilter::allFilesFilter()
 {
-	return tr("All files(*)");
+	return tr("All files (*)");
 }
 
 QString FileFilter::executableFilesFilter()

@@ -89,7 +89,7 @@ void CFGFilePaths::addPath(const FileSearchPath &fileSearchPath)
 
 void CFGFilePaths::btnAddWadPath_Click()
 {
-	QString strDir = QFileDialog::getExistingDirectory(this, tr("Doomseeker - Add wad path"));
+	QString strDir = QFileDialog::getExistingDirectory(this, tr("Doomseeker - Add game mod path"));
 	addPath(strDir);
 	emit validationRequested();
 }

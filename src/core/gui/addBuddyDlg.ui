@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>430</width>
-    <height>217</height>
+    <width>409</width>
+    <height>202</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,10 +23,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>Type the name of your buddy here.  If the pattern type is set to basic you may use an asterisk (*) as a wild card.</string>
-     </property>
-     <property name="wordWrap">
-      <bool>true</bool>
+      <string>Buddy name:</string>
      </property>
     </widget>
    </item>
@@ -60,6 +57,13 @@
     </widget>
    </item>
    <item>
+    <widget class="QLabel" name="lblTip">
+     <property name="text">
+      <string>&lt;tip&gt;</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -82,5 +86,43 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>basicPattern</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>AddBuddyDlg</receiver>
+   <slot>updateTip()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>37</x>
+     <y>108</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>0</x>
+     <y>104</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>advancedPattern</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>AddBuddyDlg</receiver>
+   <slot>updateTip()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>231</x>
+     <y>108</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>320</x>
+     <y>102</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>showBasicTip(bool)</slot>
+  <slot>showAdvancedTip(bool)</slot>
+  <slot>updateTip()</slot>
+ </slots>
 </ui>

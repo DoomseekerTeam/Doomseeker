@@ -144,7 +144,7 @@
          <item>
           <widget class="QLabel" name="lblRevision">
            <property name="toolTip">
-            <string>This value is relevant to auto updater feature.</string>
+            <string>The auto updater compares the versions by this revision number.</string>
            </property>
            <property name="text">
             <string>&lt;Revision&gt;</string>
@@ -311,7 +311,7 @@
        <item>
         <widget class="QLabel" name="label_14">
          <property name="text">
-          <string>- Improved Doomseeker icons by MazterQyoun-ae and CarpeDiem</string>
+          <string>- Doomseeker icons by MazterQyoun-ae and CarpeDiem</string>
          </property>
          <property name="textInteractionFlags">
           <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>

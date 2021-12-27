@@ -120,7 +120,7 @@ void IP2CLoader::update()
 	{
 		// Delay in hope that parser finishes
 		gLog << tr("IP2C update must wait until parsing of current database finishes. "
-				"Waiting 1 second");
+				"Waiting 1 second.");
 		QTimer::singleShot(1000, this, SLOT(update()));
 	}
 }

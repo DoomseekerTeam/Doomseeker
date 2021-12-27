@@ -77,7 +77,7 @@ void CFGIRCDefineNetworkDialog::accept()
 bool CFGIRCDefineNetworkDialog::askToAcceptAnywayWhenCommandsBad(const QStringList &offenders)
 {
 	assert(!offenders.isEmpty() && "no offenders");
-	QString header = tr("Following commands have violated the IRC maximum byte "
+	QString header = tr("These commands have violated the IRC maximum byte "
 		"number limit (%1):\n\n").arg(PrivData<CFGIRCDefineNetworkDialog>::MAX_IRC_COMMAND_LENGTH);
 	QString footer = tr("\n\nIf saved, the script may not run properly.\n\n"
 		"Do you wish to save the script anyway?");

@@ -432,7 +432,7 @@ void GameHost::setupGamePaths()
 	QFileInfo fileInfo(params().executablePath());
 	if (!fileInfo.isFile() && !fileInfo.isBundle())
 	{
-		QString error = tr("%1\n doesn't exist or is not a file.").arg(fileInfo.filePath());
+		QString error = tr("%1\ndoesn't exist or is not a file.").arg(fileInfo.filePath());
 		setMessage(Message::customError(error));
 		return;
 	}

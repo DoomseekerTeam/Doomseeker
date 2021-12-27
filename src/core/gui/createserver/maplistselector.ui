@@ -68,7 +68,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>Reading wads...</string>
+      <string>Reading WADs...</string>
      </property>
     </widget>
    </item>

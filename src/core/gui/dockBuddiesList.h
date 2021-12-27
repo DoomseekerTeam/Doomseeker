@@ -89,6 +89,9 @@ protected slots:
 
 private:
 	DPtr<AddBuddyDlg> d;
+
+private slots:
+	void updateTip();
 };
 
 #endif /* __DOCKBUDDIESLIST_H__ */
