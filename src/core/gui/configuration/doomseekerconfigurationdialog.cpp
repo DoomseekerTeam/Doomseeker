@@ -94,11 +94,9 @@ void DoomseekerConfigurationDialog::appendFilePathsConfigurationBoxes()
 
 void DoomseekerConfigurationDialog::appendWadseekerConfigurationBoxes()
 {
-	QStandardItem *wadseekerRoot = addLabel(nullptr, tr("Wadseeker"));
-	wadseekerRoot->setIcon(QIcon(":/icons/get-wad.png"));
+	QStandardItem *wadseekerRoot = addConfigPage(nullptr, new CFGWadseekerGeneral(this));
 
 	addConfigPage(wadseekerRoot, new CFGWadseekerAppearance(this));
-	addConfigPage(wadseekerRoot, new CFGWadseekerGeneral(this));
 	addConfigPage(wadseekerRoot, new CFGWadseekerSites(this));
 	addConfigPage(wadseekerRoot, new CFGWadseekerIdgames(this));
 }

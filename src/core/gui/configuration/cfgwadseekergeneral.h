@@ -37,11 +37,11 @@ public:
 
 	QIcon icon() const override
 	{
-		return QIcon(":/icons/preferences-system-4.png");
+		return QIcon(":/icons/get-wad.png");
 	}
 	QString name() const override
 	{
-		return tr("General");
+		return tr("Wadseeker");
 	}
 	QString title() const override
 	{

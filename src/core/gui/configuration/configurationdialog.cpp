@@ -291,11 +291,10 @@ void ConfigurationDialog::switchToItem(const QModelIndex &current, const QModelI
 	if (current.isValid() && current != previous)
 	{
 		ConfigPage *configPage = d->pageFromIndex(current);
-
-		// Something with sense was selected, display this something
-		// and hide previous box.
 		if (isConfigPageValid(configPage))
 			showConfigPage(configPage);
+		else
+			showConfigPage(nullptr);
 	}
 }
 
