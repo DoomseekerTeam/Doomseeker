@@ -54,7 +54,6 @@ CFGWadseekerGeneral::CFGWadseekerGeneral(QWidget *parent)
 	d->completerActive = false;
 
 	// Settings defined in this widget are ATM unused.
-	d->widgetTimeouts->setVisible(false);
 	d->lblDirectoryWarning->setPixmap(QPixmap(":/icons/exclamation_16.png"));
 	d->lblDirectoryWarning->hide();
 	d->lblDirectoryWarning->setWordWrap(true);
@@ -105,8 +104,6 @@ void CFGWadseekerGeneral::readSettings()
 	fillTargetDirectoryComboBox();
 
 	d->cbTargetDirectory->setEditText(gConfig.wadseeker.targetDirectory);
-	d->spinConnectTimeout->setValue(gConfig.wadseeker.connectTimeoutSeconds);
-	d->spinDownloadTimeout->setValue(gConfig.wadseeker.downloadTimeoutSeconds);
 	d->spinMaxConcurrentSiteSeeks->setValue(gConfig.wadseeker.maxConcurrentSiteDownloads);
 	d->spinMaxConcurrentWadDownloads->setValue(gConfig.wadseeker.maxConcurrentWadDownloads);
 }
@@ -114,8 +111,6 @@ void CFGWadseekerGeneral::readSettings()
 void CFGWadseekerGeneral::saveSettings()
 {
 	gConfig.wadseeker.targetDirectory = d->targetDirectory();
-	gConfig.wadseeker.connectTimeoutSeconds = d->spinConnectTimeout->value();
-	gConfig.wadseeker.downloadTimeoutSeconds = d->spinDownloadTimeout->value();
 	gConfig.wadseeker.maxConcurrentSiteDownloads = d->spinMaxConcurrentSiteSeeks->value();
 	gConfig.wadseeker.maxConcurrentWadDownloads = d->spinMaxConcurrentWadDownloads->value();
 }

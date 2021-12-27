@@ -193,8 +193,6 @@ public:
 		QString colorMessageCriticalError;
 		QString colorMessageError;
 		QString colorMessageNotice;
-		int connectTimeoutSeconds;
-		int downloadTimeoutSeconds;
 		int maxConcurrentSiteDownloads;
 		int maxConcurrentWadDownloads;
 		QString idgamesURL;

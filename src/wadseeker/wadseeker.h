@@ -34,9 +34,6 @@
 #include "wadseekerexportinfo.h"
 #include "wadseekermessagetype.h"
 
-#define WADSEEKER_CONNECT_TIMEOUT_SECONDS_DEFAULT 30
-#define WADSEEKER_DOWNLOAD_TIMEOUT_SECONDS_DEFAULT 120
-
 class Idgames;
 class WadArchiveClient;
 class WadRetriever;
