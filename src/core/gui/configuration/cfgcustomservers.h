@@ -47,7 +47,7 @@ public:
 	}
 	QString name() const override
 	{
-		return tr("Pinned Servers");
+		return tr("Pinned servers");
 	}
 
 protected:

@@ -41,7 +41,7 @@ public:
 	QIcon icon() const override;
 	QString name() const override
 	{
-		return tr("WAD Aliases");
+		return tr("WAD aliases");
 	}
 
 	void readSettings() override;

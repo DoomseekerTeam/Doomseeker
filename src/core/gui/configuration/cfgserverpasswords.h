@@ -45,7 +45,7 @@ public:
 	}
 	QString name() const override
 	{
-		return tr("Server Passwords");
+		return tr("Server passwords");
 	}
 
 	void readSettings() override;

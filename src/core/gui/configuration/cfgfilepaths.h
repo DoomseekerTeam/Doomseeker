@@ -50,7 +50,7 @@ protected:
 
 	QString name() const override
 	{
-		return tr("File Paths");
+		return tr("File paths");
 	}
 
 	void saveSettings() override;
