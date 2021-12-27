@@ -36,10 +36,6 @@
         <translation>Rewizja:</translation>
     </message>
     <message>
-        <source>This value is relevant to auto updater feature.</source>
-        <translation type="vanished">Ta wartość ma znaczenie dla automatycznych aktualizacji.</translation>
-    </message>
-    <message>
         <location filename="../gui/aboutdialog.ui" line="150"/>
         <source>&lt;Revision&gt;</source>
         <translation></translation>
@@ -51,80 +47,9 @@
         <translation></translation>
     </message>
     <message>
-        <source>- Doomseeker logo icons by MazterQyoun-ae and CarpeDiem</source>
-        <translation type="vanished">- Ikony logo Doomseekera - MazterQyoun-ae i CarpeDiem</translation>
-    </message>
-    <message>
         <location filename="../gui/aboutdialog.ui" line="220"/>
         <source>Contact information:</source>
         <translation>Informacje kontaktowe:</translation>
-    </message>
-    <message>
-        <source>Copyright © 2009 - 2021 The Doomseeker Team
-
-This program is distributed under the terms of the LGPL v2.1 or later.
-
-This program uses GeoLite2 database for IP-to-Country (IP2C) purposes. Database and Contents Copyright (c) 2016 MaxMind, Inc.
-
-GeoLite2 License:
-This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.
-
-GeoLite2 available at:
-https://dev.maxmind.com/geoip/geoip2/geolite2/</source>
-        <translation type="vanished">Copyright © 2009 - 2021 The Doomseeker Team
-
-Ten program jest rozprowadzany na zasadach licencji LGPL v2.1 lub późniejszej.
-
-Ten program używa bazy danych GeoLite2 aby zapewnić rozpoznawanie krajów po adresach IP (IP2C). Baza danych i jej zawartość - Copyright (c) 2016 MaxMind, Inc
-
-Licencja GeoLite2:
-This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.
-
-Baza GeoLite2 dostępna jest pod adresem:
-https://dev.maxmind.com/geoip/geoip2/geolite2/</translation>
-    </message>
-    <message>
-        <source>Copyright © 2009 - 2021 The Doomseeker Team
-
-This program is distributed under the terms of the LGPL v2.1 or later.
-
-This program uses GeoLite2 database for IP-to-Country (IP2C) purposes. Database and Contents Copyright (c) 2016 MaxMind, Inc.
-
-GeoLite2 License:
-This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.
-
-GeoLite2 available at:
-https://dev.maxmind.com/geoip/geoip2/geolite2/
-
-This program uses icons (or derivates of) from following sources:
-- Aha-Soft
-- Crystal Clear by Everaldo Coelho
-- Fugue Icons (C) 2013 Yusuke Kamiyamane. All rights reserved.
-- Nuvola 1.0 (KDE 3.x icon set)
-- Oxygen Icons 4.3.1 (KDE)
-- Silk Icon Set (C) Mark James (famfamfam.com)
-- Tango Icon Library / Tango Desktop Project
-</source>
-        <translation type="vanished">Copyright © 2009 - 2021 The Doomseeker Team
-
-Ten program jest rozprowadzany na zasadach licencji LGPL v2.1 lub późniejszej.
-
-Ten program używa bazy danych GeoLite2 aby zapewnić rozpoznawanie krajów po adresach IP (IP2C). Baza danych i jej zawartość - Copyright (c) 2016 MaxMind, Inc
-
-Licencja GeoLite2:
-This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.
-
-Baza GeoLite2 dostępna jest pod adresem:
-https://dev.maxmind.com/geoip/geoip2/geolite2/
-
-Ten program używa ikon (lub opartych na nich) z następujących źródeł:
-- Aha-Soft
-- Crystal Clear - Everaldo Coelho
-- Fugue Icons (C) 2013 Yusuke Kamiyamane. Wszelkie prawa zastrzeżone.
-- Nuvola 1.0 (KDE 3.x icon set)
-- Oxygen Icons 4.3.1 (KDE)
-- Silk Icon Set (C) Mark James (famfamfam.com)
-- Tango Icon Library / Tango Desktop Project</translation>
     </message>
     <message>
         <location filename="../gui/aboutdialog.ui" line="229"/>
@@ -160,18 +85,6 @@ Ten program używa ikon (lub opartych na nich) z następujących źródeł:
         <location filename="../gui/aboutdialog.ui" line="304"/>
         <source>- Doomseeker logo and main icon design by Rachael &quot;Eruanna&quot; Alexanderson</source>
         <translation>- Logo Doomseeker i projekt głównej ikony - Rachael &quot;Eruanna&quot; Alexanderson</translation>
-    </message>
-    <message>
-        <source>- Improved Doomseeker icons by MazterQyoun-ae and CarpeDiem</source>
-        <translation type="vanished">- Ulepszone ikony Doomseeker - MazterQyoun-ae i CarpeDiem</translation>
-    </message>
-    <message>
-        <source>JSON library on BSD License (c) Eeli Reilin 2011 :</source>
-        <translation type="vanished">Bibloteka JSON na licencji BSD (c) Eeli Reilin 2011:</translation>
-    </message>
-    <message>
-        <source>Show JSON library license</source>
-        <translation type="vanished">Pokaż licencję biblioteki JSON</translation>
     </message>
     <message>
         <location filename="../gui/aboutdialog.ui" line="147"/>
@@ -341,10 +254,6 @@ https://dev.maxmind.com/geoip/geoip2/geolite2/</translation>
         <translation>Ten program używa ikon (lub opartych na nich) z następujących źródeł:
 </translation>
     </message>
-    <message>
-        <source>JSON library license</source>
-        <translation type="vanished">Licencja biblioteki JSON</translation>
-    </message>
 </context>
 <context>
     <name>AddBuddyDlg</name>
@@ -369,21 +278,9 @@ https://dev.maxmind.com/geoip/geoip2/geolite2/</translation>
         <translation>Użyj Wyrażenia Regularnego (RegExp).</translation>
     </message>
     <message>
-        <source>The pattern you have specified is not a valid regular expression.</source>
-        <translation type="vanished">Podany wzór nie jest prawidłowym wyrażeniem regularnym.</translation>
-    </message>
-    <message>
         <location filename="../gui/addBuddyDlg.ui" line="14"/>
         <source>Add Buddy</source>
         <translation>Dodaj znajomego</translation>
-    </message>
-    <message>
-        <source>Type the name of your buddy here.  If the pattern type is set to basic you may use an asterisk (*) as a wild card,</source>
-        <translation type="obsolete">W tym miejscu podaj nicka swojego znajomego. Jeżeli typ wzoru ustawiony jest na podstawowy, możesz użyć gwiazdki (*) jako dowolnego ciągu znaków,</translation>
-    </message>
-    <message>
-        <source>Type the name of your buddy here.  If the pattern type is set to basic you may use an asterisk (*) as a wild card.</source>
-        <translation type="vanished">Podaj nicka swojego znajomego. Jeżeli typ wzoru ustawiony jest na podstawowy, możesz użyć gwiazdki (*) jako dowolnego ciągu znaków.</translation>
     </message>
     <message>
         <location filename="../gui/addBuddyDlg.ui" line="26"/>
@@ -428,12 +325,6 @@ https://dev.maxmind.com/geoip/geoip2/geolite2/</translation>
         <location filename="../apprunner.cpp" line="102"/>
         <source>Cannot run file: %1</source>
         <translation>Nie można uruchomić pliku: %1</translation>
-    </message>
-    <message>
-        <source>File: %1
-cannot be run</source>
-        <translation type="vanished">Plik %1
-nie może zostać uruchomiony</translation>
     </message>
 </context>
 <context>
@@ -645,21 +536,6 @@ nie może zostać uruchomiony</translation>
     </message>
 </context>
 <context>
-    <name>Binaries</name>
-    <message>
-        <source>No %1 executable specified for %2</source>
-        <translation type="obsolete">Nie podano pliku wykonywalnego typu %1 dla wtyczki %2</translation>
-    </message>
-    <message>
-        <source>Executable for %1 %2:
-%3
-is a directory or doesn&apos;t exist.</source>
-        <translation type="obsolete">Plik wykonywalny dla wtyczki %1 typu %2
-%3
-jest katalogiem lub nie istnieje.</translation>
-    </message>
-</context>
-<context>
     <name>BroadcastManager</name>
     <message>
         <location filename="../serverapi/broadcastmanager.cpp" line="50"/>
@@ -700,10 +576,6 @@ jest katalogiem lub nie istnieje.</translation>
         <translation>Liczbowy</translation>
     </message>
     <message>
-        <source>Custom servers color:</source>
-        <translation type="vanished">Kolor serwerów własnych:</translation>
-    </message>
-    <message>
         <location filename="../gui/configuration/cfgappearance.ui" line="229"/>
         <source>Bots are not players</source>
         <translation>Boty nie są graczami</translation>
@@ -712,14 +584,6 @@ jest katalogiem lub nie istnieje.</translation>
         <location filename="../gui/configuration/cfgappearance.ui" line="208"/>
         <source>Hide passwords</source>
         <translation>Ukryj hasła</translation>
-    </message>
-    <message>
-        <source>Bots are not Players</source>
-        <translation type="obsolete">Boty nie są graczami</translation>
-    </message>
-    <message>
-        <source>Hide Passwords</source>
-        <translation type="obsolete">Ukryj hasła</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgappearance.ui" line="215"/>
@@ -800,10 +664,6 @@ jest katalogiem lub nie istnieje.</translation>
         <translation>Automatyczne aktualizacje</translation>
     </message>
     <message>
-        <source>Auto Updates</source>
-        <translation type="vanished">Automatyczne aktualizacje</translation>
-    </message>
-    <message>
         <location filename="../gui/configuration/cfgautoupdates.ui" line="44"/>
         <source>Disabled</source>
         <translation>Wyłączone</translation>
@@ -823,21 +683,9 @@ jest katalogiem lub nie istnieje.</translation>
         <source>Update channel:</source>
         <translation>Kanał aktualizacji:</translation>
     </message>
-    <message>
-        <source>&lt;p&gt;New IP2C database will be downloaded if locally stored one is missing or has a different checksum than the one stored on Doomseeker&apos;s web page.&lt;/p&gt;</source>
-        <translation type="vanished">&lt;p&gt;Nowa baza IP2C zostanie pobrana, jeżeli nie istnieje ona lokalnie, albo jeżeli ta lokalna ma inną sumę kontrolną niż ta, która jest przechowywana na stronie Internetowej Doomseekera.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>IP2C auto update</source>
-        <translation type="vanished">Auto aktualizacja bazy IP2C</translation>
-    </message>
 </context>
 <context>
     <name>CFGCustomServers</name>
-    <message>
-        <source>Doomseeker - custom servers</source>
-        <translation type="vanished">Doomseeker - serwery własne</translation>
-    </message>
     <message>
         <location filename="../gui/configuration/cfgcustomservers.cpp" line="89"/>
         <source>Toggle enabled state</source>
@@ -867,22 +715,6 @@ jest katalogiem lub nie istnieje.</translation>
         <location filename="../gui/configuration/cfgcustomservers.cpp" line="207"/>
         <source>Port</source>
         <translation>Port</translation>
-    </message>
-    <message>
-        <source>Custom Servers</source>
-        <translation type="vanished">Serwery własne</translation>
-    </message>
-    <message>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Adds a new entry to the list. To specify the address and port of the custom server double-click on the cells in the table. Domain names are supported.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="vanished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Dodaje nowy wpis do lity. Aby podać adres i port serwera własnego, kliknij podwójnie na komórki w tabelce. Nazwy domen są wspierane.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgcustomservers.ui" line="46"/>
@@ -925,21 +757,9 @@ p, li { white-space: pre-wrap; }
         <translation>Zmień grę dla zaznaczonych serwerów.</translation>
     </message>
     <message>
-        <source>Changes engine on selected servers.</source>
-        <translation type="vanished">Zmień grę na zaznaczonych serwerach.</translation>
-    </message>
-    <message>
         <location filename="../gui/configuration/cfgcustomservers.ui" line="116"/>
         <source>Set Game</source>
         <translation>Ustaw Grę</translation>
-    </message>
-    <message>
-        <source>Set Engine</source>
-        <translation type="vanished">Ustaw grę</translation>
-    </message>
-    <message>
-        <source>Pinned Servers</source>
-        <translation type="vanished">Przypięte serwery</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgcustomservers.h" line="50"/>
@@ -958,10 +778,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/configuration/cfgfilepaths.cpp" line="45"/>
         <source>Recurse</source>
         <translation>Rekursywnie</translation>
-    </message>
-    <message>
-        <source>Doomseeker - Add wad path</source>
-        <translation type="vanished">Doomseeker - dodaj ścieżkę do WADów</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgfilepaths.cpp" line="92"/>
@@ -987,18 +803,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/configuration/cfgfilepaths.h" line="53"/>
         <source>File paths</source>
         <translation>Ścieżki do plików</translation>
-    </message>
-    <message>
-        <source>IWAD and PWAD paths:</source>
-        <translation type="vanished">Ścieżki do IWADów i PWADów:</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;WARNING: &lt;/span&gt;It&apos;s highly discouraged to enable recursion for directories with lots of subdirectories. You may experience heavy performance loss and high hard drive usage if recursion is used recklessly. When recursion is enabled, file search operations will go the entire way down to the bottom of the directory tree if necessary.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;UWAGA: &lt;/span&gt;Włączanie rekursji dla katalogów z wieloma podkatalogami jest wielce niezalecane. Możesz doświadczyć ciężkej utraty wydajności i dużego zużycia dysku twardego, jeżeli rekursja zostanie użyta lekkomyślnie. Gdy rekursja jest włączona, operacje poszukujące pliki będą przeszukiwały całe drzewo katalogów aż do ostatniego liścia w razie potrzeby.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;WARNING: &lt;/span&gt;It&apos;s not recommended to enable recursion for directories with lots of subdirectories. With such directories you may experience heavy performance loss and high hard drive usage. When recursion is enabled, file search operations will go the entire way down to the bottom of the directory tree if necessary.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;UWAGA: &lt;/span&gt;Nie jest zalecane włączanie rekursji dla katalogów z wieloma podkatalogami. Przeszukiwanie takich katalogów może być mało wydajne i powodować duże zużycie dysku twardego. Przy włączonej rekursji, pliki będą wyszukiwane w całym drzewie katalogów, aż do ostatniego podkatalogu w razie potrzeby.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgfilepaths.ui" line="29"/>
@@ -1033,54 +837,18 @@ p, li { white-space: pre-wrap; }
 &lt;p&gt;Doomseeker robi to gdy dołączasz się do serwera, a także gdy używasz akcji &quot;Odszukaj brakujące WADy&quot; z menu kontekstowego serwera.&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;If selected Doomseeker will attempt to find files used on a particular server if mouse cursor is hovered over the WADS column. This requires hard drive access and search in all directories specified above each time a new tooltip is generated. If it takes too long to create such tooltip you may try disabling this option.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;This also applies to IWAD column.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="vanished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Jeżeli zaznaczone, Doomseeker będzie próbował odszukać pliki użyte na serwerze, jeżeli kursor zostanie przesunięty nad kolumnę &quot;WADy.&quot; Wymaga to dostępu do dysku twardego i przeszukiwania we wszystkich katalogach podanych u góry za każdym razem, gdy pojawia się nowa podpowiedź. Jeżeli pojawianie się podpowiedzi trwa zbyt długo możesz spróbować wyłączyć tą opcję.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Powyższe także dotyczy kolumny IWAD.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <location filename="../gui/configuration/cfgfilepaths.ui" line="119"/>
         <source>Tell me where are my WADs located</source>
         <translation>Mów mi, gdzie znajdują się moje WADy</translation>
-    </message>
-    <message>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Noto Sans Regular&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt;&quot;&gt;If selected Doomseeker will attempt to check the integrity of the local WADs, compared to the ones used on a particular server. This requires hard drive access to read the entirety of the WADs. If it takes too long to join servers you may want to disable this feature.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt;&quot;&gt;This setting is used when joining a server and when clicking the &amp;quot;Find missing WADs&amp;quot; button on the right-click menu.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="vanished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Noto Sans Regular&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt;&quot;&gt;Jeżeli zaznaczone, Doomseeker będzie sprawdzał integralność lokalnych WADów w porównaniu z ich odpowiednikami używanymi przez serwery. Ta funkcja będzie w całości czytać z dysku twardego poszczególne WADy. Jeżeli doprowadzi to do spadku wydajności, wyłącz tą opcję.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt;&quot;&gt;Ta opcja jest używana gdy dołączasz się do serwera oraz gdy używasz opcji &amp;quot;Odszukaj brakujące WADy&amp;quot; z menu kontekstowego.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgfilepaths.ui" line="130"/>
         <source>Check the integrity of local WADs</source>
         <translation>Sprawdzaj spójność WADów na dysku</translation>
     </message>
-    <message>
-        <source>File Paths</source>
-        <translation type="vanished">Scieżki plików</translation>
-    </message>
 </context>
 <context>
     <name>CFGIP2C</name>
-    <message>
-        <source>&lt;p&gt;New IP2C database will be downloaded if locally stored one is missing or has a different checksum than the one stored on Doomseeker&apos;s web page.&lt;/p&gt;</source>
-        <translation type="vanished">&lt;p&gt;Nowa baza IP2C zostanie pobrana jeśli nie ma jej na dysku, albo jeśli ta lokalna ma inną sumę kontrolną niż ta, która jest przechowywana na stronie Internetowej Doomseekera.&lt;/p&gt;</translation>
-    </message>
     <message>
         <location filename="../gui/configuration/cfgip2c.ui" line="29"/>
         <source>&lt;p&gt;A new IP2C database will be downloaded if the local one is missing or has a different checksum than the one stored on Doomseeker&apos;s web page.&lt;/p&gt;</source>
@@ -1105,33 +873,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/configuration/cfgip2c.h" line="44"/>
         <source>IP2C</source>
         <translation>IP2C</translation>
-    </message>
-</context>
-<context>
-    <name>CFGIP2Country</name>
-    <message>
-        <source>IP2C</source>
-        <translation type="vanished">IP2C</translation>
-    </message>
-    <message>
-        <source>IP2C Settings</source>
-        <translation type="obsolete">Ustawienia IP2C</translation>
-    </message>
-    <message>
-        <source>IP2C download URL (changing this is NOT recommended):</source>
-        <translation type="vanished">Adres bazy IP2C (zmienianie tego jest nie zalecane):</translation>
-    </message>
-    <message>
-        <source>IP2C auto update</source>
-        <translation type="vanished">Auto aktualizacja bazy IP2C</translation>
-    </message>
-    <message>
-        <source>Update every:</source>
-        <translation type="vanished">Aktualizuj co:</translation>
-    </message>
-    <message>
-        <source>days</source>
-        <translation type="vanished">dni</translation>
     </message>
 </context>
 <context>
@@ -1177,10 +918,6 @@ p, li { white-space: pre-wrap; }
         <translation>Czcionka główna:</translation>
     </message>
     <message>
-        <source>User list font:</source>
-        <translation type="obsolete">Czcionka listy użytkowników:</translation>
-    </message>
-    <message>
         <location filename="../gui/configuration/irc/cfgircappearance.ui" line="142"/>
         <source>URL color:</source>
         <translation>Kolor linków:</translation>
@@ -1224,10 +961,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/configuration/irc/cfgircappearance.ui" line="258"/>
         <source>Window/task bar alert on important event (private msg, callsign)</source>
         <translation>Alert w oknie/na pasku zadań o ważnych wydarzeniach (wiadomość prywatna, wywołanie)</translation>
-    </message>
-    <message>
-        <source>Enable Timestamps</source>
-        <translation type="obsolete">Włącz znaki czasowe</translation>
     </message>
 </context>
 <context>
@@ -1346,14 +1079,6 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Uwaga:&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt; hasła są przechowywane w pliku konfiguracyjnym jako zwykły tekst.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>Following commands have violated the IRC maximum byte number limit (%1):
-
-</source>
-        <translation type="vanished">Następujące komendy przekroczyły maksymalny limit IRCa na ilość bajtów (%1):
-
-</translation>
-    </message>
-    <message>
         <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="80"/>
         <source>These commands have violated the IRC maximum byte number limit (%1):
 
@@ -1408,10 +1133,6 @@ Czy chcesz zapisać skrypt mimo wszystko?</translation>
         <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="222"/>
         <source>Invalid IRC network description</source>
         <translation>Nieprawidłowy opis sieci IRC</translation>
-    </message>
-    <message>
-        <source>Invalid network description</source>
-        <translation type="vanished">Nieprawidłowy opis sieci</translation>
     </message>
     <message>
         <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="208"/>
@@ -1555,36 +1276,16 @@ Dozwolone są tylko litery, cyfry, spacje i &quot;%1&quot;.</translation>
         <translation>Odświeżanie</translation>
     </message>
     <message>
-        <source>Query Settings</source>
-        <translation type="obsolete">Ustawienia odpytywania</translation>
-    </message>
-    <message>
-        <source>Query servers on startup</source>
-        <translation type="obsolete">Odpytaj serwery przy starcie</translation>
-    </message>
-    <message>
         <location filename="../gui/configuration/cfgquery.ui" line="117"/>
         <location filename="../gui/configuration/cfgquery.ui" line="127"/>
         <source>How many times Doomseeker will attempt to query each server before deeming it to be not responding.</source>
         <translation>Ile razy Doomseeker powinien odpytać serwer, zanim stwierdzi, że ten nie odpowiada.</translation>
     </message>
     <message>
-        <source>Number of tries:</source>
-        <translation type="obsolete">Ilość prób:</translation>
-    </message>
-    <message>
         <location filename="../gui/configuration/cfgquery.ui" line="149"/>
         <location filename="../gui/configuration/cfgquery.ui" line="159"/>
         <source>Delay in miliseconds between each query attempt.</source>
         <translation>Opóźnienie w milisekundach pomiędzy każdą próbą odpytania.</translation>
-    </message>
-    <message>
-        <source>Delay between tries (ms):</source>
-        <translation type="obsolete">Opóźnienie pomiędzy próbami (ms):</translation>
-    </message>
-    <message>
-        <source>Query before launch</source>
-        <translation type="obsolete">Odpytaj zanim wystartujesz grę</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgquery.ui" line="20"/>
@@ -1691,46 +1392,6 @@ Jeżeli wystąpią problemy z odświeżaniem serwerów, wybierz tryb &quot;Ostro
 
 Poszczególne parametry możesz też dostosowywać własnoręcznie.</translation>
     </message>
-    <message>
-        <source>The three buttons change refresh speed settings to different values. Speed settings determine how long will it take to populate the server list and how accurate the refresh will be. Higher speed can mean lesser accuracy.
-
-If you&apos;re experiencing problems with refreshing servers, you might prefer &quot;Cautious&quot; preset, while &quot;Aggressive&quot; preset should be preferred with good connection quality.
-
-These values can be also modified by hand.</source>
-        <translation type="vanished">Te trzy przyciski zmieniają prędkość odświeżania. Ustawienia tej prędkości określają, jak dużo czasu zajmie zapełnianie listy serwerów i jak dokładnie będzie to zrobione. Większe prędkości oznaczają mniejszą dokładność.
-
-Jeżeli masz problemy z odświeżaniem serwerów, powinieneś wybrać tryb &quot;Ostrożny&quot;, podczas gdy tryb &quot;Agresywny&quot; zalecany jest dla osób z dobrymi połączeniami internetowymi.
-
-Te wartości mogą być też dostosowywane ręcznie.</translation>
-    </message>
-    <message>
-        <source>Query Speed</source>
-        <translation type="obsolete">Prędkość odpytywania</translation>
-    </message>
-    <message>
-        <source>Batch size:</source>
-        <translation type="obsolete">Rozmiar serii:</translation>
-    </message>
-    <message>
-        <source>Batch delay (ms):</source>
-        <translation type="obsolete">Opóźnienie serii (ms):</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of servers to query in a single batch (30 recommended). Increasing this value will improve the speed of server list refresh, but may also increase CPU and bandwidth usage.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="obsolete">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Liczba serwerów odpytana w pojedynczej serii (30 zalecane). Zwiększenie tej wartości poprawi prędkość odświeżania listy serwerów, ale może też zwiększyć zużycie procesora i łącza.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Delay to wait before Doomseeker will check if any free slots open up for server queries (1ms recommended). Number of slots is determined by the &amp;quot;Batch size&amp;quot; setting. Increasing this value may negatively affect the speed of server list refresh, but will free up CPU and decrease bandwidth usage.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opóźnienie zanim Doomseeker sprawdzi, czy udostępniły się wolne miejsca do odpytania serwerów (1ms zalecane). Liczba miejsc jest ustawiana poprzez &quot;Rozmiar serii&quot;. Zwiększenie tej wartości może negatywnie wpłynąć na prędkość odświeżania listy serwerów, ale odciąży procesor i łącze.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>Number of servers to query in a single batch (30 recommended)</source>
-        <translation type="obsolete">Ilośc serwerów, które można odpytać w każdej partii (zalecane: 30)</translation>
-    </message>
-    <message>
-        <source>Delay to wait before sending next batch (0ms recommended)</source>
-        <translation type="obsolete">Opóźnienie przed wysłaniem kolejnej partii (zalecane: 0ms)</translation>
-    </message>
 </context>
 <context>
     <name>CFGServerPasswords</name>
@@ -1743,10 +1404,6 @@ Te wartości mogą być też dostosowywane ręcznie.</translation>
         <location filename="../gui/configuration/cfgserverpasswords.cpp" line="255"/>
         <source>Hide</source>
         <translation>Ukryj</translation>
-    </message>
-    <message>
-        <source>Server Passwords</source>
-        <translation type="vanished">Hasła serwerów</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgserverpasswords.ui" line="51"/>
@@ -1825,10 +1482,6 @@ p, li { white-space: pre-wrap; }
 </context>
 <context>
     <name>CFGWadAlias</name>
-    <message>
-        <source>WAD Aliases</source>
-        <translation type="vanished">Zamienniki WADów</translation>
-    </message>
     <message>
         <location filename="../gui/configuration/cfgwadalias.ui" line="14"/>
         <source>Form</source>
@@ -1932,21 +1585,9 @@ p, li { white-space: pre-wrap; }
         <source>Critical error:</source>
         <translation>Błąd krytyczny:</translation>
     </message>
-    <message>
-        <source>Critical Error:</source>
-        <translation type="obsolete">Błąd krytyczny:</translation>
-    </message>
 </context>
 <context>
     <name>CFGWadseekerGeneral</name>
-    <message>
-        <source>Wadseeker - error</source>
-        <translation type="vanished">Wadseeker - błąd</translation>
-    </message>
-    <message>
-        <source>The target directory you selected for Wadseeker can not be written to.</source>
-        <translation type="vanished">W tym katalogu wybranym dla Wadseekera nie można tworzyć plików do zapisu.</translation>
-    </message>
     <message>
         <location filename="../gui/configuration/cfgwadseekergeneral.cpp" line="130"/>
         <source>No path specified.</source>
@@ -1968,22 +1609,6 @@ p, li { white-space: pre-wrap; }
         <translation>Do tego katalogu nie można zapisywać.</translation>
     </message>
     <message>
-        <source>The specified target directory for Wadseeker could not be found on the file (WAD) paths list.
-
-Doomseeker will automatically add this path to the file search paths.</source>
-        <translation type="vanished">Podany katalog docelowy dla Wadseekera nie został odnaleziony na liście ścieżek.
-
-Doomseeker doda tą ścieżkę automatycznie do ścieżek wyszukiwania plików (WADów).</translation>
-    </message>
-    <message>
-        <source>The specified target directory for Wadseeker could not be found on the file paths list.
-
-Doomseeker will automatically add this path to the file search paths.</source>
-        <translation type="obsolete">Podany katalog docelowy dla Wadseekera nie został odnaleziony na liście ścieżek.
-
-Doomseeker doda tą ścieżkę automatycznie do ścieżek wyszukiwania plików.</translation>
-    </message>
-    <message>
         <location filename="../gui/configuration/cfgwadseekergeneral.h" line="44"/>
         <source>General</source>
         <translation>Ogólne</translation>
@@ -1994,57 +1619,9 @@ Doomseeker doda tą ścieżkę automatycznie do ścieżek wyszukiwania plików.<
         <translation>Wadseeker - Ogólne</translation>
     </message>
     <message>
-        <source>Directory where Wadseeker will put wads into:</source>
-        <translation type="obsolete">Katalog do którego Wadseeker będzie zapisywał WADy:</translation>
-    </message>
-    <message>
         <location filename="../gui/configuration/cfgwadseekergeneral.ui" line="29"/>
         <source>Directory where Wadseeker will put WADs into:</source>
         <translation>Katalog do którego Wadseeker będzie zapisywał WADy:</translation>
-    </message>
-    <message>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Time after which Wadseeker stops connecting if no response is received.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;(min: 20 seconds, max: 360 seconds)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="vanished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Czas po którym Wadseeker przestanie się lączyć, jeżeli nie otrzyma żadnej odpowiedzi.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;(min: 20 sekund, max: 360 sekund)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>Connect timeout (seconds):</source>
-        <translation type="vanished">Timeout połączenia (sekundy):</translation>
-    </message>
-    <message>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Time after which Wadseeker stops downloading if data stops coming.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;(min: 60 seconds, max: 360 seconds)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="vanished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Czas po którym Wadseeker przestanie pobierać, jeżeli dane przestaną nadchodzić.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;(min: 60 sekund, max: 360 sekund)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Time after which Wadseeker stops connecting if no response is received. (min: 20 seconds, max: 360 seconds)&lt;/p&gt;</source>
-        <translation type="vanished">&lt;p&gt;Czas po którym Wadseeker przerwie połączenie, jeżeli nie otrzyma żadnej odpowiedzi (min: 20 sekund, maks: 360 sekund)&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Time after which Wadseeker stops downloading if data stops coming. (min: 60 seconds, max: 360 seconds)&lt;/p&gt;</source>
-        <translation type="vanished">&lt;p&gt;Czas po którym Wadseeker przerwie pobieranie gdy się zawiesi (min: 20 sekund, maks: 360 sekund)&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Download timeout (seconds):</source>
-        <translation type="vanished">Timeout pobierania (sekundy):</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgwadseekergeneral.ui" line="48"/>
@@ -2118,21 +1695,9 @@ p, li { white-space: pre-wrap; }
         <translation>Wadseeker - Źródła</translation>
     </message>
     <message>
-        <source>Wadseeker - Search URLs</source>
-        <translation type="obsolete">Wadseeker - adresy przeszukiwań</translation>
-    </message>
-    <message>
-        <source>Adds default URLs to the list. No URL that is currently on the list will be removed.</source>
-        <translation type="vanished">Dodaj domyślne adresy do listy. Żaden z obecnych adresów nie zostanie usunięty.</translation>
-    </message>
-    <message>
         <location filename="../gui/configuration/cfgwadseekersites.ui" line="57"/>
         <source>Add Defaults</source>
         <translation>Dodaj domyślne</translation>
-    </message>
-    <message>
-        <source>Add defaults</source>
-        <translation type="obsolete">Dodaj domyślne</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgwadseekersites.ui" line="42"/>
@@ -2188,10 +1753,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/configuration/irc/cfgchatlogspage.cpp" line="129"/>
         <source>The specified path isn&apos;t a directory.</source>
         <translation>Podana ścieżka nie jest katalogiem.</translation>
-    </message>
-    <message>
-        <source>Specified path isn&apos;t a directory.</source>
-        <translation type="vanished">Podana ścieżka nie jest katalogiem.</translation>
     </message>
     <message>
         <location filename="../gui/configuration/irc/cfgchatlogspage.h" line="46"/>
@@ -2252,10 +1813,6 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ChatLogs</name>
     <message>
-        <source>Won&apos;t transfer chat logs from &quot;%1&quot; to &quot;%2&quot; as directory &quot;%2&quot;already exists.</source>
-        <translation type="vanished">Logi chata nie zostaną przeniesione z &quot;%1&quot; do &quot;%2&quot;, ponieważ katalog &quot;%2&quot; już istnieje.</translation>
-    </message>
-    <message>
         <location filename="../irc/chatlogs.cpp" line="89"/>
         <source>Won&apos;t transfer chat logs from &quot;%1&quot; to &quot;%2&quot; as directory &quot;%2&quot; already exists.</source>
         <translation>Logi chata nie zostaną przeniesione z &quot;%1&quot; do &quot;%2&quot;, ponieważ katalog &quot;%2&quot; już istnieje.</translation>
@@ -2286,36 +1843,6 @@ p, li { white-space: pre-wrap; }
 </context>
 <context>
     <name>CmdArgsHelp</name>
-    <message>
-        <source>--connect protocol://ip[:port]
-    Attempts to connect to the specified server.
-</source>
-        <translation type="vanished">--connect protokół://ip[:port]
-    Próbuje połączyć się z podanym serwerem.
-</translation>
-    </message>
-    <message>
-        <source>--datadir
-    Sets an explicit search location for
-    IP2C data along with plugins.
-</source>
-        <translation type="obsolete">--datadir
-    Ustawia lokację, w której program
-    będzie szukał bazy IP2C oraz wtyczek.
-</translation>
-    </message>
-    <message>
-        <source>--datadir [directory]
-    Sets an explicit search location for
-    IP2C data along with plugins.
-    Can be specified multiple times.
-</source>
-        <translation type="vanished">--datadir [katalog]
-    Ustawia lokację, w której program
-    będzie szukał bazy IP2C oraz wtyczek.
-    Może zostać podany wiele razy.
-</translation>
-    </message>
     <message>
         <location filename="../cmdargshelp.cpp" line="28"/>
         <source>--connect &lt;protocol://ip[:port]&gt;
@@ -2497,104 +2024,6 @@ p, li { white-space: pre-wrap; }
         <source>Doomseeker - launch game</source>
         <translation>Doomseeker - uruchamianie gry</translation>
     </message>
-    <message>
-        <source>Wadseeker will not work correctly:
-Target directory is either not set, is invalid or cannot be written to.
-Please review your Configuration and/or refer to online help available from the Help menu.</source>
-        <translation type="obsolete">Wadseeker nie zadziała poprawnie:
-Katalog docelowy nie jest ustawiony, jest nieprawidłowy, lub nie można w nim zapisywać.
-Proszę sprawdzić konfigurację i/lub odnieść się do pomocy online dostępnej z menu Pomoc.</translation>
-    </message>
-    <message>
-        <source>Doomseeker - Wadseeker error</source>
-        <translation type="obsolete">Doomseeker - błąd Wadseekera</translation>
-    </message>
-    <message>
-        <source>This server is still refreshing.
-Please wait until it is finished.</source>
-        <translation type="obsolete">Ten serwer jest wciąż odświeżany.
-Proszę poczekać, aż zostanie to zakończone.</translation>
-    </message>
-    <message>
-        <source>Attempted to obtain a join command line for a &quot;%1&quot; server that is under refresh.</source>
-        <translation type="obsolete">Próba otrzymania komendy dołączenia dla serwera &quot;%1&quot;, który wciąż jest odświeżany.</translation>
-    </message>
-    <message>
-        <source>Data for this server is not available.
-Operation failed.</source>
-        <translation type="obsolete">Dane tego serwera są niedostępne.
-Operacja nieudana.</translation>
-    </message>
-    <message>
-        <source>Attempted to obtain a join command line for an unknown server &quot;%1&quot;</source>
-        <translation type="obsolete">Próba otrzymania komendy dołączenia dla nieznanego serwera &quot;%1&quot;</translation>
-    </message>
-    <message>
-        <source>Doomseeker - files are missing</source>
-        <translation type="obsolete">Doomseeker - brakuje plików</translation>
-    </message>
-    <message>
-        <source>Following files are missing:
-</source>
-        <translation type="obsolete">Brakuje tych plików:
-</translation>
-    </message>
-    <message>
-        <source>Unknown error.</source>
-        <translation type="obsolete">Nieznany błąd.</translation>
-    </message>
-    <message>
-        <source>Error when obtaining join parameters for server &quot;%1&quot;, game &quot;%2&quot;: %3</source>
-        <translation type="obsolete">Błąd otrzymywania parametrów dołączenia do serwera &quot;%1&quot;, gra &quot;%2&quot;: %3</translation>
-    </message>
-    <message>
-        <source>
-Make sure that this file is in one of the paths specified in Options -&gt; File Paths.
-If you don&apos;t have this file, and it belongs to a commercial game, you need to purchase the game associated with this IWAD.
-Wadseeker will not download commercial IWADs.
-
-</source>
-        <translation type="obsolete">
-Upewnij się, że ten plik znajduje się w ścieżce podanej w Opcjach -&gt; Ścieżki plików.
-Jeżeli nie posiadasz tego pliku, a należy on do komercyjnej gry, to musisz zakupić grę, która jest powiązana z tym IWADem.
-Wadseeker nie będzie pobierał komercyjnych IWADów.
-
-</translation>
-    </message>
-    <message>
-        <source>
-Make sure that this file is in one of the paths specified in Options -&gt; File Paths.
-If you don&apos;t have this file you need to purchase the game associated with this IWAD.
-Wadseeker will not download IWADs.
-
-</source>
-        <translation type="obsolete">
-Upewnij się, że ten plik znajduje się w ścieżce podanej w Opcjach -&gt; Ścieżki plików.
-Jeżeli nie posiadasz tego pliku to musisz zakupić grę, która jest z nim powiązana.
-Wadseeker nie będzie pobierał IWADów.
-
-</translation>
-    </message>
-    <message>
-        <source>PWADS: %1
-Do you want Wadseeker to find missing PWADs?</source>
-        <translation type="obsolete">PWADy: %1
-Czy chcesz aby Wadseeker odszukał brakujące PWADy?</translation>
-    </message>
-    <message>
-        <source>
-Alternatively use ignore to connect anyways.</source>
-        <translation type="obsolete">
-Alternatywnie użyj &quot;Ignoruj&quot; aby połączyć się mimo wszystko.</translation>
-    </message>
-    <message>
-        <source>Error while launching executable for server &quot;%1&quot;, game &quot;%2&quot;: %3</source>
-        <translation type="vanished">Błąd uruchamiania programu dla serwera &quot;%1&quot;, gra &quot;%2&quot;: %3</translation>
-    </message>
-    <message>
-        <source>Doomseeker - launch executable</source>
-        <translation type="vanished">Doomseeker - uruchamianie programu</translation>
-    </message>
 </context>
 <context>
     <name>CopyTextDlg</name>
@@ -2617,38 +2046,10 @@ Alternatywnie użyj &quot;Ignoruj&quot; aby połączyć się mimo wszystko.</tra
 <context>
     <name>CreateServerDialog</name>
     <message>
-        <source>Doomseeker - Add file(s)</source>
-        <translation type="obsolete">Doomseeker - dodaj plik(i)</translation>
-    </message>
-    <message>
-        <source>Doomseeker - Add file</source>
-        <translation type="obsolete">Doomseeker - dodaj plik</translation>
-    </message>
-    <message>
-        <source>Obtaining default server binary path.</source>
-        <translation type="obsolete">Pobieranie domyślnej ścieżki pliku wykonywalnego.</translation>
-    </message>
-    <message>
-        <source>Doomseeker - select IWAD</source>
-        <translation type="obsolete">Doomseeker - wybierz IWAD</translation>
-    </message>
-    <message>
-        <source>Doomseeker - load server config</source>
-        <translation type="vanished">Doomseeker - wczytaj konfigurację serwera</translation>
-    </message>
-    <message>
         <location filename="../gui/createserverdialog.cpp" line="491"/>
         <location filename="../gui/createserverdialog.cpp" line="505"/>
         <source>Config files (*.ini)</source>
         <translation>Pliki konfiguracyjne (*.ini)</translation>
-    </message>
-    <message>
-        <source>Doomseeker - save server config</source>
-        <translation type="vanished">Doomseeker - zapisz konfigurację serwera</translation>
-    </message>
-    <message>
-        <source>Unable to save server configuration!</source>
-        <translation type="vanished">Nie można zapisać konfiguracji serwera!</translation>
     </message>
     <message>
         <location filename="../gui/createserverdialog.cpp" line="491"/>
@@ -2760,48 +2161,10 @@ Alternatywnie użyj &quot;Ignoruj&quot; aby połączyć się mimo wszystko.</tra
         <translation>Wiersz poleceń do uruchomienia serwera:</translation>
     </message>
     <message>
-        <source>Doomseeker - create server</source>
-        <translation type="obsolete">Doomseeker - stwórz serwer</translation>
-    </message>
-    <message>
-        <source>No engine selected</source>
-        <translation type="vanished">Nie wybrano gry</translation>
-    </message>
-    <message>
         <location filename="../gui/createserverdialog.cpp" line="196"/>
         <location filename="../gui/createserverdialog.cpp" line="392"/>
         <source>Doomseeker - error</source>
         <translation>Doomseeker - błąd</translation>
-    </message>
-    <message>
-        <source>Doomseeker - error obtaining server binary</source>
-        <translation type="obsolete">Doomseeker - błąd pobierania pliku wykonywalnego serwera</translation>
-    </message>
-    <message>
-        <source>Server binary for engine &quot;%1&quot; cannot be obtained.
-Following error has occured:
-%2</source>
-        <translation type="obsolete">Plik wykonywalne serwera dla gry &quot;%1&quot; nie może zostać pobrany.
-Nastąpił błąd:
-%2</translation>
-    </message>
-    <message>
-        <source>&lt; NONE &gt;</source>
-        <translation type="obsolete">&lt; BRAK &gt;</translation>
-    </message>
-    <message>
-        <source>Game executable saved in config cannot be found.
-Default executable will be used.</source>
-        <translation type="obsolete">Plik wykonywalny gry zapisany w konfiguracji nie może zostać odnaleziony
-Domyślny plik zotanie użyty.</translation>
-    </message>
-    <message>
-        <source>Plugin for engine &quot;%1&quot; is not present!</source>
-        <translation type="obsolete">Wtyczka dla gry &quot;%1&quot; jest nie załadowana!</translation>
-    </message>
-    <message>
-        <source>Create Server</source>
-        <translation type="obsolete">Stwórz serwer</translation>
     </message>
     <message>
         <location filename="../gui/createserverdialog.ui" line="14"/>
@@ -2824,101 +2187,9 @@ Domyślny plik zotanie użyty.</translation>
         <translation>Wiersz poleceń</translation>
     </message>
     <message>
-        <source>Game:</source>
-        <translation type="obsolete">Gra:</translation>
-    </message>
-    <message>
-        <source>Server name:</source>
-        <translation type="obsolete">Nazwa serwera:</translation>
-    </message>
-    <message>
-        <source>Port:</source>
-        <translation type="obsolete">Port:</translation>
-    </message>
-    <message>
-        <source>Game mode:</source>
-        <translation type="obsolete">Tryb gry:</translation>
-    </message>
-    <message>
-        <source>Map:</source>
-        <translation type="obsolete">Mapa:</translation>
-    </message>
-    <message>
-        <source>IWAD:</source>
-        <translation type="obsolete">IWAD:</translation>
-    </message>
-    <message>
-        <source>Executable:</source>
-        <translation type="obsolete">Plik wykonywalny:</translation>
-    </message>
-    <message>
-        <source>Default</source>
-        <translation type="obsolete">Domyślnie</translation>
-    </message>
-    <message>
-        <source>If locked, executable won&apos;t change when new config for the same engine is loaded</source>
-        <translation type="obsolete">Gdy zakluczone, plik wykonywalny pozostanie taki sam po załadowaniu innej konfiguracji dla tej samej gry</translation>
-    </message>
-    <message>
-        <source>Lock</source>
-        <translation type="obsolete">Zaklucz</translation>
-    </message>
-    <message>
-        <source>Allow the game to choose port.</source>
-        <translation type="obsolete">Pozwól grze wybrać port.</translation>
-    </message>
-    <message>
-        <source>Additional WADs and files:</source>
-        <translation type="obsolete">Dodatkowe WADy i pliki:</translation>
-    </message>
-    <message>
-        <source>Clear</source>
-        <translation type="obsolete">Wyczyść</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation type="obsolete">Dodaj</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation type="obsolete">Usuń</translation>
-    </message>
-    <message>
-        <source>Broadcast to LAN</source>
-        <translation type="obsolete">Rozsyłaj po LANie</translation>
-    </message>
-    <message>
-        <source>Broadcast to Master</source>
-        <translation type="obsolete">Rozsyłaj do mastera</translation>
-    </message>
-    <message>
         <location filename="../gui/createserverdialog.ui" line="39"/>
         <source>General</source>
         <translation>Ogólne</translation>
-    </message>
-    <message>
-        <source>Map list</source>
-        <translation type="obsolete">Lista map</translation>
-    </message>
-    <message>
-        <source>Random map rotation</source>
-        <translation type="obsolete">Losowa rotacja listy</translation>
-    </message>
-    <message>
-        <source>Difficulty:</source>
-        <translation type="obsolete">Poziom trudności:</translation>
-    </message>
-    <message>
-        <source>Modifiers:</source>
-        <translation type="obsolete">Modyfikatory:</translation>
-    </message>
-    <message>
-        <source>Max. clients:</source>
-        <translation type="obsolete">Max. klientów:</translation>
-    </message>
-    <message>
-        <source>Max. players:</source>
-        <translation type="obsolete">Max. graczy:</translation>
     </message>
     <message>
         <location filename="../gui/createserverdialog.ui" line="49"/>
@@ -2926,104 +2197,14 @@ Domyślny plik zotanie użyty.</translation>
         <translation>Zasady</translation>
     </message>
     <message>
-        <source>URL:</source>
-        <translation type="obsolete">URL:</translation>
-    </message>
-    <message>
-        <source>E-mail:</source>
-        <translation type="obsolete">E-mail:</translation>
-    </message>
-    <message>
-        <source>Connect password:</source>
-        <translation type="obsolete">Hasło połączenia:</translation>
-    </message>
-    <message>
-        <source>Join password:</source>
-        <translation type="obsolete">Hasło wejścia do gry:</translation>
-    </message>
-    <message>
-        <source>RCon password:</source>
-        <translation type="obsolete">Hasło RCon:</translation>
-    </message>
-    <message>
-        <source>MOTD:</source>
-        <translation type="obsolete">MOTD:</translation>
-    </message>
-    <message>
-        <source>Misc.</source>
-        <translation type="vanished">Pozostałe</translation>
-    </message>
-    <message>
-        <source>Custom parameters (ENTER or SPACEBAR separated):</source>
-        <translation type="obsolete">Własne parametry (rozdzielone ENTEREM lub SPACJĄ):</translation>
-    </message>
-    <message>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Note: these are added to the command line as visible on the list.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Console commands usually begin with &apos;+&apos; character. For example: +sv_cheats 1&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="obsolete">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Uwaga: te parametry są dodawane do listy dokładnie tak, jak widać.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Komendy konsoli gry zazwyczaj zaczynają się od znaku +. Na przykład: +sv_cheats 1&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <location filename="../gui/createserverdialog.ui" line="79"/>
         <source>Custom parameters</source>
         <translation>Parametry własne</translation>
     </message>
     <message>
-        <source>Configure</source>
-        <translation type="vanished">Konfiguracja</translation>
-    </message>
-    <message>
-        <source>Load previously saved server configuration.</source>
-        <translation type="vanished">Wczytaj poprzednio zapisaną konfigurację serwera.</translation>
-    </message>
-    <message>
-        <source>Load</source>
-        <translation type="vanished">Wczytaj</translation>
-    </message>
-    <message>
-        <source>Save current server configuration.</source>
-        <translation type="vanished">Zapisz obecną konfigurację serwera.</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="vanished">Zapisz</translation>
-    </message>
-    <message>
         <location filename="../gui/createserverdialog.ui" line="158"/>
         <source>Obtain command line required to launch this game.</source>
         <translation>Wyświetl wiersz poleceń do wystartowania gry.</translation>
-    </message>
-    <message>
-        <source>Offline command line</source>
-        <translation type="vanished">Linia komend gry offline</translation>
-    </message>
-    <message>
-        <source>Play offline</source>
-        <translation type="vanished">Graj offline</translation>
-    </message>
-    <message>
-        <source>Obtain command line required to launch this server.</source>
-        <translation type="vanished">Wyświetl linię komend startującą ten serwer.</translation>
-    </message>
-    <message>
-        <source>Host command line</source>
-        <translation type="vanished">Linia komend serwera</translation>
-    </message>
-    <message>
-        <source>Command Line</source>
-        <translation type="vanished">Linia komend</translation>
-    </message>
-    <message>
-        <source>Start server</source>
-        <translation type="vanished">Wystartuj serwer</translation>
     </message>
     <message>
         <location filename="../gui/createserverdialog.ui" line="178"/>
@@ -3075,10 +2256,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../customservers.cpp" line="186"/>
         <source>Plugin returned nullptr &quot;Server*&quot; for custom server %1:%2. This is a problem with the plugin.</source>
         <translation>Wtyczka zwróciła nullptr  &quot;Server*&quot; dla serwera własnego %1:%2. Jest to problem z wtyczką.</translation>
-    </message>
-    <message>
-        <source>Plugin returned NULL &quot;Server*&quot; for custom server %1:%2. This is a problem with the plugin.</source>
-        <translation type="vanished">Wtyczka zwróciła NULL &quot;Server*&quot; dla serwera własnego %1:%2. Jest to problem z wtyczką.</translation>
     </message>
 </context>
 <context>
@@ -3192,10 +2369,6 @@ p, li { white-space: pre-wrap; }
         <translation>WADy</translation>
     </message>
     <message>
-        <source>Wads</source>
-        <translation type="obsolete">WADy</translation>
-    </message>
-    <message>
         <location filename="../gui/demomanager.ui" line="17"/>
         <source>Demo Manager</source>
         <translation>Menadżer dem</translation>
@@ -3282,42 +2455,6 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>EngineConfigPage</name>
     <message>
-        <source> Configuration</source>
-        <translation type="obsolete">Konfiguracja</translation>
-    </message>
-    <message>
-        <source>%1 - Configuration</source>
-        <translation type="obsolete">%1 - Konfiguracja</translation>
-    </message>
-    <message>
-        <source>Binary files (*.exe);;Any files (*)</source>
-        <translation type="vanished">Pliki binarne (*.exe);;Dowolne pliki(*)</translation>
-    </message>
-    <message>
-        <source>Any files(*)</source>
-        <translation type="vanished">Dowolne pliki(*)</translation>
-    </message>
-    <message>
-        <source>Doomseeker - choose </source>
-        <translation type="obsolete">Doomseeker - wybierz</translation>
-    </message>
-    <message>
-        <source>Doomseeker - choose %1 %2</source>
-        <translation type="vanished">Doomseeker - wybierz %1 %2</translation>
-    </message>
-    <message>
-        <source>client binary</source>
-        <translation type="vanished">plik wykonywalny klienta</translation>
-    </message>
-    <message>
-        <source>server binary</source>
-        <translation type="vanished">plik wykonywalny serwera</translation>
-    </message>
-    <message>
-        <source>Path to executable:</source>
-        <translation type="vanished">Ścieżka do pliku wykonywalnego:</translation>
-    </message>
-    <message>
         <location filename="../gui/configuration/engineconfigpage.cpp" line="258"/>
         <source>Failed to automatically find file.
 You may need to use the browse button.</source>
@@ -3330,18 +2467,6 @@ Musisz użyć przycisku przeglądaj.</translation>
         <translation>Gra - %1</translation>
     </message>
     <message>
-        <source>Engine Configuration</source>
-        <translation type="obsolete">Konfiguracja gry</translation>
-    </message>
-    <message>
-        <source>Path to client binary:</source>
-        <translation type="vanished">Ścieżka do pliku wykonywalnego klienta:</translation>
-    </message>
-    <message>
-        <source>Path to server binary:</source>
-        <translation type="vanished">Ścieżka do pliku wykonywanego serwera:</translation>
-    </message>
-    <message>
         <location filename="../gui/configuration/engineconfigpage.ui" line="65"/>
         <source>Custom parameters:</source>
         <translation>Parametry własne:</translation>
@@ -3352,10 +2477,6 @@ Musisz użyć przycisku przeglądaj.</translation>
         <translation>[błąd]</translation>
     </message>
     <message>
-        <source>Custom Parameters:</source>
-        <translation type="obsolete">Dodatkowe parametry:</translation>
-    </message>
-    <message>
         <location filename="../gui/configuration/engineconfigpage.ui" line="123"/>
         <source>Masterserver address:</source>
         <translation>Adres masterserwera:</translation>
@@ -3363,18 +2484,6 @@ Musisz użyć przycisku przeglądaj.</translation>
 </context>
 <context>
     <name>ExeFile</name>
-    <message>
-        <source>No %1 executable specified for %2</source>
-        <translation type="vanished">Nie podano pliku wykonywalnego typu %1 dla wtyczki %2</translation>
-    </message>
-    <message>
-        <source>Executable for %1 %2:
-%3
-is a directory or doesn&apos;t exist.</source>
-        <translation type="vanished">Plik wykonywalny dla wtyczki %1 typu %2
-%3
-jest katalogiem lub nie istnieje.</translation>
-    </message>
     <message>
         <location filename="../serverapi/exefile.cpp" line="78"/>
         <source>No %1 executable configured for %2</source>
@@ -3393,10 +2502,6 @@ jest katalogiem lub nie istnieje.</translation>
 <context>
     <name>FileFilter</name>
     <message>
-        <source>Runnable files (*.exe;*.bat;*.com);;All files (*)</source>
-        <translation type="vanished">Pliki wykonywalne (*.exe;*.bat;*.com);;Wszystkie pliki (*)</translation>
-    </message>
-    <message>
         <location filename="../filefilter.cpp" line="27"/>
         <source>All files (*)</source>
         <translation>Wszystkie pliki (*)</translation>
@@ -3406,25 +2511,9 @@ jest katalogiem lub nie istnieje.</translation>
         <source>Runnable files (*.exe;*.bat;*.com);;</source>
         <translation>Pliki wykonywalne (*.exe;*.bat;*.com);;</translation>
     </message>
-    <message>
-        <source>executable</source>
-        <translation type="vanished">wykonywalny</translation>
-    </message>
-    <message>
-        <source>binary</source>
-        <translation type="vanished">binarny</translation>
-    </message>
 </context>
 <context>
     <name>FilePickWidget</name>
-    <message>
-        <source>Doomseeker - choose %1 file</source>
-        <translation type="vanished">Doomseeker - wybierz plik %1</translation>
-    </message>
-    <message>
-        <source>Path to %1 %2:</source>
-        <translation type="obsolete">Ścieżka do %1 - plik %2:</translation>
-    </message>
     <message>
         <location filename="../gui/widgets/filepickwidget.ui" line="14"/>
         <source>Form</source>
@@ -3623,17 +2712,9 @@ Plik wykonywalny: %3</translation>
         <source>Game %1 cannot be found.</source>
         <translation>Nie znaleziono gry %1.</translation>
     </message>
-    <message>
-        <source>Client binary cannot be obtained for %1, please check the location given in the configuration.</source>
-        <translation type="vanished">Nie można odnaleźć pliku wykonywalnego gry %1, proszę sprawdzić lokację podaną w konfiguracji.</translation>
-    </message>
 </context>
 <context>
     <name>GameExeFactory</name>
-    <message>
-        <source>offline</source>
-        <translation type="vanished">offline</translation>
-    </message>
     <message>
         <location filename="../serverapi/gameexefactory.cpp" line="72"/>
         <source>game</source>
@@ -3714,22 +2795,6 @@ Plik wykonywalny: %3</translation>
 <context>
     <name>GameHost</name>
     <message>
-        <source>Iwad is not set</source>
-        <translation type="vanished">IWAD nie jest ustawiony</translation>
-    </message>
-    <message>
-        <source>Iwad Path error:
-&quot;%1&quot; doesn&apos;t exist or is a directory!</source>
-        <translation type="vanished">Błąd ściezki IWADa:
-&quot;%1&quot; nie istnieje lub jest katalogiem!</translation>
-    </message>
-    <message>
-        <source>Pwad path error:
-&quot;%1&quot; doesn&apos;t exist or is a directory!</source>
-        <translation type="vanished">Błąd ścieżki PWADa:
-&quot;%1&quot; nie istnieje lub jest katalogiem!</translation>
-    </message>
-    <message>
         <location filename="../serverapi/gamehost.cpp" line="148"/>
         <source>IWAD is not set</source>
         <translation>IWAD nie jest ustawiony</translation>
@@ -3746,12 +2811,6 @@ Plik wykonywalny: %3</translation>
         <source>%1
 doesn&apos;t exist or is not a file.</source>
         <translation>%1
-nie istnieje lub nie jest plikiem.</translation>
-    </message>
-    <message>
-        <source>%1
- doesn&apos;t exist or is not a file.</source>
-        <translation type="vanished">%1
 nie istnieje lub nie jest plikiem.</translation>
     </message>
     <message>
@@ -3803,14 +2862,6 @@ nie istnieje lub nie jest plikiem.</translation>
         <translation>Lista map</translation>
     </message>
     <message>
-        <source>Difficulty:</source>
-        <translation type="vanished">Poziom trudności:</translation>
-    </message>
-    <message>
-        <source>Modifiers:</source>
-        <translation type="vanished">Modyfikatory:</translation>
-    </message>
-    <message>
         <location filename="../gui/createserver/gamerulespanel.ui" line="84"/>
         <source>Hosting limits</source>
         <translation>Limity hostowania</translation>
@@ -3835,91 +2886,6 @@ nie istnieje lub nie jest plikiem.</translation>
         <source>Extra settings</source>
         <translation>Dodatkowe ustawienia</translation>
     </message>
-    <message>
-        <source>Game limits</source>
-        <translation type="vanished">Limity gry</translation>
-    </message>
-</context>
-<context>
-    <name>GameRunner</name>
-    <message>
-        <source>Client binary cannot be obtained for game: %1</source>
-        <translation type="obsolete">Nie można pobrać pliku wykonywalnego klienta dla gry: %1</translation>
-    </message>
-    <message>
-        <source>Client binary cannot be obtained for %1, please check the location given in the configuration.</source>
-        <translation type="obsolete">Nie można odnaleźć pliku wykonywalnego gry %1, proszę sprawdzić lokację podaną w konfiguracji.</translation>
-    </message>
-    <message>
-        <source>Path to working directory for &quot;%1&quot; is empty.
-Make sure the configuration for the main binary is set properly.</source>
-        <translation type="obsolete">Ścieżka do katalogu roboczego dla gry &quot;%1&quot; jest pusta.
-Upewnij się, że konfiguracja dla głównego pliku wykonywalnego jest ustawiona poprawnie.</translation>
-    </message>
-    <message>
-        <source>%1
- cannot be used as working directory for game:
-%2
-Executable: %3</source>
-        <translation type="obsolete">%1
-nie może zostać użyty jako katalog roboczy dla gry:
-%2
-Plik wykonywalny: %3</translation>
-    </message>
-    <message>
-        <source>Doomseeker - host - appending IWAD</source>
-        <translation type="obsolete">Doomseeker - tworzenie serwera- dodawanie IWADu</translation>
-    </message>
-    <message>
-        <source>Iwad is not set</source>
-        <translation type="obsolete">IWAD nie jest ustawiony</translation>
-    </message>
-    <message>
-        <source>Iwad Path error:
-&quot;%1&quot; doesn&apos;t exist or is a directory!</source>
-        <translation type="obsolete">Błąd ściezki IWADa:
-&quot;%1&quot; nie istnieje lub jest katalogiem!</translation>
-    </message>
-    <message>
-        <source>Doomseeker - host - appending PWADs</source>
-        <translation type="obsolete">Doomseeker - tworzenie serwera - dodawanie PWADów</translation>
-    </message>
-    <message>
-        <source>Pwad path error:
-&quot;%1&quot; doesn&apos;t exist or is a directory!</source>
-        <translation type="obsolete">Błąd ścieżki PWADa:
-&quot;%1&quot; nie istnieje lub jest katalogiem!</translation>
-    </message>
-    <message>
-        <source>Doomseeker - host - getting executable</source>
-        <translation type="obsolete">Doomseeker - tworzenie serwera - pobieranie pliku wykonywalnego</translation>
-    </message>
-    <message>
-        <source>%1
- doesn&apos;t exist or is not a file.</source>
-        <translation type="obsolete">%1
-nie istnieje lub nie jest plikiem.</translation>
-    </message>
-    <message>
-        <source>Doomseeker - host - getting working directory</source>
-        <translation type="obsolete">Doomseeker - tworzenie serwera - pobieranie katalogu roboczego</translation>
-    </message>
-    <message>
-        <source>Path to working directory is empty.
-Make sure the configuration for the executable file is set properly.</source>
-        <translation type="obsolete">Ścieżka do katalogu roboczego jest pusta.
-Upewnij się, że konfiguracja dla pliku wykonywalnego jest ustawiona poprawnie.</translation>
-    </message>
-    <message>
-        <source>%1
- doesn&apos;t exist or is not a directory.</source>
-        <translation type="obsolete">%1
-nie istnieje lub jest katalogiem.</translation>
-    </message>
-    <message>
-        <source>Starting (working dir %1): %2</source>
-        <translation type="obsolete">Startuję (katalog roboczy %1): %2</translation>
-    </message>
 </context>
 <context>
     <name>GeneralGameSetupPanel</name>
@@ -3935,32 +2901,6 @@ nie istnieje lub jest katalogiem.</translation>
         <translation>Doomseeker - wczytaj konfigurację serwera</translation>
     </message>
     <message>
-        <source>Game executable saved in config cannot be found.
-Default executable will be used.</source>
-        <translation type="vanished">Plik wykonywalny gry zapisany w konfiguracji nie może zostać odnaleziony.
-Domyślny plik zotanie użyty.</translation>
-    </message>
-    <message>
-        <source>Doomseeker - error obtaining server binary</source>
-        <translation type="vanished">Doomseeker - błąd pobierania pliku wykonywalnego serwera</translation>
-    </message>
-    <message>
-        <source>Server binary for engine &quot;%1&quot; cannot be obtained.
-Following error has occured:
-%2</source>
-        <translation type="vanished">Plik wykonywalne serwera dla gry &quot;%1&quot; nie może zostać pobrany.
-Nastąpił błąd:
-%2</translation>
-    </message>
-    <message>
-        <source>Doomseeker - Add file</source>
-        <translation type="vanished">Doomseeker - dodaj plik</translation>
-    </message>
-    <message>
-        <source>Obtaining default server binary path.</source>
-        <translation type="vanished">Pobieranie domyślnej ścieżki pliku wykonywalnego.</translation>
-    </message>
-    <message>
         <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="377"/>
         <source>Plugin for engine &quot;%1&quot; is not present!</source>
         <translation>Wtyczka dla gry &quot;%1&quot; nie jest załadowana!</translation>
@@ -3974,14 +2914,6 @@ Nastąpił błąd:
         <location filename="../gui/createserver/generalgamesetuppanel.ui" line="44"/>
         <source>Executable:</source>
         <translation>Plik wykonywalny:</translation>
-    </message>
-    <message>
-        <source>...</source>
-        <translation type="vanished">...</translation>
-    </message>
-    <message>
-        <source>Default</source>
-        <translation type="vanished">Domyślnie</translation>
     </message>
     <message>
         <location filename="../gui/createserver/generalgamesetuppanel.ui" line="92"/>
@@ -4049,10 +2981,6 @@ Nastąpił błąd:
         <translation>Poziom trudności:</translation>
     </message>
     <message>
-        <source>Additional WADs and files (check required):</source>
-        <translation type="vanished">Dodatkowe WADy i pliki (zaznacz wymagane):</translation>
-    </message>
-    <message>
         <location filename="../gui/createserver/generalgamesetuppanel.ui" line="359"/>
         <source>If checked, the game will try to tell your router to forward necessary ports.</source>
         <translation>Zaznacz by gra poprosiła Twój router o automatyczne przekierowanie niezbędnych portów.</translation>
@@ -4066,10 +2994,6 @@ Nastąpił błąd:
         <location filename="../gui/createserver/generalgamesetuppanel.ui" line="372"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;UPnP port. Set this to 0 to let Doomseeker or game decide.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Port UPnP. Ustaw tutaj 0 aby pozwolić Doomseekerowi albo grze wybrać własny.&lt;/p&gt;&lt;/body&gt;&lt;/html</translation>
-    </message>
-    <message>
-        <source>Additional WADs and files:</source>
-        <translation type="obsolete">Dodatkowe WADy i pliki:</translation>
     </message>
     <message>
         <location filename="../gui/createserver/generalgamesetuppanel.ui" line="324"/>
@@ -5371,10 +4295,6 @@ Nastąpił błąd:
         <translation>Nie można odczytać zapasowej bazy IP2C. Zakańczam.</translation>
     </message>
     <message>
-        <source>IP2C parser is still working. Program will close once this job is done.</source>
-        <translation type="vanished">Parser IP2C wciąż pracuje. Program zamknie się, gdy ta praca zostanie zakończona.</translation>
-    </message>
-    <message>
         <location filename="../ip2c/ip2cloader.cpp" line="70"/>
         <source>IP2C parser is still working, awaiting stop...</source>
         <translation>Parser IP2C wciąż pracuje, czekam na zakończenie...</translation>
@@ -5393,10 +4313,6 @@ Nastąpił błąd:
         <location filename="../ip2c/ip2cloader.cpp" line="103"/>
         <source>IP2C update bugged out.</source>
         <translation>Aktualizacja IP2C zbugowała się.</translation>
-    </message>
-    <message>
-        <source>IP2C update must wait until parsing of current database finishes. Waiting 1 second</source>
-        <translation type="vanished">Aktualizacja IP2C musi poczekać, aż skończy się parsowanie obecnej bazy danych. Czekam 1 sekundę.</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2cloader.cpp" line="122"/>
@@ -5444,30 +4360,14 @@ Nastąpił błąd:
         <translation>Możesz zainstalować bazę danych IP2C z menu &quot;Plik&quot;.</translation>
     </message>
     <message>
-        <source>Using precompiled IP2C database.</source>
-        <translation type="vanished">Używam wbudowanej bazy IP2C.</translation>
-    </message>
-    <message>
         <location filename="../ip2c/ip2cloader.cpp" line="210"/>
         <source>Please wait. IP2C database is being read. This may take some time.</source>
         <translation>Proszę czekać. Baza IP2C jest odczytywana. Może to trochę potrwać.</translation>
     </message>
     <message>
-        <source>IP2C database updated successfully.</source>
-        <translation type="vanished">Baza IP2C uaktualniona prawidłowo.</translation>
-    </message>
-    <message>
         <location filename="../ip2c/ip2cloader.cpp" line="190"/>
         <source>IP2C parsing finished.</source>
         <translation>Parsowanie IP2C ukończone.</translation>
-    </message>
-    <message>
-        <source>IP2C update finished.</source>
-        <translation type="vanished">Aktualizacja IP2C ukończona.</translation>
-    </message>
-    <message>
-        <source>Please wait. IP2C database is being read and converted if necessary. This may take some time.</source>
-        <translation type="vanished">Proszę czekać. Baza IP2C jest odczytywana i konwertowana w razie potrzeby. Może to zająć nieco czasu.</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2cloader.cpp" line="115"/>
@@ -5493,57 +4393,13 @@ Nastąpił błąd:
         <translation>Baza IP2C przeczytana w %1 ms. Liczba zakresów IP: %2</translation>
     </message>
     <message>
-        <source>IP2C database is not in compacted format. Performing conversion!</source>
-        <translation type="vanished">Baza IP2C nie jest w formacie skompaktowanym. Konwertuję!</translation>
-    </message>
-    <message>
-        <source>IP2C database conversion failed</source>
-        <translation type="vanished">Konwersja bazy IP2C nie powiodła się</translation>
-    </message>
-    <message>
-        <source>IP2C database converted in %1 ms</source>
-        <translation type="vanished">Konwersja bazy IP2C wykonana w %1 ms</translation>
-    </message>
-    <message>
-        <source>Parsing now compacted IP2C database</source>
-        <translation type="vanished">Parsuję skompatkowaną bazę IP2C</translation>
-    </message>
-    <message>
-        <source>IP2C database read in %1 ms. Entries read: %2</source>
-        <translation type="vanished">Baza IP2C przeczytana w %1 ms. Rekordów przeczytanych: %2</translation>
-    </message>
-    <message>
         <location filename="../ip2c/ip2cparser.cpp" line="94"/>
         <source>IP2C parsing thread has finished.</source>
         <translation>Wątek parsujący IP2C zakończył się.</translation>
     </message>
-    <message>
-        <source>IP2C Database read in %1 ms. Entries read: %2</source>
-        <translation type="obsolete">Baza IP2C przeczytana w %1 ms. Ilość wpisów: %2</translation>
-    </message>
-    <message>
-        <source>IP2C Parsing thread has finished.</source>
-        <translation type="obsolete">Wątek parsujący IP2C zakończył się.</translation>
-    </message>
-    <message>
-        <source>Starting IP2C parser thread.</source>
-        <translation type="obsolete">Startuję wątek parsujący bazę IP2C.</translation>
-    </message>
 </context>
 <context>
     <name>IP2CUpdateBox</name>
-    <message numerus="yes">
-        <source>This database is %n days old.</source>
-        <translation type="vanished">
-            <numerusform>Ta baza ma 1 dzień.</numerusform>
-            <numerusform>Ta baza ma %n dni.</numerusform>
-            <numerusform>Ta baza ma %n dni.</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>This file cannot be found. Precompiled database will be used. Use update button if you want to fix this problem.</source>
-        <translation type="vanished">Plik nie mógł zostać odnaleziony. Wbudowana baza zostanie użyta. Użyj przycisku aktualizacji jeżeli chcesz naprawić ten problem.</translation>
-    </message>
     <message>
         <location filename="../gui/ip2cupdatebox.ui" line="20"/>
         <source>Doomseeker - Update IP2C</source>
@@ -5586,10 +4442,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/ip2cupdatebox.cpp" line="79"/>
         <source>Verifying checksum ...</source>
         <translation>Sprawdzanie sumy kontrolnej ...</translation>
-    </message>
-    <message>
-        <source>IP2C database file was not found. Precompiled database will be used. Use update button if you want to download the newest database.</source>
-        <translation type="vanished">Baza IP2C nie została odnaleziona. Użyta zostanie prekompilowana baza. Użyj przycisku aktualizacji, jezeli chcesz pobrać najnowszą bazę.</translation>
     </message>
     <message>
         <location filename="../gui/ip2cupdatebox.cpp" line="63"/>
@@ -5690,14 +4542,6 @@ p, li { white-space: pre-wrap; }
 </context>
 <context>
     <name>IRCClient</name>
-    <message>
-        <source>IRC: attempting host lookup: %1</source>
-        <translation type="vanished">IRC: pobieranie adresu hosta: %1</translation>
-    </message>
-    <message>
-        <source>IRC: Connecting: %1:%2 [IP: %3]</source>
-        <translation type="vanished">IRC: łączenie: %1:%2 [IP: %3]</translation>
-    </message>
     <message>
         <location filename="../irc/ircclient.cpp" line="45"/>
         <source>IRC: Connecting: %1:%2</source>
@@ -5957,10 +4801,6 @@ p, li { white-space: pre-wrap; }
         <translation>Wyślij</translation>
     </message>
     <message>
-        <source>Command</source>
-        <translation type="obsolete">Komenda</translation>
-    </message>
-    <message>
         <location filename="../gui/irc/ircdocktabcontents.ui" line="76"/>
         <source>Do not scroll text area</source>
         <translation>Nie przesuwaj ekranu tekstu</translation>
@@ -6015,14 +4855,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../irc/ircnetworkadapter.cpp" line="231"/>
         <source>Quit</source>
         <translation>Wyjście</translation>
-    </message>
-    <message>
-        <source>IRC: Successfuly registered on network %1 [%2:%3]</source>
-        <translation type="vanished">IRC: Poprawnie zarejestrowano w sieci %1 [%2:%3]</translation>
-    </message>
-    <message>
-        <source>Invalid parse result for mesage: %1</source>
-        <translation type="vanished">Nieprawidłowy rezultat parsowania wiadomości: %1</translation>
     </message>
     <message>
         <location filename="../irc/ircnetworkadapter.cpp" line="318"/>
@@ -6095,10 +4927,6 @@ p, li { white-space: pre-wrap; }
         <translation>%1 dołączył do sieci o dacie %2</translation>
     </message>
     <message>
-        <source>Updated own nickname.</source>
-        <translation type="obsolete">Uaktualniono własny nick.</translation>
-    </message>
-    <message>
         <location filename="../irc/ircnetworkadapter.cpp" line="706"/>
         <source>You left channel %1.</source>
         <translation>Opuściłeś kanał %1.</translation>
@@ -6109,10 +4937,6 @@ p, li { white-space: pre-wrap; }
         <translation>Ping do użytkownika %1: %2ms</translation>
     </message>
     <message>
-        <source>IRC Parse error: %1</source>
-        <translation type="obsolete">Błąd parsowania: %1</translation>
-    </message>
-    <message>
         <location filename="../irc/ircnetworkadapter.cpp" line="549"/>
         <source>FROM %1: %2</source>
         <translation>OD %1: %2</translation>
@@ -6120,14 +4944,6 @@ p, li { white-space: pre-wrap; }
 </context>
 <context>
     <name>IRCNetworkSelectionBox</name>
-    <message>
-        <source>&lt;Last Used Configuration&gt;</source>
-        <translation type="obsolete">&lt;Ostatnio użyta konfiguracja&gt;</translation>
-    </message>
-    <message>
-        <source>Doomseeker - edit network</source>
-        <translation type="vanished">Doomseeker - edytuj sieć</translation>
-    </message>
     <message>
         <location filename="../gui/irc/ircnetworkselectionbox.cpp" line="87"/>
         <source>Doomseeker - edit IRC network</source>
@@ -6210,10 +5026,6 @@ p, li { white-space: pre-wrap; }
         <translation>Nazwa użytkownika:</translation>
     </message>
     <message>
-        <source>User name</source>
-        <translation type="vanished">Nazwa użytkownika</translation>
-    </message>
-    <message>
         <location filename="../gui/irc/ircnetworkselectionbox.ui" line="74"/>
         <source>Sent to the IRC network during login. If not specified, defaults to nick.</source>
         <translation>Wysyłana do sieci IRC podczas logowania. Jeżeli nie zostanie podana, nick jest używany zamiast niej.</translation>
@@ -6237,14 +5049,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/irc/ircnetworkselectionbox.ui" line="150"/>
         <source>Remove network</source>
         <translation>Usuń sieć</translation>
-    </message>
-    <message>
-        <source>New</source>
-        <translation type="vanished">Nowy</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation type="vanished">Edytuj</translation>
     </message>
     <message>
         <location filename="../gui/irc/ircnetworkselectionbox.ui" line="170"/>
@@ -6397,13 +5201,6 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
-    <name>Ini</name>
-    <message>
-        <source>Ini file is: %1</source>
-        <translation type="obsolete">Plik ini to: %1</translation>
-    </message>
-</context>
-<context>
     <name>IwadAndWadsPickerDialog</name>
     <message>
         <location filename="../gui/createserver/iwadandwadspickerdialog.ui" line="14"/>
@@ -6476,40 +5273,6 @@ Operacja nieudana.</translation>
         <translation>Próba stworzenia komendy dołączenia do nieznanego serwera &quot;%1&quot;</translation>
     </message>
     <message>
-        <source>
-Alternatively use ignore to connect anyways.</source>
-        <translation type="obsolete">
-Alternatywnie użyj &quot;Ignoruj&quot; aby połączyć się mimo wszystko.</translation>
-    </message>
-    <message>
-        <source>Doomseeker - files are missing</source>
-        <translation type="vanished">Doomseeker - brakuje plików</translation>
-    </message>
-    <message>
-        <source>
-
-Following files can be downloaded: %1
-
-Do you want Wadseeker to find the missing WADs?</source>
-        <translation type="obsolete">
-
-Następujące pliki mogą zostać pobrane: %1
-
-Czy chcesz, aby Wadseeker poszukał brakujących WADów?</translation>
-    </message>
-    <message>
-        <source>Alternatively use ignore to connect anyways.</source>
-        <translation type="vanished">Alternatywnie, wciśnij &quot;ignoruj&quot; aby połączyć się mimo wszystko.</translation>
-    </message>
-    <message>
-        <source>Do you want Wadseeker to find the missing WADs?</source>
-        <translation type="vanished">Czy chcesz aby Wadseeker odszukał brakujące WADy?</translation>
-    </message>
-    <message>
-        <source>Following files can be downloaded: %1</source>
-        <translation type="vanished">Następujące pliki mogą zostać pobrane: %1</translation>
-    </message>
-    <message>
         <location filename="../joincommandlinebuilder.cpp" line="172"/>
         <source>Unknown error.</source>
         <translation>Nieznany błąd.</translation>
@@ -6520,53 +5283,9 @@ Czy chcesz, aby Wadseeker poszukał brakujących WADów?</translation>
         <translation>Błąd otrzymywania parametrów dołączenia do serwera &quot;%1&quot;, gra &quot;%2&quot;: %3</translation>
     </message>
     <message>
-        <source>You don&apos;t have all the files required by this server and an instance of Wadseeker is already running.
-
-Press &apos;Ignore&apos; to join anyway.</source>
-        <translation type="vanished">Nie masz wszystkich plików, które są potrzebne do gry na tym serwerze, a Wadseeker już jest uruchomiony.
-
-Możesz wcisnąć &quot;Ignoruj&quot;, aby dołączyć się mimo wszystko.</translation>
-    </message>
-    <message>
-        <source>Following files are missing:
-</source>
-        <translation type="vanished">Brakuje tych plików:
-</translation>
-    </message>
-    <message>
-        <source>IWAD: </source>
-        <translation type="vanished">IWAD: </translation>
-    </message>
-    <message>
-        <source>
-Make sure that this file is in one of the paths specified in Options -&gt; File Paths.
-This file belongs to a commercial game or is otherwise blocked from download. If you don&apos;t have this file, and it belongs to a commercial game, you need to purchase the game associated with this IWAD.
-Wadseeker will not download commercial IWADs.
-
-</source>
-        <translation type="vanished">
-Upewnij się, że ten plik znajduje się w ścieżce podanej w Opcjach -&gt; Ścieżki plików.
-Ten plik należy do komercyjnej gry albo jest w inny sposób zablokowany przed ściągnięciem. Jeżeli nie posiadasz tego pliku, a należy on do komercyjnej gry, to musisz zakupić grę, która jest powiązana z tym IWADem.
-Wadseeker nie będzie pobierał komercyjnych IWADów.
-
-</translation>
-    </message>
-    <message>
-        <source>PWADS: %1</source>
-        <translation type="vanished">PWADy: %1</translation>
-    </message>
-    <message>
         <location filename="../joincommandlinebuilder.cpp" line="338"/>
         <source>Game installation failure</source>
         <translation>Błąd instalacji gry</translation>
-    </message>
-    <message>
-        <source>Wadseeker will not work correctly:
-Target directory is either not set, is invalid or cannot be written to.
-Please review your Configuration and/or refer to online help available from the Help menu.</source>
-        <translation type="obsolete">Wadseeker nie zadziała poprawnie:
-Katalog docelowy nie jest ustawiony, jest nieprawidłowy, lub nie można w nim zapisywać.
-Proszę sprawdzić konfigurację i/lub odnieść się do pomocy online dostępnej z menu Pomoc.</translation>
     </message>
 </context>
 <context>
@@ -6619,30 +5338,7 @@ Proszę sprawdzić konfigurację i/lub odnieść się do pomocy online dostępne
     </message>
 </context>
 <context>
-    <name>LookupHost</name>
-    <message>
-        <source>Finalizing LookupHost thread</source>
-        <translation type="vanished">Zakańczam wątek LookupHost</translation>
-    </message>
-    <message>
-        <source>Finalized LookupHost thread</source>
-        <translation type="vanished">Zakończono wątek LookupHost</translation>
-    </message>
-</context>
-<context>
     <name>Main</name>
-    <message>
-        <source>Doomseeker will not run because following directories cannot be created:</source>
-        <translation type="vanished">Doomseeker nie zostanie uruchomiony ponieważ następujące katalogi nie mogły zostać utworzone:</translation>
-    </message>
-    <message>
-        <source>Doomseeker will not run because following directories have incorrect permissions:</source>
-        <translation type="vanished">Doomseeker nie wystartuje ponieważ następujące katalogi mają nieprawidłowe uprawnienia:</translation>
-    </message>
-    <message>
-        <source>Doomseeker will not run because some directories cannot be used properly.</source>
-        <translation type="vanished">Doomseeker nie wystartuje ponieważ niektóre katalogi nie mogą zostać poprawnie użyte.</translation>
-    </message>
     <message>
         <location filename="../main.cpp" line="439"/>
         <source>Doomseeker startup error</source>
@@ -6692,10 +5388,6 @@ Proszę sprawdzić konfigurację i/lub odnieść się do pomocy online dostępne
         <location filename="../main.cpp" line="368"/>
         <source>Doomseeker RCon</source>
         <translation>Doomseeker konsola zdalna</translation>
-    </message>
-    <message>
-        <source>Couldn&apos;t find specified plugin: </source>
-        <translation type="vanished">Nie znaleziono podanej wtyczki: </translation>
     </message>
     <message>
         <location filename="../main.cpp" line="382"/>
@@ -6784,65 +5476,9 @@ Proszę sprawdzić konfigurację i/lub odnieść się do pomocy online dostępne
         <translation>doomseeker: `--connect`, `--create-game` i `--rcon` nie mogą być używane razem</translation>
     </message>
     <message>
-        <source>doomseeker: expected one argument in option %1</source>
-        <translation type="vanished">doomseeker: spodziewano się jednego argumentu w opcji %1</translation>
-    </message>
-    <message>
-        <source>doomseeker: expected two arguments in option %1</source>
-        <translation type="vanished">doomseeker: spodziewano się dwóch argumentów w opcji %1</translation>
-    </message>
-    <message>
-        <source>Available command line parameters:
-</source>
-        <translation type="vanished">Dostępne parametry linii komend:
-</translation>
-    </message>
-    <message>
-        <source>doomseeker: unrecognized option &apos;%1&apos;</source>
-        <translation type="vanished">doomseeker: nie rozpoznana opcja &apos;%1&apos;</translation>
-    </message>
-    <message>
-        <source>Available command line parameters:</source>
-        <translation type="obsolete">Dostępne parametry linii komend:</translation>
-    </message>
-    <message>
-        <source>	--connect protocol://ip[:port] : Attempts to connect to the specified server.</source>
-        <translation type="obsolete">--connect protokół://ip[:port] : Próbuje połączyć się z podanym serwerem.</translation>
-    </message>
-    <message>
-        <source>	--datadir : Sets an explicit search location for IP2C data along with plugins.</source>
-        <translation type="obsolete">--datadir : Ustawia katalog z którego będą łądowane dane IP2C oraz wtyczki.</translation>
-    </message>
-    <message>
-        <source>	--rcon [plugin] [ip] : Launch the rcon client for the specified ip.</source>
-        <translation type="obsolete">--rcon [wtyczka] [ip] : Startuje klienta zdalnej konsoli dla podanego IP.</translation>
-    </message>
-    <message>
-        <source>	--portable : Starts application in portable mode.</source>
-        <translation type="obsolete">--portable : Uruchamia program w trybie przenośnym.</translation>
-    </message>
-    <message>
-        <source>	--version-json [file] : Prints version info on
-	    Doomseeker and all plugins in JSON format
-	    to specified file, then closes the program.
-</source>
-        <translation type="obsolete">	--version-json [plik] : Zapisuje informacje o wersji
-	    Doomseekera i pluginów w formacie JSON
-	    do podanego pliku, a następnie zamyka program.
-</translation>
-    </message>
-    <message>
-        <source>Failed to open file.</source>
-        <translation type="vanished">Błąd otwarcia pliku.</translation>
-    </message>
-    <message>
         <location filename="../main.cpp" line="318"/>
         <source>Dumping version info to file in JSON format.</source>
         <translation>Zapisuję informacje o wersji do pliku w formacie JSON.</translation>
-    </message>
-    <message>
-        <source>No file specified!</source>
-        <translation type="vanished">Nie podano pliku!</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="685"/>
@@ -6852,22 +5488,6 @@ Proszę sprawdzić konfigurację i/lub odnieść się do pomocy online dostępne
 </context>
 <context>
     <name>MainWindow</name>
-    <message>
-        <source>Warning:
-Doomseeker failed to detect any plugins.
-While the core application will still work its functionality is going to be limited.
-One of the proper locations for plugin modules is the &quot;engines/&quot; directory.
-</source>
-        <translation type="vanished">Ostrzeżenie:
-Doomseeker nie wykrył żadnych wtyczek.
-Podczas gdy rdzeń aplikacji będzie dalej działał, jego funkcje będą ograniczone.
-Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
-</translation>
-    </message>
-    <message>
-        <source>Doomseeker - plugin load failure</source>
-        <translation type="vanished">Doomseeker - błąd wczytywania wtyczek</translation>
-    </message>
     <message>
         <location filename="../gui/mainwindow.cpp" line="235"/>
         <source>&amp;Buddies</source>
@@ -6909,18 +5529,6 @@ Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
         <translation>Wszystkie WADy używane przez ten serwer znajdują się na dysku.</translation>
     </message>
     <message>
-        <source>Senseless refresh operation attempted.</source>
-        <translation type="vanished">Próba bezsensownego odświeżenia.</translation>
-    </message>
-    <message>
-        <source>Doomseeker is unable to proceed with the refresh operation because the following problem has occured:
-
-</source>
-        <translation type="vanished">Doomseeker nie jest w stanie wykonać odświeżenia ponieważ wystąpił jeden z następujących problemów:
-
-</translation>
-    </message>
-    <message>
         <location filename="../gui/mainwindow.cpp" line="711"/>
         <source>Plugins are missing from the &quot;engines/&quot; directory.</source>
         <translation>W katalogu &quot;engines/&quot; nie ma wtyczek.</translation>
@@ -6929,22 +5537,6 @@ Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
         <location filename="../gui/mainwindow.cpp" line="713"/>
         <source>No master servers are enabled in the &quot;Query&quot; menu.</source>
         <translation>Żaden master serwer nie został włączony w menu &quot;Odświeżanie&quot;.</translation>
-    </message>
-    <message>
-        <source>Unknown error occured.</source>
-        <translation type="vanished">Nastąpił nieznany błąd.</translation>
-    </message>
-    <message>
-        <source>Doomseeker - senseless operation</source>
-        <translation type="vanished">Doomseeker - bezsensowna operacja</translation>
-    </message>
-    <message>
-        <source>Total refresh process initialized!</source>
-        <translation type="vanished">Rozpoczęto proces totalnego odświeżenia!</translation>
-    </message>
-    <message>
-        <source>Warning: No master servers were enabled for this refresh. Check your Query menu or &quot;engines/&quot; directory. Custom servers will still refresh.</source>
-        <translation type="vanished">Ostrzeżenie: żaden master serwer nie został włączony dla tego odświeżenia. Sprawdź menu &quot;Odpytywanie&quot; lub katalog &quot;engines/&quot;. Serwery własne zostaną odświeżone mimo to.</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.cpp" line="718"/>
@@ -7040,42 +5632,6 @@ Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
         <translation>Ukończono odświeżanie. Serwerów na liście: %1 (+%2 własnych, +%3 LAN). Graczy: %4.</translation>
     </message>
     <message>
-        <source>IP2C download has failed.</source>
-        <translation type="obsolete">Pobieranie IP2C zakończone porażką.</translation>
-    </message>
-    <message>
-        <source>IP2C database finished downloading.</source>
-        <translation type="obsolete">Ukończono pobieranie bazy IP2C.</translation>
-    </message>
-    <message>
-        <source>Unable to save IP2C database at path: %1</source>
-        <translation type="obsolete">Nie można zapisać bazy IP2C w ścieżce: %1</translation>
-    </message>
-    <message>
-        <source>Failed to read IP2C database. Reverting...</source>
-        <translation type="obsolete">Błąd odczytywania bazy IP2C. Przywracam starą kopię...</translation>
-    </message>
-    <message>
-        <source>IP2C database updated successfully.</source>
-        <translation type="obsolete">Baza IP2C uaktualniona prawidłowo.</translation>
-    </message>
-    <message>
-        <source>IP2C parsing finished.</source>
-        <translation type="obsolete">Parsowanie IP2C ukończone.</translation>
-    </message>
-    <message>
-        <source>IP2C update finished.</source>
-        <translation type="obsolete">Aktualizacja IP2C ukończona.</translation>
-    </message>
-    <message>
-        <source>Please wait. IP2C Database is being read and converted if necessary. This may take some time.</source>
-        <translation type="obsolete">Proszę czekać. Baza IP2C jest odczytywana i konwertowana w razie potrzeby. To może potrwać chwilę.</translation>
-    </message>
-    <message>
-        <source>Starting IP2C update.</source>
-        <translation type="obsolete">Rozpoczynanie aktualizacji IP2C.</translation>
-    </message>
-    <message>
         <location filename="../gui/mainwindow.cpp" line="992"/>
         <source>Master server for %1: %2</source>
         <translation>Master serwer dla %1: %2</translation>
@@ -7122,10 +5678,6 @@ Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
         <location filename="../gui/mainwindow.cpp" line="1142"/>
         <source>Program update detection &amp; download finished with status: [%1] %2</source>
         <translation>Wykrywanie i pobieranie aktualizacji programu ukończone ze statusem: [%1] %2</translation>
-    </message>
-    <message>
-        <source>Program update finished with status: [%1] %2</source>
-        <translation type="obsolete">Aktualizacja programu ukończona ze statusem [%1]: %2</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.cpp" line="1152"/>
@@ -7195,17 +5747,9 @@ Aby naprawić ten błąd możesz spróbować pobrać Doomseekera jeszcze raz ze 
         <translation>Pobierz serwery</translation>
     </message>
     <message>
-        <source>Refresh All</source>
-        <translation type="obsolete">Odśwież wszystko</translation>
-    </message>
-    <message>
         <location filename="../gui/mainwindow.cpp" line="1394"/>
         <source>Search:</source>
         <translation>Szukaj:</translation>
-    </message>
-    <message>
-        <source>Doomseeker - join command line</source>
-        <translation type="obsolete">Doomseeker - komenda dołączenia</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.cpp" line="1478"/>
@@ -7246,18 +5790,6 @@ Pozostałe aktualizacje zostały porzucone.</translation>
         <translation>Doomseeker - Problem automatycznej aktualizacji</translation>
     </message>
     <message>
-        <source>Warning: 
-Doomseeker failed to detect any plugins.
-While the core application will still work its functionality is going to be limited.
-One of the proper locations for plugin modules is the &quot;engines/&quot; directory.
-</source>
-        <translation type="vanished">Ostrzeżenie:
-Doomseeker nie wykrył żadnych wtyczek.
-Aplikacja będzie działać, ale jej funkcje będą ograniczone.
-Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
-</translation>
-    </message>
-    <message>
         <location filename="../gui/mainwindow.cpp" line="664"/>
         <source>Doomseeker needs to be restarted for some changes to be applied.</source>
         <translation>Należy zrestartować Doomseekera aby zastosować niektóre zmiany.</translation>
@@ -7276,16 +5808,6 @@ Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
         <location filename="../gui/mainwindow.cpp" line="1464"/>
         <source>Doomseeker - show join command line</source>
         <translation>Doomseeker - pokaż wiersz poleceń do dołączenia</translation>
-    </message>
-    <message>
-        <source>Command line cannot be built:
-%1</source>
-        <translation type="vanished">Linia komend nie może zostać zbudowana:
-%1</translation>
-    </message>
-    <message>
-        <source>Finished refreshing. Servers on the list: %1 (+ %2 custom). Players: %3.</source>
-        <translation type="vanished">Ukończono odświeżanie. Serwery na liście: %1 (+ %2 własne). Graczy: %3.</translation>
     </message>
 </context>
 <context>
@@ -7346,17 +5868,9 @@ Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
         <translation></translation>
     </message>
     <message>
-        <source>&amp;Create server</source>
-        <translation type="obsolete">&amp;Stwórz serwer</translation>
-    </message>
-    <message>
         <location filename="../gui/mainwindow.ui" line="371"/>
         <source>Ctrl+Alt+W</source>
         <translation>Ctrl+Alt+W</translation>
-    </message>
-    <message>
-        <source>&amp;Create Server</source>
-        <translation type="obsolete">&amp;Stwórz serwer</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.ui" line="391"/>
@@ -7444,10 +5958,6 @@ Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
         <translation>Zainstaluj &amp;Freedoom</translation>
     </message>
     <message>
-        <source>&amp;Check for updates</source>
-        <translation type="obsolete">&amp;Sprawdź aktualizacje</translation>
-    </message>
-    <message>
         <location filename="../gui/mainwindow.ui" line="60"/>
         <source>New updates are available:</source>
         <translation>Jest dostępna aktualizacja:</translation>
@@ -7511,10 +6021,6 @@ Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
 <context>
     <name>MapListPanel</name>
     <message>
-        <source>Add from loaded wads</source>
-        <translation type="vanished">Dodaj z załadowanych WADów</translation>
-    </message>
-    <message>
         <location filename="../gui/createserver/maplistpanel.ui" line="51"/>
         <source>Add from loaded WADs</source>
         <translation>Dodaj z załadowanych WADów</translation>
@@ -7558,10 +6064,6 @@ Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
         <translation>Wszystkie wybrane mapy zostaną dodane do listy map</translation>
     </message>
     <message>
-        <source>Reading wads...</source>
-        <translation type="vanished">Czytam WADy...</translation>
-    </message>
-    <message>
         <location filename="../gui/createserver/maplistselector.ui" line="71"/>
         <source>Reading WADs...</source>
         <translation>Czytam WADy...</translation>
@@ -7585,10 +6087,6 @@ Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
 <context>
     <name>MasterClient</name>
     <message>
-        <source>You have been banned from the master server.</source>
-        <translation type="obsolete">Zostałeś zbanowany z master serwera.</translation>
-    </message>
-    <message>
         <location filename="../serverapi/masterclient.cpp" line="156"/>
         <source>Could not fetch a new server list from the master because not enough time has passed.</source>
         <translation>Nie można pobrać nowej listy serwerów z mastera, ponieważ upłynęło zbyt mało czasu.</translation>
@@ -7597,10 +6095,6 @@ Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
         <location filename="../serverapi/masterclient.cpp" line="161"/>
         <source>Bad response from master server.</source>
         <translation>Zła odpowiedź z master serwera.</translation>
-    </message>
-    <message>
-        <source>Could not fetch a new server list.  The protocol you are using is too old.  An update may be available.</source>
-        <translation type="obsolete">Nie można było pobrać nowej listy serwerów. Wersja protokołu jest zbyt stara. Aktualizacja może być dostępna.</translation>
     </message>
     <message>
         <location filename="../serverapi/masterclient.cpp" line="108"/>
@@ -7674,14 +6168,6 @@ Jedno z prawidłowych miejsc dla wtyczek to katalog &quot;engines/&quot;.
         <translation>Doomseeker - brakuje plików</translation>
     </message>
     <message>
-        <source>You don&apos;t have all the files required by this server and an instance of Wadseeker is already running.
-
-Press &apos;Ignore&apos; to join anyway.</source>
-        <translation type="vanished">Nie masz wszystkich plików, które są potrzebne do gry na tym serwerze, a Wadseeker już jest uruchomiony.
-
-Możesz wcisnąć &quot;Ignoruj&quot;, aby dołączyć się mimo wszystko.</translation>
-    </message>
-    <message>
         <location filename="../gui/missingwadsdialog.ui" line="41"/>
         <source>You don&apos;t have all the files required by this server and an instance of Wadseeker is already running.</source>
         <translation>Nie masz wszystkich plików, które są potrzebne do gry na tym serwerze, a Wadseeker już jest uruchomiony.</translation>
@@ -7701,14 +6187,6 @@ Możesz wcisnąć &quot;Ignoruj&quot;, aby dołączyć się mimo wszystko.</tran
         <location filename="../gui/missingwadsdialog.ui" line="195"/>
         <source>&lt;files&gt;</source>
         <translation>&lt;pliki&gt;</translation>
-    </message>
-    <message>
-        <source>Make sure that this file is in one of the paths specified in Options -&gt; File Paths.
-
-If you don&apos;t have this file, and it belongs to a commercial game, you need to purchase the game associated with this file. Wadseeker will not download commercial IWADs or modifications.</source>
-        <translation type="vanished">Upewnij się, że ten plik znajduje się pod jedną ze ścieżek w Opcje -&gt; Ścieżki plików.
-
-Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić grę związaną z tym plikiem. Wadseeker nie będzie pobierał komercyjnych IWADów lub modyfikacji.</translation>
     </message>
     <message>
         <location filename="../gui/missingwadsdialog.ui" line="135"/>
@@ -7777,10 +6255,6 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
 </context>
 <context>
     <name>PasswordDlg</name>
-    <message>
-        <source>Please enter your remote console password.</source>
-        <translation type="obsolete">Proszę podaj hasło do konsoli zdalnej.</translation>
-    </message>
     <message>
         <location filename="../gui/passworddlg.ui" line="32"/>
         <source>Connection Password</source>
@@ -7952,10 +6426,6 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
         <translation>Nie udało się zlokalizować wtyczek.</translation>
     </message>
     <message>
-        <source>You have been banned from master server.</source>
-        <translation type="obsolete">Zostałeś zbanowany z master serwera.</translation>
-    </message>
-    <message>
         <location filename="../serverapi/serverstructs.cpp" line="404"/>
         <source>Cooperative</source>
         <translation>Kooperacja</translation>
@@ -8014,10 +6484,6 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
         <translation>Połączenie</translation>
     </message>
     <message>
-        <source>Source Port:</source>
-        <translation type="vanished">Gra:</translation>
-    </message>
-    <message>
         <location filename="../gui/rconpassworddialog.ui" line="32"/>
         <source>Game:</source>
         <translation>Gra:</translation>
@@ -8046,17 +6512,9 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
 <context>
     <name>RemoteConsole</name>
     <message>
-        <source>The source port selected has no RCon support.</source>
-        <translation type="vanished">Wybrana gra nie ma wsparcia dla konsoli zdalnej.</translation>
-    </message>
-    <message>
         <location filename="../gui/remoteconsole.cpp" line="68"/>
         <source>No RCon support</source>
         <translation>Brak wsparcia konsoli zdalnej</translation>
-    </message>
-    <message>
-        <source>The selected source port has no RCon support.</source>
-        <translation type="vanished">Wybrany port nie wspiera konsoli zdalnej.</translation>
     </message>
     <message>
         <location filename="../gui/remoteconsole.cpp" line="68"/>
@@ -8219,12 +6677,6 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
         <translation>Filtr serwerów</translation>
     </message>
     <message>
-        <source>Group servers with
-players at the top of the list</source>
-        <translation type="obsolete">Grupuj serwery
-z graczami na górze listy</translation>
-    </message>
-    <message>
         <location filename="../gui/serverfilterdock.ui" line="44"/>
         <source>Put populated servers on top</source>
         <translation>Umieść niepuste serwery na górze</translation>
@@ -8235,14 +6687,6 @@ z graczami na górze listy</translation>
         <translation>Filtrowanie włączone</translation>
     </message>
     <message>
-        <source>Server Name:</source>
-        <translation type="vanished">Nazwa serwera:</translation>
-    </message>
-    <message>
-        <source>Max. Ping:</source>
-        <translation type="vanished">Maks. ping:</translation>
-    </message>
-    <message>
         <location filename="../gui/serverfilterdock.ui" line="111"/>
         <source>Set &apos;0&apos; to disable.</source>
         <translation>Ustaw &apos;0&apos; aby wyłączyć.</translation>
@@ -8251,10 +6695,6 @@ z graczami na górze listy</translation>
         <location filename="../gui/serverfilterdock.ui" line="127"/>
         <source>WADs:</source>
         <translation>WADy:</translation>
-    </message>
-    <message>
-        <source>Use &apos;,&apos; (a comma) to separate multiple wads.</source>
-        <translation type="vanished">Użyj &apos;,&apos; (przecinka) aby oddzielić wiele WADów.</translation>
     </message>
     <message>
         <location filename="../gui/serverfilterdock.ui" line="27"/>
@@ -8297,10 +6737,6 @@ z graczami na górze listy</translation>
         <translation>Wybrane tryby gry nie pojawią się na liście serwerów.</translation>
     </message>
     <message>
-        <source>Game mode:</source>
-        <translation type="obsolete">Tryb gry:</translation>
-    </message>
-    <message>
         <location filename="../gui/serverfilterdock.ui" line="179"/>
         <source>Show full servers</source>
         <translation>Pokaż pełne serwery</translation>
@@ -8334,30 +6770,6 @@ z graczami na górze listy</translation>
         <translation>Nieobsłużone zachowanie w ServerList::contextMenuTriggered()</translation>
     </message>
     <message>
-        <source>(alias of: %1)</source>
-        <translation type="vanished">(zamiennik: %1)</translation>
-    </message>
-    <message>
-        <source>MISSING</source>
-        <translation type="vanished">BRAKUJE</translation>
-    </message>
-    <message>
-        <source>OPTIONAL</source>
-        <translation type="vanished">OPCJONALNY</translation>
-    </message>
-    <message>
-        <source>ALIAS</source>
-        <translation type="vanished">ZAMIENNIK</translation>
-    </message>
-    <message>
-        <source>&lt;td&gt;%1&lt;/td&gt;&lt;td&gt; OPTIONAL&lt;/td&gt;</source>
-        <translation type="obsolete">&lt;td&gt;%1&lt;/td&gt;&lt;td&gt; OPCJONALNY&lt;/td&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;td&gt;%1&lt;/td&gt;&lt;td&gt; MISSING&lt;/td&gt;</source>
-        <translation type="obsolete">&lt;td&gt;%1&lt;/td&gt;&lt;td&gt; BRAKUJE&lt;/td&gt;</translation>
-    </message>
-    <message>
         <location filename="../gui/serverlist.cpp" line="216"/>
         <source>Doomseeker - context menu warning</source>
         <translation>Doomseeker - ostrzeżenie o menu kontekstowym</translation>
@@ -8365,10 +6777,6 @@ z graczami na górze listy</translation>
 </context>
 <context>
     <name>ServerListColumns</name>
-    <message>
-        <source>Port</source>
-        <translation type="obsolete">Gra</translation>
-    </message>
     <message>
         <location filename="../gui/models/serverlistcolumn.cpp" line="55"/>
         <source>Players</source>
@@ -8395,10 +6803,6 @@ z graczami na górze listy</translation>
         <translation>Tryb gry</translation>
     </message>
     <message>
-        <source>Servername</source>
-        <translation type="obsolete">Nazwa serwera</translation>
-    </message>
-    <message>
         <location filename="../gui/models/serverlistcolumn.cpp" line="61"/>
         <source>Address</source>
         <translation>Adres</translation>
@@ -8412,18 +6816,6 @@ z graczami na górze listy</translation>
         <location filename="../gui/models/serverlistcolumn.cpp" line="65"/>
         <source>Map</source>
         <translation>Mapa</translation>
-    </message>
-    <message>
-        <source>MAP</source>
-        <translation type="obsolete">MAPA</translation>
-    </message>
-    <message>
-        <source>Wads</source>
-        <translation type="obsolete">WADy</translation>
-    </message>
-    <message>
-        <source>Gametype</source>
-        <translation type="obsolete">Tryb gry</translation>
     </message>
 </context>
 <context>
@@ -8546,10 +6938,6 @@ z graczami na górze listy</translation>
         <source>Unknown server response (%1): %2:%3</source>
         <translation>Nieznany typ odpowiedzi serwera (%1): %2:%3</translation>
     </message>
-    <message>
-        <source>Unkown server response (%1): %2:%3</source>
-        <translation type="vanished">Nieznany typ odpowiedzi serwera (%1): %2:%3</translation>
-    </message>
 </context>
 <context>
     <name>ServerTooltip::L10n</name>
@@ -8577,10 +6965,6 @@ z graczami na górze listy</translation>
 </context>
 <context>
     <name>ServersStatusWidget</name>
-    <message>
-        <source>Players-Bots Servers</source>
-        <translation type="vanished">Gracze-Boty Serwery</translation>
-    </message>
     <message>
         <location filename="../gui/widgets/serversstatuswidget.cpp" line="83"/>
         <source>Players (Humans + Bots) / Servers Refreshed%</source>
@@ -8729,22 +7113,6 @@ z graczami na górze listy</translation>
 <context>
     <name>UpdaterInfoParser</name>
     <message>
-        <source>Missing update revision info for package %1, channel %2.</source>
-        <translation type="obsolete">Brakuje informacji o rewizji dla pakietu %1, kanał %2.</translation>
-    </message>
-    <message>
-        <source>Invalid update download URL for package %1, channel %2: %3</source>
-        <translation type="obsolete">Nieprawidłowy URL do pobrania pakietu %1, kanał %2: %3</translation>
-    </message>
-    <message>
-        <source>Missing update download URL for package %1, channel %2.</source>
-        <translation type="obsolete">Brakuje URL do pobrania pakietu %1, kanał %2.</translation>
-    </message>
-    <message>
-        <source>Invalid update script download URL for package %1, channel %2: %3</source>
-        <translation type="obsolete">Nieprawidłowy URL do pobrania skryptu aktualizacyjnego dla pakietu %1, kanał %2: %3</translation>
-    </message>
-    <message>
         <location filename="../updater/updaterinfoparser.cpp" line="98"/>
         <source>Missing update revision info for package %1.</source>
         <translation>Brakuje informacji o rewizji dla pakietu %1.</translation>
@@ -8864,14 +7232,6 @@ z graczami na górze listy</translation>
         <translation>Wybrano nieznaną akcję.</translation>
     </message>
     <message>
-        <source>Seek WAD (or multiple WADs, comma separated):</source>
-        <translation type="obsolete">Szukaj WADa (lub wielu WADów, rozdzielonych przecinkiem):</translation>
-    </message>
-    <message>
-        <source>Seek WAD or multiple WADs, comma (&apos;,&apos;) separated:</source>
-        <translation type="vanished">Szukaj WADa, lub wielu WADów, oddzielając je przecinkiem (&apos;,&apos;):</translation>
-    </message>
-    <message>
         <location filename="../gui/wadseekerinterface.ui" line="49"/>
         <location filename="../gui/wadseekerinterface.ui" line="88"/>
         <source>URL</source>
@@ -8935,18 +7295,6 @@ Docelowy katalog nie jest skonfigurowany, jest nieprawidłowy, albo nie można w
 Przejrzyj konfigurację, albo skorzystaj z pomocy online dostępnej z menu Pomoc.</translation>
     </message>
     <message>
-        <source>Wadseeker will not work correctly:
-
-Target directory is either not set, is invalid or cannot be written to.
-
-Please review your Configuration and/or refer to online help available from the Help menu.</source>
-        <translation type="vanished">Wadseeker nie zadziała poprawnie:
-
-Docelowy katalog nie jest skonfigurowany, jest nieprawidłowy, albo nie można w nim zapisywać.
-
-Proszę przejrzeć konfigurację, albo odnieść się do pomocy online dostępnej z menu Pomoc.</translation>
-    </message>
-    <message>
         <location filename="../gui/wadseekershow.cpp" line="51"/>
         <location filename="../gui/wadseekershow.cpp" line="66"/>
         <source>Wadseeker cannot be launched</source>
@@ -8989,60 +7337,6 @@ Proszę przejrzeć konfigurację, albo odnieść się do pomocy online dostępne
         <location filename="../gui/widgets/wadseekerwadstable.cpp" line="318"/>
         <source>Skip current URL</source>
         <translation>Pomiń obecny link</translation>
-    </message>
-</context>
-<context>
-    <name>aboutDlg</name>
-    <message>
-        <source>About Doomseeker</source>
-        <translation type="obsolete">O programie Doomseeker</translation>
-    </message>
-    <message>
-        <source>Contact information:</source>
-        <translation type="obsolete">Informacje kontaktowe:</translation>
-    </message>
-    <message>
-        <source>Additional contributions from:</source>
-        <translation type="obsolete">Dodatkowy wkład:</translation>
-    </message>
-    <message>
-        <source>Plugins</source>
-        <translation type="obsolete">Wtyczki</translation>
-    </message>
-</context>
-<context>
-    <name>passwordDlg</name>
-    <message>
-        <source>Connection Password</source>
-        <translation type="obsolete">Hasło połączenia</translation>
-    </message>
-    <message>
-        <source>Connection</source>
-        <translation type="obsolete">Połączenie</translation>
-    </message>
-    <message>
-        <source>Source Port:</source>
-        <translation type="obsolete">Gra:</translation>
-    </message>
-    <message>
-        <source>Server Address:</source>
-        <translation type="obsolete">Adres serwera:</translation>
-    </message>
-    <message>
-        <source>This server requires a password in order to connect, please enter this password below.</source>
-        <translation type="obsolete">Ten serwerj wymaga hasła do połączenia, proszę wpisz to hasło poniżej.</translation>
-    </message>
-    <message>
-        <source>Connect password:</source>
-        <translation type="obsolete">Hasło połączenia:</translation>
-    </message>
-    <message>
-        <source>Ingame password:</source>
-        <translation type="obsolete">Hasło w grze:</translation>
-    </message>
-    <message>
-        <source>Remember password</source>
-        <translation type="obsolete">Zapamiętaj hasło</translation>
     </message>
 </context>
 </TS>
