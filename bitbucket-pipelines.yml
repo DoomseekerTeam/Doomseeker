@@ -1,5 +1,8 @@
 image: doomseeker/doomseeker-build:latest
 
+clone:
+  depth: full
+
 stepsDefined:
   - Qt5Build: &qt5Build
       name: Qt5 build
