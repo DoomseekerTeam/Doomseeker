@@ -44,6 +44,12 @@ Create Game box.
 to "Disallow - Use custom renderer settings" because this is what it
 actually does.
 
+### Deprecated
+- SRB2: The Sonic Robo Blast 2 game plugin may be soon removed from the
+Doomseeker distribution. After removal, the core Doomseeker development team
+will no longer develop, maintain, or test compatibility with Sonic Robo Blast
+2. (#3958)
+
 ### Fixed
 - The warning that warns about the current map not being on the map list
 wouldn't appear or disappear if the map entry was edited directly.
