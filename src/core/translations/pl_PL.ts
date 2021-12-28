@@ -5022,7 +5022,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/irc/ircnetworkselectionbox.ui" line="67"/>
-        <source>User name:</source>
+        <source>Username:</source>
         <translation>Nazwa użytkownika:</translation>
     </message>
     <message>
