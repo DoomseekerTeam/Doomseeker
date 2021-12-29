@@ -1836,13 +1836,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../../build/src/core/ui_cfgchatlogspage.h" line="155"/>
-        <source>Store chat logs?</source>
-        <translation>Emmagatzemar registres de xat?</translation>
+        <source>Store chat logs</source>
+        <translation>Emmagatzemar registres de xat</translation>
     </message>
     <message>
         <location filename="../../../build/src/core/ui_cfgchatlogspage.h" line="156"/>
-        <source>Restore logs when re-entering chat?</source>
-        <translation>¿Restaurar registres quan es torna a ingressar a l&apos;xat?</translation>
+        <source>Restore logs when re-entering chat</source>
+        <translation>Restaurar registres quan es torna a ingressar a l&apos;xat</translation>
     </message>
     <message>
         <location filename="../../../build/src/core/ui_cfgchatlogspage.h" line="157"/>

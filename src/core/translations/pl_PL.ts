@@ -1771,13 +1771,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/configuration/irc/cfgchatlogspage.ui" line="32"/>
-        <source>Store chat logs?</source>
-        <translation>Przechowuj logi z chata?</translation>
+        <source>Store chat logs</source>
+        <translation>Przechowuj logi z chata</translation>
     </message>
     <message>
         <location filename="../gui/configuration/irc/cfgchatlogspage.ui" line="39"/>
-        <source>Restore logs when re-entering chat?</source>
-        <translation>Przywracaj logi podczas ponownego wejścia na chata?</translation>
+        <source>Restore logs when re-entering chat</source>
+        <translation>Przywracaj logi podczas ponownego wejścia na chata</translation>
     </message>
     <message>
         <location filename="../gui/configuration/irc/cfgchatlogspage.ui" line="59"/>

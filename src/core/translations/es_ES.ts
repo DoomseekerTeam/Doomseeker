@@ -1904,13 +1904,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../../build/src/core/ui_cfgchatlogspage.h" line="155"/>
-        <source>Store chat logs?</source>
-        <translation>¿Almacenar registros de chat?</translation>
+        <source>Store chat logs</source>
+        <translation>Almacenar registros de chat</translation>
     </message>
     <message>
         <location filename="../../../build/src/core/ui_cfgchatlogspage.h" line="156"/>
-        <source>Restore logs when re-entering chat?</source>
-        <translation>¿Restaurar registros cuando se vuelve a ingresar al chat?</translation>
+        <source>Restore logs when re-entering chat</source>
+        <translation>Restaurar registros cuando se vuelve a ingresar al chat</translation>
     </message>
     <message>
         <location filename="../../../build/src/core/ui_cfgchatlogspage.h" line="157"/>
