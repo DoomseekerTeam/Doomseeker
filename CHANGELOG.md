@@ -33,6 +33,8 @@ by heart (it's hardcoded), instead of drawing them from the IP2C
 database. The country names can now be translated. (#3957)
 - Remove the useless question mark button from the titlebars of the
 dialog boxes.
+- Make the UI more spacious by removing paddings in the main dockable
+windows and in the configuration box. (#3676)
 - Odamex: Adapt the game modes in the Create Game box to how Odamex wants
 them. The box will present only the selection of the 5 base modes: Coop,
 DM, Team DM, CTF and the Horde mode from Odamex 10.0. The other game

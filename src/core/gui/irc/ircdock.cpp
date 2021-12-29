@@ -173,7 +173,7 @@ void IRCDock::setupToolbar()
 	pToolBar->addAction(d->toolBarConnect);
 	pToolBar->addAction(d->toolBarOpenChatWindow);
 
-	d->horizontalLayout->insertWidget(0, pToolBar);
+	d->toolBarLayout->addWidget(pToolBar);
 	connect(pToolBar, SIGNAL(actionTriggered(QAction*)), this, SLOT(toolBarAction(QAction*)));
 }
 
