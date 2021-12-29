@@ -4637,7 +4637,7 @@ Operación fallida.</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.cpp" line="879"/>
-        <source>Server &amp;Details</source>
+        <source>Server &amp;details</source>
         <translation>&amp;Detalles Servidor</translation>
     </message>
     <message>
@@ -4646,7 +4646,7 @@ Operación fallida.</translation>
         <translation>CTRL+D</translation>
     </message>
     <message>
-        <source>Server &amp;Filter</source>
+        <source>Server &amp;filter</source>
         <translation type="vanished">&amp;Filtro de Servidores</translation>
     </message>
     <message>
@@ -4948,7 +4948,7 @@ Las actualizaciones restantes se han descartado.</translation>
     </message>
     <message>
         <location filename="../../../build/src/core/ui_mainwindow.h" line="364"/>
-        <source>&amp;Create Game</source>
+        <source>&amp;Create game</source>
         <translation>&amp;Crear juego</translation>
     </message>
     <message>
@@ -4993,7 +4993,7 @@ Las actualizaciones restantes se han descartado.</translation>
     </message>
     <message>
         <location filename="../../../build/src/core/ui_mainwindow.h" line="381"/>
-        <source>&amp;IRC Options</source>
+        <source>&amp;IRC options</source>
         <translation>Opciones &amp;IRC</translation>
     </message>
     <message>
@@ -5008,22 +5008,22 @@ Las actualizaciones restantes se han descartado.</translation>
     </message>
     <message>
         <location filename="../../../build/src/core/ui_mainwindow.h" line="386"/>
-        <source>&amp;Record Demo</source>
+        <source>&amp;Record demo</source>
         <translation>&amp;Grabar demo</translation>
     </message>
     <message>
         <location filename="../../../build/src/core/ui_mainwindow.h" line="387"/>
-        <source>&amp;Demo Manager</source>
+        <source>&amp;Demo manager</source>
         <translation>&amp;Administrador de &amp;demos</translation>
     </message>
     <message>
         <location filename="../../../build/src/core/ui_mainwindow.h" line="388"/>
-        <source>&amp;Check for Updates</source>
+        <source>&amp;Check for updates</source>
         <translation>&amp;Buscar actualizaciones</translation>
     </message>
     <message>
         <location filename="../../../build/src/core/ui_mainwindow.h" line="389"/>
-        <source>&amp;Program Args</source>
+        <source>&amp;Program args</source>
         <translation>&amp;Argumentos del programa</translation>
     </message>
     <message>
@@ -5691,7 +5691,7 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
     <name>ServerDetailsDock</name>
     <message>
         <location filename="../../../build/src/core/ui_serverdetailsdock.h" line="106"/>
-        <source>Server Details</source>
+        <source>Server details</source>
         <translation>Detalles del servidor</translation>
     </message>
     <message>
@@ -5737,7 +5737,7 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
     <name>ServerFilterDock</name>
     <message>
         <location filename="../../../build/src/core/ui_serverfilterdock.h" line="243"/>
-        <source>Server Filter</source>
+        <source>Server filter</source>
         <translation>Filtro de servidores</translation>
     </message>
     <message>
@@ -5835,7 +5835,7 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
     </message>
     <message>
         <location filename="../gui/serverfilterdock.cpp" line="61"/>
-        <source>Server &amp;Filter</source>
+        <source>Server &amp;filter</source>
         <translation>&amp;Filtro de Servidores</translation>
     </message>
     <message>

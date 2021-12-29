@@ -875,7 +875,7 @@ void MainWindow::initServerDetailsDock()
 {
 	d->detailsDock = new ServerDetailsDock(this);
 	d->menuView->addAction(d->detailsDock->toggleViewAction());
-	d->detailsDock->toggleViewAction()->setText(tr("Server &Details"));
+	d->detailsDock->toggleViewAction()->setText(tr("Server &details"));
 	d->detailsDock->toggleViewAction()->setShortcut(tr("CTRL+D"));
 	d->detailsDock->hide();
 	addDockWidget(Qt::BottomDockWidgetArea, d->detailsDock);

@@ -5796,7 +5796,7 @@ Pozostałe aktualizacje zostały porzucone.</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.cpp" line="878"/>
-        <source>Server &amp;Details</source>
+        <source>Server &amp;details</source>
         <translation>Szcze&amp;góły serwera</translation>
     </message>
     <message>
@@ -5874,7 +5874,7 @@ Pozostałe aktualizacje zostały porzucone.</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.ui" line="391"/>
-        <source>&amp;Create Game</source>
+        <source>&amp;Create game</source>
         <translation>&amp;Stwórz grę</translation>
     </message>
     <message>
@@ -5919,7 +5919,7 @@ Pozostałe aktualizacje zostały porzucone.</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.ui" line="438"/>
-        <source>&amp;IRC Options</source>
+        <source>&amp;IRC options</source>
         <translation>Opcje &amp;IRC</translation>
     </message>
     <message>
@@ -5934,22 +5934,22 @@ Pozostałe aktualizacje zostały porzucone.</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.ui" line="461"/>
-        <source>&amp;Record Demo</source>
+        <source>&amp;Record demo</source>
         <translation>&amp;Nagraj demo</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.ui" line="470"/>
-        <source>&amp;Demo Manager</source>
+        <source>&amp;Demo manager</source>
         <translation>&amp;Menadżer &amp;dem</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.ui" line="479"/>
-        <source>&amp;Check for Updates</source>
+        <source>&amp;Check for updates</source>
         <translation>&amp;Sprawdź aktualizacje</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.ui" line="484"/>
-        <source>&amp;Program Args</source>
+        <source>&amp;Program args</source>
         <translation>&amp;Argumenty programu</translation>
     </message>
     <message>
@@ -6617,7 +6617,7 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
     <name>ServerDetailsDock</name>
     <message>
         <location filename="../gui/serverdetailsdock.ui" line="14"/>
-        <source>Server Details</source>
+        <source>Server details</source>
         <translation>Szczegóły serwera</translation>
     </message>
     <message>
@@ -6663,7 +6663,7 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
     <name>ServerFilterDock</name>
     <message>
         <location filename="../gui/serverfilterdock.cpp" line="62"/>
-        <source>Server &amp;Filter</source>
+        <source>Server &amp;filter</source>
         <translation>&amp;Filtr serwerów</translation>
     </message>
     <message>
@@ -6673,7 +6673,7 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
     </message>
     <message>
         <location filename="../gui/serverfilterdock.ui" line="20"/>
-        <source>Server Filter</source>
+        <source>Server filter</source>
         <translation>Filtr serwerów</translation>
     </message>
     <message>

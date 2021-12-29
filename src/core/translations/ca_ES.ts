@@ -4449,7 +4449,7 @@ Operació fallida.</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.cpp" line="879"/>
-        <source>Server &amp;Details</source>
+        <source>Server &amp;details</source>
         <translation>&amp;Detalls Servidor</translation>
     </message>
     <message>
@@ -4709,7 +4709,7 @@ Les actualitzacions restants s&apos;han descartat.</translation>
     </message>
     <message>
         <location filename="../../../build/src/core/ui_mainwindow.h" line="364"/>
-        <source>&amp;Create Game</source>
+        <source>&amp;Create game</source>
         <translation>&amp;Crear una partida</translation>
     </message>
     <message>
@@ -4754,7 +4754,7 @@ Les actualitzacions restants s&apos;han descartat.</translation>
     </message>
     <message>
         <location filename="../../../build/src/core/ui_mainwindow.h" line="381"/>
-        <source>&amp;IRC Options</source>
+        <source>&amp;IRC options</source>
         <translation>Opcions &amp;IRC</translation>
     </message>
     <message>
@@ -4769,22 +4769,22 @@ Les actualitzacions restants s&apos;han descartat.</translation>
     </message>
     <message>
         <location filename="../../../build/src/core/ui_mainwindow.h" line="386"/>
-        <source>&amp;Record Demo</source>
+        <source>&amp;Record demo</source>
         <translation>&amp;Gravar demo</translation>
     </message>
     <message>
         <location filename="../../../build/src/core/ui_mainwindow.h" line="387"/>
-        <source>&amp;Demo Manager</source>
+        <source>&amp;Demo manager</source>
         <translation>&amp;Gestor de &amp;demos</translation>
     </message>
     <message>
         <location filename="../../../build/src/core/ui_mainwindow.h" line="388"/>
-        <source>&amp;Check for Updates</source>
+        <source>&amp;Check for updates</source>
         <translation>&amp;Cerca actualitzacions</translation>
     </message>
     <message>
         <location filename="../../../build/src/core/ui_mainwindow.h" line="389"/>
-        <source>&amp;Program Args</source>
+        <source>&amp;Program args</source>
         <translation>&amp;Arguments del programa</translation>
     </message>
     <message>
@@ -5452,7 +5452,7 @@ Si no té aquest arxiu, i pertany a un joc comercial, necessita comprar el joc a
     <name>ServerDetailsDock</name>
     <message>
         <location filename="../../../build/src/core/ui_serverdetailsdock.h" line="106"/>
-        <source>Server Details</source>
+        <source>Server details</source>
         <translation>Detalls del servidor</translation>
     </message>
     <message>
@@ -5498,7 +5498,7 @@ Si no té aquest arxiu, i pertany a un joc comercial, necessita comprar el joc a
     <name>ServerFilterDock</name>
     <message>
         <location filename="../gui/serverfilterdock.cpp" line="61"/>
-        <source>Server &amp;Filter</source>
+        <source>Server &amp;filter</source>
         <translation>&amp;Filtre de Servidors</translation>
     </message>
     <message>
@@ -5508,7 +5508,7 @@ Si no té aquest arxiu, i pertany a un joc comercial, necessita comprar el joc a
     </message>
     <message>
         <location filename="../../../build/src/core/ui_serverfilterdock.h" line="243"/>
-        <source>Server Filter</source>
+        <source>Server filter</source>
         <translation>Filtre de servidors</translation>
     </message>
     <message>

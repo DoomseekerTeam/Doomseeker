@@ -59,7 +59,7 @@ ServerFilterDock::ServerFilterDock(QWidget *pParent)
 
 	toggleViewAction()->setIcon(QIcon(":/icons/filter.png"));
 
-	toggleViewAction()->setText(ServerFilterDock::tr("Server &Filter"));
+	toggleViewAction()->setText(ServerFilterDock::tr("Server &filter"));
 	toggleViewAction()->setShortcut(ServerFilterDock::tr("CTRL+F"));
 }
 
