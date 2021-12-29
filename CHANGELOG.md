@@ -53,6 +53,8 @@ will no longer develop, maintain, or test compatibility with Sonic Robo Blast
 ### Fixed
 - The warning that warns about the current map not being on the map list
 wouldn't appear or disappear if the map entry was edited directly.
+- Windows: Update the bundled "cacerts.pem" with the ISRG Root X1 root
+certificate which replaces DST Root CA X3 that expired in September 2021 (#3954)
 - Windows: Update OpenSSL to version 1.0.2u and remove OpenSSL's dependency on
 MSVC 2013, which really should not be there since the program's executable
 distribution is built in MinGW. (#3955)
