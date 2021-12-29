@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 #include "configurationdialog.h"
 #include "ui_configurationdialog.h"
+#include "gui/commongui.h"
 
 #include "configpage.h"
 #include "qtmetapointer.h"
@@ -91,6 +92,7 @@ ConfigurationDialog::ConfigurationDialog(QWidget *parent)
 	: QDialog(parent)
 {
 	d->setupUi(this);
+	CommonGUI::setupDialog(*this);
 
 	auto model = new QStandardItemModel(this);
 	for (int column = PrivData<ConfigurationDialog>::COL_FIRST;

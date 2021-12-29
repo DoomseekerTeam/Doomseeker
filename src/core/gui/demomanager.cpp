@@ -23,6 +23,7 @@
 
 #include "datapaths.h"
 #include "demomanager.h"
+#include "gui/commongui.h"
 #include "ini/ini.h"
 #include "ini/settingsproviderqt.h"
 #include "pathfinder/pathfinder.h"
@@ -66,6 +67,7 @@ DPointered(DemoManagerDlg)
 DemoManagerDlg::DemoManagerDlg()
 {
 	d->setupUi(this);
+	CommonGUI::setupDialog(*this);
 	d->selectedDemo = nullptr;
 
 	d->demoModel = new QStandardItemModel();

@@ -20,6 +20,7 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2010 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
+#include "gui/commongui.h"
 #include "gui/configuration/irc/cfgircdefinenetworkdialog.h"
 #include "irc/configuration/chatnetworkscfg.h"
 #include "irc/configuration/ircconfig.h"
@@ -39,6 +40,7 @@ IRCNetworkSelectionBox::IRCNetworkSelectionBox(QWidget *parent)
 	: QDialog(parent)
 {
 	d->setupUi(this);
+	CommonGUI::setupDialog(*this);
 
 	connect(d->cboNetwork, SIGNAL(currentIndexChanged(int)), SLOT(networkChanged(int)));
 

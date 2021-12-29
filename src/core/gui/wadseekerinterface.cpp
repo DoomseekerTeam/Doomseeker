@@ -25,6 +25,7 @@
 
 #include "application.h"
 #include "configuration/doomseekerconfig.h"
+#include "gui/commongui.h"
 #include "gui/helpers/taskbarbutton.h"
 #include "gui/helpers/taskbarprogress.h"
 #include "mainwindow.h"
@@ -175,6 +176,7 @@ void WadseekerInterface::connectWadseekerObject()
 void WadseekerInterface::construct()
 {
 	d->setupUi(this);
+	CommonGUI::setupDialog(*this);
 	d->preventGame = false;
 	d->bCompletedSuccessfully = false;
 

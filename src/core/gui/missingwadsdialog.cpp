@@ -23,6 +23,7 @@
 #include "missingwadsdialog.h"
 
 #include "application.h"
+#include "gui/commongui.h"
 #include "gui/mainwindow.h"
 #include "gui/wadseekerinterface.h"
 #include "plugins/engineplugin.h"
@@ -47,6 +48,7 @@ MissingWadsDialog::MissingWadsDialog(const QList<PWad> &missingWads, const QList
 	: QDialog(parent)
 {
 	d->setupUi(this);
+	CommonGUI::setupDialog(*this);
 	d->decision = Cancel;
 	d->missingWads = missingWads;
 	d->incompatibleWads = incompatibleWads;

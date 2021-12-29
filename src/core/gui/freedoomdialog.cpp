@@ -23,6 +23,7 @@
 #include "freedoomdialog.h"
 
 #include "configuration/doomseekerconfig.h"
+#include "gui/commongui.h"
 #include "fileutils.h"
 #include "pathfinder/filesearchpath.h"
 #include "pathfinder/pathfinder.h"
@@ -54,6 +55,7 @@ FreedoomDialog::FreedoomDialog(QWidget *parent)
 	: QDialog(parent)
 {
 	d->setupUi(this);
+	CommonGUI::setupDialog(*this);
 
 	d->freedoom = new Freedoom(this);
 	this->connect(d->freedoom, SIGNAL(finished()), SLOT(applyFreedoomVersionInfo()));

@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 #include "programargshelpdialog.h"
 
+#include "gui/commongui.h"
 #include "cmdargshelp.h"
 #include "ui_programargshelpdialog.h"
 
@@ -36,6 +37,7 @@ ProgramArgsHelpDialog::ProgramArgsHelpDialog(QWidget *parent)
 	: QDialog(parent)
 {
 	d->setupUi(this);
+	CommonGUI::setupDialog(*this);
 
 	QFont font("Courier");
 	d->textArea->setFont(font);

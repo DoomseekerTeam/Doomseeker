@@ -23,6 +23,7 @@
 #include "ircignoresmanager.h"
 #include "ui_ircignoresmanager.h"
 
+#include "gui/commongui.h"
 #include "irc/configuration/chatnetworkscfg.h"
 #include "irc/entities/ircnetworkentity.h"
 #include "patternlist.h"
@@ -42,6 +43,7 @@ IRCIgnoresManager::IRCIgnoresManager(QWidget *parent, const QString &networkDesc
 {
 	d->networkDescription = networkDescription;
 	d->setupUi(this);
+	CommonGUI::setupDialog(*this);
 
 	loadItems();
 }

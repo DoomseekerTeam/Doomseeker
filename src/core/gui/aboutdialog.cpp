@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 #include "aboutdialog.h"
 
+#include "gui/commongui.h"
 #include "gui/copytextdlg.h"
 #include "plugins/engineplugin.h"
 #include "plugins/pluginloader.h"
@@ -41,6 +42,7 @@ DPointered(AboutDialog)
 AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 {
 	d->setupUi(this);
+	CommonGUI::setupDialog(*this);
 
 	connect(d->buttonBox, SIGNAL(clicked(QAbstractButton*)), SLOT(close()));
 

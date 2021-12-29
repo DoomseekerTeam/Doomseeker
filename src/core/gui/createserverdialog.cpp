@@ -29,6 +29,7 @@
 #include "copytextdlg.h"
 #include "datapaths.h"
 #include "gamedemo.h"
+#include "gui/commongui.h"
 #include "gui/configuration/doomseekerconfigurationdialog.h"
 #include "gui/widgets/createserverdialogpage.h"
 #include "ini/ini.h"
@@ -89,6 +90,7 @@ const QString CreateServerDialog::TEMP_GAME_CONFIG_FILENAME = "/tmpserver.ini";
 CreateServerDialog::CreateServerDialog(GameCreateParams::HostMode hostMode, QWidget *parent)
 	: QDialog(parent)
 {
+	CommonGUI::setupDialog(*this);
 	// Have the window delete itself
 	setAttribute(Qt::WA_DeleteOnClose);
 	assert(hostMode == GameCreateParams::Offline

@@ -24,6 +24,7 @@
 #include "ui_ip2cupdatebox.h"
 
 #include "doomseekerfilepaths.h"
+#include "gui/commongui.h"
 
 #include "ip2c/ip2cupdater.h"
 #include <QDateTime>
@@ -41,6 +42,7 @@ IP2CUpdateBox::IP2CUpdateBox(QWidget *parent)
 	: QDialog(parent)
 {
 	d->setupUi(this);
+	CommonGUI::setupDialog(*this);
 
 	connect(d->btnUpdate, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(d->btnCancel, SIGNAL(clicked()), this, SLOT(reject()));
