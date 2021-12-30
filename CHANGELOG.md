@@ -45,6 +45,9 @@ Create Game box.
 - Zandronum: Rename the "Disallow - Use custom GL lighting settings"
 to "Disallow - Use custom renderer settings" because this is what it
 actually does.
+- Under "Configuration", the "Wadseeker - General" config node has been moved
+to the "Wadseeker" config node. The "Games" node now also displays an empty
+configuration page. Previously, both of these nodes did nothing. (#3953)
 
 ### Deprecated
 - SRB2: The Sonic Robo Blast 2 game plugin may be soon removed from the
