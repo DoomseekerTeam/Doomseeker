@@ -51,6 +51,9 @@ actually does.
 Doomseeker distribution. After removal, the core Doomseeker development team
 will no longer develop, maintain, or test compatibility with Sonic Robo Blast
 2. (#3958)
+- Windows XP support may soon be removed from the Doomseeker distribution.
+After removal, the core Doomseeker development team will no longer develop,
+maintain, or test compatibility with the Windows XP operating system. (#3964)
 
 ### Fixed
 - The warning that warns about the current map not being on the map list
