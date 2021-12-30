@@ -109,7 +109,9 @@ if (UPDATE_TRANSLATIONS)
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${TRANSLATIONS_FILES}
 	)
-	add_custom_target(translations_target DEPENDS ${TS_FILES})
+	add_custom_target(_translations_target_touch
+		COMMAND ${CMAKE_COMMAND} -E touch_nocreate ${CMAKE_CURRENT_SOURCE_DIR})
+	add_custom_target(translations_target DEPENDS _translations_target_touch ${TS_FILES})
 	message(WARNING
 		"Update source translation translations/*.ts files (WARNING: make clean will delete the source .ts files! Danger!)"
 	)
