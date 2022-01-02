@@ -2860,7 +2860,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../zandronumbroadcast.cpp" line="121"/>
         <source>Failed to bind Zandronum&apos;s LAN broadcasts listening socket on port %1. Will keep retrying silently.</source>
-        <translation>Nie udało się rozpoczęcie nasłuchu rozgłoszeń LAN dla Zandronum na porcie %1. Będą podejmowane ciche próby naprawy.</translation>
+        <translation>Nie udało się rozpocząć nasłuchu rozgłoszeń LAN dla Zandronum na porcie %1. Będą podejmowane ciche próby naprawy.</translation>
     </message>
 </context>
 <context>
@@ -2958,7 +2958,7 @@ Doomseeker can still install the game there if you want.</source>
         <translation>%1
 istnieje, ale nie zawiera pliku wykonywalnego Zandronum.
 
-Doomseeker może zainstalować grę, jeśli tego chcesz.</translation>
+Doomseeker może zainstalować grę, jeśli chcesz.</translation>
     </message>
     <message>
         <location filename="../zandronumbinaries.cpp" line="302"/>
@@ -2968,14 +2968,14 @@ Doomseeker może zainstalować grę, jeśli tego chcesz.</translation>
     <message>
         <location filename="../zandronumbinaries.cpp" line="307"/>
         <source>Doomseeker - download failed</source>
-        <translation>Doomseeker - pobieranie sfiaskowało</translation>
+        <translation>Doomseeker - pobieranie nie powiodło się</translation>
     </message>
     <message>
         <location filename="../zandronumbinaries.cpp" line="308"/>
         <source>Failed to download testing binary.
 
 %1</source>
-        <translation>Nie udało się pobrać binarki testowe.
+        <translation>Nie udało się pobrać binarek testowych.
 
 %1</translation>
     </message>
@@ -3005,7 +3005,8 @@ Doomseeker może zainstalować grę, jeśli tego chcesz.</translation>
         <location filename="../zandronumbinaries.cpp" line="381"/>
         <source>You don&apos;t have permissions to execute file: %1
 </source>
-        <translation>Nie masz uprawnień aby uruchomić plik: %1</translation>
+        <translation>Nie masz uprawnień aby uruchomić plik: %1
+</translation>
     </message>
     <message>
         <location filename="../zandronumbinaries.cpp" line="428"/>
@@ -3141,20 +3142,20 @@ Doomseeker może zainstalować grę, jeśli tego chcesz.</translation>
     <message>
         <location filename="../zandronumrconprotocol.cpp" line="112"/>
         <source>Authenticating ...</source>
-        <translation>Autentykacja ...</translation>
+        <translation>Uwierzytelnianie ...</translation>
     </message>
     <message>
         <location filename="../zandronumrconprotocol.cpp" line="131"/>
         <source>Too many failed authentication attempts. Aborting.</source>
-        <translation>Zbyt wiele nieudanych prób autentykacji. Przerywam.</translation>
+        <translation>Zbyt wiele nieudanych prób uwierzytelnienia. Przerywam.</translation>
     </message>
     <message numerus="yes">
         <location filename="../zandronumrconprotocol.cpp" line="173"/>
         <source>Delaying for about %n seconds before next authentication attempt.</source>
         <translation>
-            <numerusform>Opóźniam na około %n sekundę przed następną próbą autentykacji.</numerusform>
-            <numerusform>Opóźniam na około %n sekundy przed następną próbą autentykacji.</numerusform>
-            <numerusform>Opóźniam na około %n sekund przed następną próbą autentykacji.</numerusform>
+            <numerusform>Opóźniam na około %n sekundę przed następną próbą uwierzytelnienia.</numerusform>
+            <numerusform>Opóźniam na około %n sekundy przed następną próbą uwierzytelnienia.</numerusform>
+            <numerusform>Opóźniam na około %n sekund przed następną próbą uwierzytelnienia.</numerusform>
         </translation>
     </message>
     <message>
@@ -3165,7 +3166,7 @@ Doomseeker może zainstalować grę, jeśli tego chcesz.</translation>
     <message>
         <location filename="../zandronumrconprotocol.cpp" line="223"/>
         <source>Timeout on authentication.</source>
-        <translation>Przekroczono czas autentykacji.</translation>
+        <translation>Przekroczono czas uwierzytelnienia.</translation>
     </message>
     <message>
         <location filename="../zandronumrconprotocol.cpp" line="241"/>
@@ -3180,12 +3181,12 @@ Doomseeker może zainstalować grę, jeśli tego chcesz.</translation>
     <message>
         <location filename="../zandronumrconprotocol.cpp" line="284"/>
         <source>Authentication failure.</source>
-        <translation>Błąd autentykacji.</translation>
+        <translation>Błąd uwierzytelnienia.</translation>
     </message>
     <message>
         <location filename="../zandronumrconprotocol.cpp" line="289"/>
         <source>Remote console connection established.</source>
-        <translation>Połączenie z konsolą zdalną zestawione.</translation>
+        <translation>Połączenie ze zdalną konsolą zestawione.</translation>
     </message>
     <message>
         <location filename="../zandronumrconprotocol.cpp" line="290"/>
