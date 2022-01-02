@@ -61,6 +61,9 @@ maintain, or test compatibility with the Windows XP operating system. (#3964)
 ### Fixed
 - The warning that warns about the current map not being on the map list
 wouldn't appear or disappear if the map entry was edited directly.
+- Minor text changes throughout Doomseeker and the plugins to improve on
+robotic or clumsy language, also (or primarily) in the Polish
+translation. (#3942, #3943)
 - Windows: Update the bundled "cacerts.pem" with the ISRG Root X1 root
 certificate which replaces DST Root CA X3 that expired in September 2021 (#3954)
 - Windows: Update OpenSSL to version 1.0.2u and remove OpenSSL's dependency on
