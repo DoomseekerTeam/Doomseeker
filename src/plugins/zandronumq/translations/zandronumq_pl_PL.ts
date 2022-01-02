@@ -395,11 +395,6 @@ p, li { white-space: pre-wrap; }
         <translation>Nie spawnuj broni z Deathmatcha</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="691"/>
-        <source>Spawn map actors in coop as if the game was single player.</source>
-        <translation>Spawnuj aktorów na mapie w trybie coop, tak jakby była to gra single player.</translation>
-    </message>
-    <message>
         <location filename="../createserverdialogpages/flagspage.ui" line="694"/>
         <source>Don&apos;t spawn any multiplayer actor in coop</source>
         <translation>Nie spawnuj żadnego aktora wieloosobowego w coopie</translation>
@@ -495,27 +490,22 @@ p, li { white-space: pre-wrap; }
         <translation>traci połowę amunicji</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="861"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Affects game modes where &amp;quot;max. lives&amp;quot; can be used. If set, players who become dead spectators (run out of lives) will still keep inventory in accordance to the &amp;quot;Lose *&amp;quot; flags above. If unset, players who lose all lives will always lose entire inventory.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wpływa na tryby gry w których można używać &amp;quot;maks. ilości żyć&amp;quot;. Przy włączeniu, gracze którzy stają się martwymi widzami (tracą wszystkie życia), mogą wciąż zachować swój ekwipunek zgodnie z powyższymi flagami &amp;quot;Traci *&amp;quot;. Przy wyłączeniu, gracze którzy tracą wszystkie życia, zawsze tracą też cały ekwipunek.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="864"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="866"/>
         <source>Players who lose all lives can keep inventory</source>
         <translation>Gracze którzy tracą wszystkie życia mogą zachować ekwipunek</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="876"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="878"/>
         <source>Share keys between players</source>
         <translation>Współdziel klucze pomiędzy graczami</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="883"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="885"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Players will be respawned with full lives but the map will not be reset. Inventory will be preserved in accordance to &amp;quot;Lose inventory&amp;quot; flags. Players will be able to continue from the point where they died.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gracze zostaną odrodzeni z pełną ilością żyć, ale mapa nie zostanie zresetowana. Ekwipunek zostanie zachowany zgodnie z flagami &amp;quot;Tracenia ekwipunku&amp;quot;. Gracze będą mogli kontynuować grę od tego punktu, w którym zginęli.&lt;/p&gt;&lt;/body&gt;&lt;/html</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="886"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="888"/>
         <source>Survival only: no map reset when all players die</source>
         <translation>Tylko w surwiwalu: nie resetuj mapy, gdy wszyscy gracze zginą</translation>
     </message>
@@ -525,7 +515,7 @@ p, li { white-space: pre-wrap; }
         <translation>Kooperacja</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="913"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="915"/>
         <source>When players die, they...</source>
         <translation>Gdy gracze giną, to...</translation>
     </message>
@@ -560,7 +550,7 @@ p, li { white-space: pre-wrap; }
         <translation>nie mają ochrony po respawnie</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="966"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="968"/>
         <source>When someone exits the level...</source>
         <translation>Gdy ktoś opuści poziom...</translation>
     </message>
@@ -580,27 +570,27 @@ p, li { white-space: pre-wrap; }
         <translation>zabij tego gracza</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1012"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1014"/>
         <source>Keep frags after map change</source>
         <translation>Zachowuj fragi po zmianie mapy</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1024"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1026"/>
         <source>Weapons &amp;&amp; Ammo</source>
         <translation>Bronie i amunicja</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1030"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1032"/>
         <source>Weapons stay after pickup</source>
         <translation>Bronie nie znikają po podniesieniu</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1037"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1039"/>
         <source>Double ammo</source>
         <translation>Podwójna amunicja</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1047"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1049"/>
         <source>Don&apos;t spawn...</source>
         <translation>Nie spawnuj...</translation>
     </message>
@@ -620,89 +610,89 @@ p, li { white-space: pre-wrap; }
         <translation>run</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="907"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="909"/>
         <source>Deathmatch</source>
         <translation>Deathmatch</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1103"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1105"/>
         <source>Weapons</source>
         <translation>Bronie</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1109"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1111"/>
         <source>Chainsaw</source>
         <translation>Piła</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1116"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1118"/>
         <source>Pistol</source>
         <translation>Pistolet</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1123"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1125"/>
         <source>Shotgun</source>
         <translation>Shotgun</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1130"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1132"/>
         <source>Super shotgun</source>
         <translation>Dwururka</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1137"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1139"/>
         <source>Chaingun</source>
         <translation>Chaingun</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1144"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1146"/>
         <source>Minigun</source>
         <translation>Minigun</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1151"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1153"/>
         <source>Rocket launcher</source>
         <translation>Rakietnica</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1158"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1160"/>
         <source>Grenade launcher</source>
         <translation>Granatnik</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1165"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1167"/>
         <source>Plasma rifle</source>
         <translation>Plazmówka</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1172"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1174"/>
         <source>Railgun</source>
         <translation>Railgun</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1192"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1194"/>
         <source>lmsallowedweapons:</source>
         <translation>lsmallowedweapons:</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1205"/>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1228"/>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1847"/>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1871"/>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1888"/>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1905"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1207"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1230"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1857"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1881"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1898"/>
         <location filename="../createserverdialogpages/flagspage.ui" line="1915"/>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1932"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1925"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1942"/>
         <source>0</source>
         <translation>0</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1215"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1217"/>
         <source>lmsspectatorsettings:</source>
         <translation>lmsspectatorsettings:</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1240"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1242"/>
         <source>Spectators can...</source>
         <translation>Widzowie mogą...</translation>
     </message>
@@ -717,462 +707,487 @@ p, li { white-space: pre-wrap; }
         <translation>oglądać grę</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1095"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1097"/>
         <source>LMS</source>
         <translation>LMS</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1304"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="691"/>
+        <source>&lt;p&gt;Spawn map items, monsters and other objects in coop as if the game was single player.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;W trybie kooperacji spawnuj przedmioty, potwory i inne obiekty na mapie tak, jakby była to gra dla pojedynczego gracza.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../createserverdialogpages/flagspage.ui" line="861"/>
+        <source>&lt;p&gt;If set, players who lose all lives and become dead spectators will still keep inventory in accordance to the &amp;quot;Lose inventory&amp;quot; flags. When they will finally be able to play again, all their items will be returned to them.&lt;/p&gt;
+
+&lt;p&gt;If unset, players who lose all lives will always lose their entire inventory, regardless of the &amp;quot;Lose inventory&amp;quot; flags.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Po włączeniu tej opcji, gracze którzy tracą wszystkie życia i stają się &quot;martwymi widzami&quot; wciąż zachowują swój ekwipunek zgodnie z flagami &quot;Tracenia ekwipunku&quot;. Gdy znów będą mogli dołączyć do gry, otrzymają wszystkie swoje przedmioty spowrotem.&lt;/p&gt;
+
+&lt;p&gt;Jeżeli ta opcja pozostanie wyłączona, gracze po utracie wszystkich żyć zawsze będą tracili cały swój ekwipunek niezależnie od flag &quot;Tracenia ekwipunku&quot;.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1306"/>
         <source>Enable buggier wall clipping so players can wallrun.</source>
         <translation>Włącz zbugowaną kolizję ze ścianami, aby gracze mogli robić wallrun.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1307"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1309"/>
         <source>Enable wall running</source>
         <translation>Włącz wall running</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1314"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1316"/>
         <source>Pickups are only heard locally.</source>
         <translation>Podniesione przedmioty słychać tylko lokalnie.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1317"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1319"/>
         <source>Don&apos;t let others hear pickups</source>
         <translation>Inni nie słyszą podniesień</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1324"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1326"/>
         <source>Allow instant respawn</source>
         <translation>Zezwól na natychmiastowy respawn</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1331"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1333"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disable stealth monsters, since doom2.exe didn&apos;t have them.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Note: this handles ZDoom&apos;s invisible monsters.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;THIS DOESN&apos;T AFFECT THE PARTIAL INVISIBILITY SPHERE IN ANY WAY. See &amp;quot;Monsters see semi-invisible players&amp;quot; for that.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wyłącz potwory &quot;stealth&quot;, ponieważ doom2.exe ich nie miało.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Uwaga: to odnosi się do niewidzialnych potworów z ZDooma.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;TO NIE WPŁYWA NA KULĘ POŁOWICZNEJ NIEWIDZIALNOŚCI W ŻADEN SPOSÓB. Użyj do tego ustawienia &amp;quot;Potwory widzą na wpół-niewidzialnych graczy&amp;quot;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1334"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1336"/>
         <source>Disable stealth monsters</source>
         <translation>Wyłącz potwory &quot;stealth&quot;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1341"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1343"/>
         <source>Limit actors to one sound at a time.</source>
         <translation>Ogranicz aktorów do jednego dźwięku na raz.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1344"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1346"/>
         <source>Allow silent BFG trick</source>
         <translation>Pozwól na trick z cichym BFG</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1351"/>
-        <source>Clients use the vanilla Doom weapon on pickup behavior.</source>
-        <translation>Klienci używają zachowania z vanilla Dooma po podniesieniu broni.</translation>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1353"/>
+        <source>When a weapon is picked up, the weapon switch behaves like in vanilla Doom.</source>
+        <translation>Zmiana broni po podniesieniu działa jak w vanilla Doom.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1354"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1356"/>
         <source>Original weapon switch</source>
         <translation>Oryginalna zmiana broni</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1361"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1363"/>
         <source>Limited movement in the air</source>
         <translation>Ograniczone poruszanie w powietrzu</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1368"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1370"/>
         <source>This affects the partial invisibility sphere.</source>
         <translation>To wpływa na kulę połowicznej niewidzialności.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1371"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1373"/>
         <source>Monsters see semi-invisible players</source>
         <translation>Potwory widzą na wpół-niewidzialnych graczy</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1378"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1380"/>
         <source>Allow the map01 &quot;plasma bump&quot; bug.</source>
         <translation>Zezwól na błąd &quot;plasma bump&quot; z map01.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1381"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1383"/>
         <source>Plasma bump bug</source>
         <translation>Błąd plasma bump</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1388"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1390"/>
         <source>Any boss death activates map specials</source>
         <translation>Śmierć dowolnego bossa aktywuje speciale na mapie</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1395"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1397"/>
         <source>Friction/pushers/pullers affect Monsters</source>
         <translation>Tarcie/popychacze i ciągniki wpływają na potwory</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1402"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1404"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Crushed monsters are turned into gibs, rather than replaced by gibs.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Zgniecione potwory zamieniają się we flaki, a nie są przez nie zastępowane.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1405"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1407"/>
         <source>Crusher gibs by morphing, not replacement</source>
         <translation>Zgniatarka zmienia we flaki, zamiast podmieniać</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1412"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1414"/>
         <source>Block monster lines ignore friendly monsters</source>
         <translation>Linie blokujące potwory ignorują przyjazne potwory</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1419"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1421"/>
         <source>Find neighboring light level like Doom</source>
         <translation>Szukaj sąsiadującego poziomu światła jak w Doomie</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1430"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1432"/>
         <source>Use doom2.exe&apos;s original intermission screens/music.</source>
         <translation>Używaj muzyki i ekranów z doom2.exe podczas intermisji.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1433"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1435"/>
         <source>Use old intermission screens/music</source>
         <translation>Używaj starych intermisji</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1440"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1442"/>
         <source>Scrolling sectors are additive like in Boom.</source>
         <translation>Przesuwające się sektory dodają się jak w Boomie.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1443"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1445"/>
         <source>Scrolling sectors are additive</source>
         <translation>Przesuwające sektory dodają się</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1450"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1452"/>
         <source>Sector sounds use original method for sound origin.</source>
         <translation>Dźwięki sektorów używają oryginalnej metody pozycjonowania dźwięku.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1453"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1455"/>
         <source>Sector sounds use original method</source>
         <translation>Dźwięki sektorów używają oryginalnej metody</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1460"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1462"/>
         <source>Monsters cannot move when hanging over a dropoff.</source>
         <translation>Potwory utykają nad krawędziami.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1463"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1465"/>
         <source>No monsters dropoff move</source>
         <translation>Potwory utykają nad krawędziami</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1470"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1479"/>
         <source>Instantly moving floors are not silent.</source>
         <translation>Natychmiastowo poruszane podłogi nie są ciche.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1473"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1482"/>
         <source>Instantly moving floors aren&apos;t silent</source>
         <translation>Natychmiastowo poruszane podłogi nie są ciche</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1480"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1489"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use Doom&apos;s random table instead of ZDoom&apos;s random number generator. Affects weapon damage among other things.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Używaj losowej tablicy z Dooma zamiast generatora liczb losowych z ZDooma. Wpływa to, między innymi, na obrażenia od broni.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1483"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1492"/>
         <source>Old random number generator</source>
         <translation>Stary generator liczb losowych</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1490"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1472"/>
         <source>Monsters can&apos;t be pushed off cliffs</source>
         <translation>Potwory nie mogą być wypchnięte przez przepaść</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1497"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1502"/>
         <source>Old damage radius (infinite height)</source>
         <translation>Obrażenia obszarowe mają nieskończoną wysokość</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1504"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1509"/>
         <source>Minotaur&apos;s floor flame explodes immediately when feet are clipped</source>
         <translation>Ogień podłogowy Minotaura eksploduje natychmiast gdy stopy są przycięte</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1511"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1516"/>
         <source>Original velocity calc. for A_Mushroom in Dehacked</source>
         <translation>Oryginalne obliczanie prędkości dla A_Mushroom w Dehacked</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1518"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1523"/>
         <source>Sprite sort order inverted for sprites of equal distance</source>
         <translation>Odwrócone sortowanie sprite&apos;ów gdy są w tej samej odległości</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1525"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1530"/>
         <source>Hitscans use original blockmap and hit check code</source>
         <translation>Hitscany używają oryginalnego kodu blockmap i detekcji trafień</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1532"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1537"/>
         <source>Draw polyobjects the old fashioned way</source>
         <translation>Rysuj polyobjekty w stary sposób</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1294"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1296"/>
         <source>Compatibility</source>
         <translation>Kompatybilność</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1567"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1499"/>
+        <source>&lt;p&gt;Shooting a rocket against a wall will damage the actors near this wall even if they are far below or above the explosion.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Rakieta rozbita o ścianę zada obrażenia istotom w pobliżu tej ściany nawet jeżeli będą one daleko pod lub ponad samą eksplozją.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1572"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1748"/>
+        <source>&lt;p&gt;This allows for decorations to be pass-through for projectiles as they were originally in Doom.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Pozwala pociskom przelatywać przez obiekty dekoracyjne tak jak to było w oryginalnym Doomie.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1575"/>
         <source>Use original missile clipping height</source>
         <translation>Używaj oryginalnej wysokości kolizji pocisków</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1574"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1582"/>
         <source>Use sector based sound target code</source>
         <translation>Używaj kodu celowania dźwiękiem opartego na sektorach</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1581"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1589"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Doom&apos;s hitscan tracing code ignores all lines with both sides in the same sector. ZDoom&apos;s does not. This option reverts to the original but less precise behavior. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kod w Doomie odpowiedzialny za śledzenie hitscanów ignoruje wszystkie linie, które mają ten sam sektor po obu stronach. ZDoom tego nie robi. Ta opcja przywraca oryginalne, lecz mniej dokładne zachowanie. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1584"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1592"/>
         <source>Trace ignore lines w/ same sector on both sides</source>
         <translation>Trasowanie ignoruje linie o tym samym sektorze po obu stronach</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1591"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1599"/>
         <source>Limit deh.MaxHealth to health bonus</source>
         <translation>Ogranicz deh.MaxHealth do bonusu energii</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1598"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1606"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The scrolling floor specials in Heretic and Hexen move the player much faster than the actual texture scrolling speed. Enable this option to restore this effect. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Akcje przesuwające podłogę w Hereticu i Hexenie przesuwają graczy znacznie szybciej, niż teksturę. Włączenie tej opcji przywraca ten efekt.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1601"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1609"/>
         <source>Raven&apos;s scrollers use original speed</source>
         <translation>Przesuwniki Ravena używają oryginalnych prędkości</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1608"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1616"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add NOGRAVITY to actors named InvulnerabilitySphere, Soulsphere, Megasphere and BlurSphere when spawned by the map.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dodaj NOGRAVITY aktorom o nazwach InvulnerabilitySphere, Soulsphere, Megasphere i BlurSphere gdy są spawnowane przez mapę.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1611"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1619"/>
         <source>Add NOGRAVITY flag to spheres</source>
         <translation>Dodaj flagę NOGRAVITY kulom</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1618"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1626"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When a player leaves the game, don&apos;t stop any scripts of that player that are still running.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gdy gracz opuści grę, nie zatrzymuj skryptów, które są dla niego uruchomione.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1621"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1629"/>
         <source>Don&apos;t stop player scripts on disconnect</source>
         <translation>Nie zatrzymuj skryptów gracza po rozłączeniu</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1628"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1636"/>
         <source>&lt;p&gt;If this is enabled, explosions cause a strong horizontal thrust like in old ZDoom versions.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Gdy jest to włączone, eksplozje silnie popychają w poziomie jak w starych wersjach ZDooma.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1631"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1639"/>
         <source>Old ZDoom horizontal thrust</source>
         <translation>Popychanie poziome ze starego ZDooma</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1638"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1646"/>
         <source>&lt;p&gt;If this is enabled, non-SOLID things like flags fall through bridges (as they used to do in old ZDoom versions).&lt;/p&gt;</source>
         <translation>&lt;p&gt;Gdy to jest włączone, nie-SOLIDne obiekty takie jak flagi wpadają pod mosty (tak jak to było w starych wersjach ZDooma).&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1642"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1649"/>
         <source>Old ZDoom bridge drops</source>
         <translation>Upuszczanie pod most ze starego ZDooma</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1649"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1656"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Uses old ZDoom jump physics, it&apos;s a minor bug in the gravity code that causes gravity application in the wrong place.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Używaj fizyki skoku ze starego ZDooma. To mały błąd w kodzie, który aplikuje grawitację nie w tym miejscu, co trzeba.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1669"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1676"/>
         <source>Ignore compositing when drawing masked midtextures</source>
         <translation>Ignoruj kompozycję podczas rysowania maskowanych midtekstur</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1676"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1683"/>
         <source>It is impossible to face directly NSEW</source>
         <translation>Nie można obrócić się bezpośrednio w kierunku kardynalnym</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1683"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1690"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bring back vanilla ZDoom shooting below the crosshair.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Strzelaj pod celownikiem jak w vanilla ZDoom.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1686"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1693"/>
         <source>Disable shooting where crosshair is</source>
         <translation>Wyłącz strzelanie tam gdzie jest celownik</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1731"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1738"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Don&apos;t execute predicted ACS scripts on client side. Turning this on can fix ACS teleports or jumppads on maps that are not using ACS_ExecuteWithResult.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Nie wykonuj przewidywalnych skryptów ACS po stronie klienta. Włączenie tej opcji pomaga naprawić teleporty ACS albo wyskocznie na mapach które nie korzystają z funkcji ACS_ExecuteWithResult.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1793"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1803"/>
         <source>Use the same floor motion behavior as Doom</source>
         <translation>Użyj takiego zachowania ruchu podłóg, jak w Doomie</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1800"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1810"/>
         <source>Disable wall friction</source>
         <translation>Wyłącz tarcie na ścianach.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1881"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1891"/>
         <source>q-zandronum compatflags</source>
         <translation>q-zandronum compatflags</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1652"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1659"/>
         <source>ZDoom 1.23B33 jump physics</source>
         <translation>Fizyka skoku z ZDooma 1.23B33</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1659"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1666"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;p&gt;Q-Zandronum uses more tracers to fill in the gaps, this reverts it to vanilla&apos;s 3 tracer behavior&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;p&gt;Q-Zandronum używa więcej promieni do wypełnienia dziur. To przywraca używanie tylko 3 promieni z vanilli.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1662"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1669"/>
         <source>Use vanilla autoaim tracer behavior</source>
         <translation>Trasowanie autocelowania takie jak w vanilli</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1697"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1704"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use Doom&apos;s shortest texture find behavior. This is requied by some WADs in MAP07.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Używaj najkrótszego wyszukiwania tekstury z Dooma. Jest to wymagane przez niektóre WADy w MAP07.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1700"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1707"/>
         <source>Find shortest textures like Doom</source>
         <translation>Wyszukuj najkrótszej tekstury jak w Doomie</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1707"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1714"/>
         <source>Limit pain elementals to 20 lost souls</source>
         <translation>Ogranicz pain elemental do 20 lost souls</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1714"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1721"/>
         <source>Spawned item drops on the floor</source>
         <translation>Spawnięte przedmioty spadają na podłogę</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1721"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1728"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Treat ACS scripts with the SCRIPTF_Net flag to be client side, i.e. executed on the clients, but not on the server.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Traktuj skrypty ACS z flagą SCRIPTF_Net jako skrypty po stronie klienta, tzn. wykonuj je u klientów, a nie na serwerze.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1724"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1731"/>
         <source>NET scripts are clientside</source>
         <translation>Skrypty NET są po stronie klienta</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1734"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1741"/>
         <source>Don&apos;t execute prediction ACS on client</source>
         <translation>Nie uruchamiaj ACS przewidywania u klienta</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1741"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1751"/>
         <source>Actors are infinitely tall</source>
         <translation>Nieskończenie wysocy aktorzy</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1748"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1758"/>
         <source>Don&apos;t fix loop index for stair building.</source>
         <translation>Nie naprawiaj indeksu pętli do budowania schodów.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1751"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1761"/>
         <source>Use buggier stair building</source>
         <translation>Używaj zbugowanego budowania schodów</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1758"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1768"/>
         <source>Disable Boom door light effect</source>
         <translation>Wyłącz Boomowy efekt świateł z drzwi</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1765"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1775"/>
         <source>All special lines can drop use lines</source>
         <translation>Wszystkie specjalne linie mogą anulować używanie linii</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1772"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1782"/>
         <source>Original sound curve</source>
         <translation>Oryginalna krzywa dźwięku</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1779"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1789"/>
         <source>Disallow weapon change until fully drawn or hidden</source>
         <translation>Nie można zmieniać broni w trakcie wyciągania/chowania</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1786"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1796"/>
         <source>West spawns are silent</source>
         <translation>Zachodnie spawny są ciche</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1557"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1562"/>
         <source>Compatibility 2</source>
         <translation>Kompatybilność 2</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1825"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1835"/>
         <source>Voting</source>
         <translation>Głosowanie</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1840"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1850"/>
         <source>q-zandronum dmflags</source>
         <translation>q-zandronum dmflags</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1857"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1867"/>
         <source>dmflags</source>
         <translation>dmflags</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1864"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1874"/>
         <source>dmflags2</source>
         <translation>dmflags2</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1898"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1908"/>
         <source>compatflags</source>
         <translation>compatflags</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1925"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1935"/>
         <source>compatflags2</source>
         <translation>compatflags2</translation>
     </message>
