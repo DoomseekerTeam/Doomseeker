@@ -456,43 +456,43 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../createserverdialogpages/flagspage.ui" line="805"/>
-        <source>Respawn where died</source>
-        <translation>Odradza się tam, gdzie zginął</translation>
+        <source>respawn where died</source>
+        <translation>odradza się tam, gdzie zginął</translation>
     </message>
     <message>
         <location filename="../createserverdialogpages/flagspage.ui" line="812"/>
-        <source>Lose all inventory</source>
-        <translation>Traci cały ekwipunek</translation>
+        <source>lose all inventory</source>
+        <translation>traci cały ekwipunek</translation>
     </message>
     <message>
         <location filename="../createserverdialogpages/flagspage.ui" line="819"/>
-        <source>Lose armor</source>
-        <translation>Traci zbroję</translation>
+        <source>lose armor</source>
+        <translation>traci zbroję</translation>
     </message>
     <message>
         <location filename="../createserverdialogpages/flagspage.ui" line="826"/>
-        <source>Lose keys</source>
-        <translation>Traci klucze</translation>
+        <source>lose keys</source>
+        <translation>traci klucze</translation>
     </message>
     <message>
         <location filename="../createserverdialogpages/flagspage.ui" line="833"/>
-        <source>Lose powerups</source>
-        <translation>Traci powerupy</translation>
+        <source>lose powerups</source>
+        <translation>traci powerupy</translation>
     </message>
     <message>
         <location filename="../createserverdialogpages/flagspage.ui" line="840"/>
-        <source>Lose weapons</source>
-        <translation>Traci bronie</translation>
+        <source>lose weapons</source>
+        <translation>traci bronie</translation>
     </message>
     <message>
         <location filename="../createserverdialogpages/flagspage.ui" line="847"/>
-        <source>Lose all ammo</source>
-        <translation>Traci całą amunicję</translation>
+        <source>lose all ammo</source>
+        <translation>traci całą amunicję</translation>
     </message>
     <message>
         <location filename="../createserverdialogpages/flagspage.ui" line="854"/>
-        <source>Lose half ammo</source>
-        <translation>Traci połowę amunicji</translation>
+        <source>lose half ammo</source>
+        <translation>traci połowę amunicji</translation>
     </message>
     <message>
         <location filename="../createserverdialogpages/flagspage.ui" line="861"/>
@@ -530,34 +530,34 @@ p, li { white-space: pre-wrap; }
         <translation>Gdy gracze giną, to...</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="919"/>
-        <source>Respawn automatically</source>
-        <translation>Od razu się odradzają</translation>
+        <location filename="../createserverdialogpages/flagspage.ui" line="921"/>
+        <source>respawn automatically</source>
+        <translation>od razu się odradzają</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="926"/>
-        <source>Drop their weapon</source>
-        <translation>Upuszczają swoją broń</translation>
+        <location filename="../createserverdialogpages/flagspage.ui" line="928"/>
+        <source>drop their weapon</source>
+        <translation>upuszczają swoją broń</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="933"/>
-        <source>Respawn farthest away from others</source>
-        <translation>Odradzają się najdalej od innych</translation>
+        <location filename="../createserverdialogpages/flagspage.ui" line="935"/>
+        <source>respawn farthest away from others</source>
+        <translation>odradzają się najdalej od innych</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="940"/>
-        <source>Lose a frag</source>
-        <translation>Tracą fraga</translation>
+        <location filename="../createserverdialogpages/flagspage.ui" line="942"/>
+        <source>lose a frag</source>
+        <translation>tracą fraga</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="947"/>
-        <source>Respawn with a shotgun</source>
-        <translation>Odradzają się z shotgunem</translation>
+        <location filename="../createserverdialogpages/flagspage.ui" line="949"/>
+        <source>respawn with a shotgun</source>
+        <translation>odradzają się z shotgunem</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="954"/>
-        <source>Don&apos;t get respawn protection</source>
-        <translation>Nie mają ochrony po respawnie</translation>
+        <location filename="../createserverdialogpages/flagspage.ui" line="956"/>
+        <source>don&apos;t get respawn protection</source>
+        <translation>nie mają ochrony po respawnie</translation>
     </message>
     <message>
         <location filename="../createserverdialogpages/flagspage.ui" line="966"/>
@@ -565,19 +565,19 @@ p, li { white-space: pre-wrap; }
         <translation>Gdy ktoś opuści poziom...</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="972"/>
-        <source>Continue to the next map</source>
-        <translation>Kontynuuj do następnej mapy</translation>
+        <location filename="../createserverdialogpages/flagspage.ui" line="974"/>
+        <source>continue to the next map</source>
+        <translation>kontynuuj do następnej mapy</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="982"/>
-        <source>Restart the current level</source>
-        <translation>Restartuj obecny poziom</translation>
+        <location filename="../createserverdialogpages/flagspage.ui" line="984"/>
+        <source>restart the current level</source>
+        <translation>restartuj obecny poziom</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="989"/>
-        <source>Kill the player</source>
-        <translation>Zabij tego gracza</translation>
+        <location filename="../createserverdialogpages/flagspage.ui" line="991"/>
+        <source>kill the player</source>
+        <translation>zabij tego gracza</translation>
     </message>
     <message>
         <location filename="../createserverdialogpages/flagspage.ui" line="1012"/>
@@ -605,19 +605,19 @@ p, li { white-space: pre-wrap; }
         <translation>Nie spawnuj...</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1053"/>
-        <source>Health</source>
-        <translation>Zdrowia</translation>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1055"/>
+        <source>health</source>
+        <translation>zdrowia</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1060"/>
-        <source>Armor</source>
-        <translation>Zbroi</translation>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1062"/>
+        <source>armor</source>
+        <translation>zbroi</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1067"/>
-        <source>Runes</source>
-        <translation>Run</translation>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1069"/>
+        <source>runes</source>
+        <translation>run</translation>
     </message>
     <message>
         <location filename="../createserverdialogpages/flagspage.ui" line="907"/>
@@ -707,14 +707,14 @@ p, li { white-space: pre-wrap; }
         <translation>Widzowie mogą...</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1246"/>
-        <source>Talk to active players</source>
-        <translation>Rozmawiać z żyjącymi graczami</translation>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1248"/>
+        <source>talk to active players</source>
+        <translation>rozmawiać z żyjącymi graczami</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1253"/>
-        <source>View the game</source>
-        <translation>Oglądać grę</translation>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1255"/>
+        <source>view the game</source>
+        <translation>oglądać grę</translation>
     </message>
     <message>
         <location filename="../createserverdialogpages/flagspage.ui" line="1095"/>
@@ -988,8 +988,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../createserverdialogpages/flagspage.ui" line="1628"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If this is enabled, explosions cause a strong horizontal thrust like in old ZDoom versions.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gdy jest to włączone, eksplozje silnie popychają w poziomie jak w starych wersjach ZDooma.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;p&gt;If this is enabled, explosions cause a strong horizontal thrust like in old ZDoom versions.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Gdy jest to włączone, eksplozje silnie popychają w poziomie jak w starych wersjach ZDooma.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../createserverdialogpages/flagspage.ui" line="1631"/>
@@ -998,9 +998,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../createserverdialogpages/flagspage.ui" line="1638"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If this is enabled, non-SOLID things like flags fall through bridges (as they used to do in old ZDoom versions).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gdy to jest włączone, nie-SOLIDne obiekty jak flagi wpadają pod mosty (tak jak to było w starych wersjach ZDooma).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;p&gt;If this is enabled, non-SOLID things like flags fall through bridges (as they used to do in old ZDoom versions).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Gdy to jest włączone, nie-SOLIDne obiekty takie jak flagi wpadają pod mosty (tak jak to było w starych wersjach ZDooma).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../createserverdialogpages/flagspage.ui" line="1642"/>

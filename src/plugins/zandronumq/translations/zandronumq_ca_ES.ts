@@ -456,43 +456,43 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="1958"/>
-        <source>Respawn where died</source>
-        <translation>Reaparèixer on ha mort</translation>
+        <source>respawn where died</source>
+        <translation>reaparèixer on ha mort</translation>
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="1959"/>
-        <source>Lose all inventory</source>
-        <translation>Perdre tot l&apos;inventari</translation>
+        <source>lose all inventory</source>
+        <translation>perdre tot l&apos;inventari</translation>
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="1960"/>
-        <source>Lose armor</source>
-        <translation>Perdre armadura</translation>
+        <source>lose armor</source>
+        <translation>perdre armadura</translation>
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="1961"/>
-        <source>Lose keys</source>
-        <translation>Perdre claus</translation>
+        <source>lose keys</source>
+        <translation>perdre claus</translation>
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="1962"/>
-        <source>Lose powerups</source>
-        <translation>Perdre potenciadors</translation>
+        <source>lose powerups</source>
+        <translation>perdre potenciadors</translation>
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="1963"/>
-        <source>Lose weapons</source>
-        <translation>Perdre armes</translation>
+        <source>lose weapons</source>
+        <translation>perdre armes</translation>
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="1964"/>
-        <source>Lose all ammo</source>
-        <translation>Perdre tota la munició</translation>
+        <source>lose all ammo</source>
+        <translation>perdre tota la munició</translation>
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="1965"/>
-        <source>Lose half ammo</source>
-        <translation>Perdre la meitat de la munició</translation>
+        <source>lose half ammo</source>
+        <translation>perdre la meitat de la munició</translation>
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="1967"/>
@@ -531,33 +531,33 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="1977"/>
-        <source>Respawn automatically</source>
-        <translation>Reaparèixer automàticament</translation>
+        <source>respawn automatically</source>
+        <translation>reaparèixer automàticament</translation>
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="1978"/>
-        <source>Drop their weapon</source>
-        <translation>Deixar anar l&apos;arma</translation>
+        <source>drop their weapon</source>
+        <translation>deixar anar l&apos;arma</translation>
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="1979"/>
-        <source>Respawn farthest away from others</source>
-        <translation>Reaparèixer el més lluny possible dels altres</translation>
+        <source>respawn farthest away from others</source>
+        <translation>reaparèixer el més lluny possible dels altres</translation>
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="1980"/>
-        <source>Lose a frag</source>
-        <translation>Perdre un frag</translation>
+        <source>lose a frag</source>
+        <translation>perdre un frag</translation>
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="1981"/>
-        <source>Respawn with a shotgun</source>
-        <translation>Reaparèixer amb una escopeta</translation>
+        <source>respawn with a shotgun</source>
+        <translation>reaparèixer amb una escopeta</translation>
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="1982"/>
-        <source>Don&apos;t get respawn protection</source>
-        <translation>No obtenir protecció de reaparició</translation>
+        <source>don&apos;t get respawn protection</source>
+        <translation>no obtenir protecció de reaparició</translation>
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="1983"/>
@@ -566,18 +566,18 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="1984"/>
-        <source>Continue to the next map</source>
-        <translation>Continuar al següent mapa</translation>
+        <source>continue to the next map</source>
+        <translation>continuar al següent mapa</translation>
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="1985"/>
-        <source>Restart the current level</source>
-        <translation>Reiniciar el nivell actual</translation>
+        <source>restart the current level</source>
+        <translation>reiniciar el nivell actual</translation>
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="1986"/>
-        <source>Kill the player</source>
-        <translation>Mata al jugador</translation>
+        <source>kill the player</source>
+        <translation>mata al jugador</translation>
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="1987"/>
@@ -606,18 +606,18 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="1992"/>
-        <source>Health</source>
-        <translation>Salut</translation>
+        <source>health</source>
+        <translation>salut</translation>
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="1993"/>
-        <source>Armor</source>
-        <translation>Armadura</translation>
+        <source>armor</source>
+        <translation>armadura</translation>
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="1994"/>
-        <source>Runes</source>
-        <translation>Runes</translation>
+        <source>runes</source>
+        <translation>runes</translation>
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="1995"/>
@@ -708,13 +708,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="2012"/>
-        <source>Talk to active players</source>
-        <translation>Parlar amb jugadors actius</translation>
+        <source>talk to active players</source>
+        <translation>parlar amb jugadors actius</translation>
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="2013"/>
-        <source>View the game</source>
-        <translation>Veure el joc</translation>
+        <source>view the game</source>
+        <translation>veure el joc</translation>
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="2014"/>
@@ -1003,8 +1003,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="2105"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If this is enabled, explosions cause a strong horizontal thrust like in old ZDoom versions.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Si això està habilitat, les explosions causen una forta empenta horitzontal com en versions antigues de ZDoom.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;p&gt;If this is enabled, explosions cause a strong horizontal thrust like in old ZDoom versions.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Si això està habilitat, les explosions causen una forta empenta horitzontal com en versions antigues de ZDoom.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="2107"/>
@@ -1013,10 +1013,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="2109"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If this is enabled, non-SOLID things like flags fall through bridges (as they used to do in old ZDoom versions).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Si això està habilitat, elements no SÒLIDS com banderes cauen a través de ponts (com solien fer en versions antigues de ZDoom).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-</translation>
+        <source>&lt;p&gt;If this is enabled, non-SOLID things like flags fall through bridges (as they used to do in old ZDoom versions).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Si això està habilitat, elements no SÒLIDS com banderes cauen a través de ponts (com solien fer en versions antigues de ZDoom).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../../../../build/src/plugins/zandronumq/ui_flagspage.h" line="2112"/>

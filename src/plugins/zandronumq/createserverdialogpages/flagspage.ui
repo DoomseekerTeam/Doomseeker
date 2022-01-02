@@ -688,7 +688,7 @@ p, li { white-space: pre-wrap; }
               <item>
                <widget class="QCheckBox" name="cbDontSpawnAnyMultiplayerItem">
                 <property name="toolTip">
-                 <string>Spawn map actors in coop as if the game was single player.</string>
+                 <string>&lt;p&gt;Spawn map items, monsters and other objects in coop as if the game was single player.&lt;/p&gt;</string>
                 </property>
                 <property name="text">
                  <string>Don't spawn any multiplayer actor in coop</string>
@@ -802,63 +802,65 @@ p, li { white-space: pre-wrap; }
             <item>
              <widget class="QCheckBox" name="cbRespawnWhereDied">
               <property name="text">
-               <string>Respawn where died</string>
+               <string>respawn where died</string>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QCheckBox" name="cbLoseAllInventory">
               <property name="text">
-               <string>Lose all inventory</string>
+               <string>lose all inventory</string>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QCheckBox" name="cbLoseArmor">
               <property name="text">
-               <string>Lose armor</string>
+               <string>lose armor</string>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QCheckBox" name="cbLoseKeys">
               <property name="text">
-               <string>Lose keys</string>
+               <string>lose keys</string>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QCheckBox" name="cbLosePowerups">
               <property name="text">
-               <string>Lose powerups</string>
+               <string>lose powerups</string>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QCheckBox" name="cbLoseWeapons">
               <property name="text">
-               <string>Lose weapons</string>
+               <string>lose weapons</string>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QCheckBox" name="cbLoseAllAmmo">
               <property name="text">
-               <string>Lose all ammo</string>
+               <string>lose all ammo</string>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QCheckBox" name="cbLoseHalfAmmo">
               <property name="text">
-               <string>Lose half ammo</string>
+               <string>lose half ammo</string>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QCheckBox" name="cbDeadPlayersCanKeepInventory">
               <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Affects game modes where &amp;quot;max. lives&amp;quot; can be used. If set, players who become dead spectators (run out of lives) will still keep inventory in accordance to the &amp;quot;Lose *&amp;quot; flags above. If unset, players who lose all lives will always lose entire inventory.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;p&gt;If set, players who lose all lives and become dead spectators will still keep inventory in accordance to the &amp;quot;Lose inventory&amp;quot; flags. When they will finally be able to play again, all their items will be returned to them.&lt;/p&gt;
+
+&lt;p&gt;If unset, players who lose all lives will always lose their entire inventory, regardless of the &amp;quot;Lose inventory&amp;quot; flags.&lt;/p&gt;</string>
               </property>
               <property name="text">
                <string>Players who lose all lives can keep inventory</string>
@@ -916,42 +918,42 @@ p, li { white-space: pre-wrap; }
           <item row="0" column="0">
            <widget class="QCheckBox" name="cbRespawnAutomatically">
             <property name="text">
-             <string>Respawn automatically</string>
+             <string>respawn automatically</string>
             </property>
            </widget>
           </item>
           <item row="0" column="1">
            <widget class="QCheckBox" name="cbDropWeaponOnDeath">
             <property name="text">
-             <string>Drop their weapon</string>
+             <string>drop their weapon</string>
             </property>
            </widget>
           </item>
           <item row="1" column="0">
            <widget class="QCheckBox" name="cbRespawnFarthestAwayFromOthers">
             <property name="text">
-             <string>Respawn farthest away from others</string>
+             <string>respawn farthest away from others</string>
             </property>
            </widget>
           </item>
           <item row="1" column="1">
            <widget class="QCheckBox" name="cbLoseAFragOnDeath">
             <property name="text">
-             <string>Lose a frag</string>
+             <string>lose a frag</string>
             </property>
            </widget>
           </item>
           <item row="2" column="0">
            <widget class="QCheckBox" name="cbRespawnWithAShotgun">
             <property name="text">
-             <string>Respawn with a shotgun</string>
+             <string>respawn with a shotgun</string>
             </property>
            </widget>
           </item>
           <item row="2" column="1">
            <widget class="QCheckBox" name="cbNoRespawnProtection">
             <property name="text">
-             <string>Don't get respawn protection</string>
+             <string>don't get respawn protection</string>
             </property>
            </widget>
           </item>
@@ -969,7 +971,7 @@ p, li { white-space: pre-wrap; }
             <item>
              <widget class="QRadioButton" name="rbContinueToTheNextMap">
               <property name="text">
-               <string>Continue to the next map</string>
+               <string>continue to the next map</string>
               </property>
               <property name="checked">
                <bool>true</bool>
@@ -979,14 +981,14 @@ p, li { white-space: pre-wrap; }
             <item>
              <widget class="QRadioButton" name="rbRestartTheCurrentLevel">
               <property name="text">
-               <string>Restart the current level</string>
+               <string>restart the current level</string>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QRadioButton" name="rbKillThePlayer">
               <property name="text">
-               <string>Kill the player</string>
+               <string>kill the player</string>
               </property>
              </widget>
             </item>
@@ -1050,21 +1052,21 @@ p, li { white-space: pre-wrap; }
               <item>
                <widget class="QCheckBox" name="cbDontSpawnHealth">
                 <property name="text">
-                 <string>Health</string>
+                 <string>health</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QCheckBox" name="cbDontSpawnArmor">
                 <property name="text">
-                 <string>Armor</string>
+                 <string>armor</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QCheckBox" name="cbDontSpawnRunes">
                 <property name="text">
-                 <string>Runes</string>
+                 <string>runes</string>
                 </property>
                </widget>
               </item>
@@ -1243,14 +1245,14 @@ p, li { white-space: pre-wrap; }
               <item>
                <widget class="QCheckBox" name="cbLMSSpectatorsCanTalkToActivePlayers">
                 <property name="text">
-                 <string>Talk to active players</string>
+                 <string>talk to active players</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QCheckBox" name="cbLMSSpectatorsCanViewTheGame">
                 <property name="text">
-                 <string>View the game</string>
+                 <string>view the game</string>
                 </property>
                </widget>
               </item>
@@ -1348,7 +1350,7 @@ p, li { white-space: pre-wrap; }
            <item>
             <widget class="QCheckBox" name="cbCompatOriginalWeaponSwitch">
              <property name="toolTip">
-              <string>Clients use the vanilla Doom weapon on pickup behavior.</string>
+              <string>When a weapon is picked up, the weapon switch behaves like in vanilla Doom.</string>
              </property>
              <property name="text">
               <string>Original weapon switch</string>
@@ -1465,6 +1467,13 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
+            <widget class="QCheckBox" name="cbCompatMonstersCantBePushedOffCliffs">
+             <property name="text">
+              <string>Monsters can't be pushed off cliffs</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QCheckBox" name="cbCompatInstantlyMovingFloorsArentSilent">
              <property name="toolTip">
               <string>Instantly moving floors are not silent.</string>
@@ -1485,14 +1494,10 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="cbCompatMonstersCantBePushedOffCliffs">
-             <property name="text">
-              <string>Monsters can't be pushed off cliffs</string>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QCheckBox" name="cbCompatOldDamageRadiusInfiniteHeight">
+             <property name="toolTip">
+              <string>&lt;p&gt;Shooting a rocket against a wall will damage the actors near this wall even if they are far below or above the explosion.&lt;/p&gt;</string>
+             </property>
              <property name="text">
               <string>Old damage radius (infinite height)</string>
              </property>
@@ -1563,6 +1568,9 @@ p, li { white-space: pre-wrap; }
           <layout class="QVBoxLayout" name="verticalLayout_30">
            <item>
             <widget class="QCheckBox" name="cbCompatUseOriginalMissileClippingHeight">
+             <property name="toolTip">
+              <string>&lt;p&gt;This allows for decorations to be pass-through for projectiles as they were originally in Doom.&lt;/p&gt;</string>
+             </property>
              <property name="text">
               <string>Use original missile clipping height</string>
              </property>
@@ -1625,7 +1633,7 @@ p, li { white-space: pre-wrap; }
            <item>
             <widget class="QCheckBox" name="cbOldZDoomHorizontalThrust">
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If this is enabled, explosions cause a strong horizontal thrust like in old ZDoom versions.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;p&gt;If this is enabled, explosions cause a strong horizontal thrust like in old ZDoom versions.&lt;/p&gt;</string>
              </property>
              <property name="text">
               <string>Old ZDoom horizontal thrust</string>
@@ -1635,8 +1643,7 @@ p, li { white-space: pre-wrap; }
            <item>
             <widget class="QCheckBox" name="cbOldZDoomBridgeDrops">
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If this is enabled, non-SOLID things like flags fall through bridges (as they used to do in old ZDoom versions).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-</string>
+              <string>&lt;p&gt;If this is enabled, non-SOLID things like flags fall through bridges (as they used to do in old ZDoom versions).&lt;/p&gt;</string>
              </property>
              <property name="text">
               <string>Old ZDoom bridge drops</string>
@@ -1737,6 +1744,9 @@ p, li { white-space: pre-wrap; }
            </item>
            <item>
             <widget class="QCheckBox" name="cbCompatActorsAreInfinitelyTall">
+             <property name="toolTip">
+              <string>&lt;p&gt;This allows for decorations to be pass-through for projectiles as they were originally in Doom.&lt;/p&gt;</string>
+             </property>
              <property name="text">
               <string>Actors are infinitely tall</string>
              </property>
@@ -2060,9 +2070,9 @@ p, li { white-space: pre-wrap; }
   <tabstop>cbCompatScrollingSectorsAreAdditive</tabstop>
   <tabstop>cbCompatSectorSoundsUseOriginalMethod</tabstop>
   <tabstop>cbCompatNoMonstersDropoffMove</tabstop>
+  <tabstop>cbCompatMonstersCantBePushedOffCliffs</tabstop>
   <tabstop>cbCompatInstantlyMovingFloorsArentSilent</tabstop>
   <tabstop>cbCompatOldRandomNumberGenerator</tabstop>
-  <tabstop>cbCompatMonstersCantBePushedOffCliffs</tabstop>
   <tabstop>cbCompatOldDamageRadiusInfiniteHeight</tabstop>
   <tabstop>cbCompatMinotaur</tabstop>
   <tabstop>cbCompatOriginalVelocityCalcForMushroomInDehacked</tabstop>

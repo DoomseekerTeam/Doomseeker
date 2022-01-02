@@ -1200,8 +1200,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../createserverdialogpages/flagspage.ui" line="1836"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If this is enabled, explosions cause a strong horizontal thrust like in old ZDoom versions.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gdy jest to włączone, eksplozje silnie popychają w poziomie jak w starych wersjach ZDooma.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;p&gt;If this is enabled, explosions cause a strong horizontal thrust like in old ZDoom versions.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Gdy jest to włączone, eksplozje silnie popychają w poziomie jak w starych wersjach ZDooma.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../createserverdialogpages/flagspage.ui" line="1839"/>
@@ -1210,9 +1210,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../createserverdialogpages/flagspage.ui" line="1846"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If this is enabled, non-SOLID things like flags fall through bridges (as they used to do in old ZDoom versions).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gdy to jest włączone, nie-SOLIDne obiekty jak flagi wpadają pod mosty (tak jak to było w starych wersjach ZDooma).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;p&gt;If this is enabled, non-SOLID things like flags fall through bridges (as they used to do in old ZDoom versions).&lt;/p&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gdy to jest włączone, nie-SOLIDne obiekty, takie jak flagi wpadają pod mosty (tak jak to było w starych wersjach ZDooma).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../createserverdialogpages/flagspage.ui" line="1850"/>
