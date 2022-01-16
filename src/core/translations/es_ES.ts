@@ -4,7 +4,7 @@
 <context>
     <name>AboutDialog</name>
     <message>
-        <location filename="../gui/aboutdialog.cpp" line="105"/>
+        <location filename="../gui/aboutdialog.cpp" line="106"/>
         <source>This program is distributed under the terms of the LGPL v2.1 or later.</source>
         <translation>Este programa es distribuido bajo los términos de la licencia LGPL v2.1 o posterior.</translation>
     </message>
@@ -19,148 +19,146 @@ This work is licensed under the Creative Commons Attribution - ShareAlike 3.0 Un
 Se encuentra bajo la licencia de la Creative Commons Attribution-ShareAlike 3.0 Unported License. Para ver una copia de esta licéncia, visita http://creativecommons.org/licenses/by-sa/3.0/.</translation>
     </message>
     <message>
-        <location filename="../gui/aboutdialog.cpp" line="103"/>
+        <location filename="../gui/aboutdialog.cpp" line="104"/>
         <source>Copyright %1 %2 The Doomseeker Team</source>
         <translation>Copyright %1 %2 El Equipo de Doomseeker (The Doomseeker Team)</translation>
     </message>
     <message>
-        <location filename="../gui/aboutdialog.cpp" line="108"/>
+        <location filename="../gui/aboutdialog.cpp" line="109"/>
         <source>Doomseeker translations contributed by:
 </source>
         <translation>Traducciones de Doomseeker contribuidas por:
 </translation>
     </message>
     <message>
-        <location filename="../gui/aboutdialog.cpp" line="109"/>
+        <location filename="../gui/aboutdialog.cpp" line="110"/>
         <source>- Polish: Zalewa</source>
         <translation>- Polaco: Zalewa</translation>
     </message>
     <message>
-        <location filename="../gui/aboutdialog.cpp" line="110"/>
+        <location filename="../gui/aboutdialog.cpp" line="111"/>
         <source>- Spanish: Pol Marcet Sard%1</source>
         <translation>- Español: Pol Marcet Sard%1</translation>
     </message>
     <message>
-        <location filename="../gui/aboutdialog.cpp" line="111"/>
+        <location filename="../gui/aboutdialog.cpp" line="112"/>
         <source>- Catalan: Pol Marcet Sard%1</source>
         <translation>- Catalán: Pol Marcet Sard%1</translation>
     </message>
     <message>
-        <location filename="../gui/aboutdialog.cpp" line="114"/>
+        <location filename="../gui/aboutdialog.cpp" line="115"/>
         <source>This program uses GeoLite2 data for IP-to-Country (IP2C) purposes, available from https://www.maxmind.com</source>
         <translation>Este programa usa la información de GeoLite2 para localizar países por IP (IP2C), y la puede encontrar en https://www.maxmind.com</translation>
     </message>
     <message>
-        <location filename="../gui/aboutdialog.cpp" line="116"/>
+        <location filename="../gui/aboutdialog.cpp" line="117"/>
         <source>Database and Contents Copyright (c) 2018 MaxMind, Inc.</source>
         <translation>La base de datos y su contenido bajo Copyright (c) 2018 MaxMind, Inc.</translation>
     </message>
     <message>
-        <location filename="../gui/aboutdialog.cpp" line="117"/>
+        <location filename="../gui/aboutdialog.cpp" line="118"/>
         <source>GeoLite2 License:
 This work is licensed under the Creative Commons Attribution - ShareAlike 4.0 Unported License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.</source>
         <translation>Licencia de GeoLite2:
 Se encuentra bajo la licencia de la Creative Commons Attribution-ShareAlike 4.0 Unported License. Para ver una copia de esta licencia, visita http://creativecommons.org/licenses/by-sa/4.0/.</translation>
     </message>
     <message>
-        <location filename="../gui/aboutdialog.cpp" line="120"/>
+        <location filename="../gui/aboutdialog.cpp" line="121"/>
         <source>GeoLite2 available at:
 https://dev.maxmind.com/geoip/geoip2/geolite2/</source>
         <translation>GeoLite2 está disponible en:
 https://dev.maxmind.com/geoip/geoip2/geolite2/</translation>
     </message>
     <message>
-        <location filename="../gui/aboutdialog.cpp" line="125"/>
+        <location filename="../gui/aboutdialog.cpp" line="126"/>
         <source>- Aha-Soft</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../gui/aboutdialog.cpp" line="126"/>
+        <location filename="../gui/aboutdialog.cpp" line="127"/>
         <source>- Crystal Clear by Everaldo Coelho</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../gui/aboutdialog.cpp" line="127"/>
+        <location filename="../gui/aboutdialog.cpp" line="128"/>
         <source>- Fugue Icons (C) 2013 Yusuke Kamiyamane. All rights reserved.</source>
         <translation>- Fugue Icons (C) 2013 Yusuke Kamiyamane. Todos los derechos reservados.</translation>
     </message>
     <message>
-        <location filename="../gui/aboutdialog.cpp" line="128"/>
+        <location filename="../gui/aboutdialog.cpp" line="129"/>
         <source>- Nuvola 1.0 (KDE 3.x icon set)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../gui/aboutdialog.cpp" line="129"/>
+        <location filename="../gui/aboutdialog.cpp" line="130"/>
         <source>- Oxygen Icons 4.3.1 (KDE)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../gui/aboutdialog.cpp" line="130"/>
+        <location filename="../gui/aboutdialog.cpp" line="131"/>
         <source>- Silk Icon Set (C) Mark James (famfamfam.com)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../gui/aboutdialog.cpp" line="131"/>
+        <location filename="../gui/aboutdialog.cpp" line="132"/>
         <source>- Tango Icon Library / Tango Desktop Project</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../gui/aboutdialog.cpp" line="132"/>
+        <location filename="../gui/aboutdialog.cpp" line="133"/>
         <source>This program uses icons (or derivates of) from following sources:
 </source>
         <translation>Este programa usa iconos (o derivados) de las siguientes fuentes:
 </translation>
     </message>
     <message>
-        <location filename="../gui/aboutdialog.cpp" line="143"/>
         <source>JSON library license</source>
-        <translation>Licencia de la biblioteca JSON</translation>
+        <translation type="vanished">Licencia de la biblioteca JSON</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="485"/>
+        <location filename="../gui/aboutdialog.ui" line="14"/>
         <source>About Doomseeker</source>
         <translation>Acerca de Doomseeker</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="486"/>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="521"/>
+        <location filename="../gui/aboutdialog.ui" line="24"/>
+        <location filename="../gui/aboutdialog.ui" line="43"/>
         <source>Doomseeker</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="487"/>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="523"/>
+        <location filename="../gui/aboutdialog.ui" line="77"/>
+        <location filename="../gui/aboutdialog.ui" line="394"/>
         <source>&lt;Version&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="488"/>
+        <location filename="../gui/aboutdialog.ui" line="90"/>
         <source>(ABI: &lt;DOOMSEEKER_ABI_VERSION&gt;)</source>
         <translation>(ABI: &lt;DOOMSEEKER_ABI_VERSION&gt;)</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="489"/>
+        <location filename="../gui/aboutdialog.ui" line="112"/>
         <source>&lt;Changeset&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="490"/>
+        <location filename="../gui/aboutdialog.ui" line="140"/>
         <source>Revision:</source>
         <translation>Revisión:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="492"/>
         <source>This value is relevant to auto updater feature.</source>
-        <translation>Este valor es relevante para la función de actualización automática.</translation>
+        <translation type="vanished">Este valor es relevante para la función de actualización automática.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="494"/>
+        <location filename="../gui/aboutdialog.ui" line="150"/>
         <source>&lt;Revision&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="495"/>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="524"/>
+        <location filename="../gui/aboutdialog.ui" line="175"/>
+        <location filename="../gui/aboutdialog.ui" line="407"/>
         <source>&lt;a href=&quot;https://doomseeker.drdteam.org/&quot;&gt;https://doomseeker.drdteam.org/&lt;/a&gt;</source>
         <translation></translation>
     </message>
@@ -208,76 +206,74 @@ https://dev.maxmind.com/geoip/geoip2/geolite2/
 </translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="497"/>
+        <location filename="../gui/aboutdialog.ui" line="220"/>
         <source>Contact information:</source>
         <translation>Información de contacto:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="498"/>
+        <location filename="../gui/aboutdialog.ui" line="229"/>
         <source>Zalewa:</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="499"/>
+        <location filename="../gui/aboutdialog.ui" line="236"/>
         <source>zalewapl@gmail.com</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="500"/>
+        <location filename="../gui/aboutdialog.ui" line="252"/>
         <source>Blzut3:</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="501"/>
+        <location filename="../gui/aboutdialog.ui" line="259"/>
         <source>admin@maniacsvault.net</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="502"/>
+        <location filename="../gui/aboutdialog.ui" line="284"/>
         <source>Additional contributions from:</source>
         <translation>Contribuidores adicionales:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="503"/>
+        <location filename="../gui/aboutdialog.ui" line="294"/>
         <source>- Hyper_Eye, Nece228, Linda &quot;WubTheCaptain&quot; Lapinlampi, Pol Marcet Sardà</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="504"/>
+        <location filename="../gui/aboutdialog.ui" line="304"/>
         <source>- Doomseeker logo and main icon design by Rachael &quot;Eruanna&quot; Alexanderson</source>
         <translation>- El logo de Doomseeker y el icono principal diseñados por Rachael &quot;Eruanna&quot; Alexanderson</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="505"/>
         <source>- Improved Doomseeker icons by MazterQyoun-ae and CarpeDiem</source>
-        <translation>- Iconos de Doomseeker mejorados por MazterQyoun-ae y CarpeDiem</translation>
+        <translation type="vanished">- Iconos de Doomseeker mejorados por MazterQyoun-ae y CarpeDiem</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="506"/>
         <source>JSON library on BSD License (c) Eeli Reilin 2011 :</source>
-        <translation>biblioteca JSON bajo licencia BSD (c) Eeli Reilin 2011 :</translation>
+        <translation type="vanished">biblioteca JSON bajo licencia BSD (c) Eeli Reilin 2011 :</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="507"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://github.com/ereilin/qt-json&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/ereilin/qt-json&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="513"/>
         <source>Show JSON library license</source>
-        <translation>Mostrar licencia de la librería JSON</translation>
+        <translation type="vanished">Mostrar licencia de la librería JSON</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="515"/>
+        <location filename="../gui/aboutdialog.ui" line="147"/>
+        <source>The auto updater compares the versions by this revision number.</source>
+        <translation>El actualizador automático comparará otras versiones con este número de versión.</translation>
+    </message>
+    <message>
+        <location filename="../gui/aboutdialog.ui" line="314"/>
+        <source>- Doomseeker icons by MazterQyoun-ae and CarpeDiem</source>
+        <translation>- Iconos de Doomseeker hechos por MazterQyoun-ae y CarpeDiem</translation>
+    </message>
+    <message>
+        <location filename="../gui/aboutdialog.ui" line="334"/>
         <source>GeoLite2 Database:</source>
         <translation>Base de datos GeoLite2:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="516"/>
+        <location filename="../gui/aboutdialog.ui" line="344"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -286,48 +282,48 @@ p, li { white-space: pre-wrap; }
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="522"/>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="529"/>
+        <location filename="../gui/aboutdialog.ui" line="359"/>
+        <location filename="../gui/aboutdialog.ui" line="378"/>
         <source>Wadseeker</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="525"/>
+        <location filename="../gui/aboutdialog.ui" line="422"/>
         <source>Copyright ©</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="526"/>
+        <location filename="../gui/aboutdialog.ui" line="432"/>
         <source>&lt;YearSpan&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="527"/>
+        <location filename="../gui/aboutdialog.ui" line="442"/>
         <source>&lt;Author&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="528"/>
+        <location filename="../gui/aboutdialog.ui" line="467"/>
         <source>&lt;Description&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="530"/>
+        <location filename="../gui/aboutdialog.ui" line="523"/>
         <source>Version: 0.0.0.0</source>
         <translation>Versión: 0.0.0.0</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="531"/>
+        <location filename="../gui/aboutdialog.ui" line="536"/>
         <source>(ABI: DOOMSEEKER_ABI_VERSION)</source>
         <translation>(ABI: DOOMSEEKER_ABI_VERSION)</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="532"/>
+        <location filename="../gui/aboutdialog.ui" line="558"/>
         <source>&lt;Plugin Author&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_aboutdialog.h" line="534"/>
+        <location filename="../gui/aboutdialog.ui" line="494"/>
         <source>Plugins</source>
         <translation>Complementos</translation>
     </message>
@@ -335,43 +331,62 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>AddBuddyDlg</name>
     <message>
-        <location filename="../gui/dockBuddiesList.cpp" line="289"/>
+        <location filename="../gui/dockBuddiesList.cpp" line="290"/>
         <source>Invalid Pattern</source>
         <translation>Patrón inválido</translation>
     </message>
     <message>
-        <location filename="../gui/dockBuddiesList.cpp" line="289"/>
+        <location filename="../gui/dockBuddiesList.cpp" line="290"/>
         <source>The pattern you have specified is invalid.</source>
         <translation>El patrón que has especificado no es válido.</translation>
+    </message>
+    <message>
+        <location filename="../gui/dockBuddiesList.cpp" line="309"/>
+        <source>The asterisk (*) can be used as a wild card.</source>
+        <translation>El asterisco (*) representa cualquier letra.</translation>
+    </message>
+    <message>
+        <location filename="../gui/dockBuddiesList.cpp" line="313"/>
+        <source>Use the Regular Expression format.</source>
+        <translation>Utiliza el formato de expresiones regulares.</translation>
     </message>
     <message>
         <source>The pattern you have specified is not a valid regular expression.</source>
         <translation type="vanished">El patrón que has especificado no es una expressión regular válida.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_addBuddyDlg.h" line="98"/>
+        <location filename="../gui/addBuddyDlg.ui" line="14"/>
         <source>Add Buddy</source>
         <translation>Añadir Compañero</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_addBuddyDlg.h" line="99"/>
         <source>Type the name of your buddy here.  If the pattern type is set to basic you may use an asterisk (*) as a wild card.</source>
-        <translation>Escriba aquí el nombre de su compañero. Si el tipo de patrón es básico, puede usar el asterisco (*) como carácter comodín.</translation>
+        <translation type="vanished">Escriba aquí el nombre de su compañero. Si el tipo de patrón es básico, puede usar el asterisco (*) como carácter comodín.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_addBuddyDlg.h" line="100"/>
+        <location filename="../gui/addBuddyDlg.ui" line="26"/>
+        <source>Buddy name:</source>
+        <translation>Nombre de compañero:</translation>
+    </message>
+    <message>
+        <location filename="../gui/addBuddyDlg.ui" line="36"/>
         <source>Pattern Type</source>
         <translation>Tipo de patrón</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_addBuddyDlg.h" line="101"/>
+        <location filename="../gui/addBuddyDlg.ui" line="42"/>
         <source>Basic</source>
         <translation>Básico</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_addBuddyDlg.h" line="102"/>
+        <location filename="../gui/addBuddyDlg.ui" line="52"/>
         <source>Advanced</source>
         <translation>Avanzado</translation>
+    </message>
+    <message>
+        <location filename="../gui/addBuddyDlg.ui" line="62"/>
+        <source>&lt;tip&gt;</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -389,9 +404,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../apprunner.cpp" line="102"/>
+        <source>Cannot run file: %1</source>
+        <translation>No se puede ejecutar el archivo: %1</translation>
+    </message>
+    <message>
         <source>File: %1
 cannot be run</source>
-        <translation>El archivo %1
+        <translation type="vanished">El archivo %1
 no puede ser ejecutado</translation>
     </message>
 </context>
@@ -644,67 +663,71 @@ no puede ser ejecutado</translation>
         <translation>El programa necesita reiniciarse para aplicar completamente la traducción</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgappearance.h" line="276"/>
+        <location filename="../gui/configuration/cfgappearance.ui" line="99"/>
         <source>Player slots style:</source>
         <translation>Estilo del número de jugadores:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgappearance.h" line="277"/>
+        <location filename="../gui/configuration/cfgappearance.ui" line="113"/>
         <source>Marines</source>
         <translation>Marines</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgappearance.h" line="278"/>
+        <location filename="../gui/configuration/cfgappearance.ui" line="118"/>
         <source>Blocks</source>
         <translation>Bloques</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgappearance.h" line="279"/>
+        <location filename="../gui/configuration/cfgappearance.ui" line="123"/>
         <source>Numeric</source>
         <translation>Numérico</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgappearance.h" line="281"/>
         <source>Custom servers color:</source>
-        <translation>Color servidores customizados:</translation>
+        <translation type="vanished">Color servidores customizados:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgappearance.h" line="285"/>
+        <location filename="../gui/configuration/cfgappearance.ui" line="229"/>
         <source>Bots are not players</source>
         <translation>Bots no son jugadores</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgappearance.h" line="287"/>
+        <location filename="../gui/configuration/cfgappearance.ui" line="208"/>
         <source>Hide passwords</source>
         <translation>Ocultar contraseñas</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgappearance.h" line="289"/>
+        <location filename="../gui/configuration/cfgappearance.ui" line="215"/>
         <source>Lookup server hosts</source>
         <translation>Buscar servidores host</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgappearance.h" line="274"/>
+        <location filename="../gui/configuration/cfgappearance.ui" line="34"/>
         <source>Language:</source>
         <translation>Lengua:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgappearance.h" line="275"/>
+        <location filename="../gui/configuration/cfgappearance.ui" line="87"/>
         <source>Full retranslation requires a restart.</source>
         <translation>La traducción completa requiere de reiniciar el programa.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgappearance.h" line="291"/>
+        <location filename="../gui/configuration/cfgappearance.ui" line="131"/>
+        <source>Pinned servers color:</source>
+        <translation>Color de los servidores fijados:</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgappearance.ui" line="222"/>
         <source>Colorize server console</source>
         <translation>Colorear consola del servidor</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgappearance.h" line="293"/>
+        <location filename="../gui/configuration/cfgappearance.ui" line="236"/>
         <source>Draw grid in server table</source>
         <translation>Dibujar cuadrícula en la tabla de servidores</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgappearance.h" line="283"/>
+        <location filename="../gui/configuration/cfgappearance.ui" line="165"/>
         <source>Servers with buddies color:</source>
         <translation>Color servidores con compañeros:</translation>
     </message>
@@ -713,17 +736,17 @@ no puede ser ejecutado</translation>
         <translation type="vanished">Es necesario reiniciar para aplicar la traducción completamente.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgappearance.h" line="282"/>
+        <location filename="../gui/configuration/cfgappearance.ui" line="148"/>
         <source>LAN servers color:</source>
         <translation>Color servidores LAN:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgappearance.h" line="295"/>
+        <location filename="../gui/configuration/cfgappearance.ui" line="243"/>
         <source>Use tray icon</source>
         <translation>Usar icono de la bandeja del sistema</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgappearance.h" line="296"/>
+        <location filename="../gui/configuration/cfgappearance.ui" line="252"/>
         <source>When close button is pressed, minimize to tray icon.</source>
         <translation>Cuando se presione el botón &quot;cerrar&quot;, minimizar a la bandeja del sistema.</translation>
     </message>
@@ -731,47 +754,48 @@ no puede ser ejecutado</translation>
 <context>
     <name>CFGAutoUpdates</name>
     <message>
-        <location filename="../gui/configuration/cfgautoupdates.h" line="44"/>
         <source>Auto Updates</source>
-        <translation>Actualizaciones automáticas</translation>
+        <translation type="vanished">Actualizaciones automáticas</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgautoupdates.h" line="133"/>
+        <location filename="../gui/configuration/cfgautoupdates.ui" line="44"/>
         <source>Disabled</source>
         <translation>Desactivado</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgautoupdates.h" line="134"/>
+        <location filename="../gui/configuration/cfgautoupdates.ui" line="51"/>
         <source>Notify me but don&apos;t install</source>
         <translation>Notifícame pero no instales las actualizaciones</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgautoupdates.h" line="135"/>
+        <location filename="../gui/configuration/cfgautoupdates.ui" line="61"/>
         <source>Install automatically</source>
         <translation>Instala automáticamente</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgautoupdates.h" line="136"/>
+        <location filename="../gui/configuration/cfgautoupdates.ui" line="76"/>
         <source>Update channel:</source>
         <translation>Canal de actualización:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgautoupdates.h" line="138"/>
         <source>&lt;p&gt;New IP2C database will be downloaded if locally stored one is missing or has a different checksum than the one stored on Doomseeker&apos;s web page.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Se descargará una nueva base de datos IP2C si falta una almacenada localmente o tiene una checksum diferente a la almacenada en la página web de Doomseeker.&lt;/p&gt;</translation>
+        <translation type="vanished">&lt;p&gt;Se descargará una nueva base de datos IP2C si falta una almacenada localmente o tiene una checksum diferente a la almacenada en la página web de Doomseeker.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgautoupdates.h" line="140"/>
         <source>IP2C auto update</source>
-        <translation>Actualizar automáticamente IP2C</translation>
+        <translation type="vanished">Actualizar automáticamente IP2C</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgautoupdates.h" line="44"/>
+        <source>Auto updates</source>
+        <translation>Actualizaciones automáticas</translation>
     </message>
 </context>
 <context>
     <name>CFGCustomServers</name>
     <message>
-        <location filename="../gui/configuration/cfgcustomservers.h" line="50"/>
         <source>Pinned Servers</source>
-        <translation>Servidores Fijados</translation>
+        <translation type="vanished">Servidores Fijados</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgcustomservers.cpp" line="89"/>
@@ -804,65 +828,77 @@ no puede ser ejecutado</translation>
         <translation>Puerto</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgcustomservers.h" line="138"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Adds a new entry to the list. To specify the address and port of the custom server double-click on the cells in the table. Domain names are supported.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation type="vanished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Agrega una nueva entrada a la lista. Para especificar la dirección y el puerto del servidor fijado, haga doble clic en las celdas de la tabla. Los nombres de dominio están soportados.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgcustomservers.h" line="144"/>
+        <location filename="../gui/configuration/cfgcustomservers.ui" line="46"/>
+        <source>&lt;p&gt;Add a new entry to the list. To specify the address and port of the custom server double-click on the cells in the table. Domain names are supported.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Añadir una entrada en la lista. Para especificar la dirección y el puerto del servidor, haga doble clic en las celdas de la tabla. También puede usar nombres de dominio (DNS).&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgcustomservers.ui" line="49"/>
         <source>Add</source>
         <translation>Añadir</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgcustomservers.h" line="145"/>
+        <location filename="../gui/configuration/cfgcustomservers.ui" line="60"/>
         <source>Remove</source>
         <translation>Borrar</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgcustomservers.h" line="147"/>
+        <location filename="../gui/configuration/cfgcustomservers.ui" line="78"/>
         <source>Enable selected</source>
         <translation>Activar seleccionados</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgcustomservers.h" line="149"/>
+        <location filename="../gui/configuration/cfgcustomservers.ui" line="81"/>
         <source>Enable</source>
         <translation>Activar</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgcustomservers.h" line="151"/>
+        <location filename="../gui/configuration/cfgcustomservers.ui" line="92"/>
         <source>Disable selected</source>
         <translation>Desactivar seleccionados</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgcustomservers.h" line="153"/>
+        <location filename="../gui/configuration/cfgcustomservers.ui" line="95"/>
         <source>Disable</source>
         <translation>Desactivar</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgcustomservers.h" line="155"/>
-        <source>Changes engine on selected servers.</source>
-        <translation>Cambia el motor en los servidores seleccionados.</translation>
+        <location filename="../gui/configuration/cfgcustomservers.ui" line="113"/>
+        <source>Change the game on the selected servers.</source>
+        <translation>Cambia el juego en los servidores seleccionados.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgcustomservers.h" line="157"/>
+        <source>Changes engine on selected servers.</source>
+        <translation type="vanished">Cambia el motor en los servidores seleccionados.</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgcustomservers.ui" line="116"/>
         <source>Set Game</source>
         <translation>Establecer juego</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgcustomservers.h" line="50"/>
+        <source>Pinned servers</source>
+        <translation>Servidores fijados</translation>
     </message>
 </context>
 <context>
     <name>CFGFilePaths</name>
     <message>
-        <location filename="../gui/configuration/cfgfilepaths.h" line="53"/>
         <source>File Paths</source>
-        <translation>Rutas de archivo</translation>
+        <translation type="vanished">Rutas de archivo</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgfilepaths.cpp" line="45"/>
@@ -875,9 +911,13 @@ p, li { white-space: pre-wrap; }
         <translation>Recursivo</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgfilepaths.cpp" line="92"/>
         <source>Doomseeker - Add wad path</source>
-        <translation>Doomseeker - Agregar ruta a WAD</translation>
+        <translation type="vanished">Doomseeker - Agregar ruta a WAD</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgfilepaths.cpp" line="92"/>
+        <source>Doomseeker - Add game mod path</source>
+        <translation>Doomseeker - Añadir ruta de modificaciones del juego</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgfilepaths.cpp" line="185"/>
@@ -895,38 +935,57 @@ p, li { white-space: pre-wrap; }
         <translation>La ruta no es un directorio.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgfilepaths.h" line="121"/>
         <source>IWAD and PWAD paths:</source>
-        <translation>Rutas hacia IWADs y PWADs:</translation>
+        <translation type="vanished">Rutas hacia IWADs y PWADs:</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;WARNING: &lt;/span&gt;It&apos;s highly discouraged to enable recursion for directories with lots of subdirectories. You may experience heavy performance loss and high hard drive usage if recursion is used recklessly. When recursion is enabled, file search operations will go the entire way down to the bottom of the directory tree if necessary.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="vanished">&lt;html&gt;&lt;head /&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot;font-weight: 600;&quot;&gt;NOTA: &lt;/span&gt;No se recomienda habilitar la recursividad para directorios con muchos subdirectorios. Puede experimentar una pérdida severa de rendimiento y un desgaste excesivo del disco duro si la recursión se usa imprudentemente. Cuando la recursividad está habilitada, la operación de búsqueda de archivos irá hasta el fondo del árbol de directorios, si es necesario.&lt;/P&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgfilepaths.h" line="122"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;WARNING: &lt;/span&gt;It&apos;s not recommended to enable recursion for directories with lots of subdirectories. With such directories you may experience heavy performance loss and high hard drive usage. When recursion is enabled, file search operations will go the entire way down to the bottom of the directory tree if necessary.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="vanished">&lt;html&gt;&lt;head /&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot;font-weight: 600;&quot;&gt;NOTA: &lt;/span&gt;No se recomienda habilitar la recursividad para directorios con muchos subdirectorios. Puede experimentar una pérdida severa de rendimiento y un uso excesivo del disco duro. Cuando la recursividad está habilitada, la operación de búsqueda de archivos irá hasta el fondo del árbol de directorios, si es necesario.&lt;/P&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="29"/>
+        <source>Where are the game mods, IWADs, PWADs:</source>
+        <translation>Dónde se encuentran las modificaciones, IWADs y PWADs:</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="64"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;WARNING: &lt;/span&gt;It&apos;s not recommended to enable recursion for directories with lots of subdirectories. With such directories you may experience heavy performance loss and high hard drive usage. When recursion is enabled, the file search will go the entire way down to the bottom of the directory tree if necessary.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head /&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot;font-weight: 600;&quot;&gt;NOTA: &lt;/span&gt;No se recomienda habilitar la recursividad para directorios con muchos subdirectorios. Puede experimentar una pérdida severa de rendimiento y un uso excesivo del disco duro. Cuando la recursividad está habilitada, la operación de búsqueda de archivos irá hasta el fondo del árbol de directorios, si es necesario.&lt;/P&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgfilepaths.h" line="123"/>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="92"/>
         <source>Add</source>
         <translation>Añadir</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgfilepaths.h" line="124"/>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="103"/>
         <source>Remove</source>
         <translation>Borrar</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgfilepaths.h" line="126"/>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="116"/>
+        <source>&lt;p&gt;If selected Doomseeker will attempt to find the files used on a particular server when the mouse cursor is hovered over the WADs and IWAD columns. This requires a hard drive access to search in all the directories specified above each time a new tooltip is generated. If it takes too long to create such tooltip, you may try disabling this option.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Si se selecciona, Doomseeker intentará buscar los archivos que usa este servidor cuando tu cursor esté encima de la columna de WADs y IWAD. Esto requiere de buscar en los directorios que has especificado cada vez que se genera una ventana. Si esto toma mucho tiempo, prueba a desactivar esta opción.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="126"/>
+        <source>&lt;p&gt;If selected Doomseeker will attempt to check the integrity of the local WADs, compared to the ones used on a particular server. This requires a hard drive access to read the entirety of the WADs. If it takes too long to join servers, you may want to disable this feature.&lt;/p&gt;
+&lt;p&gt;This setting is used when joining a server and when clicking the &amp;quot;Find missing WADs&amp;quot; button in the context menu.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Si se selecciona, Doomseeker intentará comprobar la integridad de los WADs locales, en comparación con las utilizadas en un servidor concreto. Esto requiere acceso al disco duro para leer la totalidad de los WADs. Si esto requiere demasiado tiempo para conectarse a los servidores, es posible que desee desactivar esta función.&lt;/p&gt;
+&lt;p&gt;Este parámetro se utiliza cuando se une a un servidor y al hacer clic en el botón &amp;quot;Encuentra los WADs faltantes&amp;quot; en el menú contextual del ratón.&lt;/p&gt;</translation>
+    </message>
+    <message>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;If selected Doomseeker will attempt to find files used on a particular server if mouse cursor is hovered over the WADS column. This requires hard drive access and search in all directories specified above each time a new tooltip is generated. If it takes too long to create such tooltip you may try disabling this option.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;This also applies to IWAD column.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation type="vanished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -934,19 +993,18 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Esto también se aplica a la columna IWAD.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgfilepaths.h" line="134"/>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="119"/>
         <source>Tell me where are my WADs located</source>
         <translation>Dime dónde se encuentran mis WADs</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgfilepaths.h" line="136"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Noto Sans Regular&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt;&quot;&gt;If selected Doomseeker will attempt to check the integrity of the local WADs, compared to the ones used on a particular server. This requires hard drive access to read the entirety of the WADs. If it takes too long to join servers you may want to disable this feature.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt;&quot;&gt;This setting is used when joining a server and when clicking the &amp;quot;Find missing WADs&amp;quot; button on the right-click menu.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation type="vanished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Noto Sans Regular&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -954,9 +1012,42 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt;&quot;&gt;Este parámetro se utiliza cuando se une a un servidor y al hacer clic en el botón &amp;quot;Encuentra los WADs faltantes&amp;quot; en el menú contextual del ratón.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgfilepaths.h" line="144"/>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="130"/>
         <source>Check the integrity of local WADs</source>
         <translation>Comprobar la integridad de los WADs locales</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgfilepaths.h" line="53"/>
+        <source>File paths</source>
+        <translation>Rutas de archivo</translation>
+    </message>
+</context>
+<context>
+    <name>CFGIP2C</name>
+    <message>
+        <location filename="../gui/configuration/cfgip2c.ui" line="29"/>
+        <source>&lt;p&gt;A new IP2C database will be downloaded if the local one is missing or has a different checksum than the one stored on Doomseeker&apos;s web page.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Se descargará una nueva base de datos IP2C si falta una almacenada localmente o tiene una checksum diferente a la almacenada en la página web de Doomseeker.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgip2c.ui" line="32"/>
+        <source>IP2C auto update</source>
+        <translation>Actualizar automáticamente IP2C</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgip2c.ui" line="39"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Servers of some games are able to directly tell Doomseeker in which country they are located in. If this is checked, Doomseeker will honor this information. If unchecked, Doomseeker will always try to detect the country by server&apos;s IP. &lt;/p&gt;&lt;p&gt;Neither of these methods may be accurate - the server can tell false info and the IP2C database may contain inaccuracies. Either method can lead to the wrong country being displayed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Algunos servidores pueden decir a Doomseeker en qué país se encuentran directamente. Si esta opción está activada, Doomseeker usará la información que este le proporciona. Si no, Doomseeker intentará detectar el país según la IP del servidor.&lt;/p&gt;&lt;p&gt;Ambas opciones pueden tener errores: el servidor puede dar información falsa, y la base de datos IP2C puede tener entradas sin actualizar. Ambas opciones pueden acabar con un país erróneo&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgip2c.ui" line="42"/>
+        <source>Honor countries set by servers</source>
+        <translation>Usar el país definido por el servidor</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgip2c.h" line="44"/>
+        <source>IP2C</source>
+        <translation>IP2C</translation>
     </message>
 </context>
 <context>
@@ -972,77 +1063,77 @@ p, li { white-space: pre-wrap; }
         <translation>IRC - Apariencia</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircappearance.h" line="260"/>
+        <location filename="../gui/configuration/irc/cfgircappearance.ui" line="37"/>
         <source>Default text color:</source>
         <translation>Color de texto predefinido:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircappearance.h" line="261"/>
+        <location filename="../gui/configuration/irc/cfgircappearance.ui" line="54"/>
         <source>Channel action color:</source>
         <translation>Color de acción en el canal:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircappearance.h" line="262"/>
+        <location filename="../gui/configuration/irc/cfgircappearance.ui" line="71"/>
         <source>Network action color:</source>
         <translation>Color de acción en la red:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircappearance.h" line="263"/>
+        <location filename="../gui/configuration/irc/cfgircappearance.ui" line="88"/>
         <source>CTCP color:</source>
         <translation>Color CTCP:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircappearance.h" line="264"/>
+        <location filename="../gui/configuration/irc/cfgircappearance.ui" line="105"/>
         <source>Error color:</source>
         <translation>Color errores:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircappearance.h" line="265"/>
+        <location filename="../gui/configuration/irc/cfgircappearance.ui" line="125"/>
         <source>Background color:</source>
         <translation>Color de fondo:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircappearance.h" line="266"/>
+        <location filename="../gui/configuration/irc/cfgircappearance.ui" line="142"/>
         <source>URL color:</source>
         <translation>Color de links:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircappearance.h" line="267"/>
+        <location filename="../gui/configuration/irc/cfgircappearance.ui" line="159"/>
         <source>Main font:</source>
         <translation>Fuente principal:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircappearance.h" line="268"/>
+        <location filename="../gui/configuration/irc/cfgircappearance.ui" line="185"/>
         <source>User list</source>
         <translation>Lista de usuarios</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircappearance.h" line="269"/>
+        <location filename="../gui/configuration/irc/cfgircappearance.ui" line="194"/>
         <source>Font:</source>
         <translation>Fuente:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircappearance.h" line="270"/>
+        <location filename="../gui/configuration/irc/cfgircappearance.ui" line="211"/>
         <source>Selected text color:</source>
         <translation>Color de texto seleccionado:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircappearance.h" line="271"/>
+        <location filename="../gui/configuration/irc/cfgircappearance.ui" line="228"/>
         <source>Selected background:</source>
         <translation>Fondo seleccionado:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircappearance.h" line="273"/>
+        <location filename="../gui/configuration/irc/cfgircappearance.ui" line="248"/>
         <source>Prepends all entries with [hh:mm:ss] timestamps.</source>
         <translation>Precede todas las entradas con marcas de tiempo [hh:mm:ss].</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircappearance.h" line="275"/>
+        <location filename="../gui/configuration/irc/cfgircappearance.ui" line="251"/>
         <source>Enable timestamps</source>
         <translation>Activar marcas de tiempo</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircappearance.h" line="276"/>
+        <location filename="../gui/configuration/irc/cfgircappearance.ui" line="258"/>
         <source>Window/task bar alert on important event (private msg, callsign)</source>
         <translation>Alertar en la ventana/barra de tareas cuando sucedan eventos importantes (mensaje privado, llamada)</translation>
     </message>
@@ -1050,16 +1141,24 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>CFGIRCDefineNetworkDialog</name>
     <message>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="79"/>
         <source>Following commands have violated the IRC maximum byte number limit (%1):
 
 </source>
-        <translation>Los siguientes comandos han sobrepasado el límite IRC de máximo bytes (%1):
+        <translation type="vanished">Los siguientes comandos han sobrepasado el límite IRC de máximo bytes (%1):
 
 </translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="81"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="80"/>
+        <source>These commands have violated the IRC maximum byte number limit (%1):
+
+</source>
+        <translation>Estos comandos han sobrepasado el límite IRC de máximo bytes (%1):
+
+</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="82"/>
         <source>
 
 If saved, the script may not run properly.
@@ -1072,7 +1171,7 @@ Si se guarda, el script puede no ejecutarse correctamente.
 ¿Desea guardar el script de todos modos?</translation>
     </message>
     <message numerus="yes">
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="86"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="87"/>
         <source>
 
 ... and %n more ...</source>
@@ -1086,34 +1185,34 @@ Si se guarda, el script puede no ejecutarse correctamente.
         </translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="89"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="90"/>
         <source>Doomseeker - IRC Commands Problem</source>
         <translation>Doomseeker - Problema Comandos IRC</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="120"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="121"/>
         <source>	%1 (...)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="206"/>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="212"/>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="221"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="207"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="213"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="222"/>
         <source>Invalid IRC network description</source>
         <translation>Descripción de la red IRC no válida</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="207"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="208"/>
         <source>Network description cannot be empty.</source>
         <translation>La descripción de red no puede estar vacía.</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="213"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="214"/>
         <source>There already is a network with such description.</source>
         <translation>Ya hay una red con tal descripción.</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="218"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="219"/>
         <source>Network description is invalid.
 
 Only letters, digits, spaces and &quot;%1&quot; are allowed.</source>
@@ -1122,52 +1221,52 @@ Only letters, digits, spaces and &quot;%1&quot; are allowed.</source>
 Sólo se admiten letras, dígitos, espacios y &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircdefinenetworkdialog.h" line="261"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.ui" line="14"/>
         <source>Define IRC Network</source>
         <translation>Definir la red IRC</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircdefinenetworkdialog.h" line="262"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.ui" line="30"/>
         <source>Description:</source>
         <translation>Descripción:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircdefinenetworkdialog.h" line="263"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.ui" line="40"/>
         <source>Address:</source>
         <translation>Dirección:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircdefinenetworkdialog.h" line="264"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.ui" line="50"/>
         <source>Port:</source>
         <translation>Puerto:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircdefinenetworkdialog.h" line="265"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.ui" line="93"/>
         <source>Server password (usually this should remain empty):</source>
         <translation>Contraseña del servidor (generalmente esto debería permanecer vacío):</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircdefinenetworkdialog.h" line="266"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.ui" line="24"/>
         <source>General</source>
         <translation>General</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircdefinenetworkdialog.h" line="267"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.ui" line="127"/>
         <source>Nickserv password:</source>
         <translation>Contraseña Nickserv:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircdefinenetworkdialog.h" line="268"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.ui" line="141"/>
         <source>Nickserv command:</source>
         <translation>Comando Nickserv:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircdefinenetworkdialog.h" line="269"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.ui" line="151"/>
         <source>/privmsg nickserv identify %1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircdefinenetworkdialog.h" line="270"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.ui" line="171"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -1182,47 +1281,47 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Por lo general, el comando Nickserv no debe modificarse.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircdefinenetworkdialog.h" line="276"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.ui" line="121"/>
         <source>Nickserv</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircdefinenetworkdialog.h" line="277"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.ui" line="193"/>
         <source>Specify channels that you wish to join by default when connecting to this network:</source>
         <translation>Especifique los canales a los que desea unirse de manera predeterminada cuando se conecte a esta red:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircdefinenetworkdialog.h" line="278"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.ui" line="206"/>
         <source>SPACEBAR or ENTER separated</source>
         <translation>BARRA ESPACIADORA o ENTER separados</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircdefinenetworkdialog.h" line="279"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.ui" line="187"/>
         <source>Channels</source>
         <translation>Canales</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircdefinenetworkdialog.h" line="280"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.ui" line="223"/>
         <source>Execute following commands on network join:</source>
         <translation>Ejecute los siguientes comandos al unirse a una red:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircdefinenetworkdialog.h" line="281"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.ui" line="246"/>
         <source>Put each command on a separate line.</source>
         <translation>Pon cada comando en una línea separada.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircdefinenetworkdialog.h" line="282"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.ui" line="253"/>
         <source>Max. 512 characters per command.</source>
         <translation>Max. 512 caracteres por comando.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircdefinenetworkdialog.h" line="283"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.ui" line="217"/>
         <source>Join Script</source>
         <translation>Script al unirse</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircdefinenetworkdialog.h" line="284"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.ui" line="264"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -1258,22 +1357,22 @@ p, li { white-space: pre-wrap; }
         <translation>Dirección</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircnetworks.h" line="114"/>
+        <location filename="../gui/configuration/irc/cfgircnetworks.ui" line="64"/>
         <source>Add</source>
         <translation>Añadir</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircnetworks.h" line="115"/>
+        <location filename="../gui/configuration/irc/cfgircnetworks.ui" line="75"/>
         <source>Edit</source>
         <translation>Editar</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircnetworks.h" line="116"/>
+        <location filename="../gui/configuration/irc/cfgircnetworks.ui" line="86"/>
         <source>Remove</source>
         <translation>Borrar</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircnetworks.h" line="117"/>
+        <location filename="../gui/configuration/irc/cfgircnetworks.ui" line="99"/>
         <source>Channel/network quit message:</source>
         <translation>Mensaje al salir de canal/red:</translation>
     </message>
@@ -1291,60 +1390,60 @@ p, li { white-space: pre-wrap; }
         <translation>IRC - Sonidos</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircsounds.cpp" line="53"/>
+        <location filename="../gui/configuration/irc/cfgircsounds.cpp" line="57"/>
         <source>Pick Sound File</source>
         <translation>Seleccionar archivo de sonido</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircsounds.cpp" line="55"/>
+        <location filename="../gui/configuration/irc/cfgircsounds.cpp" line="59"/>
         <source>WAVE (*.wav)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircsounds.cpp" line="124"/>
+        <location filename="../gui/configuration/irc/cfgircsounds.cpp" line="131"/>
         <source>No path specified.</source>
         <translation>Ninguna ruta especificada.</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircsounds.cpp" line="128"/>
+        <location filename="../gui/configuration/irc/cfgircsounds.cpp" line="135"/>
         <source>File doesn&apos;t exist.</source>
         <translation>El archivo no existe.</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircsounds.cpp" line="131"/>
+        <location filename="../gui/configuration/irc/cfgircsounds.cpp" line="138"/>
         <source>This is not a file.</source>
         <translation>Esto no es un archivo.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircsounds.h" line="166"/>
+        <location filename="../gui/configuration/irc/cfgircsounds.ui" line="31"/>
         <source>Nickname used:</source>
         <translation>Alias usado:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircsounds.h" line="167"/>
+        <location filename="../gui/configuration/irc/cfgircsounds.ui" line="38"/>
         <source>Private message:</source>
         <translation>Mensaje privado:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircsounds.h" line="170"/>
-        <location filename="../../../build/src/core/ui_cfgircsounds.h" line="173"/>
+        <location filename="../gui/configuration/irc/cfgircsounds.ui" line="57"/>
+        <location filename="../gui/configuration/irc/cfgircsounds.ui" line="77"/>
         <source>Sound played when your nickname is used in a channel.</source>
         <translation>Sonido reproducido cuando su alias se usa en un canal.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircsounds.h" line="175"/>
-        <location filename="../../../build/src/core/ui_cfgircsounds.h" line="183"/>
+        <location filename="../gui/configuration/irc/cfgircsounds.ui" line="80"/>
+        <location filename="../gui/configuration/irc/cfgircsounds.ui" line="132"/>
         <source>...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircsounds.h" line="178"/>
-        <location filename="../../../build/src/core/ui_cfgircsounds.h" line="181"/>
+        <location filename="../gui/configuration/irc/cfgircsounds.ui" line="109"/>
+        <location filename="../gui/configuration/irc/cfgircsounds.ui" line="129"/>
         <source>Sound played when private message is received.</source>
         <translation>Sonido reproducido cuando se recibe un mensaje privado.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgircsounds.h" line="184"/>
+        <location filename="../gui/configuration/irc/cfgircsounds.ui" line="157"/>
         <source>&lt;b&gt;Note:&lt;/b&gt; Use sounds in .WAV format.</source>
         <translation>&lt;b&gt;Nota:&lt;/b&gt; usa sonidos en formato .WAV.</translation>
     </message>
@@ -1357,111 +1456,111 @@ p, li { white-space: pre-wrap; }
         <translation>Consulta</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgquery.h" line="219"/>
+        <location filename="../gui/configuration/cfgquery.ui" line="20"/>
         <source>Refresh servers on startup</source>
         <translation>Actualizar servidores al arrancar</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgquery.h" line="220"/>
+        <location filename="../gui/configuration/cfgquery.ui" line="27"/>
         <source>Refresh before launch</source>
         <translation>Actualizar antes de lanzar</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgquery.h" line="221"/>
+        <location filename="../gui/configuration/cfgquery.ui" line="37"/>
         <source>Servers autorefresh</source>
         <translation>Autorefresco de servidores</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgquery.h" line="223"/>
-        <location filename="../../../build/src/core/ui_cfgquery.h" line="227"/>
-        <location filename="../../../build/src/core/ui_cfgquery.h" line="230"/>
+        <location filename="../gui/configuration/cfgquery.ui" line="48"/>
+        <location filename="../gui/configuration/cfgquery.ui" line="58"/>
+        <location filename="../gui/configuration/cfgquery.ui" line="71"/>
         <source>Minimum value: 30 seconds.</source>
         <translation>Valor mínimo: 30 segundos.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgquery.h" line="225"/>
+        <location filename="../gui/configuration/cfgquery.ui" line="51"/>
         <source>Obtain new server list every:</source>
         <translation>Obtener una nueva lista de servidores cada:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgquery.h" line="232"/>
+        <location filename="../gui/configuration/cfgquery.ui" line="74"/>
         <source>seconds</source>
         <translation>segundos</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgquery.h" line="234"/>
+        <location filename="../gui/configuration/cfgquery.ui" line="96"/>
         <source>Enabling this will prevent server list from disappearing when you are browsing through it.</source>
         <translation>Habilitar esto evitará que la lista de servidores desaparezca mientras esté navegando a través de ella.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgquery.h" line="236"/>
+        <location filename="../gui/configuration/cfgquery.ui" line="99"/>
         <source>Don&apos;t refresh if Doomseeker window is active.</source>
         <translation>No actualice si la ventana de Doomseeker está activa.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgquery.h" line="237"/>
+        <location filename="../gui/configuration/cfgquery.ui" line="109"/>
         <source>Refresh speed</source>
         <translation>Velocidad de refresco</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgquery.h" line="239"/>
-        <location filename="../../../build/src/core/ui_cfgquery.h" line="243"/>
+        <location filename="../gui/configuration/cfgquery.ui" line="117"/>
+        <location filename="../gui/configuration/cfgquery.ui" line="127"/>
         <source>How many times Doomseeker will attempt to query each server before deeming it to be not responding.</source>
         <translation>Cuántas veces Doomseeker intentará consultar cada servidor antes de determinar que no responde.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgquery.h" line="241"/>
+        <location filename="../gui/configuration/cfgquery.ui" line="120"/>
         <source>Number of attempts per server:</source>
         <translation>Número de intentos por servidor:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgquery.h" line="246"/>
-        <location filename="../../../build/src/core/ui_cfgquery.h" line="250"/>
+        <location filename="../gui/configuration/cfgquery.ui" line="149"/>
+        <location filename="../gui/configuration/cfgquery.ui" line="159"/>
         <source>Delay in miliseconds between each query attempt.</source>
         <translation>Retardo en milisegundos entre cada intento de consulta.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgquery.h" line="248"/>
+        <location filename="../gui/configuration/cfgquery.ui" line="152"/>
         <source>Delay between attemps (ms):</source>
         <translation>Retraso entre intentos (ms):</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgquery.h" line="252"/>
+        <location filename="../gui/configuration/cfgquery.ui" line="181"/>
         <source>Interval between different servers (ms):</source>
         <translation>Intervalo entre diferentes servidores (ms):</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgquery.h" line="254"/>
+        <location filename="../gui/configuration/cfgquery.ui" line="188"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sleep delay that occurs after querying a server and before querying a next one. Increasing this value may negatively affect the speed of server list refresh, but will free up CPU and decrease bandwidth usage.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Retraso que sucede después de consultar un servidor y antes de consultar el siguiente. Aumentar este valor puede afectar negativamente la velocidad de actualización de la lista de servidores, pero consumirá menos CPU y reducirá el uso de ancho de banda.&lt;/P&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgquery.h" line="256"/>
+        <location filename="../gui/configuration/cfgquery.ui" line="211"/>
         <source>Cautious</source>
         <translation>Precavido</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgquery.h" line="257"/>
+        <location filename="../gui/configuration/cfgquery.ui" line="218"/>
         <source>Moderate</source>
         <translation>Moderado</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgquery.h" line="258"/>
+        <location filename="../gui/configuration/cfgquery.ui" line="225"/>
         <source>Aggressive</source>
         <translation>Agresivo</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgquery.h" line="260"/>
+        <location filename="../gui/configuration/cfgquery.ui" line="232"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Be warned: in this mode correctly working servers may appear as &amp;quot;not responding&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Tenga cuidado: en este modo, los servidores que funcionan correctamente pueden mostrarse como &amp;quot;no responde&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgquery.h" line="262"/>
+        <location filename="../gui/configuration/cfgquery.ui" line="235"/>
         <source>Very Aggressive</source>
         <translation>Muy Agresivo</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgquery.h" line="263"/>
+        <location filename="../gui/configuration/cfgquery.ui" line="244"/>
         <source>These buttons change refresh speed settings to different values. Speed settings determine how long will it take to populate the server list and how accurate the refresh will be. Higher speed can mean lesser accuracy.
 
 If you&apos;re experiencing problems with refreshing servers, you might prefer &quot;Cautious&quot; preset, while &quot;Aggressive&quot; presets should be preferred with good connection quality.
@@ -1477,9 +1576,8 @@ Estos valores también se pueden modificar a mano.</translation>
 <context>
     <name>CFGServerPasswords</name>
     <message>
-        <location filename="../gui/configuration/cfgserverpasswords.h" line="48"/>
         <source>Server Passwords</source>
-        <translation>Contraseñas de servidores</translation>
+        <translation type="vanished">Contraseñas de servidores</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgserverpasswords.cpp" line="109"/>
@@ -1492,63 +1590,63 @@ Estos valores también se pueden modificar a mano.</translation>
         <translation>Ocultar</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgserverpasswords.h" line="190"/>
+        <location filename="../gui/configuration/cfgserverpasswords.ui" line="51"/>
         <source>Password</source>
         <translation>Contraseña</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgserverpasswords.h" line="192"/>
+        <location filename="../gui/configuration/cfgserverpasswords.ui" line="56"/>
         <source>Last Game</source>
         <translation>Último juego</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgserverpasswords.h" line="194"/>
+        <location filename="../gui/configuration/cfgserverpasswords.ui" line="61"/>
         <source>Last Server</source>
         <translation>Último servidor</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgserverpasswords.h" line="196"/>
-        <location filename="../../../build/src/core/ui_cfgserverpasswords.h" line="205"/>
+        <location filename="../gui/configuration/cfgserverpasswords.ui" line="66"/>
+        <location filename="../gui/configuration/cfgserverpasswords.ui" line="131"/>
         <source>Last Time</source>
         <translation>Última vez</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgserverpasswords.h" line="197"/>
+        <location filename="../gui/configuration/cfgserverpasswords.ui" line="74"/>
         <source>Remove Selected Passwords</source>
         <translation>Borrar contraseñas seleccionadas</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgserverpasswords.h" line="199"/>
+        <location filename="../gui/configuration/cfgserverpasswords.ui" line="116"/>
         <source>Game</source>
         <translation>Juego</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgserverpasswords.h" line="201"/>
+        <location filename="../gui/configuration/cfgserverpasswords.ui" line="121"/>
         <source>Name</source>
         <translation>Nombre</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgserverpasswords.h" line="203"/>
+        <location filename="../gui/configuration/cfgserverpasswords.ui" line="126"/>
         <source>Address</source>
         <translation>Dirección</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgserverpasswords.h" line="206"/>
+        <location filename="../gui/configuration/cfgserverpasswords.ui" line="139"/>
         <source>Remove Selected Servers</source>
         <translation>Borrar servidores seleccionados</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgserverpasswords.h" line="207"/>
+        <location filename="../gui/configuration/cfgserverpasswords.ui" line="166"/>
         <source>Add</source>
         <translation>Añadir</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgserverpasswords.h" line="208"/>
+        <location filename="../gui/configuration/cfgserverpasswords.ui" line="191"/>
         <source>Max number of servers to remember per password:</source>
         <translation>Número máximo de servidores a recordar por contraseña:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgserverpasswords.h" line="209"/>
+        <location filename="../gui/configuration/cfgserverpasswords.ui" line="210"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -1560,13 +1658,17 @@ p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Advertencia:&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt; Algunos servidores pueden perderse.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
+    <message>
+        <location filename="../gui/configuration/cfgserverpasswords.h" line="48"/>
+        <source>Server passwords</source>
+        <translation>Contraseñas de servidores</translation>
+    </message>
 </context>
 <context>
     <name>CFGWadAlias</name>
     <message>
-        <location filename="../gui/configuration/cfgwadalias.h" line="44"/>
         <source>WAD Aliases</source>
-        <translation>Alias de WADs</translation>
+        <translation type="vanished">Alias de WADs</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgwadalias.cpp" line="65"/>
@@ -1589,49 +1691,54 @@ p, li { white-space: pre-wrap; }
         <translation>Todo Equivalente</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadalias.h" line="120"/>
+        <location filename="../gui/configuration/cfgwadalias.ui" line="14"/>
         <source>Form</source>
         <translation>Formulario</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadalias.h" line="121"/>
+        <location filename="../gui/configuration/cfgwadalias.ui" line="32"/>
         <source>Aliases listed here will be used if WADs are not found.</source>
         <translation>Los alias mostrados aquí se usarán si no se encuentran los WADs.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadalias.h" line="123"/>
+        <location filename="../gui/configuration/cfgwadalias.ui" line="55"/>
         <source>WAD</source>
         <translation>WAD</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadalias.h" line="125"/>
+        <location filename="../gui/configuration/cfgwadalias.ui" line="60"/>
         <source>Aliases</source>
         <translation>Alias</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadalias.h" line="127"/>
+        <location filename="../gui/configuration/cfgwadalias.ui" line="65"/>
         <source>Match</source>
         <translation>Coincidencia</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadalias.h" line="128"/>
+        <location filename="../gui/configuration/cfgwadalias.ui" line="75"/>
         <source>Add</source>
         <translation>Añadir</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadalias.h" line="129"/>
+        <location filename="../gui/configuration/cfgwadalias.ui" line="86"/>
         <source>Add Defaults</source>
         <translation>Agregar predefinidos</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadalias.h" line="130"/>
+        <location filename="../gui/configuration/cfgwadalias.ui" line="97"/>
         <source>Remove</source>
         <translation>Borrar</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadalias.h" line="131"/>
+        <location filename="../gui/configuration/cfgwadalias.ui" line="123"/>
         <source>Multiple aliases can be separated with semicolon &apos;;&apos;</source>
         <translation>Se pueden separar múltiples alias con un punto y coma &apos;;&apos;</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgwadalias.h" line="44"/>
+        <source>WAD aliases</source>
+        <translation>Alias de WADs</translation>
     </message>
 </context>
 <context>
@@ -1647,22 +1754,22 @@ p, li { white-space: pre-wrap; }
         <translation>Wadseeker - Apariencia</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadseekerappearance.h" line="106"/>
+        <location filename="../gui/configuration/cfgwadseekerappearance.ui" line="31"/>
         <source>Message colors:</source>
         <translation>Color mensajes:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadseekerappearance.h" line="107"/>
+        <location filename="../gui/configuration/cfgwadseekerappearance.ui" line="51"/>
         <source>Notice:</source>
         <translation>Notificación:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadseekerappearance.h" line="108"/>
+        <location filename="../gui/configuration/cfgwadseekerappearance.ui" line="61"/>
         <source>Error:</source>
         <translation>Error:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadseekerappearance.h" line="109"/>
+        <location filename="../gui/configuration/cfgwadseekerappearance.ui" line="71"/>
         <source>Critical error:</source>
         <translation>Error crítico:</translation>
     </message>
@@ -1670,9 +1777,13 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>CFGWadseekerGeneral</name>
     <message>
-        <location filename="../gui/configuration/cfgwadseekergeneral.h" line="44"/>
         <source>General</source>
-        <translation>General</translation>
+        <translation type="vanished">General</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgwadseekergeneral.h" line="44"/>
+        <source>Wadseeker</source>
+        <translation>Wadseeker</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgwadseekergeneral.h" line="48"/>
@@ -1680,22 +1791,22 @@ p, li { white-space: pre-wrap; }
         <translation>Wadseeker - General</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgwadseekergeneral.cpp" line="120"/>
+        <location filename="../gui/configuration/cfgwadseekergeneral.cpp" line="130"/>
         <source>No path specified.</source>
         <translation>Ninguna ruta especificada.</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgwadseekergeneral.cpp" line="123"/>
+        <location filename="../gui/configuration/cfgwadseekergeneral.cpp" line="133"/>
         <source>This path doesn&apos;t exist.</source>
         <translation>Esta ruta no existe.</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgwadseekergeneral.cpp" line="126"/>
+        <location filename="../gui/configuration/cfgwadseekergeneral.cpp" line="136"/>
         <source>This is not a directory.</source>
         <translation>Esto no es un directorio.</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgwadseekergeneral.cpp" line="129"/>
+        <location filename="../gui/configuration/cfgwadseekergeneral.cpp" line="139"/>
         <source>This directory cannot be written to.</source>
         <translation>No se puede escribir en este directorio.</translation>
     </message>
@@ -1708,21 +1819,18 @@ Doomseeker will automatically add this path to the file search paths.</source>
 Doomseeker agregará automáticamente esta ruta a las rutas de búsqueda de archivos.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadseekergeneral.h" line="220"/>
+        <location filename="../gui/configuration/cfgwadseekergeneral.ui" line="29"/>
         <source>Directory where Wadseeker will put WADs into:</source>
         <translation>Directorio donde Wadseeker colocará los WADs:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadseekergeneral.h" line="222"/>
-        <location filename="../../../build/src/core/ui_cfgwadseekergeneral.h" line="231"/>
-        <location filename="../../../build/src/core/ui_cfgwadseekergeneral.h" line="256"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Time after which Wadseeker stops connecting if no response is received.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;(min: 20 seconds, max: 360 seconds)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation type="vanished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -1730,21 +1838,17 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;(min: 20 segundos, máx: 360 segundos)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadseekergeneral.h" line="229"/>
         <source>Connect timeout (seconds):</source>
-        <translation>Tiempo de espera de conexión (segundos):</translation>
+        <translation type="vanished">Tiempo de espera de conexión (segundos):</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadseekergeneral.h" line="239"/>
-        <location filename="../../../build/src/core/ui_cfgwadseekergeneral.h" line="248"/>
-        <location filename="../../../build/src/core/ui_cfgwadseekergeneral.h" line="265"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Time after which Wadseeker stops downloading if data stops coming.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;(min: 60 seconds, max: 360 seconds)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation type="vanished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -1752,17 +1856,16 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;(min: 60 segundos, máx: 360 segundos)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadseekergeneral.h" line="246"/>
         <source>Download timeout (seconds):</source>
-        <translation>Tiempo de espera de descarga (segundos):</translation>
+        <translation type="vanished">Tiempo de espera de descarga (segundos):</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadseekergeneral.h" line="263"/>
+        <location filename="../gui/configuration/cfgwadseekergeneral.ui" line="48"/>
         <source>Max concurrent site seeks:</source>
         <translation>Máximo número de búsquedas simultáneas en páginas:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadseekergeneral.h" line="272"/>
+        <location filename="../gui/configuration/cfgwadseekergeneral.ui" line="83"/>
         <source>Max concurrent WAD downloads:</source>
         <translation>Máximo número de descargas simultáneas:</translation>
     </message>
@@ -1780,37 +1883,37 @@ p, li { white-space: pre-wrap; }
         <translation>Wadseeker - Archivos</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadseekeridgames.h" line="132"/>
+        <location filename="../gui/configuration/cfgwadseekeridgames.ui" line="20"/>
         <source>Idgames</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadseekeridgames.h" line="133"/>
+        <location filename="../gui/configuration/cfgwadseekeridgames.ui" line="26"/>
         <source>Use Idgames archive</source>
         <translation>Usar archivo Idgames</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadseekeridgames.h" line="134"/>
+        <location filename="../gui/configuration/cfgwadseekeridgames.ui" line="45"/>
         <source>Idgames archive URL (changing this is NOT recommended):</source>
         <translation>URL del archivo Idgames (NO se recomienda cambiar esto):</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadseekeridgames.h" line="135"/>
+        <location filename="../gui/configuration/cfgwadseekeridgames.ui" line="57"/>
         <source>Default</source>
         <translation>Predeterminado</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadseekeridgames.h" line="136"/>
+        <location filename="../gui/configuration/cfgwadseekeridgames.ui" line="76"/>
         <source>Wad Archive</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadseekeridgames.h" line="137"/>
+        <location filename="../gui/configuration/cfgwadseekeridgames.ui" line="82"/>
         <source>Use Wad Archive</source>
         <translation>Utilizar Wad Archive</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadseekeridgames.h" line="138"/>
+        <location filename="../gui/configuration/cfgwadseekeridgames.ui" line="89"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.wad-archive.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://www.wad-archive.com/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation></translation>
     </message>
@@ -1828,32 +1931,32 @@ p, li { white-space: pre-wrap; }
         <translation>Wadseeker - Sitios</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadseekersites.h" line="109"/>
+        <location filename="../gui/configuration/cfgwadseekersites.ui" line="42"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wadseeker library comes with its own list of file storage sites. As these sites come and go the list is modified with new updates of the library. Leave this option to be always up-to-date with the current list. &lt;/p&gt;&lt;p&gt;When enabled the list of hardcoded default sites will always be used in addition to the list above.&lt;/p&gt;&lt;p&gt;When disabled only the list above is used.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;La biblioteca Wadseeker viene con su propia lista de sitios de almacenamiento de archivos. A medida que estos sitios van y vienen, la lista se modifica con nuevas actualizaciones de la biblioteca. Deje esta opción activada para estar siempre actualizado con la lista actual. &lt;/p&gt;&lt;p&gt;Cuando se habilite, la lista de sitios predeterminados siempre se usará además de la lista anterior.&lt;/p&gt;&lt;p&gt;Cuando está desactivado, solo se utiliza la lista anterior.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadseekersites.h" line="111"/>
+        <location filename="../gui/configuration/cfgwadseekersites.ui" line="45"/>
         <source>Always use Wadseeker&apos;s default sites</source>
         <translation>Siempre use los sitios predeterminados de Wadseeker</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadseekersites.h" line="113"/>
+        <location filename="../gui/configuration/cfgwadseekersites.ui" line="54"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adds sites hardcoded within the Wadseeker library to the list. No URL that is currently on the list will be removed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Agrega sitios predeterminados en la biblioteca de Wadseeker a la lista. No se eliminará ninguna URL que esté actualmente en la lista.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadseekersites.h" line="115"/>
+        <location filename="../gui/configuration/cfgwadseekersites.ui" line="57"/>
         <source>Add Defaults</source>
         <translation>Agregar predefinidos</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadseekersites.h" line="116"/>
+        <location filename="../gui/configuration/cfgwadseekersites.ui" line="81"/>
         <source>Add</source>
         <translation>Añadir</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgwadseekersites.h" line="117"/>
+        <location filename="../gui/configuration/cfgwadseekersites.ui" line="92"/>
         <source>Remove</source>
         <translation>Borrar</translation>
     </message>
@@ -1894,51 +1997,55 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/configuration/irc/cfgchatlogspage.cpp" line="129"/>
-        <source>Specified path isn&apos;t a directory.</source>
+        <source>The specified path isn&apos;t a directory.</source>
         <translation>La ruta especificada no es un directorio.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgchatlogspage.h" line="154"/>
+        <source>Specified path isn&apos;t a directory.</source>
+        <translation type="vanished">La ruta especificada no es un directorio.</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/irc/cfgchatlogspage.ui" line="14"/>
         <source>Form</source>
         <translation>Formulario</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgchatlogspage.h" line="155"/>
+        <location filename="../gui/configuration/irc/cfgchatlogspage.ui" line="32"/>
         <source>Store chat logs</source>
         <translation>Almacenar registros de chat</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgchatlogspage.h" line="156"/>
+        <location filename="../gui/configuration/irc/cfgchatlogspage.ui" line="39"/>
         <source>Restore logs when re-entering chat</source>
         <translation>Restaurar registros cuando se vuelve a ingresar al chat</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgchatlogspage.h" line="157"/>
+        <location filename="../gui/configuration/irc/cfgchatlogspage.ui" line="59"/>
         <source>Remove old log archives</source>
         <translation>Eliminar archivos de registro antiguos</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgchatlogspage.h" line="158"/>
+        <location filename="../gui/configuration/irc/cfgchatlogspage.ui" line="68"/>
         <source>Remove all older than:</source>
         <translation>Eliminar todo anterior a:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgchatlogspage.h" line="159"/>
+        <location filename="../gui/configuration/irc/cfgchatlogspage.ui" line="81"/>
         <source> days</source>
         <translation> días</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgchatlogspage.h" line="160"/>
+        <location filename="../gui/configuration/irc/cfgchatlogspage.ui" line="126"/>
         <source>Logs storage directory:</source>
         <translation>Directorio de almacenamiento de registros:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgchatlogspage.h" line="161"/>
+        <location filename="../gui/configuration/irc/cfgchatlogspage.ui" line="157"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_cfgchatlogspage.h" line="162"/>
+        <location filename="../gui/configuration/irc/cfgchatlogspage.ui" line="172"/>
         <source>Explore</source>
         <translation>Explorar</translation>
     </message>
@@ -1946,9 +2053,13 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ChatLogs</name>
     <message>
-        <location filename="../irc/chatlogs.cpp" line="89"/>
         <source>Won&apos;t transfer chat logs from &quot;%1&quot; to &quot;%2&quot; as directory &quot;%2&quot;already exists.</source>
-        <translation>No transferirá los registros de chat de &quot;%1&quot; a &quot;%2&quot; ya que el directorio &quot;%2&quot; ya existe.</translation>
+        <translation type="vanished">No transferirá los registros de chat de &quot;%1&quot; a &quot;%2&quot; ya que el directorio &quot;%2&quot; ya existe.</translation>
+    </message>
+    <message>
+        <location filename="../irc/chatlogs.cpp" line="89"/>
+        <source>Won&apos;t transfer chat logs from &quot;%1&quot; to &quot;%2&quot; as directory &quot;%2&quot; already exists.</source>
+        <translation>No se transferirá los registros de chat de &quot;%1&quot; a &quot;%2&quot; ya que el directorio &quot;%2&quot; ya existe.</translation>
     </message>
     <message>
         <location filename="../irc/chatlogs.cpp" line="93"/>
@@ -1964,13 +2075,21 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>CheckWadsDlg</name>
     <message>
-        <location filename="../../../build/src/core/ui_checkwadsdlg.h" line="69"/>
         <source>Doomseeker - Checking wads</source>
+        <translation type="vanished">Doomseeker - Comprobando WADs</translation>
+    </message>
+    <message>
+        <source>Checking the location and integrity of your wads</source>
+        <translation type="vanished">Comprobando la ubicación y la integridad de los WADs</translation>
+    </message>
+    <message>
+        <location filename="../gui/checkwadsdlg.ui" line="17"/>
+        <source>Doomseeker - Checking WADs</source>
         <translation>Doomseeker - Comprobando WADs</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_checkwadsdlg.h" line="70"/>
-        <source>Checking the location and integrity of your wads</source>
+        <location filename="../gui/checkwadsdlg.ui" line="32"/>
+        <source>Checking the location and integrity of your WADs</source>
         <translation>Comprobando la ubicación y la integridad de los WADs</translation>
     </message>
 </context>
@@ -2138,7 +2257,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ConfigurationDialog</name>
     <message>
-        <location filename="../../../build/src/core/ui_configurationdialog.h" line="87"/>
+        <location filename="../gui/configuration/configurationdialog.ui" line="14"/>
         <source>Doomseeker - Configuration</source>
         <translation>Doomseeker - Configuración</translation>
     </message>
@@ -2168,29 +2287,37 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../connectionhandler.cpp" line="175"/>
-        <source>Error while launching executable for server &quot;%1&quot;, game &quot;%2&quot;: %3</source>
-        <translation>Error al ejecutar ejecutable para el servidor &quot;%1&quot;, juego &quot;%2&quot;: %3</translation>
+        <source>Error while launching game &quot;%2&quot; for server &quot;%1&quot;: %3</source>
+        <translation>Error al lanzar el juego &quot;%2&quot; para el servidor &quot;%1&quot;: %3</translation>
     </message>
     <message>
         <location filename="../connectionhandler.cpp" line="177"/>
+        <source>Doomseeker - launch game</source>
+        <translation>Doomseeker - ejecutar juego</translation>
+    </message>
+    <message>
+        <source>Error while launching executable for server &quot;%1&quot;, game &quot;%2&quot;: %3</source>
+        <translation type="vanished">Error al ejecutar ejecutable para el servidor &quot;%1&quot;, juego &quot;%2&quot;: %3</translation>
+    </message>
+    <message>
         <source>Doomseeker - launch executable</source>
-        <translation>Doomseeker - ejecutar ejecutable</translation>
+        <translation type="vanished">Doomseeker - ejecutar ejecutable</translation>
     </message>
 </context>
 <context>
     <name>CopyTextDlg</name>
     <message>
-        <location filename="../../../build/src/core/ui_copytextdlg.h" line="78"/>
+        <location filename="../gui/copytextdlg.ui" line="13"/>
         <source>Doomseeker - Copy Text</source>
         <translation>Doomseeker - Copiar texto</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_copytextdlg.h" line="79"/>
+        <location filename="../gui/copytextdlg.ui" line="19"/>
         <source>Text to copy:</source>
         <translation>Texto a copiar:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_copytextdlg.h" line="80"/>
+        <location filename="../gui/copytextdlg.ui" line="31"/>
         <source>Copy to clipboard</source>
         <translation>Copiar al portapapeles</translation>
     </message>
@@ -2202,8 +2329,8 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">Doomseeker - cargar la configuración del servidor</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="491"/>
-        <location filename="../gui/createserverdialog.cpp" line="505"/>
+        <location filename="../gui/createserverdialog.cpp" line="493"/>
+        <location filename="../gui/createserverdialog.cpp" line="507"/>
         <source>Config files (*.ini)</source>
         <translation>Archivos de configuración (*.ini)</translation>
     </message>
@@ -2216,8 +2343,8 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">¡No se puede guardar la configuración del servidor!</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="176"/>
-        <location filename="../gui/createserverdialog.cpp" line="374"/>
+        <location filename="../gui/createserverdialog.cpp" line="178"/>
+        <location filename="../gui/createserverdialog.cpp" line="376"/>
         <source>Doomseeker - create game</source>
         <translation>Doomseeker - crear juego</translation>
     </message>
@@ -2226,142 +2353,142 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">Ningún motor seleccionado</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="491"/>
+        <location filename="../gui/createserverdialog.cpp" line="493"/>
         <source>Doomseeker - load game setup config</source>
         <translation>Doomseeker - carga la configuración del juego</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="505"/>
-        <location filename="../gui/createserverdialog.cpp" line="515"/>
+        <location filename="../gui/createserverdialog.cpp" line="507"/>
+        <location filename="../gui/createserverdialog.cpp" line="517"/>
         <source>Doomseeker - save game setup config</source>
         <translation>Doomseeker - guarda la configuración del juego</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="515"/>
+        <location filename="../gui/createserverdialog.cpp" line="517"/>
         <source>Unable to save game setup configuration!</source>
         <translation>No se puede guardar la configuración del juego!</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="179"/>
-        <location filename="../gui/createserverdialog.cpp" line="377"/>
+        <location filename="../gui/createserverdialog.cpp" line="181"/>
+        <location filename="../gui/createserverdialog.cpp" line="379"/>
         <source>No game selected</source>
         <translation>Ningún juego seleccionado</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="137"/>
+        <location filename="../gui/createserverdialog.cpp" line="139"/>
         <source>Host server</source>
         <translation>Hostear servidor</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="139"/>
+        <location filename="../gui/createserverdialog.cpp" line="141"/>
         <source>Play</source>
         <translation>Jugar</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="145"/>
+        <location filename="../gui/createserverdialog.cpp" line="147"/>
         <source>Doomseeker - Setup Remote Game</source>
         <translation>Doomseeker - Configurar juego remoto</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="148"/>
+        <location filename="../gui/createserverdialog.cpp" line="150"/>
         <source>Doomseeker - Host Online Game</source>
         <translation>Doomseeker - Hostear juego en línea</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="151"/>
+        <location filename="../gui/createserverdialog.cpp" line="153"/>
         <source>Doomseeker - Play Offline Game</source>
         <translation>Doomseeker - Jugar fuera de línea</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="154"/>
+        <location filename="../gui/createserverdialog.cpp" line="156"/>
         <source>Doomseeker - [Unhandled Host Mode]</source>
         <translation>Doomseeker - [Modo desconocido]</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="196"/>
-        <location filename="../gui/createserverdialog.cpp" line="392"/>
+        <location filename="../gui/createserverdialog.cpp" line="198"/>
+        <location filename="../gui/createserverdialog.cpp" line="394"/>
         <source>Doomseeker - error</source>
         <translation>Doomseeker - error</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="255"/>
-        <location filename="../../../build/src/core/ui_createserverdialog.h" line="191"/>
+        <location filename="../gui/createserverdialog.ui" line="69"/>
+        <location filename="../gui/createserverdialog.cpp" line="257"/>
         <source>Flags</source>
         <translatorcomment>There&apos;s no good translation for the meaning of &quot;flag&quot; in this context. &quot;Indicadores&quot; is close enough.</translatorcomment>
         <translation>Indicadores</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="436"/>
+        <location filename="../gui/createserverdialog.cpp" line="438"/>
         <source>&amp;Mode</source>
         <translation>&amp;Modo</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="437"/>
+        <location filename="../gui/createserverdialog.cpp" line="439"/>
         <source>&amp;Host server</source>
         <translation>&amp;Hostear servidor</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="440"/>
+        <location filename="../gui/createserverdialog.cpp" line="442"/>
         <source>&amp;Play offline</source>
         <translation>&amp;Jugar fuera de línia</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="444"/>
+        <location filename="../gui/createserverdialog.cpp" line="446"/>
         <source>&amp;Settings</source>
         <translation>&amp;Configuración</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="446"/>
+        <location filename="../gui/createserverdialog.cpp" line="448"/>
         <source>&amp;Load game configuration</source>
         <translation>&amp;Cargar la configuración del juego</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="451"/>
+        <location filename="../gui/createserverdialog.cpp" line="453"/>
         <source>&amp;Save game configuration</source>
         <translation>&amp;Guargar la configuración del juego</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="457"/>
+        <location filename="../gui/createserverdialog.cpp" line="459"/>
         <source>&amp;Program settings</source>
         <translation>Configuración del &amp;Programa</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="481"/>
+        <location filename="../gui/createserverdialog.cpp" line="483"/>
         <source>Run game command line:</source>
         <translation>Comando para ejecutar juego:</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="482"/>
+        <location filename="../gui/createserverdialog.cpp" line="484"/>
         <source>Host server command line:</source>
         <translation>Comando para ejecutar el servidor:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_createserverdialog.h" line="187"/>
+        <location filename="../gui/createserverdialog.ui" line="14"/>
         <source>Create Game</source>
         <translation>Crear juego</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_createserverdialog.h" line="188"/>
+        <location filename="../gui/createserverdialog.ui" line="39"/>
         <source>General</source>
         <translation>General</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_createserverdialog.h" line="189"/>
+        <location filename="../gui/createserverdialog.ui" line="49"/>
         <source>Rules</source>
         <translation>Reglas</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_createserverdialog.h" line="190"/>
+        <location filename="../gui/createserverdialog.ui" line="59"/>
         <source>Server</source>
         <translation>Servidor</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_createserverdialog.h" line="193"/>
+        <location filename="../gui/createserverdialog.ui" line="135"/>
         <source>Start</source>
         <translation>Iniciar</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_createserverdialog.h" line="197"/>
+        <location filename="../gui/createserverdialog.ui" line="161"/>
         <source>Command line</source>
         <translation>Línea de comandos</translation>
     </message>
@@ -2370,7 +2497,7 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">Diverso.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_createserverdialog.h" line="192"/>
+        <location filename="../gui/createserverdialog.ui" line="79"/>
         <source>Custom parameters</source>
         <translation>Parámetros personalizados</translation>
     </message>
@@ -2395,7 +2522,7 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">Guardar</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_createserverdialog.h" line="195"/>
+        <location filename="../gui/createserverdialog.ui" line="158"/>
         <source>Obtain command line required to launch this game.</source>
         <translation>Obtener la línea de comandos requerida para iniciar este juego.</translation>
     </message>
@@ -2424,7 +2551,7 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">Iniciar el servidor</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_createserverdialog.h" line="198"/>
+        <location filename="../gui/createserverdialog.ui" line="178"/>
         <source>Close</source>
         <translation>Cerrar</translation>
     </message>
@@ -2432,17 +2559,17 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>CustomParamsPanel</name>
     <message>
-        <location filename="../../../build/src/core/ui_customparamspanel.h" line="61"/>
+        <location filename="../gui/createserver/customparamspanel.ui" line="14"/>
         <source>Form</source>
         <translation>Formulario</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_customparamspanel.h" line="62"/>
+        <location filename="../gui/createserver/customparamspanel.ui" line="23"/>
         <source>Custom parameters (ENTER or SPACEBAR separated):</source>
         <translation>Parámetros personalizados (ENTER o ESPACIO separados):</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_customparamspanel.h" line="63"/>
+        <location filename="../gui/createserver/customparamspanel.ui" line="33"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -2510,87 +2637,87 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DemoManagerDlg</name>
     <message>
-        <location filename="../gui/demomanager.cpp" line="175"/>
+        <location filename="../gui/demomanager.cpp" line="177"/>
         <source>Unable to delete</source>
         <translation>No se puede borrar</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="175"/>
+        <location filename="../gui/demomanager.cpp" line="177"/>
         <source>Could not delete the selected demo.</source>
         <translation>No se puede borrar la demo seleccionada.</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="188"/>
+        <location filename="../gui/demomanager.cpp" line="190"/>
         <source>Delete demo?</source>
         <translation>Borrar demo?</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="189"/>
+        <location filename="../gui/demomanager.cpp" line="191"/>
         <source>Are you sure you want to delete the selected demo?</source>
         <translation>¿Seguro que quieres eliminar la demo seleccionada?</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="246"/>
+        <location filename="../gui/demomanager.cpp" line="248"/>
         <source>Unable to save</source>
         <translation>Error de escritura</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="246"/>
+        <location filename="../gui/demomanager.cpp" line="248"/>
         <source>Could not write to the specified location.</source>
         <translation>No se pudo escribir en la ubicación especificada.</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="264"/>
+        <location filename="../gui/demomanager.cpp" line="266"/>
         <source>No plugin</source>
         <translation>Sin complementos</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="265"/>
+        <location filename="../gui/demomanager.cpp" line="267"/>
         <source>The &quot;%1&quot; plugin does not appear to be loaded.</source>
         <translation>El complemento &quot;%1&quot; no parece estar cargado.</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="292"/>
+        <location filename="../gui/demomanager.cpp" line="294"/>
         <source>Files not found</source>
         <translation>Archivos no encontrados</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="293"/>
+        <location filename="../gui/demomanager.cpp" line="295"/>
         <source>The following files could not be located: </source>
         <translation>Los siguientes archivos no pudieron ser localizados: </translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="317"/>
+        <location filename="../gui/demomanager.cpp" line="319"/>
         <source>Doomseeker - error</source>
         <translation>Doomseeker - error</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="342"/>
+        <location filename="../gui/demomanager.cpp" line="344"/>
         <source>Port</source>
         <translation>Puerto</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="343"/>
+        <location filename="../gui/demomanager.cpp" line="345"/>
         <source>WADs</source>
         <translation>WADs</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_demomanager.h" line="133"/>
+        <location filename="../gui/demomanager.ui" line="17"/>
         <source>Demo Manager</source>
         <translation>Administrador de demos</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_demomanager.h" line="134"/>
+        <location filename="../gui/demomanager.ui" line="61"/>
         <source>Play</source>
         <translation>Reproducir</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_demomanager.h" line="135"/>
+        <location filename="../gui/demomanager.ui" line="85"/>
         <source>Delete</source>
         <translation>Eliminar</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_demomanager.h" line="136"/>
+        <location filename="../gui/demomanager.ui" line="109"/>
         <source>Export</source>
         <translation>Exportar</translation>
     </message>
@@ -2623,29 +2750,29 @@ p, li { white-space: pre-wrap; }
         <translation>¿Seguro que quieres eliminar este patrón?</translation>
     </message>
     <message>
+        <location filename="../gui/dockBuddiesList.ui" line="149"/>
         <location filename="../gui/dockBuddiesList.cpp" line="188"/>
-        <location filename="../../../build/src/core/ui_dockBuddiesList.h" line="135"/>
         <source>Add</source>
         <translation>Añadir</translation>
     </message>
     <message>
+        <location filename="../gui/dockBuddiesList.ui" line="160"/>
         <location filename="../gui/dockBuddiesList.cpp" line="194"/>
-        <location filename="../../../build/src/core/ui_dockBuddiesList.h" line="136"/>
         <source>Delete</source>
         <translation>Eliminar</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_dockBuddiesList.h" line="133"/>
+        <location filename="../gui/dockBuddiesList.ui" line="20"/>
         <source>Buddies</source>
         <translation>Compañeros</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_dockBuddiesList.h" line="134"/>
+        <location filename="../gui/dockBuddiesList.ui" line="51"/>
         <source>List</source>
         <translation>Lista</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_dockBuddiesList.h" line="137"/>
+        <location filename="../gui/dockBuddiesList.ui" line="103"/>
         <source>Manage</source>
         <translation>Gestionar</translation>
     </message>
@@ -2653,22 +2780,17 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DoomseekerConfigurationDialog</name>
     <message>
-        <location filename="../gui/configuration/doomseekerconfigurationdialog.cpp" line="96"/>
-        <source>Wadseeker</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../gui/configuration/doomseekerconfigurationdialog.cpp" line="118"/>
+        <location filename="../gui/configuration/doomseekerconfigurationdialog.cpp" line="108"/>
         <source>Settings saved!</source>
         <translation>¡Ajustes guardados!</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/doomseekerconfigurationdialog.cpp" line="120"/>
+        <location filename="../gui/configuration/doomseekerconfigurationdialog.cpp" line="110"/>
         <source>Settings save failed!</source>
         <translation>¡Guardado de ajustes ha fallado!</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/doomseekerconfigurationdialog.cpp" line="125"/>
+        <location filename="../gui/configuration/doomseekerconfigurationdialog.cpp" line="115"/>
         <source>Games</source>
         <translation>Juegos</translation>
     </message>
@@ -2692,17 +2814,17 @@ Es posible que necesite usar el botón Buscar.</translation>
         <translation>Juego - %1</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_engineconfigpage.h" line="147"/>
+        <location filename="../gui/configuration/engineconfigpage.ui" line="65"/>
         <source>Custom parameters:</source>
         <translation>Parámetros personalizados:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_engineconfigpage.h" line="148"/>
+        <location filename="../gui/configuration/engineconfigpage.ui" line="123"/>
         <source>Masterserver address:</source>
         <translation>Dirección de Masterserver:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_engineconfigpage.h" line="149"/>
+        <location filename="../gui/configuration/engineconfigpage.ui" line="136"/>
         <source>[error]</source>
         <translation>[error]</translation>
     </message>
@@ -2710,16 +2832,28 @@ Es posible que necesite usar el botón Buscar.</translation>
 <context>
     <name>ExeFile</name>
     <message>
-        <location filename="../serverapi/exefile.cpp" line="78"/>
         <source>No %1 executable specified for %2</source>
-        <translation>No se ha especificado %1 ejecutable para %2</translation>
+        <translation type="vanished">No se ha especificado %1 ejecutable para %2</translation>
     </message>
     <message>
-        <location filename="../serverapi/exefile.cpp" line="89"/>
         <source>Executable for %1 %2:
 %3
 is a directory or doesn&apos;t exist.</source>
-        <translation>Ejecutable para %1 %2:
+        <translation type="vanished">Ejecutable para %1 %2:
+%3
+es un directorio o no existe.</translation>
+    </message>
+    <message>
+        <location filename="../serverapi/exefile.cpp" line="78"/>
+        <source>No %1 executable configured for %2</source>
+        <translation>No se ha configurado %1 ejecutable para %2</translation>
+    </message>
+    <message>
+        <location filename="../serverapi/exefile.cpp" line="89"/>
+        <source>The executable path for %1 %2:
+%3
+is a directory or doesn&apos;t exist.</source>
+        <translation>El ejecutable para %1 %2:
 %3
 es un directorio o no existe.</translation>
     </message>
@@ -2727,8 +2861,12 @@ es un directorio o no existe.</translation>
 <context>
     <name>FileFilter</name>
     <message>
-        <location filename="../filefilter.cpp" line="27"/>
         <source>All files(*)</source>
+        <translation type="vanished">Todos los archivos (*)</translation>
+    </message>
+    <message>
+        <location filename="../filefilter.cpp" line="27"/>
+        <source>All files (*)</source>
         <translation>Todos los archivos (*)</translation>
     </message>
     <message>
@@ -2760,22 +2898,22 @@ es un directorio o no existe.</translation>
         <translation>Esto es un directorio.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_filepickwidget.h" line="94"/>
+        <location filename="../gui/widgets/filepickwidget.ui" line="14"/>
         <source>Form</source>
         <translation>Formulario</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_filepickwidget.h" line="95"/>
+        <location filename="../gui/widgets/filepickwidget.ui" line="32"/>
         <source>Path to file:</source>
         <translation>Ruta al archivo:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_filepickwidget.h" line="96"/>
+        <location filename="../gui/widgets/filepickwidget.ui" line="60"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_filepickwidget.h" line="98"/>
+        <location filename="../gui/widgets/filepickwidget.ui" line="73"/>
         <source>Find</source>
         <translation>Buscar</translation>
     </message>
@@ -2783,112 +2921,112 @@ es un directorio o no existe.</translation>
 <context>
     <name>FreedoomDialog</name>
     <message>
-        <location filename="../gui/freedoomdialog.cpp" line="77"/>
+        <location filename="../gui/freedoomdialog.cpp" line="83"/>
         <source>Install Freedoom</source>
         <translation>Instalar Freedoom</translation>
     </message>
     <message>
-        <location filename="../gui/freedoomdialog.cpp" line="78"/>
+        <location filename="../gui/freedoomdialog.cpp" line="84"/>
         <source>Select at least one file.</source>
         <translation>Seleccione al menos un archivo.</translation>
     </message>
     <message>
-        <location filename="../gui/freedoomdialog.cpp" line="82"/>
+        <location filename="../gui/freedoomdialog.cpp" line="88"/>
         <source>Downloading &amp; installing ...</source>
         <translation>Descargando e instalando ...</translation>
     </message>
     <message>
-        <location filename="../gui/freedoomdialog.cpp" line="108"/>
+        <location filename="../gui/freedoomdialog.cpp" line="114"/>
         <source>Downloading Freedoom version info ...</source>
         <translation>Descargando la información de la versión de Freedoom ...</translation>
     </message>
     <message>
-        <location filename="../gui/freedoomdialog.cpp" line="114"/>
+        <location filename="../gui/freedoomdialog.cpp" line="120"/>
         <source>Working ...</source>
         <translation>Trabajando ...</translation>
     </message>
     <message>
-        <location filename="../gui/freedoomdialog.cpp" line="125"/>
+        <location filename="../gui/freedoomdialog.cpp" line="131"/>
         <source>Error: %1</source>
         <translation>Error: %1</translation>
     </message>
     <message>
-        <location filename="../gui/freedoomdialog.cpp" line="153"/>
+        <location filename="../gui/freedoomdialog.cpp" line="159"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../gui/freedoomdialog.cpp" line="158"/>
+        <location filename="../gui/freedoomdialog.cpp" line="164"/>
         <source>Missing</source>
         <translation>Ausente</translation>
     </message>
     <message>
-        <location filename="../gui/freedoomdialog.cpp" line="167"/>
+        <location filename="../gui/freedoomdialog.cpp" line="173"/>
         <source>Different</source>
         <translation>Diferente</translation>
     </message>
     <message>
-        <location filename="../gui/freedoomdialog.cpp" line="185"/>
+        <location filename="../gui/freedoomdialog.cpp" line="191"/>
         <source>&lt;p&gt;File: %1&lt;br&gt;Version: %2&lt;br&gt;Description: %3&lt;br&gt;Location: %4&lt;/p&gt;</source>
         <translation>&lt;p&gt;Archivo: %1&lt;br&gt;Versión: %2&lt;br&gt;Descripción: %3&lt;br&gt;Ubicación: %4&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/freedoomdialog.cpp" line="252"/>
+        <location filename="../gui/freedoomdialog.cpp" line="267"/>
         <source>%1 %p%</source>
         <translation>%1 %p%</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_freedoomdialog.h" line="208"/>
+        <location filename="../gui/freedoomdialog.ui" line="14"/>
         <source>Freedoom</source>
         <translation>Freedoom</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_freedoomdialog.h" line="209"/>
+        <location filename="../gui/freedoomdialog.ui" line="30"/>
         <source>Freedoom is a free-of-charge data set replacement for commercial Doom games. It will allow you to play on most servers that host modded content without having to purchase Doom games. It won&apos;t allow you to join unmodded servers.</source>
         <translation>Freedoom es un reemplazo de datos gratuito para el Doom comercial. Te permitirá jugar en la mayoría de los servidores que alojan contenido modificado sin la necesidad de comprar juegos de la serie Doom. No le permitirá unirse a servidores no modificados.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_freedoomdialog.h" line="210"/>
+        <location filename="../gui/freedoomdialog.ui" line="40"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Webpage: &lt;a href=&quot;https://freedoom.github.io&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://freedoom.github.io&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Página web: &lt;a href=&quot;https://freedoom.github.io&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://freedoom.github.io&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_freedoomdialog.h" line="211"/>
+        <location filename="../gui/freedoomdialog.ui" line="66"/>
         <source>Install path:</source>
         <translation>Ruta de instalación:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_freedoomdialog.h" line="213"/>
+        <location filename="../gui/freedoomdialog.ui" line="99"/>
         <source>Name</source>
         <translation>Nombre</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_freedoomdialog.h" line="215"/>
+        <location filename="../gui/freedoomdialog.ui" line="104"/>
         <source>Status</source>
         <translation>Estado</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_freedoomdialog.h" line="217"/>
+        <location filename="../gui/freedoomdialog.ui" line="109"/>
         <source>Install?</source>
         <translation>¿Instalar?</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_freedoomdialog.h" line="218"/>
+        <location filename="../gui/freedoomdialog.ui" line="151"/>
         <source>Work in progress ...</source>
         <translation>Trabajo en progreso ...</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_freedoomdialog.h" line="219"/>
+        <location filename="../gui/freedoomdialog.ui" line="211"/>
         <source>Install</source>
         <translation>Instalar</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_freedoomdialog.h" line="220"/>
+        <location filename="../gui/freedoomdialog.ui" line="218"/>
         <source>Retry</source>
         <translation>Reintentar</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_freedoomdialog.h" line="221"/>
+        <location filename="../gui/freedoomdialog.ui" line="231"/>
         <source>Close</source>
         <translation>Cerrar</translation>
     </message>
@@ -2934,8 +3072,12 @@ Ejecutable: %3</translation>
     </message>
     <message>
         <location filename="../serverapi/gameclientrunner.cpp" line="501"/>
+        <source>Game %1 cannot be found.</source>
+        <translation>El juego %1 no se puede encontrar.</translation>
+    </message>
+    <message>
         <source>Client binary cannot be obtained for %1, please check the location given in the configuration.</source>
-        <translation>El ejecutable del cliente no se puede obtener para %1, verifique la ubicación dada en la configuración.</translation>
+        <translation type="vanished">El ejecutable del cliente no se puede obtener para %1, verifique la ubicación dada en la configuración.</translation>
     </message>
 </context>
 <context>
@@ -2997,22 +3139,22 @@ Ejecutable: %3</translation>
         <translation>El complemento del juego no está configurado.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_gameexecutablepicker.h" line="89"/>
+        <location filename="../gui/createserver/gameexecutablepicker.ui" line="14"/>
         <source>Form</source>
         <translation>Formulario</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_gameexecutablepicker.h" line="90"/>
+        <location filename="../gui/createserver/gameexecutablepicker.ui" line="51"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_gameexecutablepicker.h" line="91"/>
+        <location filename="../gui/createserver/gameexecutablepicker.ui" line="64"/>
         <source>Default</source>
         <translation>Predeterminado</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_gameexecutablepicker.h" line="93"/>
+        <location filename="../gui/createserver/gameexecutablepicker.ui" line="83"/>
         <source>This map isn&apos;t present on map list. Game may misbehave.</source>
         <translation>Este mapa no está presente en la lista de mapas. El juego puede comportarse de forma extraña.</translation>
     </message>
@@ -3036,17 +3178,23 @@ Ejecutable: %3</translation>
 &quot;%1&quot; no existe o es un directorio!</translation>
     </message>
     <message>
-        <location filename="../serverapi/gamehost.cpp" line="442"/>
+        <location filename="../serverapi/gamehost.cpp" line="435"/>
+        <source>%1
+doesn&apos;t exist or is not a file.</source>
+        <translation>%1
+no existe o no es un archivo.</translation>
+    </message>
+    <message>
+        <location filename="../serverapi/gamehost.cpp" line="450"/>
         <source>PWAD path error:
 &quot;%1&quot; doesn&apos;t exist or is a directory!</source>
         <translation>Error de ruta PWAD:
 &quot;%1&quot; no existe o es un directorio!</translation>
     </message>
     <message>
-        <location filename="../serverapi/gamehost.cpp" line="427"/>
         <source>%1
  doesn&apos;t exist or is not a file.</source>
-        <translation>%1
+        <translation type="vanished">%1
  no existe o es un directorio.</translation>
     </message>
 </context>
@@ -3058,17 +3206,22 @@ Ejecutable: %3</translation>
         <translation>Jugadores</translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/gameinfotip.cpp" line="94"/>
+        <location filename="../serverapi/tooltips/gameinfotip.cpp" line="71"/>
+        <source>%1 / %2 (%3 can join)</source>
+        <translation>%1 / %2 (%3 se pueden unir)</translation>
+    </message>
+    <message>
+        <location filename="../serverapi/tooltips/gameinfotip.cpp" line="93"/>
         <source>Scorelimit</source>
         <translation>Límite puntuación</translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/gameinfotip.cpp" line="128"/>
+        <location filename="../serverapi/tooltips/gameinfotip.cpp" line="127"/>
         <source>Timelimit</source>
         <translation>Límite tiempo</translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/gameinfotip.cpp" line="135"/>
+        <location filename="../serverapi/tooltips/gameinfotip.cpp" line="134"/>
         <source>(%1 left)</source>
         <translation>(restan %1)</translation>
     </message>
@@ -3076,12 +3229,12 @@ Ejecutable: %3</translation>
 <context>
     <name>GameRulesPanel</name>
     <message>
-        <location filename="../gui/createserver/gamerulespanel.cpp" line="246"/>
+        <location filename="../gui/createserver/gamerulespanel.cpp" line="249"/>
         <source>&lt; NONE &gt;</source>
         <translation>&lt; NADA &gt;</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_gamerulespanel.h" line="155"/>
+        <location filename="../gui/createserver/gamerulespanel.ui" line="41"/>
         <source>Map list</source>
         <translation>Lista de mapas</translation>
     </message>
@@ -3094,29 +3247,33 @@ Ejecutable: %3</translation>
         <translation type="vanished">Modificadores:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_gamerulespanel.h" line="156"/>
+        <location filename="../gui/createserver/gamerulespanel.ui" line="84"/>
         <source>Hosting limits</source>
         <translation>Límites de alojamiento</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_gamerulespanel.h" line="157"/>
+        <location filename="../gui/createserver/gamerulespanel.ui" line="90"/>
         <source>Max. clients:</source>
         <translation>Max. clientes:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_gamerulespanel.h" line="158"/>
+        <location filename="../gui/createserver/gamerulespanel.ui" line="107"/>
         <source>Max. players:</source>
         <translation>Max. jugadores:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_gamerulespanel.h" line="159"/>
+        <location filename="../gui/createserver/gamerulespanel.ui" line="127"/>
         <source>Modifier</source>
         <translation>Modificador</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_gamerulespanel.h" line="160"/>
+        <location filename="../gui/createserver/gamerulespanel.ui" line="146"/>
+        <source>Extra settings</source>
+        <translation>Opciones adicionales</translation>
+    </message>
+    <message>
         <source>Game limits</source>
-        <translation>Límites del juego</translation>
+        <translation type="vanished">Límites del juego</translation>
     </message>
 </context>
 <context>
@@ -3142,102 +3299,106 @@ Ejecutable: %3</translation>
         <translation type="vanished">Motor:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_generalgamesetuppanel.h" line="353"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="34"/>
         <source>Game:</source>
         <translation>Juego:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_generalgamesetuppanel.h" line="354"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="44"/>
         <source>Executable:</source>
         <translation>Ejecutable:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_generalgamesetuppanel.h" line="356"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="92"/>
         <source>If locked, executable won&apos;t change when new config for the same engine is loaded</source>
         <translation>Si está bloqueado, el ejecutable no cambiará cuando se carguen nuevas configuraciones para el mismo motor</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_generalgamesetuppanel.h" line="358"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="95"/>
         <source>Lock</source>
         <translation>Bloquear</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_generalgamesetuppanel.h" line="359"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="104"/>
         <source>Logging:</source>
         <translation>Registro:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_generalgamesetuppanel.h" line="360"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="127"/>
         <source>Server name:</source>
         <translation>Nombre del servidor:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_generalgamesetuppanel.h" line="361"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="134"/>
         <source>Started from Doomseeker</source>
         <translation>Comenzado desde Doomseeker</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_generalgamesetuppanel.h" line="362"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="141"/>
         <source>Port:</source>
         <translation>Puerto:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_generalgamesetuppanel.h" line="363"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="182"/>
         <source>Allow the game to choose port.</source>
         <translation>Permitir que el juego elegir el puerto.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_generalgamesetuppanel.h" line="364"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="192"/>
         <source>Game mode:</source>
         <translation>Modo de juego:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_generalgamesetuppanel.h" line="366"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="219"/>
         <source>Map:</source>
         <translation>Mapa:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_generalgamesetuppanel.h" line="368"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="243"/>
         <source>This map isn&apos;t present on map list. Game may misbehave.</source>
         <translation>Este mapa no está presente en la lista de mapas. El juego puede comportarse de forma extraña.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_generalgamesetuppanel.h" line="370"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="258"/>
         <source>IWAD:</source>
         <translation>IWAD:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_generalgamesetuppanel.h" line="365"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="292"/>
+        <source>Additional WADs and files (check the required ones):</source>
+        <translation>WADs y archivos adicionales (comprueba los que son requeridos):</translation>
+    </message>
+    <message>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="202"/>
         <source>Difficulty:</source>
         <translation>Dificultad:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_generalgamesetuppanel.h" line="371"/>
         <source>Additional WADs and files (check required):</source>
-        <translation>WADs y archivos adicionales (se requiere verificación):</translation>
+        <translation type="vanished">WADs y archivos adicionales (se requiere verificación):</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_generalgamesetuppanel.h" line="372"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="324"/>
         <source>Broadcast to LAN</source>
         <translation>Emitir a la LAN</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_generalgamesetuppanel.h" line="373"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="334"/>
         <source>Broadcast to Master</source>
         <translation>Emitir a Master</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_generalgamesetuppanel.h" line="375"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="359"/>
         <source>If checked, the game will try to tell your router to forward necessary ports.</source>
         <translation>Si está marcado, el juego intentará decirle a su router que reenvíe los puertos necesarios.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_generalgamesetuppanel.h" line="377"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="362"/>
         <source>UPnP</source>
         <translation>UPnP</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_generalgamesetuppanel.h" line="379"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="372"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;UPnP port. Set this to 0 to let Doomseeker or game decide.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;puerto UPnP. Establezca esto en 0 para permitir que Doomseeker o el juego decidan.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -3260,7 +3421,7 @@ Ejecutable: %3</translation>
         <translation>URL</translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/generalinfotip.cpp" line="65"/>
+        <location filename="../serverapi/tooltips/generalinfotip.cpp" line="64"/>
         <source>Location: %1
 </source>
         <translation>Ubicación: %1
@@ -3270,24 +3431,1257 @@ Ejecutable: %3</translation>
 <context>
     <name>IP2C</name>
     <message>
-        <location filename="../ip2c/ip2c.cpp" line="100"/>
+        <location filename="../ip2c/ip2c.cpp" line="228"/>
         <source>No flag for country: %1</source>
         <translation>No hay bandera para el país:%1</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2c.cpp" line="150"/>
+        <location filename="../ip2c/ip2c.cpp" line="173"/>
         <source>Localhost</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2c.cpp" line="153"/>
+        <location filename="../ip2c/ip2c.cpp" line="176"/>
         <source>LAN</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2c.cpp" line="161"/>
+        <location filename="../ip2c/ip2c.cpp" line="219"/>
+        <source>Unknown country: %1</source>
+        <translation>País desconocido: %1</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2c.cpp" line="234"/>
         <source>Unknown</source>
         <translation>Desconocido</translation>
+    </message>
+</context>
+<context>
+    <name>IP2CCountryTr</name>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="56"/>
+        <source>Aruba</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="57"/>
+        <source>Afghanistan</source>
+        <translation>Afganistan</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="58"/>
+        <source>Angola</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="59"/>
+        <source>Anguilla</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="60"/>
+        <source>Albania</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="61"/>
+        <source>Andorra</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="62"/>
+        <source>Netherlands Antilles</source>
+        <translation>Antillas Holandesas</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="63"/>
+        <source>United Arab Emirates</source>
+        <translation>Emiratos Árabes Unidos</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="64"/>
+        <source>Argentina</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="65"/>
+        <source>Armenia</source>
+        <translation>Armenia</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="66"/>
+        <source>American Samoa</source>
+        <translation>Samoa Americana</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="67"/>
+        <source>Antarctica</source>
+        <translation>Antártida</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="68"/>
+        <source>French Southern Territories</source>
+        <translation>Territorios Franceses del Sur</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="69"/>
+        <source>Antigua and Barbuda</source>
+        <translation>Antigua y Barbuda</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="70"/>
+        <source>Australia</source>
+        <translation>Australia</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="71"/>
+        <source>Austria</source>
+        <translation>Austria</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="72"/>
+        <source>Azerbaijan</source>
+        <translation>Azerbaiyán</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="73"/>
+        <source>Burundi</source>
+        <translation>Burundi</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="74"/>
+        <source>Belgium</source>
+        <translation>Bélgica</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="75"/>
+        <source>Benin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="76"/>
+        <source>Burkina Faso</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="77"/>
+        <source>Bangladesh</source>
+        <translation>Bangladesh</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="78"/>
+        <source>Bulgaria</source>
+        <translation>Bulgaria</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="79"/>
+        <source>Bahrain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="80"/>
+        <source>Bahamas</source>
+        <translation>Bahamas</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="81"/>
+        <source>Bosnia and Herzegovina</source>
+        <translation>Bosnia y Herzegovina</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="82"/>
+        <source>Belarus</source>
+        <translation>Bielorrusia</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="83"/>
+        <source>Belize</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="84"/>
+        <source>Bermuda</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="85"/>
+        <source>Bolivia</source>
+        <translation>Bolivia</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="86"/>
+        <source>Brazil</source>
+        <translation>Brasil</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="87"/>
+        <source>Barbados</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="88"/>
+        <source>Brunei</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="89"/>
+        <source>Bhutan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="90"/>
+        <source>Bouvet Island</source>
+        <translation>Isla Bouvet</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="91"/>
+        <source>Botswana</source>
+        <translation>Botsuana</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="92"/>
+        <source>Central African Republic</source>
+        <translation>República Centroafricana</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="93"/>
+        <source>Canada</source>
+        <translation>Canadá</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="94"/>
+        <source>Cocos (Keeling) Islands</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="95"/>
+        <source>Switzerland</source>
+        <translation>Suiza</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="96"/>
+        <source>Chile</source>
+        <translation>Chile</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="97"/>
+        <source>China</source>
+        <translation>China</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="98"/>
+        <source>Ivory Coast</source>
+        <translation>Costa de Marfil</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="99"/>
+        <source>Cameroon</source>
+        <translation>Camerún</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="100"/>
+        <source>Congo, the Democratic Republic of the</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="101"/>
+        <source>Congo</source>
+        <translation>Congo</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="102"/>
+        <source>Cook Islands</source>
+        <translation>Islas Cook</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="103"/>
+        <source>Colombia</source>
+        <translation>Colombia</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="104"/>
+        <source>Comoros</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="105"/>
+        <source>Cape Verde</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="106"/>
+        <source>Costa Rica</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="107"/>
+        <source>Cuba</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="108"/>
+        <source>Christmas Island</source>
+        <translation>Isla de Navidad</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="109"/>
+        <source>Cayman Islands</source>
+        <translation>Islas Caimán</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="110"/>
+        <source>Cyprus</source>
+        <translation>Chipre</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="111"/>
+        <source>Czech Republic</source>
+        <translation>Republica checa</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="112"/>
+        <source>Germany</source>
+        <translation>Alemania</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="113"/>
+        <source>Djibouti</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="114"/>
+        <source>Dominica</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="115"/>
+        <source>Denmark</source>
+        <translation>Dinamarca</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="116"/>
+        <source>Dominican Republic</source>
+        <translation>República Dominicana</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="117"/>
+        <source>Algeria</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="118"/>
+        <source>Ecuador</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="119"/>
+        <source>Egypt</source>
+        <translation>Egipto</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="120"/>
+        <source>Eritrea</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="121"/>
+        <source>Western Sahara</source>
+        <translation>Sahara Occidental</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="122"/>
+        <source>Spain</source>
+        <translation>España</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="123"/>
+        <source>Estonia</source>
+        <translation>Estonia</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="124"/>
+        <source>Ethiopia</source>
+        <translation>Etiopía</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="125"/>
+        <source>European Union</source>
+        <translation>Unión Europea</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="126"/>
+        <source>Finland</source>
+        <translation>Finlandia</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="127"/>
+        <source>Fiji</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="128"/>
+        <source>Falkland Islands (Malvinas)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="129"/>
+        <source>France</source>
+        <translation>Francia</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="130"/>
+        <source>Faroe Islands</source>
+        <translation>Islas Faroe</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="131"/>
+        <source>Micronesia, Federated States of</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="132"/>
+        <source>Gabon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="133"/>
+        <source>United Kingdom</source>
+        <translation>Reino Unido</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="134"/>
+        <source>Georgia</source>
+        <translation>Georgia</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="135"/>
+        <source>Guernsey</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="136"/>
+        <source>Ghana</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="137"/>
+        <source>Gibraltar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="138"/>
+        <source>Guinea</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="139"/>
+        <source>Guadeloupe</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="140"/>
+        <source>Gambia</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="141"/>
+        <source>Guinea-Bissau</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="142"/>
+        <source>Equatorial Guinea</source>
+        <translation>Guinea Ecuatorial</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="143"/>
+        <source>Greece</source>
+        <translation>Grecia</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="144"/>
+        <source>Grenada</source>
+        <translation>Granada</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="145"/>
+        <source>Greenland</source>
+        <translation>Groenlandia</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="146"/>
+        <source>Guatemala</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="147"/>
+        <source>French Guiana</source>
+        <translation>Guayana Francesa</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="148"/>
+        <source>Guam</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="149"/>
+        <source>Guyana</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="150"/>
+        <source>Hong Kong</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="151"/>
+        <source>Heard Island and McDonald Islands</source>
+        <translation>Islas Heard y McDonald</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="152"/>
+        <source>Honduras</source>
+        <translation>Honduras</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="153"/>
+        <source>Croatia</source>
+        <translation>Croacia</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="154"/>
+        <source>Haiti</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="155"/>
+        <source>Hungary</source>
+        <translation>Hungría</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="156"/>
+        <source>Indonesia</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="157"/>
+        <source>Isle of Man</source>
+        <translation>Isla del hombre</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="158"/>
+        <source>India</source>
+        <translation>India</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="159"/>
+        <source>British Indian Ocean Territory</source>
+        <translation>Territorio Británico del Océano Índico</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="160"/>
+        <source>Ireland</source>
+        <translation>Irlanda</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="161"/>
+        <source>Iran, Islamic Republic of</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="162"/>
+        <source>Iraq</source>
+        <translation>Irak</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="163"/>
+        <source>Iceland</source>
+        <translation>Islandia</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="164"/>
+        <source>Israel</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="165"/>
+        <source>Italy</source>
+        <translation>Italia</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="166"/>
+        <source>Jamaica</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="167"/>
+        <source>Jersey</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="168"/>
+        <source>Jordan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="169"/>
+        <source>Japan</source>
+        <translation>Japón</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="170"/>
+        <source>Kazakhstan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="171"/>
+        <source>Kenya</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="172"/>
+        <source>Kyrgyzstan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="173"/>
+        <source>Cambodia</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="174"/>
+        <source>Kiribati</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="175"/>
+        <source>Saint Kitts and Nevis</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="176"/>
+        <source>South Korea</source>
+        <translation>Corea del Sur</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="177"/>
+        <source>Kuwait</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="178"/>
+        <source>Lao People&apos;s Democratic Republic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="179"/>
+        <source>Lebanon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="180"/>
+        <source>Liberia</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="181"/>
+        <source>Libya</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="182"/>
+        <source>Saint Lucia</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="183"/>
+        <source>Liechtenstein</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="184"/>
+        <source>Sri Lanka</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="185"/>
+        <source>Lesotho</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="186"/>
+        <source>Lithuania</source>
+        <translation>Lituania</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="187"/>
+        <source>Luxembourg</source>
+        <translation>luxemburgo</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="188"/>
+        <source>Latvia</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="189"/>
+        <source>Macao</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="190"/>
+        <source>Morocco</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="191"/>
+        <source>Monaco</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="192"/>
+        <source>Moldova, Republic of</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="193"/>
+        <source>Madagascar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="194"/>
+        <source>Maldives</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="195"/>
+        <source>Mexico</source>
+        <translation>México</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="196"/>
+        <source>Marshall Islands</source>
+        <translation>Islas Marshall</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="197"/>
+        <source>Macedonia, the former Yugoslav Republic of</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="198"/>
+        <source>Mali</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="199"/>
+        <source>Malta</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="200"/>
+        <source>Myanmar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="201"/>
+        <source>Montenegro</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="202"/>
+        <source>Mongolia</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="203"/>
+        <source>Northern Mariana Islands</source>
+        <translation>Islas Marianas del Norte</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="204"/>
+        <source>Mozambique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="205"/>
+        <source>Mauritania</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="206"/>
+        <source>Montserrat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="207"/>
+        <source>Martinique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="208"/>
+        <source>Mauritius</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="209"/>
+        <source>Malawi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="210"/>
+        <source>Malaysia</source>
+        <translation>Malasia</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="211"/>
+        <source>Mayotte</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="212"/>
+        <source>Namibia</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="213"/>
+        <source>New Caledonia</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="214"/>
+        <source>Niger</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="215"/>
+        <source>Norfolk Island</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="216"/>
+        <source>Nigeria</source>
+        <translation>Nigeria</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="217"/>
+        <source>Nicaragua</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="218"/>
+        <source>Niue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="219"/>
+        <source>Netherlands</source>
+        <translation>Países Bajos</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="220"/>
+        <source>Norway</source>
+        <translation>Noruega</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="221"/>
+        <source>Nepal</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="222"/>
+        <source>Nauru</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="223"/>
+        <source>New Zealand</source>
+        <translation>Nueva Zelanda</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="224"/>
+        <source>Oman</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="225"/>
+        <source>Pakistan</source>
+        <translation>Pakistán</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="226"/>
+        <source>Panama</source>
+        <translation>Panamá</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="227"/>
+        <source>Pitcairn</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="228"/>
+        <source>Peru</source>
+        <translation>Perú</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="229"/>
+        <source>Philippines</source>
+        <translation>Filipinas</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="230"/>
+        <source>Palau</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="231"/>
+        <source>Papua New Guinea</source>
+        <translation>Papúa Nueva Guinea</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="232"/>
+        <source>Poland</source>
+        <translation>Polonia</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="233"/>
+        <source>Puerto Rico</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="234"/>
+        <source>Korea, Democratic People&apos;s Republic of</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="235"/>
+        <source>Portugal</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="236"/>
+        <source>Paraguay</source>
+        <translation>Paraguay</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="237"/>
+        <source>Palestinian Territory, Occupied</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="238"/>
+        <source>French Polynesia</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="239"/>
+        <source>Qatar</source>
+        <translation>Katar</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="240"/>
+        <source>Réunion</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="241"/>
+        <source>Romania</source>
+        <translation>Rumania</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="242"/>
+        <source>Russian Federation</source>
+        <translation>Rússia</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="243"/>
+        <source>Rwanda</source>
+        <translation>Ruanda</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="244"/>
+        <source>Saudi Arabia</source>
+        <translation>Arabia Saudita</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="245"/>
+        <source>Sudan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="246"/>
+        <source>Senegal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="247"/>
+        <source>Singapore</source>
+        <translation>Singapur</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="248"/>
+        <source>South Georgia and the South Sandwich Islands</source>
+        <translation>Georgia del sur y las islas Sandwich del sur</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="249"/>
+        <source>Saint Helena, Ascension and Tristan da Cunha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="250"/>
+        <source>Svalbard and Jan Mayen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="251"/>
+        <source>Solomon Islands</source>
+        <translation>Islas Salomón</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="252"/>
+        <source>Sierra Leone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="253"/>
+        <source>El Salvador</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="254"/>
+        <source>San Marino</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="255"/>
+        <source>Somalia</source>
+        <translation>Somalia</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="256"/>
+        <source>Saint Pierre and Miquelon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="257"/>
+        <source>Serbia</source>
+        <translation>Serbia</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="258"/>
+        <source>South Sudan</source>
+        <translation>Sudán del Sur</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="259"/>
+        <source>Sao Tome and Principe</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="260"/>
+        <source>Suriname</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="261"/>
+        <source>Slovakia</source>
+        <translation>Eslovaquia</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="262"/>
+        <source>Slovenia</source>
+        <translation>Eslovenia</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="263"/>
+        <source>Sweden</source>
+        <translation>Suecia</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="264"/>
+        <source>Swaziland</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="265"/>
+        <source>Seychelles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="266"/>
+        <source>Syrian Arab Republic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="267"/>
+        <source>Turks and Caicos Islands</source>
+        <translation>Islas Turcas y Caicos</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="268"/>
+        <source>Chad</source>
+        <translation>Chad</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="269"/>
+        <source>Togo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="270"/>
+        <source>Thailand</source>
+        <translation>Tailandia</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="271"/>
+        <source>Tajikistan</source>
+        <translation>Tayikistán</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="272"/>
+        <source>Tokelau</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="273"/>
+        <source>Turkmenistan</source>
+        <translation>turkmenistán</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="274"/>
+        <source>Timor-Leste</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="275"/>
+        <source>Tonga</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="276"/>
+        <source>Trinidad and Tobago</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="277"/>
+        <source>Tunisia</source>
+        <translation>Túnez</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="278"/>
+        <source>Turkey</source>
+        <translation>Turquía</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="279"/>
+        <source>Tuvalu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="280"/>
+        <source>Taiwan</source>
+        <translation>Taiwán</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="281"/>
+        <source>Tanzania, United Republic of</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="282"/>
+        <source>Uganda</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="283"/>
+        <source>Ukraine</source>
+        <translation>Ucrania</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="284"/>
+        <source>United States Minor Outlying Islands</source>
+        <translation>Islas ultramarinas menores de los Estados Unidos</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="285"/>
+        <source>Uruguay</source>
+        <translation>Uruguay</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="286"/>
+        <source>United States</source>
+        <translation>Estados Unidos</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="287"/>
+        <source>Uzbekistan</source>
+        <translation>Uzbekistán</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="288"/>
+        <source>Holy See (Vatican City State)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="289"/>
+        <source>Saint Vincent and the Grenadines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="290"/>
+        <source>Venezuela</source>
+        <translation>Venezuela</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="291"/>
+        <source>Virgin Islands, British</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="292"/>
+        <source>Virgin Islands, U.S.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="293"/>
+        <source>Vietnam</source>
+        <translation>Vietnam</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="294"/>
+        <source>Vanuatu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="295"/>
+        <source>Wallis and Futuna</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="296"/>
+        <source>Samoa</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="297"/>
+        <source>Yemen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="298"/>
+        <source>South Africa</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="299"/>
+        <source>Zambia</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="300"/>
+        <source>Zimbabwe</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3318,9 +4712,13 @@ Ejecutable: %3</translation>
         <translation>Iniciando la actualización de IP2C.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="122"/>
         <source>IP2C update must wait until parsing of current database finishes. Waiting 1 second</source>
-        <translation>La actualización de IP2C debe esperar hasta que finalice el análisis de la base de datos actual. Esperando 1 segundo</translation>
+        <translation type="vanished">La actualización de IP2C debe esperar hasta que finalice el análisis de la base de datos actual. Esperando 1 segundo</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2cloader.cpp" line="122"/>
+        <source>IP2C update must wait until parsing of current database finishes. Waiting 1 second.</source>
+        <translation>La actualización de IP2C debe esperar hasta que finalice el análisis de la base de datos actual. Esperando 1 segundo.</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2cloader.cpp" line="133"/>
@@ -3358,12 +4756,12 @@ Ejecutable: %3</translation>
         <translation>Intentando usar la base de datos IP2C preinstalada.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="220"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="221"/>
         <source>Did not find any IP2C database. IP2C functionality will be disabled.</source>
         <translation>No se encontró ninguna base de datos IP2C. La funcionalidad de IP2C estará deshabilitada.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="221"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="222"/>
         <source>You may install an IP2C database from the &quot;File&quot; menu.</source>
         <translation>Puede instalar una base de datos IP2C desde el menú &quot;Archivo&quot;.</translation>
     </message>
@@ -3377,7 +4775,7 @@ Ejecutable: %3</translation>
         <translation>El análisis de IP2C terminó.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="209"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="210"/>
         <source>Please wait. IP2C database is being read. This may take some time.</source>
         <translation>Por favor espera. La base de datos IP2C está siendo leída. Esto puede tomar algo de tiempo.</translation>
     </message>
@@ -3385,19 +4783,23 @@ Ejecutable: %3</translation>
 <context>
     <name>IP2CParser</name>
     <message>
-        <location filename="../ip2c/ip2cparser.cpp" line="49"/>
+        <location filename="../ip2c/ip2cparser.cpp" line="48"/>
         <source>Parsing IP2C database: %1</source>
         <translation>Analizando base de datos IP2C:%1</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cparser.cpp" line="55"/>
+        <location filename="../ip2c/ip2cparser.cpp" line="54"/>
         <source>Unable to open IP2C file.</source>
         <translation>No se puede abrir el archivo IP2C.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cparser.cpp" line="87"/>
+        <location filename="../ip2c/ip2cparser.cpp" line="86"/>
+        <source>IP2C database read in %1 ms; IP ranges: %2</source>
+        <translation>Base de datos IP2C leída en %1 ms. Rangos de IP: %2</translation>
+    </message>
+    <message>
         <source>IP2C database read in %1 ms. Entries read: %2</source>
-        <translation>Base de datos IP2C leída en %1 ms. Entradas leídas: %2</translation>
+        <translation type="vanished">Base de datos IP2C leída en %1 ms. Entradas leídas: %2</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2cparser.cpp" line="94"/>
@@ -3408,7 +4810,7 @@ Ejecutable: %3</translation>
 <context>
     <name>IP2CUpdateBox</name>
     <message>
-        <location filename="../gui/ip2cupdatebox.cpp" line="79"/>
+        <location filename="../gui/ip2cupdatebox.cpp" line="81"/>
         <source>Verifying checksum ...</source>
         <translation>Verificando suma de verificación ...</translation>
     </message>
@@ -3417,17 +4819,17 @@ Ejecutable: %3</translation>
         <translation type="vanished">El archivo de la base de datos IP2C no fue encontrado. Se usará la base de datos precompilada. Use el botón de actualización si desea descargar la última base de datos.</translation>
     </message>
     <message>
-        <location filename="../gui/ip2cupdatebox.cpp" line="63"/>
+        <location filename="../gui/ip2cupdatebox.cpp" line="65"/>
         <source>N/A</source>
         <translation>N/A</translation>
     </message>
     <message>
-        <location filename="../gui/ip2cupdatebox.cpp" line="72"/>
+        <location filename="../gui/ip2cupdatebox.cpp" line="74"/>
         <source>File is already downloaded.</source>
         <translation>El archivo ya está descargado.</translation>
     </message>
     <message>
-        <location filename="../gui/ip2cupdatebox.cpp" line="73"/>
+        <location filename="../gui/ip2cupdatebox.cpp" line="75"/>
         <source>File doesn&apos;t exist yet or location doesn&apos;t point to a file.</source>
         <translation>El archivo aún no existe o la ubicación no apunta a un archivo.</translation>
     </message>
@@ -3436,47 +4838,47 @@ Ejecutable: %3</translation>
         <translation type="vanished">No se encontró la base de datos IP2C. Utilice el botón de actualización si desea descargar la base de datos más reciente.</translation>
     </message>
     <message>
-        <location filename="../gui/ip2cupdatebox.cpp" line="86"/>
+        <location filename="../gui/ip2cupdatebox.cpp" line="88"/>
         <source>IP2C database file was not found. Use the update button if you want to download the newest database.</source>
         <translation>No se encontró el archivo de base de datos IP2C. Utilice el botón de actualización si desea descargar la base de datos más reciente.</translation>
     </message>
     <message>
-        <location filename="../gui/ip2cupdatebox.cpp" line="98"/>
+        <location filename="../gui/ip2cupdatebox.cpp" line="100"/>
         <source>Update required.</source>
         <translation>Actualización necesaria.</translation>
     </message>
     <message>
-        <location filename="../gui/ip2cupdatebox.cpp" line="102"/>
+        <location filename="../gui/ip2cupdatebox.cpp" line="104"/>
         <source>Database is up-to-date.</source>
         <translation>La base de datos está actualizada.</translation>
     </message>
     <message>
-        <location filename="../gui/ip2cupdatebox.cpp" line="106"/>
+        <location filename="../gui/ip2cupdatebox.cpp" line="108"/>
         <source>Database status check failed. See log for details.</source>
         <translation>Fallo en la comprobación del estado de la base de datos. Ver registro para más detalles.</translation>
     </message>
     <message>
-        <location filename="../gui/ip2cupdatebox.cpp" line="110"/>
+        <location filename="../gui/ip2cupdatebox.cpp" line="112"/>
         <source>Unhandled update check status.</source>
         <translation>Estado de comprobación de actualización no controlado.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_ip2cupdatebox.h" line="187"/>
+        <location filename="../gui/ip2cupdatebox.ui" line="20"/>
         <source>Doomseeker - Update IP2C</source>
         <translation>Doomseeker - Actualización de IP2C</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_ip2cupdatebox.h" line="188"/>
+        <location filename="../gui/ip2cupdatebox.ui" line="26"/>
         <source>IP2C file location:</source>
         <translation>Ubicación del archivo IP2C:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_ip2cupdatebox.h" line="189"/>
+        <location filename="../gui/ip2cupdatebox.ui" line="134"/>
         <source>The downloaded database will be placed in the following location:</source>
         <translation>La base de datos descargada estará ubicada en la siguiente ruta:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_ip2cupdatebox.h" line="190"/>
+        <location filename="../gui/ip2cupdatebox.ui" line="180"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -3489,12 +4891,12 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Tenga en cuenta que la actualización de IP2C se realiza en segundo plano. Doomseeker le notificará del progreso de la descarga a través de una barra de progreso y mensajes en el registro.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_ip2cupdatebox.h" line="195"/>
+        <location filename="../gui/ip2cupdatebox.ui" line="196"/>
         <source>UPDATE!</source>
         <translation>¡ACTUALIZACIÓN!</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_ip2cupdatebox.h" line="196"/>
+        <location filename="../gui/ip2cupdatebox.ui" line="203"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
@@ -3622,12 +5024,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>IRCDelayedOperationIgnore</name>
     <message>
-        <location filename="../irc/ops/ircdelayedoperationignore.cpp" line="84"/>
+        <location filename="../irc/ops/ircdelayedoperationignore.cpp" line="85"/>
         <source>Ignore user %1 (username=%2) on network %3:</source>
         <translation>Ignorar usuario %1 (username=%2) en red %3:</translation>
     </message>
     <message>
-        <location filename="../irc/ops/ircdelayedoperationignore.cpp" line="86"/>
+        <location filename="../irc/ops/ircdelayedoperationignore.cpp" line="87"/>
         <source>IRC - Ignore user</source>
         <translation>IRC - Ignorar usuario</translation>
     </message>
@@ -3635,39 +5037,39 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>IRCDock</name>
     <message>
-        <location filename="../gui/irc/ircdock.cpp" line="169"/>
+        <location filename="../gui/irc/ircdock.cpp" line="170"/>
         <source>Connect</source>
         <translation>Conectar</translation>
     </message>
     <message>
-        <location filename="../gui/irc/ircdock.cpp" line="170"/>
-        <location filename="../gui/irc/ircdock.cpp" line="260"/>
+        <location filename="../gui/irc/ircdock.cpp" line="171"/>
+        <location filename="../gui/irc/ircdock.cpp" line="261"/>
         <source>Open chat window</source>
         <translation>Abrir la ventana de chat</translation>
     </message>
     <message>
-        <location filename="../gui/irc/ircdock.cpp" line="255"/>
-        <location filename="../gui/irc/ircdock.cpp" line="257"/>
+        <location filename="../gui/irc/ircdock.cpp" line="256"/>
+        <location filename="../gui/irc/ircdock.cpp" line="258"/>
         <source>Doomseeker IRC - Open chat window</source>
         <translation>Doomseeker IRC - Abrir ventana de chat</translation>
     </message>
     <message>
-        <location filename="../gui/irc/ircdock.cpp" line="255"/>
+        <location filename="../gui/irc/ircdock.cpp" line="256"/>
         <source>Cannot obtain network connection adapter.</source>
         <translation>No se puede obtener el adaptador de conexión de red.</translation>
     </message>
     <message>
-        <location filename="../gui/irc/ircdock.cpp" line="257"/>
+        <location filename="../gui/irc/ircdock.cpp" line="258"/>
         <source>You are not connected to this network.</source>
         <translation>Usted no está conectado a esta red.</translation>
     </message>
     <message>
-        <location filename="../gui/irc/ircdock.cpp" line="260"/>
+        <location filename="../gui/irc/ircdock.cpp" line="261"/>
         <source>Specify a channel or user name:</source>
         <translation>Especifique un canal o nombre de usuario:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_ircdock.h" line="71"/>
+        <location filename="../gui/irc/ircdock.ui" line="26"/>
         <source>IRC</source>
         <translation>IRC</translation>
     </message>
@@ -3806,17 +5208,17 @@ p, li { white-space: pre-wrap; }
         <translation>Banear</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_ircdocktabcontents.h" line="130"/>
+        <location filename="../gui/irc/ircdocktabcontents.ui" line="14"/>
         <source>Form</source>
         <translation>Formulario</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_ircdocktabcontents.h" line="131"/>
+        <location filename="../gui/irc/ircdocktabcontents.ui" line="69"/>
         <source>Send</source>
         <translation>Enviar</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_ircdocktabcontents.h" line="133"/>
+        <location filename="../gui/irc/ircdocktabcontents.ui" line="76"/>
         <source>Do not scroll text area</source>
         <translation>No mover la área del texto</translation>
     </message>
@@ -3824,12 +5226,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>IRCIgnoresManager</name>
     <message>
-        <location filename="../../../build/src/core/ui_ircignoresmanager.h" line="72"/>
+        <location filename="../gui/irc/ircignoresmanager.ui" line="14"/>
         <source>IRC - ignores manager</source>
         <translation>IRC - administrador de ignorados</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_ircignoresmanager.h" line="73"/>
+        <location filename="../gui/irc/ircignoresmanager.ui" line="30"/>
         <source>Delete selected</source>
         <translation>Eliminar seleccionado</translation>
     </message>
@@ -3960,128 +5362,132 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>IRCNetworkSelectionBox</name>
     <message>
-        <location filename="../gui/irc/ircnetworkselectionbox.cpp" line="87"/>
+        <location filename="../gui/irc/ircnetworkselectionbox.cpp" line="89"/>
         <source>Doomseeker - edit IRC network</source>
         <translation>Doomseeker - edita la red IRC</translation>
     </message>
     <message>
-        <location filename="../gui/irc/ircnetworkselectionbox.cpp" line="88"/>
+        <location filename="../gui/irc/ircnetworkselectionbox.cpp" line="90"/>
         <source>Cannot edit as no valid network is selected.</source>
         <translation>No se puede editar ya que no está seleccionada una red válida.</translation>
     </message>
     <message>
-        <location filename="../gui/irc/ircnetworkselectionbox.cpp" line="195"/>
-        <location filename="../gui/irc/ircnetworkselectionbox.cpp" line="199"/>
+        <location filename="../gui/irc/ircnetworkselectionbox.cpp" line="197"/>
+        <location filename="../gui/irc/ircnetworkselectionbox.cpp" line="201"/>
         <source>Doomseeker - remove IRC network</source>
         <translation>Doomseeker - elimina la red IRC0</translation>
     </message>
     <message>
-        <location filename="../gui/irc/ircnetworkselectionbox.cpp" line="196"/>
+        <location filename="../gui/irc/ircnetworkselectionbox.cpp" line="198"/>
         <source>Cannot remove as no valid network is selected.</source>
         <translation>No se puede eliminar ya que no está seleccionada una red válida.</translation>
     </message>
     <message>
-        <location filename="../gui/irc/ircnetworkselectionbox.cpp" line="200"/>
+        <location filename="../gui/irc/ircnetworkselectionbox.cpp" line="202"/>
         <source>Are you sure you wish to remove network &apos;%1&apos;?</source>
         <translation>¿Seguro que quieres eliminar la red &apos;%1&apos;?</translation>
     </message>
     <message>
-        <location filename="../gui/irc/ircnetworkselectionbox.cpp" line="226"/>
+        <location filename="../gui/irc/ircnetworkselectionbox.cpp" line="228"/>
         <source>IRC connection error</source>
         <translation>Error de conexión IRC</translation>
     </message>
     <message>
-        <location filename="../gui/irc/ircnetworkselectionbox.cpp" line="231"/>
+        <location filename="../gui/irc/ircnetworkselectionbox.cpp" line="233"/>
         <source>You must specify a nick.</source>
         <translation>Debes especificar un alias.</translation>
     </message>
     <message>
-        <location filename="../gui/irc/ircnetworkselectionbox.cpp" line="237"/>
+        <location filename="../gui/irc/ircnetworkselectionbox.cpp" line="239"/>
         <source>You must specify a network address.</source>
         <translation>Debe especificar una dirección de red.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_ircnetworkselectionbox.h" line="240"/>
+        <location filename="../gui/irc/ircnetworkselectionbox.ui" line="14"/>
         <source>IRC - Connect to Network</source>
         <translation>IRC - Conectar a una red</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_ircnetworkselectionbox.h" line="241"/>
+        <location filename="../gui/irc/ircnetworkselectionbox.ui" line="25"/>
         <source>Nick:</source>
         <translation>Alias:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_ircnetworkselectionbox.h" line="242"/>
+        <location filename="../gui/irc/ircnetworkselectionbox.ui" line="32"/>
         <source>DSTest</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_ircnetworkselectionbox.h" line="243"/>
+        <location filename="../gui/irc/ircnetworkselectionbox.ui" line="39"/>
         <source>Alternate nick:</source>
         <translation>Alias alternativo:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_ircnetworkselectionbox.h" line="244"/>
+        <location filename="../gui/irc/ircnetworkselectionbox.ui" line="46"/>
         <source>DSTestA</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_ircnetworkselectionbox.h" line="245"/>
+        <location filename="../gui/irc/ircnetworkselectionbox.ui" line="53"/>
         <source>Real name:</source>
         <translation>Nombre real:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_ircnetworkselectionbox.h" line="246"/>
+        <location filename="../gui/irc/ircnetworkselectionbox.ui" line="60"/>
         <source>Doomseeker Tester</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_ircnetworkselectionbox.h" line="247"/>
         <source>User name</source>
-        <translation>Nombre de usuario</translation>
+        <translation type="vanished">Nombre de usuario</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_ircnetworkselectionbox.h" line="249"/>
+        <location filename="../gui/irc/ircnetworkselectionbox.ui" line="67"/>
+        <source>Username:</source>
+        <translation>Nombre de usuario:</translation>
+    </message>
+    <message>
+        <location filename="../gui/irc/ircnetworkselectionbox.ui" line="74"/>
         <source>Sent to the IRC network during login. If not specified, defaults to nick.</source>
         <translation>Enviado a la red IRC durante el inicio de sesión. Si no se especifica, el valor predeterminado es nick.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_ircnetworkselectionbox.h" line="251"/>
+        <location filename="../gui/irc/ircnetworkselectionbox.ui" line="77"/>
         <source>DSTestUser</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_ircnetworkselectionbox.h" line="253"/>
+        <location filename="../gui/irc/ircnetworkselectionbox.ui" line="116"/>
         <source>Add network</source>
         <translation>Agregar red</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_ircnetworkselectionbox.h" line="256"/>
+        <location filename="../gui/irc/ircnetworkselectionbox.ui" line="133"/>
         <source>Edit network</source>
         <translation>Editar red</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_ircnetworkselectionbox.h" line="259"/>
+        <location filename="../gui/irc/ircnetworkselectionbox.ui" line="150"/>
         <source>Remove network</source>
         <translation>Borrar red</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_ircnetworkselectionbox.h" line="261"/>
+        <location filename="../gui/irc/ircnetworkselectionbox.ui" line="170"/>
         <source>Server address:</source>
         <translation>Dirección del servidor:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_ircnetworkselectionbox.h" line="262"/>
+        <location filename="../gui/irc/ircnetworkselectionbox.ui" line="177"/>
         <source>74.207.247.18</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_ircnetworkselectionbox.h" line="263"/>
+        <location filename="../gui/irc/ircnetworkselectionbox.ui" line="187"/>
         <source>Port:</source>
         <translation>Puerto:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_ircnetworkselectionbox.h" line="264"/>
+        <location filename="../gui/irc/ircnetworkselectionbox.ui" line="210"/>
         <source>Password:</source>
         <translation>Contraseña:</translation>
     </message>
@@ -4117,79 +5523,79 @@ p, li { white-space: pre-wrap; }
         <translation>El usuario %1 está ausente: %2</translation>
     </message>
     <message>
-        <location filename="../irc/ircresponseparser.cpp" line="193"/>
+        <location filename="../irc/ircresponseparser.cpp" line="197"/>
         <source>%1 is on channels: %2</source>
         <translation>%1 está en canales:%2</translation>
     </message>
     <message>
-        <location filename="../irc/ircresponseparser.cpp" line="221"/>
+        <location filename="../irc/ircresponseparser.cpp" line="225"/>
         <source>Topic: %1</source>
         <translation>Tema: %1</translation>
     </message>
     <message>
-        <location filename="../irc/ircresponseparser.cpp" line="233"/>
+        <location filename="../irc/ircresponseparser.cpp" line="237"/>
         <source>Topic set by %1 on %2.</source>
         <translation>Tema establecido por %1 el %2.</translation>
     </message>
     <message>
-        <location filename="../irc/ircresponseparser.cpp" line="243"/>
+        <location filename="../irc/ircresponseparser.cpp" line="247"/>
         <source>URL: %1</source>
         <translation>URL: %1</translation>
     </message>
     <message>
-        <location filename="../irc/ircresponseparser.cpp" line="252"/>
+        <location filename="../irc/ircresponseparser.cpp" line="256"/>
         <source>Created time: %1</source>
         <translation>Tiempo creado: %1</translation>
     </message>
     <message>
-        <location filename="../irc/ircresponseparser.cpp" line="274"/>
+        <location filename="../irc/ircresponseparser.cpp" line="278"/>
         <source>RPLNamReply: Received names list but no channel name.</source>
         <translation>RPLNamReply: Lista de nombres recibidos pero no el nombre de canal.</translation>
     </message>
     <message>
-        <location filename="../irc/ircresponseparser.cpp" line="364"/>
+        <location filename="../irc/ircresponseparser.cpp" line="368"/>
         <source>Erroneous nickname: %1</source>
         <translation>Apodo erróneo: %1</translation>
     </message>
     <message>
-        <location filename="../irc/ircresponseparser.cpp" line="366"/>
+        <location filename="../irc/ircresponseparser.cpp" line="370"/>
         <source> (%1)</source>
         <translation> (%1)</translation>
     </message>
     <message>
-        <location filename="../irc/ircresponseparser.cpp" line="400"/>
+        <location filename="../irc/ircresponseparser.cpp" line="404"/>
         <source>%1: %2</source>
         <translation>%1: %2</translation>
     </message>
     <message>
-        <location filename="../irc/ircresponseparser.cpp" line="507"/>
+        <location filename="../irc/ircresponseparser.cpp" line="511"/>
         <source>New topic set by user %1:
 %2</source>
         <translation>Nuevo tema establecido por el usuario %1:
 %2</translation>
     </message>
     <message>
-        <location filename="../irc/ircresponseparser.cpp" line="526"/>
+        <location filename="../irc/ircresponseparser.cpp" line="530"/>
         <source>IRCResponseParser: Type &apos;%1&apos; was recognized but there has been no parse code implemented for it.(yep, it&apos;s a bug in the application!)</source>
         <translation>IRCResponseParser: Se ha reconocido el tipo &apos;%1&apos; pero no se ha implementado ningún código de análisis para este.(sip, ¡esto es un error en la aplicación!)</translation>
     </message>
     <message>
-        <location filename="../irc/ircresponseparser.cpp" line="585"/>
+        <location filename="../irc/ircresponseparser.cpp" line="589"/>
         <source>[%1]: %2</source>
         <translation>[%1]: %2</translation>
     </message>
     <message>
-        <location filename="../irc/ircresponseparser.cpp" line="587"/>
+        <location filename="../irc/ircresponseparser.cpp" line="591"/>
         <source>Type &apos;%1&apos; was incorrectly parsed in PrivMsg block.</source>
         <translation>El tipo &apos;%1&apos; se analizó incorrectamente en el bloque PrivMsg.</translation>
     </message>
     <message>
-        <location filename="../irc/ircresponseparser.cpp" line="602"/>
+        <location filename="../irc/ircresponseparser.cpp" line="606"/>
         <source>MODE flags string from IRC server are incorrect: &quot;%1&quot;. Information for channel &quot;%2&quot; might not be correct anymore.</source>
         <translation>Las cadenas de indicadores MODE del servidor IRC son incorrectas: &quot;%1&quot;. Es posible que la información para el canal &quot;%2&quot; ya no sea correcta.</translation>
     </message>
     <message>
-        <location filename="../irc/ircresponseparser.cpp" line="634"/>
+        <location filename="../irc/ircresponseparser.cpp" line="638"/>
         <source>IRCResponseParser::parseUserModeMessage(): wrong FlagMode. Information for channel &quot;%2&quot; might not be correct anymore.</source>
         <translation>IRCResponseParser :: parseUserModeMessage (): FlagMode incorrecto. Es posible que la información para el canal &quot;%2&quot; ya no sea correcta.</translation>
     </message>
@@ -4210,7 +5616,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ImportantMessagesWidget</name>
     <message>
-        <location filename="../../../build/src/core/ui_importantmessageswidget.h" line="77"/>
+        <location filename="../gui/widgets/importantmessageswidget.ui" line="31"/>
         <source>Clear</source>
         <translation>Despejar</translation>
     </message>
@@ -4218,32 +5624,32 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>IwadAndWadsPickerDialog</name>
     <message>
-        <location filename="../gui/createserver/iwadandwadspickerdialog.cpp" line="62"/>
+        <location filename="../gui/createserver/iwadandwadspickerdialog.cpp" line="63"/>
         <source>Doomseeker - Browse executable</source>
         <translation>Doomseeker - Buscar ejecutable</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_iwadandwadspickerdialog.h" line="131"/>
+        <location filename="../gui/createserver/iwadandwadspickerdialog.ui" line="14"/>
         <source>Dialog</source>
         <translation>Diálogo</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_iwadandwadspickerdialog.h" line="132"/>
+        <location filename="../gui/createserver/iwadandwadspickerdialog.ui" line="22"/>
         <source>Executable:</source>
         <translation>Ejecutable:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_iwadandwadspickerdialog.h" line="133"/>
+        <location filename="../gui/createserver/iwadandwadspickerdialog.ui" line="39"/>
         <source>IWAD:</source>
         <translation>IWAD:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_iwadandwadspickerdialog.h" line="134"/>
+        <location filename="../gui/createserver/iwadandwadspickerdialog.ui" line="67"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_iwadandwadspickerdialog.h" line="135"/>
+        <location filename="../gui/createserver/iwadandwadspickerdialog.ui" line="78"/>
         <source>Additional WADs and files:</source>
         <translation>WADs y archivos adicionales:</translation>
     </message>
@@ -4256,7 +5662,7 @@ p, li { white-space: pre-wrap; }
         <translation>Doomseeker - selecciona IWAD</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_iwadpicker.h" line="57"/>
+        <location filename="../gui/createserver/iwadpicker.ui" line="33"/>
         <source>...</source>
         <translation></translation>
     </message>
@@ -4298,7 +5704,7 @@ Operación fallida.</translation>
         <translation>Error al obtener los parámetros para unirse al servidor &quot;%1&quot;, juego &quot;%2&quot;: %3</translation>
     </message>
     <message>
-        <location filename="../joincommandlinebuilder.cpp" line="339"/>
+        <location filename="../joincommandlinebuilder.cpp" line="338"/>
         <source>Game installation failure</source>
         <translation>Error de instalación del juego</translation>
     </message>
@@ -4319,17 +5725,17 @@ Operación fallida.</translation>
         <translation>Doomseeker - seleccione la ruta de registro</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_logdirectorypicker.h" line="79"/>
+        <location filename="../gui/createserver/logdirectorypicker.ui" line="35"/>
         <source>This path could not be found. It will not be used.</source>
         <translation>No se ha encontrado la ruta. No se usarà.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_logdirectorypicker.h" line="82"/>
+        <location filename="../gui/createserver/logdirectorypicker.ui" line="57"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_logdirectorypicker.h" line="83"/>
+        <location filename="../gui/createserver/logdirectorypicker.ui" line="70"/>
         <source>Enabled</source>
         <translation>habilitado</translation>
     </message>
@@ -4337,17 +5743,17 @@ Operación fallida.</translation>
 <context>
     <name>LogDock</name>
     <message>
-        <location filename="../../../build/src/core/ui_logdock.h" line="92"/>
+        <location filename="../gui/logdock.ui" line="20"/>
         <source>Log</source>
         <translation>Registro</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_logdock.h" line="93"/>
+        <location filename="../gui/logdock.ui" line="67"/>
         <source>Copy all to clipboard</source>
         <translation>Copiar todo al portapapeles</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_logdock.h" line="94"/>
+        <location filename="../gui/logdock.ui" line="74"/>
         <source>Clear</source>
         <translation>Limpiar</translation>
     </message>
@@ -4355,77 +5761,81 @@ Operación fallida.</translation>
 <context>
     <name>Main</name>
     <message>
-        <location filename="../main.cpp" line="432"/>
+        <location filename="../main.cpp" line="439"/>
         <source>Doomseeker startup error</source>
         <translation>Error de inicio de Doomseeker</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="232"/>
+        <location filename="../main.cpp" line="239"/>
         <source>Init finished.</source>
         <translation>Init finalizado.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="247"/>
+        <location filename="../main.cpp" line="254"/>
         <source>Doomseeker - Updates Install Failure</source>
         <translation>Doomseeker - Instalación de actualizaciones fallas</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="293"/>
+        <location filename="../main.cpp" line="300"/>
         <source>Failed to open file &apos;%1&apos;.</source>
         <translation>Error al abrir el archivo &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="301"/>
+        <location filename="../main.cpp" line="308"/>
         <source>Failed to open stdout.</source>
         <translation>Error al abrir stdout.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="311"/>
+        <location filename="../main.cpp" line="318"/>
         <source>Dumping version info to file in JSON format.</source>
         <translation>Depositando la información de la versión al archivo en formato JSON.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="323"/>
+        <location filename="../main.cpp" line="330"/>
         <source>Preparing GUI.</source>
         <translation>Preparando GUI.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="336"/>
+        <location filename="../main.cpp" line="343"/>
         <source>Starting Create Game box.</source>
         <translation>Iniciando la ventana de Creación del Juego.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="344"/>
+        <location filename="../main.cpp" line="351"/>
         <source>Starting RCon client.</source>
         <translation>Iniciando el cliente RCon.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="359"/>
+        <location filename="../main.cpp" line="366"/>
         <source>None of the currently loaded game plugins supports RCon.</source>
         <translation>Ninguno de los complementos cargados actualmente admite RCon.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="361"/>
+        <location filename="../main.cpp" line="368"/>
         <source>Doomseeker RCon</source>
         <translation>Doomseeker RCon</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="375"/>
         <source>Couldn&apos;t find specified plugin: </source>
+        <translation type="vanished">No se pudo encontrar el complemento especificado: </translation>
+    </message>
+    <message>
+        <location filename="../main.cpp" line="382"/>
+        <source>Couldn&apos;t find the specified plugin: </source>
         <translation>No se pudo encontrar el complemento especificado: </translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="385"/>
+        <location filename="../main.cpp" line="392"/>
         <source>Plugin does not support RCon.</source>
         <translation>El complemento no es compatible con RCon.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="402"/>
+        <location filename="../main.cpp" line="409"/>
         <source>Loading extra CA certificates from &apos;%1&apos;.</source>
         <translation>Cargando certificados CA adicionales de &apos;%1&apos;.</translation>
     </message>
     <message numerus="yes">
-        <location filename="../main.cpp" line="407"/>
+        <location filename="../main.cpp" line="414"/>
         <source>Appending %n extra CA certificate(s).</source>
         <translation>
             <numerusform>Anexando un certificado CA adicional.</numerusform>
@@ -4433,64 +5843,64 @@ Operación fallida.</translation>
         </translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="424"/>
+        <location filename="../main.cpp" line="431"/>
         <source>Doomseeker will not run because some directories cannot be used properly.
 </source>
         <translation>Doomseeker no se ejecutará porque algunos directorios no se pueden usar correctamente.
 </translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="456"/>
+        <location filename="../main.cpp" line="463"/>
         <source>Initializing IP2C database.</source>
         <translation>Inicializando la base de datos IP2C.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="464"/>
+        <location filename="../main.cpp" line="471"/>
         <source>Initializing IRC configuration file.</source>
         <translation>Inicializando el archivo de configuración de IRC.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="482"/>
+        <location filename="../main.cpp" line="489"/>
         <source>Loading translations definitions</source>
         <translation>Cargando definiciones de traducción</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="490"/>
+        <location filename="../main.cpp" line="497"/>
         <source>Loading translation &quot;%1&quot;.</source>
         <translation>Cargando la traducción &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="494"/>
+        <location filename="../main.cpp" line="501"/>
         <source>Translation loaded.</source>
         <translation>Traducción cargada.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="498"/>
+        <location filename="../main.cpp" line="505"/>
         <source>Failed to load translation.</source>
         <translation>Error al cargar la traducción.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="505"/>
+        <location filename="../main.cpp" line="512"/>
         <source>Initializing configuration file.</source>
         <translation>Inicializando archivo de configuración.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="514"/>
+        <location filename="../main.cpp" line="521"/>
         <source>Could not get an access to the settings directory. Configuration will not be saved.</source>
         <translation>No se pudo obtener acceso al directorio de configuraciones. La configuración no se guardará.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="533"/>
+        <location filename="../main.cpp" line="540"/>
         <source>Initializing passwords configuration file.</source>
         <translation>Inicializando el archivo de configuración de contraseñas.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="546"/>
+        <location filename="../main.cpp" line="553"/>
         <source>Initializing configuration for plugins.</source>
         <translation>Inicializando la configuración para complementos.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="665"/>
+        <location filename="../main.cpp" line="672"/>
         <source>doomseeker: `--connect`, `--create-game` and `--rcon` are mutually exclusive</source>
         <translation>doomseeker: `--connect`, `--create-game` y `--rcon` se excluyen entre sí</translation>
     </message>
@@ -4513,7 +5923,7 @@ Operación fallida.</translation>
         <translation type="vanished">doomseeker: opción no reconocida &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="678"/>
+        <location filename="../main.cpp" line="685"/>
         <source>Starting refreshing thread.</source>
         <translation>Iniciando hilo de refresco.</translation>
     </message>
@@ -4521,32 +5931,32 @@ Operación fallida.</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="405"/>
+        <location filename="../gui/mainwindow.cpp" line="404"/>
         <source>Doomseeker - Auto Update</source>
         <translation>Doomseeker - Actualización automática</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="406"/>
+        <location filename="../gui/mainwindow.cpp" line="405"/>
         <source>Update is already in progress.</source>
         <translation>La actualización ya está en progreso.</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="415"/>
+        <location filename="../gui/mainwindow.cpp" line="414"/>
         <source>Removing old update packages from local temporary space.</source>
         <translation>Eliminando paquetes de actualización antiguos del espacio temporal local.</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="420"/>
+        <location filename="../gui/mainwindow.cpp" line="419"/>
         <source>Checking for updates...</source>
         <translation>Comprobando actualizaciones...</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="631"/>
+        <location filename="../gui/mainwindow.cpp" line="630"/>
         <source>All WADs found</source>
         <translation>Todos los WADs encontrados</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="631"/>
+        <location filename="../gui/mainwindow.cpp" line="630"/>
         <source>All of the WADs used by this server are present.</source>
         <translation>Todos los WAD utilizados por este servidor están presentes.</translation>
     </message>
@@ -4567,12 +5977,12 @@ Operación fallida.</translation>
 </translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="712"/>
+        <location filename="../gui/mainwindow.cpp" line="711"/>
         <source>Plugins are missing from the &quot;engines/&quot; directory.</source>
         <translation>Los complementos faltan en el directorio &quot;engines/&quot;.</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="714"/>
+        <location filename="../gui/mainwindow.cpp" line="713"/>
         <source>No master servers are enabled in the &quot;Query&quot; menu.</source>
         <translation>No hay servidores maestros habilitados en el menú &quot;Consulta&quot;.</translation>
     </message>
@@ -4581,67 +5991,67 @@ Operación fallida.</translation>
         <translation type="vanished">Se produjo un error desconocido.</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="719"/>
+        <location filename="../gui/mainwindow.cpp" line="718"/>
         <source>Doomseeker - refresh problem</source>
         <translation>Doomseeker - problema de actualización</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="725"/>
+        <location filename="../gui/mainwindow.cpp" line="724"/>
         <source>Total refresh initialized!</source>
         <translation>Actualización total inicializada!</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="735"/>
+        <location filename="../gui/mainwindow.cpp" line="734"/>
         <source>Warning: No master servers were enabled for this refresh. Check your Query menu or &quot;engines/&quot; directory.</source>
         <translation>Advertencia: No se habilitaron servidores maestros para esta actualización. Verifique su menú de consulta o el directorio &quot;engines /&quot;.</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="795"/>
+        <location filename="../gui/mainwindow.cpp" line="794"/>
         <source>Auto Updater:</source>
         <translation>Actualizador automático:</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="810"/>
+        <location filename="../gui/mainwindow.cpp" line="809"/>
         <source>Abort update.</source>
         <translation>Cancelar actualización.</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="822"/>
+        <location filename="../gui/mainwindow.cpp" line="821"/>
         <source>IP2C Update</source>
         <translation>Actualización de IP2C</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="833"/>
+        <location filename="../gui/mainwindow.cpp" line="832"/>
         <source>&amp;IRC</source>
         <translation>&amp;IRC</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="834"/>
+        <location filename="../gui/mainwindow.cpp" line="833"/>
         <source>CTRL+I</source>
         <translation>CTRL+I</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="849"/>
+        <location filename="../gui/mainwindow.cpp" line="848"/>
         <source>&amp;Log</source>
         <translation>&amp;Registro</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="850"/>
+        <location filename="../gui/mainwindow.cpp" line="849"/>
         <source>CTRL+L</source>
         <translation>CTRL+L</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="866"/>
+        <location filename="../gui/mainwindow.cpp" line="865"/>
         <source>Servers</source>
         <translation>Servidores</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="879"/>
+        <location filename="../gui/mainwindow.cpp" line="878"/>
         <source>Server &amp;details</source>
         <translation>&amp;Detalles Servidor</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="880"/>
+        <location filename="../gui/mainwindow.cpp" line="879"/>
         <source>CTRL+D</source>
         <translation>CTRL+D</translation>
     </message>
@@ -4670,90 +6080,97 @@ Una de las ubicaciones adecuadas para los complementos es el directorio &quot;en
         <translation type="vanished">Doomseeker - fallo al cargar un complemento</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="236"/>
+        <location filename="../gui/mainwindow.cpp" line="235"/>
         <source>&amp;Buddies</source>
         <translation>&amp;Compañeros</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="237"/>
+        <location filename="../gui/mainwindow.cpp" line="236"/>
         <source>CTRL+B</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="665"/>
+        <location filename="../gui/mainwindow.cpp" line="664"/>
         <source>Doomseeker needs to be restarted for some changes to be applied.</source>
         <translation>Doomseeker necesita reiniciarse para que algunos de los cambios se apliquen.</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="993"/>
+        <location filename="../gui/mainwindow.cpp" line="992"/>
         <source>Master server for %1: %2</source>
         <translation>Servidor maestro para %1: %2</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="997"/>
+        <location filename="../gui/mainwindow.cpp" line="996"/>
         <source>Error: %1</source>
         <translation>Error: %1</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1006"/>
+        <location filename="../gui/mainwindow.cpp" line="1005"/>
         <source>%1: %2</source>
         <translation>%1: %2</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1037"/>
-        <location filename="../gui/mainwindow.cpp" line="1045"/>
+        <location filename="../gui/mainwindow.cpp" line="1036"/>
+        <location filename="../gui/mainwindow.cpp" line="1044"/>
         <source>Help error</source>
         <translation>Error en ayuda</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1037"/>
+        <location filename="../gui/mainwindow.cpp" line="1036"/>
         <source>No help found.</source>
         <translation>No se encontró ayuda.</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1045"/>
+        <location filename="../gui/mainwindow.cpp" line="1044"/>
         <source>Failed to open URL:
 %1</source>
         <translation>Error al abrir la URL:
 %1</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1125"/>
+        <location filename="../gui/mainwindow.cpp" line="1124"/>
         <source>Welcome to Doomseeker</source>
         <translation>Bienvenido a Doomseeker</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1126"/>
+        <location filename="../gui/mainwindow.cpp" line="1125"/>
         <source>Before you start browsing for servers, please ensure that Doomseeker is properly configured.</source>
         <translation>Antes de comenzar a buscar servidores, asegúrese de que Doomseeker esté configurado correctamente.</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1143"/>
+        <location filename="../gui/mainwindow.cpp" line="1142"/>
         <source>Program update detection &amp; download finished with status: [%1] %2</source>
         <translation>La detección y descarga de la actualización del programa terminó con el estado: [%1] %2</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1153"/>
+        <location filename="../gui/mainwindow.cpp" line="1152"/>
         <source>Updates will be installed on next program start.</source>
         <translation>Las actualizaciones se instalarán en el próximo inicio del programa.</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1159"/>
+        <location filename="../gui/mainwindow.cpp" line="1158"/>
         <source>Update channel was changed during update process. Discarding update.</source>
         <translation>El canal de actualización cambió durante el proceso de actualización. Descartando la actualización.</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1201"/>
+        <location filename="../gui/mainwindow.cpp" line="1200"/>
         <source>Query on startup warning: No master servers are enabled in the Query menu.</source>
         <translation>Advertencia de consulta al inicio: No hay servidores maestros habilitados en el menú Consulta.</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1225"/>
+        <location filename="../gui/mainwindow.cpp" line="1224"/>
         <source>Doomseeker critical error</source>
         <translation>Error crítico de Doomseeker</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1218"/>
+        <location filename="../gui/mainwindow.cpp" line="1465"/>
+        <source>The command line cannot be built:
+%1</source>
+        <translation>La línea de comandos no se puede construir:
+%1</translation>
+    </message>
+    <message>
+        <location filename="../gui/mainwindow.cpp" line="1217"/>
         <source>Doomseeker was unable to find any plugin libraries.
 Although the application will still work it will not be possible to fetch any server info or launch any game.
 
@@ -4766,74 +6183,75 @@ Compruebe si hay archivos en el directorio &quot;engines/&quot;.
 Para solucionar este problema, puede intentar descargar Doomseeker nuevamente desde el sitio especificado en el cuadro Ayuda | Acerca de y volver a instalar Doomseeker.</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="708"/>
+        <location filename="../gui/mainwindow.cpp" line="707"/>
         <source>Doomseeker is unable to proceed with the refresh operation because the following problem has occurred:
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Doomseeker no puede continuar con la operación de actualización porque se ha producido el siguiente problema:
+
+</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="716"/>
+        <location filename="../gui/mainwindow.cpp" line="715"/>
         <source>Unknown error occurred.</source>
-        <translation type="unfinished"></translation>
+        <translation>Se produjo un error desconocido.</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1265"/>
+        <location filename="../gui/mainwindow.cpp" line="1264"/>
         <source>Querying...</source>
         <translation>Consultando...</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1274"/>
+        <location filename="../gui/mainwindow.cpp" line="1273"/>
         <source>Done</source>
         <translation>Hecho</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1356"/>
+        <location filename="../gui/mainwindow.cpp" line="1355"/>
         <source>Main Toolbar</source>
         <translation>Barra de herramientas principal</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1361"/>
+        <location filename="../gui/mainwindow.cpp" line="1360"/>
         <source>Get Servers</source>
         <translation>Obtener servidores</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1395"/>
+        <location filename="../gui/mainwindow.cpp" line="1394"/>
         <source>Search:</source>
         <translation>Buscar:</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1465"/>
+        <location filename="../gui/mainwindow.cpp" line="1464"/>
         <source>Doomseeker - show join command line</source>
         <translation>Doomseeker - mostrar comando para unirse</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1466"/>
         <source>Command line cannot be built:
 %1</source>
-        <translation>La línea de comandos no se puede construir:
+        <translation type="vanished">La línea de comandos no se puede construir:
 %1</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1479"/>
+        <location filename="../gui/mainwindow.cpp" line="1478"/>
         <source>Update installation problem:
 %1</source>
         <translation>Problema de instalación de actualización:
 %1</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1482"/>
+        <location filename="../gui/mainwindow.cpp" line="1481"/>
         <source>Update installation failed.</source>
         <translation>Error al instalar la actualización.</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1483"/>
-        <location filename="../gui/mainwindow.cpp" line="1492"/>
+        <location filename="../gui/mainwindow.cpp" line="1482"/>
+        <location filename="../gui/mainwindow.cpp" line="1491"/>
         <source>Doomseeker - Auto Update problem</source>
         <translation>Doomseeker - Problema de actualización automática</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1484"/>
+        <location filename="../gui/mainwindow.cpp" line="1483"/>
         <source>%1
 
 Remaining updates have been discarded.</source>
@@ -4842,7 +6260,7 @@ Remaining updates have been discarded.</source>
 Las actualizaciones restantes se han descartado.</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1491"/>
+        <location filename="../gui/mainwindow.cpp" line="1490"/>
         <source>Update install problem:
 %1
 
@@ -4853,33 +6271,33 @@ Remaining updates have been discarded.</source>
 Las actualizaciones restantes se han descartado.</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1574"/>
+        <location filename="../gui/mainwindow.cpp" line="1573"/>
         <source>Generic servers: %1
 </source>
         <translation>Servidores genéricos: %1
 </translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1575"/>
+        <location filename="../gui/mainwindow.cpp" line="1574"/>
         <source>Custom servers: %1
 </source>
         <translation>Servidores personalizados: %1
 </translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1576"/>
+        <location filename="../gui/mainwindow.cpp" line="1575"/>
         <source>LAN servers: %1
 </source>
         <translation>Servidores LAN: %1
 </translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1577"/>
+        <location filename="../gui/mainwindow.cpp" line="1576"/>
         <source>Human players: %1</source>
         <translation>Jugadores humanos: %1</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1589"/>
+        <location filename="../gui/mainwindow.cpp" line="1588"/>
         <source>Finished refreshing. Servers on the list: %1 (+%2 custom, +%3 LAN). Players: %4.</source>
         <translation>Actualización finalizada. Servidores en la lista:%1 (+%2 personalizados, +%3 LAN). Jugadores: %4.</translation>
     </message>
@@ -4887,207 +6305,207 @@ Las actualizaciones restantes se han descartado.</translation>
 <context>
     <name>MainWindowWnd</name>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="342"/>
+        <location filename="../gui/mainwindow.ui" line="14"/>
         <source>Doomseeker</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="343"/>
+        <location filename="../gui/mainwindow.ui" line="350"/>
         <source>&amp;Configure</source>
         <translation>&amp;Configurar</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="345"/>
+        <location filename="../gui/mainwindow.ui" line="353"/>
         <source>F5</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="347"/>
+        <location filename="../gui/mainwindow.ui" line="361"/>
         <source>&amp;About</source>
         <translation>&amp;Acerca de</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="348"/>
+        <location filename="../gui/mainwindow.ui" line="369"/>
         <source>&amp;Quit</source>
         <translation>&amp;Salir</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="350"/>
+        <location filename="../gui/mainwindow.ui" line="372"/>
         <source>Ctrl+Q</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="352"/>
+        <location filename="../gui/mainwindow.ui" line="383"/>
         <source>Server Info</source>
         <translation>Información del servidor</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="354"/>
+        <location filename="../gui/mainwindow.ui" line="386"/>
         <source>I</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="356"/>
+        <location filename="../gui/mainwindow.ui" line="395"/>
         <source>&amp;Wadseeker</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="358"/>
+        <location filename="../gui/mainwindow.ui" line="398"/>
         <source>Ctrl+Alt+W</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="360"/>
+        <location filename="../gui/mainwindow.ui" line="406"/>
         <source>&amp;Buddies</source>
         <translation>&amp;Compañeros</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="362"/>
+        <location filename="../gui/mainwindow.ui" line="409"/>
         <source>Ctrl+B</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="364"/>
+        <location filename="../gui/mainwindow.ui" line="418"/>
         <source>&amp;Create game</source>
         <translation>&amp;Crear juego</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="366"/>
+        <location filename="../gui/mainwindow.ui" line="421"/>
         <source>Ctrl+S</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="368"/>
+        <location filename="../gui/mainwindow.ui" line="429"/>
         <source>&amp;Log</source>
         <translation>&amp;Registro</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="370"/>
+        <location filename="../gui/mainwindow.ui" line="432"/>
         <source>Ctrl+L</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="372"/>
+        <location filename="../gui/mainwindow.ui" line="437"/>
         <source>&amp;Help (Online)</source>
         <translation>&amp;Ayuda (Online)</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="374"/>
+        <location filename="../gui/mainwindow.ui" line="440"/>
         <source>F1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="376"/>
+        <location filename="../gui/mainwindow.ui" line="449"/>
         <source>&amp;Update IP2C</source>
         <translation>&amp;Actualizar IP2C</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="377"/>
+        <location filename="../gui/mainwindow.ui" line="457"/>
         <source>&amp;IRC</source>
         <translation>&amp;IRC</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="379"/>
+        <location filename="../gui/mainwindow.ui" line="460"/>
         <source>Ctrl+I</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="381"/>
+        <location filename="../gui/mainwindow.ui" line="465"/>
         <source>&amp;IRC options</source>
         <translation>Opciones &amp;IRC</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="383"/>
+        <location filename="../gui/mainwindow.ui" line="468"/>
         <source>F6</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="385"/>
+        <location filename="../gui/mainwindow.ui" line="473"/>
         <source>About &amp;Qt</source>
         <translation>Acerca de &amp;Qt</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="386"/>
+        <location filename="../gui/mainwindow.ui" line="488"/>
         <source>&amp;Record demo</source>
         <translation>&amp;Grabar demo</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="387"/>
+        <location filename="../gui/mainwindow.ui" line="497"/>
         <source>&amp;Demo manager</source>
         <translation>&amp;Administrador de &amp;demos</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="388"/>
+        <location filename="../gui/mainwindow.ui" line="506"/>
         <source>&amp;Check for updates</source>
         <translation>&amp;Buscar actualizaciones</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="389"/>
+        <location filename="../gui/mainwindow.ui" line="511"/>
         <source>&amp;Program args</source>
         <translation>&amp;Argumentos del programa</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="390"/>
+        <location filename="../gui/mainwindow.ui" line="516"/>
         <source>Install &amp;Freedoom</source>
         <translation>Instalar &amp;Freedoom</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="391"/>
+        <location filename="../gui/mainwindow.ui" line="78"/>
         <source>New updates are available:</source>
         <translation>Nuevas actualizaciones están disponibles:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="392"/>
+        <location filename="../gui/mainwindow.ui" line="97"/>
         <source>Download &amp;&amp; Install</source>
         <translation>Descargar y Instalar</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="393"/>
+        <location filename="../gui/mainwindow.ui" line="120"/>
         <source>Discard</source>
         <translation>Descartar</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="395"/>
+        <location filename="../gui/mainwindow.ui" line="185"/>
         <source>Updates have been downloaded:</source>
         <translation>Las actualizaciones han sido descargadas:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="396"/>
+        <location filename="../gui/mainwindow.ui" line="204"/>
         <source>Restart &amp;&amp; Install Now</source>
         <translation>Reiniciar y Instalar ahora</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="397"/>
+        <location filename="../gui/mainwindow.ui" line="223"/>
         <source>Restart &amp;&amp; Install Later</source>
         <translation>Reiniciar y Instalar más tarde</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="398"/>
+        <location filename="../gui/mainwindow.ui" line="252"/>
         <source>Server filter is applied</source>
         <translation>Los filtros de servidor están aplicados</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="399"/>
+        <location filename="../gui/mainwindow.ui" line="297"/>
         <source>&amp;Options</source>
         <translation>&amp;Opciones</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="400"/>
+        <location filename="../gui/mainwindow.ui" line="304"/>
         <source>&amp;Help</source>
         <translation>&amp;Ayuda</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="401"/>
+        <location filename="../gui/mainwindow.ui" line="315"/>
         <source>&amp;File</source>
         <translation>&amp;Archivo</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="402"/>
+        <location filename="../gui/mainwindow.ui" line="329"/>
         <source>&amp;View</source>
         <translation>&amp;Ver</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_mainwindow.h" line="403"/>
+        <location filename="../gui/mainwindow.ui" line="334"/>
         <source>&amp;Query</source>
         <translation>&amp;Consulta</translation>
     </message>
@@ -5095,27 +6513,31 @@ Las actualizaciones restantes se han descartado.</translation>
 <context>
     <name>MapListPanel</name>
     <message>
-        <location filename="../../../build/src/core/ui_maplistpanel.h" line="116"/>
         <source>Add from loaded wads</source>
+        <translation type="vanished">Añadir desde los WADs cargados</translation>
+    </message>
+    <message>
+        <location filename="../gui/createserver/maplistpanel.ui" line="51"/>
+        <source>Add from loaded WADs</source>
         <translation>Añadir desde los WADs cargados</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_maplistpanel.h" line="117"/>
+        <location filename="../gui/createserver/maplistpanel.ui" line="64"/>
         <source>Add</source>
         <translation>Añadir</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_maplistpanel.h" line="118"/>
+        <location filename="../gui/createserver/maplistpanel.ui" line="75"/>
         <source>Remove</source>
         <translation>Borrar</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_maplistpanel.h" line="119"/>
+        <location filename="../gui/createserver/maplistpanel.ui" line="91"/>
         <source>Random map rotation</source>
         <translation>Rotación aleatoria del mapa</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/maplistpanel.cpp" line="54"/>
+        <location filename="../gui/createserver/maplistpanel.cpp" line="57"/>
         <source>Current map isn&apos;t present on map list. Game may misbehave.</source>
         <translation>El mapa actual no se encuentra en la lista de mapas. El juego puede comportarse de forma extraña.</translation>
     </message>
@@ -5123,37 +6545,41 @@ Las actualizaciones restantes se han descartado.</translation>
 <context>
     <name>MapListSelector</name>
     <message>
-        <location filename="../gui/createserver/maplistselector.cpp" line="184"/>
+        <location filename="../gui/createserver/maplistselector.cpp" line="185"/>
         <source>Invert selection</source>
         <translation>Invertir selección</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_maplistselector.h" line="142"/>
+        <location filename="../gui/createserver/maplistselector.ui" line="26"/>
         <source>Doomseeker - Select Maps</source>
         <translation>Doomseeker - Seleccione Mapas</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_maplistselector.h" line="143"/>
+        <location filename="../gui/createserver/maplistselector.ui" line="35"/>
         <source>All selected maps will get added to the map list</source>
         <translation>Todos los mapas seleccionados se agregarán a la lista de mapas</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_maplistselector.h" line="144"/>
         <source>Reading wads...</source>
+        <translation type="vanished">Leyendo WADs ...</translation>
+    </message>
+    <message>
+        <location filename="../gui/createserver/maplistselector.ui" line="71"/>
+        <source>Reading WADs...</source>
         <translation>Leyendo WADs ...</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_maplistselector.h" line="145"/>
+        <location filename="../gui/createserver/maplistselector.ui" line="86"/>
         <source>Select All</source>
         <translation>Seleccionar todo</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_maplistselector.h" line="146"/>
+        <location filename="../gui/createserver/maplistselector.ui" line="121"/>
         <source>Add</source>
         <translation>Añadir</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_maplistselector.h" line="147"/>
+        <location filename="../gui/createserver/maplistselector.ui" line="141"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
@@ -5199,37 +6625,37 @@ Las actualizaciones restantes se han descartado.</translation>
 <context>
     <name>MiscServerSetupPanel</name>
     <message>
-        <location filename="../../../build/src/core/ui_miscserversetuppanel.h" line="142"/>
+        <location filename="../gui/createserver/miscserversetuppanel.ui" line="34"/>
         <source>URL:</source>
         <translation>URL:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_miscserversetuppanel.h" line="143"/>
+        <location filename="../gui/createserver/miscserversetuppanel.ui" line="44"/>
         <source>E-mail:</source>
         <translation>E-mail:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_miscserversetuppanel.h" line="144"/>
+        <location filename="../gui/createserver/miscserversetuppanel.ui" line="54"/>
         <source>Connect password:</source>
         <translation>Contraseña de conexión:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_miscserversetuppanel.h" line="145"/>
+        <location filename="../gui/createserver/miscserversetuppanel.ui" line="68"/>
         <source>Join password:</source>
         <translation>Contraseña de unión:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_miscserversetuppanel.h" line="146"/>
+        <location filename="../gui/createserver/miscserversetuppanel.ui" line="82"/>
         <source>RCon password:</source>
         <translation>Contraseña de RCon:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_miscserversetuppanel.h" line="147"/>
+        <location filename="../gui/createserver/miscserversetuppanel.ui" line="99"/>
         <source>Hide passwords</source>
         <translation>Ocultar contraseñas</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_miscserversetuppanel.h" line="148"/>
+        <location filename="../gui/createserver/miscserversetuppanel.ui" line="111"/>
         <source>MOTD:</source>
         <translation>MOTD:</translation>
     </message>
@@ -5237,34 +6663,42 @@ Las actualizaciones restantes se han descartado.</translation>
 <context>
     <name>MissingWadsDialog</name>
     <message>
-        <location filename="../../../build/src/core/ui_missingwadsdialog.h" line="306"/>
+        <location filename="../gui/missingwadsdialog.ui" line="14"/>
         <source>Doomseeker - files are missing</source>
         <translation>Doomseeker - faltan archivos</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_missingwadsdialog.h" line="307"/>
+        <location filename="../gui/missingwadsdialog.ui" line="41"/>
         <source>You don&apos;t have all the files required by this server and an instance of Wadseeker is already running.</source>
         <translation>No tiene todos los archivos requeridos por este servidor y ya se está ejecutando Wadseeker.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_missingwadsdialog.h" line="308"/>
+        <location filename="../gui/missingwadsdialog.ui" line="57"/>
         <source>Press &apos;Ignore&apos; to join anyway.</source>
         <translation>Presione &apos;Ignorar&apos; para unirse de todos modos.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_missingwadsdialog.h" line="309"/>
+        <location filename="../gui/missingwadsdialog.ui" line="103"/>
         <source>These files belong to a commercial game or are otherwise blocked from download:</source>
         <translation>Estos archivos pertenecen a un juego comercial o están bloqueados para su descarga:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_missingwadsdialog.h" line="310"/>
-        <location filename="../../../build/src/core/ui_missingwadsdialog.h" line="316"/>
+        <location filename="../gui/missingwadsdialog.ui" line="116"/>
+        <location filename="../gui/missingwadsdialog.ui" line="195"/>
         <source>&lt;files&gt;</source>
         <translation>&lt;archivos&gt;</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_missingwadsdialog.h" line="311"/>
         <source>Make sure that this file is in one of the paths specified in Options -&gt; File Paths.
+
+If you don&apos;t have this file, and it belongs to a commercial game, you need to purchase the game associated with this file. Wadseeker will not download commercial IWADs or modifications.</source>
+        <translation type="vanished">Asegúrese de que este archivo esté en una de las rutas especificadas en Opciones -&gt; Rutas de archivos.
+
+Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el juego asociado con este archivo. Wadseeker no descargará IWADs o modificaciones comerciales.</translation>
+    </message>
+    <message>
+        <location filename="../gui/missingwadsdialog.ui" line="135"/>
+        <source>Make sure that this file is in one of the paths specified in Options -&gt; File paths.
 
 If you don&apos;t have this file, and it belongs to a commercial game, you need to purchase the game associated with this file. Wadseeker will not download commercial IWADs or modifications.</source>
         <translation>Asegúrese de que este archivo esté en una de las rutas especificadas en Opciones -&gt; Rutas de archivos.
@@ -5272,57 +6706,57 @@ If you don&apos;t have this file, and it belongs to a commercial game, you need 
 Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el juego asociado con este archivo. Wadseeker no descargará IWADs o modificaciones comerciales.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_missingwadsdialog.h" line="314"/>
+        <location filename="../gui/missingwadsdialog.ui" line="147"/>
         <source>You can also install a free replacement IWAD with &quot;Install Freedoom&quot; button.</source>
         <translation>También puede instalar un IWAD de reemplazo gratuito con el botón &quot;Instalar Freedoom&quot;.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_missingwadsdialog.h" line="315"/>
+        <location filename="../gui/missingwadsdialog.ui" line="182"/>
         <source>Following files can be downloaded:</source>
         <translation>Los siguientes archivos se pueden descargar:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_missingwadsdialog.h" line="317"/>
+        <location filename="../gui/missingwadsdialog.ui" line="236"/>
         <source>Incompatible files:</source>
         <translation>Archivos incompatibles:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_missingwadsdialog.h" line="318"/>
+        <location filename="../gui/missingwadsdialog.ui" line="243"/>
         <source>(Your current files will be overwritten)</source>
         <translation>(Sus archivos actuales serán sobreescritos)</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_missingwadsdialog.h" line="319"/>
+        <location filename="../gui/missingwadsdialog.ui" line="281"/>
         <source>Optional files:</source>
         <translation>Archivos opcionales:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_missingwadsdialog.h" line="320"/>
+        <location filename="../gui/missingwadsdialog.ui" line="304"/>
         <source>Do you want Wadseeker to find the missing WADs?</source>
         <translation>¿Quieres que Wadseeker encuentre los WADs que faltan?</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_missingwadsdialog.h" line="321"/>
+        <location filename="../gui/missingwadsdialog.ui" line="311"/>
         <source>Alternatively use ignore to connect anyways.</source>
         <translation>Alternativamente, presione &quot;Ignorar&quot; para conectarse de todos modos.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_missingwadsdialog.h" line="322"/>
+        <location filename="../gui/missingwadsdialog.ui" line="342"/>
         <source>Install Freedoom</source>
         <translation>Instalar Freedoom</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_missingwadsdialog.h" line="323"/>
+        <location filename="../gui/missingwadsdialog.ui" line="368"/>
         <source>Install</source>
         <translation>Instalar</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_missingwadsdialog.h" line="324"/>
+        <location filename="../gui/missingwadsdialog.ui" line="375"/>
         <source>Ignore</source>
         <translation>Ignorar</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_missingwadsdialog.h" line="325"/>
+        <location filename="../gui/missingwadsdialog.ui" line="388"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
@@ -5330,27 +6764,27 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
 <context>
     <name>PasswordDlg</name>
     <message>
-        <location filename="../../../build/src/core/ui_passworddlg.h" line="155"/>
+        <location filename="../gui/passworddlg.ui" line="32"/>
         <source>Connection Password</source>
         <translation>Contraseña de conexión</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_passworddlg.h" line="156"/>
+        <location filename="../gui/passworddlg.ui" line="38"/>
         <source>This server requires a password in order to connect, please enter this password below.</source>
         <translation>Este servidor requiere una contraseña para conectarse, por favor ingrese la contraseña a continuación.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_passworddlg.h" line="157"/>
+        <location filename="../gui/passworddlg.ui" line="63"/>
         <source>Connect password:</source>
         <translation>Contraseña de conexión:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_passworddlg.h" line="158"/>
+        <location filename="../gui/passworddlg.ui" line="112"/>
         <source>Ingame password:</source>
         <translation>Contraseña en el juego:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_passworddlg.h" line="159"/>
+        <location filename="../gui/passworddlg.ui" line="146"/>
         <source>Remember password</source>
         <translation>Recordar contraseña</translation>
     </message>
@@ -5422,12 +6856,12 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
 <context>
     <name>ProgramArgsHelpDialog</name>
     <message>
-        <location filename="../../../build/src/core/ui_programargshelpdialog.h" line="66"/>
+        <location filename="../gui/programargshelpdialog.ui" line="14"/>
         <source>Program arguments</source>
         <translation>Argumentos del programa</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_programargshelpdialog.h" line="67"/>
+        <location filename="../gui/programargshelpdialog.ui" line="20"/>
         <source>These arguments can be passed to Doomseeker&apos;s executable:</source>
         <translation>Estos argumentos se pueden pasar al ejecutable de Doomseeker:</translation>
     </message>
@@ -5465,37 +6899,37 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
         <translation>Desconocido</translation>
     </message>
     <message>
-        <location filename="../plugins/pluginloader.cpp" line="77"/>
+        <location filename="../plugins/pluginloader.cpp" line="60"/>
         <source>Skipping loading of forbidden plugin: %1</source>
         <translation>Saltando la carga de un complemento prohibido: %1</translation>
     </message>
     <message>
-        <location filename="../plugins/pluginloader.cpp" line="100"/>
+        <location filename="../plugins/pluginloader.cpp" line="75"/>
         <source>plugin ABI version mismatch; plugin: %1, Doomseeker: %2</source>
         <translation>falta de coincidencia de la versión ABI del complemento; complemento: %1, Doomseeker: %2</translation>
     </message>
     <message>
-        <location filename="../plugins/pluginloader.cpp" line="106"/>
+        <location filename="../plugins/pluginloader.cpp" line="81"/>
         <source>plugin doesn&apos;t report its ABI version</source>
         <translation>el complemento no proporciona su versión ABI</translation>
     </message>
     <message>
-        <location filename="../plugins/pluginloader.cpp" line="108"/>
+        <location filename="../plugins/pluginloader.cpp" line="83"/>
         <source>Cannot load plugin %1, reason: %2.</source>
         <translation>No se puede cargar el complemento %1, Motivo: %2.</translation>
     </message>
     <message>
-        <location filename="../plugins/pluginloader.cpp" line="127"/>
+        <location filename="../plugins/pluginloader.cpp" line="102"/>
         <source>Loaded plugin: &quot;%1&quot;!</source>
         <translation>Complemento cargado: &quot;%1&quot;!</translation>
     </message>
     <message>
-        <location filename="../plugins/pluginloader.cpp" line="132"/>
+        <location filename="../plugins/pluginloader.cpp" line="107"/>
         <source>Failed to open plugin: %1</source>
         <translation>Error al abrir el complemento: %1</translation>
     </message>
     <message>
-        <location filename="../plugins/pluginloader.cpp" line="238"/>
+        <location filename="../plugins/pluginloader.cpp" line="172"/>
         <source>Failed to locate plugins.</source>
         <translation>Error al localizar complementos.</translation>
     </message>
@@ -5530,17 +6964,17 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
         <translation>Configurando archivo INI: %1</translation>
     </message>
     <message>
-        <location filename="../datapaths.cpp" line="475"/>
+        <location filename="../datapaths.cpp" line="476"/>
         <source>parent node is not a directory: %1</source>
         <translation>nodo padre no es un directorio: %1</translation>
     </message>
     <message>
-        <location filename="../datapaths.cpp" line="489"/>
+        <location filename="../datapaths.cpp" line="490"/>
         <source>lack of necessary permissions to the parent directory: %1</source>
         <translation>falta de permisos necesarios para el directorio padre: %1</translation>
     </message>
     <message>
-        <location filename="../datapaths.cpp" line="494"/>
+        <location filename="../datapaths.cpp" line="495"/>
         <source>cannot create directory</source>
         <translation>no se puede crear el directorio</translation>
     </message>
@@ -5548,37 +6982,41 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
 <context>
     <name>RconPasswordDialog</name>
     <message>
-        <location filename="../../../build/src/core/ui_rconpassworddialog.h" line="115"/>
+        <location filename="../gui/rconpassworddialog.ui" line="20"/>
         <source>Connect to Remote Console</source>
         <translation>Conectarse a consola remota</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_rconpassworddialog.h" line="116"/>
+        <location filename="../gui/rconpassworddialog.ui" line="26"/>
         <source>Connection</source>
         <translation>Conexión</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_rconpassworddialog.h" line="117"/>
         <source>Source Port:</source>
+        <translation type="vanished">Juego:</translation>
+    </message>
+    <message>
+        <location filename="../gui/rconpassworddialog.ui" line="32"/>
+        <source>Game:</source>
         <translation>Juego:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_rconpassworddialog.h" line="118"/>
+        <location filename="../gui/rconpassworddialog.ui" line="42"/>
         <source>Server Address:</source>
         <translation>Dirección del servidor:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_rconpassworddialog.h" line="119"/>
+        <location filename="../gui/rconpassworddialog.ui" line="55"/>
         <source>Please enter your remote console password.</source>
         <translation>Por favor ingrese la contraseña de su consola remota.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_rconpassworddialog.h" line="121"/>
+        <location filename="../gui/rconpassworddialog.ui" line="67"/>
         <source>Hide password</source>
         <translation>Ocultar contraseña</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_rconpassworddialog.h" line="123"/>
+        <location filename="../gui/rconpassworddialog.ui" line="70"/>
         <source>Hide</source>
         <translation>Ocultar</translation>
     </message>
@@ -5591,9 +7029,13 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
         <translation>Sin soporte RCon</translation>
     </message>
     <message>
-        <location filename="../gui/remoteconsole.cpp" line="68"/>
         <source>The selected source port has no RCon support.</source>
-        <translation>El source port seleccionado no tiene soporte para RCon.</translation>
+        <translation type="vanished">El source port seleccionado no tiene soporte para RCon.</translation>
+    </message>
+    <message>
+        <location filename="../gui/remoteconsole.cpp" line="68"/>
+        <source>The selected game has no RCon support.</source>
+        <translation>El juego seleccionado no tiene soporte para RCon.</translation>
     </message>
     <message>
         <location filename="../gui/remoteconsole.cpp" line="83"/>
@@ -5631,32 +7073,32 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
         <translation>La contraseña que ingresaste parece ser inválida.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_remoteconsole.h" line="105"/>
+        <location filename="../gui/remoteconsole.ui" line="14"/>
         <source>Remote Console</source>
         <translation>Consola remota</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_remoteconsole.h" line="106"/>
+        <location filename="../gui/remoteconsole.ui" line="90"/>
         <source>Disconnect</source>
         <translation>Desconectar</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_remoteconsole.h" line="107"/>
+        <location filename="../gui/remoteconsole.ui" line="21"/>
         <source>Scoreboard</source>
         <translation>Marcador</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_remoteconsole.h" line="109"/>
+        <location filename="../gui/remoteconsole.ui" line="52"/>
         <source>Player Name</source>
         <translation>Nombre del jugador</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_remoteconsole.h" line="110"/>
+        <location filename="../gui/remoteconsole.ui" line="63"/>
         <source>Console</source>
         <translation>Consola</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_remoteconsole.h" line="111"/>
+        <location filename="../gui/remoteconsole.ui" line="81"/>
         <source>File</source>
         <translation>Archivo</translation>
     </message>
@@ -5674,7 +7116,7 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
         <translation>cliente</translation>
     </message>
     <message>
-        <location filename="../serverapi/server.cpp" line="290"/>
+        <location filename="../serverapi/server.cpp" line="295"/>
         <source>Undefined</source>
         <translation>Indefinido</translation>
     </message>
@@ -5682,7 +7124,7 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
 <context>
     <name>ServerConsole</name>
     <message>
-        <location filename="../../../build/src/core/ui_serverconsole.h" line="48"/>
+        <location filename="../gui/widgets/serverconsole.ui" line="14"/>
         <source>Form</source>
         <translation>Formulario</translation>
     </message>
@@ -5690,12 +7132,12 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
 <context>
     <name>ServerDetailsDock</name>
     <message>
-        <location filename="../../../build/src/core/ui_serverdetailsdock.h" line="106"/>
+        <location filename="../gui/serverdetailsdock.ui" line="14"/>
         <source>Server details</source>
         <translation>Detalles del servidor</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_serverdetailsdock.h" line="107"/>
+        <location filename="../gui/serverdetailsdock.ui" line="33"/>
         <source>&lt;server&gt;</source>
         <translation></translation>
     </message>
@@ -5736,37 +7178,35 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
 <context>
     <name>ServerFilterDock</name>
     <message>
-        <location filename="../../../build/src/core/ui_serverfilterdock.h" line="243"/>
+        <location filename="../gui/serverfilterdock.ui" line="20"/>
         <source>Server filter</source>
         <translation>Filtro de servidores</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_serverfilterdock.h" line="244"/>
         <source>Server Name:</source>
-        <translation>Nombre del servidor:</translation>
+        <translation type="vanished">Nombre del servidor:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_serverfilterdock.h" line="245"/>
+        <location filename="../gui/serverfilterdock.ui" line="56"/>
         <source>Put populated servers on top</source>
         <translation>Poner servidores llenos en la parte superior</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_serverfilterdock.h" line="246"/>
+        <location filename="../gui/serverfilterdock.ui" line="76"/>
         <source>Filtering enabled</source>
         <translation>Filtrado habilitado</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_serverfilterdock.h" line="247"/>
         <source>Max. Ping:</source>
-        <translation>Max. Ping:</translation>
+        <translation type="vanished">Max. Ping:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_serverfilterdock.h" line="249"/>
+        <location filename="../gui/serverfilterdock.ui" line="123"/>
         <source>Set &apos;0&apos; to disable.</source>
         <translation>Establecer a &apos;0&apos; para deshabilitar.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_serverfilterdock.h" line="251"/>
+        <location filename="../gui/serverfilterdock.ui" line="139"/>
         <source>WADs:</source>
         <translation>WADs:</translation>
     </message>
@@ -5775,12 +7215,12 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
         <translation type="obsolete">Utilize &apos;,&apos; (una coma) para separar múltiples WADs.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_serverfilterdock.h" line="255"/>
+        <location filename="../gui/serverfilterdock.ui" line="153"/>
         <source>Exclude WADs:</source>
         <translation>Excluir WADs:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_serverfilterdock.h" line="253"/>
+        <location filename="../gui/serverfilterdock.ui" line="146"/>
         <source>Use &apos;,&apos; (a comma) to separate multiple WADs.</source>
         <translation>Utilize &apos;,&apos; (una coma) para separar múltiples WADs.</translation>
     </message>
@@ -5789,57 +7229,67 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
         <translation type="vanished">Los servidores con WADs en esta lista no se mostrarán. Utilize &apos;,&apos; (una coma) para separar múltiples WADs.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_serverfilterdock.h" line="257"/>
+        <location filename="../gui/serverfilterdock.ui" line="39"/>
+        <source>Server name:</source>
+        <translation>Nombre del servidor:</translation>
+    </message>
+    <message>
+        <location filename="../gui/serverfilterdock.ui" line="116"/>
+        <source>Max. ping:</source>
+        <translation>Max. Ping:</translation>
+    </message>
+    <message>
+        <location filename="../gui/serverfilterdock.ui" line="160"/>
         <source>Servers with WADs on this list won&apos;t be displayed. Use &apos;,&apos; (a comma) to separate multiple wads.</source>
         <translation>Los servidores con WADs en esta lista no se mostrarán. Utilice &apos;,&apos; (una coma) para separar múltiples WADs.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_serverfilterdock.h" line="259"/>
+        <location filename="../gui/serverfilterdock.ui" line="167"/>
         <source>Game modes:</source>
         <translation>Modos de juego:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_serverfilterdock.h" line="260"/>
+        <location filename="../gui/serverfilterdock.ui" line="177"/>
         <source>Exclude game modes:</source>
         <translation>Excluir modos de juego:</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_serverfilterdock.h" line="262"/>
+        <location filename="../gui/serverfilterdock.ui" line="184"/>
         <source>Selected game modes won&apos;t appear on the server list.</source>
         <translation>Los modos de juego seleccionados no aparecerán en la lista de servidores.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_serverfilterdock.h" line="264"/>
+        <location filename="../gui/serverfilterdock.ui" line="191"/>
         <source>Show full servers</source>
         <translation>Mostrar servidores llenos</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_serverfilterdock.h" line="265"/>
+        <location filename="../gui/serverfilterdock.ui" line="201"/>
         <source>Show empty servers</source>
         <translation>Mostrar servidores vacíos</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_serverfilterdock.h" line="266"/>
+        <location filename="../gui/serverfilterdock.ui" line="211"/>
         <source>Show only valid servers</source>
         <translation>Mostrar solo servidores válidos</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_serverfilterdock.h" line="267"/>
+        <location filename="../gui/serverfilterdock.ui" line="218"/>
         <source>Show testing servers</source>
         <translation>Mostrar servidores de prueba</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_serverfilterdock.h" line="268"/>
+        <location filename="../gui/serverfilterdock.ui" line="241"/>
         <source>Clear</source>
         <translation>Despejar</translation>
     </message>
     <message>
-        <location filename="../gui/serverfilterdock.cpp" line="61"/>
+        <location filename="../gui/serverfilterdock.cpp" line="62"/>
         <source>Server &amp;filter</source>
         <translation>&amp;Filtro de Servidores</translation>
     </message>
     <message>
-        <location filename="../gui/serverfilterdock.cpp" line="62"/>
+        <location filename="../gui/serverfilterdock.cpp" line="63"/>
         <source>CTRL+F</source>
         <translation>CTRL+F</translation>
     </message>
@@ -5860,42 +7310,42 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
 <context>
     <name>ServerListColumns</name>
     <message>
-        <location filename="../gui/models/serverlistcolumn.cpp" line="58"/>
+        <location filename="../gui/models/serverlistcolumn.cpp" line="55"/>
         <source>Players</source>
         <translation>Jugadores</translation>
     </message>
     <message>
-        <location filename="../gui/models/serverlistcolumn.cpp" line="60"/>
+        <location filename="../gui/models/serverlistcolumn.cpp" line="57"/>
         <source>Ping</source>
         <translation>Ping</translation>
     </message>
     <message>
-        <location filename="../gui/models/serverlistcolumn.cpp" line="62"/>
+        <location filename="../gui/models/serverlistcolumn.cpp" line="59"/>
         <source>Server Name</source>
         <translation>Nombre del servidor</translation>
     </message>
     <message>
-        <location filename="../gui/models/serverlistcolumn.cpp" line="64"/>
+        <location filename="../gui/models/serverlistcolumn.cpp" line="61"/>
         <source>Address</source>
         <translation>Dirección</translation>
     </message>
     <message>
-        <location filename="../gui/models/serverlistcolumn.cpp" line="66"/>
+        <location filename="../gui/models/serverlistcolumn.cpp" line="63"/>
         <source>IWAD</source>
         <translation>IWAD</translation>
     </message>
     <message>
-        <location filename="../gui/models/serverlistcolumn.cpp" line="68"/>
+        <location filename="../gui/models/serverlistcolumn.cpp" line="65"/>
         <source>Map</source>
         <translation>Mapa</translation>
     </message>
     <message>
-        <location filename="../gui/models/serverlistcolumn.cpp" line="70"/>
+        <location filename="../gui/models/serverlistcolumn.cpp" line="67"/>
         <source>WADs</source>
         <translation>WADs</translation>
     </message>
     <message>
-        <location filename="../gui/models/serverlistcolumn.cpp" line="72"/>
+        <location filename="../gui/models/serverlistcolumn.cpp" line="69"/>
         <source>Game Type</source>
         <translation>Tipo de juego</translation>
     </message>
@@ -5991,32 +7441,32 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
 <context>
     <name>ServerListRowHandler</name>
     <message>
-        <location filename="../gui/models/serverlistrowhandler.cpp" line="260"/>
+        <location filename="../gui/models/serverlistrowhandler.cpp" line="268"/>
         <source>&lt;ERROR&gt;</source>
         <translation>&lt;ERROR&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/models/serverlistrowhandler.cpp" line="273"/>
+        <location filename="../gui/models/serverlistrowhandler.cpp" line="280"/>
         <source>You are banned from this server!</source>
         <translation>¡Has sido baneado de este servidor!</translation>
     </message>
     <message>
-        <location filename="../gui/models/serverlistrowhandler.cpp" line="345"/>
+        <location filename="../gui/models/serverlistrowhandler.cpp" line="339"/>
         <source>&lt;REFRESHING&gt;</source>
         <translation>&lt;REFRESCANDO&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/models/serverlistrowhandler.cpp" line="355"/>
+        <location filename="../gui/models/serverlistrowhandler.cpp" line="349"/>
         <source>&lt;NO RESPONSE&gt;</source>
         <translation>&lt;SIN RESPUESTA&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/models/serverlistrowhandler.cpp" line="368"/>
+        <location filename="../gui/models/serverlistrowhandler.cpp" line="361"/>
         <source>&lt;Refreshed too soon, wait a while and try again&gt;</source>
         <translation>&lt;Refrescado demasiado pronto, espere un momento e intente de nuevo&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/models/serverlistrowhandler.cpp" line="421"/>
+        <location filename="../gui/models/serverlistrowhandler.cpp" line="413"/>
         <source>Unknown server response (%1): %2:%3</source>
         <translation>Respuesta desconocida del servidor (%1): %2:%3</translation>
     </message>
@@ -6195,22 +7645,22 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
 <context>
     <name>UpdaterInfoParser</name>
     <message>
-        <location filename="../updater/updaterinfoparser.cpp" line="97"/>
+        <location filename="../updater/updaterinfoparser.cpp" line="98"/>
         <source>Missing update revision info for package %1.</source>
         <translation>Falta información de la actualización para el paquete %1.</translation>
     </message>
     <message>
-        <location filename="../updater/updaterinfoparser.cpp" line="125"/>
+        <location filename="../updater/updaterinfoparser.cpp" line="126"/>
         <source>Invalid update download URL for package %1: %2</source>
         <translation>La URL de descarga de la actualización no es válida para el paquete %1: %2</translation>
     </message>
     <message>
-        <location filename="../updater/updaterinfoparser.cpp" line="132"/>
+        <location filename="../updater/updaterinfoparser.cpp" line="133"/>
         <source>Missing update download URL for package %1.</source>
         <translation>Falta la URL de descarga de la actualización para el paquete %1.</translation>
     </message>
     <message>
-        <location filename="../updater/updaterinfoparser.cpp" line="142"/>
+        <location filename="../updater/updaterinfoparser.cpp" line="143"/>
         <source>Invalid update script download URL for package %1, %2</source>
         <translation>La URL de descarga del script de actualización no es válida para el paquete %1, %2</translation>
     </message>
@@ -6223,17 +7673,17 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
         <translation>Doomseeker - Añadir archivo(s)</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_wadspicker.h" line="100"/>
+        <location filename="../gui/createserver/wadspicker.ui" line="41"/>
         <source>Clear</source>
         <translation>Despejar</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_wadspicker.h" line="101"/>
+        <location filename="../gui/createserver/wadspicker.ui" line="67"/>
         <source>Add</source>
         <translation>Añadir</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_wadspicker.h" line="102"/>
+        <location filename="../gui/createserver/wadspicker.ui" line="84"/>
         <source>Remove</source>
         <translation>Borrar</translation>
     </message>
@@ -6241,117 +7691,121 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
 <context>
     <name>WadseekerInterface</name>
     <message>
-        <location filename="../gui/wadseekerinterface.cpp" line="67"/>
+        <location filename="../gui/wadseekerinterface.cpp" line="68"/>
         <source>Downloading WADs for server &quot;%1&quot;</source>
         <translation>Descargando WADs para el servidor &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../gui/wadseekerinterface.cpp" line="78"/>
+        <location filename="../gui/wadseekerinterface.cpp" line="79"/>
         <source>Aborting service: %1</source>
         <translation>Abortando servicio: %1</translation>
     </message>
     <message>
-        <location filename="../gui/wadseekerinterface.cpp" line="84"/>
+        <location filename="../gui/wadseekerinterface.cpp" line="85"/>
         <source>Aborting site: %1</source>
         <translation>Abortando sitio: %1</translation>
     </message>
     <message>
-        <location filename="../gui/wadseekerinterface.cpp" line="119"/>
+        <location filename="../gui/wadseekerinterface.cpp" line="120"/>
         <source>All done. Success.</source>
         <translation>Todo listo. Éxito.</translation>
     </message>
     <message>
-        <location filename="../gui/wadseekerinterface.cpp" line="138"/>
+        <location filename="../gui/wadseekerinterface.cpp" line="139"/>
         <source>All done. Fail.</source>
         <translation>Todo listo. Fracaso.</translation>
     </message>
     <message>
-        <location filename="../gui/wadseekerinterface.cpp" line="263"/>
+        <location filename="../gui/wadseekerinterface.cpp" line="265"/>
         <source>CRITICAL ERROR: %1</source>
         <translation>ERROR CRÍTICO: %1</translation>
     </message>
     <message>
-        <location filename="../gui/wadseekerinterface.cpp" line="274"/>
+        <location filename="../gui/wadseekerinterface.cpp" line="276"/>
         <source>Error: %1</source>
         <translation>Error: %1</translation>
     </message>
     <message>
-        <location filename="../gui/wadseekerinterface.cpp" line="348"/>
-        <location filename="../../../build/src/core/ui_wadseekerinterface.h" line="174"/>
+        <location filename="../gui/wadseekerinterface.ui" line="14"/>
+        <location filename="../gui/wadseekerinterface.cpp" line="350"/>
         <source>Wadseeker</source>
         <translation>Wadseeker</translation>
     </message>
     <message>
-        <location filename="../gui/wadseekerinterface.cpp" line="379"/>
-        <location filename="../../../build/src/core/ui_wadseekerinterface.h" line="181"/>
+        <location filename="../gui/wadseekerinterface.ui" line="22"/>
+        <source>Seek WADs, comma (&apos;,&apos;) separated:</source>
+        <translation>Buscar WADs, separados por coma &apos;,&apos;:</translation>
+    </message>
+    <message>
+        <location filename="../gui/wadseekerinterface.ui" line="59"/>
+        <location filename="../gui/wadseekerinterface.cpp" line="381"/>
         <source>Abort</source>
         <translation>Abortar</translation>
     </message>
     <message>
-        <location filename="../gui/wadseekerinterface.cpp" line="387"/>
-        <location filename="../../../build/src/core/ui_wadseekerinterface.h" line="196"/>
+        <location filename="../gui/wadseekerinterface.ui" line="184"/>
+        <location filename="../gui/wadseekerinterface.cpp" line="389"/>
         <source>Close</source>
         <translation>Cerrar</translation>
     </message>
     <message>
-        <location filename="../gui/wadseekerinterface.cpp" line="509"/>
+        <location filename="../gui/wadseekerinterface.cpp" line="511"/>
         <source>[%1%] Wadseeker</source>
         <translation>[%1%] Wadseeker</translation>
     </message>
     <message>
-        <location filename="../gui/wadseekerinterface.cpp" line="556"/>
+        <location filename="../gui/wadseekerinterface.cpp" line="558"/>
         <source>Context menu error</source>
         <translation>Error del menú contextual</translation>
     </message>
     <message>
-        <location filename="../gui/wadseekerinterface.cpp" line="556"/>
+        <location filename="../gui/wadseekerinterface.cpp" line="558"/>
         <source>Unknown action selected.</source>
         <translation>Acción desconocida seleccionada.</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_wadseekerinterface.h" line="175"/>
         <source>Seek WAD or multiple WADs, comma (&apos;,&apos;) separated:</source>
-        <translation>Buscar WAD o WADs múltiples, separados por comas (&apos;,&apos;):</translation>
+        <translation type="vanished">Buscar WAD o WADs múltiples, separados por comas (&apos;,&apos;):</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_wadseekerinterface.h" line="177"/>
-        <location filename="../../../build/src/core/ui_wadseekerinterface.h" line="185"/>
+        <location filename="../gui/wadseekerinterface.ui" line="49"/>
+        <location filename="../gui/wadseekerinterface.ui" line="88"/>
         <source>URL</source>
         <translation>URL</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_wadseekerinterface.h" line="179"/>
-        <location filename="../../../build/src/core/ui_wadseekerinterface.h" line="187"/>
+        <location filename="../gui/wadseekerinterface.ui" line="54"/>
+        <location filename="../gui/wadseekerinterface.ui" line="93"/>
         <source>Progress</source>
         <translation>Progreso</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_wadseekerinterface.h" line="183"/>
+        <location filename="../gui/wadseekerinterface.ui" line="83"/>
         <source>Name</source>
         <translation>Nombre</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_wadseekerinterface.h" line="189"/>
+        <location filename="../gui/wadseekerinterface.ui" line="98"/>
         <source>Speed</source>
         <translation>Velocidad</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_wadseekerinterface.h" line="191"/>
+        <location filename="../gui/wadseekerinterface.ui" line="103"/>
         <source>ETA</source>
         <translation>Tiempo estimado</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_wadseekerinterface.h" line="193"/>
+        <location filename="../gui/wadseekerinterface.ui" line="108"/>
         <source>Size</source>
         <translation>Tamaño</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_wadseekerinterface.h" line="194"/>
+        <location filename="../gui/wadseekerinterface.ui" line="156"/>
         <source>Start Game</source>
         <translation>Empezar juego</translation>
     </message>
     <message>
-        <location filename="../../../build/src/core/ui_wadseekerinterface.h" line="195"/>
+        <location filename="../gui/wadseekerinterface.ui" line="170"/>
         <source>Download</source>
         <translation>Descargar</translation>
     </message>
@@ -6373,10 +7827,22 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
         <location filename="../gui/wadseekershow.cpp" line="62"/>
         <source>Wadseeker will not work correctly:
 
+The target directory is either not configured, is invalid or cannot be written to.
+
+Please review your Configuration and/or refer to the online help available from the Help menu.</source>
+        <translation>Wadseeker no funcionará correctamente:
+
+El directorio de destino no está configurado, no es válido o no se puede escribir.
+
+Revise su configuración y/o consulte la ayuda en línea disponible en el menú Ayuda.</translation>
+    </message>
+    <message>
+        <source>Wadseeker will not work correctly:
+
 Target directory is either not set, is invalid or cannot be written to.
 
 Please review your Configuration and/or refer to online help available from the Help menu.</source>
-        <translation>Wadseeker no funcionará correctamente:
+        <translation type="vanished">Wadseeker no funcionará correctamente:
 
 El directorio de destino no está configurado, no es válido o no se puede escribir.
 
