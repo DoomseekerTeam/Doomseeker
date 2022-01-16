@@ -207,10 +207,6 @@ https://dev.maxmind.com/geoip/geoip2/geolite2/</translation>
         <translation type="vanished">- Icones de Doomseeker millorats per MazterQyoun-ae i CarpeDiem</translation>
     </message>
     <message>
-        <source>JSON library on BSD License (c) Eeli Reilin 2011 :</source>
-        <translation type="vanished">biblioteca JSON sota llicència BSD (c) Eeli Reilin 2011:</translation>
-    </message>
-    <message>
         <source>Show JSON library license</source>
         <translation type="vanished">Mostrar llicència de la llibreria JSON</translation>
     </message>
