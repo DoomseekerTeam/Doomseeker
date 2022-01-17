@@ -1,5 +1,5 @@
 set(PLUGIN_NAME turok2ex)
-set(PLUGIN_VERSION 6)
+set(PLUGIN_VERSION 7)
 include(../PluginHeader.cmake)
 
 set(TUROK2EX_FILES

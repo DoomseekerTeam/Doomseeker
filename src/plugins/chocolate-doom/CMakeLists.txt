@@ -20,7 +20,7 @@
 #------------------------------------------------------------------------------
 
 set(PLUGIN_NAME chocolatedoom)
-set(PLUGIN_VERSION 29)
+set(PLUGIN_VERSION 30)
 include(../PluginHeader.cmake)
 
 set(CHOCOLATEDOOM_FILES
