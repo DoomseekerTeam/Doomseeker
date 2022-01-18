@@ -8,7 +8,7 @@ This file follows the format of
 and this project does not adhere to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.3.3] - 2022-01-17
+## [1.3.3] - 2022-01-18
 ### Added:
 - An IP2C option to toggle honoring of the countries received from
 the game servers; enabled by default. If enabled, display the country
