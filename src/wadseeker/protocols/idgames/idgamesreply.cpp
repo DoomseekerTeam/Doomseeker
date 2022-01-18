@@ -77,7 +77,7 @@ void IdgamesReply::onNetworkFinished()
 			qDebug() << "idgames onNetworkFinished()" << json;
 			qDebug() << "idgames onNetworkFinished() parsed" << QJsonDocument::fromJson(json.toUtf8());
 			#endif
-			finish(IdgamesResult(QJsonDocument::fromJson(json.toUtf8())));
+			finish(IdgamesResult(QJsonDocument::fromJson(json.toUtf8()).toVariant()));
 		}
 	}
 	else
