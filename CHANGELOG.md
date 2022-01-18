@@ -1,7 +1,7 @@
 # Changelog
 
 Visit this file cleanly formatted in repository:
-<https://bitbucket.org/Doomseeker/doomseeker/src/default/CHANGELOG.md>
+<https://bitbucket.org/Doomseeker/doomseeker/src/master/CHANGELOG.md>
 
 This file follows the format of
 [Keep a Changelog 1.0.0](https://keepachangelog.com/en/1.0.0/),
