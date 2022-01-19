@@ -29,6 +29,8 @@
 #include "ui_aboutdialog.h"
 #include "version.h"
 #include "wadseeker/wadseekerversioninfo.h"
+#include <ip2c/ip2c.h>
+#include <localization.h>
 #include <QPixmap>
 #include <QResource>
 #include <QString>
@@ -53,6 +55,11 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 	d->lblRevision->setText(QString::number(Version::revisionNumber()));
 	d->logo->setPixmap(QPixmap(":/logo.png"));
 	d->pteCopyrightNotice->setPlainText(copyrightVerboseNotice());
+	auto &url = IP2C::instance()->urlDatabase();
+	d->linkIP2Cdatabase->setText(QString("<a href=\"").append(url).append("\">").append(url).append("</a>"));
+	d->linkIP2Cdatabase->setTextFormat(Qt::RichText);
+	d->linkIP2Cdatabase->setTextInteractionFlags(Qt::TextBrowserInteraction);
+	d->linkIP2Cdatabase->setOpenExternalLinks(true);
 
 	// Wadseeker
 	d->wadseekerAuthor->setText(WadseekerVersionInfo::author());
@@ -102,7 +109,7 @@ QString AboutDialog::copyrightVerboseNotice() const
 
 	// License
 	paragraphs << tr("Copyright %1 %2 The Doomseeker Team")
-		.arg(copyrightChar).arg(Version::yearSpan());
+			.arg(copyrightChar).arg(Version::yearSpan());
 	paragraphs << tr("This program is distributed under the terms of the LGPL v2.1 or later.");
 
 	// Translations
@@ -112,14 +119,12 @@ QString AboutDialog::copyrightVerboseNotice() const
 		+ tr("- Catalan: Pol Marcet Sard%1").arg(smallAGraveChar);
 
 	// GeoLite2
-	paragraphs << tr("This program uses GeoLite2 data for IP-to-Country (IP2C) purposes, "
-			"available from https://www.maxmind.com") + "\n" +
-		tr("Database and Contents Copyright (c) 2018 MaxMind, Inc.");
-	paragraphs << tr("GeoLite2 License:\n"
-			"This work is licensed under the Creative Commons Attribution - ShareAlike 4.0 Unported License. "
-			"To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.");
-	paragraphs << tr("GeoLite2 available at:\n"
-			"https://dev.maxmind.com/geoip/geoip2/geolite2/");
+	const auto &licences = IP2C::instance()->licenceNotice();
+	auto it = licences.find(Localization::get()->currentLocalization().localeName);
+	if (it == licences.end())
+		it = licences.find("");
+	if (it != licences.end())
+		paragraphs << it.value();
 
 	// Icons
 	QStringList icons;

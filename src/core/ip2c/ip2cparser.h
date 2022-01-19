@@ -25,6 +25,8 @@
 
 #include "ip2ccountry.h"
 #include "ip2crange.h"
+
+#include <QMap>
 #include <QMutex>
 #include <QThread>
 
@@ -72,6 +74,16 @@ public:
 	const QList<IP2CRange> ranges() const
 	{
 		return ranges_;
+	}
+
+	const QMap<QString, QString> licences() const
+	{
+		return licences_;
+	}
+
+	const QString url() const
+	{
+		return url_;
 	}
 
 	bool readDatabase(const QString &filePath);
@@ -123,12 +135,17 @@ private:
 	bool bIsParsing;
 	ParsingThread *currentParsingThread;
 	QList<IP2CRange> ranges_;
+	QMap<QString, QString> licences_;
+	QString url_;
 
 	QMutex thisLock;
 
 	bool doReadDatabase(const QString &filePath);
 	bool readDatabaseVersion2(const QByteArray &dataArray);
-
+	bool readDatabaseVersion3(const QByteArray &dataArray);
+	bool readSectionIpv4(QByteArray &&section);
+	bool readSectionLegalNotice(QByteArray &&section);
+	bool readSectionUrl(QByteArray &&section);
 private slots:
 	void parsingThreadFinished();
 };

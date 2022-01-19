@@ -31,6 +31,13 @@
 #include <QMap>
 #include <QMutexLocker>
 
+enum class Section : uint8_t
+{
+	LICENCE_TEXTS = 0,
+	IPV4 = 1,
+	URL_DB = 2,
+};
+
 IP2CParser::IP2CParser()
 {
 	currentParsingThread = nullptr;
@@ -71,6 +78,9 @@ bool IP2CParser::doReadDatabase(const QString &filePath)
 	bool wasReadSuccessful = false;
 	switch (version)
 	{
+	case 3:
+		wasReadSuccessful = readDatabaseVersion3(dataArray);
+		break;
 	case 2:
 		wasReadSuccessful = readDatabaseVersion2(dataArray);
 		break;
@@ -83,8 +93,7 @@ bool IP2CParser::doReadDatabase(const QString &filePath)
 	if (!wasReadSuccessful)
 		return false;
 
-	gLog << tr("IP2C database read in %1 ms; IP ranges: %2")
-		.arg(time.elapsed()).arg(ranges_.size());
+	gLog << tr("IP2C database read in %1 ms; IP ranges: %2").arg(time.elapsed()).arg(ranges_.size());
 	return true;
 }
 
@@ -130,6 +139,52 @@ bool IP2CParser::readDatabaseVersion2(const QByteArray &dataArray)
 	DataStreamOperatorWrapper stream(&dstream);
 	stream.skipRawData(6); // skip file tag and version number
 
+	return readSectionIpv4(stream.readRawAll());
+}
+
+bool IP2CParser::readDatabaseVersion3(const QByteArray &dataArray)
+{
+	QBuffer buffer;
+	buffer.setData(dataArray);
+	buffer.open(QIODevice::ReadOnly);
+	QDataStream dstream(&buffer);
+	dstream.setByteOrder(QDataStream::LittleEndian);
+	DataStreamOperatorWrapper stream(&dstream);
+	stream.skipRawData(6); // skip file tag and version number
+
+	while (stream.hasRemaining())
+	{
+		auto id = stream.readQUInt8();
+		auto size = stream.readQUInt64();
+		switch (id)
+		{
+		case decltype(id)(Section::LICENCE_TEXTS):
+			if (!readSectionLegalNotice(stream.readRaw(size)))
+				return false;
+			break;
+		case decltype(id)(Section::IPV4):
+			if (!readSectionIpv4(stream.readRaw(size)))
+				return false;
+			break;
+		case decltype(id)(Section::URL_DB):
+			if (!readSectionUrl(stream.readRaw(size)))
+				return false;
+			break;
+		default:
+			stream.skipRawData(size);
+		}
+	}
+
+	return true;
+}
+
+bool IP2CParser::readSectionIpv4(QByteArray &&section)
+{
+	QBuffer buffer(&section);
+	buffer.open(QIODevice::ReadOnly);
+	QDataStream dstream(&buffer);
+	dstream.setByteOrder(QDataStream::LittleEndian);
+	DataStreamOperatorWrapper stream(&dstream);
 	// We need to store the addresses in such hash table to make sure they
 	// are ordered in proper, ascending order. Otherwise the whole library
 	// will not work!
@@ -169,6 +224,38 @@ bool IP2CParser::readDatabaseVersion2(const QByteArray &dataArray)
 	return true;
 }
 
+bool IP2CParser::readSectionLegalNotice(QByteArray &&section)
+{
+	QBuffer buffer(&section);
+	buffer.open(QIODevice::ReadOnly);
+	QDataStream dstream(&buffer);
+	dstream.setByteOrder(QDataStream::LittleEndian);
+	DataStreamOperatorWrapper stream(&dstream);
+
+	while (stream.hasRemaining())
+	{
+		auto locale = QString::fromUtf8(stream.readRawUntilByte('\0'));
+		if (stream.hasRemaining())
+		{
+			auto text = QString::fromUtf8(stream.readRawUntilByte('\0'));
+			licences_.insert(std::move(locale), std::move(text));
+		}
+		else
+			return false;
+	}
+	return true;
+}
+
+bool IP2CParser::readSectionUrl(QByteArray &&section)
+{
+	QBuffer buffer(&section);
+	buffer.open(QIODevice::ReadOnly);
+	QDataStream dstream(&buffer);
+	dstream.setByteOrder(QDataStream::LittleEndian);
+	DataStreamOperatorWrapper stream(&dstream);
+	url_ = QString::fromUtf8(DataStreamOperatorWrapper(&dstream).readRawUntilByte('\0'));
+	return true;
+}
 ////////////////////////////////////////////////////////////////////////////////
 
 IP2CParser::ConstructorDestructorParserStateSetter::ConstructorDestructorParserStateSetter(IP2CParser *pParser)
