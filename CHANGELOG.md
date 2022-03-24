@@ -14,6 +14,9 @@ and this project does not adhere to
 in which they were provided by the plugin (ergo: by the master
 server, ergo: sorted by IP). This should be more fair, as the previous
 method favored servers that were in the lower IP ranges.
+- Updated Flag of Ukraine colors to DSTU 4512:2006. Previously, Doomseeker was
+displaying the flag of Post-Soviet Ukraine, a design with lighter blue color
+shade, from 1991-1992. (#3983)
 - Wadseeker: added `sigil_shreds` and `sigil_shreds_compat` to the
 list of forbidden downloads.
 - Zandronum, Q-Zandronum: rely on Doomseeker's internal mechanism to
