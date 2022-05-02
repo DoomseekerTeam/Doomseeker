@@ -8,8 +8,15 @@ This file follows the format of
 and this project does not adhere to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+### Changed
+- Zandronum, Q-Zandronum: rely on Doomseeker's internal mechanism to
+calculate the ping to the game server rather than using the port's
+feature where the timestamp is sent back in the challenge reply
+packet. (#3992)
+
 ## [1.3.3] - 2022-01-18
-### Added:
+### Added
 - An IP2C option to toggle honoring of the countries received from
 the game servers; enabled by default. If enabled, display the country
 flags and the locations basing on this info. (#3939)

@@ -202,11 +202,8 @@ Server::Response ZandronumqServer::readRequest(const QByteArray &data)
 	// Check the response code
 	qint32 response = in.readQInt32();
 
-	// Determine ping. Time is sent no matter what the response is, still we
-	// should check if there's enough data to read from.
-	qint32 responseTimestamp = in.readQInt32();
-	setPing(millisecondTime() - responseTimestamp);
-	setPingIsSet(true);
+	// Drop the "response timestamp" field.
+	in.readQInt32();
 
 	// Act according to the response
 	switch (response)
