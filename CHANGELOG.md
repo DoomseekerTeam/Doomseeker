@@ -15,6 +15,13 @@ calculate the ping to the game server rather than using the port's
 feature where the timestamp is sent back in the challenge reply
 packet. (#3992)
 
+### Fixed
+- Zandronum, Q-Zandronum: servers that emitted empty PWAD names in their
+challenge reply would appear as errored because the plugins failed to
+parse the subsequent MD5 checksum hashes for these PWADs. The plugins
+will now sanitize such empty PWADs so that such servers can appear
+correctly on the list. (#3624)
+
 ## [1.3.3] - 2022-01-18
 ### Added
 - An IP2C option to toggle honoring of the countries received from

@@ -292,8 +292,7 @@ Server::Response ZandronumqServer::readRequest(const QByteArray &data)
 		{
 			RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
 			QString wad = in.readRawUntilByte('\0');
-			if (!wad.isEmpty())
-				addWad(wad);
+			addWad(wad);
 		}
 	}
 
@@ -615,6 +614,25 @@ Server::Response ZandronumqServer::readRequest(const QByteArray &data)
 			resetPwadsList(pwads);
 		}
 	}
+
+	// Now when the server is fully known, clean-up the PWADs list.
+	bool pwadsModified = false;
+	QList<PWad> pwads = wads();
+	for (unsigned index = 0; index < pwads.size(); index++)
+	{
+		PWad pwad = pwads[index];
+		if (pwad.name().isEmpty())
+		{
+			pwadsModified = true;
+			pwads.removeAt(index);
+			--index;
+		}
+	}
+	if (pwadsModified)
+	{
+		resetPwadsList(pwads);
+	}
+
 	return RESPONSE_GOOD;
 }
 
