@@ -57,6 +57,9 @@ class WWWSeeker : public QObject
 	Q_OBJECT
 
 public:
+	static const int PRIORITY_NORMAL = 0;
+	static const int PRIORITY_HIGH = 100;
+
 	WWWSeeker();
 	~WWWSeeker() override;
 
@@ -90,7 +93,8 @@ public:
 	 * If specified URL is on visited URLs list this becomes a no-op.
 	 *
 	 * @param priority
-	 *     The higher the number, the bigger the URL priority.
+	 *     The higher the number, the bigger the URL priority. Try to
+	 *     use the PRIORITY constants defined in this class.
 	 */
 	void addFileSiteUrlWithPriority(const QString &filename, const QUrl &url, int priority);
 

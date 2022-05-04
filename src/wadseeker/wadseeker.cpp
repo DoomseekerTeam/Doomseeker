@@ -512,8 +512,6 @@ void Wadseeker::setupIdgamesClients(const QList<WadDownloadInfo> &wadDownloadInf
 
 void Wadseeker::setupSitesUrls()
 {
-	const int PRIORITY_CUSTOM = 100;
-	const int PRIORITY_NORMAL = 0;
 	d->wwwSeeker->clearVisitedUrlsList();
 
 	auto incorporateUrl = [&] (bool isCustom, const QString &strSiteUrl)
@@ -525,7 +523,9 @@ void Wadseeker::setupSitesUrls()
 					QUrl url = UrlParser::resolveWadnameTemplateUrl(strSiteUrl, wad.fileName());
 					if (url.isValid())
 					{
-						d->wwwSeeker->addFileSiteUrlWithPriority(wad.fileName(), url, PRIORITY_NORMAL);
+						const int priority = isCustom ?
+							WWWSeeker::PRIORITY_HIGH : WWWSeeker::PRIORITY_NORMAL;
+						d->wwwSeeker->addFileSiteUrlWithPriority(wad.fileName(), url, priority);
 					}
 				}
 			}

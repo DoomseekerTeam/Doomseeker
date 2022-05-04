@@ -20,6 +20,9 @@ feature where the timestamp is sent back in the challenge reply
 packet. (#3992)
 
 ### Fixed
+- Wadseeker: custom (server-provided) template URLs with the %WADNAME%
+placeholder wouldn't get the higher priority status that the plain
+custom URLs normally enjoy. (#3996)
 - Zandronum, Q-Zandronum: servers that emitted empty PWAD names in their
 challenge reply would appear as errored because the plugins failed to
 parse the subsequent MD5 checksum hashes for these PWADs. The plugins
