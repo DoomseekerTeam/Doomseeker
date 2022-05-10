@@ -18,6 +18,7 @@ method favored servers that were in the lower IP ranges.
 calculate the ping to the game server rather than using the port's
 feature where the timestamp is sent back in the challenge reply
 packet. (#3992)
+- Zandronum: remove the defunct IRC server.
 
 ### Fixed
 - Wadseeker: custom (server-provided) template URLs with the %WADNAME%
