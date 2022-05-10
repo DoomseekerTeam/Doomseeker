@@ -124,7 +124,7 @@ void FlagsId::assign()
 	f->cbCompatOldDamageRadiusInfiniteHeight->setProperty("flagname", COMPAT_OLD_DAMAGE_RADIUS_INFINITE_HEIGHT);
 	f->cbCompatOldRandomNumberGenerator->setProperty("flagname", COMPAT_OLD_RANDOM_NUMBER_GENERATOR);
 	f->cbCompatNETScriptsAreClientside->setProperty("flagname", COMPAT_NETSCRIPTS_ARE_CLIENTSIDE);
-	f->cbCompatNoPredictionACS->setProperty("flagname", COMPAT_NO_PREDICTION_ACS);
+	f->cbCompatPredictFunctions->setProperty("flagname", COMPAT_PREDICT_FUNCTIONS);
 	f->cbCompatAddNOGRAVITYFlagToSpheres->setProperty("flagname", COMPAT_ADD_NOGRAVITYFLAG_TO_SPHERES);
 	f->cbDontStopPlayerScriptsOnDisconnect->setProperty("flagname", DONT_STOP_PLAYER_SCRIPTS_ON_DISCONNECT);
 	f->cbOldZDoomHorizontalThrust->setProperty("flagname", OLD_ZDOOM_HORIZONTAL_THRUST);

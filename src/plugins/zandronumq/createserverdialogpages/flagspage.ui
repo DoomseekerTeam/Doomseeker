@@ -1750,12 +1750,12 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="cbCompatNoPredictionACS">
+            <widget class="QCheckBox" name="cbCompatPredictFunctions">
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Don't execute predicted ACS scripts on client side. Turning this on can fix ACS teleports or jumppads on maps that are not using ACS_ExecuteWithResult.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When this option is ON, many Decorate and ACS functions will execute on clients without before receiving a command from the server. This can lead to smoother multiplayer, but can breaks mods that don't support it..&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="text">
-              <string>Don't execute prediction ACS on client</string>
+              <string>Enable predicting Decorate and ACS functions on clients</string>
              </property>
             </widget>
            </item>
@@ -2127,7 +2127,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>cbCompatLimitPainElementals</tabstop>
   <tabstop>cbCompatSpawnItemDropsOnTheFloor</tabstop>
   <tabstop>cbCompatNETScriptsAreClientside</tabstop>
-  <tabstop>cbCompatNoPredictionACS</tabstop>
+  <tabstop>cbCompatPredictFunctions</tabstop>
   <tabstop>cbCompatActorsAreInfinitelyTall</tabstop>
   <tabstop>cbCompatUseBuggierStairBuilding</tabstop>
   <tabstop>cbCompatDisableBoomDoorLightEffect</tabstop>
@@ -3956,7 +3956,7 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
-   <sender>cbCompatNoPredictionACS</sender>
+   <sender>cbCompatPredictFunctions</sender>
    <signal>clicked()</signal>
    <receiver>FlagsPage</receiver>
    <slot>applyWidgetsChange()</slot>

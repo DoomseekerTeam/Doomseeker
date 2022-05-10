@@ -120,7 +120,7 @@ DMFlagsSection Dmflags::zandronumqCompatFlags()
 	DMFlagsSection section("ZA Compat. flags");
 	section << DMFlag(COMPAT_NETSCRIPTS_ARE_CLIENTSIDE, ZACOMPATF_NETSCRIPTS_ARE_CLIENTSIDE,
 		tr("Net scripts are client side"));
-	section << DMFlag(COMPAT_NO_PREDICTION_ACS, ZACOMPATF_NO_PREDICTION_ACS,
+	section << DMFlag(COMPAT_PREDICT_FUNCTIONS, ZACOMPATF_PREDICT_FUNCTIONS,
 		tr("Don't execute prediction ACS on client"));
 	section << DMFlag(NO_USE_LAND_CONSOLE_COMMAND, ZACOMPATF_NO_LAND,
 		tr("Players can't use 'land' CCMD"));
