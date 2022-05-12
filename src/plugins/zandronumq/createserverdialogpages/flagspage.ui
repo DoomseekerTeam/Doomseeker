@@ -1838,6 +1838,16 @@ p, li { white-space: pre-wrap; }
              </property>
             </widget>
            </item>
+           <item>
+            <widget class="QCheckBox" name="cbEnableElevatedSpecialFix">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Fix cases when there is an elevated floor with a special, but an actor is standing on it's edge so that actor's center is in the air and the special doesn't trigger.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Enable elevated sector special fix</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </item>
         </layout>
@@ -2123,6 +2133,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>cbDisableCrosshairAccurate</tabstop>
   <tabstop>cbEnableProjectileHitboxFix</tabstop>
   <tabstop>cbQuakeThrust</tabstop>
+  <tabstop>cbEnableElevatedSpecialFix</tabstop>
   <tabstop>cbCompatFindShortestTexturesLikeDoom</tabstop>
   <tabstop>cbCompatLimitPainElementals</tabstop>
   <tabstop>cbCompatSpawnItemDropsOnTheFloor</tabstop>
@@ -4469,6 +4480,22 @@ p, li { white-space: pre-wrap; }
   </connection>
   <connection>
    <sender>cbQuakeThrust</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>89</x>
+     <y>323</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>338</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbEnableElevatedSpecialFix</sender>
    <signal>clicked()</signal>
    <receiver>FlagsPage</receiver>
    <slot>applyWidgetsChange()</slot>

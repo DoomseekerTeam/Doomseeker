@@ -89,6 +89,7 @@ extern const QString DISABLE_CROSSHAIR_ACCURATE;
 extern const QString DISABLE_WALL_FRICTION;
 extern const QString ENABLE_PROJECTILE_HITBOX_FIX;
 extern const QString QUAKE_THRUST;
+extern const QString ELEVATED_SPECIAL_FIX;
 extern const QString NO_MONSTERS;
 extern const QString ITEMS_RESPAWN;
 extern const QString MEGA_POWERUPS_RESPAWN;

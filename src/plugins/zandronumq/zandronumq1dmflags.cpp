@@ -348,6 +348,8 @@ DMFlagsSection Dmflags::zandronumqDmflags()
 		tr("Enable projectile hitbox fix"));
 	section << DMFlag(QUAKE_THRUST, ZADF_QUAKE_THRUST,
 		tr("Use Quake thrust formula"));
+	section << DMFlag(ELEVATED_SPECIAL_FIX, ZADF_ELEVATED_SPECIAL_FIX,
+		tr("Enable elevated sector special fix"));
 	return section;
 }
 

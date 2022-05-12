@@ -333,6 +333,8 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 			f->cbEnableProjectileHitboxFix);
 		m.insert(Dmflags::ZADF_QUAKE_THRUST,
 			f->cbQuakeThrust);
+		m.insert(Dmflags::ZADF_ELEVATED_SPECIAL_FIX,
+			f->cbEnableElevatedSpecialFix);
 		// - Environment
 		m.insert(Dmflags::ZADF_COOP_SP_ACTOR_SPAWN,
 			f->cbDontSpawnAnyMultiplayerItem);
