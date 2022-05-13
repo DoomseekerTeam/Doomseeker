@@ -136,7 +136,7 @@ void FlagsId::assign()
 	f->cbCompatWestSpawnsAreSilent->setProperty("flagname", COMPAT_WEST_SPAWNS_ARE_SILENT);
 	f->cbCompatMaskedMidtex->setProperty("flagname", COMPAT_MASKED_MIDTEX);
 	f->cbCompatBadAngles->setProperty("flagname", COMPAT_BAD_ANGLES);
-	f->cbDisableCrosshairAccurate->setProperty("flagname", DISABLE_CROSSHAIR_ACCURATE);
+	f->cbAccurateCrosshair->setProperty("flagname", ACCURATE_CROSSHAIR);
 	f->cbDisableWallFriction->setProperty("flagname", DISABLE_WALL_FRICTION);
 	f->cbEnableProjectileHitboxFix->setProperty("flagname", ENABLE_PROJECTILE_HITBOX_FIX);
 	f->cbQuakeThrust->setProperty("flagname", QUAKE_THRUST);

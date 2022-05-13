@@ -1692,12 +1692,12 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="cbDisableCrosshairAccurate">
+            <widget class="QCheckBox" name="cbAccurateCrosshair">
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bring back vanilla ZDoom shooting below the crosshair.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Make weapons shoot where the crosshair is.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="text">
-              <string>Disable shooting where crosshair is</string>
+              <string>Enable shooting where crosshair is</string>
              </property>
             </widget>
            </item>
@@ -2130,7 +2130,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>cbCompatUseVanillaAutoaimTracerBehavior</tabstop>
   <tabstop>cbCompatMaskedMidtex</tabstop>
   <tabstop>cbCompatBadAngles</tabstop>
-  <tabstop>cbDisableCrosshairAccurate</tabstop>
+  <tabstop>cbAccurateCrosshair</tabstop>
   <tabstop>cbEnableProjectileHitboxFix</tabstop>
   <tabstop>cbQuakeThrust</tabstop>
   <tabstop>cbEnableElevatedSpecialFix</tabstop>
@@ -4447,7 +4447,7 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
-   <sender>cbDisableCrosshairAccurate</sender>
+   <sender>cbAccurateCrosshair</sender>
    <signal>clicked()</signal>
    <receiver>FlagsPage</receiver>
    <slot>applyWidgetsChange()</slot>

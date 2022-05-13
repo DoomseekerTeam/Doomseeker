@@ -325,8 +325,8 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 			f->cbScoreDamageNotKills);
 		m.insert(Dmflags::ZADF_YES_KEEP_TEAMS,
 			f->cbKeepTeamsAfterAMapChange);
-		m.insert(Dmflags::ZADF_DISABLE_CROSSHAIR_ACCURATE,
-			f->cbDisableCrosshairAccurate);
+		m.insert(Dmflags::ZADF_ACCURATE_CROSSHAIR,
+			f->cbAccurateCrosshair);
 		m.insert(Dmflags::ZADF_DISABLE_WALL_FRICTION,
 			f->cbDisableWallFriction);
 		m.insert(Dmflags::ZADF_ENABLE_PROJECTILE_HITBOX_FIX,

@@ -340,8 +340,8 @@ DMFlagsSection Dmflags::zandronumqDmflags()
 		tr("No map reset on death in survival"));
 	section << DMFlag("Dead players can keep inventory", ZADF_DEAD_PLAYERS_CAN_KEEP_INVENTORY,
 		tr("Dead players can keep inventory"));
-	section << DMFlag(DISABLE_CROSSHAIR_ACCURATE, ZADF_DISABLE_CROSSHAIR_ACCURATE,
-		tr("Disable shooting where crosshair is"));
+	section << DMFlag(ACCURATE_CROSSHAIR, ZADF_ACCURATE_CROSSHAIR,
+		tr("Enable shooting where crosshair is"));
 	section << DMFlag(DISABLE_WALL_FRICTION, ZADF_DISABLE_WALL_FRICTION,
 		tr("Disable wall friction"));
 	section << DMFlag(ENABLE_PROJECTILE_HITBOX_FIX, ZADF_ENABLE_PROJECTILE_HITBOX_FIX,

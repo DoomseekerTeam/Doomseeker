@@ -85,7 +85,7 @@ extern const QString COMPAT_WEST_SPAWNS_ARE_SILENT;
 extern const QString COMPAT_MASKED_MIDTEX;
 extern const QString COMPAT_BAD_ANGLES;
 extern const QString COMPAT_FLOOR_MOVE;
-extern const QString DISABLE_CROSSHAIR_ACCURATE;
+extern const QString ACCURATE_CROSSHAIR;
 extern const QString DISABLE_WALL_FRICTION;
 extern const QString ENABLE_PROJECTILE_HITBOX_FIX;
 extern const QString QUAKE_THRUST;
