@@ -51,8 +51,8 @@ const QString Wadseeker::forbiddenWads[] =
 	"attack", "blacktwr", "bloodsea", "canyon", "catwalk", "combine", "doom",
 	"doom2", "fistula", "garrison", "geryon", "heretic", "hexen", "hexdd",
 	"manor", "mephisto", "minos", "nessus", "paradox", "plutonia", "subspace",
-	"subterra", "teeth", "tnt", "ttrap", "strife1", "vesperas", "virgil",
-	"voices", ""
+	"subterra", "teeth", "tnt", "ttrap", "sigil_shreds", "sigil_shreds_compat",
+	"strife1", "vesperas", "virgil", "voices", ""
 };
 ///////////////////////////////////////////////////////////////////////
 DClass<Wadseeker>

@@ -14,6 +14,8 @@ and this project does not adhere to
 in which they were provided by the plugin (ergo: by the master
 server, ergo: sorted by IP). This should be more fair, as the previous
 method favored servers that were in the lower IP ranges.
+- Wadseeker: added `sigil_shreds` and `sigil_shreds_compat` to the
+list of forbidden downloads.
 - Zandronum, Q-Zandronum: rely on Doomseeker's internal mechanism to
 calculate the ping to the game server rather than using the port's
 feature where the timestamp is sent back in the challenge reply
