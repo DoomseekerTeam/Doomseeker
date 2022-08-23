@@ -23,12 +23,12 @@
 #ifndef __IP2CPARSER_H__
 #define __IP2CPARSER_H__
 
-#include "ip2ccountry.h"
 #include "ip2crange.h"
 
+#include <QIODevice>
+#include <QList>
 #include <QMap>
-#include <QMutex>
-#include <QThread>
+#include <QString>
 
 /**
  * Compacted database file format, version 2:
@@ -55,22 +55,9 @@
  * -- END OF BLOCK
  * @endcode
  */
-class IP2CParser : public QObject
+class IP2CParser
 {
-	Q_OBJECT
-
 public:
-	IP2CParser();
-
-	/**
-	 * @brief For multi-threading purposes. If this is true it is not
-	 * recommended to delete this object nor the underlying IP2C database.
-	 */
-	bool isParsing() const
-	{
-		return bIsParsing;
-	}
-
 	const QList<IP2CRange> ranges() const
 	{
 		return ranges_;
@@ -86,68 +73,18 @@ public:
 		return url_;
 	}
 
-	bool readDatabase(const QString &filePath);
-	void readDatabaseThreaded(const QString &filePath);
-
-signals:
-	/**
-	 * @brief A signal emitted when parser finishes its job.
-	 *
-	 * It is not safe to delete IP2CParser object after readDatabase()
-	 * call and before this signal is emitted.
-	 */
-	void parsingFinished(bool bSuccess);
+	bool parse(QIODevice &dataBase);
 
 private:
-	/**
-	 * @brief Sets states for IP2C when being constructed and destructed.
-	 *
-	 * //TODO: A nicer name?
-	 */
-	class ConstructorDestructorParserStateSetter
-	{
-	public:
-		ConstructorDestructorParserStateSetter(IP2CParser *pParser);
-		~ConstructorDestructorParserStateSetter();
-
-	private:
-		IP2CParser *pParser;
-	};
-
-	class ParsingThread : public QThread
-	{
-	public:
-		bool bSuccessState;
-		QString filePath;
-		IP2CParser *pParser;
-
-
-		ParsingThread(IP2CParser *pParser, const QString &filePath)
-		{
-			bSuccessState = false;
-			this->filePath = filePath;
-			this->pParser = pParser;
-		}
-
-		void run() override;
-	};
-
-	bool bIsParsing;
-	ParsingThread *currentParsingThread;
 	QList<IP2CRange> ranges_;
 	QMap<QString, QString> licences_;
 	QString url_;
 
-	QMutex thisLock;
-
-	bool doReadDatabase(const QString &filePath);
 	bool readDatabaseVersion2(const QByteArray &dataArray);
 	bool readDatabaseVersion3(const QByteArray &dataArray);
 	bool readSectionIpv4(QByteArray &&section);
 	bool readSectionLegalNotice(QByteArray &&section);
 	bool readSectionUrl(QByteArray &&section);
-private slots:
-	void parsingThreadFinished();
 };
 
 #endif

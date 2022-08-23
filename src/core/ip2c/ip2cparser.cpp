@@ -24,12 +24,9 @@
 
 #include "datastreamoperatorwrapper.h"
 #include "global.h"
-#include "log.h"
 #include <QBuffer>
-#include <QElapsedTimer>
 #include <QFile>
 #include <QMap>
-#include <QMutexLocker>
 
 enum class Section : uint8_t
 {
@@ -38,33 +35,8 @@ enum class Section : uint8_t
 	URL_DB = 2,
 };
 
-IP2CParser::IP2CParser()
+bool IP2CParser::parse(QIODevice &dataBase)
 {
-	currentParsingThread = nullptr;
-	bIsParsing = false;
-}
-
-bool IP2CParser::doReadDatabase(const QString &filePath)
-{
-	QMutexLocker mutexLocker(&thisLock);
-
-	// This will set proper state whenever and wherever this method finishes.
-	ConstructorDestructorParserStateSetter stateSetter(this);
-
-	QFile dataBase(filePath);
-	gLog << tr("Parsing IP2C database: %1").arg(dataBase.fileName());
-
-	if (!dataBase.exists()
-		|| !dataBase.open(QIODevice::ReadOnly)
-		|| !dataBase.isReadable())
-	{
-		gLog << tr("Unable to open IP2C file.");
-		return false;
-	}
-
-	QElapsedTimer time;
-	time.start();
-
 	QByteArray dataArray = dataBase.readAll();
 
 	// Read version.
@@ -75,58 +47,15 @@ bool IP2CParser::doReadDatabase(const QString &filePath)
 	const char *data = dataArray.constData();
 	unsigned short version = READINT16(&data[pos]);
 
-	bool wasReadSuccessful = false;
 	switch (version)
 	{
 	case 3:
-		wasReadSuccessful = readDatabaseVersion3(dataArray);
-		break;
+		return readDatabaseVersion3(dataArray);
 	case 2:
-		wasReadSuccessful = readDatabaseVersion2(dataArray);
-		break;
-
+		return readDatabaseVersion2(dataArray);
 	default:
-		wasReadSuccessful = false;
-		break;
-	}
-
-	if (!wasReadSuccessful)
 		return false;
-
-	gLog << tr("IP2C database read in %1 ms; IP ranges: %2").arg(time.elapsed()).arg(ranges_.size());
-	return true;
-}
-
-void IP2CParser::parsingThreadFinished()
-{
-	bool bSuccessState = currentParsingThread->bSuccessState;
-	gLog << tr("IP2C parsing thread has finished.");
-
-	delete currentParsingThread;
-	currentParsingThread = nullptr;
-
-	emit parsingFinished(bSuccessState);
-}
-
-bool IP2CParser::readDatabase(const QString &filePath)
-{
-	bool bSuccess = doReadDatabase(filePath);
-	emit parsingFinished(bSuccess);
-
-	return bSuccess;
-}
-
-void IP2CParser::readDatabaseThreaded(const QString &filePath)
-{
-	if (currentParsingThread != nullptr)
-		return;
-
-	auto pParsingThread = new ParsingThread(this, filePath);
-	connect(pParsingThread, SIGNAL(finished()), this, SLOT(parsingThreadFinished()));
-
-	currentParsingThread = pParsingThread;
-
-	pParsingThread->start();
+	}
 }
 
 bool IP2CParser::readDatabaseVersion2(const QByteArray &dataArray)
@@ -255,23 +184,4 @@ bool IP2CParser::readSectionUrl(QByteArray &&section)
 	DataStreamOperatorWrapper stream(&dstream);
 	url_ = QString::fromUtf8(DataStreamOperatorWrapper(&dstream).readRawUntilByte('\0'));
 	return true;
-}
-////////////////////////////////////////////////////////////////////////////////
-
-IP2CParser::ConstructorDestructorParserStateSetter::ConstructorDestructorParserStateSetter(IP2CParser *pParser)
-{
-	this->pParser = pParser;
-	pParser->bIsParsing = true;
-}
-
-IP2CParser::ConstructorDestructorParserStateSetter::~ConstructorDestructorParserStateSetter()
-{
-	pParser->bIsParsing = false;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-void IP2CParser::ParsingThread::run()
-{
-	bSuccessState = pParser->doReadDatabase(filePath);
 }
