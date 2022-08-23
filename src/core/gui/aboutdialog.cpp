@@ -21,16 +21,17 @@
 // Copyright (C) 2009 Braden "Blzut3" Obrzut <admin@maniacsvault.net>
 //------------------------------------------------------------------------------
 #include "aboutdialog.h"
+#include "ui_aboutdialog.h"
 
 #include "gui/commongui.h"
 #include "gui/copytextdlg.h"
+#include "ip2c/ip2c.h"
 #include "plugins/engineplugin.h"
 #include "plugins/pluginloader.h"
-#include "ui_aboutdialog.h"
+#include "localization.h"
+#include "strings.hpp"
 #include "version.h"
-#include "wadseeker/wadseekerversioninfo.h"
-#include <ip2c/ip2c.h>
-#include <localization.h>
+#include <wadseeker/wadseekerversioninfo.h>
 #include <QPixmap>
 #include <QResource>
 #include <QString>
@@ -55,11 +56,21 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 	d->lblRevision->setText(QString::number(Version::revisionNumber()));
 	d->logo->setPixmap(QPixmap(":/logo.png"));
 	d->pteCopyrightNotice->setPlainText(copyrightVerboseNotice());
-	auto &url = IP2C::instance()->urlDatabase();
-	d->linkIP2Cdatabase->setText(QString("<a href=\"").append(url).append("\">").append(url).append("</a>"));
-	d->linkIP2Cdatabase->setTextFormat(Qt::RichText);
-	d->linkIP2Cdatabase->setTextInteractionFlags(Qt::TextBrowserInteraction);
-	d->linkIP2Cdatabase->setOpenExternalLinks(true);
+
+	// Don't trust the IP2C DB completely. Sanitize the URL a bit
+	// before displaying it.
+	QString url = IP2C::instance()->urlDatabase();
+	static const int REASONABLE_URL_LENGTH = 10240;
+	static const int REASONABLE_URL_DISPLAY_LENGTH = 120;
+	if (url.length() > REASONABLE_URL_LENGTH || url.trimmed().isEmpty() || !Strings::isUrlSafe(url)) {
+		d->linkIP2Cdatabase->setText(tr("<i>No URL available</i>"));
+	} else {
+		url = url.toHtmlEscaped();
+		QString displayUrl = Strings::middleEllipsis(url,
+			REASONABLE_URL_DISPLAY_LENGTH / 2 + (REASONABLE_URL_DISPLAY_LENGTH % 2),
+			REASONABLE_URL_DISPLAY_LENGTH / 2);
+		d->linkIP2Cdatabase->setText(QString("<a href=\"").append(url).append("\">").append(displayUrl).append("</a>"));
+	}
 
 	// Wadseeker
 	d->wadseekerAuthor->setText(WadseekerVersionInfo::author());

@@ -358,6 +358,18 @@ bool Strings::isUrlSafe(const QString &url)
 	return bIsSafe1 || bIsSafe2 || bIsSafe3 || bIsSafe4;
 }
 
+QString Strings::middleEllipsis(const QString &text, unsigned left, unsigned right, const QString &ellipsis)
+{
+	if (text.length() <= left + right) {
+		return text;
+	}
+	QString filtered;
+	filtered += text.left(left);
+	filtered += ellipsis;
+	filtered += text.right(text.length() - right);
+	return filtered;
+}
+
 QString Strings::normalizePath(QString path)
 {
 	path = QDir::fromNativeSeparators(path);
