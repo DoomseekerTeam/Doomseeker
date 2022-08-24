@@ -60,6 +60,10 @@ bool IP2CParser::parse(QIODevice &dataBase)
 
 bool IP2CParser::readDatabaseVersion2(const QByteArray &dataArray)
 {
+	// Hardcode the URL to the current DB source. This may be inaccurate,
+	// but version 2 didn't have the URL embedded.
+	url_ = "https://mailfud.org/geoip-legacy/";
+
 	QBuffer buffer;
 	buffer.setData(dataArray);
 	buffer.open(QIODevice::ReadOnly);
