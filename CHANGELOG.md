@@ -9,6 +9,9 @@ and this project does not adhere to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [unreleased]
+### Added
+- Upgrade the IpToCountry.dat file format to version 3.
+
 ### Changed
 - Refresh the servers in a randomized order rather than the order
 in which they were provided by the plugin (ergo: by the master

@@ -94,12 +94,12 @@ void IP2CUpdater::checksumDownloadFinished()
 
 const QUrl IP2CUpdater::dbChecksumUrl()
 {
-	return QUrl("https://doomseeker.drdteam.org/ip2c/md5");
+	return QUrl("https://doomseeker.drdteam.org/ip2c/IpToCountry_v3.dat.md5");
 }
 
 const QUrl IP2CUpdater::dbDownloadUrl()
 {
-	return QUrl("https://doomseeker.drdteam.org/ip2c/geolite2.gz");
+	return QUrl("https://doomseeker.drdteam.org/ip2c/IpToCountry_v3.dat.gz");
 }
 
 void IP2CUpdater::downloadDatabase(const QString &savePath)
