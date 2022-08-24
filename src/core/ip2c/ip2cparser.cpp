@@ -22,24 +22,29 @@
 //------------------------------------------------------------------------------
 #include "ip2cparser.h"
 
+#include "datastreamoperatorwrapper.h"
 #include "ip2c/ip2cparser_v2.h"
 #include "ip2c/ip2cparser_v3.h"
 
 #include "global.h"
 
+#include <cstdint>
+
 bool IP2CParser::parse(QIODevice &dataBase)
 {
-	QByteArray dataArray = dataBase.readAll();
+	QDataStream dstream(&dataBase);
+	dstream.setByteOrder(QDataStream::LittleEndian);
+	DataStreamOperatorWrapper stream(&dstream);
 
-	// Read version.
-	int pos = 4;
-	if (pos >= dataArray.size())
+	// Verify the magic number.
+	const uint32_t magic = stream.readQUInt32();
+	if (magic != MAKEID('I', 'P', '2', 'C'))
 		return false;
 
-	const char *data = dataArray.constData();
-	unsigned short version = READINT16(&data[pos]);
-
-	dataBase.seek(6); // TODO proper fix for this
+	// Read the version.
+	if (!stream.hasRemaining())
+		return false;
+	const uint16_t version = stream.readQUInt16();
 	switch (version)
 	{
 	case 2:
