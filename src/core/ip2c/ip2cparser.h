@@ -31,32 +31,15 @@
 #include <QString>
 
 /**
- * Compacted database file format, version 2:
- * (all strings are null terminated)
- * Header:
- * @code
- * TYPE			LENGTH		DESCRIPTION
- * -----------------------------------------------------
- * unsigned long	4			'I' 'P' '2' 'C' bytes
- * unsigned short	2			Version (equal to 2)
- * @endcode
+ * Compacted IP2C database file format parser.
  *
- * Block repeated until EOF:
- * @code
- * TYPE			LENGTH		DESCRIPTION
- * -----------------------------------------------------
- * string			N/A		Country full name, UTF-8
- * string			N/A		Country abbreviation (3 letters version)
- * unsigned long	4			Number of IP Blocks (N_IP_BLOCKS)
- *
- * -- BLOCK: repeated N_IP_BLOCKS times.
- * unsigned long	4			Beginning of an IP range
- * unsigned long	4			End of an IP range
- * -- END OF BLOCK
- * @endcode
+ * Detects the version of the database and uses the correct subparser.
  */
 class IP2CParser
 {
+	friend class IP2CParserV2;
+	friend class IP2CParserV3;
+
 public:
 	const QList<IP2CRange> ranges() const
 	{
@@ -79,12 +62,6 @@ private:
 	QList<IP2CRange> ranges_;
 	QMap<QString, QString> licences_;
 	QString url_;
-
-	bool readDatabaseVersion2(const QByteArray &dataArray);
-	bool readDatabaseVersion3(const QByteArray &dataArray);
-	bool readSectionIpv4(QByteArray &&section);
-	bool readSectionLegalNotice(QByteArray &&section);
-	bool readSectionUrl(QByteArray &&section);
 };
 
 #endif

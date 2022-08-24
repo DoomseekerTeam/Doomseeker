@@ -185,6 +185,8 @@ set(HEADER_FILES
 	ip2c/ip2ccountry.h
 	ip2c/ip2cloader.h
 	ip2c/ip2cparser.h
+	ip2c/ip2cparser_v2.h
+	ip2c/ip2cparser_v3.h
 	ip2c/ip2crange.h
 	ip2c/ip2cupdater.h
 	irc/chatlogarchive.h
@@ -421,6 +423,8 @@ set(SOURCE_FILES
 	ip2c/ip2ccountry.cpp
 	ip2c/ip2cloader.cpp
 	ip2c/ip2cparser.cpp
+	ip2c/ip2cparser_v2.cpp
+	ip2c/ip2cparser_v3.cpp
 	ip2c/ip2cupdater.cpp
 	irc/chatlogarchive.cpp
 	irc/chatlogrotate.cpp
