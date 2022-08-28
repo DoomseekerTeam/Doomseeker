@@ -91,7 +91,7 @@ bool ZandronumVersion::operator> (const ZandronumVersion &other) const
 	return false;
 }
 
-const QRegularExpression ZandronumVersion::versionExpression(R"(^(\d+).(\d+)(?:.(\d+)(?:.(\d+))?)?(?:-([a-zA-Z]*)?)?(?:-r(\d+)(?:-(\d+))?)?$)");
+const QRegularExpression ZandronumVersion::versionExpression(R"(^(\d+).(\d+)(?:.(\d+)(?:.(\d+))?)?(?:-([a-zA-Z]*)?)?(?:-r(\d+)(?:-(\d+))?)?)");
 
 ////////////////////////////////////////////////////////////////////////////////
 

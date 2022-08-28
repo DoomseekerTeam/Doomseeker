@@ -35,9 +35,9 @@ ZandronumServerDmflagsParser *ZandronumServerDmflagsParser::mkParser(
 	ZandronumServer *server, QDataStream *in)
 {
 	ZandronumVersion version(server->gameVersion());
-	if (version.majorVersion() >= 3)
-		return new ZandronumServer3DmflagsParser(server, in);
-	return new ZandronumServer2DmflagsParser(server, in);
+	if (version.majorVersion() == 2)
+		return new ZandronumServer2DmflagsParser(server, in);
+	return new ZandronumServer3DmflagsParser(server, in);
 }
 
 ZandronumServerDmflagsParser::ZandronumServerDmflagsParser(
