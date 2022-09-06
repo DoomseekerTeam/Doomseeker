@@ -60,7 +60,13 @@ QString DmflagsHtmlGenerator::generate()
 	{
 		if (!section.isEmpty())
 		{
-			result += QString("<li><b>%1 (%2):</b></li>").arg(section.name()).arg(section.combineValues());
+			// Hack (#3944): the dmflag bits are stored in Doomseeker in the
+			// 32-bit unsigned format, but ZDoom-based ports use signed. If port
+			// uses the most significant bit for a dmflag the combined values
+			// will go into negative numbers.
+			const int32_t numerical = static_cast<int32_t>(section.combineValues());
+
+			result += QString("<li><b>%1 (%2):</b></li>").arg(section.name()).arg(numerical);
 			result += "<ul>";
 			result += d->mkSectionContents(section);
 			result += "</ul>";

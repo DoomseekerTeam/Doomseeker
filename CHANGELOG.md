@@ -34,6 +34,7 @@ packet. (#3992)
 - Zandronum: remove the defunct IRC server.
 
 ### Fixed
+- Use signed integers to display the dmflags in the server details (#3944)
 - Wadseeker: custom (server-provided) template URLs with the %WADNAME%
 placeholder wouldn't get the higher priority status that the plain
 custom URLs normally enjoy. (#3996)
