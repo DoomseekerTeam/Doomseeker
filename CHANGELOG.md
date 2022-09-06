@@ -48,6 +48,7 @@ correctly on the list. (#3624)
 - Zandronum: fix a failure to parse the version of the game for the
 servers, which resulted in the dmflags being displayed incorrectly
 in the server details. (#4020)
+- Zandronum: update the game icon to Zandronum 3.1's.
 
 ## [1.3.3] - 2022-01-18
 ### Added
