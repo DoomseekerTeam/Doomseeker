@@ -20,6 +20,11 @@ method favored servers that were in the lower IP ranges.
 - Updated Flag of Ukraine colors to DSTU 4512:2006. Previously, Doomseeker was
 displaying the flag of Post-Soviet Ukraine, a design with lighter blue color
 shade, from 1991-1992. (#3983)
+- In case if Doomseeker uses the old version 2 file format for IP2C,
+redirect the IP2C licensing info to a Doomseeker's webpage instead of
+displaying anything that was hardcoded at the time when Doomseeker was
+compiled and could potentially not be accurate anymore at the time of
+viewing. (#3952)
 - Wadseeker: added `sigil_shreds` and `sigil_shreds_compat` to the
 list of forbidden downloads.
 - Zandronum, Q-Zandronum: rely on Doomseeker's internal mechanism to

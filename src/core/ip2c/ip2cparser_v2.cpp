@@ -33,9 +33,8 @@ bool IP2CParserV2::parse(IP2CParser &self, QIODevice &dataBase)
 {
 	// Hardcode the URL to the current DB source. This may be inaccurate,
 	// but version 2 didn't have the URL embedded.
-	self.url_ = "https://mailfud.org/geoip-legacy/";
-	self.licences_[""] = "Mailfud GeoIP legacy databases are provided with "
-		"Creative Commons Attribution-ShareAlike 4.0 International License.";
+	self.url_ = "https://doomseeker.drdteam.org/ip2c/IpToCountry_v2.dat.php";
+	self.licences_[""] = "Please see the linked webpage for the licensing details of IP2C.\n" + self.url_;
 
 	QDataStream dstream(&dataBase);
 	dstream.setByteOrder(QDataStream::LittleEndian);
