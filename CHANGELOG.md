@@ -39,6 +39,8 @@ packet. (#3992)
 - Use signed integers to display the dmflags in the server details. (#3944)
 - Buffer the messages in the RCon to fix performance issue when many
 small messages arrive. (#4026)
+- The "Put populated servers on top" option would not be applied to the
+server list on program start if disabled.
 - Wadseeker: custom (server-provided) template URLs with the %WADNAME%
 placeholder wouldn't get the higher priority status that the plain
 custom URLs normally enjoy. (#3996)

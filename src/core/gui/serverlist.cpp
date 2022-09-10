@@ -364,6 +364,7 @@ void ServerList::prepareServerTable()
 
 	connectTableModelProxySlots();
 	proxyModel->setAdditionalSortColumns(gConfig.doomseeker.additionalSortColumns());
+	proxyModel->setGroupServersWithPlayersAtTop(gConfig.doomseeker.bGroupServersWithPlayersAtTheTopOfTheList);
 }
 
 void ServerList::redraw()
