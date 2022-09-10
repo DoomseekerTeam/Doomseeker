@@ -27,6 +27,7 @@ compiled and could potentially not be accurate anymore at the time of
 viewing. (#3952)
 - Wadseeker: added `sigil_shreds` and `sigil_shreds_compat` to the
 list of forbidden downloads.
+- Wadseeker: upgrade LZMA SDK to version 22.01. (#3934)
 - Zandronum, Q-Zandronum: rely on Doomseeker's internal mechanism to
 calculate the ping to the game server rather than using the port's
 feature where the timestamp is sent back in the challenge reply

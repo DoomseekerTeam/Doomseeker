@@ -1,4 +1,5 @@
 set( LZMA_FILES
+	C/7zAlloc.c
 	C/7zArcIn.c
 	C/7zBuf.c
 	C/7zBuf2.c
@@ -18,7 +19,9 @@ set( LZMA_FILES
 	C/Delta.c
 	C/DllSecur.c
 	C/LzFind.c
+	C/LzFindOpt.c
 	C/Lzma2Dec.c
+	C/Lzma2DecMt.c
 	C/Lzma2Enc.c
 	C/Lzma86Dec.c
 	C/Lzma86Enc.c
@@ -29,6 +32,7 @@ set( LZMA_FILES
 	C/Ppmd7Dec.c
 	C/Ppmd7Enc.c
 	C/Sha256.c
+	C/Sha256Opt.c
 	C/Sort.c
 	C/Xz.c
 	C/XzCrc64.c
@@ -43,6 +47,7 @@ if (WIN32)
 		C/Bcj2Enc.c
 		C/LzFindMt.c
 		C/MtCoder.c
+		C/MtDec.c
 		C/Threads.c
 		)
 endif ()

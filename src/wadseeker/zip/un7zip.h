@@ -49,8 +49,8 @@ public:
 	SZByteStream(QIODevice *buffer);
 	~SZByteStream();
 
-	static SRes Read(void *p, void *buf, size_t *size);
-	static SRes Seek(void *p, Int64 *pos, ESzSeek origin);
+	static SRes Read(const ISeekInStream *p, void *buf, size_t *size);
+	static SRes Seek(const ISeekInStream *p, Int64 *pos, ESzSeek origin);
 };
 
 class Un7Zip : public UnArchive
@@ -70,15 +70,14 @@ public:
 		return valid;
 	}
 
-
-protected:
-	static void *SzAlloc(void *p, size_t size);
-	static void SzFree(void *p, void *address);
+private:
+	static void *SzAlloc(ISzAllocPtr p, size_t size);
+	static void SzFree(ISzAllocPtr p, void *address);
 
 	void Init();
 
 	SZByteStream *byteStream;
-	CLookToRead lookStream;
+	CLookToRead2 lookStream;
 
 	CSzArEx db;
 	static ISzAlloc alloc;
