@@ -198,6 +198,11 @@ bool ServerListProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &so
 		if (d->filterInfo.maxPing > 0 && d->filterInfo.maxPing < s->ping())
 			return false;
 
+		if (d->filterInfo.lockedServers == Doomseeker::ShowOnly && !s->isLockedAnywhere())
+			return false;
+		else if (d->filterInfo.lockedServers == Doomseeker::ShowNone && s->isLockedAnywhere())
+			return false;
+
 		if (d->filterInfo.testingServers == Doomseeker::ShowOnly && !s->isTestingServer())
 			return false;
 		else if (d->filterInfo.testingServers == Doomseeker::ShowNone && s->isTestingServer())

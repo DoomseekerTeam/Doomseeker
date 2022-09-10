@@ -11,6 +11,7 @@ and this project does not adhere to
 ## [unreleased]
 ### Added
 - Upgrade the IpToCountry.dat file format to version 3.
+- A tri-state filter for password-protected servers. (#4008)
 
 ### Changed
 - Refresh the servers in a randomized order rather than the order

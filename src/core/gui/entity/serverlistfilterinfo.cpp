@@ -28,6 +28,7 @@ ServerListFilterInfo::ServerListFilterInfo()
 	bShowEmpty = true;
 	bShowFull = true;
 	bShowOnlyValid = false;
+	lockedServers = Doomseeker::Indifferent;
 	maxPing = 0;
 	testingServers = Doomseeker::Indifferent;
 }
@@ -40,6 +41,7 @@ void ServerListFilterInfo::copy(const ServerListFilterInfo &other)
 	bShowOnlyValid = other.bShowOnlyValid;
 	gameModes = other.gameModes;
 	gameModesExcluded = other.gameModesExcluded;
+	lockedServers = other.lockedServers;
 	maxPing = other.maxPing;
 	serverName = other.serverName.trimmed();
 	testingServers = other.testingServers;
@@ -74,15 +76,18 @@ bool ServerListFilterInfo::isFilteringAnything() const
 		return true;
 
 	if (!gameModes.isEmpty()
-		||  !gameModesExcluded.isEmpty()
-		||  !wads.isEmpty()
-		||  !wadsExcluded.isEmpty())
+		|| !gameModesExcluded.isEmpty()
+		|| !wads.isEmpty()
+		|| !wadsExcluded.isEmpty())
 	{
 		return true;
 	}
 
-	if (testingServers != Doomseeker::Indifferent)
+	if (lockedServers != Doomseeker::Indifferent
+		|| testingServers != Doomseeker::Indifferent)
+	{
 		return true;
+	}
 
 	return false;
 }
@@ -97,6 +102,7 @@ QString ServerListFilterInfo::toString() const
 	ret += QString("bShowOnlyValid: ") + (bShowOnlyValid ? "Yes" : "No") + "\n";
 	ret += QString("GameModes: ") + gameModes.join(",") + "\n";
 	ret += QString("GameModes Excluded: ") + gameModesExcluded.join(",") + "\n";
+	ret += QString("LockedServers: %1\n").arg(lockedServers);
 	ret += QString("MaxPing: ") + QString::number(maxPing) + "\n";
 	ret += QString("ServerName: ") + serverName + "\n";
 	ret += QString("Testing servers: %1\n").arg(testingServers);
