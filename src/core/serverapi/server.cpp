@@ -439,13 +439,15 @@ const QString &Server::name() const
 
 int Server::numFreeClientSlots() const
 {
-	int returnValue = numTotalSlots() - d->players.numClients();
+	int returnValue = static_cast<int>(d->maxClients)
+		- static_cast<int>(d->players.numClients());
 	return (returnValue < 0) ? 0 : returnValue;
 }
 
 int Server::numFreeJoinSlots() const
 {
-	int returnValue = d->maxPlayers - d->players.numClients();
+	int returnValue = static_cast<int>(qMin(d->maxPlayers, d->maxClients))
+		- static_cast<int>(d->players.numClients());
 	return (returnValue < 0) ? 0 : returnValue;
 }
 

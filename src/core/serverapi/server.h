@@ -433,8 +433,6 @@ public:
 	/**
 	 * @brief Amount of connection slots for this server, as reported by
 	 *        the server.
-	 *
-	 * @see numTotalSlots().
 	 */
 	unsigned short maxClients() const;
 	/**
@@ -464,8 +462,10 @@ public:
 	 */
 	int numFreeSpectatorSlots() const;
 	/**
-	 * @brief Actual number of free connection slots deduced from
-	 *        maxPlayers() and maxClients().
+	 * @brief Returns the greater of maxPlayers() and maxClients().
+	 *
+	 * @deprecated Isn't actually useful; use maxClients() to get
+	 * the total number of connection slots instead.
 	 */
 	int numTotalSlots() const
 	{
