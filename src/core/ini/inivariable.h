@@ -40,101 +40,110 @@ class IniSection;
  */
 class MAIN_EXPORT IniVariable
 {
-	public:
-		/**
-		* @brief Creates an invalid IniVariable object. Such object should not
-		*        be used for read/write operations.
-		*
-		* isNull() will return true.
-		*/
-		IniVariable();
+public:
+	/**
+	 * @brief Creates an invalid IniVariable object. Such object should not
+	 *        be used for read/write operations.
+	 *
+	 * isNull() will return true.
+	 */
+	IniVariable();
 
-		/**
-		 * @brief Creates a valid IniVariable object, provided that
-		 * the section is also valid.
-		 */
-		IniVariable(const IniSection &section, const QString& key);
+	/**
+	 * @brief Creates a valid IniVariable object, provided that
+	 * the section is also valid.
+	 */
+	IniVariable(const IniSection &section, const QString &key);
 
-		virtual ~IniVariable();
+	virtual ~IniVariable();
 
-		/**
-		 * @brief Name of the variable within the section.
-		 */
-		const QString& key();
+	/**
+	 * @brief Name of the variable within the section.
+	 */
+	const QString &key();
 
-		/**
-		 * @brief If true, IniVariable object is not valid and should not be
-		 *        used to perform any actions on the Ini file.
-		 */
-		bool isNull() const;
+	/**
+	 * @brief If true, IniVariable object is not valid and should not be
+	 *        used to perform any actions on the Ini file.
+	 */
+	bool isNull() const;
 
-		/**
-		 * @brief Returns the underlying value as a QString.
-		 *
-		 * Internally the value is always accessed as QVariant.
-		 */
-		QString valueString() const { return this->value().toString(); }
+	/**
+	 * @brief Returns the underlying value as a QString.
+	 *
+	 * Internally the value is always accessed as QVariant.
+	 */
+	QString valueString() const
+	{
+		return this->value().toString();
+	}
 
-		const IniVariable &operator=(const QString &str);
-		const IniVariable &operator=(const char* str) { return *this = QString(str); }
-		const IniVariable &operator=(int i);
-		const IniVariable &operator=(unsigned int i);
-		const IniVariable &operator=(short i);
-		const IniVariable &operator=(unsigned short i);
+	const IniVariable &operator=(const QString &str);
+	const IniVariable &operator=(const char *str)
+	{
+		return *this = QString(str);
+	}
+	const IniVariable &operator=(int i);
+	const IniVariable &operator=(unsigned int i);
+	const IniVariable &operator=(short i);
+	const IniVariable &operator=(unsigned short i);
 
-		/**
-		 * @brief Sets the value to bool.
-		 *
-		 * The value is set by converting the bool to a integer, 0 for false
-		 * and 1 for true.
-		 */
-		const IniVariable &operator=(bool b);
-		const IniVariable &operator=(float f);
+	/**
+	 * @brief Sets the value to bool.
+	 *
+	 * The value is set by converting the bool to a integer, 0 for false
+	 * and 1 for true.
+	 */
+	const IniVariable &operator=(bool b);
+	const IniVariable &operator=(float f);
 
-		/**
-		 * @brief Attempts to convert the value to QString.
-		 */
-		QString operator*() const { return value().toString(); }
+	/**
+	 * @brief Attempts to convert the value to QString.
+	 */
+	QString operator*() const
+	{
+		return value().toString();
+	}
 
-		/**
-		 * @brief Attempts to convert the value to QString.
-		 */
-		operator QString () const { return value().toString(); }
+	/**
+	 * @brief Attempts to convert the value to QString.
+	 */
+	operator QString () const { return value().toString(); }
 
-		/**
-		 * @brief Attempts to convert the value to a float.
-		 */
-		operator float() const;
-		/**
-		 * @brief Attempts to convert the value to a integer.
-		 */
-		operator int() const;
-		operator unsigned int() const;
+	/**
+	 * @brief Attempts to convert the value to a float.
+	 */
+	operator float() const;
+	/**
+	 * @brief Attempts to convert the value to a integer.
+	 */
+	operator int() const;
+	operator unsigned int() const;
 
-		operator short() const;
-		operator unsigned short() const;
+	operator short() const;
+	operator unsigned short() const;
 
-		/**
-		* @brief Convert value to boolean, if possible. It's done by converting
-		*        to numValue() first, then to bool.
-		*/
-		operator bool() const;
+	/**
+	 * @brief Convert value to boolean, if possible. It's done by converting
+	 *        to numValue() first, then to bool.
+	 */
+	operator bool() const;
 
-		/**
-		 * @brief Explicitly sets the value from QVariant.
-		 */
-		void setValue(const QVariant& value);
+	/**
+	 * @brief Explicitly sets the value from QVariant.
+	 */
+	void setValue(const QVariant &value);
 
-		/**
-		 * @brief Extracts the value as QVariant.
-		 */
-		QVariant value() const;
+	/**
+	 * @brief Extracts the value as QVariant.
+	 */
+	QVariant value() const;
 
-	private:
-		friend class TestReadINIVariable;
-		friend class TestReadINIList;
+private:
+	friend class TestReadINIVariable;
+	friend class TestReadINIList;
 
-		DPtr<IniVariable> d;
+	DPtr<IniVariable> d;
 };
 
 #endif

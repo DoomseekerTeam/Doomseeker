@@ -28,23 +28,23 @@
 
 DClass<IniSection>
 {
-	public:
-		QString name;
+public:
+	QString name;
 
-		/**
-		* @brief Ini file to which this section belongs to.
-		*/
-		Ini* pIni;
+	/**
+	 * @brief Ini file to which this section belongs to.
+	 */
+	Ini *pIni;
 };
 
 DPointered(IniSection)
 
 IniSection::IniSection()
 {
-	d->pIni = NULL;
+	d->pIni = nullptr;
 }
 
-IniSection::IniSection(Ini* pIni, const QString& sectionName)
+IniSection::IniSection(Ini *pIni, const QString &sectionName)
 {
 	d->pIni = pIni;
 	d->name = sectionName;
@@ -54,29 +54,23 @@ IniSection::~IniSection()
 {
 }
 
-IniVariable IniSection::createSetting(const QString& name, const QVariant& data)
+IniVariable IniSection::createSetting(const QString &name, const QVariant &data)
 {
 	assert(!isNull());
 	if (name.isEmpty())
-	{
 		return IniVariable();
-	}
 
 	if (value(name).isNull())
-	{
 		setValue(name, data);
-	}
 
 	return retrieveSetting(name);
 }
 
-void IniSection::deleteSetting(const QString& name)
+void IniSection::deleteSetting(const QString &name)
 {
 	assert(!isNull());
 	if (name.isEmpty())
-	{
 		return;
-	}
 
 	remove(name);
 }
@@ -89,7 +83,7 @@ bool IniSection::hasSetting(const QString &name) const
 
 bool IniSection::isNull() const
 {
-	return d->pIni == NULL;
+	return d->pIni == nullptr;
 }
 
 const QString &IniSection::name() const
@@ -97,86 +91,72 @@ const QString &IniSection::name() const
 	return d->name;
 }
 
-IniVariable IniSection::operator[](const QString& name)
+IniVariable IniSection::operator[](const QString &name)
 {
 	return setting(name);
 }
 
-const IniVariable IniSection::operator[](const QString& name) const
+const IniVariable IniSection::operator[](const QString &name) const
 {
 	return retrieveSetting(name);
 }
 
-void IniSection::remove(const QString& key)
+void IniSection::remove(const QString &key)
 {
 	d->pIni->removeKey(name() + "/" + key);
 }
 
-IniVariable IniSection::retrieveSetting(const QString& name)
+IniVariable IniSection::retrieveSetting(const QString &name)
 {
 	assert(!isNull());
 	if (name.isEmpty())
-	{
 		return IniVariable();
-	}
 
 	return IniVariable(*this, name);
 }
 
-const IniVariable IniSection::retrieveSetting(const QString& name) const
+const IniVariable IniSection::retrieveSetting(const QString &name) const
 {
 	assert(!isNull());
 	if (name.isEmpty())
-	{
 		return IniVariable();
-	}
 
 	return IniVariable(*this, name);
 }
 
-IniVariable IniSection::setting(const QString& name)
+IniVariable IniSection::setting(const QString &name)
 {
 	assert(!isNull());
 	if (name.isEmpty())
-	{
 		return IniVariable();
-	}
 
 	IniVariable pVariable = retrieveSetting(name);
 	if (pVariable.isNull())
-	{
 		return createSetting(name, QVariant());
-	}
 
 	return pVariable;
 }
 
-void IniSection::setValue(const QString& key, const QVariant& value)
+void IniSection::setValue(const QString &key, const QVariant &value)
 {
 	assert(!isNull());
 
 	if (!isNull())
-	{
 		d->pIni->setValue(name() + "/" + key, value);
-	}
 }
 
-QVariant IniSection::value(const QString& key) const
+QVariant IniSection::value(const QString &key) const
 {
 	if (!isNull())
-	{
 		return d->pIni->value(name() + "/" + key);
-	}
 
 	return QVariant();
 }
 
-QVariant IniSection::value(const QString& key, QVariant defaultValue) const
+QVariant IniSection::value(const QString &key, QVariant defaultValue) const
 {
 	QVariant val = value(key);
 	if (!val.isValid())
-	{
 		return defaultValue;
-	}
 	return val;
 }

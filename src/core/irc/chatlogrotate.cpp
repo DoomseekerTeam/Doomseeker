@@ -22,13 +22,13 @@
 //------------------------------------------------------------------------------
 #include "chatlogrotate.h"
 
+#include "irc/chatlogarchive.h"
+#include "irc/chatlogs.h"
+#include "irc/entities/ircnetworkentity.h"
+#include "log.h"
 #include <QDateTime>
 #include <QDir>
 #include <QFile>
-#include "irc/entities/ircnetworkentity.h"
-#include "irc/chatlogarchive.h"
-#include "irc/chatlogs.h"
-#include "log.h"
 
 
 DClass<ChatLogRotate>
@@ -70,9 +70,7 @@ void ChatLogRotate::rotate(const IRCNetworkEntity &network, const QString &recip
 void ChatLogRotate::archivizeCurrent(const IRCNetworkEntity &network, const QString &recipient)
 {
 	if (d->maxSize <= 0)
-	{
 		return;
-	}
 	QFile file(ChatLogs().logFilePath(network, recipient));
 	qint64 size = file.size();
 	if (size > d->maxSize)
@@ -87,16 +85,14 @@ void ChatLogRotate::archivizeCurrent(const IRCNetworkEntity &network, const QStr
 void ChatLogRotate::purgeOld(const IRCNetworkEntity &network, const QString &recipient)
 {
 	if (d->removalAgeDaysThreshold < 0)
-	{
 		return;
-	}
 	QString dirPath = ChatLogArchive::archiveDirPath(network, recipient);
-	foreach (const QString &entry, ChatLogArchive::listArchivedLogsSortedByTime(network, recipient))
+	for (const QString &entry : ChatLogArchive::listArchivedLogsSortedByTime(network, recipient))
 	{
 		QString entryPath = QString("%1/%2").arg(dirPath, entry);
-		if (isEligibleForRemoval(entryPath))
+		if (isEligibleForRemoval(QFileInfo(entryPath)))
 		{
-			gLog << QString("IRC: Removed archived log file '%1'").arg(entryPath);;
+			gLog << QString("IRC: Removed archived log file '%1'").arg(entryPath);
 			QFile file(entryPath);
 			file.remove();
 		}

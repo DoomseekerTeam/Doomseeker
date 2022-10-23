@@ -41,7 +41,7 @@ class TaskbarProgress;
  */
 class TaskbarButton : public QObject
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	TaskbarButton(QObject *parent);

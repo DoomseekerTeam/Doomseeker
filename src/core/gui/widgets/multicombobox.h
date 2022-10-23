@@ -36,24 +36,24 @@ class QEvent;
  * and current item text have no meaning here. Instead, use getters defined
  * directly in this class.
  */
-class MultiComboBox: public QComboBox
+class MultiComboBox : public QComboBox
 {
-	Q_OBJECT;
+	Q_OBJECT
 
-	public:
-		MultiComboBox(QWidget *widget = 0);
-		virtual ~MultiComboBox();
-		QString displayText() const;
-		bool eventFilter(QObject *object, QEvent *event);
-		virtual void paintEvent(QPaintEvent *);
-		QStringList selectedItemTexts() const;
-		void setSelectedTexts(const QStringList& texts);
+public:
+	MultiComboBox(QWidget *widget = nullptr);
+	~MultiComboBox() override;
+	QString displayText() const;
+	bool eventFilter(QObject *object, QEvent *event) override;
+	void paintEvent(QPaintEvent *) override;
+	QStringList selectedItemTexts() const;
+	void setSelectedTexts(const QStringList &texts);
 
-	signals:
-		void valueChanged();
+signals:
+	void valueChanged();
 
-	private:
-		bool handleViewViewportEvent(QEvent* event);
+private:
+	bool handleViewViewportEvent(QEvent *event);
 };
 
 #endif

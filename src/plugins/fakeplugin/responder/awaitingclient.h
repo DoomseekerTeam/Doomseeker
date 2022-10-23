@@ -27,15 +27,15 @@
 
 class AwaitingClient
 {
-	public:
-		QHostAddress address;
-		quint16 port;
+public:
+	QHostAddress address;
+	quint16 port;
 
-		AwaitingClient(const QHostAddress& address, quint16 port)
-		{
-			this->address = address;
-			this->port = port;
-		}
+	AwaitingClient(const QHostAddress &address, quint16 port)
+	{
+		this->address = address;
+		this->port = port;
+	}
 };
 
 #endif

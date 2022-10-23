@@ -36,15 +36,15 @@ class DndFileSystemListView : public QListView
 {
 	Q_OBJECT
 
-	public:
-		DndFileSystemListView(QWidget* pParent = NULL);
+public:
+	DndFileSystemListView(QWidget *pParent = nullptr);
 
-	signals:
-		void fileSystemPathDropped(const QString& path);
+signals:
+	void fileSystemPathDropped(const QString &path);
 
-	protected:
-		void dragEnterEvent(QDragEnterEvent* pEvent);
-		void dropEvent(QDropEvent* pEvent);
+protected:
+	void dragEnterEvent(QDragEnterEvent *pEvent) override;
+	void dropEvent(QDropEvent *pEvent) override;
 };
 
 #endif

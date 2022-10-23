@@ -26,8 +26,8 @@
 
 #include <QDockWidget>
 
-#include "serverapi/serverptr.h"
 #include "dptr.h"
+#include "serverapi/server.h" // Qt6 requires Server class for moc on ServerPtr
 
 class ServerDetailsDock : public QDockWidget
 {
@@ -35,18 +35,18 @@ class ServerDetailsDock : public QDockWidget
 
 public:
 	ServerDetailsDock(QWidget *parent);
-	~ServerDetailsDock();
+	~ServerDetailsDock() override;
 
 public slots:
-	void displaySelection(QList<ServerPtr>&);
+	void displaySelection(QList<ServerPtr> &);
 
 protected:
-	void resizeEvent(QResizeEvent *event);
+	void resizeEvent(QResizeEvent *event) override;
 
 private:
 	void clear();
 	void reorientContentsBasingOnDimensions();
-	ServerPtr selectServer(QList<ServerPtr>&);
+	ServerPtr selectServer(QList<ServerPtr> &);
 
 	DPtr<ServerDetailsDock> d;
 };

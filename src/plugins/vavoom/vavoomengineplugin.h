@@ -28,12 +28,12 @@
 class VavoomEnginePlugin : public EnginePlugin
 {
 	DECLARE_PLUGIN(VavoomEnginePlugin)
-	public:
-		VavoomEnginePlugin();
+public:
+	VavoomEnginePlugin();
 
-		QList<GameMode> gameModes() const;
+	QList<GameMode> gameModes() const;
 
-		ServerPtr mkServer(const QHostAddress &address, unsigned short port) const;
+	ServerPtr mkServer(const QHostAddress &address, unsigned short port) const;
 };
 
 #endif

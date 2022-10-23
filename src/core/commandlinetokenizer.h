@@ -38,11 +38,11 @@
  */
 class CommandLineTokenizer
 {
-	public:
-		QStringList tokenize(const QString &cmdLine);
+public:
+	QStringList tokenize(const QString &cmdLine);
 
-	private:
-		class PrivData;
+private:
+	class PrivData;
 };
 
 #endif

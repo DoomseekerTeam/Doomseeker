@@ -23,28 +23,32 @@
 #ifndef __CHOCOLATE_DOOM_GAME_RUNNER_H_
 #define __CHOCOLATE_DOOM_GAME_RUNNER_H_
 
-#include "serverapi/gameclientrunner.h"
 #include "chocolatedoomengineplugin.h"
+#include "serverapi/gameclientrunner.h"
 
 class ChocolateDoomServer;
 
 class ChocolateDoomGameClientRunner : public GameClientRunner
 {
-	public:
-		ChocolateDoomGameClientRunner(QSharedPointer<ChocolateDoomServer> server);
+	Q_OBJECT
+public:
+	ChocolateDoomGameClientRunner(QSharedPointer<ChocolateDoomServer> server);
 
-		const EnginePlugin* plugin() const { return ChocolateDoomEnginePlugin::staticInstance(); }
+	const EnginePlugin *plugin() const
+	{
+		return ChocolateDoomEnginePlugin::staticInstance();
+	}
 
-	private:
-		QSharedPointer<ChocolateDoomServer> server;
-		QString overwriteExecutable;
+private:
+	QSharedPointer<ChocolateDoomServer> server;
+	QString overwriteExecutable;
 
-		void addGamePaths();
-		void createCommandLineArguments();
-		void configureEmptyServer();
-		QStringList executables() const;
-		void joinPopulatedServer();
-		void pickExecutableBasingOnIwad();
+	void addGamePaths();
+	void createCommandLineArguments();
+	void configureEmptyServer();
+	QStringList executables() const;
+	void joinPopulatedServer();
+	void pickExecutableBasingOnIwad();
 };
 
 #endif

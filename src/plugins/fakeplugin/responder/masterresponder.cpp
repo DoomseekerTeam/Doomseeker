@@ -31,14 +31,14 @@
 
 class MasterResponder::PrivData
 {
-	public:
-		QList<AwaitingClient> awaitingClients;
-		QList<ServerResponder*> serverResponders;
-		QUdpSocket* socket;
+public:
+	QList<AwaitingClient> awaitingClients;
+	QList<ServerResponder *> serverResponders;
+	QUdpSocket *socket;
 };
 ///////////////////////////////////////////////////////////////////////////////
-MasterResponder::MasterResponder(QObject* parent)
-: QObject(parent)
+MasterResponder::MasterResponder(QObject *parent)
+	: QObject(parent)
 {
 	d = new PrivData();
 	d->socket = new QUdpSocket();
@@ -64,17 +64,15 @@ bool MasterResponder::bind(unsigned short port)
 	if (!result)
 	{
 		gLog << QString("FakePlugin, failed to bind master server on port %1."
-			" Plugin will not be functional.").arg(port);
+				" Plugin will not be functional.").arg(port);
 	}
 	return result;
 }
 
-void MasterResponder::bindServer(ServerResponder* server, unsigned short port)
+void MasterResponder::bindServer(ServerResponder *server, unsigned short port)
 {
 	if (server->bind(port))
-	{
 		d->serverResponders.append(server);
-	}
 	else
 	{
 		gLog << QString("FakePlugin, failed to bind server on port: %1").arg(port);
@@ -88,12 +86,10 @@ QList<QByteArray> MasterResponder::buildResponsePackets()
 		ResponderCfg::maxPacketSize());
 	QList<QByteArray> portsLists;
 	QString packet = "";
-	foreach (const ServerResponder* server, d->serverResponders)
+	for (const ServerResponder *server : d->serverResponders)
 	{
 		if (server->port() == 0)
-		{
 			continue;
-		}
 		QString currentPort = QString::number(server->port());
 		QString tmp = packet + ";" + currentPort;
 		if (tmp.toUtf8().length() > maxPortsListsLength)
@@ -102,15 +98,13 @@ QList<QByteArray> MasterResponder::buildResponsePackets()
 			packet = currentPort;
 		}
 		else
-		{
 			packet = tmp;
-		}
 	}
 	portsLists.append(packet.toUtf8());
 	// Now that we have the number of packets, we can prepend
 	// that number to each packet.
 	QList<QByteArray> result;
-	foreach (const QByteArray& portsList, portsLists)
+	for (const QByteArray &portsList : portsLists)
 	{
 		QString number = QString::number(portsLists.size()) + ";";
 		result.append(number.toUtf8() + portsList);
@@ -134,13 +128,13 @@ void MasterResponder::readPendingDatagram()
 	QHostAddress address;
 	quint16 port = 0;
 	const int MAGIC_SIZE = 4;
-	char* buffer = new char[MAGIC_SIZE];
+	char *buffer = new char[MAGIC_SIZE];
 	d->socket->readDatagram(buffer, MAGIC_SIZE, &address, &port);
 	QByteArray packet = QByteArray(buffer, MAGIC_SIZE);
-	delete buffer;
+	delete[] buffer;
 
 	gLog << QString("FakePlugin, received master datagram. Magic = %1"
-		", Client: '%2:%3'").arg(QString(packet))
+			", Client: '%2:%3'").arg(QString(packet))
 		.arg(address.toString()).arg(port);
 	if (packet == "FAKE")
 	{
@@ -154,16 +148,14 @@ void MasterResponder::readPendingDatagram()
 void MasterResponder::respond()
 {
 	if (!areServerRespondersRunning())
-	{
 		startServerResponders();
-	}
 
 	AwaitingClient client = d->awaitingClients.takeFirst();
 	QList<QByteArray> packets = buildResponsePackets();
 	gLog << QString("FakePlugin, sending master response now. "
-		"Packets count = %1, Target client: '%2:%3'").arg(packets.size())
+			"Packets count = %1, Target client: '%2:%3'").arg(packets.size())
 		.arg(client.address.toString()).arg(client.port);
-	foreach (const QByteArray& packet, packets)
+	for (const QByteArray &packet : packets)
 	{
 		gLog << QString("FakePlugin, Sending master packet, size: %1").arg(packet.size());
 		d->socket->writeDatagram(packet, client.address, client.port);
@@ -176,13 +168,13 @@ void MasterResponder::startServerResponders()
 	unsigned short port = ResponderCfg::serverPortBase();
 	for (int i = 0; i < ResponderCfg::numValidServers(); ++i)
 	{
-		ServerResponder* server = new ServerResponder();
+		ServerResponder *server = new ServerResponder();
 		bindServer(server, port);
 		++port;
 	}
 	for (int i = 0; i < ResponderCfg::numNotRespondingServers(); ++i)
 	{
-		ServerResponder* server = new ServerResponder();
+		ServerResponder *server = new ServerResponder();
 		server->setResponseFailChance(ServerResponder::MAX_CHANCE);
 		bindServer(server, port);
 		++port;

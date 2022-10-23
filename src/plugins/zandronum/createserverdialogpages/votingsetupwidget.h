@@ -31,14 +31,14 @@ class Ini;
 
 class VotingSetupWidget : public QWidget, private Ui::VotingSetupWidget
 {
-Q_OBJECT
+	Q_OBJECT
 
 public:
 	VotingSetupWidget(QWidget *parent);
 
 	QStringList generateGameRunParameters();
-	bool loadConfig(Ini& ini);
-	bool saveConfig(Ini& ini);
+	bool loadConfig(Ini &ini);
+	bool saveConfig(Ini &ini);
 
 private:
 	/**

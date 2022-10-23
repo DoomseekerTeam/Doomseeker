@@ -31,29 +31,29 @@
  */
 class ComboBoxEx
 {
-	public:
-		ComboBoxEx(QComboBox &comboBox);
+public:
+	ComboBoxEx(QComboBox &comboBox);
 
-		QStringList allItems() const;
-		/**
-		 * @brief Removes currently selected item.
-		 *
-		 * @return true if item was in combobox data source.
-		 */
-		bool removeCurrentItem();
-		/**
-		 * @brief Removes item that matches specified one.
-		 *
-		 * @return true if item was in combobox data source.
-		 */
-		bool removeItem(const QString &item);
-		void setCurrentOrAddNewAndSelect(const QString &item);
-		void setItemsSorted(QStringList items);
+	QStringList allItems() const;
+	/**
+	 * @brief Removes currently selected item.
+	 *
+	 * @return true if item was in combobox data source.
+	 */
+	bool removeCurrentItem();
+	/**
+	 * @brief Removes item that matches specified one.
+	 *
+	 * @return true if item was in combobox data source.
+	 */
+	bool removeItem(const QString &item);
+	void setCurrentOrAddNewAndSelect(const QString &item);
+	void setItemsSorted(QStringList items);
 
-	private:
-		QComboBox &box;
+private:
+	QComboBox &box;
 
-		static bool caseInsensitiveLessThan(const QString &s1, const QString &s2);
+	static bool caseInsensitiveLessThan(const QString &s1, const QString &s2);
 };
 
 #endif

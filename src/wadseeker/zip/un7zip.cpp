@@ -24,8 +24,8 @@
 #include <QFile>
 
 #include "un7zip.h"
-#include <cstdlib>
 #include <cstdio>
+#include <cstdlib>
 
 #include <QBuffer>
 #include <QFile>
@@ -35,8 +35,8 @@ SZByteStream::SZByteStream(QIODevice *buffer) : buffer(buffer)
 {
 	buffer->open(QIODevice::ReadOnly);
 
-	stream.Read = Read;
-	stream.Seek = Seek;
+	stream.Read = &Read;
+	stream.Seek = &Seek;
 }
 
 SZByteStream::~SZByteStream()
@@ -44,11 +44,11 @@ SZByteStream::~SZByteStream()
 	buffer->close();
 }
 
-SRes SZByteStream::Read(void *p, void *buf, size_t *size)
+SRes SZByteStream::Read(const ISeekInStream *p, void *buf, size_t *size)
 {
-	SZByteStream *s = reinterpret_cast<SZByteStream *> (p);
-	qint64 numRead = s->buffer->read(reinterpret_cast<char *> (buf), *size);
-	if(numRead < 0)
+	auto s = reinterpret_cast<SZByteStream *>(const_cast<ISeekInStream *>(p));
+	qint64 numRead = s->buffer->read(reinterpret_cast<char *>(buf), *size);
+	if (numRead < 0)
 	{
 		*size = 0;
 		return SZ_ERROR_READ;
@@ -57,21 +57,21 @@ SRes SZByteStream::Read(void *p, void *buf, size_t *size)
 	return SZ_OK;
 }
 
-SRes SZByteStream::Seek(void *p, Int64 *pos, ESzSeek origin)
+SRes SZByteStream::Seek(const ISeekInStream *p, Int64 *pos, ESzSeek origin)
 {
-	SZByteStream *s = reinterpret_cast<SZByteStream *> (p);
+	auto s = reinterpret_cast<SZByteStream *>(const_cast<ISeekInStream *>(p));
 	bool ret = false;
-	switch(origin)
+	switch (origin)
 	{
-		default:
-			ret = s->buffer->seek(*pos);
-			break;
-		case SZ_SEEK_CUR:
-			ret = s->buffer->seek(s->buffer->pos() + *pos);
-			break;
-		case SZ_SEEK_END:
-			ret = s->buffer->seek(s->buffer->size() + *pos);
-			break;
+	default:
+		ret = s->buffer->seek(*pos);
+		break;
+	case SZ_SEEK_CUR:
+		ret = s->buffer->seek(s->buffer->pos() + *pos);
+		break;
+	case SZ_SEEK_END:
+		ret = s->buffer->seek(s->buffer->size() + *pos);
+		break;
 	}
 	*pos = s->buffer->pos();
 	return ret ? SZ_OK : SZ_ERROR_DATA;
@@ -79,19 +79,29 @@ SRes SZByteStream::Seek(void *p, Int64 *pos, ESzSeek origin)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-void *Un7Zip::SzAlloc(void *p, size_t size) { return malloc(size); }
-void Un7Zip::SzFree(void *p, void *address) { free(address); }
+void *Un7Zip::SzAlloc(ISzAllocPtr p, size_t size)
+{
+	Q_UNUSED(p);
+	return malloc(size);
+}
+void Un7Zip::SzFree(ISzAllocPtr p, void *address)
+{
+	Q_UNUSED(p);
+	free(address);
+}
 ISzAlloc Un7Zip::alloc = { SzAlloc, SzFree };
 
 Un7Zip::Un7Zip(QIODevice *device)
-: UnArchive(device), out(NULL), outSize(0), valid(true)
+	: UnArchive(device), out(nullptr), outSize(0), valid(true)
 {
 	Init();
 }
 
 Un7Zip::~Un7Zip()
 {
-	if(out != NULL)
+	if (lookStream.buf != nullptr)
+		delete lookStream.buf;
+	if (out != nullptr)
 		IAlloc_Free(&alloc, out);
 	SzArEx_Free(&db, &alloc);
 
@@ -103,12 +113,12 @@ bool Un7Zip::extract(int file, const QString &where)
 	UInt32 blockIndex = 0xFFFFFFFF; // Not sure what this is, but this is what ZDoom uses.
 	size_t offset, outSizeProcessed;
 
-	SRes res = SzArEx_Extract(&db, &lookStream.s, file, &blockIndex, &out, &outSize, &offset, &outSizeProcessed, &alloc, &alloc);
-	if(res == SZ_OK)
+	SRes res = SzArEx_Extract(&db, &lookStream.vt, file, &blockIndex, &out, &outSize, &offset, &outSizeProcessed, &alloc, &alloc);
+	if (res == SZ_OK)
 	{
 		QFile outputFile(where);
 		outputFile.open(QFile::WriteOnly);
-		outputFile.write(reinterpret_cast<char*> (out + offset), outSizeProcessed);
+		outputFile.write(reinterpret_cast<char *>(out + offset), outSizeProcessed);
 		outputFile.close();
 		return true;
 	}
@@ -117,23 +127,23 @@ bool Un7Zip::extract(int file, const QString &where)
 
 QString Un7Zip::fileNameFromIndex(int file)
 {
-	if(file < 0 || file >= static_cast<int> (db.NumFiles))
+	if (file < 0 || file >= static_cast<int>(db.NumFiles))
 		return QString();
-	size_t nameLen = SzArEx_GetFileNameUtf16(&db, file, NULL);
-	UInt16 *name = NULL;
-	name = (UInt16 *)SzAlloc(NULL, nameLen * sizeof(name[0]));
+	size_t nameLen = SzArEx_GetFileNameUtf16(&db, file, nullptr);
+	UInt16 *name = nullptr;
+	name = (UInt16 *)SzAlloc(nullptr, nameLen * sizeof(name[0]));
 	SzArEx_GetFileNameUtf16(&db, file, name);
 	QString qname = QString::fromUtf16(name);
-	SzFree(NULL, name);
+	SzFree(nullptr, name);
 	return qname;
 }
 
 int Un7Zip::findFileEntry(const QString &entryName)
 {
-	for(unsigned int i = 0;i < db.NumFiles;i++)
+	for (unsigned int i = 0; i < db.NumFiles; i++)
 	{
 		QString archiveFileName = fileNameFromIndex(i);
-		if(entryName.compare(archiveFileName, Qt::CaseInsensitive) == 0)
+		if (entryName.compare(archiveFileName, Qt::CaseInsensitive) == 0)
 			return i;
 	}
 	return -1;
@@ -153,12 +163,14 @@ void Un7Zip::Init()
 		CrcGenerateTable();
 
 	byteStream = new SZByteStream(stream);
-	LookToRead_CreateVTable(&lookStream, false);
+	LookToRead2_CreateVTable(&lookStream, false);
 	lookStream.realStream = &byteStream->stream;
-	LookToRead_Init(&lookStream);
+	lookStream.bufSize = 1 * 1024 * 1024;
+	lookStream.buf = new Byte[lookStream.bufSize];
+	LookToRead2_Init(&lookStream);
 
 	SzArEx_Init(&db);
 	SRes tmp;
-	if((tmp = SzArEx_Open(&db, &lookStream.s, &alloc, &alloc)) != SZ_OK)
+	if ((tmp = SzArEx_Open(&db, &lookStream.vt, &alloc, &alloc)) != SZ_OK)
 		valid = false;
 }

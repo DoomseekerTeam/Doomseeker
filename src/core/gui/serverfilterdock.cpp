@@ -25,6 +25,7 @@
 
 #include "configuration/doomseekerconfig.h"
 #include "gui/entity/serverlistfilterinfo.h"
+#include "strings.hpp"
 
 #include <QAction>
 
@@ -32,47 +33,47 @@ DClass<ServerFilterDock> : public Ui::ServerFilterDock
 {
 public:
 	/**
-	* @brief Quick Search widget that is actually located outside the
-	* ServerFilterDock.
-	*
-	* ServerFilterDock needs to keep track of this widget in order to
-	* update the changing value appropriately.
-	*/
-	QLineEdit* leQuickSearch;
+	 * @brief Quick Search widget that is actually located outside the
+	 * ServerFilterDock.
+	 *
+	 * ServerFilterDock needs to keep track of this widget in order to
+	 * update the changing value appropriately.
+	 */
+	QLineEdit *leQuickSearch;
 	/**
-	* Guard used to prevent multiple signals being generated while loading
-	* a filter with setFilterInfo.
-	*/
+	 * Guard used to prevent multiple signals being generated while loading
+	 * a filter with setFilterInfo.
+	 */
 	bool bDisableUpdate;
 };
 
 DPointered(ServerFilterDock)
 
-ServerFilterDock::ServerFilterDock(QWidget* pParent)
-: QDockWidget(pParent)
+ServerFilterDock::ServerFilterDock(QWidget *pParent)
+	: QDockWidget(pParent)
 {
 	d->setupUi(this);
-	d->leQuickSearch = NULL;
+	d->leQuickSearch = nullptr;
 	d->bDisableUpdate = false;
 	d->cbGroupServersWithPlayersAtTop->setChecked(gConfig.doomseeker.bGroupServersWithPlayersAtTheTopOfTheList);
 
 	toggleViewAction()->setIcon(QIcon(":/icons/filter.png"));
 
-	toggleViewAction()->setText(tr("Server &Filter"));
-	toggleViewAction()->setShortcut(tr("CTRL+F"));
+	toggleViewAction()->setText(ServerFilterDock::tr("Server &filter"));
+	toggleViewAction()->setShortcut(ServerFilterDock::tr("CTRL+F"));
 }
 
 ServerFilterDock::~ServerFilterDock()
 {
 }
 
-void ServerFilterDock::addGameModeToComboBox(const QString& gameMode)
+void ServerFilterDock::addGameModeToComboBox(const QString &gameMode)
 {
 	addSortedNonDuplicate(d->cboGameMode, gameMode.trimmed());
 	addSortedNonDuplicate(d->cboExcludeGameMode, gameMode.trimmed());
 }
 
-void ServerFilterDock::addSortedNonDuplicate(QComboBox* comboBox, const QString& text)
+void ServerFilterDock::addSortedNonDuplicate(QComboBox *comboBox, const QString &text)
 {
 	if (comboBox->findText(text, Qt::MatchFixedString) < 0)
 	{
@@ -99,13 +100,13 @@ void ServerFilterDock::clear()
 
 QLineEdit *ServerFilterDock::createQuickSearch()
 {
-	if (d->leQuickSearch == NULL)
+	if (d->leQuickSearch == nullptr)
 	{
-		QLineEdit *qs = new QLineEdit();
+		auto qs = new QLineEdit();
 		qs->setText(d->leServerName->text());
 
-		connect(d->leServerName, SIGNAL( textEdited(const QString &) ), qs, SLOT( setText(const QString &) ));
-		connect(qs, SIGNAL( textEdited(const QString &) ), d->leServerName, SLOT( setText(const QString &) ));
+		connect(d->leServerName, SIGNAL(textEdited(const QString&)), qs, SLOT(setText(const QString&)));
+		connect(qs, SIGNAL(textEdited(const QString&)), d->leServerName, SLOT(setText(const QString&)));
 
 		d->leQuickSearch = qs;
 	}
@@ -115,7 +116,7 @@ QLineEdit *ServerFilterDock::createQuickSearch()
 
 void ServerFilterDock::emitUpdated()
 {
-	if(d->bDisableUpdate)
+	if (d->bDisableUpdate)
 		return;
 
 	emit filterUpdated(filterInfo());
@@ -137,11 +138,12 @@ ServerListFilterInfo ServerFilterDock::filterInfo() const
 	filterInfo.bShowOnlyValid = d->cbShowOnlyValid->isChecked();
 	filterInfo.gameModes = d->cboGameMode->selectedItemTexts();
 	filterInfo.gameModesExcluded = d->cboExcludeGameMode->selectedItemTexts();
+	filterInfo.lockedServers = Doomseeker::checkboxTristateToShowMode(d->cbShowLockedServers->checkState());
 	filterInfo.maxPing = d->spinMaxPing->value();
 	filterInfo.testingServers = Doomseeker::checkboxTristateToShowMode(d->cbShowTestingServers->checkState());
 	filterInfo.serverName = d->leServerName->text();
-	filterInfo.wads = d->leWads->text().trimmed().split(",", QString::SkipEmptyParts);
-	filterInfo.wadsExcluded = d->leExcludeWads->text().trimmed().split(",", QString::SkipEmptyParts);
+	filterInfo.wads = d->leWads->text().trimmed().split(",", Qt::SkipEmptyParts);
+	filterInfo.wadsExcluded = d->leExcludeWads->text().trimmed().split(",", Qt::SkipEmptyParts);
 
 	return filterInfo;
 }
@@ -152,7 +154,7 @@ void ServerFilterDock::onServerGroupingChange()
 	emit nonEmptyServerGroupingAtTopToggled(d->cbGroupServersWithPlayersAtTop->isChecked());
 }
 
-void ServerFilterDock::setFilterInfo(const ServerListFilterInfo& filterInfo)
+void ServerFilterDock::setFilterInfo(const ServerListFilterInfo &filterInfo)
 {
 	d->bDisableUpdate = true;
 
@@ -161,30 +163,30 @@ void ServerFilterDock::setFilterInfo(const ServerListFilterInfo& filterInfo)
 	d->cbShowFull->setChecked(filterInfo.bShowFull);
 	d->cbShowOnlyValid->setChecked(filterInfo.bShowOnlyValid);
 
-	foreach (const QString& gameMode, filterInfo.gameModes)
+	for (const QString &gameMode : filterInfo.gameModes)
 	{
 		addGameModeToComboBox(gameMode);
 	}
 	d->cboGameMode->setSelectedTexts(filterInfo.gameModes);
 
-	foreach (const QString& gameMode, filterInfo.gameModesExcluded)
+	for (const QString &gameMode : filterInfo.gameModesExcluded)
 	{
 		addGameModeToComboBox(gameMode);
 	}
 	d->cboExcludeGameMode->setSelectedTexts(filterInfo.gameModesExcluded);
 
 	d->spinMaxPing->setValue(filterInfo.maxPing);
-	if (d->leQuickSearch != NULL)
-	{
+	if (d->leQuickSearch != nullptr)
 		d->leQuickSearch->setText(filterInfo.serverName.trimmed());
-	}
 
 	d->leServerName->setText(filterInfo.serverName.trimmed());
 	d->leWads->setText(filterInfo.wads.join(",").trimmed());
 	d->leExcludeWads->setText(filterInfo.wadsExcluded.join(",").trimmed());
 
+	d->cbShowLockedServers->setCheckState(Doomseeker::showModeToCheckboxState(
+		filterInfo.lockedServers));
 	d->cbShowTestingServers->setCheckState(Doomseeker::showModeToCheckboxState(
-			filterInfo.testingServers));
+		filterInfo.testingServers));
 
 	d->bDisableUpdate = false;
 	emitUpdated();

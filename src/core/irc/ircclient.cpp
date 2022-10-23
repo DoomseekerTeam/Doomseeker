@@ -37,7 +37,7 @@ IRCClient::~IRCClient()
 	disconnect();
 }
 
-void IRCClient::connect(const QString& address, unsigned short port)
+void IRCClient::connect(const QString &address, unsigned short port)
 {
 	this->port = port;
 	this->hostName = address;
@@ -46,21 +46,19 @@ void IRCClient::connect(const QString& address, unsigned short port)
 	socket.connectToHost(address, port);
 }
 
-void IRCClient::connectSocketSignals(SocketSignalsAdapter* pAdapter)
+void IRCClient::connectSocketSignals(SocketSignalsAdapter *pAdapter)
 {
 	pAdapter->pSocket = &socket;
-	pAdapter->connect(&socket, SIGNAL( connected() ), SLOT( connected() ));
-	pAdapter->connect(&socket, SIGNAL( disconnected() ), SLOT( disconnected() ));
-	pAdapter->connect(&socket, SIGNAL( error(QAbstractSocket::SocketError) ), SLOT( errorReceived(QAbstractSocket::SocketError) ));
-	pAdapter->connect(this, SIGNAL( infoMessage(const QString&) ), SLOT( infoMessage(const QString&) ));
+	pAdapter->connect(&socket, SIGNAL(connected()), SLOT(connected()));
+	pAdapter->connect(&socket, SIGNAL(disconnected()), SLOT(disconnected()));
+	pAdapter->connect(&socket, SIGNAL(error(QAbstractSocket::SocketError)), SLOT(errorReceived(QAbstractSocket::SocketError)));
+	pAdapter->connect(this, SIGNAL(infoMessage(const QString&)), SLOT(infoMessage(const QString&)));
 }
 
 void IRCClient::disconnect()
 {
 	if (isConnected())
-	{
 		socket.close();
-	}
 }
 
 bool IRCClient::isConnected() const
@@ -81,17 +79,13 @@ void IRCClient::receiveSocketData()
 void IRCClient::receiveSocketDataDelayed()
 {
 	if (!recvTimer.isActive())
-	{
 		recvTimer.start();
-	}
 }
 
-bool IRCClient::sendMessage(const QString& message)
+bool IRCClient::sendMessage(const QString &message)
 {
 	if (!isConnected())
-	{
 		return false;
-	}
 
 	QByteArray messageContent = message.toUtf8();
 	messageContent.append("\r\n");

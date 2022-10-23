@@ -32,42 +32,41 @@ class IRCClient : public QObject
 {
 	Q_OBJECT
 
-	public:
-		static const int MAX_MESSAGE_LENGTH = 510;
-		static const int SAFE_MESSAGE_LENGTH = 400;
+public:
+	static const int MAX_MESSAGE_LENGTH = 510;
+	static const int SAFE_MESSAGE_LENGTH = 400;
 
-		IRCClient();
-		~IRCClient();
+	IRCClient();
+	~IRCClient() override;
 
-		void connect(const QString& address, unsigned short port);
-		void connectSocketSignals(SocketSignalsAdapter* pAdapter);
-		void disconnect();
+	void connect(const QString &address, unsigned short port);
+	void connectSocketSignals(SocketSignalsAdapter *pAdapter);
+	void disconnect();
 
-		bool isConnected() const;
+	bool isConnected() const;
 
-		bool sendMessage(const QString& message);
-		void setFakeRecvLag(int lagMs);
+	bool sendMessage(const QString &message);
+	void setFakeRecvLag(int lagMs);
 
-	signals:
-		/**
-		 *	@brief These are the messages that IRCClient class sends to
-		 *	inform the upper layers of progress.
-		 *
-		 *	These messages should be used for informational purposes only.
-		 */
-		void infoMessage(const QString& message);
-		void ircServerResponse(const QString& message);
+signals:
+	/**
+	 * @brief These are the messages that IRCClient class sends to
+	 * inform the upper layers of progress.
+	 *
+	 * These messages should be used for informational purposes only.
+	 */
+	void infoMessage(const QString &message);
+	void ircServerResponse(const QString &message);
 
-	private:
-		QString hostName;
-		unsigned short port;
-		QTimer recvTimer;
-		QTcpSocket socket;
+private:
+	QString hostName;
+	unsigned short port;
+	QTimer recvTimer;
+	QTcpSocket socket;
 
-	private slots:
-		void receiveSocketData();
-		void receiveSocketDataDelayed();
-
+private slots:
+	void receiveSocketData();
+	void receiveSocketDataDelayed();
 };
 
 #endif

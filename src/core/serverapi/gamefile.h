@@ -86,7 +86,9 @@ public:
 	};
 
 	GameFile();
+	GameFile(const GameFile &other);
 	virtual ~GameFile();
+	GameFile &operator=(const GameFile &other);
 
 	/**
 	 * @brief Guesses by file name if this is the same file.
@@ -144,8 +146,8 @@ private:
  */
 class MAIN_EXPORT GameFileList
 {
-	friend MAIN_EXPORT GameFileList& operator<<(GameFileList &list, const GameFile &gameFile);
-	friend MAIN_EXPORT GameFileList& operator<<(GameFileList &list, const GameFileList &other);
+	friend MAIN_EXPORT GameFileList &operator<<(GameFileList &list, const GameFile &gameFile);
+	friend MAIN_EXPORT GameFileList &operator<<(GameFileList &list, const GameFileList &other);
 
 public:
 	GameFileList();
@@ -166,21 +168,21 @@ private:
 
 namespace GameFiles
 {
-	GameFileList allCreateGameExecutables(const GameFileList &list);
-	GameFileList allClientExecutables(const GameFileList &list);
-	GameFileList allServerExecutables(const GameFileList &list);
+GameFileList allCreateGameExecutables(const GameFileList &list);
+GameFileList allClientExecutables(const GameFileList &list);
+GameFileList allServerExecutables(const GameFileList &list);
 
-	/**
-	 * @param execs
-	 *     Binary OR of GameFile::ExecType.
-	 */
-	GameFileList allFlagMatchExecutables(const GameFileList &list, int execs);
+/**
+ * @param execs
+ *     Binary OR of GameFile::ExecType.
+ */
+GameFileList allFlagMatchExecutables(const GameFileList &list, int execs);
 
-	GameFile defaultClientExecutable(const GameFileList &list);
-	GameFile defaultOfflineExecutable(const GameFileList &list);
-	GameFile defaultServerExecutable(const GameFileList &list);
+GameFile defaultClientExecutable(const GameFileList &list);
+GameFile defaultOfflineExecutable(const GameFileList &list);
+GameFile defaultServerExecutable(const GameFileList &list);
 
-	GameFile preferredOfflineExecutable(const GameFileList &list);
+GameFile preferredOfflineExecutable(const GameFileList &list);
 }
 
 #endif

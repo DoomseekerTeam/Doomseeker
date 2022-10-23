@@ -22,15 +22,15 @@
 //------------------------------------------------------------------------------
 #include "gameexecutablepicker.h"
 
-#include "ui_gameexecutablepicker.h"
 #include "configuration/doomseekerconfig.h"
+#include "filefilter.h"
 #include "gui/commongui.h"
 #include "ini/ini.h"
 #include "plugins/engineplugin.h"
 #include "serverapi/exefile.h"
 #include "serverapi/gameexefactory.h"
 #include "serverapi/gamefile.h"
-#include "filefilter.h"
+#include "ui_gameexecutablepicker.h"
 #include <QFileDialog>
 
 DClass<GameExecutablePicker> : public Ui::GameExecutablePicker
@@ -42,11 +42,11 @@ public:
 DPointered(GameExecutablePicker)
 
 GameExecutablePicker::GameExecutablePicker(QWidget *parent)
-: QWidget(parent)
+	: QWidget(parent)
 {
 	d->setupUi(this);
 	d->allowedExecs = 0;
-	d->plugin = NULL;
+	d->plugin = nullptr;
 
 	showWarning("");
 }
@@ -58,9 +58,7 @@ GameExecutablePicker::~GameExecutablePicker()
 void GameExecutablePicker::add(const QString &path)
 {
 	if (!path.trimmed().isEmpty() && d->executableInput->findText(path) < 0)
-	{
 		d->executableInput->addItem(path);
-	}
 }
 
 void GameExecutablePicker::browse()
@@ -75,7 +73,7 @@ void GameExecutablePicker::browse()
 		QFileInfo fi(path);
 		gConfig.doomseeker.previousCreateServerExecDir = fi.absolutePath();
 
-		CommonGUI::setCurrentText(d->executableInput, fi.absoluteFilePath());
+		d->executableInput->setCurrentText(fi.absoluteFilePath());
 		add(path);
 	}
 }
@@ -86,17 +84,11 @@ GameFileList GameExecutablePicker::gameExecutables() const
 	GameFileList files = d->plugin->gameExe()->gameFiles();
 	GameFileList candidates = GameFiles::allFlagMatchExecutables(files, d->allowedExecs);
 	if (d->allowedExecs & GameFile::Client)
-	{
 		candidates.prepend(GameFiles::defaultClientExecutable(files));
-	}
 	else if (d->allowedExecs & GameFile::Server)
-	{
 		candidates.prepend(GameFiles::defaultServerExecutable(files));
-	}
 	else if (d->allowedExecs & GameFile::Offline)
-	{
 		candidates.prepend(GameFiles::defaultOfflineExecutable(files));
-	}
 	return candidates;
 }
 
@@ -107,14 +99,14 @@ QString GameExecutablePicker::path() const
 
 void GameExecutablePicker::setPath(const QString &path)
 {
-	CommonGUI::setCurrentText(d->executableInput, path);
+	d->executableInput->setCurrentText(path);
 }
 
 void GameExecutablePicker::setExecutableToDefault()
 {
 	showWarning("");
 	IniSection *cfg = d->plugin->data()->pConfig;
-	if (cfg == NULL)
+	if (cfg == nullptr)
 	{
 		showWarning(tr("Plugin doesn't support configuration."));
 		return;
@@ -127,12 +119,12 @@ void GameExecutablePicker::setExecutableToDefault()
 		return;
 	}
 
-	foreach (const GameFile &candidate, execs.asQList())
+	for (const GameFile &candidate : execs.asQList())
 	{
 		QString path = cfg->value(candidate.configName()).toString();
 		if (!path.isEmpty())
 		{
-			CommonGUI::setCurrentText(d->executableInput, path);
+			d->executableInput->setCurrentText(path);
 			return;
 		}
 	}
@@ -160,7 +152,7 @@ void GameExecutablePicker::showWarning(const QString &msg)
 void GameExecutablePicker::reloadExecutables()
 {
 	showWarning("");
-	if (d->plugin == NULL)
+	if (d->plugin == nullptr)
 	{
 		showWarning(tr("Game plugin not set."));
 		return;
@@ -168,32 +160,26 @@ void GameExecutablePicker::reloadExecutables()
 	QString currentExec = d->executableInput->currentText();
 	d->executableInput->clear();
 	IniSection *cfg = d->plugin->data()->pConfig;
-	if (cfg == NULL)
+	if (cfg == nullptr)
 	{
-		CommonGUI::setCurrentText(d->executableInput, currentExec);
+		d->executableInput->setCurrentText(currentExec);
 		return;
 	}
 
 	GameFileList files = gameExecutables();
-	foreach (const GameFile &file, files.asQList())
+	for (const GameFile &file : files.asQList())
 	{
 		add(cfg->value(file.configName()).toString());
 	}
-	foreach (const ExeFilePath &exe, d->plugin->gameExe()->additionalExecutables(d->allowedExecs))
+	for (const ExeFilePath &exe : d->plugin->gameExe()->additionalExecutables(d->allowedExecs))
 	{
 		QFileInfo fileInfo(exe.path());
 		if (fileInfo.isFile())
-		{
 			add(exe.path());
-		}
 	}
 
 	if (d->executableInput->findText(currentExec) >= 0)
-	{
-		CommonGUI::setCurrentText(d->executableInput, currentExec);
-	}
+		d->executableInput->setCurrentText(currentExec);
 	else
-	{
 		setExecutableToDefault();
-	}
 }

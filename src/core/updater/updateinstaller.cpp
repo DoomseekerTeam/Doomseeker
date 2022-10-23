@@ -23,11 +23,11 @@
 #include "updateinstaller.h"
 
 #include "configuration/doomseekerconfig.h"
-#include "updater/autoupdater.h"
 #include "datapaths.h"
 #include "log.h"
 #include "main.h"
 #include "strings.hpp"
+#include "updater/autoupdater.h"
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
@@ -40,8 +40,8 @@ const QString UPDATER_EXECUTABLE_FILENAME = "updater.exe";
 const QString UPDATER_EXECUTABLE_FILENAME = "updater";
 #endif
 
-UpdateInstaller::UpdateInstaller(QObject* pParent)
-: QObject(pParent)
+UpdateInstaller::UpdateInstaller(QObject *pParent)
+	: QObject(pParent)
 {
 }
 
@@ -72,14 +72,14 @@ QString UpdateInstaller::copyUpdaterExecutableToTemporarySpace()
 	{
 		bool bPermissionsSet = QFile::setPermissions(clonePath,
 			QFile::ReadOwner | QFile::WriteOwner | QFile::ExeOwner
-				| QFile::ExeGroup | QFile::ReadGroup | QFile::ReadOther);
+			| QFile::ExeGroup | QFile::ReadGroup | QFile::ReadOther);
 		if (bPermissionsSet)
 		{
 			return clonePath;
 		}
 	}
 	gLog << tr("Failed to copy the updater executable to a temporary"
-		" space: \"%1\" -> \"%2\".").arg(updaterProgramPath, clonePath);
+			" space: \"%1\" -> \"%2\".").arg(updaterProgramPath, clonePath);
 	return QString();
 }
 
@@ -87,16 +87,16 @@ QString UpdateInstaller::errorCodeToStr(ErrorCode code)
 {
 	switch (code)
 	{
-		case EC_Ok:
-			return tr("Ok");
-		case EC_NothingToUpdate:
-			return tr("Nothing to update.");
-		case EC_UpdatePackageMissing:
-			return tr("Update package or script are not found. Check log for details.");
-		case EC_ProcessStartFailure:
-			return tr("Failed to start updater process.");
-		default:
-			return tr("Unknown error: %1.").arg(code);
+	case EC_Ok:
+		return tr("Ok");
+	case EC_NothingToUpdate:
+		return tr("Nothing to update.");
+	case EC_UpdatePackageMissing:
+		return tr("Update package or script are not found. Check log for details.");
+	case EC_ProcessStartFailure:
+		return tr("Failed to start updater process.");
+	default:
+		return tr("Unknown error: %1.").arg(code);
 	}
 }
 
@@ -119,18 +119,18 @@ QString UpdateInstaller::processErrorCodeToStr(ProcessErrorCode code)
 {
 	switch (code)
 	{
-		case PEC_Ok:
-			return tr("Ok");
-		case PEC_UnableToReadUpdateScript:
-			return tr("Unable to read update script.");
-		case PEC_NoInstallationDirectorySpecified:
-			return tr("No installation directory specified.");
-		case PEC_UnableToDeterminePathOfUpdater:
-			return tr("Unable to determine path of updater.");
-		case PEC_GeneralFailure:
-			return tr("General failure.");
-		default:
-			return tr("Unknown process error code: %1.").arg(code);
+	case PEC_Ok:
+		return tr("Ok");
+	case PEC_UnableToReadUpdateScript:
+		return tr("Unable to read update script.");
+	case PEC_NoInstallationDirectorySpecified:
+		return tr("No installation directory specified.");
+	case PEC_UnableToDeterminePathOfUpdater:
+		return tr("Unable to determine path of updater.");
+	case PEC_GeneralFailure:
+		return tr("General failure.");
+	default:
+		return tr("Unknown process error code: %1.").arg(code);
 	}
 }
 
@@ -162,14 +162,14 @@ UpdateInstaller::ErrorCode UpdateInstaller::startInstallation()
 	else
 	{
 		gLog << tr("Update was about to be installed but "
-			"update script \"%1\" is missing.").arg(scriptPath);
+				"update script \"%1\" is missing.").arg(scriptPath);
 		return EC_UpdatePackageMissing;
 	}
 	return EC_Ok;
 }
 
-bool UpdateInstaller::startUpdaterProcess(const QString& packagesDir,
-	const QString& scriptFilePath)
+bool UpdateInstaller::startUpdaterProcess(const QString &packagesDir,
+	const QString &scriptFilePath)
 {
 	QString updaterProgramPath = copyUpdaterExecutableToTemporarySpace();
 	if (updaterProgramPath.isEmpty())
@@ -180,12 +180,12 @@ bool UpdateInstaller::startUpdaterProcess(const QString& packagesDir,
 	QFile updaterProgramFile(updaterProgramPath);
 	QFileInfo programFileInfo(QCoreApplication::applicationFilePath());
 	QStringList args;
-#ifdef Q_OS_MAC
+	#ifdef Q_OS_DARWIN
 	// On Mac we're updating the bundle, but we get the location of the binary (<stuff>/Contents/MacOS/)
 	args << "--install-dir" << (QCoreApplication::applicationDirPath() + "/../..");
-#else
+	#else
 	args << "--install-dir" << QCoreApplication::applicationDirPath();
-#endif
+	#endif
 	args << "--package-dir" << packagesDir;
 	args << "--script" << scriptFilePath;
 	args << "--exec" << QDir::toNativeSeparators(programFileInfo.absoluteFilePath());
@@ -202,4 +202,3 @@ bool UpdateInstaller::startUpdaterProcess(const QString& packagesDir,
 	}
 	return bStarted;
 }
-

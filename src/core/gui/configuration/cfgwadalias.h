@@ -23,8 +23,8 @@
 #ifndef idBE57B8CD_234F_4EEE_AC1B1FAAFB11B1CD
 #define idBE57B8CD_234F_4EEE_AC1B1FAAFB11B1CD
 
-#include "gui/configuration/configpage.h"
 #include "dptr.h"
+#include "gui/configuration/configpage.h"
 #include <QComboBox>
 
 class FileAlias;
@@ -34,35 +34,39 @@ class CFGWadAlias : public ConfigPage
 {
 	Q_OBJECT
 
-	public:
-		CFGWadAlias(QWidget *parent=NULL);
-		~CFGWadAlias();
+public:
+	CFGWadAlias(QWidget *parent = nullptr);
+	~CFGWadAlias() override;
 
-		QIcon icon() const;
-		QString name() const { return tr("WAD Aliases"); }
+	QIcon icon() const override;
+	QString name() const override
+	{
+		return tr("WAD aliases");
+	}
 
-		void readSettings();
+	void readSettings() override;
 
-	protected:
-		void saveSettings();
-		void showEvent(QShowEvent *event);
+protected:
+	void saveSettings() override;
+	void showEvent(QShowEvent *event) override;
 
-	private:
-		DPtr<CFGWadAlias> d;
+private:
+	DPtr<CFGWadAlias> d;
 
-		void addAliasToTable(const FileAlias &alias);
-		FileAlias aliasFromRow(int row) const;
-		void applyAliasToRow(int row, const FileAlias &alias);
-		QList<FileAlias> aliases() const;
-		int findRowWithWad(const QString &wadName);
-		QComboBox *mkMatchTypeComboBox(int row);
-		void resizeRowsToContents();
-		QTableWidgetItem *toolTipItem(const QString &contents);
+	void addAliasToTable(const FileAlias &alias);
+	FileAlias aliasFromRow(int row) const;
+	void applyAliasToRow(int row, const FileAlias &alias);
+	QList<FileAlias> aliases() const;
+	int findRowWithWad(const QString &wadName);
+	QComboBox *mkMatchTypeComboBox(int row);
+	void resizeRowsToContents();
+	QTableWidgetItem *toolTipItem(const QString &contents);
 
-	private slots:
-		void addDefaults();
-		void addNewEntry();
-		void removeSelected();
+private slots:
+	void addDefaults();
+	void addNewEntry();
+	void removeSelected();
+	void resizeRowToContents(int row);
 };
 
 #endif

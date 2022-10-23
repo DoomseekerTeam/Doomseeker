@@ -23,54 +23,59 @@
 #ifndef __SERVER_LIST_COLUMN_H_
 #define __SERVER_LIST_COLUMN_H_
 
-#include <QtContainerFwd>
 #include <QObject>
+#include <QtContainerFwd>
 
 class QStandardItem;
 
 struct ServerListColumn
 {
-	int columnId;
-	int width;
-	bool bHidden;
-	bool bResizable;
-	Qt::SortOrder defaultSortOrder;
+	const int columnId;
+	const int width;
+	const bool bResizable;
+	const Qt::SortOrder defaultSortOrder;
 };
 
 namespace ServerListColumnId
 {
-	enum ColumnId
-	{
-		IDPort,
-		IDPlayers,
-		IDPing,
-		IDServerName,
-		IDAddress,
-		IDIwad,
-		IDMap,
-		IDWads,
-		IDGametype,
-		IDHiddenGroup,
-		IDHiddenServerPointer,
+enum ColumnId
+{
+	IDPort,
+	IDPlayers,
+	IDPing,
+	IDServerName,
+	IDAddress,
+	IDIwad,
+	IDMap,
+	IDWads,
+	IDGametype,
 
-		NUM_SERVERLIST_COLUMNS
-	};
+	NUM_SERVERLIST_COLUMNS
+};
+
+const ColumnId COL_META = IDPort;
 }
 
 class ServerListColumns : public QObject
 {
 	Q_OBJECT
 
-	public:
-		static ServerListColumn columns[];
+public:
+	static const ServerListColumn columns[];
 
-		static QString columnLabel(int columnId);
-		static QStringList generateColumnHeaderLabels();
-		static QList<QStandardItem*> generateListOfCells();
+	static QString columnLabel(int columnId);
+	static QStringList generateColumnHeaderLabels();
+	static QList<QStandardItem *> generateListOfCells();
 
-		static bool isColumnVital(int columnId);
+	static bool isColumnVital(int columnId);
 
-		ServerListColumns() {}
+	inline static bool isPictureColumn(int columnId)
+	{
+		return columnId == ServerListColumnId::IDPort ||
+			columnId == ServerListColumnId::IDPlayers;
+	}
+
+	ServerListColumns() {}
 };
 
 #endif

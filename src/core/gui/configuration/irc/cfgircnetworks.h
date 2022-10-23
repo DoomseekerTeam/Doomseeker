@@ -23,10 +23,10 @@
 #ifndef __CFGIRCNETWORKS_H__
 #define __CFGIRCNETWORKS_H__
 
-#include "gui/configuration/configpage.h"
 #include "dptr.h"
-#include <QtContainerFwd>
+#include "gui/configuration/configpage.h"
 #include <QIcon>
+#include <QtContainerFwd>
 
 class IRCNetworkEntity;
 class QModelIndex;
@@ -36,43 +36,52 @@ class CFGIRCNetworks : public ConfigPage
 {
 	Q_OBJECT
 
-	public:
-		CFGIRCNetworks(QWidget* parent = NULL);
-		~CFGIRCNetworks();
+public:
+	CFGIRCNetworks(QWidget *parent = nullptr);
+	~CFGIRCNetworks() override;
 
-		QIcon icon() const { return QIcon(":/flags/lan-small"); }
-		QString name() const { return tr("Networks"); }
-		QVector<IRCNetworkEntity*> networks();
-		void readSettings();
-		QString title() const { return tr("IRC - Networks"); }
+	QIcon icon() const override
+	{
+		return QIcon(":/flags/lan-small");
+	}
+	QString name() const override
+	{
+		return tr("Networks");
+	}
+	QVector<IRCNetworkEntity *> networks();
+	void readSettings() override;
+	QString title() const override
+	{
+		return tr("IRC - Networks");
+	}
 
-	protected:
-		void saveSettings();
+protected:
+	void saveSettings() override;
 
-	private:
-		void addRecord(IRCNetworkEntity* pNetworkEntity);
-		void cleanUpTable();
-		QList<QStandardItem*> generateTableRecord(IRCNetworkEntity* pNetworkEntity);
-		IRCNetworkEntity* network(int row) const;
-		QList<IRCNetworkEntity> networksAsQList() const;
+private:
+	void addRecord(IRCNetworkEntity *pNetworkEntity);
+	void cleanUpTable();
+	QList<QStandardItem *> generateTableRecord(IRCNetworkEntity *pNetworkEntity);
+	IRCNetworkEntity *network(int row) const;
+	QList<IRCNetworkEntity> networksAsQList() const;
 
-		/**
-		 *	@brief Never call this function directly. Use network() instead.
-		 */
-		IRCNetworkEntity* obtainNetworkEntity(QStandardItem* pItem) const;
+	/**
+	 *	@brief Never call this function directly. Use network() instead.
+	 */
+	IRCNetworkEntity *obtainNetworkEntity(QStandardItem *pItem) const;
 
-		void prepareTable();
-		void saveNetworks();
-		IRCNetworkEntity* selectedNetwork();
-		int selectedRow();
-		void updateRecord(int row);
+	void prepareTable();
+	void saveNetworks();
+	IRCNetworkEntity *selectedNetwork();
+	int selectedRow();
+	void updateRecord(int row);
 
-		DPtr<CFGIRCNetworks> d;
-	private slots:
-		void addButtonClicked();
-		void editButtonClicked();
-		void removeButtonClicked();
-		void tableDoubleClicked(const QModelIndex& index);
+	DPtr<CFGIRCNetworks> d;
+private slots:
+	void addButtonClicked();
+	void editButtonClicked();
+	void removeButtonClicked();
+	void tableDoubleClicked();
 };
 
 #endif

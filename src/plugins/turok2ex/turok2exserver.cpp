@@ -25,84 +25,76 @@
 #include <QBuffer>
 #include <QDataStream>
 
-#include "turok2exgamehost.h"
-#include "turok2exgameinfo.h"
-#include "turok2exgamerunner.h"
-#include "turok2exengineplugin.h"
+#include "crc.h"
 #include "datastreamoperatorwrapper.h"
 #include "plugins/engineplugin.h"
 #include "serverapi/playerslist.h"
-#include "crc.h"
+#include "turok2exengineplugin.h"
+#include "turok2exgamehost.h"
+#include "turok2exgameinfo.h"
+#include "turok2exgamerunner.h"
 
 /// Macro that checks the readRequest() validity.
 #define CHECK_POS if (!in.hasRemaining()) \
-		{ \
-			return RESPONSE_BAD; \
-		}
+	{ \
+		return RESPONSE_BAD; \
+	}
 
 #define CHECK_POS_OFFSET(offset) if (in.remaining() < (offset)) \
-		{ \
-			return RESPONSE_BAD; \
-		}
+	{ \
+		return RESPONSE_BAD; \
+	}
 
 Turok2ExServer::Turok2ExServer(const QHostAddress &address, unsigned short port)
-: Server(address, port), protocol(0)
+	: Server(address, port), protocol(0)
 {
 	set_readRequest(&Turok2ExServer::readRequest);
 	set_createSendRequest(&Turok2ExServer::createSendRequest);
 }
 
-GameClientRunner* Turok2ExServer::gameRunner()
+GameClientRunner *Turok2ExServer::gameRunner()
 {
 	return new Turok2ExGameClientRunner(
 		self().toStrongRef().staticCast<Turok2ExServer>());
 }
 
-EnginePlugin* Turok2ExServer::plugin() const
+EnginePlugin *Turok2ExServer::plugin() const
 {
 	return Turok2ExEnginePlugin::staticInstance();
 }
 
-static uint64_t read7bitEncode(DataStreamOperatorWrapper& in)
+static uint64_t read7bitEncode(DataStreamOperatorWrapper &in)
 {
 	uint64_t o = 0;
-	if(!in.hasRemaining())
-	{
+	if (!in.hasRemaining())
 		return 0;
-	}
 	uint8_t encByte = in.readQUInt8();
 	int shift = 0;
 	// Read next byte, decode it and shift it into postion
 	o |= uint64_t(encByte & 0x7F) << (7 * shift);
 	// 0x80 (0b10000000) is the flag bit, which marks that the next byte continues the current value
-	while(encByte & 0x80)
+	while (encByte & 0x80)
 	{
 		shift++;
-		if(!in.hasRemaining())
-		{
+		if (!in.hasRemaining())
 			return 0;
-		}
 		encByte = in.readQUInt8();
 		o |= uint64_t(encByte & 0x7F) << (7 * shift);
 	}
 	return o;
 }
 
-static QString readString(DataStreamOperatorWrapper& in)
+static QString readString(DataStreamOperatorWrapper &in)
 {
 	QString o = "";
-	if(!in.hasRemaining())
-	{
+	if (!in.hasRemaining())
 		return "";
-	}
 	int len = (int)read7bitEncode(in);
 
-	for(int c = 0; c < len; c++)
+	for (int c = 0; c < len; c++)
 	{
-		if(!in.hasRemaining())
-		{
+		if (!in.hasRemaining())
 			return "";
-		}
 		o += (char)in.readQInt8();
 	}
 
@@ -113,10 +105,8 @@ Server::Response Turok2ExServer::readRequest(const QByteArray &data)
 {
 	QByteArray decryptData = data;
 
-	if(!decryptPacket(decryptData, DOOMSEEKEY))
-	{
+	if (!decryptPacket(decryptData, DOOMSEEKEY))
 		return RESPONSE_BAD;
-	}
 
 	QBuffer ioBuffer;
 	ioBuffer.setData(decryptData);
@@ -128,10 +118,8 @@ Server::Response Turok2ExServer::readRequest(const QByteArray &data)
 	CHECK_POS in.skipRawData(4); // 4 bytes are the CRC from the decryption
 
 	// Check the response code
-	CHECK_POS if(in.readQUInt8() != NETM_INFO2)
-	{
+	CHECK_POS if (in.readQUInt8() != NETM_INFO2)
 		return RESPONSE_BAD;
-	}
 
 	CHECK_POS QString name = readString(in);
 	CHECK_POS QString map = readString(in);
@@ -149,30 +137,24 @@ Server::Response Turok2ExServer::readRequest(const QByteArray &data)
 	setMap(map);
 	setIwad("game.kpf"); // This is pretty much static
 
-	if(gamemode > Turok2ExGameInfo::MODE_SINGLEPLAYER && gamemode < Turok2ExGameInfo::MODE_NUMMODES)
-	{
+	if (gamemode > Turok2ExGameInfo::MODE_SINGLEPLAYER && gamemode < Turok2ExGameInfo::MODE_NUMMODES)
 		setGameMode(plugin()->gameModes()[gamemode - 1]);
-	}
 	else
-	{
 		setGameMode(GameMode::mkUnknown());
-	}
 
-	if(modlist.length() > 0)
+	if (modlist.length() > 0)
 	{
 		QStringList modlistArray = modlist.split('\n');
-		for(short i = 0; i < modlistArray.count(); i++)
+		for (short i = 0; i < modlistArray.count(); i++)
 		{
-			if(modlistArray[i].length())
-			{
+			if (modlistArray[i].length())
 				addWad(modlistArray[i]);
-			}
 		}
 	}
 
 	clearPlayersList();
 	int playerCount = players;
-	while(playerCount-- > 0)
+	while (playerCount-- > 0)
 	{
 		CHECK_POS QString playerName = readString(in);
 		CHECK_POS uint8_t points = in.readQUInt8();
@@ -193,11 +175,11 @@ QByteArray Turok2ExServer::createSendRequest()
 {
 	// This construction and cast to (char*) removes warnings from MSVC.
 	const unsigned char challenge[] = { NETM_INFO2, DOOMSEEDTA };
-	QByteArray challengeByteArray((char*)challenge, sizeof(challenge));
+	QByteArray challengeByteArray((char *)challenge, sizeof(challenge));
 	return encryptPacket(challengeByteArray, GENERICKEY);
 }
 
-QByteArray Turok2ExServer::encryptPacket(QByteArray& message, uint32_t key)
+QByteArray Turok2ExServer::encryptPacket(QByteArray &message, uint32_t key)
 {
 	QByteArray challenge;
 
@@ -212,20 +194,16 @@ QByteArray Turok2ExServer::encryptPacket(QByteArray& message, uint32_t key)
 	keya[1] = (key >> 16) & 0xFF;
 	keya[2] = (key >> 8) & 0xFF;
 	keya[3] = key & 0xFF;
-	for(int i = 0; i < message.length(); i++)
-	{
-		challenge[i+4] = message[i] ^ keya[i % sizeof(keya)];
-	}
+	for (int i = 0; i < message.length(); i++)
+		challenge[i + 4] = message[i] ^ keya[i % sizeof(keya)];
 
 	return challenge;
 }
 
-bool Turok2ExServer::decryptPacket(QByteArray& message, uint32_t key)
+bool Turok2ExServer::decryptPacket(QByteArray &message, uint32_t key)
 {
-	if(message.length() <= 4)
-	{
+	if (message.length() <= 4)
 		return false;
-	}
 
 	// I have no idea why I have to grab the 4 bytes explicitly to correctly read the CRC
 	uint8_t byte1 = message[0];
@@ -240,15 +218,10 @@ bool Turok2ExServer::decryptPacket(QByteArray& message, uint32_t key)
 	keya[2] = (key >> 8) & 0xFF;
 	keya[3] = key & 0xFF;
 
-	for(int i = 4; i < message.length(); i++)
-	{
+	for (int i = 4; i < message.length(); i++)
 		message[i] = message[i] ^ keya[i % sizeof(keya)];
-	}
 
-	if(crc == kexCRC::Mem32(&message.data()[4], message.length()-4, 0))
-	{
+	if (crc == kexCRC::Mem32(&message.data()[4], message.length() - 4, 0))
 		return true;
-	}
 	return false;
 }
-

@@ -22,18 +22,18 @@
 //------------------------------------------------------------------------------
 #include "gameexeretriever.h"
 
+#include "ini/inisection.h"
 #include "plugins/engineplugin.h"
 #include "serverapi/gameexefactory.h"
 #include "serverapi/gamefile.h"
 #include "serverapi/message.h"
-#include "ini/inisection.h"
 
-GameExeRetriever::GameExeRetriever(GameExeFactory& factory)
-: factory(factory)
+GameExeRetriever::GameExeRetriever(GameExeFactory &factory)
+	: factory(factory)
 {
 }
 
-QString GameExeRetriever::pathToOfflineExe(Message& message)
+QString GameExeRetriever::pathToOfflineExe(Message &message)
 {
 	GameFile file = GameFiles::preferredOfflineExecutable(factory.gameFiles());
 	if (!file.isValid())

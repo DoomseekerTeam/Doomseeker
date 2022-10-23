@@ -36,89 +36,88 @@
  */
 class MAIN_EXPORT Log : public QObject
 {
-	Q_OBJECT;
+	Q_OBJECT
 
-	public:
-		/**
-		 *	@brief Global instance of the logger.
-		 */
-		static Log instance;
+public:
+	/**
+	 * @brief Global instance of the logger.
+	 */
+	static Log instance;
 
-		Log();
-		virtual ~Log();
+	Log();
+	virtual ~Log() override;
 
-		/**
-		 * @brief Timestamps are in format [hh:mm:ss]. Enabled by default.
-		 */
-		bool areTimestampsEnabled() const;
+	/**
+	 * @brief Timestamps are in format [hh:mm:ss]. Enabled by default.
+	 */
+	bool areTimestampsEnabled() const;
 
-		/**
-		 *	@brief Entire content of the log.
-		 */
-		const QString& content() const;
+	/**
+	 * @brief Entire content of the log.
+	 */
+	const QString &content() const;
 
-		/**
-		 * @brief If true all new entries will also be printed to stderr.
-		 *
-		 * Otherwise entries are stored only in the logContent member.
-		 * Default is true.
-		 */
-		bool isPrintingToStderr() const;
-		void setPrintingToStderr(bool b);
+	/**
+	 * @brief If true all new entries will also be printed to stderr.
+	 *
+	 * Otherwise entries are stored only in the logContent member.
+	 * Default is true.
+	 */
+	bool isPrintingToStderr() const;
+	void setPrintingToStderr(bool b);
 
-		/**
-		 * @brief If true all new entries will also be printed to stderr.
-		 *
-		 * Otherwise entries are stored only in the logContent member.
-		 * Default is true.
-		 *
-		 * @deprecated Use isPrintingToStderr().
-		 */
-		bool isPrintingToStdout() const;
-		/**
-		 * @deprecated Use setPrintingToStderr().
-		 */
-		void setPrintingToStdout(bool b);
+	/**
+	 * @brief If true all new entries will also be printed to stderr.
+	 *
+	 * Otherwise entries are stored only in the logContent member.
+	 * Default is true.
+	 *
+	 * @deprecated Use isPrintingToStderr().
+	 */
+	bool isPrintingToStdout() const;
+	/**
+	 * @deprecated Use setPrintingToStderr().
+	 */
+	void setPrintingToStdout(bool b);
 
-		void setTimestampsEnabled(bool b);
+	void setTimestampsEnabled(bool b);
 
-		/**
-		 *	@brief Executes addEntry(const QString&).
-		 */
-		Log& operator<<(const QString& string);
+	/**
+	 * @brief Executes addEntry(const QString&).
+	 */
+	Log &operator<<(const QString &string);
 
-	public slots:
-		/**
-		 *	Prints the string to specified output and appends a '\\n' character
-		 *	to the end of that string. Additional formatting is also applied
-		 *	if certain flags are enabled.
-		 *	@see newEntry()
-		 */
-		void addEntry(const QString& string);
+public slots:
+	/**
+	 * Prints the string to specified output and appends a '\\n' character
+	 * to the end of that string. Additional formatting is also applied
+	 * if certain flags are enabled.
+	 * @see newEntry()
+	 */
+	void addEntry(const QString &string);
 
-		/**
-		 *	Prints the string to specified output AS IT IS.
-		 *	@see addEntry()
-		 *	@see newEntry()
-		 */
-		void addUnformattedEntry(const QString& string);
+	/**
+	 * Prints the string to specified output AS IT IS.
+	 * @see addEntry()
+	 * @see newEntry()
+	 */
+	void addUnformattedEntry(const QString &string);
 
-		/**
-		 *	@brief Clears log content stored in the memory.
-		 */
-		void clearContent();
+	/**
+	 * @brief Clears log content stored in the memory.
+	 */
+	void clearContent();
 
-	signals:
-		/**
-		 *	Sends out an already formatted new entry. Please note that there
-		 *	are no additional newline character appended to the entry string.
-		 *	This is emitted by addEntry() and addUnformattedEntry() slots.
-		 */
-		void newEntry(const QString& entry);
+signals:
+	/**
+	 * Sends out an already formatted new entry. Please note that there
+	 * are no additional newline character appended to the entry string.
+	 * This is emitted by addEntry() and addUnformattedEntry() slots.
+	 */
+	void newEntry(const QString &entry);
 
-	private:
-		DPtr<Log> d;
-
+private:
+	DPtr<Log> d;
 };
 
 #endif

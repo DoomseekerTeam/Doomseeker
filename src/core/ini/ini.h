@@ -23,10 +23,10 @@
 #ifndef __INI_H_
 #define __INI_H_
 
+#include "dptr.h"
+#include "global.h"
 #include "ini/inisection.h"
 #include "ini/inivariable.h"
-#include "global.h"
-#include "dptr.h"
 #include <QString>
 #include <QStringList>
 #include <QVector>
@@ -70,79 +70,79 @@ class MAIN_EXPORT Ini : public QObject
 {
 	Q_OBJECT
 
-	public:
-		Ini(SettingsProvider* provider);
-		virtual ~Ini();
+public:
+	Ini(SettingsProvider *provider);
+	virtual ~Ini() override;
 
-		/**
-		 * Value of data parameter will be ignored and no changes will be
-		 * performed if setting already exists.
-		 * @return Newly created or existing setting.
-		 */
-		IniVariable createSetting(const QString& sectionname, const QString& name, const QVariant& data);
+	/**
+	 * Value of data parameter will be ignored and no changes will be
+	 * performed if setting already exists.
+	 * @return Newly created or existing setting.
+	 */
+	IniVariable createSetting(const QString &sectionname, const QString &name, const QVariant &data);
 
-		/**
-		 * Completely removes a given section.
-		 */
-		void deleteSection(const QString& sectionname);
+	/**
+	 * Completely removes a given section.
+	 */
+	void deleteSection(const QString &sectionname);
 
-		/**
-		 * Completely removes a given setting. This will not erase the section
-		 * even if it's completely empty.
-		 */
-		void deleteSetting(const QString& sectionname, const QString& settingname);
+	/**
+	 * Completely removes a given setting. This will not erase the section
+	 * even if it's completely empty.
+	 */
+	void deleteSetting(const QString &sectionname, const QString &settingname);
 
-		/**
-		 * @brief true if setting of given name exists within given section.
-		 *
-		 * Setting contents may be empty and this will still return true.
-		 * false is returned only if setting doesn't exist at all.
-		 */
-		bool hasSetting(const QString& sectionname, const QString& settingname) const;
+	/**
+	 * @brief true if setting of given name exists within given section.
+	 *
+	 * Setting contents may be empty and this will still return true.
+	 * false is returned only if setting doesn't exist at all.
+	 */
+	bool hasSetting(const QString &sectionname, const QString &settingname) const;
 
-		void removeKey(const QString& key);
+	void removeKey(const QString &key);
 
-		/**
-		 * This won't create a variable if it doesn't exist and return NULL
-		 * in such case.
-		 * @return A reference to the internally stored IniVariable if it
-		 * does. Be sure to check if it isNull.
-		 */
-		IniVariable retrieveSetting(const QString& sectionname, const QString& variablename);
+	/**
+	 * This won't create a variable if it doesn't exist and return nullptr
+	 * in such case.
+	 * @return A reference to the internally stored IniVariable if it
+	 * does. Be sure to check if it isNull.
+	 */
+	IniVariable retrieveSetting(const QString &sectionname, const QString &variablename);
 
-		/**
-		 * @brief Access configuration file section.
-		 *
-		 * Creates and returns an accessor object to a section of
-		 * specified name.  No actual modification to underlying data
-		 * is done. The IniSection object is merely a convenience
-		 * proxy for the Ini class.
-		 *
-		 * If section name is empty then a 'null object' of IniSection
-		 * type is returned.
-		 */
-		IniSection section(const QString& name);
+	/**
+	 * @brief Access configuration file section.
+	 *
+	 * Creates and returns an accessor object to a section of
+	 * specified name.  No actual modification to underlying data
+	 * is done. The IniSection object is merely a convenience
+	 * proxy for the Ini class.
+	 *
+	 * If section name is empty then a 'null object' of IniSection
+	 * type is returned.
+	 */
+	IniSection section(const QString &name);
 
-		/**
-		 * Retrieves references to all sections whose names fit a certain
-		 * pattern. The regex pattern will be instructed to
-		 * ignore the case size.
-		 */
-		QVector<IniSection> sectionsArray(const QString& regexPattern);
+	/**
+	 * Retrieves references to all sections whose names fit a certain
+	 * pattern. The regex pattern will be instructed to
+	 * ignore the case size.
+	 */
+	QVector<IniSection> sectionsArray(const QString &regexPattern);
 
-		/**
-		 * This method will create a variable if it doesn't exist. To avoid
-		 * this behavior see: @see retrieveSetting().
-		 * @return Returns a pointer to a IniVariable object. Do not delete
-		 * this object.
-		 */
-		IniVariable setting(const QString& sectionname, const QString& variablename);
+	/**
+	 * This method will create a variable if it doesn't exist. To avoid
+	 * this behavior see: @see retrieveSetting().
+	 * @return Returns a pointer to a IniVariable object. Do not delete
+	 * this object.
+	 */
+	IniVariable setting(const QString &sectionname, const QString &variablename);
 
-		void setValue(const QString& key, const QVariant& value);
-		QVariant value(const QString& key) const;
+	void setValue(const QString &key, const QVariant &value);
+	QVariant value(const QString &key) const;
 
-	private:
-		DPtr<Ini> d;
+private:
+	DPtr<Ini> d;
 };
 
 #endif

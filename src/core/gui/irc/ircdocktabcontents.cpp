@@ -20,18 +20,16 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2010 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
-#include "ircdocktabcontents.h"
-#include "ui_ircdocktabcontents.h"
+#include "application.h"
+#include "gui/commongui.h"
 #include "gui/irc/ircignoresmanager.h"
 #include "gui/irc/ircsounds.h"
 #include "gui/irc/ircuserlistmodel.h"
-#include "gui/commongui.h"
+#include "irc/chatlogrotate.h"
+#include "irc/chatlogs.h"
 #include "irc/configuration/chatlogscfg.h"
 #include "irc/configuration/ircconfig.h"
 #include "irc/entities/ircnetworkentity.h"
-#include "irc/ops/ircdelayedoperationignore.h"
-#include "irc/chatlogrotate.h"
-#include "irc/chatlogs.h"
 #include "irc/ircchanneladapter.h"
 #include "irc/ircdock.h"
 #include "irc/ircglobal.h"
@@ -40,8 +38,11 @@
 #include "irc/ircnicknamecompleter.h"
 #include "irc/ircuserinfo.h"
 #include "irc/ircuserlist.h"
-#include "application.h"
+#include "irc/ops/ircdelayedoperationignore.h"
+#include "ircdocktabcontents.h"
 #include "log.h"
+#include "ui_ircdocktabcontents.h"
+#include <cassert>
 #include <QDateTime>
 #include <QFile>
 #include <QKeyEvent>
@@ -49,7 +50,6 @@
 #include <QScrollBar>
 #include <QStandardItemModel>
 #include <QTimer>
-#include <cassert>
 
 
 const int IRCDockTabContents::BLINK_TIMER_DELAY_MS = 650;
@@ -72,53 +72,52 @@ public:
 
 	QTimer blinkTimer;
 
-	IRCMessageClass* lastMessageClass;
+	IRCMessageClass *lastMessageClass;
 	IRCNicknameCompleter *nicknameCompleter;
 	/**
 	 *	@brief This is required to properly refresh colors when
 	 *	appearance is changed.
 	 */
 	QStringList textOutputContents;
-	::IRCDockTabContents::UserListMenu* userListContextMenu;
+	::IRCDockTabContents::UserListMenu *userListContextMenu;
 };
 
 DPointeredNoCopy(IRCDockTabContents)
 
 class IRCDockTabContents::UserListMenu : public QMenu
 {
-	public:
-		UserListMenu();
+public:
+	UserListMenu();
 
-		QAction* ban;
-		QAction *whois;
-		QAction *ctcpTime;
-		QAction *ctcpPing;
-		QAction *ctcpVersion;
-		QAction* dehalfOp;
-		QAction* deop;
-		QAction* devoice;
-		QAction* halfOp;
-		QAction* kick;
-		QAction *ignore;
-		QAction* op;
-		QAction* openChatWindow;
-		QAction* voice;
+	QAction *ban;
+	QAction *whois;
+	QAction *ctcpTime;
+	QAction *ctcpPing;
+	QAction *ctcpVersion;
+	QAction *dehalfOp;
+	QAction *deop;
+	QAction *devoice;
+	QAction *halfOp;
+	QAction *kick;
+	QAction *ignore;
+	QAction *op;
+	QAction *openChatWindow;
+	QAction *voice;
 
-	private:
-		bool bIsOperator;
-
+private:
+	bool bIsOperator;
 };
 
-IRCDockTabContents::IRCDockTabContents(IRCDock* pParentIRCDock)
+IRCDockTabContents::IRCDockTabContents(IRCDock *pParentIRCDock)
 {
 	d->setupUi(this);
 	d->lastMessageDate = QDateTime::currentDateTime();
 
 	d->bBlinkTitle = false;
 	d->bIsDestroying = false;
-	d->lastMessageClass = NULL;
-	d->userListContextMenu = NULL;
-	this->pIrcAdapter = NULL;
+	d->lastMessageClass = nullptr;
+	d->userListContextMenu = nullptr;
+	this->pIrcAdapter = nullptr;
 
 	this->pParentIRCDock = pParentIRCDock;
 	d->nicknameCompleter = new IRCNicknameCompleter();
@@ -132,14 +131,14 @@ IRCDockTabContents::IRCDockTabContents(IRCDock* pParentIRCDock)
 
 	this->connect(d->btnSend, SIGNAL(clicked()), SLOT(sendMessage()));
 	this->connect(d->leCommandLine, SIGNAL(returnPressed()), SLOT(sendMessage()));
-	this->connect(gApp, SIGNAL(focusChanged(QWidget*, QWidget*)),
-		SLOT(onFocusChanged(QWidget*, QWidget*)));
+	this->connect(gApp, SIGNAL(focusChanged(QWidget*,QWidget*)),
+		SLOT(onFocusChanged(QWidget*,QWidget*)));
 
 	applyAppearanceSettings();
 
 	d->blinkTimer.setSingleShot(false);
-	this->connect(&d->blinkTimer, SIGNAL( timeout() ),
-		SLOT( blinkTimerSlot() ) );
+	this->connect(&d->blinkTimer, SIGNAL(timeout()),
+		SLOT(blinkTimerSlot()));
 
 	// Performance check line, keep commented for non-testing builds:
 	//receiveMessage(Strings::createRandomAlphaNumericStringWithNewLines(80, 5000));
@@ -149,21 +148,17 @@ IRCDockTabContents::~IRCDockTabContents()
 {
 	d->bIsDestroying = true;
 
-	if (d->lastMessageClass != NULL)
-	{
+	if (d->lastMessageClass != nullptr)
 		delete d->lastMessageClass;
-	}
 
-	if (d->userListContextMenu != NULL)
-	{
+	if (d->userListContextMenu != nullptr)
 		delete d->userListContextMenu;
-	}
 
-	if (pIrcAdapter != NULL)
+	if (pIrcAdapter != nullptr)
 	{
-		disconnect(pIrcAdapter, 0, 0, 0);
-		IRCAdapterBase* pTmpAdapter = pIrcAdapter;
-		pIrcAdapter = NULL;
+		disconnect(pIrcAdapter, nullptr, nullptr, nullptr);
+		IRCAdapterBase *pTmpAdapter = pIrcAdapter;
+		pIrcAdapter = nullptr;
 		delete pTmpAdapter;
 	}
 }
@@ -175,11 +170,11 @@ void IRCDockTabContents::adapterFocusRequest()
 
 void IRCDockTabContents::adapterTerminating()
 {
-	if (pIrcAdapter != NULL && !d->bIsDestroying)
+	if (pIrcAdapter != nullptr && !d->bIsDestroying)
 	{
 		// Disconnect the adapter from this tab.
-		disconnect(pIrcAdapter, 0, 0, 0);
-		pIrcAdapter = NULL;
+		disconnect(pIrcAdapter, nullptr, nullptr, nullptr);
+		pIrcAdapter = nullptr;
 
 		emit chatWindowCloseRequest(this);
 	}
@@ -188,9 +183,7 @@ void IRCDockTabContents::adapterTerminating()
 void IRCDockTabContents::alertIfConfigured()
 {
 	if (gIRCConfig.appearance.windowAlertOnImportantChatEvent)
-	{
 		QApplication::alert(gApp->mainWindowAsQWidget());
-	}
 }
 
 void IRCDockTabContents::applyAppearanceSettings()
@@ -198,7 +191,7 @@ void IRCDockTabContents::applyAppearanceSettings()
 	const static QString STYLE_SHEET_BASE_TEMPLATE =
 		"QListView, QTextEdit, QLineEdit { background: %1; color: %2; } ";
 
-	const IRCConfig::AppearanceCfg& appearance = gIRCConfig.appearance;
+	const IRCConfig::AppearanceCfg &appearance = gIRCConfig.appearance;
 
 	QString qtStyleSheet = STYLE_SHEET_BASE_TEMPLATE
 		.arg(appearance.backgroundColor)
@@ -250,13 +243,9 @@ void IRCDockTabContents::completeNickname()
 {
 	IRCCompletionResult result;
 	if (d->nicknameCompleter->isReset())
-	{
 		result = d->nicknameCompleter->complete(d->leCommandLine->text(), d->leCommandLine->cursorPosition());
-	}
 	else
-	{
 		result = d->nicknameCompleter->cycleNext();
-	}
 	if (result.isValid())
 	{
 		// Prevent reset due to cursor position change.
@@ -271,7 +260,7 @@ bool IRCDockTabContents::eventFilter(QObject *watched, QEvent *event)
 {
 	if (watched == d->leCommandLine && event->type() == QEvent::KeyPress)
 	{
-		QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
+		auto keyEvent = static_cast<QKeyEvent *>(event);
 		if (keyEvent->key() == Qt::Key_Tab)
 		{
 			completeNickname();
@@ -281,29 +270,25 @@ bool IRCDockTabContents::eventFilter(QObject *watched, QEvent *event)
 	return false;
 }
 
-QStandardItem* IRCDockTabContents::findUserListItem(const QString& nickname)
+QStandardItem *IRCDockTabContents::findUserListItem(const QString &nickname)
 {
-	QStandardItemModel* pModel = (QStandardItemModel*)d->lvUserList->model();
+	auto pModel = (QStandardItemModel *)d->lvUserList->model();
 	IRCUserInfo userInfo(nickname, network());
 
 	for (int i = 0; i < pModel->rowCount(); ++i)
 	{
-		QStandardItem* pItem = pModel->item(i);
+		QStandardItem *pItem = pModel->item(i);
 		if (userInfo == IRCUserInfo(pItem->text(), network()))
-		{
 			return pItem;
-		}
 	}
 
-	return NULL;
+	return nullptr;
 }
 
-IRCDockTabContents::UserListMenu& IRCDockTabContents::getUserListContextMenu()
+IRCDockTabContents::UserListMenu &IRCDockTabContents::getUserListContextMenu()
 {
-	if (d->userListContextMenu == NULL)
-	{
+	if (d->userListContextMenu == nullptr)
 		d->userListContextMenu = new UserListMenu();
-	}
 
 	return *d->userListContextMenu;
 }
@@ -324,33 +309,29 @@ bool IRCDockTabContents::hasTabFocus() const
 
 QIcon IRCDockTabContents::icon() const
 {
-	if (pIrcAdapter == NULL)
-	{
+	if (pIrcAdapter == nullptr)
 		return QIcon();
-	}
 
 	switch (pIrcAdapter->adapterType())
 	{
-		case IRCAdapterBase::ChannelAdapter:
-			return QIcon(":/icons/irc_channel.png");
+	case IRCAdapterBase::ChannelAdapter:
+		return QIcon(":/icons/irc_channel.png");
 
-		case IRCAdapterBase::NetworkAdapter:
-			return QIcon(":/flags/lan-small");
+	case IRCAdapterBase::NetworkAdapter:
+		return QIcon(":/flags/lan-small");
 
-		case IRCAdapterBase::PrivAdapter:
-			return QIcon(":/icons/person.png");
+	case IRCAdapterBase::PrivAdapter:
+		return QIcon(":/icons/person.png");
 
-		default:
-			return QIcon();
+	default:
+		return QIcon();
 	}
 }
 
-void IRCDockTabContents::insertMessage(const IRCMessageClass& messageClass, const QString& htmlString)
+void IRCDockTabContents::insertMessage(const IRCMessageClass &messageClass, const QString &htmlString)
 {
-	if (d->lastMessageClass == NULL)
-	{
+	if (d->lastMessageClass == nullptr)
 		d->lastMessageClass = new IRCMessageClass();
-	}
 	*d->lastMessageClass = messageClass;
 
 	d->textOutputContents << htmlString;
@@ -364,9 +345,7 @@ void IRCDockTabContents::insertMessage(const IRCMessageClass& messageClass, cons
 	cursor.insertHtml(htmlString);
 
 	if (!d->btnPauseTextArea->isChecked())
-	{
 		d->txtOutputWidget->moveCursor(QTextCursor::End);
-	}
 
 	emit newMessagePrinted();
 }
@@ -388,21 +367,19 @@ void IRCDockTabContents::myNicknameUsedSlot()
 	alertIfConfigured();
 	pParentIRCDock->sounds().playIfAvailable(IRCSounds::NicknameUsed);
 	if (!hasTabFocus())
-	{
 		d->blinkTimer.start(BLINK_TIMER_DELAY_MS);
-	}
 }
 
-void IRCDockTabContents::nameAdded(const IRCUserInfo& userInfo)
+void IRCDockTabContents::nameAdded(const IRCUserInfo &userInfo)
 {
-	QStandardItemModel* pModel = (QStandardItemModel*)d->lvUserList->model();
-	QStandardItem* pItem = new QStandardItem(userInfo.prefixedName());
+	auto pModel = (QStandardItemModel *)d->lvUserList->model();
+	QStandardItem *pItem = new QStandardItem(userInfo.prefixedName());
 	pItem->setData(userInfo.cleanNickname(), IRCUserListModel::RoleCleanNickname);
 
 	// Try to append the nickname at the proper place in the list.
 	for (int i = 0; i < pModel->rowCount(); ++i)
 	{
-		QStandardItem* pExistingItem = pModel->item(i);
+		QStandardItem *pExistingItem = pModel->item(i);
 		QString existingNickname = pExistingItem->text();
 
 		if (userInfo <= IRCUserInfo(existingNickname, network()))
@@ -417,22 +394,20 @@ void IRCDockTabContents::nameAdded(const IRCUserInfo& userInfo)
 	pModel->appendRow(pItem);
 }
 
-void IRCDockTabContents::nameListUpdated(const IRCUserList& userList)
+void IRCDockTabContents::nameListUpdated(const IRCUserList &userList)
 {
 	setupNewUserListModel();
 
 	for (unsigned i = 0; i < userList.size(); ++i)
-	{
 		nameAdded(*userList[i]);
-	}
 }
 
-void IRCDockTabContents::nameRemoved(const IRCUserInfo& userInfo)
+void IRCDockTabContents::nameRemoved(const IRCUserInfo &userInfo)
 {
-	QStandardItemModel* pModel = (QStandardItemModel*)d->lvUserList->model();
+	auto pModel = (QStandardItemModel *)d->lvUserList->model();
 	for (int i = 0; i < pModel->rowCount(); ++i)
 	{
-		QStandardItem* pItem = pModel->item(i);
+		QStandardItem *pItem = pModel->item(i);
 		if (userInfo.isSameNickname(pItem->text()))
 		{
 			pModel->removeRow(i);
@@ -441,13 +416,13 @@ void IRCDockTabContents::nameRemoved(const IRCUserInfo& userInfo)
 	}
 }
 
-void IRCDockTabContents::nameUpdated(const IRCUserInfo& userInfo)
+void IRCDockTabContents::nameUpdated(const IRCUserInfo &userInfo)
 {
 	nameRemoved(userInfo);
 	nameAdded(userInfo);
 }
 
-IRCNetworkAdapter* IRCDockTabContents::network()
+IRCNetworkAdapter *IRCDockTabContents::network()
 {
 	return ircAdapter()->network();
 }
@@ -457,7 +432,7 @@ const IRCNetworkEntity &IRCDockTabContents::networkEntity() const
 	return ircAdapter()->networkEntity();
 }
 
-void IRCDockTabContents::newChatWindowIsOpened(IRCChatAdapter* pAdapter)
+void IRCDockTabContents::newChatWindowIsOpened(IRCChatAdapter *pAdapter)
 {
 	// Once a new chat adapter is opened we need to add it to the master
 	// dock widget.
@@ -467,9 +442,7 @@ void IRCDockTabContents::newChatWindowIsOpened(IRCChatAdapter* pAdapter)
 void IRCDockTabContents::onFocusChanged(QWidget *old, QWidget *now)
 {
 	if (old == d->lvUserList && now != d->userListContextMenu)
-	{
 		d->lvUserList->clearSelection();
-	}
 }
 
 bool IRCDockTabContents::openLog()
@@ -501,29 +474,25 @@ void IRCDockTabContents::rotateOldLog()
 
 void IRCDockTabContents::printToSendersNetworksCurrentChatBox(const QString &text, const IRCMessageClass &msgClass)
 {
-	IRCAdapterBase *adapter = static_cast<IRCAdapterBase*>(sender());
+	auto adapter = static_cast<IRCAdapterBase *>(sender());
 	IRCDockTabContents *tab = pParentIRCDock->tabWithFocus();
-	if (tab != NULL && tab->ircAdapter()->network()->isAdapterRelated(adapter))
-	{
+	if (tab != nullptr && tab->ircAdapter()->network()->isAdapterRelated(adapter))
 		tab->ircAdapter()->emitMessageWithClass(text, msgClass);
-	}
 	else
-	{
 		adapter->emitMessageWithClass(text, msgClass);
-	}
 }
 
-void IRCDockTabContents::receiveError(const QString& error)
+void IRCDockTabContents::receiveError(const QString &error)
 {
 	receiveMessageWithClass(tr("Error: %1").arg(error), IRCMessageClass::Error);
 }
 
-void IRCDockTabContents::receiveMessage(const QString& message)
+void IRCDockTabContents::receiveMessage(const QString &message)
 {
 	receiveMessageWithClass(message, IRCMessageClass::Normal);
 }
 
-void IRCDockTabContents::receiveMessageWithClass(const QString& message, const IRCMessageClass& messageClass)
+void IRCDockTabContents::receiveMessageWithClass(const QString &message, const IRCMessageClass &messageClass)
 {
 	markDate();
 
@@ -531,7 +500,7 @@ void IRCDockTabContents::receiveMessageWithClass(const QString& message, const I
 
 	if (gIRCConfig.appearance.timestamps)
 	{
-		QString timestamp = Strings::timestamp("[hh:mm:ss] ") ;
+		QString timestamp = Strings::timestamp("[hh:mm:ss] ");
 
 		messageHtmlEscaped = timestamp + messageHtmlEscaped;
 
@@ -557,9 +526,7 @@ void IRCDockTabContents::receiveMessageWithClass(const QString& message, const I
 
 		// If this tab doesn't have focus, also start d->blinkTimering the title.
 		if (!hasTabFocus())
-		{
 			d->blinkTimer.start(BLINK_TIMER_DELAY_MS);
-		}
 	}
 
 	this->insertMessage(messageClass, messageHtmlEscaped);
@@ -603,8 +570,8 @@ QString IRCDockTabContents::selectedNickname()
 	if (!selectedIndexes.isEmpty())
 	{
 		int row = selectedIndexes[0].row();
-		QStandardItemModel* pModel = (QStandardItemModel*)d->lvUserList->model();
-		QStandardItem* pItem = pModel->item(row);
+		auto pModel = (QStandardItemModel *)d->lvUserList->model();
+		QStandardItem *pItem = pModel->item(row);
 
 		return pItem->text();
 	}
@@ -633,9 +600,7 @@ void IRCDockTabContents::sendMessage()
 	d->leCommandLine->setText("");
 
 	if (!message.trimmed().isEmpty())
-	{
 		pIrcAdapter->sendMessage(message);
-	}
 }
 
 void IRCDockTabContents::sendWhois(const QString &nickname)
@@ -655,75 +620,69 @@ void IRCDockTabContents::setBlinkTitle(bool b)
 	d->bBlinkTitle = b;
 
 	if (bEmit)
-	{
 		emit titleBlinkRequested();
-	}
 }
 
-void IRCDockTabContents::setIRCAdapter(IRCAdapterBase* pAdapter)
+void IRCDockTabContents::setIRCAdapter(IRCAdapterBase *pAdapter)
 {
-	assert(pIrcAdapter == NULL);
+	assert(pIrcAdapter == nullptr);
 	pIrcAdapter = pAdapter;
 
 	ChatLogsCfg cfg;
 	if (cfg.isRestoreChatFromLogs())
-	{
 		restoreLog();
-	}
 	if (cfg.isStoreLogs())
-	{
 		openLog();
-	}
 
-	connect(pIrcAdapter, SIGNAL( error(const QString&) ), SLOT( receiveError(const QString& ) ));
-	connect(pIrcAdapter, SIGNAL( focusRequest() ), SLOT( adapterFocusRequest() ));
-	connect(pIrcAdapter, SIGNAL( message(const QString&) ), SLOT( receiveMessage(const QString& ) ));
-	connect(pIrcAdapter, SIGNAL( messageWithClass(const QString&, const IRCMessageClass&) ), SLOT( receiveMessageWithClass(const QString&, const IRCMessageClass&) ));
-	connect(pIrcAdapter, SIGNAL( terminating() ), SLOT( adapterTerminating() ) );
-	connect(pIrcAdapter, SIGNAL( titleChange() ), SLOT( adapterTitleChange() ) );
-	connect(pIrcAdapter, SIGNAL( messageToNetworksCurrentChatBox(QString, IRCMessageClass) ),
-		SLOT( printToSendersNetworksCurrentChatBox(QString, IRCMessageClass) ) );
+	connect(pIrcAdapter, SIGNAL(error(const QString&)), SLOT(receiveError(const QString&)));
+	connect(pIrcAdapter, SIGNAL(focusRequest()), SLOT(adapterFocusRequest()));
+	connect(pIrcAdapter, SIGNAL(message(const QString&)), SLOT(receiveMessage(const QString&)));
+	connect(pIrcAdapter, SIGNAL(messageWithClass(const QString&,const IRCMessageClass&)), SLOT(receiveMessageWithClass(const QString&,const IRCMessageClass&)));
+	connect(pIrcAdapter, SIGNAL(terminating()), SLOT(adapterTerminating()));
+	connect(pIrcAdapter, SIGNAL(titleChange()), SLOT(adapterTitleChange()));
+	connect(pIrcAdapter, SIGNAL(messageToNetworksCurrentChatBox(QString,IRCMessageClass)),
+		SLOT(printToSendersNetworksCurrentChatBox(QString,IRCMessageClass)));
 
 	switch (pIrcAdapter->adapterType())
 	{
-		case IRCAdapterBase::NetworkAdapter:
-		{
-			IRCNetworkAdapter* pNetworkAdapter = (IRCNetworkAdapter*)pAdapter;
-			connect(pNetworkAdapter, SIGNAL( newChatWindowIsOpened(IRCChatAdapter*) ), SLOT( newChatWindowIsOpened(IRCChatAdapter*) ) );
-			break;
-		}
+	case IRCAdapterBase::NetworkAdapter:
+	{
+		auto pNetworkAdapter = (IRCNetworkAdapter *)pAdapter;
+		connect(pNetworkAdapter, SIGNAL(newChatWindowIsOpened(IRCChatAdapter*)), SLOT(newChatWindowIsOpened(IRCChatAdapter*)));
+		break;
+	}
 
-		case IRCAdapterBase::ChannelAdapter:
-		{
-			IRCChannelAdapter* pChannelAdapter = (IRCChannelAdapter*)pAdapter;
-			connect(pChannelAdapter, SIGNAL( myNicknameUsed() ), SLOT( myNicknameUsedSlot() ) );
-			connect(pChannelAdapter, SIGNAL( nameAdded(const IRCUserInfo&) ), SLOT( nameAdded(const IRCUserInfo&) ) );
-			connect(pChannelAdapter, SIGNAL( nameListUpdated(const IRCUserList&) ), SLOT( nameListUpdated(const IRCUserList&) ) );
-			connect(pChannelAdapter, SIGNAL( nameRemoved(const IRCUserInfo&) ), SLOT( nameRemoved(const IRCUserInfo&) ) );
-			connect(pChannelAdapter, SIGNAL( nameUpdated(const IRCUserInfo&) ), SLOT( nameUpdated(const IRCUserInfo&) ) );
+	case IRCAdapterBase::ChannelAdapter:
+	{
+		auto pChannelAdapter = (IRCChannelAdapter *)pAdapter;
+		connect(pChannelAdapter, SIGNAL(myNicknameUsed()), SLOT(myNicknameUsedSlot()));
+		connect(pChannelAdapter, SIGNAL(nameAdded(const IRCUserInfo&)), SLOT(nameAdded(const IRCUserInfo&)));
+		connect(pChannelAdapter, SIGNAL(nameListUpdated(const IRCUserList&)), SLOT(nameListUpdated(const IRCUserList&)));
+		connect(pChannelAdapter, SIGNAL(nameRemoved(const IRCUserInfo&)), SLOT(nameRemoved(const IRCUserInfo&)));
+		connect(pChannelAdapter, SIGNAL(nameUpdated(const IRCUserInfo&)), SLOT(nameUpdated(const IRCUserInfo&)));
 
-			d->lvUserList->setVisible(true);
-			connect(d->lvUserList, SIGNAL( customContextMenuRequested(const QPoint&) ),
-				SLOT( userListCustomContextMenuRequested(const QPoint&) ) );
+		d->lvUserList->setVisible(true);
+		connect(d->lvUserList, SIGNAL(customContextMenuRequested(const QPoint&)),
+			SLOT(userListCustomContextMenuRequested(const QPoint&)));
 
-			connect(d->lvUserList, SIGNAL( doubleClicked(const QModelIndex&) ),
-				SLOT( userListDoubleClicked(const QModelIndex&) ) );
+		connect(d->lvUserList, SIGNAL(doubleClicked(const QModelIndex&)),
+			SLOT(userListDoubleClicked()));
 
-			d->lvUserList->setContextMenuPolicy(Qt::CustomContextMenu);
+		d->lvUserList->setContextMenuPolicy(Qt::CustomContextMenu);
 
-			break;
-		}
+		break;
+	}
 
-		case IRCAdapterBase::PrivAdapter:
-		{
-			break;
-		}
+	case IRCAdapterBase::PrivAdapter:
+	{
+		break;
+	}
 
-		default:
-		{
-			receiveError("Doomseeker error: Unknown IRCAdapterBase*");
-			break;
-		}
+	default:
+	{
+		receiveError("Doomseeker error: Unknown IRCAdapterBase*");
+		break;
+	}
 	}
 }
 
@@ -774,7 +733,7 @@ void IRCDockTabContents::onPrivChatActionTriggered()
 {
 	QString nickname = ircAdapter()->recipient();
 	QString cleanNickname = IRCUserInfo(nickname, network()).cleanNickname();
-	QAction *action = static_cast<QAction*>(sender());
+	auto action = static_cast<QAction *>(sender());
 	switch (action->data().toInt())
 	{
 	case PrivWhois:
@@ -801,7 +760,7 @@ void IRCDockTabContents::onPrivChatActionTriggered()
 
 void IRCDockTabContents::showIgnoresManager()
 {
-	IRCIgnoresManager *dialog = new IRCIgnoresManager(this, networkEntity().description());
+	auto dialog = new IRCIgnoresManager(this, networkEntity().description());
 	connect(dialog, SIGNAL(accepted()), network(), SLOT(reloadNetworkEntityFromConfig()));
 	dialog->setAttribute(Qt::WA_DeleteOnClose);
 	dialog->show();
@@ -809,7 +768,7 @@ void IRCDockTabContents::showIgnoresManager()
 
 void IRCDockTabContents::startIgnoreOperation(const QString &nickname)
 {
-	IRCDelayedOperationIgnore *op = new IRCDelayedOperationIgnore(this, network(), nickname);
+	auto op = new IRCDelayedOperationIgnore(this, network(), nickname);
 	op->setShowPatternPopup(true);
 	op->start();
 }
@@ -821,18 +780,14 @@ QString IRCDockTabContents::title() const
 
 QString IRCDockTabContents::titleColor() const
 {
-	if (d->lastMessageClass != NULL && !this->hasTabFocus())
+	if (d->lastMessageClass != nullptr && !this->hasTabFocus())
 	{
 		QString color;
 
 		if (*d->lastMessageClass == IRCMessageClass::Normal)
-		{
 			color = "#ff0000";
-		}
 		else
-		{
 			color = d->lastMessageClass->colorFromConfig();
-		}
 
 		if (d->bBlinkTitle)
 		{
@@ -847,15 +802,13 @@ QString IRCDockTabContents::titleColor() const
 			return inverted.name();
 		}
 		else
-		{
 			return color;
-		}
 	}
 
 	return "";
 }
 
-void IRCDockTabContents::userListCustomContextMenuRequested(const QPoint& pos)
+void IRCDockTabContents::userListCustomContextMenuRequested(const QPoint &pos)
 {
 	if (this->pIrcAdapter->adapterType() != IRCAdapterBase::ChannelAdapter)
 	{
@@ -871,18 +824,16 @@ void IRCDockTabContents::userListCustomContextMenuRequested(const QPoint& pos)
 	}
 	QString cleanNickname = IRCUserInfo(nickname, network()).cleanNickname();
 
-	IRCChannelAdapter* pAdapter = (IRCChannelAdapter*) this->pIrcAdapter;
-	const QString& channel = pAdapter->recipient();
+	auto pAdapter = (IRCChannelAdapter *) this->pIrcAdapter;
+	const QString &channel = pAdapter->recipient();
 
-	UserListMenu& menu = this->getUserListContextMenu();
+	UserListMenu &menu = this->getUserListContextMenu();
 	QPoint posGlobal = d->lvUserList->mapToGlobal(pos);
 
-	QAction* pAction = menu.exec(posGlobal);
+	QAction *pAction = menu.exec(posGlobal);
 
-	if (pAction == NULL)
-	{
+	if (pAction == nullptr)
 		return;
-	}
 
 	if (pAction == menu.ban)
 	{
@@ -890,71 +841,43 @@ void IRCDockTabContents::userListCustomContextMenuRequested(const QPoint& pos)
 
 		QString reason = CommonGUI::askString(tr("Ban user"), tr("Input reason for banning user %1 from channel %2").arg(nickname, channel), &bOk);
 		if (bOk)
-		{
 			pAdapter->banUser(cleanNickname, reason);
-		}
 	}
 	else if (pAction == menu.ctcpTime)
-	{
 		sendCtcpTime(cleanNickname);
-	}
 	else if (pAction == menu.ctcpPing)
-	{
 		sendCtcpPing(cleanNickname);
-	}
 	else if (pAction == menu.ctcpVersion)
-	{
 		sendCtcpVersion(cleanNickname);
-	}
 	else if (pAction == menu.deop)
-	{
 		pAdapter->setOp(cleanNickname, false);
-	}
 	else if (pAction == menu.dehalfOp)
-	{
 		pAdapter->setHalfOp(cleanNickname, false);
-	}
 	else if (pAction == menu.devoice)
-	{
 		pAdapter->setVoiced(cleanNickname, false);
-	}
 	else if (pAction == menu.halfOp)
-	{
 		pAdapter->setHalfOp(cleanNickname, true);
-	}
 	else if (pAction == menu.ignore)
-	{
 		startIgnoreOperation(cleanNickname);
-	}
 	else if (pAction == menu.kick)
 	{
 		bool bOk = false;
 
 		QString reason = CommonGUI::askString(tr("Kick user"), tr("Input reason for kicking user %1 from channel %2").arg(nickname, channel), &bOk);
 		if (bOk)
-		{
 			pAdapter->kickUser(cleanNickname, reason);
-		}
 	}
 	else if (pAction == menu.op)
-	{
 		pAdapter->setOp(cleanNickname, true);
-	}
 	else if (pAction == menu.openChatWindow)
-	{
 		pAdapter->network()->openNewAdapter(cleanNickname);
-	}
 	else if (pAction == menu.voice)
-	{
 		pAdapter->setVoiced(cleanNickname, true);
-	}
 	else if (pAction == menu.whois)
-	{
 		sendWhois(cleanNickname);
-	}
 }
 
-void IRCDockTabContents::userListDoubleClicked(const QModelIndex& index)
+void IRCDockTabContents::userListDoubleClicked()
 {
 	if (this->pIrcAdapter->adapterType() != IRCAdapterBase::ChannelAdapter)
 	{
@@ -982,13 +905,9 @@ QString IRCDockTabContents::wrapTextWithMetaTags(const QString &text,
 
 	QString className = messageClass.toStyleSheetClassName();
 	if (className.isEmpty())
-	{
 		result = "<span>" + result + "</span>";
-	}
 	else
-	{
 		result = ("<span class='" + className + "'>" + result + "</span>");
-	}
 	return result;
 }
 

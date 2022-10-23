@@ -44,21 +44,21 @@ const QString SERVER_PASSWORDS_KEY = "ServerPasswords";
 // in Main and kept in different places. Perhaps we should move them
 // out to a separate singleton? If not, then perhaps we could at least
 // move the instantiation out of Main.
-Ini* PasswordsCfg::ini = NULL;
-QSettings *PasswordsCfg::settings = NULL;
+Ini *PasswordsCfg::ini = nullptr;
+QSettings *PasswordsCfg::settings = nullptr;
 
 
 DClass<PasswordsCfg>
 {
-	public:
-		IniSection section;
+public:
+	IniSection section;
 };
 
 DPointered(PasswordsCfg)
 
 PasswordsCfg::PasswordsCfg()
 {
-	assert(ini != NULL && "instantiated PasswordsCfg() without initing ini");
+	assert(ini != nullptr && "instantiated PasswordsCfg() without initing ini");
 	d->section = ini->section(SECTION_NAME);
 }
 
@@ -66,14 +66,14 @@ PasswordsCfg::~PasswordsCfg()
 {
 }
 
-void PasswordsCfg::cutServers(QList<ServerPassword>& passwords) const
+void PasswordsCfg::cutServers(QList<ServerPassword> &passwords) const
 {
 	QMutableListIterator<ServerPassword> it(passwords);
 	while (it.hasNext())
 	{
-		ServerPassword& password = it.next();
+		ServerPassword &password = it.next();
 		QList<ServerPasswordSummary> sortedServers = password.servers();
-		qSort(sortedServers.begin(), sortedServers.end(), serverDateDescending);
+		std::sort(sortedServers.begin(), sortedServers.end(), serverDateDescending);
 		password.setServers(sortedServers.mid(0, maxNumberOfServersPerPassword()));
 	}
 }
@@ -85,10 +85,10 @@ void PasswordsCfg::cutStoredServers()
 	storeServerPasswords(passwords);
 }
 
-void PasswordsCfg::initIni(const QString& path)
+void PasswordsCfg::initIni(const QString &path)
 {
-	assert(ini == NULL && "tried to re-init password ini");
-	if (ini != NULL)
+	assert(ini == nullptr && "tried to re-init password ini");
+	if (ini != nullptr)
 	{
 		qDebug() << "Error: tried to re-init password ini";
 		return;
@@ -114,7 +114,7 @@ int PasswordsCfg::maxNumberOfServersPerPassword() const
 	return d->section.value(MAX_NUMBER_OF_SERVERS_PER_PASSWORD_KEY, 5).toInt();
 }
 
-void PasswordsCfg::removeServerPhrase(const QString& phrase)
+void PasswordsCfg::removeServerPhrase(const QString &phrase)
 {
 	QList<ServerPassword> allPasswords = serverPasswords();
 	QMutableListIterator<ServerPassword> it(allPasswords);
@@ -122,23 +122,19 @@ void PasswordsCfg::removeServerPhrase(const QString& phrase)
 	{
 		ServerPassword existingPass = it.next();
 		if (existingPass.phrase() == phrase)
-		{
 			it.remove();
-		}
 	}
 	storeServerPasswords(allPasswords);
 }
 
-void PasswordsCfg::saveServerPhrase(const QString& phrase, const Server* server,
+void PasswordsCfg::saveServerPhrase(const QString &phrase, const Server *server,
 	const QString &type)
 {
 	if (phrase.isEmpty())
-	{
 		return;
-	}
 
 	ServerPasswordSummary serverInfo;
-	if (server != NULL)
+	if (server != nullptr)
 	{
 		ServerSummary serverSummary(server);
 		serverSummary.setTime(QDateTime::currentDateTime());
@@ -150,13 +146,11 @@ void PasswordsCfg::saveServerPhrase(const QString& phrase, const Server* server,
 	while (it.hasNext())
 	{
 		// Try to add server to existing password.
-		ServerPassword& existingPass = it.next();
+		ServerPassword &existingPass = it.next();
 		if (existingPass.phrase() == phrase)
 		{
 			if (serverInfo.isValid())
-			{
 				existingPass.addServer(serverInfo);
-			}
 			setServerPasswords(allPasswords);
 			return;
 		}
@@ -169,7 +163,7 @@ void PasswordsCfg::saveServerPhrase(const QString& phrase, const Server* server,
 	storeServerPasswords(allPasswords);
 }
 
-bool PasswordsCfg::serverDateDescending(ServerPasswordSummary& s1, ServerPasswordSummary& s2)
+bool PasswordsCfg::serverDateDescending(ServerPasswordSummary &s1, ServerPasswordSummary &s2)
 {
 	return s1.time() > s2.time();
 }
@@ -183,7 +177,7 @@ QList<ServerPassword> PasswordsCfg::serverPasswords() const
 {
 	QList<ServerPassword> result;
 	QVariantList vars = d->section[SERVER_PASSWORDS_KEY].value().toList();
-	foreach (const QVariant& var, vars)
+	for (const QVariant &var : vars)
 	{
 		result << ServerPassword::deserializeQVariant(var);
 	}
@@ -193,7 +187,7 @@ QList<ServerPassword> PasswordsCfg::serverPasswords() const
 QStringList PasswordsCfg::serverPhrases() const
 {
 	QStringList result;
-	foreach (const ServerPassword& pass, serverPasswords())
+	for (const ServerPassword &pass : serverPasswords())
 	{
 		result << pass.phrase();
 	}
@@ -205,9 +199,7 @@ void PasswordsCfg::setMaxNumberOfServersPerPassword(int val)
 	bool shallCut = val < maxNumberOfServersPerPassword();
 	d->section.setValue(MAX_NUMBER_OF_SERVERS_PER_PASSWORD_KEY, val);
 	if (shallCut)
-	{
 		cutStoredServers();
-	}
 }
 
 void PasswordsCfg::setRememberConnectPhrase(bool val)
@@ -215,24 +207,24 @@ void PasswordsCfg::setRememberConnectPhrase(bool val)
 	return d->section.setValue(REMEMBER_CONNECT_PASSWORD, val);
 }
 
-void PasswordsCfg::setServerPasswords(const QList<ServerPassword>& val)
+void PasswordsCfg::setServerPasswords(const QList<ServerPassword> &val)
 {
 	QList<ServerPassword> passwords = val;
 	cutServers(passwords);
 	storeServerPasswords(passwords);
 }
 
-void PasswordsCfg::storeServerPasswords(const QList<ServerPassword>& val)
+void PasswordsCfg::storeServerPasswords(const QList<ServerPassword> &val)
 {
 	QVariantList vars;
-	foreach (const ServerPassword obj, val)
+	for (const ServerPassword obj : val)
 	{
 		vars << obj.serializeQVariant();
 	}
 	d->section.setValue(SERVER_PASSWORDS_KEY, vars);
 }
 
-ServerPassword PasswordsCfg::suggestPassword(const Server* server, const QString &type)
+ServerPassword PasswordsCfg::suggestPassword(const Server *server, const QString &type)
 {
 	// This method would probably work better as a separate class.
 	// If there's ever any need to expand it, extract it
@@ -241,7 +233,7 @@ ServerPassword PasswordsCfg::suggestPassword(const Server* server, const QString
 
 	ServerPassword password;
 	ServerPasswordSummary bestFit;
-	foreach (const ServerPassword& potentialPassword, serverPasswords())
+	for (const ServerPassword &potentialPassword : serverPasswords())
 	{
 		float newSimilarity;
 		ServerPasswordSummary candidate = potentialPassword.mostSimilarServer(serverSummary, &newSimilarity);
@@ -262,4 +254,3 @@ ServerPassword PasswordsCfg::suggestPassword(const Server* server, const QString
 	}
 	return password;
 }
-

@@ -23,8 +23,8 @@
 #ifndef id97064B0C_7D3A_489E_B2241AD6943450FB
 #define id97064B0C_7D3A_489E_B2241AD6943450FB
 
-#include "global.h"
 #include "dptr.h"
+#include "global.h"
 #include <QHash>
 #include <QObject>
 #include <QString>
@@ -49,95 +49,95 @@ class MAIN_EXPORT ExeFile : public QObject
 {
 	Q_OBJECT
 
-	public:
-		ExeFile();
-		virtual ~ExeFile();
+public:
+	ExeFile();
+	virtual ~ExeFile() override;
 
-		/**
-		 * @brief Config key where executable path on current system
-		 *        can be remembered.
-		 */
-		const QString& configKey() const;
-		/**
-		 * @brief Name of the type of the executable (server, client, etc.).
-		 */
-		const QString& exeTypeName() const;
-		/**
-		 * @brief Attempts to install the binary.
-		 *
-		 * Some games may support additional executables (testing binaries,
-		 * for example). If such executables are not available on local
-		 * filesystem, but can be installed automatically, pathToExe()
-		 * should return Message with Message::Type::GAME_NOT_FOUND_BUT_CAN_BE_INSTALLED
-		 * error type and implement install() method.
-		 *
-		 * Default implementation does nothing and returns ignorable message.
-		 *
-		 * Example implementation is provided in Zandronum plugin.
-		 *
-		 * @param parent
-		 *     Should be treated as parent widget for all widgets that need
-		 *     to be created during the process.
-		 *
-		 * @return
-		 * Message with appropriately set type. Type of the message affects
-		 * Doomseeker behavior so it needs to be set correctly.
-		 * - Message::Type::SUCCESSFUL if installation completes properly,
-		 *   in this case Doomseeker continues any operation that was
-		 *   interrupted by the installation procedure (like game launch).
-		 * - Message::Type::CANCELLED if installation was cancelled by the user,
-		 *   in this case Doomseeker aborts silently.
-		 * - Return error type to prompt Doomseeker to display an error message.
-		 */
-		virtual Message install(QWidget *parent);
-		/**
-		 * @brief Name of the program this executable belongs to (ex. "Odamex").
-		 */
-		const QString& programName() const;
+	/**
+	 * @brief Config key where executable path on current system
+	 *        can be remembered.
+	 */
+	const QString &configKey() const;
+	/**
+	 * @brief Name of the type of the executable (server, client, etc.).
+	 */
+	const QString &exeTypeName() const;
+	/**
+	 * @brief Attempts to install the binary.
+	 *
+	 * Some games may support additional executables (testing binaries,
+	 * for example). If such executables are not available on local
+	 * filesystem, but can be installed automatically, pathToExe()
+	 * should return Message with Message::Type::GAME_NOT_FOUND_BUT_CAN_BE_INSTALLED
+	 * error type and implement install() method.
+	 *
+	 * Default implementation does nothing and returns ignorable message.
+	 *
+	 * Example implementation is provided in Zandronum plugin.
+	 *
+	 * @param parent
+	 *     Should be treated as parent widget for all widgets that need
+	 *     to be created during the process.
+	 *
+	 * @return
+	 * Message with appropriately set type. Type of the message affects
+	 * Doomseeker behavior so it needs to be set correctly.
+	 * - Message::Type::SUCCESSFUL if installation completes properly,
+	 *   in this case Doomseeker continues any operation that was
+	 *   interrupted by the installation procedure (like game launch).
+	 * - Message::Type::CANCELLED if installation was cancelled by the user,
+	 *   in this case Doomseeker aborts silently.
+	 * - Return error type to prompt Doomseeker to display an error message.
+	 */
+	virtual Message install(QWidget *parent);
+	/**
+	 * @brief Name of the program this executable belongs to (ex. "Odamex").
+	 */
+	const QString &programName() const;
 
-		/**
-		 * @brief Returns the path to the executable file.
-		 *
-		 * @param [out] message
-		 *     Information or error message, if any.
-		 *     The type of the message might be relevant in some cases,
-		 *     please review documentation for install() method.
-		 *
-		 * @return Path to the file if all fine or empty if error.
-		 * @see install()
-		 */
-		virtual QString pathToExe(Message& message);
+	/**
+	 * @brief Returns the path to the executable file.
+	 *
+	 * @param [out] message
+	 *     Information or error message, if any.
+	 *     The type of the message might be relevant in some cases,
+	 *     please review documentation for install() method.
+	 *
+	 * @return Path to the file if all fine or empty if error.
+	 * @see install()
+	 */
+	virtual QString pathToExe(Message &message);
 
-		/**
-		 * @brief Plugin setter for configKey().
-		 */
-		void setConfigKey(const QString& keyName);
-		/**
-		 * @brief Plugin setter for exeTypeName().
-		 */
-		void setExeTypeName(const QString& name);
-		/**
-		 * @brief Plugin setter for programName().
-		 */
-		void setProgramName(const QString& name);
+	/**
+	 * @brief Plugin setter for configKey().
+	 */
+	void setConfigKey(const QString &keyName);
+	/**
+	 * @brief Plugin setter for exeTypeName().
+	 */
+	void setExeTypeName(const QString &name);
+	/**
+	 * @brief Plugin setter for programName().
+	 */
+	void setProgramName(const QString &name);
 
-		/**
-		 * @brief Path to this executable working directory.
-		 *
-		 * Default behavior returns directory of pathToExe(), but
-		 * you can override this to provide different working directory
-		 * if needed.
-		 *
-		 * @param [out] message
-		 *     Information or error message, if any.
-		 * @return Path to the working directory if all fine or empty if error.
-		 */
-		virtual QString workingDirectory(Message& message);
+	/**
+	 * @brief Path to this executable working directory.
+	 *
+	 * Default behavior returns directory of pathToExe(), but
+	 * you can override this to provide different working directory
+	 * if needed.
+	 *
+	 * @param [out] message
+	 *     Information or error message, if any.
+	 * @return Path to the working directory if all fine or empty if error.
+	 */
+	virtual QString workingDirectory(Message &message);
 
-	private:
-		DPtr<ExeFile> d;
+private:
+	DPtr<ExeFile> d;
 
-		QString obtainBinary(Message& message) const;
+	QString obtainBinary(Message &message) const;
 };
 
 /**
@@ -152,7 +152,9 @@ public:
 	 * @brief Infers working dir from path.
 	 */
 	ExeFilePath(const QString &path);
+	ExeFilePath(const ExeFilePath &other);
 	virtual ~ExeFilePath();
+	ExeFilePath &operator=(const ExeFilePath &other);
 
 	QString path() const;
 	ExeFilePath &setPath(const QString &path);

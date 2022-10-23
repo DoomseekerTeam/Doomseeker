@@ -28,11 +28,12 @@ ServerListFilterInfo::ServerListFilterInfo()
 	bShowEmpty = true;
 	bShowFull = true;
 	bShowOnlyValid = false;
+	lockedServers = Doomseeker::Indifferent;
 	maxPing = 0;
 	testingServers = Doomseeker::Indifferent;
 }
 
-void ServerListFilterInfo::copy(const ServerListFilterInfo& other)
+void ServerListFilterInfo::copy(const ServerListFilterInfo &other)
 {
 	bEnabled = other.bEnabled;
 	bShowEmpty = other.bShowEmpty;
@@ -40,6 +41,7 @@ void ServerListFilterInfo::copy(const ServerListFilterInfo& other)
 	bShowOnlyValid = other.bShowOnlyValid;
 	gameModes = other.gameModes;
 	gameModesExcluded = other.gameModesExcluded;
+	lockedServers = other.lockedServers;
 	maxPing = other.maxPing;
 	serverName = other.serverName.trimmed();
 	testingServers = other.testingServers;
@@ -48,50 +50,41 @@ void ServerListFilterInfo::copy(const ServerListFilterInfo& other)
 	copyTrimmed(this->wadsExcluded, other.wadsExcluded);
 }
 
-void ServerListFilterInfo::copyTrimmed(QStringList& target, const QStringList& source) const
+void ServerListFilterInfo::copyTrimmed(QStringList &target, const QStringList &source) const
 {
 	target.clear();
-	foreach (QString element, source)
+	for (QString element : source)
 	{
 		element = element.trimmed();
 		if (!element.isEmpty())
-		{
 			target << element;
-		}
 	}
 }
 
 bool ServerListFilterInfo::isFilteringAnything() const
 {
 	if (!serverName.isEmpty())
-	{
 		return true;
-	}
 
 	if (!bEnabled)
-	{
 		return false;
-	}
 
 	if (!bShowEmpty || !bShowFull)
-	{
 		return true;
-	}
 
 	if (bShowOnlyValid || maxPing > 0)
-	{
 		return true;
-	}
 
 	if (!gameModes.isEmpty()
-	||  !gameModesExcluded.isEmpty()
-	||  !wads.isEmpty()
-	||  !wadsExcluded.isEmpty())
+		|| !gameModesExcluded.isEmpty()
+		|| !wads.isEmpty()
+		|| !wadsExcluded.isEmpty())
 	{
 		return true;
 	}
 
-	if (testingServers != Doomseeker::Indifferent)
+	if (lockedServers != Doomseeker::Indifferent
+		|| testingServers != Doomseeker::Indifferent)
 	{
 		return true;
 	}
@@ -109,6 +102,7 @@ QString ServerListFilterInfo::toString() const
 	ret += QString("bShowOnlyValid: ") + (bShowOnlyValid ? "Yes" : "No") + "\n";
 	ret += QString("GameModes: ") + gameModes.join(",") + "\n";
 	ret += QString("GameModes Excluded: ") + gameModesExcluded.join(",") + "\n";
+	ret += QString("LockedServers: %1\n").arg(lockedServers);
 	ret += QString("MaxPing: ") + QString::number(maxPing) + "\n";
 	ret += QString("ServerName: ") + serverName + "\n";
 	ret += QString("Testing servers: %1\n").arg(testingServers);

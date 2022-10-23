@@ -25,10 +25,10 @@
 
 #define UTF8_FULL_BLOCK "\xE2\x96\x88"
 
-ColorButton::ColorButton(QWidget* parent)
-: QPushButton(QString::fromUtf8(UTF8_FULL_BLOCK UTF8_FULL_BLOCK), parent)
+ColorButton::ColorButton(QWidget *parent)
+	: QPushButton(QString::fromUtf8(UTF8_FULL_BLOCK UTF8_FULL_BLOCK), parent)
 {
-	connect( this, SIGNAL( clicked() ), this, SLOT( thisClicked() ) );
+	connect( this, SIGNAL(clicked()), this, SLOT(thisClicked()));
 
 	setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Fixed);
 	color.setNamedColor("#ffffff");
@@ -52,7 +52,7 @@ void ColorButton::setColor(unsigned colorValue)
 	updateColor(newColor);
 }
 
-void ColorButton::setColorHtml(const QString& colorHtml)
+void ColorButton::setColorHtml(const QString &colorHtml)
 {
 	QColor newColor;
 	newColor.setNamedColor(colorHtml);
@@ -71,10 +71,8 @@ void ColorButton::thisClicked()
 {
 	QColor colorTmp = QColorDialog::getColor(QColor(color), parentWidget());
 
-	if(colorTmp.isValid())
-	{
+	if (colorTmp.isValid())
 		updateColor(colorTmp);
-	}
 }
 
 void ColorButton::updateAppearance()
@@ -85,7 +83,7 @@ void ColorButton::updateAppearance()
 	setStyleSheet(styleSheet);
 }
 
-void ColorButton::updateColor(const QColor& newColor)
+void ColorButton::updateColor(const QColor &newColor)
 {
 	QColor oldColor = color;
 	color = newColor;

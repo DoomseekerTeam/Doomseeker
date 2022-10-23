@@ -32,18 +32,35 @@
 
 class Localization
 {
-	public:
-		static bool loadTranslation(const QString& localeName);
+public:
+	QList<LocalizationInfo> localizations;
 
-		static QList<LocalizationInfo> loadLocalizationsList(const QStringList& definitionsFileSearchDirs);
+	static Localization *get();
 
-	private:
-		class LocalizationLoader;
+	/**
+	 * Find best matching locale from currently loaded translations.
+	 * Falls back to LocalizationInfo::PROGRAM_NATIVE if no match is found.
+	 */
+	LocalizationInfo coerceBestMatchingLocalization(const QString &localeName) const;
+	const LocalizationInfo &currentLocalization() const;
 
-		static QList<QTranslator*> currentlyLoadedTranslations;
-		static void installQtTranslations(const QString &localeName, QStringList searchPaths);
-		static bool installTranslation(const QString &translationName, const QStringList &searchPaths);
-		static QTranslator* loadTranslationFile(const QString& translationName, const QStringList& searchPaths);
+	bool isCurrentlyLoaded(const QString &localeName) const;
+	bool loadTranslation(const QString &localeName);
+	QList<LocalizationInfo> loadLocalizationsList(const QStringList &definitionsFileSearchDirs);
+
+private:
+	class LocalizationLoader;
+
+	static Localization *instance;
+
+	Localization();
+
+	QList<QTranslator *> currentlyLoadedTranslations;
+	LocalizationInfo currentLocalization_;
+
+	void installQtTranslations(const QString &localeName, QStringList searchPaths);
+	bool installTranslation(const QString &translationName, const QStringList &searchPaths);
+	QTranslator *loadTranslationFile(const QString &translationName, const QStringList &searchPaths);
 };
 
 #endif

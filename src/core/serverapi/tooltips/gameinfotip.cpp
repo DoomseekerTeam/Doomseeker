@@ -27,8 +27,8 @@
 
 DClass<GameInfoTip>
 {
-	public:
-		ServerCPtr server;
+public:
+	ServerCPtr server;
 };
 
 DPointered(GameInfoTip)
@@ -56,24 +56,18 @@ QString GameInfoTip::generateHTML()
 	return table;
 }
 
-QString	GameInfoTip::playersHTML()
+QString GameInfoTip::playersHTML()
 {
 	const QString PLAYERS = tr("Players");
 
 	const PlayersList &players = d->server->players();
-	int canJoin = d->server->maxPlayers() - players.numClients();
-	if(canJoin < 0)
-	{
-		canJoin = 0;
-	}
-
-	QString html = "<tr><td>" + PLAYERS + ":&nbsp;</td><td>%1 / %2 (%3 can join)</td></tr>";
-	html = html.arg(players.numClients()).arg(d->server->numTotalSlots()).arg(canJoin);
-
-	return html;
+	const int canJoin = qMax(0, d->server->numFreeClientSlots());
+	return "<tr><td>" + PLAYERS + ":&nbsp;</td><td>"
+		+ tr("%1 / %2 (%3 can join)").arg(players.numClients()).arg(d->server->maxClients()).arg(canJoin)
+		+ "</td></tr>";
 }
 
-QString	GameInfoTip::limitHTML(QString limitName, QString valueArgsTemplate, int value)
+QString GameInfoTip::limitHTML(QString limitName, QString valueArgsTemplate, int value)
 {
 	QString row = "<tr><td>" + limitName + ":&nbsp;</td><td>" + valueArgsTemplate + "</td></tr>";
 
@@ -89,7 +83,7 @@ QString	GameInfoTip::limitHTML(QString limitName, QString valueArgsTemplate, int
 	return row;
 }
 
-QString	GameInfoTip::scorelimitHTML()
+QString GameInfoTip::scorelimitHTML()
 {
 	const QString SCORELIMIT = tr("Scorelimit");
 	QString row = limitHTML(SCORELIMIT, "%1", d->server->scoreLimit());
@@ -123,7 +117,7 @@ QString GameInfoTip::teamScoresHTML()
 	return teamScores;
 }
 
-QString	GameInfoTip::timelimitHTML()
+QString GameInfoTip::timelimitHTML()
 {
 	const QString TIMELIMIT = tr("Timelimit");
 	int timeLimit = d->server->timeLimit();
@@ -133,7 +127,6 @@ QString	GameInfoTip::timelimitHTML()
 	if (timeLimit != 0)
 	{
 		timeLeft = tr("(%1 left)").arg(d->server->timeLeft());
-
 	}
 	row = row.arg(timeLeft);
 

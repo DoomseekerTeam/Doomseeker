@@ -23,8 +23,8 @@
 #ifndef __SERVER_LIST_ROW_HANDLER_H_
 #define __SERVER_LIST_ROW_HANDLER_H_
 
-#include "serverapi/serverptr.h"
 #include "dptr.h"
+#include "serverapi/serverptr.h"
 #include <QObject>
 
 class GameCVar;
@@ -38,91 +38,84 @@ class ServerListRowHandler : public QObject
 {
 	Q_OBJECT
 
-	public:
-		/**
-		 *	Servers from the same group will be always kept together
-		 *  and sorted only inside this group. Group order is always descending:
-		 *  SG_NORMAL servers will be always on the top of the list, after them
-		 *  will be SG_WAIT servers, etc.
-		 *
-		 *	Exception: custom servers will always be on top of the list
-		 *	and will be sorted inside their own group independentedly.
-		 */
-		enum ServerGroup
-		{
-			SGNormal = 200,
-			SGWait = 175,
-			SGBanned = 150,
-			SGTimeout = 125,
-			SGBad = 100,
-			SGFirstQuery = 50,
-		};
+public:
+	/**
+	 * Servers from the same group will be always kept together
+	 * and sorted only inside this group. Group order is always descending:
+	 * SG_NORMAL servers will be always on the top of the list, after them
+	 * will be SG_WAIT servers, etc.
+	 *
+	 * Exception: custom servers will always be on top of the list
+	 * and will be sorted inside their own group independentedly.
+	 */
+	enum ServerGroup
+	{
+		SGNormal = 200,
+		SGWait = 175,
+		SGBanned = 150,
+		SGTimeout = 125,
+		SGBad = 100,
+		SGFirstQuery = 50,
+	};
 
-		enum ServerListDataTypes
-		{
-			// Pointer to the server structure is always stored in the first column
-			DTPointerToServerStructure = Qt::UserRole+1,
-			DTSort = Qt::UserRole+2
-		};
+	ServerListRowHandler(ServerListModel *parentModel, int rowIndex, const ServerPtr &server);
 
-		ServerListRowHandler(ServerListModel* parentModel, int rowIndex, const ServerPtr &server);
+	/**
+	 * In this constructor server will be obtained directly from the
+	 * parentModel.
+	 */
+	ServerListRowHandler(ServerListModel *parentModel, int rowIndex);
+	~ServerListRowHandler() override;
 
-		/**
-		 *	In this constructor server will be obtained directly from the
-		 *	parentModel.
-		 */
-		ServerListRowHandler(ServerListModel* parentModel, int rowIndex);
-		~ServerListRowHandler();
+	/**
+	 * Removes content from fields for which isColumnVital() returns false.
+	 */
+	void clearNonVitalFields();
 
-		/**
-		 *	Removes content from fields for which isColumnVital() returns false.
-		 */
-		void clearNonVitalFields();
+	QStandardItem *item(int columnIndex);
 
-		QStandardItem* item(int columnIndex);
+	void redraw();
 
-		void redraw();
+	ServerPtr server();
+	void setCountryFlag();
+	void setRefreshing();
 
-		ServerPtr server();
-		void setCountryFlag();
-		void setRefreshing();
+	int updateServer();
 
-		int updateServer();
+	static ServerPtr serverFromList(const ServerListModel *parentModel, int rowIndex);
+private:
+	DPtr<ServerListRowHandler> d;
 
-		static ServerPtr serverFromList(const ServerListModel* parentModel, int rowIndex);
-	private:
-		DPtr<ServerListRowHandler> d;
+	void emptyItem(QStandardItem *);
 
-		void emptyItem(QStandardItem*);
+	void fillAddressColumn();
 
-		void fillAddressColumn();
+	void fillItem(QStandardItem *, const QString &);
+	void fillItem(QStandardItem *, int, const QString &);
+	void fillItem(QStandardItem *, int);
+	void fillItem(QStandardItem *, const QHostAddress &, const QString &actualDisplay = QString());
+	void fillItem(QStandardItem *, const QString &, const QPixmap &);
+	void fillItem(QStandardItem *, int, const QPixmap &);
 
-		void fillItem(QStandardItem*, const QString&);
-		void fillItem(QStandardItem*, int, const QString&);
-		void fillItem(QStandardItem*, int);
-		void fillItem(QStandardItem*, const QHostAddress&, const QString& actualDisplay = QString());
-		void fillItem(QStandardItem*, const QString&, const QPixmap&);
-		void fillItem(QStandardItem*, int, const QPixmap&);
+	void fillPlayerColumn();
+	void fillPortIconColumn();
+	void fillServerPointer();
 
-		void fillPlayerColumn();
-		void fillPortIconColumn();
-		void fillServerPointerColumn();
+	void prepareHeaders();
 
-		void prepareHeaders();
+	void setBackgroundColor();
 
-		void setBackgroundColor();
+	void setBad();
+	void setBanned();
+	void setFirstQuery();
+	void setGood();
+	void setTimeout();
+	void setWait();
 
-		void setBad();
-		void setBanned();
-		void setFirstQuery();
-		void setGood();
-		void setTimeout();
-		void setWait();
+	ServerListModel *model;
+	int row;
 
-		ServerListModel* model;
-		int row;
-
-		QStringList extractValidGameCVarNames(const QList<GameCVar> &cvars);
+	QStringList extractValidGameCVarNames(const QList<GameCVar> &cvars);
 };
 
 #endif

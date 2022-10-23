@@ -22,9 +22,9 @@
 //------------------------------------------------------------------------------
 
 #include "enginezandronumconfigbox.h"
-#include "zandronumengineplugin.h"
 #include "ini/ini.h"
 #include "plugins/engineplugin.h"
+#include "zandronumengineplugin.h"
 
 #include <QCheckBox>
 #include <QFileDialog>
@@ -34,8 +34,8 @@
 #include <QLineEdit>
 #include <QPushButton>
 
-EngineZandronumConfigBox::EngineZandronumConfigBox(EnginePlugin* plugin, IniSection& cfg, QWidget* parent)
-: EngineConfigPage(plugin, cfg, parent)
+EngineZandronumConfigBox::EngineZandronumConfigBox(EnginePlugin *plugin, IniSection &cfg, QWidget *parent)
+	: EngineConfigPage(plugin, cfg, parent)
 {
 	// Create the testing box, we might as well do this in code.
 	groupTesting = new QGroupBox();
@@ -53,16 +53,7 @@ EngineZandronumConfigBox::EngineZandronumConfigBox(EnginePlugin* plugin, IniSect
 	releasePathLayout->layout()->addWidget(btnBrowseTestingPath);
 	groupTesting->layout()->addWidget(releasePathLayout);
 
-	// Allow clients to "ask politely" not to display the country
-	// of the client. User modified servers can just ignore this and
-	// display the country anyway.
-	// Default: do not allow.
-	cbAllowDisplayCountry = new QCheckBox(this);
-	cbAllowDisplayCountry->setText(tr("Allow servers to display my country"));
-	cbAllowDisplayCountry->setChecked(false);
-	addWidget(cbAllowDisplayCountry);
-
-	connect(btnBrowseTestingPath, SIGNAL( clicked() ), this, SLOT ( btnBrowseTestingPathClicked() ));
+	connect(btnBrowseTestingPath, SIGNAL(clicked()), this, SLOT(btnBrowseTestingPathClicked()));
 }
 
 void EngineZandronumConfigBox::btnBrowseTestingPathClicked()
@@ -76,11 +67,10 @@ void EngineZandronumConfigBox::readSettings()
 {
 	EngineConfigPage::readSettings();
 
-	IniSection& config = *ZandronumEnginePlugin::staticInstance()->data()->pConfig;
+	IniSection &config = *ZandronumEnginePlugin::staticInstance()->data()->pConfig;
 
 	groupTesting->setChecked(config["EnableTesting"]);
 	leTestingPath->setText(config["TestingPath"]);
-	cbAllowDisplayCountry->setChecked(config["AllowServersToDisplayMyCountry"]);
 }
 
 void EngineZandronumConfigBox::saveSettings()
@@ -89,11 +79,10 @@ void EngineZandronumConfigBox::saveSettings()
 
 	QString strVal;
 
-	IniSection& config = *ZandronumEnginePlugin::staticInstance()->data()->pConfig;
+	IniSection &config = *ZandronumEnginePlugin::staticInstance()->data()->pConfig;
 
 	config["EnableTesting"] = groupTesting->isChecked();
 
 	strVal = leTestingPath->text();
 	config["TestingPath"] = strVal;
-	config["AllowServersToDisplayMyCountry"] = cbAllowDisplayCountry->isChecked();
 }

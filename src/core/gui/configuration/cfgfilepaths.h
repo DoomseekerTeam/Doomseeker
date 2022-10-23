@@ -24,8 +24,8 @@
 #ifndef __CFG_FILE_PATHS_H_
 #define __CFG_FILE_PATHS_H_
 
-#include "gui/configuration/configpage.h"
 #include "dptr.h"
+#include "gui/configuration/configpage.h"
 
 class FileSearchPath;
 class QFileInfo;
@@ -34,32 +34,35 @@ class CFGFilePaths : public ConfigPage
 {
 	Q_OBJECT
 
-	public:
-		CFGFilePaths(QWidget* parent = 0);
-		~CFGFilePaths();
+public:
+	CFGFilePaths(QWidget *parent = nullptr);
+	~CFGFilePaths() override;
 
-		void readSettings();
-		Validation validate();
+	void readSettings() override;
+	Validation validate() override;
 
-	protected:
-		void addPath(const FileSearchPath& fileSearchPath);
+protected:
+	void addPath(const FileSearchPath &fileSearchPath);
 
-		QIcon icon() const;
+	QIcon icon() const override;
 
-		bool isPathAlreadyDefined(const QString& path);
+	bool isPathAlreadyDefined(const QString &path);
 
-		QString name() const { return tr("File Paths"); }
+	QString name() const override
+	{
+		return tr("File paths");
+	}
 
-		void saveSettings();
+	void saveSettings() override;
 
-	protected slots:
-		void btnAddWadPath_Click();
-		void btnRemoveWadPath_Click();
+protected slots:
+	void btnAddWadPath_Click();
+	void btnRemoveWadPath_Click();
 
-	private:
-		DPtr<CFGFilePaths> d;
+private:
+	DPtr<CFGFilePaths> d;
 
-		QString validatePath(const QString &path) const;
+	QString validatePath(const QString &path) const;
 };
 
 #endif

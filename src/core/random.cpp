@@ -22,32 +22,26 @@
 //------------------------------------------------------------------------------
 #include "random.h"
 
-#include <cmath>
-#include <cstdlib>
-#include <ctime>
-
 #include <QDateTime>
 
-bool Random::bIsInit = false;
+QSharedPointer<std::mt19937> Random::generator = QSharedPointer<std::mt19937>();
 
 void Random::builtInInit()
 {
-	if (!bIsInit)
+	if (Random::generator.isNull())
 	{
-		QDateTime currentTime = QDateTime::currentDateTime();
-		init(clock() + currentTime.toTime_t());
+		std::random_device randomDevice;
+		init(randomDevice() + QDateTime::currentDateTime().toMSecsSinceEpoch());
 	}
 }
 
 void Random::init(int seed)
 {
-	bIsInit = true;
-	srand(seed);
+	Random::generator.reset(new std::mt19937(seed));
 }
 
 unsigned short Random::nextUShort(unsigned short max)
 {
 	builtInInit();
-
-	return rand() % max;
+	return (*Random::generator.data())() % max;
 }

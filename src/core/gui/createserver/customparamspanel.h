@@ -32,11 +32,11 @@ class Ini;
 
 class CustomParamsPanel : public QWidget
 {
-Q_OBJECT
+	Q_OBJECT
 
 public:
 	CustomParamsPanel(QWidget *parent);
-	~CustomParamsPanel();
+	~CustomParamsPanel() override;
 
 	void fillInParams(GameCreateParams &params);
 	void loadConfig(Ini &config);

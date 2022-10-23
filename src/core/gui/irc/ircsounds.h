@@ -25,47 +25,46 @@
 
 #include <QMap>
 
-class QSound;
+class QSoundEffect;
 
 /**
- *	@brief Part of IRC UI package. Plays IRC related sounds.
+ * @brief Part of IRC UI package. Plays IRC related sounds.
  *
- *	Loads, stores and plays IRC sounds if they are available and
- *	if Doomseeker is configured to use them.
+ * Loads, stores and plays IRC sounds if they are available and
+ * if Doomseeker is configured to use them.
  */
 class IRCSounds
 {
-	public:
-		enum SoundType
-		{
-			NicknameUsed,
-			PrivateMessageReceived
-		};
+public:
+	enum SoundType
+	{
+		NicknameUsed,
+		PrivateMessageReceived
+	};
 
-		IRCSounds() {}
-		~IRCSounds()
-		{
-			unload();
-		}
+	IRCSounds() {}
+	~IRCSounds()
+	{
+		unload();
+	}
 
-		/**
-		 *	@brief Reloads all sounds using paths stored in config.
-		 *
-		 *	All previously loaded sounds are unloaded.
-		 */
-		void loadFromConfig();
+	/**
+	 * @brief Reloads all sounds using paths stored in config.
+	 *
+	 * All previously loaded sounds are unloaded.
+	 */
+	void loadFromConfig();
 
-		/**
-		 *	@brief Plays given sound.
-		 */
-		void playIfAvailable(SoundType sound);
+	/**
+	 * @brief Plays given sound.
+	 */
+	void playIfAvailable(SoundType sound);
 
-	private:
-		QMap<SoundType, QSound*> sounds;
+private:
+	QMap<SoundType, QSoundEffect *> sounds;
 
-		QSound* loadIfExists(const QString& path);
-		void unload();
-
+	QSoundEffect *loadIfExists(const QString &path);
+	void unload();
 };
 
 #endif

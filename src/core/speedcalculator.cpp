@@ -36,7 +36,7 @@ long double SpeedCalculator::estimatedTimeUntilArrival() const
 		return -1.0;
 	}
 
-	const DataArrivalInfo& endInfo = arrivalData.last();
+	const DataArrivalInfo &endInfo = arrivalData.last();
 	unsigned currentData = endInfo.totalAmountOfArrivedData;
 
 	// This happens if dataSizeExpected isn't set properly.
@@ -92,7 +92,7 @@ void SpeedCalculator::registerDataAmount(qint64 totalAmountOfArrivedData)
 	}
 	else
 	{
-		DataArrivalInfo& lastPacket = arrivalData.last();
+		DataArrivalInfo &lastPacket = arrivalData.last();
 		if (lastPacket.timeOfArrival + 1000 < dataArrivalInfo.timeOfArrival)
 		{
 			// Circulate the DataArrivalInfo objects.

@@ -24,9 +24,9 @@
 #ifndef __PATHFINDER_H_
 #define __PATHFINDER_H_
 
-#include "pathfinder/filesearchpath.h"
 #include "dptr.h"
 #include "global.h"
+#include "pathfinder/filesearchpath.h"
 #include <QStringList>
 
 class IniSection;
@@ -40,24 +40,24 @@ class IniVariable;
  */
 class MAIN_EXPORT PathFinderResult
 {
-	public:
-		PathFinderResult();
-		virtual ~PathFinderResult();
+public:
+	PathFinderResult();
+	virtual ~PathFinderResult();
 
-		/**
-		 * @brief Paths to found files.
-		 */
-		QStringList& foundFiles();
-		const QStringList& foundFiles() const;
+	/**
+	 * @brief Paths to found files.
+	 */
+	QStringList &foundFiles();
+	const QStringList &foundFiles() const;
 
-		/**
-		 * @brief Names of not found files.
-		 */
-		QStringList& missingFiles();
-		const QStringList& missingFiles() const;
+	/**
+	 * @brief Names of not found files.
+	 */
+	QStringList &missingFiles();
+	const QStringList &missingFiles() const;
 
-	private:
-		DPtr<PathFinderResult> d;
+private:
+	DPtr<PathFinderResult> d;
 };
 
 /**
@@ -80,55 +80,59 @@ class MAIN_EXPORT PathFinderResult
  */
 class MAIN_EXPORT PathFinder
 {
-	public:
-		/**
-		 * @brief Generic PathFinder that looks in PATH and other common dirs.
-		 *
-		 * This PathFinder is suitable for finding game executables. What dirs
-		 * are searched depends on the platform.
-		 */
-		static PathFinder genericPathFinder(const QStringList &suffixes);
+public:
+	/**
+	 * @brief Generic PathFinder that looks in PATH and other common dirs.
+	 *
+	 * This PathFinder is suitable for finding game executables. What dirs
+	 * are searched depends on the platform.
+	 */
+	static PathFinder genericPathFinder(const QStringList &suffixes);
 
-		/**
-		 * @brief Constructs PathFinder where paths are read from program
-		 *        configuration from file (WAD) path list setting.
-		 */
-		PathFinder();
-		/**
-		 * @brief Constructs PathFinder with custom paths.
-		 *
-		 * Program configuration is skipped here.
-		 */
-		PathFinder(const QStringList& paths);
-		virtual ~PathFinder();
+	/**
+	 * @brief Constructs PathFinder where paths are read from program
+	 *        configuration from file (WAD) path list setting.
+	 */
+	PathFinder();
+	/**
+	 * @brief Constructs PathFinder with custom paths.
+	 *
+	 * Program configuration is skipped here.
+	 */
+	PathFinder(const QStringList &paths);
+	virtual ~PathFinder();
 
-		/**
-		 * Provides a directory where we should search first before going to
-		 * user specified locations.  This function can take either a directory
-		 * or a file as its input.  If a file is given the directory part will
-		 * be extracted.
-		 */
-		void addPrioritySearchDir(const QString& dir);
-		/**
-		 * @brief Adds directory where search will be performed.
-		 *
-		 * Directory is added with least search priority. If you wish
-		 * to add dir with top priority use addPrioritySearchDir()
-		 * instead.
-		 */
-		void addSearchDir(const QString& dir);
-		/**
-		 * @brief Performs a search for a single file.
-		 */
-		QString findFile(const QString& fileName) const;
-		/**
-		 * @brief Performs a search for multiple files, marking them as found
-		 *        or missing.
-		 */
-		PathFinderResult findFiles(const QStringList& files) const;
+	/**
+	 * Provides a directory where we should search first before going to
+	 * user specified locations.  This function can take either a directory
+	 * or a file as its input.  If a file is given the directory part will
+	 * be extracted.
+	 */
+	void addPrioritySearchDir(const QString &dir);
+	/**
+	 * @brief Adds directory where search will be performed.
+	 *
+	 * Directory is added with least search priority. If you wish
+	 * to add dir with top priority use addPrioritySearchDir()
+	 * instead.
+	 */
+	void addSearchDir(const QString &dir);
+	/**
+	 * @brief Performs a search for a single file.
+	 */
+	QString findFile(const QString &fileName) const;
+	/**
+	 * @brief Performs a search for multiple files, marking them as found
+	 *        or missing.
+	 */
+	PathFinderResult findFiles(const QStringList &files) const;
 
-	private:
-		DPtr<PathFinder> d;
+private:
+	/**
+	 * @brief Delete duplicated paths and subdirs of recursive dirs.
+	 */
+	void removeUnneededPaths() const;
+	DPtr<PathFinder> d;
 };
 
 #endif

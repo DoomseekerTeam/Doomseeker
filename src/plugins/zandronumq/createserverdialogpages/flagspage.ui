@@ -1,0 +1,4631 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FlagsPage</class>
+ <widget class="QWidget" name="FlagsPage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>853</width>
+    <height>476</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tabGeneral">
+      <attribute name="title">
+       <string>General</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_6">
+       <item>
+        <widget class="QWidget" name="widget_8" native="true">
+         <layout class="QHBoxLayout" name="horizontalLayout_7">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="label_15">
+            <property name="text">
+             <string>Game version:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="cboGameVersion"/>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="cbDefaultDmflags">
+            <property name="toolTip">
+             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;If this is checked then Q-Zandronum may override some of the settings selected here.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;(+sv_defaultdmflags)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>Default DMFlags</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QGroupBox" name="groupBox">
+           <property name="title">
+            <string>Environment</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <layout class="QFormLayout" name="formLayout">
+              <property name="labelAlignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_6">
+                <property name="text">
+                 <string>Falling damage:</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QComboBox" name="cboFallingDamage"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QWidget" name="widget" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>8</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>8</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbNoMonsters">
+              <property name="text">
+               <string>No monsters</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QWidget" name="widget_2" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>8</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>8</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbItemsRespawn">
+              <property name="text">
+               <string>Items respawn</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbBarrelsRespawn">
+              <property name="text">
+               <string>Barrels respawn</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbMegaPowerupsRespawn">
+              <property name="toolTip">
+               <string>Respawn invulnerability and invisibility spheres.</string>
+              </property>
+              <property name="text">
+               <string>Mega powerups respawn</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_2">
+           <property name="title">
+            <string>Teams</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <widget class="QCheckBox" name="cbServerPicksTeams">
+              <property name="text">
+               <string>Server picks teams</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbPlayersCantSwitchTeams">
+              <property name="text">
+               <string>Players can't switch teams</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbKeepTeamsAfterAMapChange">
+              <property name="text">
+               <string>Keep teams after a map change</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QWidget" name="widget_3" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>8</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>8</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbHideAlliesOnTheAutomap">
+              <property name="text">
+               <string>Hide allies on the automap</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbDontLetPlayersSpyOnAllies">
+              <property name="text">
+               <string>Don't let players spy on allies</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QWidget" name="widget_4" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>8</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>8</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbInstantFlagSkullReturn">
+              <property name="text">
+               <string>Instant flag/skull return</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QGridLayout" name="gridLayout_6">
+         <item row="0" column="0">
+          <widget class="QCheckBox" name="cbNoUnlagged">
+           <property name="toolTip">
+            <string>Don't use ping-based backwards reconciliation for player-fired hitscans and rails.</string>
+           </property>
+           <property name="text">
+            <string>No unlagged</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QCheckBox" name="cbAlwaysApplyLMSSpectatorSettings">
+           <property name="toolTip">
+            <string>Apply lmsspectatorsettings in all game modes.</string>
+           </property>
+           <property name="text">
+            <string>Always apply LMS spectator settings</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QCheckBox" name="cbNoMedals">
+           <property name="toolTip">
+            <string>Enforces clients not to show medals, i.e. behave as if cl_medals == 0.</string>
+           </property>
+           <property name="text">
+            <string>No medals</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabPlayers">
+      <attribute name="title">
+       <string>Players</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_25">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QGroupBox" name="groupBox_3">
+           <property name="title">
+            <string>Disallow</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <layout class="QGridLayout" name="gridLayout_4">
+              <item row="0" column="0">
+               <widget class="QCheckBox" name="cbNoSuicide">
+                <property name="text">
+                 <string>Suicide</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QCheckBox" name="cbNoRespawn">
+                <property name="text">
+                 <string>Respawn</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QCheckBox" name="cbNoRocketJump">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;P_RadiusAttack doesn't give players any z-momentum if the attack was made by a player. This essentially disables rocket jumping.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string>Rocket jump</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QCheckBox" name="cbNoTaunt">
+                <property name="text">
+                 <string>Taunt</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QCheckBox" name="cbNoItemDrop">
+                <property name="text">
+                 <string>Item drop</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QWidget" name="widget_5" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>8</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>8</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QGridLayout" name="gridLayout_5">
+              <item row="0" column="0">
+               <widget class="QCheckBox" name="cbNoUseAutomap">
+                <property name="text">
+                 <string>Use automap</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QCheckBox" name="cbNoTurnOffTranslucency">
+                <property name="text">
+                 <string>Turn off translucency</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QCheckBox" name="cbNoUseCrosshairs">
+                <property name="text">
+                 <string>Use crosshairs</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QCheckBox" name="cbNoUseCustomGLLightingSettings">
+                <property name="text">
+                 <string>Use custom GL lighting settings</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QCheckBox" name="cbNoTargetIdentify">
+                <property name="toolTip">
+                 <string>Enforces clients not to identify players, i.e. behave as if cl_identifytarget == 0.</string>
+                </property>
+                <property name="text">
+                 <string>Target identify</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QCheckBox" name="cbNoDisplayCoopInfo">
+                <property name="toolTip">
+                 <string>Enforces clients not to draw coop info, i.e. behave as if cl_drawcoopinfo == 0.</string>
+                </property>
+                <property name="text">
+                 <string>Display coop info</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QWidget" name="widget_6" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>8</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>8</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbNoUseAutoaim">
+              <property name="text">
+               <string>Use autoaim</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbNoUseFreelook">
+              <property name="text">
+               <string>Use freelook</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbNoUseLandConsoleCommand">
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Players are not allowed to use the land CCMD. Because of Q-Zandronum's default amount of air control, flying players can get a huge speed boast with the land CCMD. Disallowing players to land, allows to keep the default air control most people are used to while not giving flying players too much of an advantage.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="text">
+               <string>Use 'land' console command</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbNoMaxBloodScalar">
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Don't allow players to change how strongly will their screen flash when they get hit.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="text">
+               <string>Change bloodied screen brightness</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <item>
+            <widget class="QGroupBox" name="groupBox_4">
+             <property name="title">
+              <string>Abilities</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_7">
+              <item>
+               <layout class="QFormLayout" name="formLayout_2">
+                <property name="labelAlignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_7">
+                  <property name="text">
+                   <string>Jumping:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QComboBox" name="cboJumping"/>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_8">
+                  <property name="text">
+                   <string>Crouching:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QComboBox" name="cboCrouching"/>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbInfiniteInventory">
+                <property name="text">
+                 <string>Infinite inventory</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbInfiniteAmmo">
+                <property name="text">
+                 <string>Infinite ammo</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbSlowlyLoseHealthWhenOver100">
+                <property name="toolTip">
+                 <string>Like Quake 3</string>
+                </property>
+                <property name="text">
+                 <string>Slowly lose health when over 100%</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbCanUseChasecam">
+                <property name="text">
+                 <string>Can use chasecam</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbAllowBFGFreeaiming">
+                <property name="text">
+                 <string>Allow BFG freeaiming</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_5">
+             <property name="title">
+              <string>Behavior</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_8">
+              <item>
+               <widget class="QRadioButton" name="rbPlayersCanWalkThroughEachOther">
+                <property name="text">
+                 <string>Players can walk through each other</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="rbAlliesCanWalkThroughEachOther">
+                <property name="text">
+                 <string>Allies can walk through each other</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="rbPlayersBlockEachOtherNormally">
+                <property name="text">
+                 <string>Players block each other normally</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbDontCheckAmmoWhenSwitchingWeapons">
+                <property name="text">
+                 <string>Don't check ammo when switching weapons</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <layout class="QGridLayout" name="gridLayout_3">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_12">
+               <property name="text">
+                <string>Force inactive players to spectate after:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QSpinBox" name="spinForceInactivePlayersSpectatingMins">
+               <property name="minimumSize">
+                <size>
+                 <width>60</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+               <property name="maximum">
+                <number>9999</number>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QLabel" name="label_13">
+               <property name="text">
+                <string>min.</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabCooperative">
+      <attribute name="title">
+       <string>Cooperative</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_26">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_10">
+           <item>
+            <widget class="QCheckBox" name="cbScoreDamageNotKills">
+             <property name="text">
+              <string>Score damage, not kills</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_7">
+             <property name="title">
+              <string>Environment</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_11">
+              <item>
+               <widget class="QCheckBox" name="cbDontSpawnDeathmatchWeapons">
+                <property name="text">
+                 <string>Don't spawn Deathmatch weapons</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbDontSpawnAnyMultiplayerItem">
+                <property name="toolTip">
+                 <string>&lt;p&gt;Spawn map items, monsters and other objects in coop as if the game was single player.&lt;/p&gt;</string>
+                </property>
+                <property name="text">
+                 <string>Don't spawn any multiplayer actor in coop</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QGroupBox" name="groupBox_9">
+                <property name="title">
+                 <string>Monsters...</string>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_12">
+                 <item>
+                  <widget class="QCheckBox" name="cbMonstersAreFast">
+                   <property name="text">
+                    <string>are fast (like Nightmare)</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="cbMonstersRespawn">
+                   <property name="text">
+                    <string>respawn (like Nightmare)</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="cbMonstersMustBeKilledToExit">
+                   <property name="text">
+                    <string>must be killed to enable exit</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <layout class="QFormLayout" name="formLayout_3">
+                   <property name="labelAlignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="label_9">
+                     <property name="text">
+                      <string>Kill percentage:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QSpinBox" name="spinMonsterKillPercentage">
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     </property>
+                     <property name="maximum">
+                      <number>100</number>
+                     </property>
+                     <property name="value">
+                      <number>100</number>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="label_14">
+                     <property name="toolTip">
+                      <string>Multiplier of damage dealt by monsters.</string>
+                     </property>
+                     <property name="text">
+                      <string>Damage factor:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QDoubleSpinBox" name="spinMonstersDamageFactor">
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;body&gt;&lt;p&gt;Multiplier of damage dealt by monsters.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     </property>
+                     <property name="maximum">
+                      <double>999999.000000000000000</double>
+                     </property>
+                     <property name="singleStep">
+                      <double>0.100000000000000</double>
+                     </property>
+                     <property name="value">
+                      <double>1.000000000000000</double>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="cbKillBossMonsters">
+                   <property name="text">
+                    <string>Kill all monsters spawned by a boss cube when the boss dies</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_8">
+           <property name="title">
+            <string>On player death...</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_13">
+            <item>
+             <widget class="QCheckBox" name="cbRespawnWhereDied">
+              <property name="text">
+               <string>respawn where died</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbLoseAllInventory">
+              <property name="text">
+               <string>lose all inventory</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbLoseArmor">
+              <property name="text">
+               <string>lose armor</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbLoseKeys">
+              <property name="text">
+               <string>lose keys</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbLosePowerups">
+              <property name="text">
+               <string>lose powerups</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbLoseWeapons">
+              <property name="text">
+               <string>lose weapons</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbLoseAllAmmo">
+              <property name="text">
+               <string>lose all ammo</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbLoseHalfAmmo">
+              <property name="text">
+               <string>lose half ammo</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbDeadPlayersCanKeepInventory">
+              <property name="toolTip">
+               <string>&lt;p&gt;If set, players who lose all lives and become dead spectators will still keep inventory in accordance to the &amp;quot;Lose inventory&amp;quot; flags. When they will finally be able to play again, all their items will be returned to them.&lt;/p&gt;
+
+&lt;p&gt;If unset, players who lose all lives will always lose their entire inventory, regardless of the &amp;quot;Lose inventory&amp;quot; flags.&lt;/p&gt;</string>
+              </property>
+              <property name="text">
+               <string>Players who lose all lives can keep inventory</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="cbShareKeys">
+         <property name="text">
+          <string>Share keys between players</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="cbSurvivalNoMapResetOnDeath">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Players will be respawned with full lives but the map will not be reset. Inventory will be preserved in accordance to &amp;quot;Lose inventory&amp;quot; flags. Players will be able to continue from the point where they died.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="text">
+          <string>Survival only: no map reset when all players die</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabDeathmatch">
+      <attribute name="title">
+       <string>Deathmatch</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_14">
+       <item>
+        <widget class="QGroupBox" name="groupBox_10">
+         <property name="title">
+          <string>When players die, they...</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_2">
+          <item row="0" column="0">
+           <widget class="QCheckBox" name="cbRespawnAutomatically">
+            <property name="text">
+             <string>respawn automatically</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QCheckBox" name="cbDropWeaponOnDeath">
+            <property name="text">
+             <string>drop their weapon</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="cbRespawnFarthestAwayFromOthers">
+            <property name="text">
+             <string>respawn farthest away from others</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QCheckBox" name="cbLoseAFragOnDeath">
+            <property name="text">
+             <string>lose a frag</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="cbRespawnWithAShotgun">
+            <property name="text">
+             <string>respawn with a shotgun</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QCheckBox" name="cbNoRespawnProtection">
+            <property name="text">
+             <string>don't get respawn protection</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QGroupBox" name="groupBox_11">
+           <property name="title">
+            <string>When someone exits the level...</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_15">
+            <item>
+             <widget class="QRadioButton" name="rbContinueToTheNextMap">
+              <property name="text">
+               <string>continue to the next map</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="rbRestartTheCurrentLevel">
+              <property name="text">
+               <string>restart the current level</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="rbKillThePlayer">
+              <property name="text">
+               <string>kill the player</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QWidget" name="widget_7" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>8</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>8</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbKeepFragsAfterMapChange">
+              <property name="text">
+               <string>Keep frags after map change</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_17">
+           <item>
+            <widget class="QGroupBox" name="groupBox_12">
+             <property name="title">
+              <string>Weapons &amp;&amp; Ammo</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_16">
+              <item>
+               <widget class="QCheckBox" name="cbWeaponsStayAfterPickup">
+                <property name="text">
+                 <string>Weapons stay after pickup</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbWeaponsStayRefill">
+                <property name="text">
+                 <string>Weapons always refill ammo</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbDoubleAmmo">
+                <property name="text">
+                 <string>Double ammo</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_13">
+             <property name="title">
+              <string>Don't spawn...</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_18">
+              <item>
+               <widget class="QCheckBox" name="cbDontSpawnHealth">
+                <property name="text">
+                 <string>health</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbDontSpawnArmor">
+                <property name="text">
+                 <string>armor</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbDontSpawnRunes">
+                <property name="text">
+                 <string>runes</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_6">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabLMS">
+      <attribute name="title">
+       <string>LMS</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_27">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QGroupBox" name="groupBox_14">
+           <property name="title">
+            <string>Weapons</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_19">
+            <item>
+             <widget class="QCheckBox" name="cbLMSChainsaw">
+              <property name="text">
+               <string>Chainsaw</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbLMSPistol">
+              <property name="text">
+               <string>Pistol</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbLMSShotgun">
+              <property name="text">
+               <string>Shotgun</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbLMSSuperShotgun">
+              <property name="text">
+               <string>Super shotgun</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbLMSChaingun">
+              <property name="text">
+               <string>Chaingun</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbLMSMinigun">
+              <property name="text">
+               <string>Minigun</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbLMSRocketLauncher">
+              <property name="text">
+               <string>Rocket launcher</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbLMSGrenadeLauncher">
+              <property name="text">
+               <string>Grenade launcher</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbLMSPlasmaRifle">
+              <property name="text">
+               <string>Plasma rifle</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbLMSRailgun">
+              <property name="text">
+               <string>Railgun</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_20">
+           <item>
+            <layout class="QFormLayout" name="formLayout_4">
+             <property name="labelAlignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+             <property name="formAlignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+             </property>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_10">
+               <property name="text">
+                <string>lmsallowedweapons:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="leLMSAllowedWeapons">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>0</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_11">
+               <property name="text">
+                <string>lmsspectatorsettings:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="leLMSSpectatorSettings">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>0</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_15">
+             <property name="title">
+              <string>Spectators can...</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_21">
+              <item>
+               <widget class="QCheckBox" name="cbLMSSpectatorsCanTalkToActivePlayers">
+                <property name="text">
+                 <string>talk to active players</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbLMSSpectatorsCanViewTheGame">
+                <property name="text">
+                 <string>view the game</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabCompatibility">
+      <attribute name="title">
+       <string>Compatibility</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_28">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_22">
+           <item>
+            <widget class="QCheckBox" name="cbCompatEnableWallRunning">
+             <property name="toolTip">
+              <string>Enable buggier wall clipping so players can wallrun.</string>
+             </property>
+             <property name="text">
+              <string>Enable wall running</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatDontLetOthersHearPickups">
+             <property name="toolTip">
+              <string>Pickups are only heard locally.</string>
+             </property>
+             <property name="text">
+              <string>Don't let others hear pickups</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatAllowInstantRespawn">
+             <property name="text">
+              <string>Allow instant respawn</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatDisableStealthMonsters">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disable stealth monsters, since doom2.exe didn't have them.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Note: this handles ZDoom's invisible monsters.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;THIS DOESN'T AFFECT THE PARTIAL INVISIBILITY SPHERE IN ANY WAY. See &amp;quot;Monsters see semi-invisible players&amp;quot; for that.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Disable stealth monsters</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatAllowSilentBFGTrick">
+             <property name="toolTip">
+              <string>Limit actors to one sound at a time.</string>
+             </property>
+             <property name="text">
+              <string>Allow silent BFG trick</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatOriginalWeaponSwitch">
+             <property name="toolTip">
+              <string>When a weapon is picked up, the weapon switch behaves like in vanilla Doom.</string>
+             </property>
+             <property name="text">
+              <string>Original weapon switch</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatLimitedMovementInTheAir">
+             <property name="text">
+              <string>Limited movement in the air</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatMonstersSeeSemiInvisiblePlayers">
+             <property name="toolTip">
+              <string>This affects the partial invisibility sphere.</string>
+             </property>
+             <property name="text">
+              <string>Monsters see semi-invisible players</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatPlasmaBumpBug">
+             <property name="toolTip">
+              <string>Allow the map01 &quot;plasma bump&quot; bug.</string>
+             </property>
+             <property name="text">
+              <string>Plasma bump bug</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatAnyBossDeathActivatesMapSpecials">
+             <property name="text">
+              <string>Any boss death activates map specials</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatFrictionPushersPullersAffectMonsters">
+             <property name="text">
+              <string>Friction/pushers/pullers affect Monsters</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatCrusherGibsByMorphingNotReplacement">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Crushed monsters are turned into gibs, rather than replaced by gibs.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Crusher gibs by morphing, not replacement</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatBlockMonsterLinesIgnoreFriendlyMonsters">
+             <property name="text">
+              <string>Block monster lines ignore friendly monsters</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatFindNeighboringLightLevelLikeDoom">
+             <property name="text">
+              <string>Find neighboring light level like Doom</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_24">
+           <item>
+            <widget class="QCheckBox" name="cbCompatUseOldIntermissionScreensMusic">
+             <property name="toolTip">
+              <string>Use doom2.exe's original intermission screens/music.</string>
+             </property>
+             <property name="text">
+              <string>Use old intermission screens/music</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatScrollingSectorsAreAdditive">
+             <property name="toolTip">
+              <string>Scrolling sectors are additive like in Boom.</string>
+             </property>
+             <property name="text">
+              <string>Scrolling sectors are additive</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatSectorSoundsUseOriginalMethod">
+             <property name="toolTip">
+              <string>Sector sounds use original method for sound origin.</string>
+             </property>
+             <property name="text">
+              <string>Sector sounds use original method</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatNoMonstersDropoffMove">
+             <property name="toolTip">
+              <string>Monsters cannot move when hanging over a dropoff.</string>
+             </property>
+             <property name="text">
+              <string>No monsters dropoff move</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatMonstersCantBePushedOffCliffs">
+             <property name="text">
+              <string>Monsters can't be pushed off cliffs</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatInstantlyMovingFloorsArentSilent">
+             <property name="toolTip">
+              <string>Instantly moving floors are not silent.</string>
+             </property>
+             <property name="text">
+              <string>Instantly moving floors aren't silent</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatOldRandomNumberGenerator">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use Doom's random table instead of ZDoom's random number generator. Affects weapon damage among other things.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Old random number generator</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatOldDamageRadiusInfiniteHeight">
+             <property name="toolTip">
+              <string>&lt;p&gt;Shooting a rocket against a wall will damage the actors near this wall even if they are far below or above the explosion.&lt;/p&gt;</string>
+             </property>
+             <property name="text">
+              <string>Old damage radius (infinite height)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatMinotaur">
+             <property name="text">
+              <string>Minotaur's floor flame explodes immediately when feet are clipped</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatOriginalVelocityCalcForMushroomInDehacked">
+             <property name="text">
+              <string>Original velocity calc. for A_Mushroom in Dehacked</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatSpriteSortOrderInverted">
+             <property name="text">
+              <string>Sprite sort order inverted for sprites of equal distance</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatHitscansOriginalBlockmap">
+             <property name="text">
+              <string>Hitscans use original blockmap and hit check code</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatDrawPolyobjectsOld">
+             <property name="text">
+              <string>Draw polyobjects the old fashioned way</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_7">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabCompatibility2">
+      <attribute name="title">
+       <string>Compatibility 2</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_23">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_8">
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_30">
+           <item>
+            <widget class="QCheckBox" name="cbCompatUseOriginalMissileClippingHeight">
+             <property name="toolTip">
+              <string>&lt;p&gt;This allows for decorations to be pass-through for projectiles as they were originally in Doom.&lt;/p&gt;</string>
+             </property>
+             <property name="text">
+              <string>Use original missile clipping height</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatUseSectorBasedSoundTargetCode">
+             <property name="text">
+              <string>Use sector based sound target code</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatTraceIgnoreLinesWithoutSameSectorOnBothSides">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Doom's hitscan tracing code ignores all lines with both sides in the same sector. ZDoom's does not. This option reverts to the original but less precise behavior. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Trace ignore lines w/ same sector on both sides</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatLimitDehMaxHealthToHealthBonus">
+             <property name="text">
+              <string>Limit deh.MaxHealth to health bonus</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatRavensScrollersUseOriginalSpeed">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The scrolling floor specials in Heretic and Hexen move the player much faster than the actual texture scrolling speed. Enable this option to restore this effect. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Raven's scrollers use original speed</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatAddNOGRAVITYFlagToSpheres">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add NOGRAVITY to actors named InvulnerabilitySphere, Soulsphere, Megasphere and BlurSphere when spawned by the map.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Add NOGRAVITY flag to spheres</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbDontStopPlayerScriptsOnDisconnect">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When a player leaves the game, don't stop any scripts of that player that are still running.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Don't stop player scripts on disconnect</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbOldZDoomHorizontalThrust">
+             <property name="toolTip">
+              <string>&lt;p&gt;If this is enabled, explosions cause a strong horizontal thrust like in old ZDoom versions.&lt;/p&gt;</string>
+             </property>
+             <property name="text">
+              <string>Old ZDoom horizontal thrust</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbOldZDoomBridgeDrops">
+             <property name="toolTip">
+              <string>&lt;p&gt;If this is enabled, non-SOLID things like flags fall through bridges (as they used to do in old ZDoom versions).&lt;/p&gt;</string>
+             </property>
+             <property name="text">
+              <string>Old ZDoom bridge drops</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbOldZDoomJumpPhysics">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Uses old ZDoom jump physics, it's a minor bug in the gravity code that causes gravity application in the wrong place.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>ZDoom 1.23B33 jump physics</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatUseVanillaAutoaimTracerBehavior">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;p&gt;Q-Zandronum uses more tracers to fill in the gaps, this reverts it to vanilla's 3 tracer behavior&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Use vanilla autoaim tracer behavior</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatMaskedMidtex">
+             <property name="text">
+              <string>Ignore compositing when drawing masked midtextures</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatBadAngles">
+             <property name="text">
+              <string>It is impossible to face directly NSEW</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbAccurateCrosshair">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Make weapons shoot where the crosshair is.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Enable shooting where crosshair is</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbEnableProjectileHitboxFix">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Make projectile hitbox work across entire sprite instead of only upper half.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Enable projectile hitbox fix</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_29">
+           <item>
+            <widget class="QCheckBox" name="cbCompatFindShortestTexturesLikeDoom">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use Doom's shortest texture find behavior. This is requied by some WADs in MAP07.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Find shortest textures like Doom</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatLimitPainElementals">
+             <property name="text">
+              <string>Limit pain elementals to 20 lost souls</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatSpawnItemDropsOnTheFloor">
+             <property name="text">
+              <string>Spawned item drops on the floor</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatNETScriptsAreClientside">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Treat ACS scripts with the SCRIPTF_Net flag to be client side, i.e. executed on the clients, but not on the server.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>NET scripts are clientside</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatPredictFunctions">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When this option is ON, many Decorate and ACS functions will execute on clients without before receiving a command from the server. This can lead to smoother multiplayer, but can breaks mods that don't support it..&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Enable predicting Decorate and ACS functions on clients</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatActorsAreInfinitelyTall">
+             <property name="toolTip">
+              <string>&lt;p&gt;This allows for decorations to be pass-through for projectiles as they were originally in Doom.&lt;/p&gt;</string>
+             </property>
+             <property name="text">
+              <string>Actors are infinitely tall</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatUseBuggierStairBuilding">
+             <property name="toolTip">
+              <string>Don't fix loop index for stair building.</string>
+             </property>
+             <property name="text">
+              <string>Use buggier stair building</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatDisableBoomDoorLightEffect">
+             <property name="text">
+              <string>Disable Boom door light effect</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatAllSpecialLinesCanDropUseLines">
+             <property name="text">
+              <string>All special lines can drop use lines</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatOriginalSoundCurve">
+             <property name="text">
+              <string>Original sound curve</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatFullWeaponLower">
+             <property name="text">
+              <string>Disallow weapon change until fully drawn or hidden</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatWestSpawnsAreSilent">
+             <property name="text">
+              <string>West spawns are silent</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatFloorMove">
+             <property name="text">
+              <string>Use the same floor motion behavior as Doom</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbDisableWallFriction">
+             <property name="text">
+              <string>Disable wall friction</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbQuakeThrust">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The Quake thrust formula considers damage source and victim positions and applies thrust properly among all three axes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Use Quake thrust formula</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbEnableElevatedSpecialFix">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Fix cases when there is an elevated floor with a special, but an actor is standing on it's edge so that actor's center is in the air and the special doesn't trigger.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Enable elevated sector special fix</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_8">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabVoting">
+      <attribute name="title">
+       <string>Voting</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_9">
+       <item>
+        <widget class="VotingSetupWidget" name="votingPage" native="true"/>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="4">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>q-zandronum dmflags</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="leDmflags">
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>dmflags</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>dmflags2</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="leDmflags2">
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="4">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>q-zandronum compatflags</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="5">
+      <widget class="QLineEdit" name="leZandronumqCompatflags">
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>compatflags</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="5">
+      <widget class="QLineEdit" name="leZandronumqDmflags">
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="QLineEdit" name="leCompatflags">
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QLabel" name="lblCompatflags2">
+       <property name="text">
+        <string>compatflags2</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QLineEdit" name="leCompatflags2">
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>VotingSetupWidget</class>
+   <extends>QWidget</extends>
+   <header>createserverdialogpages/votingsetupwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>cboGameVersion</tabstop>
+  <tabstop>cbDefaultDmflags</tabstop>
+  <tabstop>cboFallingDamage</tabstop>
+  <tabstop>cbNoMonsters</tabstop>
+  <tabstop>cbItemsRespawn</tabstop>
+  <tabstop>cbBarrelsRespawn</tabstop>
+  <tabstop>cbMegaPowerupsRespawn</tabstop>
+  <tabstop>cbServerPicksTeams</tabstop>
+  <tabstop>cbPlayersCantSwitchTeams</tabstop>
+  <tabstop>cbKeepTeamsAfterAMapChange</tabstop>
+  <tabstop>cbHideAlliesOnTheAutomap</tabstop>
+  <tabstop>cbDontLetPlayersSpyOnAllies</tabstop>
+  <tabstop>cbInstantFlagSkullReturn</tabstop>
+  <tabstop>cbNoUnlagged</tabstop>
+  <tabstop>cbNoMedals</tabstop>
+  <tabstop>cbAlwaysApplyLMSSpectatorSettings</tabstop>
+  <tabstop>cbNoSuicide</tabstop>
+  <tabstop>cbNoRespawn</tabstop>
+  <tabstop>cbNoItemDrop</tabstop>
+  <tabstop>cbNoRocketJump</tabstop>
+  <tabstop>cbNoTaunt</tabstop>
+  <tabstop>cbNoUseAutomap</tabstop>
+  <tabstop>cbNoUseCustomGLLightingSettings</tabstop>
+  <tabstop>cbNoUseCrosshairs</tabstop>
+  <tabstop>cbNoTurnOffTranslucency</tabstop>
+  <tabstop>cbNoTargetIdentify</tabstop>
+  <tabstop>cbNoDisplayCoopInfo</tabstop>
+  <tabstop>cbNoUseAutoaim</tabstop>
+  <tabstop>cbNoUseFreelook</tabstop>
+  <tabstop>cbNoUseLandConsoleCommand</tabstop>
+  <tabstop>cbNoMaxBloodScalar</tabstop>
+  <tabstop>cboJumping</tabstop>
+  <tabstop>cboCrouching</tabstop>
+  <tabstop>cbInfiniteInventory</tabstop>
+  <tabstop>cbInfiniteAmmo</tabstop>
+  <tabstop>cbSlowlyLoseHealthWhenOver100</tabstop>
+  <tabstop>cbCanUseChasecam</tabstop>
+  <tabstop>cbAllowBFGFreeaiming</tabstop>
+  <tabstop>rbPlayersCanWalkThroughEachOther</tabstop>
+  <tabstop>rbAlliesCanWalkThroughEachOther</tabstop>
+  <tabstop>rbPlayersBlockEachOtherNormally</tabstop>
+  <tabstop>cbDontCheckAmmoWhenSwitchingWeapons</tabstop>
+  <tabstop>spinForceInactivePlayersSpectatingMins</tabstop>
+  <tabstop>cbScoreDamageNotKills</tabstop>
+  <tabstop>cbDontSpawnDeathmatchWeapons</tabstop>
+  <tabstop>cbDontSpawnAnyMultiplayerItem</tabstop>
+  <tabstop>cbMonstersAreFast</tabstop>
+  <tabstop>cbMonstersRespawn</tabstop>
+  <tabstop>cbMonstersMustBeKilledToExit</tabstop>
+  <tabstop>spinMonsterKillPercentage</tabstop>
+  <tabstop>spinMonstersDamageFactor</tabstop>
+  <tabstop>cbKillBossMonsters</tabstop>
+  <tabstop>cbRespawnWhereDied</tabstop>
+  <tabstop>cbLoseAllInventory</tabstop>
+  <tabstop>cbLoseArmor</tabstop>
+  <tabstop>cbLoseKeys</tabstop>
+  <tabstop>cbLosePowerups</tabstop>
+  <tabstop>cbLoseWeapons</tabstop>
+  <tabstop>cbLoseAllAmmo</tabstop>
+  <tabstop>cbLoseHalfAmmo</tabstop>
+  <tabstop>cbDeadPlayersCanKeepInventory</tabstop>
+  <tabstop>cbShareKeys</tabstop>
+  <tabstop>cbSurvivalNoMapResetOnDeath</tabstop>
+  <tabstop>cbRespawnAutomatically</tabstop>
+  <tabstop>cbRespawnFarthestAwayFromOthers</tabstop>
+  <tabstop>cbRespawnWithAShotgun</tabstop>
+  <tabstop>cbDropWeaponOnDeath</tabstop>
+  <tabstop>cbLoseAFragOnDeath</tabstop>
+  <tabstop>cbNoRespawnProtection</tabstop>
+  <tabstop>rbContinueToTheNextMap</tabstop>
+  <tabstop>rbRestartTheCurrentLevel</tabstop>
+  <tabstop>rbKillThePlayer</tabstop>
+  <tabstop>cbKeepFragsAfterMapChange</tabstop>
+  <tabstop>cbWeaponsStayAfterPickup</tabstop>
+  <tabstop>cbWeaponsStayRefill</tabstop>
+  <tabstop>cbDoubleAmmo</tabstop>
+  <tabstop>cbDontSpawnHealth</tabstop>
+  <tabstop>cbDontSpawnArmor</tabstop>
+  <tabstop>cbDontSpawnRunes</tabstop>
+  <tabstop>cbLMSChainsaw</tabstop>
+  <tabstop>cbLMSPistol</tabstop>
+  <tabstop>cbLMSShotgun</tabstop>
+  <tabstop>cbLMSSuperShotgun</tabstop>
+  <tabstop>cbLMSChaingun</tabstop>
+  <tabstop>cbLMSMinigun</tabstop>
+  <tabstop>cbLMSRocketLauncher</tabstop>
+  <tabstop>cbLMSGrenadeLauncher</tabstop>
+  <tabstop>cbLMSPlasmaRifle</tabstop>
+  <tabstop>cbLMSRailgun</tabstop>
+  <tabstop>leLMSAllowedWeapons</tabstop>
+  <tabstop>leLMSSpectatorSettings</tabstop>
+  <tabstop>cbLMSSpectatorsCanTalkToActivePlayers</tabstop>
+  <tabstop>cbLMSSpectatorsCanViewTheGame</tabstop>
+  <tabstop>cbCompatEnableWallRunning</tabstop>
+  <tabstop>cbCompatDontLetOthersHearPickups</tabstop>
+  <tabstop>cbCompatAllowInstantRespawn</tabstop>
+  <tabstop>cbCompatDisableStealthMonsters</tabstop>
+  <tabstop>cbCompatAllowSilentBFGTrick</tabstop>
+  <tabstop>cbCompatOriginalWeaponSwitch</tabstop>
+  <tabstop>cbCompatLimitedMovementInTheAir</tabstop>
+  <tabstop>cbCompatMonstersSeeSemiInvisiblePlayers</tabstop>
+  <tabstop>cbCompatPlasmaBumpBug</tabstop>
+  <tabstop>cbCompatAnyBossDeathActivatesMapSpecials</tabstop>
+  <tabstop>cbCompatFrictionPushersPullersAffectMonsters</tabstop>
+  <tabstop>cbCompatCrusherGibsByMorphingNotReplacement</tabstop>
+  <tabstop>cbCompatBlockMonsterLinesIgnoreFriendlyMonsters</tabstop>
+  <tabstop>cbCompatFindNeighboringLightLevelLikeDoom</tabstop>
+  <tabstop>cbCompatUseOldIntermissionScreensMusic</tabstop>
+  <tabstop>cbCompatScrollingSectorsAreAdditive</tabstop>
+  <tabstop>cbCompatSectorSoundsUseOriginalMethod</tabstop>
+  <tabstop>cbCompatNoMonstersDropoffMove</tabstop>
+  <tabstop>cbCompatMonstersCantBePushedOffCliffs</tabstop>
+  <tabstop>cbCompatInstantlyMovingFloorsArentSilent</tabstop>
+  <tabstop>cbCompatOldRandomNumberGenerator</tabstop>
+  <tabstop>cbCompatOldDamageRadiusInfiniteHeight</tabstop>
+  <tabstop>cbCompatMinotaur</tabstop>
+  <tabstop>cbCompatOriginalVelocityCalcForMushroomInDehacked</tabstop>
+  <tabstop>cbCompatSpriteSortOrderInverted</tabstop>
+  <tabstop>cbCompatHitscansOriginalBlockmap</tabstop>
+  <tabstop>cbCompatDrawPolyobjectsOld</tabstop>
+  <tabstop>cbCompatUseOriginalMissileClippingHeight</tabstop>
+  <tabstop>cbCompatUseSectorBasedSoundTargetCode</tabstop>
+  <tabstop>cbCompatTraceIgnoreLinesWithoutSameSectorOnBothSides</tabstop>
+  <tabstop>cbCompatLimitDehMaxHealthToHealthBonus</tabstop>
+  <tabstop>cbCompatRavensScrollersUseOriginalSpeed</tabstop>
+  <tabstop>cbCompatAddNOGRAVITYFlagToSpheres</tabstop>
+  <tabstop>cbDontStopPlayerScriptsOnDisconnect</tabstop>
+  <tabstop>cbOldZDoomHorizontalThrust</tabstop>
+  <tabstop>cbOldZDoomBridgeDrops</tabstop>
+  <tabstop>cbOldZDoomJumpPhysics</tabstop>
+  <tabstop>cbCompatUseVanillaAutoaimTracerBehavior</tabstop>
+  <tabstop>cbCompatMaskedMidtex</tabstop>
+  <tabstop>cbCompatBadAngles</tabstop>
+  <tabstop>cbAccurateCrosshair</tabstop>
+  <tabstop>cbEnableProjectileHitboxFix</tabstop>
+  <tabstop>cbQuakeThrust</tabstop>
+  <tabstop>cbEnableElevatedSpecialFix</tabstop>
+  <tabstop>cbCompatFindShortestTexturesLikeDoom</tabstop>
+  <tabstop>cbCompatLimitPainElementals</tabstop>
+  <tabstop>cbCompatSpawnItemDropsOnTheFloor</tabstop>
+  <tabstop>cbCompatNETScriptsAreClientside</tabstop>
+  <tabstop>cbCompatPredictFunctions</tabstop>
+  <tabstop>cbCompatActorsAreInfinitelyTall</tabstop>
+  <tabstop>cbCompatUseBuggierStairBuilding</tabstop>
+  <tabstop>cbCompatDisableBoomDoorLightEffect</tabstop>
+  <tabstop>cbCompatAllSpecialLinesCanDropUseLines</tabstop>
+  <tabstop>cbCompatOriginalSoundCurve</tabstop>
+  <tabstop>cbCompatFullWeaponLower</tabstop>
+  <tabstop>cbCompatWestSpawnsAreSilent</tabstop>
+  <tabstop>cbCompatFloorMove</tabstop>
+  <tabstop>cbDisableWallFriction</tabstop>
+  <tabstop>votingPage</tabstop>
+  <tabstop>leDmflags</tabstop>
+  <tabstop>leDmflags2</tabstop>
+  <tabstop>leCompatflags</tabstop>
+  <tabstop>leCompatflags2</tabstop>
+  <tabstop>leZandronumqDmflags</tabstop>
+  <tabstop>leZandronumqCompatflags</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>leDmflags</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>propagateFlagsInputsChanges()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>239</x>
+     <y>439</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>386</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>leZandronumqDmflags</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>propagateFlagsInputsChanges()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>809</x>
+     <y>439</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>349</x>
+     <y>406</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>leDmflags2</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>propagateFlagsInputsChanges()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>239</x>
+     <y>465</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>124</x>
+     <y>406</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>leCompatflags</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>propagateFlagsInputsChanges()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>500</x>
+     <y>439</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>572</x>
+     <y>394</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>leZandronumqCompatflags</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>propagateFlagsInputsChanges()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>809</x>
+     <y>465</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>567</x>
+     <y>406</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbNoMonsters</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>144</x>
+     <y>165</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>135</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbItemsRespawn</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>159</x>
+     <y>204</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>0</x>
+     <y>178</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbBarrelsRespawn</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>176</x>
+     <y>227</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>212</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbMegaPowerupsRespawn</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>185</x>
+     <y>250</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>244</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbServerPicksTeams</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>598</x>
+     <y>103</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>570</x>
+     <y>87</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbPlayersCantSwitchTeams</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>598</x>
+     <y>126</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>572</x>
+     <y>114</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbKeepTeamsAfterAMapChange</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>598</x>
+     <y>149</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>570</x>
+     <y>140</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbHideAlliesOnTheAutomap</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>598</x>
+     <y>188</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>575</x>
+     <y>179</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbDontLetPlayersSpyOnAllies</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>598</x>
+     <y>211</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>575</x>
+     <y>207</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbInstantFlagSkullReturn</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>598</x>
+     <y>250</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>575</x>
+     <y>247</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cboFallingDamage</sender>
+   <signal>activated(int)</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>300</x>
+     <y>107</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>79</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbNoSuicide</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>154</x>
+     <y>85</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>79</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbNoRespawn</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>237</x>
+     <y>85</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>0</x>
+     <y>106</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbNoRocketJump</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>154</x>
+     <y>130</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>5</x>
+     <y>129</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbNoTaunt</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>237</x>
+     <y>130</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>171</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbNoUseAutomap</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>124</x>
+     <y>190</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>0</x>
+     <y>208</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbNoUseCrosshairs</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>124</x>
+     <y>217</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>4</x>
+     <y>233</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbNoUseCustomGLLightingSettings</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>301</x>
+     <y>190</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>4</x>
+     <y>261</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbNoTurnOffTranslucency</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>301</x>
+     <y>217</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>0</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbNoUseAutoaim</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>185</x>
+     <y>289</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>324</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbInfiniteInventory</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>597</x>
+     <y>135</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>151</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbInfiniteAmmo</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>597</x>
+     <y>158</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>181</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbSlowlyLoseHealthWhenOver100</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>597</x>
+     <y>181</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>211</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCanUseChasecam</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>597</x>
+     <y>204</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>234</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbAllowBFGFreeaiming</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>597</x>
+     <y>227</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>260</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbNoTargetIdentify</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>124</x>
+     <y>244</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>368</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbNoDisplayCoopInfo</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>301</x>
+     <y>244</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>406</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cboJumping</sender>
+   <signal>activated(int)</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>596</x>
+     <y>85</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>75</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cboCrouching</sender>
+   <signal>activated(int)</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>596</x>
+     <y>111</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>128</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbNoUseFreelook</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>196</x>
+     <y>335</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>5</x>
+     <y>406</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbNoUnlagged</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>126</x>
+     <y>284</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>0</x>
+     <y>290</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbAlwaysApplyLMSSpectatorSettings</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>116</x>
+     <y>307</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>324</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbScoreDamageNotKills</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>135</x>
+     <y>58</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>60</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbDontSpawnDeathmatchWeapons</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>176</x>
+     <y>104</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>109</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbMonstersAreFast</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>244</x>
+     <y>173</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>157</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbMonstersRespawn</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>196</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>193</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbMonstersMustBeKilledToExit</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>241</x>
+     <y>219</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>225</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbMonstersMustBeKilledToExit</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinMonsterKillPercentage</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>301</x>
+     <y>219</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>351</x>
+     <y>246</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbRespawnWhereDied</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>819</x>
+     <y>84</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>65</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbLoseAllInventory</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>819</x>
+     <y>111</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>100</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbLoseArmor</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>819</x>
+     <y>138</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>137</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbLoseKeys</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>819</x>
+     <y>165</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>163</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbLosePowerups</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>819</x>
+     <y>192</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>195</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbLoseWeapons</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>819</x>
+     <y>219</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>222</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbLoseAllAmmo</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>819</x>
+     <y>246</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>250</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbLoseHalfAmmo</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>819</x>
+     <y>273</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>275</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbRespawnAutomatically</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>175</x>
+     <y>79</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>0</x>
+     <y>86</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbRespawnFarthestAwayFromOthers</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>167</x>
+     <y>102</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>104</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbRespawnWithAShotgun</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>173</x>
+     <y>125</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>127</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbDropWeaponOnDeath</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>599</x>
+     <y>79</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>85</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbLoseAFragOnDeath</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>599</x>
+     <y>102</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>110</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbNoRespawnProtection</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>599</x>
+     <y>125</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>139</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbWeaponsStayAfterPickup</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>597</x>
+     <y>183</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>202</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbWeaponsStayRefill</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>597</x>
+     <y>206</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>232</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbDoubleAmmo</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>597</x>
+     <y>229</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>262</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbDontSpawnHealth</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>597</x>
+     <y>262</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>295</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbDontSpawnArmor</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>597</x>
+     <y>285</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>337</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbDontSpawnRunes</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>597</x>
+     <y>308</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>359</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rbContinueToTheNextMap</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>222</x>
+     <y>189</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>206</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rbRestartTheCurrentLevel</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>181</x>
+     <y>219</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>244</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rbKillThePlayer</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>202</x>
+     <y>249</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbKeepFragsAfterMapChange</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>181</x>
+     <y>302</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>7</x>
+     <y>335</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbLMSChainsaw</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>138</x>
+     <y>80</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>94</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbLMSPistol</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>138</x>
+     <y>103</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>126</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbLMSShotgun</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>138</x>
+     <y>126</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>4</x>
+     <y>156</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbLMSSuperShotgun</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>138</x>
+     <y>149</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>192</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbLMSChaingun</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>138</x>
+     <y>172</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>228</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbLMSMinigun</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>138</x>
+     <y>195</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>262</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbLMSRocketLauncher</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>138</x>
+     <y>218</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>294</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbLMSGrenadeLauncher</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>138</x>
+     <y>241</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>0</x>
+     <y>334</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbLMSPlasmaRifle</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>138</x>
+     <y>264</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>365</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbLMSRailgun</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>138</x>
+     <y>287</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>406</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbLMSSpectatorsCanTalkToActivePlayers</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>597</x>
+     <y>135</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>136</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbLMSSpectatorsCanViewTheGame</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>597</x>
+     <y>158</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>172</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>leLMSAllowedWeapons</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>propagateFlagsInputsChanges()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>365</x>
+     <y>62</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>58</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>leLMSSpectatorSettings</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>propagateFlagsInputsChanges()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>365</x>
+     <y>88</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>86</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbNoUseLandConsoleCommand</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>202</x>
+     <y>358</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>0</x>
+     <y>406</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatPlasmaBumpBug</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>147</x>
+     <y>242</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>76</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatAllowSilentBFGTrick</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>76</x>
+     <y>150</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>0</x>
+     <y>102</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatEnableWallRunning</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>79</x>
+     <y>58</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>133</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatOriginalWeaponSwitch</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>158</x>
+     <y>173</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>0</x>
+     <y>160</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatDontLetOthersHearPickups</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>120</x>
+     <y>81</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>191</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatLimitedMovementInTheAir</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>124</x>
+     <y>196</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>0</x>
+     <y>224</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatAllowInstantRespawn</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>125</x>
+     <y>104</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>250</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatUseOldIntermissionScreensMusic</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>607</x>
+     <y>58</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>279</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatDisableStealthMonsters</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>121</x>
+     <y>127</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>4</x>
+     <y>309</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatMonstersSeeSemiInvisiblePlayers</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>143</x>
+     <y>219</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>336</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatNoMonstersDropoffMove</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>607</x>
+     <y>127</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>402</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatScrollingSectorsAreAdditive</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>607</x>
+     <y>81</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>406</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatInstantlyMovingFloorsArentSilent</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>607</x>
+     <y>150</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>5</x>
+     <y>406</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatSectorSoundsUseOriginalMethod</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>607</x>
+     <y>104</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>406</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatOldRandomNumberGenerator</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>607</x>
+     <y>196</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>0</x>
+     <y>406</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbDontSpawnAnyMultiplayerItem</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>178</x>
+     <y>127</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>293</x>
+     <y>290</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatMonstersCantBePushedOffCliffs</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>607</x>
+     <y>219</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>627</x>
+     <y>13</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatOldDamageRadiusInfiniteHeight</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>558</x>
+     <y>242</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>628</x>
+     <y>46</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatUseOriginalMissileClippingHeight</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>83</x>
+     <y>58</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>624</x>
+     <y>349</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatUseSectorBasedSoundTargetCode</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>187</x>
+     <y>81</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>91</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatTraceIgnoreLinesWithoutSameSectorOnBothSides</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>133</x>
+     <y>104</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>145</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatLimitDehMaxHealthToHealthBonus</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>265</x>
+     <y>127</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>121</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatRavensScrollersUseOriginalSpeed</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>241</x>
+     <y>150</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>179</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatAddNOGRAVITYFlagToSpheres</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>289</x>
+     <y>173</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>208</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbDontStopPlayerScriptsOnDisconnect</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>284</x>
+     <y>196</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>257</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbOldZDoomHorizontalThrust</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>244</x>
+     <y>219</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>289</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbOldZDoomBridgeDrops</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>239</x>
+     <y>242</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>35</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatFindShortestTexturesLikeDoom</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>607</x>
+     <y>58</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>406</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatLimitPainElementals</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>607</x>
+     <y>81</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>406</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatSpawnItemDropsOnTheFloor</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>607</x>
+     <y>104</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>406</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatNETScriptsAreClientside</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>607</x>
+     <y>127</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>406</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatPredictFunctions</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>607</x>
+     <y>140</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>406</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatActorsAreInfinitelyTall</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>607</x>
+     <y>150</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>369</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatUseBuggierStairBuilding</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>607</x>
+     <y>173</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>390</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatDisableBoomDoorLightEffect</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>607</x>
+     <y>196</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>406</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatAllSpecialLinesCanDropUseLines</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>607</x>
+     <y>219</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>406</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatOriginalSoundCurve</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>607</x>
+     <y>242</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>406</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbOldZDoomJumpPhysics</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>164</x>
+     <y>265</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>316</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatFullWeaponLower</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>607</x>
+     <y>265</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>607</x>
+     <y>307</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbNoMedals</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>608</x>
+     <y>285</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>604</x>
+     <y>29</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbDontCheckAmmoWhenSwitchingWeapons</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>597</x>
+     <y>352</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>301</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbKillBossMonsters</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>240</x>
+     <y>294</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>315</x>
+     <y>254</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbShareKeys</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>45</x>
+     <y>335</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>338</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbNoMaxBloodScalar</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>76</x>
+     <y>381</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>4</x>
+     <y>322</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rbPlayersCanWalkThroughEachOther</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>553</x>
+     <y>280</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>628</x>
+     <y>270</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rbAlliesCanWalkThroughEachOther</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>479</x>
+     <y>303</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rbPlayersBlockEachOtherNormally</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>494</x>
+     <y>322</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>319</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatAnyBossDeathActivatesMapSpecials</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>45</x>
+     <y>249</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>268</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatMinotaur</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>588</x>
+     <y>256</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>623</x>
+     <y>2</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatFrictionPushersPullersAffectMonsters</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>39</x>
+     <y>281</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>0</x>
+     <y>280</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatCrusherGibsByMorphingNotReplacement</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>41</x>
+     <y>297</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>0</x>
+     <y>307</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatOriginalVelocityCalcForMushroomInDehacked</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>795</x>
+     <y>288</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>595</x>
+     <y>0</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatSpriteSortOrderInverted</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>448</x>
+     <y>302</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>556</x>
+     <y>7</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatBlockMonsterLinesIgnoreFriendlyMonsters</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>79</x>
+     <y>324</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>0</x>
+     <y>324</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatHitscansOriginalBlockmap</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>756</x>
+     <y>334</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>629</x>
+     <y>324</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatDrawPolyobjectsOld</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>707</x>
+     <y>357</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>352</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatFindNeighboringLightLevelLikeDoom</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>80</x>
+     <y>350</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>345</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatUseVanillaAutoaimTracerBehavior</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>51</x>
+     <y>278</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>279</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatWestSpawnsAreSilent</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>795</x>
+     <y>299</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>630</x>
+     <y>278</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatMaskedMidtex</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>131</x>
+     <y>295</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>0</x>
+     <y>311</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatBadAngles</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>89</x>
+     <y>323</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>338</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbAccurateCrosshair</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>89</x>
+     <y>323</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>338</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbEnableProjectileHitboxFix</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>89</x>
+     <y>323</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>338</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbQuakeThrust</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>89</x>
+     <y>323</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>338</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbEnableElevatedSpecialFix</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>89</x>
+     <y>323</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>338</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatFloorMove</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>440</x>
+     <y>314</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>847</x>
+     <y>320</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbDisableWallFriction</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>440</x>
+     <y>314</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>847</x>
+     <y>320</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>leCompatflags2</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>propagateFlagsInputsChanges()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>393</x>
+     <y>454</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>384</x>
+     <y>479</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cboGameVersion</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyGameVersion()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>136</x>
+     <y>48</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>47</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbNoItemDrop</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>323</x>
+     <y>82</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>369</x>
+     <y>2</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbSurvivalNoMapResetOnDeath</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>42</x>
+     <y>351</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>0</x>
+     <y>360</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbDeadPlayersCanKeepInventory</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>664</x>
+     <y>290</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>845</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>propagateFlagsInputsChanges()</slot>
+  <slot>applyWidgetsChange()</slot>
+  <slot>applyGameVersion()</slot>
+ </slots>
+</ui>

@@ -22,12 +22,12 @@
 //------------------------------------------------------------------------------
 #include "turok2exgamehost.h"
 
+#include "turok2exengineplugin.h"
 #include <serverapi/gamecreateparams.h>
 #include <serverapi/serverstructs.h>
-#include "turok2exengineplugin.h"
 
 Turok2ExGameHost::Turok2ExGameHost()
-: GameHost(Turok2ExEnginePlugin::staticInstance())
+	: GameHost(Turok2ExEnginePlugin::staticInstance())
 {
 	set_addIwad(&Turok2ExGameHost::addIwad);
 	set_addPwads(&Turok2ExGameHost::addPwads_prefixOnce);
@@ -35,21 +35,24 @@ Turok2ExGameHost::Turok2ExGameHost()
 
 void Turok2ExGameHost::addExtra()
 {
-	const QStringList& mapsList = params().mapList();
+	const QStringList &mapsList = params().mapList();
 	if (!mapsList.isEmpty())
-	{
 		args() << "+sv_maprotation" << mapsList.join(";");
-	}
-	args() << "+shufflemaplist" << QString::number( static_cast<int>(params().isRandomMapRotation()) );
+	args() << "+shufflemaplist" << QString::number( static_cast<int>(params().isRandomMapRotation()));
 
-	unsigned int modeNum = params().gameMode().index();;
-	args() << "+sv_gamemode" << QString::number(modeNum);
+	unsigned int modeNum = params().gameMode().index();
+	if (modeNum != GameMode::SGM_Unknown)
+		args() << "+sv_gamemode" << QString::number(modeNum);
 
 	if (!params().map().isEmpty())
-	{
 		args() << "+sv_map" << params().map();
-	}
 
+	if (params().hostMode() == GameCreateParams::Host)
+		addHostModeParams();
+}
+
+void Turok2ExGameHost::addHostModeParams()
+{
 	args() << "+sv_email" << params().email();
 	args() << "+sv_directservername" << params().name();
 	args() << "+sv_maxplayers" << QString::number(params().maxPlayers());
@@ -58,7 +61,7 @@ void Turok2ExGameHost::addExtra()
 	QString motd = params().motd();
 	args() << "+sv_motd" << motd.replace("\n", "\\n");
 
-	args() << "+sv_broadcast" << QString::number(static_cast<int>( params().isBroadcastToMaster() ));
+	args() << "+sv_broadcast" << QString::number(static_cast<int>(params().isBroadcastToMaster()));
 }
 
 void Turok2ExGameHost::addIwad()

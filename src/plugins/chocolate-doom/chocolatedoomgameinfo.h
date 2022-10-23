@@ -25,17 +25,18 @@
 #define __CHOCOLATEDOOM_GAME_INFO_H__
 
 #include "serverapi/serverstructs.h"
+#include "serverapi/textprovider.h"
 
 class ChocolateDoomGameInfo
 {
-	public:
-		enum ChocolateDoomGameModes
-		{
-			MODE_COOPERATIVE,
-			MODE_DEATHMATCH,
-			MODE_ALTDEATH
-		};
-		static QList<GameMode> gameModes();
+public:
+	enum ChocolateDoomGameModes
+	{
+		MODE_COOPERATIVE,
+		MODE_DEATHMATCH,
+		MODE_ALTDEATH
+	};
+	static QList<GameMode> gameModes();
 };
 
 /**
@@ -43,7 +44,6 @@ class ChocolateDoomGameInfo
  */
 namespace ChocolateDoom
 {
-
 // The "mission" controls what game we are playing.
 
 typedef enum
@@ -73,7 +73,17 @@ typedef enum
 	retail,          // Ultimate Doom
 	indetermined     // Unknown.
 } GameMode_t;
-
 } // close namespace
+
+/**
+ * @brief Provides a (translated) About text for Chocolatedoom.
+ */
+class ChocolateDoomAboutProvider : public TextProvider
+{
+	Q_OBJECT
+
+public:
+	QString provide() override;
+};
 
 #endif

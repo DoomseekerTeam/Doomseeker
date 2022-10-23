@@ -23,20 +23,20 @@
 #include "wadinstaller.h"
 
 #include "entities/waddownloadinfo.h"
-#include "zip/unarchive.h"
-#include "ioutils.h"
 #include "filefind.h"
+#include "ioutils.h"
+#include "zip/unarchive.h"
 
 #include <QDebug>
 #include <QDir>
 #include <QFile>
 
-WadInstaller::WadInstaller(const QString& installPath)
+WadInstaller::WadInstaller(const QString &installPath)
 {
 	d.installPath = installPath;
 }
 
-WadInstaller::WadInstallerResult WadInstaller::installArchive(UnArchive& archive, const QList< WadDownloadInfo* >& requestedWads)
+WadInstaller::WadInstallerResult WadInstaller::installArchive(UnArchive &archive, const QList<WadDownloadInfo *> &requestedWads)
 {
 	QDir installDir(d.installPath);
 	WadInstallerResult dirResult = makeSureDirPathExists(installDir);
@@ -46,36 +46,30 @@ WadInstaller::WadInstallerResult WadInstaller::installArchive(UnArchive& archive
 	}
 
 	WadInstallerResult result;
-#ifndef NDEBUG
-	foreach(const QString &file, archive.files())
-	{
-		qDebug() << "archive file entry " << file;
-	}
-#endif
 	FileFind fileFinder(archive.files());
 
 	// We will try to find all requested WADs in the single archive.
-	foreach (const WadDownloadInfo* pWadInfo, requestedWads)
+	for (const WadDownloadInfo *pWadInfo : requestedWads)
 	{
-		const QString& name = pWadInfo->name();
-#ifndef NDEBUG
+		const QString &name = pWadInfo->name();
+		#ifndef NDEBUG
 		qDebug() << "requestedWad " << name;
-#endif
+		#endif
 
 		int entryIndex = fileFinder.findFilename(name);
-#ifndef NDEBUG
+		#ifndef NDEBUG
 		qDebug() << "requestedWad index in the archive " << entryIndex;
-#endif
+		#endif
 		if (entryIndex >= 0)
 		{
 			// File was found in the archive. Attempt extraction.
 			QString filePath = installDir.absoluteFilePath(name);
-#ifndef NDEBUG
+			#ifndef NDEBUG
 			qDebug() << "extracting requestedWad to path " << filePath;
-#endif
+			#endif
 			if (archive.extract(entryIndex, filePath))
 			{
-				result.installedWads << filePath;
+				result.installedWads << QFileInfo(filePath);
 			}
 		}
 	}
@@ -83,7 +77,7 @@ WadInstaller::WadInstallerResult WadInstaller::installArchive(UnArchive& archive
 	return result;
 }
 
-WadInstaller::WadInstallerResult WadInstaller::installFile(const QString& fileName, QIODevice* stream)
+WadInstaller::WadInstallerResult WadInstaller::installFile(const QString &fileName, QIODevice *stream)
 {
 	// Check for problems.
 	QDir installDir(d.installPath);
@@ -100,8 +94,8 @@ WadInstaller::WadInstallerResult WadInstaller::installFile(const QString& fileNa
 	if (!file.open(QFile::WriteOnly))
 	{
 		return WadInstallerResult::makeCriticalError(
-				tr("Failed to open file \"%1\" for write.")
-					.arg(filePath) );
+			tr("Failed to open file \"%1\" for write.")
+				.arg(filePath));
 	}
 
 	if (!stream->isOpen())
@@ -111,8 +105,8 @@ WadInstaller::WadInstallerResult WadInstaller::installFile(const QString& fileNa
 	else if (stream->isOpen() && !stream->isReadable())
 	{
 		return WadInstallerResult::makeCriticalError(
-				tr("Developer failure in WadInstaller::installFile(): ")
-				+ tr("input stream is open but is not readable."));
+			tr("Developer failure in WadInstaller::installFile(): ")
+			+ tr("input stream is open but is not readable."));
 	}
 
 	if (stream->size() <= 0)
@@ -123,16 +117,16 @@ WadInstaller::WadInstallerResult WadInstaller::installFile(const QString& fileNa
 	if (!IOUtils::copy(*stream, file))
 	{
 		return WadInstallerResult::makeCriticalError(
-				tr("Failed to save file \"%1\".")
-					.arg(filePath) );
+			tr("Failed to save file \"%1\".")
+				.arg(filePath));
 	}
 
 	file.close();
 
-	return WadInstallerResult::makeSuccess(filePath);
+	return WadInstallerResult::makeSuccess(QFileInfo(filePath));
 }
 
-WadInstaller::WadInstallerResult WadInstaller::makeSureDirPathExists(QDir& dir)
+WadInstaller::WadInstallerResult WadInstaller::makeSureDirPathExists(QDir &dir)
 {
 	if (!dir.exists())
 	{
@@ -140,10 +134,9 @@ WadInstaller::WadInstallerResult WadInstaller::makeSureDirPathExists(QDir& dir)
 		{
 			return WadInstallerResult::makeCriticalError(
 				tr("Directory \"%1\", where files are supposed to be saved, doesn't exist and cannot be created.")
-					.arg(dir.absolutePath()) );
+					.arg(dir.absolutePath()));
 		}
 	}
 
 	return WadInstallerResult();
 }
-

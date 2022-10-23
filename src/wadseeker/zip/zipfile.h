@@ -23,17 +23,16 @@
 #ifndef __ZIPFILE_H_
 #define __ZIPFILE_H_
 
+#include "dptr.h"
 #include <QByteArray>
 #include <QIODevice>
 #include <QString>
 #include <QVector>
-#include "dptr.h"
 
 #define ZIP_LOCAL_FILE_HEADER_SIZE 30
 
 namespace ZipFile
 {
-
 enum HeaderError
 {
 	NoError,
@@ -123,7 +122,7 @@ struct LocalFileHeader
 	 * If given data is not a local file header it will also return false but localFileHeaderSignature
 	 * will be set to other value.
 	 */
-	HeaderError fromByteArray(const QByteArray& array);
+	HeaderError fromByteArray(const QByteArray &array);
 	unsigned long howManyBytesTillData() const;
 
 	/* FROM ZIP FILE FORMAT DESCRIPTION */
@@ -150,7 +149,6 @@ struct LocalFileHeader
 	 */
 	unsigned long headerPosition;
 };
-
 }
 
 #endif

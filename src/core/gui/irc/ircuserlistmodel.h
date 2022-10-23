@@ -27,11 +27,11 @@
 
 class IRCUserListModel
 {
-	public:
-		enum Role
-		{
-			RoleCleanNickname = Qt::UserRole + 1
-		};
+public:
+	enum Role
+	{
+		RoleCleanNickname = Qt::UserRole + 1
+	};
 };
 
 #endif

@@ -27,16 +27,18 @@
 
 class Turok2ExGameHost : public GameHost
 {
-Q_OBJECT
+	Q_OBJECT
 
 public:
 	Turok2ExGameHost();
 
 protected:
-	void addExtra();
+	void addExtra() override;
 
 private:
 	Q_DISABLE_COPY(Turok2ExGameHost)
+
+	void addHostModeParams();
 	void addIwad();
 };
 

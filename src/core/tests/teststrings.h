@@ -27,13 +27,11 @@
 
 class TestStringsWrapUrls : public TestUnitBase
 {
-	public:
-		TestStringsWrapUrls()
-		: TestUnitBase("Wrap URLs with A HREF tags")
-		{
-		}
+public:
+	TestStringsWrapUrls()
+		: TestUnitBase("Wrap URLs with A HREF tags") {}
 
-		bool executeTest();
+	bool executeTest() override;
 };
 
 #endif

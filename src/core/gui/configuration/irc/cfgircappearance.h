@@ -23,28 +23,37 @@
 #ifndef __CFGIRCAPPEARANCE_H__
 #define __CFGIRCAPPEARANCE_H__
 
-#include "gui/configuration/configpage.h"
 #include "dptr.h"
+#include "gui/configuration/configpage.h"
 #include <QIcon>
 
 class CFGIRCAppearance : public ConfigPage
 {
 	Q_OBJECT
 
-	public:
-		CFGIRCAppearance(QWidget* parent = NULL);
-		~CFGIRCAppearance();
+public:
+	CFGIRCAppearance(QWidget *parent = nullptr);
+	~CFGIRCAppearance() override;
 
-		QIcon icon() const { return QIcon(":/icons/color-fill.png"); }
-		QString name() const { return tr("Appearance"); }
-		void readSettings();
-		QString title() const { return tr("IRC - Appearance"); }
+	QIcon icon() const override
+	{
+		return QIcon(":/icons/color-fill.png");
+	}
+	QString name() const override
+	{
+		return tr("Appearance");
+	}
+	void readSettings() override;
+	QString title() const override
+	{
+		return tr("IRC - Appearance");
+	}
 
-	protected:
-		void saveSettings();
+protected:
+	void saveSettings() override;
 
-	private:
-		DPtr<CFGIRCAppearance> d;
+private:
+	DPtr<CFGIRCAppearance> d;
 };
 
 #endif

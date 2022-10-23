@@ -25,85 +25,85 @@
 #define idd10651d2_c61d_498e_8ff6_88a782a8fa1c
 
 #include "huffmanudpsocket.h"
-#include <serverapi/rconprotocol.h>
 #include <QElapsedTimer>
 #include <QTimer>
+#include <serverapi/rconprotocol.h>
 
 class ZandronumRConProtocol : public RConProtocol
 {
 	Q_OBJECT
 
-	private:
-		enum
-		{
-			SVRCU_PLAYERDATA = 0,
-			SVRCU_ADMINCOUNT,
-			SVRCU_MAP,
+private:
+	enum
+	{
+		SVRCU_PLAYERDATA = 0,
+		SVRCU_ADMINCOUNT,
+		SVRCU_MAP,
 
-			SVRC_OLDPROTOCOL = 32,
-			SVRC_BANNED,
-			SVRC_SALT,
-			SVRC_LOGGEDIN,
-			SVRC_INVALIDPASSWORD,
-			SVRC_MESSAGE,
-			SVRC_UPDATE,
+		SVRC_OLDPROTOCOL = 32,
+		SVRC_BANNED,
+		SVRC_SALT,
+		SVRC_LOGGEDIN,
+		SVRC_INVALIDPASSWORD,
+		SVRC_MESSAGE,
+		SVRC_UPDATE,
 
-			CLRC_BEGINCONNECTION = 52,
-			CLRC_PASSWORD,
-			CLRC_COMMAND,
-			CLRC_PONG,
-			CLRC_DISCONNECT
-		};
+		CLRC_BEGINCONNECTION = 52,
+		CLRC_PASSWORD,
+		CLRC_COMMAND,
+		CLRC_PONG,
+		CLRC_DISCONNECT
+	};
 
-	public:
-		ZandronumRConProtocol(ServerPtr server);
-		void connectToServer();
+public:
+	ZandronumRConProtocol(ServerPtr server);
+	void connectToServer();
 
-	public slots:
-		void disconnectFromServer();
-		void sendCommand(const QString &cmd);
-		void sendPassword(const QString &password);
-		void sendPong();
+public slots:
+	void disconnectFromServer();
+	void sendCommand(const QString &cmd);
+	void sendPassword(const QString &password);
+	void sendPong();
 
-	private:
-		static const int MAX_CONNECTIONT_ATTEMPTS = 3;
-		static const int MAX_PASSWORD_ATTEMPTS = 3;
-		static const int AUTH_FLOOD_PREVENTION_PERIOD = 11 * 1000;
+private:
+	static const int MAX_CONNECTIONT_ATTEMPTS = 3;
+	static const int MAX_PASSWORD_ATTEMPTS = 3;
+	static const int AUTH_FLOOD_PREVENTION_PERIOD = 11 * 1000;
 
-		enum ConnectStage
-		{
-			ConnectEstablishing,
-			ConnectPassword,
-			ConnectEstablished,
-			Disconnected,
-		};
+	enum ConnectStage
+	{
+		ConnectEstablishing,
+		ConnectPassword,
+		ConnectEstablished,
+		Disconnected,
+	};
 
-		void processEstablishingPacket(QIODevice &ioDevice);
-		void processPacket(QIODevice* ioDevice, bool initial=false, int maxUpdates=1);
-		void sendMemorizedPassword();
-		void setDisconnectedState();
-		/**
-		 * @brief Reconnect state is similar to disconnect state, but
-		 * doesn't clear failed attempts counters.
-		 */
-		void setReconnectState();
+	void processEstablishingPacket(QIODevice &ioDevice);
+	void processPacket(QIODevice *ioDevice, bool initial = false, int maxUpdates = 1);
+	void sendMemorizedPassword();
+	void setDisconnectedState();
+	/**
+	 * @brief Reconnect state is similar to disconnect state, but
+	 * doesn't clear failed attempts counters.
+	 */
+	void setReconnectState();
 
-		QElapsedTimer authTime;
-		ConnectStage connectStage;
-		int connectionAttempts;
-		int passwordAttempts;
-		HuffmanUdpSocket huffmanSocket;
-		QTimer pingTimer;
-		QString hostName;
-		QString password;
-		QString salt;
-		int serverProtocolVersion;
-		QTimer timeoutTimer;
+	QElapsedTimer authTime;
+	ConnectStage connectStage;
+	int connectionAttempts;
+	int passwordAttempts;
+	HuffmanUdpSocket huffmanSocket;
+	QTimer pingTimer;
+	QString hostName;
+	QString password;
+	QString salt;
+	int serverProtocolVersion;
+	QTimer timeoutTimer;
 
-	private slots:
-		void readAllPendingDatagrams();
-		void packetTimeout();
-		void stepConnect();
+private slots:
+	void readAllPendingDatagrams();
+	void packetTimeout();
+	void stepConnect();
 };
 
 #endif

@@ -27,7 +27,7 @@
 void IRCAdapterBase::emitMessageToAllChatBoxes(const QString &message, const IRCMessageClass &msgClass)
 {
 	network()->emitMessageWithClass(message, msgClass);
-	foreach (IRCAdapterBase *adapter, network()->childrenAdapters())
+	for (IRCAdapterBase *adapter : network()->childrenAdapters())
 	{
 		adapter->emitMessageWithClass(message, msgClass);
 	}
@@ -35,5 +35,5 @@ void IRCAdapterBase::emitMessageToAllChatBoxes(const QString &message, const IRC
 
 const IRCNetworkEntity &IRCAdapterBase::networkEntity() const
 {
-	return const_cast<IRCAdapterBase*>(this)->network()->connection().networkEntity;
+	return const_cast<IRCAdapterBase *>(this)->network()->connection().networkEntity;
 }

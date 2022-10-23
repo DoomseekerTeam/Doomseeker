@@ -32,15 +32,15 @@ class VavoomMasterClient : public MasterClient
 {
 	Q_OBJECT
 
-	public:
-		VavoomMasterClient();
+public:
+	VavoomMasterClient();
 
-		const EnginePlugin *plugin() const;
+	const EnginePlugin *plugin() const;
 
-		Response readMasterResponse(const QByteArray &data);
+	Response readMasterResponse(const QByteArray &data);
 
-	protected:
-		QByteArray createServerListRequest();
+protected:
+	QByteArray createServerListRequest();
 };
 
 #endif /* __VAVOOMMASTERCLIENT_H__ */

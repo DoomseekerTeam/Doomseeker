@@ -54,83 +54,83 @@ class IRCRequestParser : public QObject
 {
 	Q_OBJECT
 
-	public:
-		enum IRCRequestParseResult
-		{
-			Ok,
-			ErrorMessageTooLong,
-			ErrorMessageEmpty,
-			ErrorInputNotPrependedWithSlash,
-			ErrorInputInsufficientParameters,
-			ErrorChatWindowOnly,
-			QuitCommand
-		};
+public:
+	enum IRCRequestParseResult
+	{
+		Ok,
+		ErrorMessageTooLong,
+		ErrorMessageEmpty,
+		ErrorInputNotPrependedWithSlash,
+		ErrorInputInsufficientParameters,
+		ErrorChatWindowOnly,
+		QuitCommand
+	};
 
-		IRCRequestParser();
-		~IRCRequestParser();
+	IRCRequestParser();
+	~IRCRequestParser() override;
 
-		const QString &output() const;
+	const QString &output() const;
 
-		/**
-		 * @brief Parses input string and returns it through output string.
-		 *        Additional information is passed through return value.
-		 *
-		 * @param pAdapter
-		 *     Adapter that sends the message.
-		 * @param input
-		 *     Input message in common format. See IRCRequestParser
-		 *     description.
-		 *
-		 * @return
-		 * This method will:
-		 * - Check if message fits in the RFC 1459 max message length. If not
-		 *   ErrorMessageTooLong is returned.
-		 * - Return ErrorMessageEmpty if input is empty or consists only of
-		 *   whitespace.
-		 * - Check if input starts with '/' character.
-		 *   If not ErrorInputNotPrependedWithSlash is returned.
-		 * - Return ErrorInputInsufficientParameters if parsed command expects
-		 *   more parameters to work correctly.
-		 * - ErrorChatWindowOnly is returned if command applies only to
-		 *   chat windows.
-		 * - QuitCommand is returned if "/quit" command is used.
-		 * - Ok is returned if it is ok to send the output message. Parsed
-		 *   message can be extracted through output() accessor.
-		 */
-		IRCRequestParseResult parse(IRCAdapterBase* pAdapter, QString input);
+	/**
+	 * @brief Parses input string and returns it through output string.
+	 *        Additional information is passed through return value.
+	 *
+	 * @param pAdapter
+	 *     Adapter that sends the message.
+	 * @param input
+	 *     Input message in common format. See IRCRequestParser
+	 *     description.
+	 *
+	 * @return
+	 * This method will:
+	 * - Check if message fits in the RFC 1459 max message length. If not
+	 *   ErrorMessageTooLong is returned.
+	 * - Return ErrorMessageEmpty if input is empty or consists only of
+	 *   whitespace.
+	 * - Check if input starts with '/' character.
+	 *   If not ErrorInputNotPrependedWithSlash is returned.
+	 * - Return ErrorInputInsufficientParameters if parsed command expects
+	 *   more parameters to work correctly.
+	 * - ErrorChatWindowOnly is returned if command applies only to
+	 *   chat windows.
+	 * - QuitCommand is returned if "/quit" command is used.
+	 * - Ok is returned if it is ok to send the output message. Parsed
+	 *   message can be extracted through output() accessor.
+	 */
+	IRCRequestParseResult parse(IRCAdapterBase *pAdapter, QString input);
 
-	signals:
-		/**
-		 * @brief Echoes back all PRIVMSG commands.
-		 *
-		 * @param recipient
-		 *     Recipient of the message. This is extracted
-		 *     directly from the privmsg request.
-		 * @param messageContent
-		 *     Content of the message.
-		 */
-		void echoPrivmsg(const QString& recipient, const QString& content);
+signals:
+	/**
+	 * @brief Echoes back all PRIVMSG commands.
+	 *
+	 * @param recipient
+	 *     Recipient of the message. This is extracted
+	 *     directly from the privmsg request.
+	 * @param messageContent
+	 *     Content of the message.
+	 */
+	void echoPrivmsg(const QString &recipient, const QString &content);
 
-		/**
-		 * @brief Emitted when "/query" alias is used.
-		 *
-		 * This signal will only be emitted if the query
-		 * parameter specifies a valid user name.
-		 *
-		 * @param who
-		 *     A clean nickname.
-		 */
-		void query(const QString& who);
+	/**
+	 * @brief Emitted when "/query" alias is used.
+	 *
+	 * This signal will only be emitted if the query
+	 * parameter specifies a valid user name.
+	 *
+	 * @param who
+	 *     A clean nickname.
+	 */
+	void query(const QString &who);
 
-	private:
-		DPtr<IRCRequestParser> d;
+private:
+	DPtr<IRCRequestParser> d;
 
-		IRCRequestParseResult buildOutput();
-		IRCNetworkAdapter *network();
-		/**
-		 * @brief Check if d->output is not longer than max message length.
-		 */
-		bool isOutputTooLong() const;
+	IRCRequestParseResult buildOutput();
+	IRCNetworkAdapter *network();
+	/**
+	 * @brief Check if d->output is not longer than max message length.
+	 */
+	bool isOutputTooLong() const;
 };
 
 #endif

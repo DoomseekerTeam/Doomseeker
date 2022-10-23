@@ -34,46 +34,46 @@ class IRCCtcpParser : public QObject
 {
 	Q_OBJECT
 
-	public:
-		enum CtcpEcho
-		{
-			PrintAsNormalMessage,
-			DisplayInServerTab,
-			DisplayThroughGlobalMessage,
-			DontShow
-		};
+public:
+	enum CtcpEcho
+	{
+		PrintAsNormalMessage,
+		DisplayInServerTab,
+		DisplayThroughGlobalMessage,
+		DontShow
+	};
 
-		enum MessageType
-		{
-			/**
-			 * @brief A question is being asked through PRIVMSG.
-			 */
-			Request,
-			/**
-			 * @brief An answer is being sent through NOTICE.
-			 */
-			Reply
-		};
-
-		IRCCtcpParser(IRCNetworkAdapter *network, const QString &sender,
-			const QString &recipient, const QString &msg, MessageType msgType);
-		~IRCCtcpParser();
-
-		CtcpEcho echo() const;
-		bool parse();
-		const QString &printable() const;
-		const QString &reply() const;
-
-	private:
-		DPtr<IRCCtcpParser> d;
-
-		bool isCommand(const QString &candidate);
-		bool isCtcp() const;
+	enum MessageType
+	{
 		/**
-		 * @brief Fill d->command and d->params.
+		 * @brief A question is being asked through PRIVMSG.
 		 */
-		void tokenizeMsg();
-		QString typeToName() const;
+		Request,
+		/**
+		 * @brief An answer is being sent through NOTICE.
+		 */
+		Reply
+	};
+
+	IRCCtcpParser(IRCNetworkAdapter *network, const QString &sender,
+		const QString &recipient, const QString &msg, MessageType msgType);
+	~IRCCtcpParser() override;
+
+	CtcpEcho echo() const;
+	bool parse();
+	const QString &printable() const;
+	const QString &reply() const;
+
+private:
+	DPtr<IRCCtcpParser> d;
+
+	bool isCommand(const QString &candidate);
+	bool isCtcp() const;
+	/**
+	 * @brief Fill d->command and d->params.
+	 */
+	void tokenizeMsg();
+	QString typeToName() const;
 };
 
 

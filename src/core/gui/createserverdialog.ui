@@ -6,14 +6,26 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>612</width>
+    <width>761</width>
     <height>519</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Create Game</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="dialogLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
@@ -32,7 +44,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_3">
+     <widget class="QWidget" name="tabRules">
       <attribute name="title">
        <string>Rules</string>
       </attribute>
@@ -42,13 +54,13 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tabMisc">
+     <widget class="QWidget" name="tabServer">
       <attribute name="title">
-       <string>Misc.</string>
+       <string>Server</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
-        <widget class="MiscServerSetupPanel" name="miscPanel" native="true"/>
+        <widget class="MiscServerSetupPanel" name="serverPanel" native="true"/>
        </item>
       </layout>
      </widget>
@@ -75,33 +87,31 @@
     </widget>
    </item>
    <item>
+    <widget class="Line" name="line">
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout_6">
+     <property name="leftMargin">
+      <number>9</number>
+     </property>
+     <property name="topMargin">
+      <number>9</number>
+     </property>
+     <property name="rightMargin">
+      <number>9</number>
+     </property>
+     <property name="bottomMargin">
+      <number>9</number>
+     </property>
      <item>
-      <widget class="QPushButton" name="btnLoad">
-       <property name="toolTip">
-        <string>Load previously saved server configuration.</string>
-       </property>
-       <property name="text">
-        <string>Load</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="btnSave">
-       <property name="toolTip">
-        <string>Save current server configuration.</string>
-       </property>
-       <property name="text">
-        <string>Save</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../../../media/resources.qrc">
-         <normaloff>:/icons/diskette.png</normaloff>:/icons/diskette.png</iconset>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_2">
+      <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -114,31 +124,56 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="btnPlayOffline">
+      <widget class="QPushButton" name="btnStart">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
-        <string>Play offline</string>
+        <string>Start</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../../../media/resources.qrc">
+         <normaloff>:/icons/media-playback-start.png</normaloff>:/icons/media-playback-start.png</iconset>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="btnCommandLine">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="toolTip">
-        <string>Obtain command line required to launch this server.</string>
+        <string>Obtain command line required to launch this game.</string>
        </property>
        <property name="text">
-        <string>Command Line</string>
+        <string>Command line</string>
        </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="btnStartServer">
-       <property name="text">
-        <string>Start server</string>
+       <property name="icon">
+        <iconset resource="../../../media/resources.qrc">
+         <normaloff>:/icons/terminal-32.png</normaloff>:/icons/terminal-32.png</iconset>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="btnCancel">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
         <string>Close</string>
        </property>
@@ -184,6 +219,10 @@
    </slots>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>btnCancel</tabstop>
+ </tabstops>
  <resources>
   <include location="../../../media/resources.qrc"/>
  </resources>
@@ -227,8 +266,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>578</x>
-     <y>500</y>
+     <x>750</x>
+     <y>508</y>
     </hint>
     <hint type="destinationlabel">
      <x>305</x>
@@ -240,11 +279,11 @@
    <sender>btnCommandLine</sender>
    <signal>clicked()</signal>
    <receiver>CreateServerDialog</receiver>
-   <slot>btnCommandLineClicked()</slot>
+   <slot>showStartGameCommandLine()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>399</x>
-     <y>500</y>
+     <x>588</x>
+     <y>508</y>
     </hint>
     <hint type="destinationlabel">
      <x>305</x>
@@ -253,62 +292,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>btnLoad</sender>
+   <sender>btnStart</sender>
    <signal>clicked()</signal>
    <receiver>CreateServerDialog</receiver>
-   <slot>btnLoadClicked()</slot>
+   <slot>startGame()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>31</x>
-     <y>500</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>305</x>
-     <y>259</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btnPlayOffline</sender>
-   <signal>clicked()</signal>
-   <receiver>CreateServerDialog</receiver>
-   <slot>btnPlayOfflineClicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>297</x>
-     <y>500</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>305</x>
-     <y>259</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btnSave</sender>
-   <signal>clicked()</signal>
-   <receiver>CreateServerDialog</receiver>
-   <slot>btnSaveClicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>98</x>
-     <y>501</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>305</x>
-     <y>259</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btnStartServer</sender>
-   <signal>clicked()</signal>
-   <receiver>CreateServerDialog</receiver>
-   <slot>btnStartServerClicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>501</x>
-     <y>500</y>
+     <x>669</x>
+     <y>508</y>
     </hint>
     <hint type="destinationlabel">
      <x>305</x>
@@ -320,10 +311,7 @@
  <slots>
   <slot>initGamemodeSpecific(GameMode)</slot>
   <slot>initEngineSpecific(EnginePlugin*)</slot>
-  <slot>btnCommandLineClicked()</slot>
-  <slot>btnLoadClicked()</slot>
-  <slot>btnPlayOfflineClicked()</slot>
-  <slot>btnSaveClicked()</slot>
-  <slot>btnStartServerClicked()</slot>
+  <slot>showStartGameCommandLine()</slot>
+  <slot>startGame()</slot>
  </slots>
 </ui>

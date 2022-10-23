@@ -22,10 +22,10 @@
 //------------------------------------------------------------------------------
 #include "htmlparser.h"
 
-#include <QFileInfo>
 #include <cctype>
+#include <QFileInfo>
 
-HtmlParser::HtmlParser(const QByteArray& data)
+HtmlParser::HtmlParser(const QByteArray &data)
 {
 	this->data = data;
 	capitalizeHtmlTags();
@@ -46,7 +46,7 @@ void HtmlParser::capitalizeHtmlTags()
 		if (begin < 0 || end < 0)
 			break;
 
-		for(int i = begin; i < end; ++i)
+		for (int i = begin; i < end; ++i)
 		{
 			if (bNext)
 			{
@@ -88,9 +88,9 @@ void HtmlParser::capitalizeHtmlTags()
 	} // end of while
 }
 
-int	HtmlParser::findTag(int beginAt, int* end)
+int HtmlParser::findTag(int beginAt, int *end)
 {
-	if (end == NULL)
+	if (end == nullptr)
 	{
 		return -1;
 	}
@@ -129,7 +129,7 @@ int	HtmlParser::findTag(int beginAt, int* end)
 
 QString HtmlParser::htmlValue(int beginIndex, int endIndex)
 {
-	const QByteArray& byte = this->data;
+	const QByteArray &byte = this->data;
 	int indexStartValue = -1;
 	int indexEndValue = -1;
 
@@ -186,13 +186,13 @@ QString HtmlParser::htmlValue(int beginIndex, int endIndex)
 	return ret;
 }
 
-QString HtmlParser::htmlValue(const QString& key)
+QString HtmlParser::htmlValue(const QString &key)
 {
-	const QByteArray& byte = this->data;
+	const QByteArray &byte = this->data;
 	QByteArray upperByte = byte.toUpper();
 	QString upperKey = key.toUpper();
 
-	int beginIndex = upperByte.indexOf(upperKey);
+	int beginIndex = upperByte.indexOf(upperKey.toUtf8());
 
 	if (beginIndex < 0)
 		return QString();
@@ -281,7 +281,7 @@ QList<Link> HtmlParser::linksFromHtml()
 		// character after " HREF"	if not go to first step starting
 		// from index at the previously found '>' character.
 		int strLength = QString("HREF").length();
-		if (indexHref > indexCloseBracket || (data[indexHref + strLength] != ' ' && data[indexHref + strLength] != '=') )
+		if (indexHref > indexCloseBracket || (data[indexHref + strLength] != ' ' && data[indexHref + strLength] != '='))
 		{
 			// next iteration
 			indexBeginTag = indexCloseBracket;
@@ -302,7 +302,7 @@ QList<Link> HtmlParser::linksFromHtml()
 			}
 
 			// Get all text between '>' and "</A>".
-			QString text = data.mid(indexCloseBracket + 1, indexEndA - (indexCloseBracket + 1) );
+			QString text = data.mid(indexCloseBracket + 1, indexEndA - (indexCloseBracket + 1));
 
 			// Append Link object to list.
 			Link link(url, text);

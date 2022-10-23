@@ -22,25 +22,25 @@
 //------------------------------------------------------------------------------
 #include "ircctcpparser.h"
 
+#include "irc/ircnetworkadapter.h"
+#include "version.h"
 #include <QDateTime>
 #include <QDebug>
 #include <QStringList>
-#include "irc/ircnetworkadapter.h"
-#include "version.h"
 
 DClass<IRCCtcpParser>
 {
-	public:
-		QString command;
-		IRCCtcpParser::CtcpEcho echo;
-		IRCCtcpParser::MessageType msgType;
-		QString msg;
-		IRCNetworkAdapter *network;
-		QStringList params;
-		QString printable;
-		QString recipient;
-		QString reply;
-		QString sender;
+public:
+	QString command;
+	IRCCtcpParser::CtcpEcho echo;
+	IRCCtcpParser::MessageType msgType;
+	QString msg;
+	IRCNetworkAdapter *network;
+	QStringList params;
+	QString printable;
+	QString recipient;
+	QString reply;
+	QString sender;
 };
 
 DPointered(IRCCtcpParser)
@@ -73,18 +73,14 @@ bool IRCCtcpParser::isCommand(const QString &candidate)
 bool IRCCtcpParser::isCtcp() const
 {
 	if (d->msg.length() <= 2)
-	{
 		return false;
-	}
 	return d->msg[0].unicode() == 0x1 && d->msg[d->msg.length() - 1].unicode() == 0x1;
 }
 
 bool IRCCtcpParser::parse()
 {
 	if (!isCtcp())
-	{
 		return false;
-	}
 	tokenizeMsg();
 	d->printable = tr("CTCP %1: [%2] %3 %4").arg(typeToName(), d->sender, d->command, d->params.join(" "));
 	if (isCommand("action"))
@@ -98,21 +94,13 @@ bool IRCCtcpParser::parse()
 		{
 			d->echo = DisplayInServerTab;
 			if (isCommand("clientinfo"))
-			{
 				d->reply = "CLIENTINFO ACTION VERSION TIME PING";
-			}
 			else if (isCommand("version"))
-			{
 				d->reply = QString("VERSION %1").arg(Version::fullVersionInfoWithOs());
-			}
 			else if (isCommand("time"))
-			{
 				d->reply = QString("TIME %1").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));
-			}
 			else if (isCommand("ping"))
-			{
 				d->reply = QString("PING %1").arg(d->params[0]);
-			}
 		}
 		else if (d->msgType == Reply)
 		{
@@ -128,9 +116,7 @@ bool IRCCtcpParser::parse()
 			}
 		}
 		else
-		{
 			qDebug() << "Unknown d->msgType in IRCCtcpParser";
-		}
 	}
 	return true;
 }
@@ -157,11 +143,11 @@ QString IRCCtcpParser::typeToName() const
 {
 	switch (d->msgType)
 	{
-		case Request:
-			return tr("REQUEST");
-		case Reply:
-			return tr("REPLY");
-		default:
-			return tr("????");
+	case Request:
+		return tr("REQUEST");
+	case Reply:
+		return tr("REPLY");
+	default:
+		return tr("????");
 	}
 }

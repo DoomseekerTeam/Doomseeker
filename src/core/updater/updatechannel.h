@@ -38,68 +38,67 @@ class UpdateChannelTr : public QObject
 {
 	Q_OBJECT
 
-	private:
-		UpdateChannelTr() {}
+private:
+	UpdateChannelTr() {}
 };
 
 class UpdateChannel
 {
-	public:
-		/**
-		 * @brief List of all available channels.
-		 */
-		static QList<UpdateChannel> allChannels();
-		/**
-		 * @brief Creates object from its internal name.
-		 *
-		 * @param name
-		 *     Name which must be equal to value returned by the name()
-		 *     method. This name must be the same as one of the names
-		 *     that are hard-coded in objects returned by allChannels().
-		 * @return
-		 *     UpdateChannel object which has the exact same name as specified.
-		 *     If name isn't equal to any known ones then a null
-		 *     object is returned.
-		 */
-		static UpdateChannel fromName(const QString& name);
-		/**
-		 * @brief Creates "beta" channel object.
-		 */
-		static UpdateChannel mkBeta();
-		/**
-		 * @brief Creates "stable" channel object.
-		 */
-		static UpdateChannel mkStable();
+public:
+	/**
+	 * @brief List of all available channels.
+	 */
+	static QList<UpdateChannel> allChannels();
+	/**
+	 * @brief Creates object from its internal name.
+	 *
+	 * @param name
+	 *     Name which must be equal to value returned by the name()
+	 *     method. This name must be the same as one of the names
+	 *     that are hard-coded in objects returned by allChannels().
+	 * @return
+	 *     UpdateChannel object which has the exact same name as specified.
+	 *     If name isn't equal to any known ones then a null
+	 *     object is returned.
+	 */
+	static UpdateChannel fromName(const QString &name);
+	/**
+	 * @brief Creates "beta" channel object.
+	 */
+	static UpdateChannel mkBeta();
+	/**
+	 * @brief Creates "stable" channel object.
+	 */
+	static UpdateChannel mkStable();
 
-		/**
-		 * @brief Creates a null object.
-		 */
-		UpdateChannel() {};
-		UpdateChannel(const UpdateChannel& other);
+	/**
+	 * @brief Creates a null object.
+	 */
+	UpdateChannel() {}
+	UpdateChannel(const UpdateChannel &other);
 
-		bool operator==(const UpdateChannel& other) const;
-		bool operator!=(const UpdateChannel& other) const
-		{
-			return !(*this == other);
-		}
+	bool operator==(const UpdateChannel &other) const;
+	bool operator!=(const UpdateChannel &other) const
+	{
+		return !(*this == other);
+	}
+	UpdateChannel &operator=(const UpdateChannel &other);
 
-		bool isNull() const;
+	bool isNull() const;
 
-		QString name() const;
-		QString translatedDescription() const;
-		QString translatedName() const;
-		/**
-		 * @brief Full name of "update-info*.js" file for given channel
-		 * and platform.
-		 */
-		QString versionDataFileName() const;
+	QString name() const;
+	QString translatedDescription() const;
+	QString translatedName() const;
+	/**
+	 * @brief Full name of "update-info*.js" file for given channel
+	 * and platform.
+	 */
+	QString versionDataFileName() const;
 
-	private:
-		UpdateChannel(const QString& name);
+private:
+	UpdateChannel(const QString &name);
 
-		QString channelName;
+	QString channelName;
 };
 
 #endif
-
-

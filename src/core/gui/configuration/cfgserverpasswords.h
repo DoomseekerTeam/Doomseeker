@@ -23,8 +23,8 @@
 #ifndef idEB6A779F_CFBD_4900_AFC803D7BF80EC31
 #define idEB6A779F_CFBD_4900_AFC803D7BF80EC31
 
-#include "gui/configuration/configpage.h"
 #include "dptr.h"
+#include "gui/configuration/configpage.h"
 #include <QIcon>
 
 class ServerPassword;
@@ -35,41 +35,47 @@ class CFGServerPasswords : public ConfigPage
 {
 	Q_OBJECT
 
-	public:
-		CFGServerPasswords(QWidget* parent=NULL);
-		~CFGServerPasswords();
+public:
+	CFGServerPasswords(QWidget *parent = nullptr);
+	~CFGServerPasswords() override;
 
-		QIcon icon() const { return QIcon(":/icons/padlock.png"); }
-		QString name() const { return tr("Server Passwords"); }
+	QIcon icon() const override
+	{
+		return QIcon(":/icons/padlock.png");
+	}
+	QString name() const override
+	{
+		return tr("Server passwords");
+	}
 
-		void readSettings();
+	void readSettings() override;
 
-	protected:
-		void saveSettings();
+protected:
+	void saveSettings() override;
 
-	private:
-		DPtr<CFGServerPasswords> d;
+private:
+	DPtr<CFGServerPasswords> d;
 
-		void addServerPasswordToTable(const ServerPassword& password);
-		void clearTable(QTableWidget* table);
-		int findPassphraseInTable(const QString& phrase);
-		void hidePasswords();
-		bool isPassphraseInTable(const QString& phrase);
-		void revealPasswords();
-		ServerPassword serverPasswordFromRow(int row);
-		void setPasswordInRow(int row, const ServerPassword& password);
-		void setServersInTable(const ServerPassword& password);
-		QTableWidgetItem* toolTipItem(const QString& contents);
-		void updatePassword(const ServerPassword& password);
+	void addServerPasswordToTable(const ServerPassword &password);
+	void clearTable(QTableWidget *table);
+	int findPassphraseInTable(const QString &phrase);
+	void hidePasswords();
+	bool isPassphraseInTable(const QString &phrase);
+	void revealPasswords();
+	ServerPassword serverPasswordFromRow(int row);
+	void setPasswordInRow(int row, const ServerPassword &password);
+	void setServersInTable(const ServerPassword &password);
+	QTableWidgetItem *toolTipItem(const QString &contents);
+	void updatePassword(const ServerPassword &password);
 
-	private slots:
-		void addPasswordFromLineEdit();
-		void onPasswordTableCellChange(int currentRow, int currentColumn,
-			int previousRow, int previousColumn);
-		void removeSelectedPasswords();
-		void removeSelectedServers();
-		void showServerLossWarningIfNecessary();
-		void toggleRevealHide();
+private slots:
+	void addPasswordFromLineEdit();
+	void onPasswordTableCellChange(int currentRow, int currentColumn,
+		int previousRow, int previousColumn);
+	void removeSelectedPasswords();
+	void removeSelectedServers();
+	void showServerLossWarningIfNecessary();
+	void toggleRevealHide();
 };
 
 #endif

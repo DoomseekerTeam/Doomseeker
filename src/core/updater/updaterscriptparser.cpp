@@ -23,18 +23,18 @@
 #include "updaterscriptparser.h"
 
 #include "autoupdater.h"
-#include <QDebug>
 #include <cassert>
+#include <QDebug>
 
 DClass<UpdaterScriptParser>
 {
-	public:
-		QDomDocument* pDoc;
+public:
+	QDomDocument *pDoc;
 };
 
 DPointered(UpdaterScriptParser)
 //////////////////////////////////////////////////////////////////////////////
-UpdaterScriptParser::UpdaterScriptParser(QDomDocument& document)
+UpdaterScriptParser::UpdaterScriptParser(QDomDocument &document)
 {
 	d->pDoc = &document;
 }
@@ -43,7 +43,7 @@ UpdaterScriptParser::~UpdaterScriptParser()
 {
 }
 
-QDomNode UpdaterScriptParser::installNode(const QDomDocument& doc)
+QDomNode UpdaterScriptParser::installNode(const QDomDocument &doc)
 {
 	return doc.elementsByTagName("update").at(0).toElement()
 		.elementsByTagName("install").at(0);
@@ -55,9 +55,9 @@ QDomElement UpdaterScriptParser::mainElement()
 	return nodes.at(0).toElement();
 }
 
-void UpdaterScriptParser::merge(const QDomDocument& otherDoc)
+void UpdaterScriptParser::merge(const QDomDocument &otherDoc)
 {
-	assert(d->pDoc != NULL && "UpdaterScriptParser::merge()");
+	assert(d->pDoc != nullptr && "UpdaterScriptParser::merge()");
 	if (!d->pDoc->isNull())
 	{
 		QDomNodeList listNodes;
@@ -91,15 +91,15 @@ QString UpdaterScriptParser::msgMainElementMissingError()
 	return AutoUpdater::tr("Missing main \"update\" node.");
 }
 
-QDomNode UpdaterScriptParser::packagesNode(const QDomDocument& doc)
+QDomNode UpdaterScriptParser::packagesNode(const QDomDocument &doc)
 {
 	return doc.elementsByTagName("update").at(0).toElement()
 		.elementsByTagName("packages").at(0);
 }
 
-QString UpdaterScriptParser::setPackageName(const QString& name)
+QString UpdaterScriptParser::setPackageName(const QString &name)
 {
-	assert(d->pDoc != NULL && "UpdaterScriptParser::setPackageName()");
+	assert(d->pDoc != nullptr && "UpdaterScriptParser::setPackageName()");
 	QString errorMsg;
 	errorMsg = setPackageNameInPackages(name);
 	if (errorMsg.isNull())
@@ -109,7 +109,7 @@ QString UpdaterScriptParser::setPackageName(const QString& name)
 	return errorMsg;
 }
 
-QString UpdaterScriptParser::setPackageNameInFiles(const QString& name)
+QString UpdaterScriptParser::setPackageNameInFiles(const QString &name)
 {
 	// Path: /"install"/"file"(*)/"package"/#text
 	QDomNodeList nodes;
@@ -140,7 +140,7 @@ QString UpdaterScriptParser::setPackageNameInFiles(const QString& name)
 	return QString();
 }
 
-QString UpdaterScriptParser::setPackageNameInPackages(const QString& name)
+QString UpdaterScriptParser::setPackageNameInPackages(const QString &name)
 {
 	// Path: /"packages"/"package"/"name"/#text
 	QDomNodeList nodes;
@@ -184,4 +184,3 @@ QString UpdaterScriptParser::setPackageNameInPackages(const QString& name)
 	}
 	return QString();
 }
-

@@ -23,9 +23,9 @@
 #ifndef id3D55B51B_0F01_4FAB_8D44E1593B00E437
 #define id3D55B51B_0F01_4FAB_8D44E1593B00E437
 
+#include "dptr.h"
 #include "gui/missingwadsdialog.h"
 #include "serverapi/serverptr.h"
-#include "dptr.h"
 #include <QObject>
 
 class CommandLineInfo;
@@ -44,45 +44,43 @@ class JoinCommandLineBuilder : public QObject
 {
 	Q_OBJECT
 
-	public:
-		JoinCommandLineBuilder(ServerPtr server, GameDemo demo, QWidget *parentWidget);
-		~JoinCommandLineBuilder();
+public:
+	JoinCommandLineBuilder(ServerPtr server, GameDemo demo, QWidget *parentWidget);
+	~JoinCommandLineBuilder() override;
 
-		const CommandLineInfo &builtCommandLine() const;
-		static bool checkWadseekerValidity(QWidget *parent=NULL);
-		bool isConfigurationError() const;
-		const QString &error() const;
-		/**
-		 * @brief Runs asynchronously and emits
-		 * commandLineBuildFinished() when done.
-		 */
-		void obtainJoinCommandLine();
-		ServerPtr server() const;
-		/**
-		 * @brief Sets the connect/ingame password and bypasses the prompt.
-		 * Set passwords to a null string to unset.
-		 */
-		void setPasswords(const QString &connectPassword=QString(), const QString &inGamePassword=QString());
+	const CommandLineInfo &builtCommandLine() const;
+	static bool checkWadseekerValidity(QWidget *parent = nullptr);
+	bool isConfigurationError() const;
+	const QString &error() const;
+	/**
+	 * @brief Runs asynchronously and emits
+	 * commandLineBuildFinished() when done.
+	 */
+	void obtainJoinCommandLine();
+	ServerPtr server() const;
+	/**
+	 * @brief Sets the connect/ingame password and bypasses the prompt.
+	 * Set passwords to a null string to unset.
+	 */
+	void setPasswords(const QString &connectPassword = QString(), const QString &inGamePassword = QString());
 
-	signals:
-		void commandLineBuildFinished();
+signals:
+	void commandLineBuildFinished();
 
-	private:
-		DPtr<JoinCommandLineBuilder> d;
+private:
+	DPtr<JoinCommandLineBuilder> d;
 
-		void allDownloadableWads(const JoinError &joinError, QStringList &required, QStringList &optional);
-		bool buildServerConnectParams(ServerConnectParams &params);
-		bool checkServerStatus();
-		void failBuild();
-		void handleError(const JoinError &error);
-		MissingWadsDialog::MissingWadsProceed handleMissingWads(
-			const JoinError &error);
-		QString mkDemoName();
-		bool tryToInstallGame();
+	bool buildServerConnectParams(ServerConnectParams &params);
+	bool checkServerStatus();
+	void failBuild();
+	void handleError(const JoinError &error);
+	MissingWadsDialog::MissingWadsProceed handleMissingWads(const JoinError &error);
+	QString mkDemoName();
+	bool tryToInstallGame();
 
-	private slots:
-		void missingWadsClicked(QAbstractButton *);
-		void onWadseekerDone(int result);
+private slots:
+	void missingWadsClicked(QAbstractButton *);
+	void onWadseekerDone(int result);
 };
 
 #endif

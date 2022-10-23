@@ -24,19 +24,19 @@
 
 DClass<ConfigPage>
 {
-	public:
-		bool bAllowSave;
-		bool bSettingsAlreadyRead;
+public:
+	bool bAllowSave;
+	bool bSettingsAlreadyRead;
 
-		void (ConfigPage::*reject)();
+	void (ConfigPage::*reject)();
 };
 
 DPointered(ConfigPage)
 
-POLYMORPHIC_DEFINE(void, ConfigPage, reject, (), ());
+POLYMORPHIC_DEFINE(void, ConfigPage, reject, (), ())
 
-ConfigPage::ConfigPage(QWidget* parent)
-: QWidget(parent)
+ConfigPage::ConfigPage(QWidget *parent)
+	: QWidget(parent)
 {
 	set_reject(&ConfigPage::reject_default);
 	d->bAllowSave = false;
@@ -77,9 +77,7 @@ bool ConfigPage::save()
 		return true;
 	}
 	else
-	{
 		return false;
-	}
 }
 
 void ConfigPage::setAllowSave(bool b)

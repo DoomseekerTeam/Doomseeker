@@ -31,11 +31,11 @@ class EnginePlugin;
 
 class BroadcastManager : public QObject
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
-	BroadcastManager(QObject *parent = 0);
-	~BroadcastManager();
+	BroadcastManager(QObject *parent = nullptr);
+	~BroadcastManager() override;
 
 	void registerPlugin(const EnginePlugin *plugin);
 	QList<ServerPtr> servers() const;

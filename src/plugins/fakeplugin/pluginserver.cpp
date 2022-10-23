@@ -22,18 +22,18 @@
 //------------------------------------------------------------------------------
 #include "pluginserver.h"
 
-#include "pluginengineplugin.h"
 #include "global.h"
+#include "pluginengineplugin.h"
 #include "serverapi/playerslist.h"
 
-PluginServer::PluginServer(const QHostAddress& address, quint16 port)
-: Server(address, port)
+PluginServer::PluginServer(const QHostAddress &address, quint16 port)
+	: Server(address, port)
 {
 	set_readRequest(&PluginServer::readRequest);
 	set_createSendRequest(&PluginServer::createSendRequest);
 }
 
-EnginePlugin* PluginServer::plugin() const
+EnginePlugin *PluginServer::plugin() const
 {
 	return PluginEnginePlugin::staticInstance();
 }
@@ -46,9 +46,7 @@ QByteArray PluginServer::createSendRequest()
 Server::Response PluginServer::readRequest(const QByteArray &data)
 {
 	if (data.left(4) != "FAKF")
-	{
 		return RESPONSE_BAD;
-	}
 
 	this->setName(QString("Fake Server %1").arg(this->port()));
 	return RESPONSE_GOOD;

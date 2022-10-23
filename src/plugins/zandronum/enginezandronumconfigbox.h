@@ -34,23 +34,22 @@ class EngineZandronumConfigBox : public EngineConfigPage
 {
 	Q_OBJECT
 
-	public:
-		EngineZandronumConfigBox(EnginePlugin* plugin, IniSection& cfg, QWidget* parent = NULL);
+public:
+	EngineZandronumConfigBox(EnginePlugin *plugin, IniSection &cfg, QWidget *parent = nullptr);
 
-		void readSettings();
+	void readSettings() override;
 
 
-	protected slots:
-		void btnBrowseTestingPathClicked();
+protected slots:
+	void btnBrowseTestingPathClicked();
 
-	protected:
+protected:
 
-		void saveSettings();
+	void saveSettings() override;
 
-		QGroupBox *groupTesting;
-		QLineEdit *leTestingPath;
-		QPushButton *btnBrowseTestingPath;
-		QCheckBox* cbAllowDisplayCountry;
+	QGroupBox *groupTesting;
+	QLineEdit *leTestingPath;
+	QPushButton *btnBrowseTestingPath;
 };
 
 #endif

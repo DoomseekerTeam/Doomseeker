@@ -28,29 +28,29 @@
 #include <QDockWidget>
 
 /**
- *	@brief Dockable widget designed for application's log presentation.
+ * @brief Dockable widget designed for application's log presentation.
  */
 class LogDock : public QDockWidget
 {
-	Q_OBJECT;
+	Q_OBJECT
 
-	public:
-		LogDock(QWidget* parent = NULL);
-		~LogDock();
+public:
+	LogDock(QWidget *parent = nullptr);
+	~LogDock() override;
 
-	public slots:
-		/**
-		 *	New entry will be appended to the end of the current textedit
-		 *	content as it is, without any special formatting.
-		 */
-		void appendLogEntry(const QString& entry);
-		void clearContent();
+public slots:
+	/**
+	 * New entry will be appended to the end of the current textedit
+	 * content as it is, without any special formatting.
+	 */
+	void appendLogEntry(const QString &entry);
+	void clearContent();
 
-	protected slots:
-		void btnCopyClicked();
+protected slots:
+	void btnCopyClicked();
 
-	private:
-		DPtr<LogDock> d;
+private:
+	DPtr<LogDock> d;
 };
 
 #endif

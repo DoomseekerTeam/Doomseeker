@@ -1,10 +1,12 @@
 set(UI_FILES
 	gui/aboutdialog.ui
 	gui/addBuddyDlg.ui
+	gui/checkwadsdlg.ui
 	gui/configuration/cfgappearance.ui
 	gui/configuration/cfgautoupdates.ui
 	gui/configuration/cfgcustomservers.ui
 	gui/configuration/cfgfilepaths.ui
+	gui/configuration/cfgip2c.ui
 	gui/configuration/cfgquery.ui
 	gui/configuration/cfgserverpasswords.ui
 	gui/configuration/cfgwadalias.ui
@@ -27,7 +29,9 @@ set(UI_FILES
 	gui/createserver/generalgamesetuppanel.ui
 	gui/createserver/iwadandwadspickerdialog.ui
 	gui/createserver/iwadpicker.ui
+	gui/createserver/logdirectorypicker.ui
 	gui/createserver/maplistpanel.ui
+	gui/createserver/maplistselector.ui
 	gui/createserver/miscserversetuppanel.ui
 	gui/createserver/wadspicker.ui
 	gui/createserverdialog.ui
@@ -77,11 +81,13 @@ set(HEADER_FILES
 	gitinfo.h
 	global.h
 	gui/aboutdialog.h
+	gui/checkwadsdlg.h
 	gui/commongui.h
 	gui/configuration/cfgappearance.h
 	gui/configuration/cfgautoupdates.h
 	gui/configuration/cfgcustomservers.h
 	gui/configuration/cfgfilepaths.h
+	gui/configuration/cfgip2c.h
 	gui/configuration/cfgquery.h
 	gui/configuration/cfgserverpasswords.h
 	gui/configuration/cfgwadalias.h
@@ -102,12 +108,15 @@ set(HEADER_FILES
 	gui/copytextdlg.h
 	gui/createserver/customparamspanel.h
 	gui/createserver/dmflagspanel.h
+	gui/createserver/gamecvaredit.h
 	gui/createserver/gameexecutablepicker.h
 	gui/createserver/gamerulespanel.h
 	gui/createserver/generalgamesetuppanel.h
 	gui/createserver/iwadandwadspickerdialog.h
 	gui/createserver/iwadpicker.h
+	gui/createserver/logdirectorypicker.h
 	gui/createserver/maplistpanel.h
+	gui/createserver/maplistselector.h
 	gui/createserver/miscserversetuppanel.h
 	gui/createserver/wadspicker.h
 	gui/createserverdialog.h
@@ -153,6 +162,7 @@ set(HEADER_FILES
 	gui/widgets/fontbutton.h
 	gui/widgets/iconlabel.h
 	gui/widgets/importantmessageswidget.h
+	gui/widgets/interpolatecheckbox.h
 	gui/widgets/memorylineedit.h
 	gui/widgets/multicombobox.h
 	gui/widgets/qtabwidgetext.h
@@ -162,6 +172,7 @@ set(HEADER_FILES
 	gui/widgets/serverlistview.h
 	gui/widgets/serversstatuswidget.h
 	gui/widgets/tablewidgetmouseaware.h
+	gui/widgets/tablewidgetreorderable.h
 	gui/widgets/wadseekersitestable.h
 	gui/widgets/wadseekerwadstable.h
 	ini/ini.h
@@ -169,10 +180,14 @@ set(HEADER_FILES
 	ini/inivariable.h
 	ini/settingsprovider.h
 	ini/settingsproviderqt.h
-	ip2c/entities/ip2ccountryinfo.h
 	ip2c/ip2c.h
+	ip2c/ip2capi.h
+	ip2c/ip2ccountry.h
 	ip2c/ip2cloader.h
 	ip2c/ip2cparser.h
+	ip2c/ip2cparser_v2.h
+	ip2c/ip2cparser_v3.h
+	ip2c/ip2crange.h
 	ip2c/ip2cupdater.h
 	irc/chatlogarchive.h
 	irc/chatlogrotate.h
@@ -205,19 +220,20 @@ set(HEADER_FILES
 	irc/ops/ircdelayedoperationban.h
 	irc/ops/ircdelayedoperationignore.h
 	joincommandlinebuilder.h
-	json.h
 	localization.h
 	localizationinfo.h
 	log.h
 	main.h
-	pathfinder/basefileseeker.h
+	modreader.h
 	pathfinder/caseinsensitivefsfileseeker.h
 	pathfinder/casesensitivefsfileseeker.h
 	pathfinder/filealias.h
 	pathfinder/filesearchpath.h
+	pathfinder/fileseeker.h
 	pathfinder/pathfind.h
 	pathfinder/pathfinder.h
 	pathfinder/wadpathfinder.h
+	pattern.h
 	patternlist.h
 	plugins/enginedefaults.h
 	plugins/engineplugin.h
@@ -231,7 +247,6 @@ set(HEADER_FILES
 	scanner.h
 	serverapi/broadcast.h
 	serverapi/broadcastmanager.h
-	serverapi/buddyinfo.h
 	serverapi/createserverdialogapi.h
 	serverapi/exefile.h
 	serverapi/gameclientrunner.h
@@ -253,6 +268,7 @@ set(HEADER_FILES
 	serverapi/serverptr.h
 	serverapi/serverstructs.h
 	serverapi/serversummary.h
+	serverapi/textprovider.h
 	serverapi/tooltips/dmflagshtmlgenerator.h
 	serverapi/tooltips/gameinfotip.h
 	serverapi/tooltips/generalinfotip.h
@@ -267,6 +283,7 @@ set(HEADER_FILES
 	tests/testdatapaths.h
 	tests/testini.h
 	tests/testircisupportparser.h
+	tests/testmodreader.h
 	tests/testplayer.h
 	tests/testruns.h
 	tests/teststrings.h
@@ -304,11 +321,13 @@ set(SOURCE_FILES
 	fileutils.cpp
 	gamedemo.cpp
 	gui/aboutdialog.cpp
+	gui/checkwadsdlg.cpp
 	gui/commongui.cpp
 	gui/configuration/cfgappearance.cpp
 	gui/configuration/cfgautoupdates.cpp
 	gui/configuration/cfgcustomservers.cpp
 	gui/configuration/cfgfilepaths.cpp
+	gui/configuration/cfgip2c.cpp
 	gui/configuration/cfgquery.cpp
 	gui/configuration/cfgserverpasswords.cpp
 	gui/configuration/cfgwadalias.cpp
@@ -329,12 +348,15 @@ set(SOURCE_FILES
 	gui/copytextdlg.cpp
 	gui/createserver/customparamspanel.cpp
 	gui/createserver/dmflagspanel.cpp
+	gui/createserver/gamecvaredit.cpp
 	gui/createserver/gameexecutablepicker.cpp
 	gui/createserver/gamerulespanel.cpp
 	gui/createserver/generalgamesetuppanel.cpp
 	gui/createserver/iwadandwadspickerdialog.cpp
 	gui/createserver/iwadpicker.cpp
+	gui/createserver/logdirectorypicker.cpp
 	gui/createserver/maplistpanel.cpp
+	gui/createserver/maplistselector.cpp
 	gui/createserver/miscserversetuppanel.cpp
 	gui/createserver/wadspicker.cpp
 	gui/createserverdialog.cpp
@@ -379,6 +401,7 @@ set(SOURCE_FILES
 	gui/widgets/fontbutton.cpp
 	gui/widgets/iconlabel.cpp
 	gui/widgets/importantmessageswidget.cpp
+	gui/widgets/interpolatecheckbox.cpp
 	gui/widgets/memorylineedit.cpp
 	gui/widgets/multicombobox.cpp
 	gui/widgets/serverconsole.cpp
@@ -387,6 +410,7 @@ set(SOURCE_FILES
 	gui/widgets/serverlistview.cpp
 	gui/widgets/serversstatuswidget.cpp
 	gui/widgets/tablewidgetmouseaware.cpp
+	gui/widgets/tablewidgetreorderable.cpp
 	gui/widgets/wadseekersitestable.cpp
 	gui/widgets/wadseekerwadstable.cpp
 	ini/ini.cpp
@@ -394,10 +418,13 @@ set(SOURCE_FILES
 	ini/inivariable.cpp
 	ini/settingsprovider.cpp
 	ini/settingsproviderqt.cpp
-	ip2c/entities/ip2ccountryinfo.cpp
 	ip2c/ip2c.cpp
+	ip2c/ip2capi.cpp
+	ip2c/ip2ccountry.cpp
 	ip2c/ip2cloader.cpp
 	ip2c/ip2cparser.cpp
+	ip2c/ip2cparser_v2.cpp
+	ip2c/ip2cparser_v3.cpp
 	ip2c/ip2cupdater.cpp
 	irc/chatlogarchive.cpp
 	irc/chatlogrotate.cpp
@@ -429,20 +456,22 @@ set(SOURCE_FILES
 	irc/ops/ircdelayedoperationban.cpp
 	irc/ops/ircdelayedoperationignore.cpp
 	joincommandlinebuilder.cpp
-	json.cpp
 	localization.cpp
 	localizationinfo.cpp
 	log.cpp
 	main.cpp
-	pathfinder/basefileseeker.cpp
+	modreader.cpp
 	pathfinder/caseinsensitivefsfileseeker.cpp
 	pathfinder/casesensitivefsfileseeker.cpp
 	pathfinder/filealias.cpp
 	pathfinder/filesearchpath.cpp
+	pathfinder/fileseeker.cpp
 	pathfinder/pathfind.cpp
 	pathfinder/pathfinder.cpp
 	pathfinder/wadpathfinder.cpp
+	pattern.cpp
 	patternlist.cpp
+	patternwildcard.cpp
 	plugins/engineplugin.cpp
 	plugins/pluginloader.cpp
 	random.cpp
@@ -453,7 +482,6 @@ set(SOURCE_FILES
 	scanner.cpp
 	serverapi/broadcast.cpp
 	serverapi/broadcastmanager.cpp
-	serverapi/buddyinfo.cpp
 	serverapi/createserverdialogapi.cpp
 	serverapi/exefile.cpp
 	serverapi/gameclientrunner.cpp
@@ -486,6 +514,7 @@ set(SOURCE_FILES
 	tests/testdatapaths.cpp
 	tests/testini.cpp
 	tests/testircisupportparser.cpp
+	tests/testmodreader.cpp
 	tests/testplayer.cpp
 	tests/testruns.cpp
 	tests/teststrings.cpp

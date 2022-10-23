@@ -29,13 +29,13 @@ const QString ServerPasswordType::INGAME = "InGame";
 
 DClass<ServerPasswordSummary>
 {
-	public:
-		ServerSummary serverSummary;
-		// 'type' is a QString in case if we ever need to expand this
-		// in plugins.
-		// It's easier to keep unique values with this than with enums
-		// considering that this needs to be stored in a config file.
-		QString type;
+public:
+	ServerSummary serverSummary;
+	// 'type' is a QString in case if we ever need to expand this
+	// in plugins.
+	// It's easier to keep unique values with this than with enums
+	// considering that this needs to be stored in a config file.
+	QString type;
 };
 
 DPointered(ServerPasswordSummary)
@@ -54,7 +54,7 @@ ServerPasswordSummary::~ServerPasswordSummary()
 {
 }
 
-ServerPasswordSummary ServerPasswordSummary::deserializeQVariant(const QVariant& v)
+ServerPasswordSummary ServerPasswordSummary::deserializeQVariant(const QVariant &v)
 {
 	QVariantMap map = v.toMap();
 	ServerPasswordSummary obj;
@@ -63,12 +63,12 @@ ServerPasswordSummary ServerPasswordSummary::deserializeQVariant(const QVariant&
 	return obj;
 }
 
-const QString& ServerPasswordSummary::address() const
+const QString &ServerPasswordSummary::address() const
 {
 	return serverSummary().address();
 }
 
-const QString& ServerPasswordSummary::game() const
+const QString &ServerPasswordSummary::game() const
 {
 	return serverSummary().game();
 }
@@ -78,7 +78,7 @@ bool ServerPasswordSummary::isValid() const
 	return serverSummary().isValid();
 }
 
-const QString& ServerPasswordSummary::name() const
+const QString &ServerPasswordSummary::name() const
 {
 	return serverSummary().name();
 }
@@ -110,17 +110,13 @@ void ServerPasswordSummary::setType(const QString &val)
 	d->type = val;
 }
 
-float ServerPasswordSummary::similarity(const ServerPasswordSummary& other) const
+float ServerPasswordSummary::similarity(const ServerPasswordSummary &other) const
 {
 	if (!isValid() || !other.isValid())
-	{
 		return 0.0f;
-	}
 
 	if (typeWithCompatibility() != other.typeWithCompatibility())
-	{
 		return 0.0f;
-	}
 
 	return serverSummary().similarity(other.serverSummary());
 }
@@ -138,8 +134,6 @@ const QString &ServerPasswordSummary::type() const
 const QString &ServerPasswordSummary::typeWithCompatibility() const
 {
 	if (type().isEmpty())
-	{
 		return ServerPasswordType::CONNECT;
-	}
 	return d->type;
 }

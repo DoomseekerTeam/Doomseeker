@@ -1,6 +1,6 @@
 ================================================================================
-Compiling Doomseeker in Microsoft Visual Studio Community 2017 with Qt 5.x
-Written by Zalewa, September 2015, Updated October 2017
+Compiling Doomseeker in MinGW-w64 8.1.0 with Qt 5.7.1
+Written by Zalewa, September 2015, Updated February 2019
 ================================================================================
 1. Quick introduction.
 
@@ -13,44 +13,51 @@ binaries for Doomseeker, Wadseeker and all plugins by yourself.
 ================================================================================
 2. Compiler.
 
-On Windows only one compiler is officially supported: the one that comes with
-Microsoft Visual Studio 2017.
+On Windows only one compiler is officially supported:
 
-First step:
-Get Microsoft Visual Studio Community 2017. It's free for commercial
-and non-commercial use.
+  MinGW-w64 release-posix-dwarf-rt_v6-rev0
 
-However, since we will be using v120_xp toolset to compile, we also need to
-install Microsoft Visual Studio 2013. Installer for MS Visual Studio 2017
-only allows to install v140_xp toolset and that's not good enough for us.
+This guide uses MinGW-w64 version 8.1.0, but if a new one is already available
+then it should be compatible as long as you stick to "posix" threads and "dwarf"
+exceptions. These requirements are imposed by the precompiled Qt5 libraries.
+
+First step is to get MinGW-w64
+
+  https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/8.1.0/threads-posix/dwarf/
+
 
 ================================================================================
 3. Qt.
 
-This instruction was written when Qt 5.7.0 was the newest available version and
-it works against this version. Your results may vary if you use newer Qt.
+While newer versions of Qt were already available when this instruction was
+written, Qt 5.7.1 is the final Qt version that still runs on Windows XP.
+This is the version that we will be using for this guide.
+
 Using older Qt5 versions is discouraged as they had localization bugs and
 they linked against ICU (about 30MB of additional DLL dependency).
 
-Get Qt 5.7.0 for MSVC 2013 from Qt's official home page and install it.
-http://download.qt.io/archive/qt/5.7/
+Get Qt 5.7.1 for MinGW-w64 from Qt's official home page and install it.
 
-If, for any reason, you want to use a different Qt version, it should
-be compatible with v120_xp toolset, unless you do not care about
-Windows XP and redist problems and want to use a newer one.
+  https://download.qt.io/new_archive/qt/5.7/5.7.1/qt-opensource-windows-x86-mingw530-5.7.1.exe
 
-Once Qt is installed you should modify your PATH environment variable so that it
-contains path to the "bin" directory inside your Qt installation. It is possible
-that Qt installer will do this for you, but you should check anyway.
-Setting this up will allow CMake to correctly detect all modules of Qt.
-This guide will not describe how to modify environment variables in Windows.
-Once you modify the PATH variable you may have to reboot your system.
+================================================================================
+3.1. Extra Qt translation files.
+
+If your Qt installation happens to not come with certain translation files,
+you can fetch them from here:
+
+  https://doomseeker.drdteam.org/files/translations/
+
+Qt translation sets are in "qt_*.zip" files. Download whatever you are
+missing and then unpack it directly, with no subdirectories, to:
+
+  X:\QT_BASE\5.7\mingw53_32\translations\
 
 ================================================================================
 4. OpenSSL
 
 Link:
-https://doomseeker.drdteam.org/files/dependencies/OpenSSL-1.0.2a-VC-32.7z
+https://doomseeker.drdteam.org/files/dependencies/openssl-1.0.2j.7z
 
 Doomseeker will work without OpenSSL, but it won't be able to access HTTPS sites.
 Many of the features contact HTTPS sites, therefore lack of OpenSSL will be
@@ -67,7 +74,7 @@ programmers to avoid uploading all that mess that IDEs create when they
 spawn a new project. Also, it helps with keeping track of all the dependencies
 that the program needs in order to compile.
 
-CMake version 3.9.0-rc6 was used when writing this doc.
+CMake version 3.14.0-rc1 was used when writing this doc.
 
 Get CMake now.
 
@@ -75,56 +82,56 @@ Launch CMake GUI.
 
 The first thing you need to set is "Where to build the binaries". This
 should be located somewhere outside the repository. For example:
-D:/dev/Doomseeker/visual2017
+
+  D:\dev\Doomseeker\mingw64-release
 
 The second thing is "Where is the source code". Pick the top-most directory
 that contains the CMakeLists.txt file. In case of Doomseeker this is the root
 directory of the repository. For example:
-D:/dev/Doomseeker/repo
+
+  D:\dev\Doomseeker\repo
 
 Now press "Configure" button.
 
-CMake should prompt about the type of compiler you want to use. Pick
-"Visual Studio 15 2017". The very important thing here is to define special toolset
-to ensure that folks who use Windows XP can run Doomseeker. Specify "v120_xp"
-as the toolset. Don't make a typo! Also make sure that
-"Use default native compilers" option is selected.
+CMake should prompt about the type of compiler you want to use.
+Pick "MinGW Makefiles" and "Use default native compilers".
 
-Now press "Finish". If you did everything right up to this
-point then CMake should find the MSVC 2017 and Qt installations. The initial
-configuration may take some time but should finish without errors. Once done,
-CMake will display some key-value positions in a table with a red background.
-Red background means that these settings are new.
+Now press "Finish". If you did everything right up to this point then
+CMake should find the GNU compiler, then an error pop-up will appear.
+This error is nothing to worry about. We just need to manually provide
+some options before continuing.
 
 Find "Grouped" and "Advanced" checkboxes in CMake GUI and check them both. The
 list should now change and you should see following items:
 - Ungrouped Entries
-- BUILD
 - CMAKE
-- OPENSSL
+- CPACK
+
+In "Ungrouped Entries" find "Qt5_DIR" option and point it to the sub-directory
+in your Qt installation directory:
+
+  X:\QT_BASE\5.7\mingw53_32\lib\cmake\Qt5
+
+Also, in "CMAKE" group, set "CMAKE_BUILD_TYPE" option to "Release".
+Should you wish to create a debug build instead, set the option to "Debug".
 
 When you finish setting everything press "Configure" button again so that all
-red options should turn to normal background color and then press "Generate"
-button. This should create the ".sln" file in the target directory. You may
-now open this file with Visual Studio 2017 and then try to compile the program.
+red options should turn to normal background color. If there are more red
+options, then press "Configure" once more. When everything is in normal
+background color, press "Generate" button. This should create the makefiles
+in the target directory.
 
-It is also possible to compile from command line by using cmake:
+It is now possible to compile from command line by using cmake:
 
-  cd build_dir
-  cmake --build . --config Release
+  cd mingw64-release
+  cmake --build . -- -j<processes>
+
+Specify number of concurrent compilation processes instead of <processes>
 
 ================================================================================
 6. Tweaks.
 
-6.1. Concurrent compilation.
-
-Find CMAKE_CXX_FLAGS and CMAKE_C_FLAGS settings. Append /MP to the
-end. Press "Configure", then "Generate".
-
-Hint: When this is enabled, and compilation fails at first, try it
-again. There's a chance it will succeed the next time.
-
-6.2. Enabling INSTALL target.
+6.1. Enabling INSTALL target.
 
 Open OPENSSL branch and point both settings there to appropriate DLL files.
 The setting names tell you which file you need for which setting.
@@ -133,10 +140,30 @@ Remember to change CMAKE_INSTALL_PREFIX path to something less stupid than
 "C:\Program Files (x86)\Doomseeker". Be aware that the installed files are
 dumped directly to this directory.
 
+6.2. IP2C
+
+Procedures to spawn the optional IpToCountry.dat file are the same as
+for any other platform. Refer to the corresponding section in COMPILE.txt.
+A Python3 installation is required to spawn the database.
 ================================================================================
-Now you may build the program and while it compiles you may open one
-of the source code files that I created back in 2009 and cry :)
---------------------------------------------------------------------------------
+7. Runtime dependencies.
+
+The compiled executable may not run if it won't see the necessary DLLs from Qt,
+MinGW and OpenSSL. Moreover, there may be startup crashes if it finds DLLs with
+same names but incompatible interfaces somewhere else in the system. Build
+scripts can package proper DLLs for you if you use the install target.
+
+Point CMAKE_INSTALL_PREFIX to an empty directory, such as:
+
+  D:\dev\doomseeker\install
+
+Then run the 'install' target from your build directory:
+
+  cmake --build . --target install
+
+Debug builds will need Qt libraries with the 'd' suffix.
+
+================================================================================
 Copyright (C) 2012 The Doomseeker Team
 
 Copying and distribution of this file, with or without modification,

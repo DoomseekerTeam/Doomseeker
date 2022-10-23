@@ -29,13 +29,13 @@ class SocketSignalsAdapter : public QObject
 {
 	Q_OBJECT
 
-	public:
-		const QAbstractSocket* pSocket;
+public:
+	const QAbstractSocket *pSocket;
 
-	public slots:
-		virtual void connected() = 0;
-		virtual void disconnected() = 0;
-		virtual void errorReceived(QAbstractSocket::SocketError error) = 0;
+public slots:
+	virtual void connected() = 0;
+	virtual void disconnected() = 0;
+	virtual void errorReceived(QAbstractSocket::SocketError error) = 0;
 };
 
 #endif

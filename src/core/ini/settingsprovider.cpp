@@ -48,9 +48,9 @@ SettingsProvider::~SettingsProvider()
 {
 }
 
-void SettingsProvider::copyFrom(const SettingsProvider& other)
+void SettingsProvider::copyFrom(const SettingsProvider &other)
 {
-	foreach (const QString& key, other.allKeys())
+	for (const QString &key : other.allKeys())
 	{
 		setValue(key, other.value(key));
 	}

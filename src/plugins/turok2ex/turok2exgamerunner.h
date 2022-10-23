@@ -29,14 +29,14 @@ class Turok2ExServer;
 
 class Turok2ExGameClientRunner : public GameClientRunner
 {
-	public:
-		Turok2ExGameClientRunner(QSharedPointer<Turok2ExServer> server);
+public:
+	Turok2ExGameClientRunner(QSharedPointer<Turok2ExServer> server);
 
-	private:
-		QSharedPointer<Turok2ExServer> server;
-		void addFiles(const QStringList &files);
-		void addIwad();
-		void addConnectCommand();
+private:
+	QSharedPointer<Turok2ExServer> server;
+	void addFiles(const QStringList &files);
+	void addIwad();
+	void addConnectCommand();
 };
 
 #endif

@@ -23,26 +23,26 @@
 #ifndef id7D370D9A_DF04_4500_AB6AFF4589B86AF5
 #define id7D370D9A_DF04_4500_AB6AFF4589B86AF5
 
-#include <QTableWidgetItem>
 #include <QDateTime>
+#include <QTableWidgetItem>
 
 class DateTableWidgetItem : public QTableWidgetItem
 {
-	public:
-		DateTableWidgetItem(const QDateTime& date,
-			const QString& displayFormat = "yyyy-MM-dd hh:mm:ss");
+public:
+	DateTableWidgetItem(const QDateTime &date,
+		const QString &displayFormat = "yyyy-MM-dd hh:mm:ss");
 
-		bool operator<(const QTableWidgetItem& other) const;
+	bool operator<(const QTableWidgetItem &other) const override;
 
-		QString displayedText() const;
-		void setDateTime(const QDateTime& date);
-		void setDisplayFormat(const QString& format);
+	QString displayedText() const;
+	void setDateTime(const QDateTime &date);
+	void setDisplayFormat(const QString &format);
 
-	private:
-		QDateTime date;
-		QString displayFormat;
+private:
+	QDateTime date;
+	QString displayFormat;
 
-		void updateInternalData();
+	void updateInternalData();
 };
 
 #endif

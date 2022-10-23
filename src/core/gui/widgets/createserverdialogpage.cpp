@@ -26,17 +26,17 @@
 
 DClass<CreateServerDialogPage>
 {
-	public:
-		QString name;
-		CreateServerDialog* pParentDialog;
+public:
+	QString name;
+	CreateServerDialog *pParentDialog;
 };
 
 DPointered(CreateServerDialogPage)
 
 CreateServerDialogPage::CreateServerDialogPage(
-	CreateServerDialog* pParentDialog,
-	const QString& name)
-: QWidget(pParentDialog)
+	CreateServerDialog *pParentDialog,
+	const QString &name)
+	: QWidget(pParentDialog)
 {
 	d->pParentDialog = pParentDialog;
 	d->name = name;
@@ -46,12 +46,12 @@ CreateServerDialogPage::~CreateServerDialogPage()
 {
 }
 
-const QString& CreateServerDialogPage::name() const
+const QString &CreateServerDialogPage::name() const
 {
 	return d->name;
 }
 
-QDialog* CreateServerDialogPage::parentDialog()
+QDialog *CreateServerDialogPage::parentDialog()
 {
 	return d->pParentDialog;
 }

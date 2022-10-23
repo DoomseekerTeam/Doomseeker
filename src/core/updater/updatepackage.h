@@ -28,47 +28,47 @@
 
 class UpdatePackage
 {
-	public:
-		/**
-		 * @brief Currently installed version, displayed to the user.
-		 *
-		 * This is set after the package information has been filtered.
-		 */
-		QString currentlyInstalledDisplayVersion;
-		/**
-		 * @brief Version displayed to the user.
-		 */
-		QString displayVersion;
-		/**
-		 * @brief Name displayed to the user.
-		 */
-		QString displayName;
-		/**
-		 * @brief Package download URL.
-		 *
-		 * This URL must be absolute and contain the protocol.
-		 */
-		QUrl downloadUrl;
-		/**
-		 * @brief Updater script download URL.
-		 *
-		 * This URL must be absolute and contain the protocol.
-		 * If not present in the updater info file then downloadUrl is
-		 * used with ".xml" appended.
-		 */
-		QUrl downloadScriptUrl;
-		/**
-		 * @brief Name of the package (program name or plugin name).
-		 */
-		QString name;
-		/**
-		 * @brief Revision used for version comparison.
-		 *
-		 * This is used to compare versions between the currently installed
-		 * program and the available update. If values match then no upgrade
-		 * is performed.
-		 */
-		QString revision;
+public:
+	/**
+	 * @brief Currently installed version, displayed to the user.
+	 *
+	 * This is set after the package information has been filtered.
+	 */
+	QString currentlyInstalledDisplayVersion;
+	/**
+	 * @brief Version displayed to the user.
+	 */
+	QString displayVersion;
+	/**
+	 * @brief Name displayed to the user.
+	 */
+	QString displayName;
+	/**
+	 * @brief Package download URL.
+	 *
+	 * This URL must be absolute and contain the protocol.
+	 */
+	QUrl downloadUrl;
+	/**
+	 * @brief Updater script download URL.
+	 *
+	 * This URL must be absolute and contain the protocol.
+	 * If not present in the updater info file then downloadUrl is
+	 * used with ".xml" appended.
+	 */
+	QUrl downloadScriptUrl;
+	/**
+	 * @brief Name of the package (program name or plugin name).
+	 */
+	QString name;
+	/**
+	 * @brief Revision used for version comparison.
+	 *
+	 * This is used to compare versions between the currently installed
+	 * program and the available update. If values match then no upgrade
+	 * is performed.
+	 */
+	QString revision;
 };
 
 #endif

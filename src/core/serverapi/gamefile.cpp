@@ -41,8 +41,20 @@ GameFile::GameFile()
 	d->executable = 0;
 }
 
+GameFile::GameFile(const GameFile &other)
+{
+	this->d = other.d;
+}
+
 GameFile::~GameFile()
 {
+}
+
+GameFile &GameFile::operator=(const GameFile &other)
+{
+	if (this != &other)
+		this->d = other.d;
+	return *this;
 }
 
 const QString &GameFile::configName() const
@@ -81,7 +93,7 @@ GameFile &GameFile::setExecutable(int flags)
 bool GameFile::isSameFile(const QString &otherFileName)
 {
 	QString thisFile = fileName();
-#if defined(Q_OS_WIN32)
+	#if defined(Q_OS_WIN32)
 	if (executable() != 0)
 	{
 		if (!thisFile.endsWith(".exe"))
@@ -89,7 +101,7 @@ bool GameFile::isSameFile(const QString &otherFileName)
 			thisFile += ".exe";
 		}
 	}
-#endif
+	#endif
 	return thisFile.compare(otherFileName, FileUtils::comparisonSensitivity()) == 0;
 }
 
@@ -147,7 +159,7 @@ GameFileList &GameFileList::append(const GameFile &gameFile)
 
 GameFileList &GameFileList::append(const GameFileList &list)
 {
-	foreach (const GameFile &other, list.asQList())
+	for (const GameFile &other : list.asQList())
 	{
 		append(other);
 	}
@@ -166,7 +178,7 @@ void GameFileList::clear()
 
 GameFile GameFileList::first() const
 {
-	foreach (const GameFile &file, d->list)
+	for (const GameFile &file : d->list)
 	{
 		if (file.isValid())
 		{
@@ -178,7 +190,7 @@ GameFile GameFileList::first() const
 
 GameFile GameFileList::findByConfigName(const QString &configName)
 {
-	foreach (const GameFile &file, d->list)
+	for (const GameFile &file : d->list)
 	{
 		if (file.configName() == configName)
 		{
@@ -199,13 +211,13 @@ GameFileList &GameFileList::prepend(const GameFile &gameFile)
 	return *this;
 }
 
-GameFileList& operator<<(GameFileList &list, const GameFile &gameFile)
+GameFileList &operator<<(GameFileList &list, const GameFile &gameFile)
 {
 	list.append(gameFile);
 	return list;
 }
 
-GameFileList& operator<<(GameFileList &list, const GameFileList &other)
+GameFileList &operator<<(GameFileList &list, const GameFileList &other)
 {
 	list.append(other);
 	return list;
@@ -231,7 +243,7 @@ GameFileList GameFiles::allServerExecutables(const GameFileList &list)
 GameFileList GameFiles::allFlagMatchExecutables(const GameFileList &list, int execs)
 {
 	GameFileList result;
-	foreach (const GameFile &file, list.asQList())
+	for (const GameFile &file : list.asQList())
 	{
 		if (file.isValid() && (execs & file.executable()))
 		{
@@ -243,7 +255,7 @@ GameFileList GameFiles::allFlagMatchExecutables(const GameFileList &list, int ex
 
 GameFile GameFiles::defaultClientExecutable(const GameFileList &list)
 {
-	foreach (const GameFile &file, list.asQList())
+	for (const GameFile &file : list.asQList())
 	{
 		if (file.isValid() && (file.executable() & GameFile::Client)
 			&& file.configName() == "BinaryPath")
@@ -256,7 +268,7 @@ GameFile GameFiles::defaultClientExecutable(const GameFileList &list)
 
 GameFile GameFiles::defaultOfflineExecutable(const GameFileList &list)
 {
-	foreach (const GameFile &file, list.asQList())
+	for (const GameFile &file : list.asQList())
 	{
 		if (file.isValid() && (file.executable() & GameFile::Offline)
 			&& file.configName() == "BinaryPath")
@@ -269,7 +281,7 @@ GameFile GameFiles::defaultOfflineExecutable(const GameFileList &list)
 
 GameFile GameFiles::defaultServerExecutable(const GameFileList &list)
 {
-	foreach (const GameFile &file, list.asQList())
+	for (const GameFile &file : list.asQList())
 	{
 		if (file.isValid() && (file.executable() & GameFile::Server)
 			&& (file.configName() == "ServerBinaryPath" || file.configName() == "BinaryPath"))
@@ -287,7 +299,7 @@ GameFile GameFiles::preferredOfflineExecutable(const GameFileList &list)
 	{
 		return candidate;
 	}
-	foreach (const GameFile &file, list.asQList())
+	for (const GameFile &file : list.asQList())
 	{
 		if (file.isValid() && (file.executable() & GameFile::Offline))
 		{

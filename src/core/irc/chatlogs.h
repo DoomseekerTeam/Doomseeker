@@ -32,11 +32,11 @@ class IRCNetworkEntity;
 
 class ChatLogs : public QObject
 {
-Q_OBJECT
+	Q_OBJECT
 
 public:
 	ChatLogs();
-	~ChatLogs();
+	~ChatLogs() override;
 
 	QString logFilePath(const IRCNetworkEntity &entity, const QString &recipient) const;
 	QString logFileName(const QString &recipient) const;

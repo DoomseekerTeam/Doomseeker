@@ -22,17 +22,17 @@
 //------------------------------------------------------------------------------
 #include "ircconfig.h"
 
-#include "irc/configuration/chatnetworkscfg.h"
+#include "datapaths.h"
 #include "ini/settingsproviderqt.h"
+#include "irc/configuration/chatnetworkscfg.h"
+#include "log.h"
 #include "plugins/engineplugin.h"
 #include "plugins/pluginloader.h"
-#include "datapaths.h"
-#include "log.h"
 #include "version.h"
 
 #include <QMessageBox>
 
-IRCConfig* IRCConfig::instance = NULL;
+IRCConfig *IRCConfig::instance = nullptr;
 
 IRCConfig::IRCConfig()
 {
@@ -42,22 +42,20 @@ IRCConfig::~IRCConfig()
 {
 }
 
-IRCConfig& IRCConfig::config()
+IRCConfig &IRCConfig::config()
 {
-	if (instance == NULL)
-	{
+	if (instance == nullptr)
 		instance = new IRCConfig();
-	}
 
 	return *instance;
 }
 
 void IRCConfig::dispose()
 {
-	if (instance != NULL)
+	if (instance != nullptr)
 	{
 		delete instance;
-		instance = NULL;
+		instance = nullptr;
 	}
 }
 
@@ -66,36 +64,36 @@ void IRCConfig::loadNetworksFromPlugins()
 	QList<IRCNetworkEntity> networks = ChatNetworksCfg().networks();
 	bool shouldSave = false;
 	// Go through the plugins and register their IRC servers.
-	for(unsigned int i = 0;i < gPlugins->numPlugins();i++)
+	for (unsigned int i = 0; i < gPlugins->numPlugins(); i++)
 	{
-		if(gPlugins->plugin(i)->info()->data()->ircChannels.size() == 0)
+		if (gPlugins->plugin(i)->info()->data()->ircChannels.size() == 0)
 			continue;
 
 		// OK so maybe registering only on first run is a good idea after all...
 		IniVariable registered = gPlugins->plugin(i)->info()->data()->pConfig->createSetting("IRCRegistered", false);
-		if(!registered)
+		if (!registered)
 		{
 			shouldSave = true;
 			registered = true;
 
-			foreach(const IRCNetworkEntity &entity, gPlugins->plugin(i)->info()->data()->ircChannels)
+			for (const IRCNetworkEntity &entity : gPlugins->plugin(i)->info()->data()->ircChannels)
 			{
 				// If we have a unique server add it to the list...
-				if(!networks.contains(entity))
+				if (!networks.contains(entity))
 					networks << entity;
 				else
 				{
 					// otherwise add the channel to the auto join.
 					IRCNetworkEntity &existingEntity = networks[networks.indexOf(entity)];
-					if(existingEntity.autojoinChannels().contains(entity.autojoinChannels()[0]))
+					if (existingEntity.autojoinChannels().contains(entity.autojoinChannels()[0]))
 						continue;
-					if(existingEntity.isAutojoinNetwork())
+					if (existingEntity.isAutojoinNetwork())
 					{
 						// If we have this set to auto join ask first.
-						if(QMessageBox::question(NULL, QObject::tr("Add plugin's IRC channel?"),
+						if (QMessageBox::question(nullptr, QObject::tr("Add plugin's IRC channel?"),
 							QObject::tr("Would you like the %1 plugin to add its channel to %2's auto join?")
 								.arg(entity.description()).arg(existingEntity.description()),
-							QMessageBox::Yes|QMessageBox::No, QMessageBox::Yes) == QMessageBox::No)
+							QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::No)
 							continue;
 					}
 
@@ -105,17 +103,13 @@ void IRCConfig::loadNetworksFromPlugins()
 		}
 	}
 	if (shouldSave)
-	{
 		ChatNetworksCfg().setNetworks(networks);
-	}
 }
 
 bool IRCConfig::readFromFile()
 {
-	if (pIni == NULL)
-	{
+	if (pIni == nullptr)
 		return false;
-	}
 
 	IniSection section;
 
@@ -138,10 +132,8 @@ bool IRCConfig::readFromFile()
 
 bool IRCConfig::saveToFile()
 {
-	if (pIni == NULL)
-	{
+	if (pIni == nullptr)
 		return false;
-	}
 
 	IniSection section;
 
@@ -165,7 +157,7 @@ bool IRCConfig::saveToFile()
 	return false;
 }
 
-bool IRCConfig::setIniFile(const QString& filePath)
+bool IRCConfig::setIniFile(const QString &filePath)
 {
 	pIni.reset();
 	settingsProvider.reset();
@@ -204,7 +196,7 @@ IRCConfig::AppearanceCfg::AppearanceCfg()
 	windowAlertOnImportantChatEvent = true;
 }
 
-void IRCConfig::AppearanceCfg::init(IniSection& section)
+void IRCConfig::AppearanceCfg::init(IniSection &section)
 {
 	section.createSetting("BackgroundColor", this->backgroundColor);
 	section.createSetting("ChannelActionColor", this->channelActionColor);
@@ -220,7 +212,7 @@ void IRCConfig::AppearanceCfg::init(IniSection& section)
 	section.createSetting("UrlColor", this->urlColor);
 }
 
-void IRCConfig::AppearanceCfg::load(IniSection& section)
+void IRCConfig::AppearanceCfg::load(IniSection &section)
 {
 	this->backgroundColor = (const QString &)section["BackgroundColor"];
 	this->channelActionColor = (const QString &)section["ChannelActionColor"];
@@ -237,7 +229,7 @@ void IRCConfig::AppearanceCfg::load(IniSection& section)
 	windowAlertOnImportantChatEvent = section.value("WindowAlertOnImportantChatEvent", true).toBool();
 }
 
-void IRCConfig::AppearanceCfg::save(IniSection& section)
+void IRCConfig::AppearanceCfg::save(IniSection &section)
 {
 	section["BackgroundColor"] = this->backgroundColor;
 	section["ChannelActionColor"] = this->channelActionColor;
@@ -259,16 +251,16 @@ const QString IRCConfig::GeneralCfg::SECTION_NAME = "General";
 
 IRCConfig::GeneralCfg::GeneralCfg()
 {
-
 }
 
-void IRCConfig::GeneralCfg::load(IniSection& section)
+void IRCConfig::GeneralCfg::load(IniSection &section)
 {
+	Q_UNUSED(section);
 }
 
-void IRCConfig::GeneralCfg::save(IniSection& section)
+void IRCConfig::GeneralCfg::save(IniSection &section)
 {
-
+	Q_UNUSED(section);
 }
 //////////////////////////////////////////////////////////////////////////////
 const QString IRCConfig::PersonalCfg::SECTION_NAME = "Personal";
@@ -277,7 +269,7 @@ IRCConfig::PersonalCfg::PersonalCfg()
 {
 }
 
-void IRCConfig::PersonalCfg::load(IniSection& section)
+void IRCConfig::PersonalCfg::load(IniSection &section)
 {
 	this->alternativeNickname = static_cast<QString>(section["AlternativeNickname"]);
 	this->fullName = static_cast<QString>(section["FullName"]);
@@ -286,7 +278,7 @@ void IRCConfig::PersonalCfg::load(IniSection& section)
 	this->userName = static_cast<QString>(section["UserName"]);
 }
 
-void IRCConfig::PersonalCfg::save(IniSection& section)
+void IRCConfig::PersonalCfg::save(IniSection &section)
 {
 	section["AlternativeNickname"] = this->alternativeNickname;
 	section["FullName"] = this->fullName;
@@ -303,15 +295,15 @@ IRCConfig::SoundsCfg::SoundsCfg()
 	this->bUsePrivateMessageReceivedSound = false;
 }
 
-void IRCConfig::SoundsCfg::load(IniSection& section)
+void IRCConfig::SoundsCfg::load(IniSection &section)
 {
 	this->bUseNicknameUsedSound = section["bUseNicknameUsedSound"];
 	this->bUsePrivateMessageReceivedSound = section["bUsePrivateMessageReceivedSound"];
-	this->nicknameUsedSound = (const QString&)section["NicknameUsedSound"];
-	this->privateMessageReceivedSound = (const QString&)section["PrivateMessageReceivedSound"];
+	this->nicknameUsedSound = (const QString &)section["NicknameUsedSound"];
+	this->privateMessageReceivedSound = (const QString &)section["PrivateMessageReceivedSound"];
 }
 
-void IRCConfig::SoundsCfg::save(IniSection& section)
+void IRCConfig::SoundsCfg::save(IniSection &section)
 {
 	section["bUseNicknameUsedSound"] = this->bUseNicknameUsedSound;
 	section["bUsePrivateMessageReceivedSound"] = this->bUsePrivateMessageReceivedSound;

@@ -36,36 +36,36 @@
  */
 class IRCUserPrefix
 {
-	public:
-		/**
-		 * @brief User modes: op, half-op and voice.
-		 *
-		 * Should be used when server doesn't provide its own PREFIX
-		 * information.
-		 */
-		static IRCUserPrefix mkDefault();
+public:
+	/**
+	 * @brief User modes: op, half-op and voice.
+	 *
+	 * Should be used when server doesn't provide its own PREFIX
+	 * information.
+	 */
+	static IRCUserPrefix mkDefault();
 
-		IRCUserPrefix();
-		IRCUserPrefix(const IRCUserPrefix &other);
-		~IRCUserPrefix();
-		IRCUserPrefix &operator=(const IRCUserPrefix &other);
+	IRCUserPrefix();
+	IRCUserPrefix(const IRCUserPrefix &other);
+	~IRCUserPrefix();
+	IRCUserPrefix &operator=(const IRCUserPrefix &other);
 
-		void assignPrefix(char mode, char prefix);
-		QString cleanNickname(const QString &nickname) const;
-		int compare(char mode1, char mode2) const;
-		bool hasMode(char mode) const;
-		bool hasPrefix(char prefix) const;
-		char modeFromNickname(const QString &nickname) const;
-		char modeForPrefix(char prefix) const;
-		char prefixForMode(char mode) const;
-		/**
-		 * @brief Out of list of possible modes picks mode with highest
-		 *        priority.
-		 */
-		char topMostMode(const QList<char> &candidates) const;
+	void assignPrefix(char mode, char prefix);
+	QString cleanNickname(const QString &nickname) const;
+	int compare(char mode1, char mode2) const;
+	bool hasMode(char mode) const;
+	bool hasPrefix(char prefix) const;
+	char modeFromNickname(const QString &nickname) const;
+	char modeForPrefix(char prefix) const;
+	char prefixForMode(char mode) const;
+	/**
+	 * @brief Out of list of possible modes picks mode with highest
+	 *        priority.
+	 */
+	char topMostMode(const QList<char> &candidates) const;
 
-	private:
-		DPtr<IRCUserPrefix> d;
+private:
+	DPtr<IRCUserPrefix> d;
 };
 
 #endif

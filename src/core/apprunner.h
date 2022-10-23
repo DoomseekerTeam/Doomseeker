@@ -26,8 +26,8 @@
 #include "global.h"
 #include <QDir>
 #include <QFileInfo>
-#include <QStringList>
 #include <QIcon>
+#include <QStringList>
 
 class Message;
 
@@ -36,56 +36,56 @@ class Message;
  */
 class CommandLineInfo
 {
-	public:
-		/// working directory
-		QDir applicationDir;
-		/// launch parameters
-		QStringList args;
-		/// path to the executable
-		QFileInfo executable;
+public:
+	/// working directory
+	QDir applicationDir;
+	/// launch parameters
+	QStringList args;
+	/// path to the executable
+	QFileInfo executable;
 
-		/**
-		 * @brief It's valid when at least executable is set.
-		 */
-		bool isValid() const;
+	/**
+	 * @brief It's valid when at least executable is set.
+	 */
+	bool isValid() const;
 };
 
 class AppRunner : public QObject
 {
 	Q_OBJECT
 
-	public:
-		/**
-		 * @brief On Windows this removes any wrapping " chars.
-		 *
-		 * Explanation:
-		 * Draft from Qt documentation on QProcess::startDetached:
-		 * "On Windows, arguments that contain spaces are wrapped in quotes."
-		 * Thus, on Windows we must unwrap the arguments that are wrapped in
-		 * quotes because thing like +sv_hostname "Started from Doomseeker"
-		 * won't work properly and a server with empty name will be started.
-		 */
-		static void cleanArguments(QStringList& args);
+public:
+	/**
+	 * @brief On Windows this removes any wrapping " chars.
+	 *
+	 * Explanation:
+	 * Draft from Qt documentation on QProcess::startDetached:
+	 * "On Windows, arguments that contain spaces are wrapped in quotes."
+	 * Thus, on Windows we must unwrap the arguments that are wrapped in
+	 * quotes because thing like +sv_hostname "Started from Doomseeker"
+	 * won't work properly and a server with empty name will be started.
+	 */
+	static void cleanArguments(QStringList &args);
 
-#ifdef Q_OS_MAC
-		static QString findBundleBinary(const QFileInfo &file);
-#endif
+	#ifdef Q_OS_DARWIN
+	static QString findBundleBinary(const QFileInfo &file);
+	#endif
 
-		static Message runExecutable(const CommandLineInfo& cmdInfo);
+	static Message runExecutable(const CommandLineInfo &cmdInfo);
 
-		/**
-		 * @brief Executes predefined command line.
-		 *
-		 * Doomseeker will attempt to wrap the input/output of the program
-		 * with it's own console
-		 *
-		 * @param icon
-		 *     Optional icon for the console window.
-		 * @param cli
-		 *     Command line that will be executed.
-		 */
-		static void runExecutableWrappedInStandardServerConsole(
-			const QIcon &icon, const CommandLineInfo &cli);
+	/**
+	 * @brief Executes predefined command line.
+	 *
+	 * Doomseeker will attempt to wrap the input/output of the program
+	 * with it's own console
+	 *
+	 * @param icon
+	 *     Optional icon for the console window.
+	 * @param cli
+	 *     Command line that will be executed.
+	 */
+	static void runExecutableWrappedInStandardServerConsole(
+		const QIcon &icon, const CommandLineInfo &cli);
 };
 
 #endif

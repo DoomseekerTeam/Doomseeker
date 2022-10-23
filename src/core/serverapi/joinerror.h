@@ -40,59 +40,64 @@ class PWad;
  */
 class MAIN_EXPORT JoinError
 {
-	public:
-		enum JoinErrorType
-		{
-			NoError,
-			MissingWads,
-			ConfigurationError,
-			Critical,
-			/**
-			 * @brief Aborts without printing error.
-			 *
-			 * Useful if plugin wants to do its own error handling.
-			 */
-			Terminate,
-			/**
-			 * @brief Game executable was not found but it can be automatically
-			 *        installed by the plugin.
-			 */
-			CanAutomaticallyInstallGame
-		};
-
-		JoinError();
-		JoinError(JoinErrorType errorType);
-		JoinError(const JoinError& other);
-		JoinError& operator=(const JoinError& other);
-		virtual ~JoinError();
-
-		void addMissingWad(const PWad& wad);
-		void clearMissingWads();
-
-		const QString& error() const;
-		bool isError() const;
-		bool isMissingIwadOnly() const;
-		bool isMissingWadsError() const;
-
+public:
+	enum JoinErrorType
+	{
+		NoError,
+		MissingWads,
+		ConfigurationError,
+		Critical,
 		/**
-		 * This is valid only if type == MissingWads.
+		 * @brief Aborts without printing error.
+		 *
+		 * Useful if plugin wants to do its own error handling.
 		 */
-		const QString& missingIwad() const;
-
+		Terminate,
 		/**
-		 * This is valid only if type == MissingWads.
+		 * @brief Game executable was not found but it can be automatically
+		 *        installed by the plugin.
 		 */
-		const QList<PWad>& missingWads() const;
+		CanAutomaticallyInstallGame
+	};
 
-		void setError(const QString& error);
-		void setMissingIwad(const QString& iwad);
-		void setMissingWads(const QList<PWad>& wads);
-		void setType(JoinErrorType type);
+	JoinError();
+	JoinError(JoinErrorType errorType);
+	JoinError(const JoinError &other);
+	JoinError &operator=(const JoinError &other);
+	virtual ~JoinError();
 
-		JoinErrorType type() const;
+	void addMissingWad(const PWad &wad);
+	void clearMissingWads();
 
-	private:
-		DPtr<JoinError> d;
+	const QString &error() const;
+	bool isError() const;
+	bool isMissingIwadOnly() const;
+	bool isMissingWadsError() const;
+
+	/**
+	 * This is valid only if type == MissingWads.
+	 */
+	const QString &missingIwad() const;
+
+	/**
+	 * This is valid only if type == MissingWads.
+	 */
+	const QList<PWad> &missingWads() const;
+	/**
+	 * This is valid only if type == MissingWads.
+	 */
+	const QList<PWad> &incompatibleWads() const;
+
+	void setError(const QString &error);
+	void setMissingIwad(const QString &iwad);
+	void setMissingWads(const QList<PWad> &wads);
+	void setIncompatibleWads(const QList<PWad> &wads);
+	void setType(JoinErrorType type);
+
+	JoinErrorType type() const;
+
+private:
+	DPtr<JoinError> d;
 };
 
 #endif

@@ -28,25 +28,23 @@
 
 DClass<ServerFilterBuilderMenu>
 {
-	public:
-		ServerListFilterInfo filter;
-		QString gameMode;
-		unsigned maxPing;
+public:
+	ServerListFilterInfo filter;
+	QString gameMode;
+	unsigned maxPing;
 
-		static void addIfNotContains(QStringList& target, const QString& candidate)
-		{
-			if (!target.contains(candidate, Qt::CaseInsensitive))
-			{
-				target << candidate;
-			}
-		}
+	static void addIfNotContains(QStringList &target, const QString &candidate)
+	{
+		if (!target.contains(candidate, Qt::CaseInsensitive))
+			target << candidate;
+	}
 };
 
 DPointered(ServerFilterBuilderMenu)
 
-ServerFilterBuilderMenu::ServerFilterBuilderMenu(const Server& server,
-	const ServerListFilterInfo& filter, QWidget* parent)
-: QMenu(tr("Build server filter ..."), parent)
+ServerFilterBuilderMenu::ServerFilterBuilderMenu(const Server &server,
+	const ServerListFilterInfo &filter, QWidget *parent)
+	: QMenu(tr("Build server filter ..."), parent)
 {
 	d->filter = filter;
 	d->gameMode = server.gameMode().name();
@@ -65,39 +63,31 @@ ServerFilterBuilderMenu::ServerFilterBuilderMenu(const Server& server,
 			SLOT(applyGameModeExcludedFilter()));
 	}
 
-	QMenu* includeWads = new QMenu(tr("Include WAD ..."), this);
-	QMenu* excludeWads = new QMenu(tr("Exclude WAD ..."), this);
+	QMenu *includeWads = new QMenu(tr("Include WAD ..."), this);
+	QMenu *excludeWads = new QMenu(tr("Exclude WAD ..."), this);
 
 	QStringList wads = server.allWadNames();
-	foreach (const QString& wad, wads)
+	for (const QString &wad : wads)
 	{
 		if (!d->filter.wadsExcluded.contains(wad, Qt::CaseInsensitive))
-		{
 			mkExcludeWadAction(excludeWads, wad);
-		}
 		if (!d->filter.wads.contains(wad, Qt::CaseInsensitive))
-		{
 			mkIncludeWadAction(includeWads, wad);
-		}
 	}
 
 	if (!excludeWads->isEmpty())
-	{
 		addMenu(excludeWads);
-	}
 	if (!includeWads->isEmpty())
-	{
 		addMenu(includeWads);
-	}
 }
 
 ServerFilterBuilderMenu::~ServerFilterBuilderMenu()
 {
 }
 
-QAction* ServerFilterBuilderMenu::addAction(QMenu* menu, const QString& text, const char* slot)
+QAction *ServerFilterBuilderMenu::addAction(QMenu *menu, const QString &text, const char *slot)
 {
-	QAction* action = new QAction(menu);
+	auto action = new QAction(menu);
 	action->setText(text);
 	this->connect(action, SIGNAL(triggered()), slot);
 	menu->addAction(action);
@@ -107,17 +97,13 @@ QAction* ServerFilterBuilderMenu::addAction(QMenu* menu, const QString& text, co
 void ServerFilterBuilderMenu::applyGameModeExcludedFilter()
 {
 	if (!d->filter.gameModesExcluded.contains(d->gameMode, Qt::CaseInsensitive))
-	{
 		d->filter.gameModesExcluded << d->gameMode;
-	}
 }
 
 void ServerFilterBuilderMenu::applyGameModeFilter()
 {
 	if (!d->filter.gameModes.contains(d->gameMode, Qt::CaseInsensitive))
-	{
 		d->filter.gameModes << d->gameMode;
-	}
 }
 
 void ServerFilterBuilderMenu::applyPingFilter()
@@ -127,27 +113,27 @@ void ServerFilterBuilderMenu::applyPingFilter()
 
 void ServerFilterBuilderMenu::excludeWadFromAction()
 {
-	QAction* action = static_cast<QAction*>(sender());
+	auto action = static_cast<QAction *>(sender());
 	PrivData<ServerFilterBuilderMenu>::addIfNotContains(d->filter.wadsExcluded, action->text());
 }
 
-const ServerListFilterInfo& ServerFilterBuilderMenu::filter() const
+const ServerListFilterInfo &ServerFilterBuilderMenu::filter() const
 {
 	return d->filter;
 }
 
 void ServerFilterBuilderMenu::includeWadFromAction()
 {
-	QAction* action = static_cast<QAction*>(sender());
+	auto action = static_cast<QAction *>(sender());
 	PrivData<ServerFilterBuilderMenu>::addIfNotContains(d->filter.wads, action->text());
 }
 
-QAction* ServerFilterBuilderMenu::mkExcludeWadAction(QMenu* menu, const QString& wadName)
+QAction *ServerFilterBuilderMenu::mkExcludeWadAction(QMenu *menu, const QString &wadName)
 {
 	return addAction(menu, wadName, SLOT(excludeWadFromAction()));
 }
 
-QAction* ServerFilterBuilderMenu::mkIncludeWadAction(QMenu* menu, const QString& wadName)
+QAction *ServerFilterBuilderMenu::mkIncludeWadAction(QMenu *menu, const QString &wadName)
 {
 	return addAction(menu, wadName, SLOT(includeWadFromAction()));
 }

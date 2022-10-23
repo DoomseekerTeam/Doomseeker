@@ -20,26 +20,26 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2010 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
-#include "ircmessageclass.h"
 #include "irc/configuration/ircconfig.h"
+#include "ircmessageclass.h"
 
 QString IRCMessageClass::colorFromConfig() const
 {
-	IRCConfig::AppearanceCfg& appearance = gIRCConfig.appearance;
+	IRCConfig::AppearanceCfg &appearance = gIRCConfig.appearance;
 	switch (className)
 	{
-		case ChannelAction:
-			return appearance.channelActionColor;
-		case Error:
-			return appearance.errorColor;
-		case Normal:
-			return appearance.defaultTextColor;
-		case NetworkAction:
-			return appearance.networkActionColor;
-		case Ctcp:
-			return appearance.ctcpColor;
-		default:
-			return "#000000";
+	case ChannelAction:
+		return appearance.channelActionColor;
+	case Error:
+		return appearance.errorColor;
+	case Normal:
+		return appearance.defaultTextColor;
+	case NetworkAction:
+		return appearance.networkActionColor;
+	case Ctcp:
+		return appearance.ctcpColor;
+	default:
+		return "#000000";
 	}
 }
 
@@ -47,17 +47,17 @@ QString IRCMessageClass::toStyleSheetClassName(ClassName className)
 {
 	switch (className)
 	{
-		case ChannelAction:
-			return "channelAction";
-		case Ctcp:
-			return "ctcp";
-		case Error:
-			return "error";
-		case Normal:
-			return "";
-		case NetworkAction:
-			return "networkAction";
-		default:
-			return "appErr";
+	case ChannelAction:
+		return "channelAction";
+	case Ctcp:
+		return "ctcp";
+	case Error:
+		return "error";
+	case Normal:
+		return "";
+	case NetworkAction:
+		return "networkAction";
+	default:
+		return "appErr";
 	}
 }

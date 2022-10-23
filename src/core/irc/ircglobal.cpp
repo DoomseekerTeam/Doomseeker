@@ -26,22 +26,20 @@
 
 bool IRCGlobal::isChannelDenotingCharacter(char character)
 {
-	return (character == '&' || character == '#'
-		|| character == '+' || character == '!');
+	return character == '&' || character == '#'
+		|| character == '+' || character == '!';
 }
 
-bool IRCGlobal::isChannelName(const QString& name)
+bool IRCGlobal::isChannelName(const QString &name)
 {
 	if (name.isEmpty())
-	{
 		return false;
-	}
 
 	QChar c = name[0];
 	return isChannelDenotingCharacter(c.toLatin1());
 }
 
-QString IRCGlobal::toIrcLower(const QString& str)
+QString IRCGlobal::toIrcLower(const QString &str)
 {
 	QString lowered = str.toLower();
 

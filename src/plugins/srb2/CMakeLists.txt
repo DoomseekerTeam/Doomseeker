@@ -18,10 +18,9 @@
 #------------------------------------------------------------------------------
 # Copyright (C) 2016 "Zalewa" <zalewapl@gmail.com>
 #------------------------------------------------------------------------------
-cmake_minimum_required(VERSION 2.8.12)
 
 set(PLUGIN_NAME srb2)
-set(PLUGIN_VERSION 10)
+set(PLUGIN_VERSION 16)
 include(../PluginHeader.cmake)
 
 set(SRB2_FILES
@@ -43,11 +42,9 @@ set(HEADER_FILES
 )
 
 set(TRANSLATIONS_FILES
+	translations/srb2_ca_ES.ts
+	translations/srb2_es_ES.ts
 	translations/srb2_pl_PL.ts
-)
-set(FILES_TO_TRANSLATE
-	${HEADER_FILES}
-	${SRB2_FILES}
 )
 
 include(../Translation.cmake)

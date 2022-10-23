@@ -22,11 +22,12 @@
 //------------------------------------------------------------------------------
 #include "ircdelayedoperationignore.h"
 
+#include "gui/commongui.h"
 #include "irc/configuration/chatnetworkscfg.h"
 #include "irc/entities/ircnetworkentity.h"
 #include "irc/entities/ircuserprefix.h"
-#include "irc/ircnetworkconnectioninfo.h"
 #include "irc/ircnetworkadapter.h"
+#include "irc/ircnetworkconnectioninfo.h"
 #include "irc/ircresponseparser.h"
 #include "patternlist.h"
 #include <QInputDialog>
@@ -55,15 +56,15 @@ DPointered(IRCDelayedOperationIgnore)
 
 IRCDelayedOperationIgnore::IRCDelayedOperationIgnore(QWidget *parent,
 	IRCNetworkAdapter *network, const QString &nickname)
-: IRCDelayedOperation(parent)
+	: IRCDelayedOperation(parent)
 {
 	d->showPatternPopup = false;
 	d->network = network;
 	d->nickname = nickname;
 	d->parentWidget = parent;
 	this->connect(d->network->responseParser(),
-		SIGNAL(whoIsUser(QString, QString, QString, QString)),
-		SLOT(onWhoIsUser(QString, QString, QString, QString)));
+		SIGNAL(whoIsUser(QString,QString,QString,QString)),
+		SLOT(onWhoIsUser(QString,QString,QString)));
 }
 
 IRCDelayedOperationIgnore::~IRCDelayedOperationIgnore()
@@ -75,15 +76,15 @@ void IRCDelayedOperationIgnore::start()
 	d->network->sendMessage(QString("/whois %1").arg(d->cleanNickname()));
 }
 
-void IRCDelayedOperationIgnore::onWhoIsUser(const QString& nickname, const QString& user,
-	const QString& hostName, const QString& realName)
+void IRCDelayedOperationIgnore::onWhoIsUser(const QString &nickname, const QString &user,
+	const QString &hostName)
 {
 	QString ignorePattern = "*!*@" + hostName;
 	if (d->showPatternPopup)
 	{
 		QString label = tr("Ignore user %1 (username=%2) on network %3:").arg(
 			nickname, user, d->networkDescription());
-		ignorePattern = QInputDialog::getText(d->parentWidget, tr("IRC - Ignore user"),
+		ignorePattern = CommonGUI::getText(d->parentWidget, tr("IRC - Ignore user"),
 			label, QLineEdit::Normal, ignorePattern);
 	}
 	if (!ignorePattern.trimmed().isEmpty())
@@ -91,7 +92,7 @@ void IRCDelayedOperationIgnore::onWhoIsUser(const QString& nickname, const QStri
 		ChatNetworksCfg cfg;
 		IRCNetworkEntity network = cfg.network(d->networkDescription());
 		PatternList patterns = network.ignoredUsers();
-		patterns << QRegExp(ignorePattern, Qt::CaseInsensitive, QRegExp::Wildcard);
+		patterns << Pattern(ignorePattern, QRegularExpression::CaseInsensitiveOption, Pattern::Wildcard);
 		network.setIgnoredUsers(patterns);
 		cfg.replaceNetwork(network.description(), network, d->parentWidget);
 		d->network->setNetworkEntity(network);

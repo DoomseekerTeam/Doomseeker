@@ -23,15 +23,15 @@
 #include "fontbutton.h"
 #include <QFontDialog>
 
-FontButton::FontButton(QWidget* parent)
-: QPushButton(parent)
+FontButton::FontButton(QWidget *parent)
+	: QPushButton(parent)
 {
-	connect(this, SIGNAL( clicked() ), SLOT( thisClicked() ) );
+	connect(this, SIGNAL(clicked()), SLOT(thisClicked()));
 
 	this->updateAppearance();
 }
 
-void FontButton::setSelectedFont(const QFont& font)
+void FontButton::setSelectedFont(const QFont &font)
 {
 	this->currentFont = font;
 	this->updateAppearance();
@@ -42,10 +42,8 @@ void FontButton::thisClicked()
 	bool bOk = false;
 	QFont fontTmp = QFontDialog::getFont(&bOk, this->currentFont, this->parentWidget());
 
-	if(bOk)
-	{
+	if (bOk)
 		this->updateFont(fontTmp);
-	}
 }
 
 void FontButton::updateAppearance()
@@ -57,7 +55,7 @@ void FontButton::updateAppearance()
 	this->setText(text);
 }
 
-void FontButton::updateFont(const QFont& newFont)
+void FontButton::updateFont(const QFont &newFont)
 {
 	QFont oldFont = this->currentFont;
 	this->currentFont = newFont;
@@ -65,4 +63,3 @@ void FontButton::updateFont(const QFont& newFont)
 
 	emit fontUpdated(oldFont, this->currentFont);
 }
-

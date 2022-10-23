@@ -50,15 +50,15 @@ struct ServerListCount
 
 	int refreshedPercent() const;
 
-	ServerListCount& operator+=(const ServerListCount &other);
+	ServerListCount &operator+=(const ServerListCount &other);
 };
 
 class ServerListCountTracker : public QObject
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
-	ServerListCountTracker(QObject *parent = 0);
+	ServerListCountTracker(QObject *parent = nullptr);
 
 	const ServerListCount &count() const;
 	void setPluginFilter(const EnginePlugin *plugin);

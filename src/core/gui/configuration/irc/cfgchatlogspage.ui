@@ -29,14 +29,14 @@
    <item>
     <widget class="QCheckBox" name="cbStoreLogs">
      <property name="text">
-      <string>Store chat logs?</string>
+      <string>Store chat logs</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="QCheckBox" name="cbRestoreLogs">
      <property name="text">
-      <string>Restore logs when re-entering chat?</string>
+      <string>Restore logs when re-entering chat</string>
      </property>
     </widget>
    </item>

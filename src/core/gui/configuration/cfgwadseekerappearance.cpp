@@ -21,8 +21,8 @@
 // Copyright (C) 2010 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
 #include "cfgwadseekerappearance.h"
-#include "ui_cfgwadseekerappearance.h"
 #include "configuration/doomseekerconfig.h"
+#include "ui_cfgwadseekerappearance.h"
 
 DClass<CFGWadseekerAppearance> : public Ui::CFGWadseekerAppearance
 {
@@ -30,8 +30,8 @@ DClass<CFGWadseekerAppearance> : public Ui::CFGWadseekerAppearance
 
 DPointered(CFGWadseekerAppearance)
 
-CFGWadseekerAppearance::CFGWadseekerAppearance(QWidget* parent)
-: ConfigPage(parent)
+CFGWadseekerAppearance::CFGWadseekerAppearance(QWidget *parent)
+	: ConfigPage(parent)
 {
 	d->setupUi(this);
 }

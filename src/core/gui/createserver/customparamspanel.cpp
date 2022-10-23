@@ -24,8 +24,8 @@
 #include "ui_customparamspanel.h"
 
 #include "ini/ini.h"
-#include "serverapi/gamecreateparams.h"
 #include "scanner.h"
+#include "serverapi/gamecreateparams.h"
 
 DClass<CustomParamsPanel> : public Ui::CustomParamsPanel
 {
@@ -34,7 +34,7 @@ DClass<CustomParamsPanel> : public Ui::CustomParamsPanel
 DPointered(CustomParamsPanel)
 
 CustomParamsPanel::CustomParamsPanel(QWidget *parent)
-: QWidget(parent)
+	: QWidget(parent)
 {
 	d->setupUi(this);
 }

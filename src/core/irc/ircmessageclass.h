@@ -28,7 +28,7 @@
 
 class IRCMessageClass
 {
-	public:
+public:
 	enum ClassName
 	{
 		ChannelAction,
@@ -49,34 +49,40 @@ class IRCMessageClass
 		this->className = Normal;
 	}
 
-	IRCMessageClass(const IRCMessageClass& other)
+	IRCMessageClass(const IRCMessageClass &other)
 	{
 		this->className = other.className;
 	}
 
-	IRCMessageClass(const ClassName& className)
+	IRCMessageClass(const ClassName &className)
 	{
 		this->className = className;
 	}
 
-	bool operator==(const IRCMessageClass& other) const
+	bool operator==(const IRCMessageClass &other) const
 	{
 		return this->className == other.className;
 	}
 
-	bool operator==(const ClassName& className) const
+	bool operator==(const ClassName &className) const
 	{
 		return this->className == className;
 	}
 
-	bool operator!=(const IRCMessageClass& other) const
+	bool operator!=(const IRCMessageClass &other) const
 	{
 		return this->className != other.className;
 	}
 
-	bool operator!=(const ClassName& className) const
+	bool operator!=(const ClassName &className) const
 	{
 		return this->className != className;
+	}
+
+	IRCMessageClass &operator=(const IRCMessageClass &other)
+	{
+		className = other.className;
+		return *this;
 	}
 
 	operator ClassName() const
@@ -94,8 +100,8 @@ class IRCMessageClass
 		return toStyleSheetClassName(this->className);
 	}
 
-	private:
-		ClassName className;
+private:
+	ClassName className;
 };
 
 #endif

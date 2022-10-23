@@ -31,95 +31,95 @@ class Server;
 
 class ServerSummary
 {
+public:
+	static ServerSummary deserializeQVariant(const QVariant &var);
+
+	ServerSummary()
+	{
+		d.port = 0;
+	}
+
+	ServerSummary(const Server *server);
+
+	const QString &address() const
+	{
+		return d.address;
+	}
+
+	const QString &game() const
+	{
+		return d.game;
+	}
+
+	bool isValid() const
+	{
+		return !d.address.isEmpty() && d.port != 0;
+	}
+
+	const QString &name() const
+	{
+		return d.name;
+	}
+
+	unsigned short port() const
+	{
+		return d.port;
+	}
+
+	void setAddress(const QString &v)
+	{
+		d.address = v;
+	}
+
+	void setGame(const QString &v)
+	{
+		d.game = v;
+	}
+
+	void setName(const QString &v)
+	{
+		d.name = v;
+	}
+
+	void setPort(unsigned short v)
+	{
+		d.port = v;
+	}
+
+	void setTime(const QDateTime &v)
+	{
+		d.time = v;
+	}
+
+	QVariant serializeQVariant() const;
+	/**
+	 * @brief Similarity to the 'other' server; between 0.0 and 1.0.
+	 *
+	 * Similarity is calculated basing on address, game, name
+	 * and port. Some of these values have more importance than
+	 * others, and some require other values to be equal.
+	 *
+	 * Both servers must be valid.
+	 */
+	float similarity(const ServerSummary &other) const;
+
+	QDateTime time() const
+	{
+		return d.time;
+	}
+
+private:
+	class PrivData
+	{
 	public:
-		static ServerSummary deserializeQVariant(const QVariant& var);
+		QString address;
+		QString game;
+		QString name;
+		unsigned short port;
+		QDateTime time;
+	};
 
-		ServerSummary()
-		{
-			d.port = 0;
-		}
-
-		ServerSummary(const Server *server);
-
-		const QString& address() const
-		{
-			return d.address;
-		}
-
-		const QString& game() const
-		{
-			return d.game;
-		}
-
-		bool isValid() const
-		{
-			return !d.address.isEmpty() && d.port != 0;
-		}
-
-		const QString& name() const
-		{
-			return d.name;
-		}
-
-		unsigned short port() const
-		{
-			return d.port;
-		}
-
-		void setAddress(const QString& v)
-		{
-			d.address = v;
-		}
-
-		void setGame(const QString& v)
-		{
-			d.game = v;
-		}
-
-		void setName(const QString& v)
-		{
-			d.name = v;
-		}
-
-		void setPort(unsigned short v)
-		{
-			d.port = v;
-		}
-
-		void setTime(const QDateTime& v)
-		{
-			d.time = v;
-		}
-
-		QVariant serializeQVariant() const;
-		/**
-		 * @brief Similarity to the 'other' server; between 0.0 and 1.0.
-		 *
-		 * Similarity is calculated basing on address, game, name
-		 * and port. Some of these values have more importance than
-		 * others, and some require other values to be equal.
-		 *
-		 * Both servers must be valid.
-		 */
-		float similarity(const ServerSummary& other) const;
-
-		QDateTime time() const
-		{
-			return d.time;
-		}
-
-	private:
-		class PrivData
-		{
-		public:
-			QString address;
-			QString game;
-			QString name;
-			unsigned short port;
-			QDateTime time;
-		};
-
-		PrivData d;
+	PrivData d;
 };
 
 #endif

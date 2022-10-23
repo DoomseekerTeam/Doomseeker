@@ -24,6 +24,7 @@
 #define id880d5e15_1a53_40da_bdb9_11d9b4dc3222
 
 #include "dptr.h"
+#include "serverapi/gamecreateparams.h"
 
 #include <QWidget>
 
@@ -36,30 +37,30 @@ class MapListPanel;
 
 class GameRulesPanel : public QWidget
 {
-Q_OBJECT
+	Q_OBJECT
 
 public:
 	GameRulesPanel(QWidget *parent);
-	~GameRulesPanel();
+	~GameRulesPanel() override;
 
 	void fillInParams(GameCreateParams &params);
+	bool isAnythingAvailable() const;
 	MapListPanel *mapListPanel();
 	void loadConfig(Ini &config);
 	void saveConfig(Ini &config);
 	void setupForEngine(const EnginePlugin *engine, const GameMode &gameMode);
-	void setupForRemoteGame();
+	void setupForHostMode(GameCreateParams::HostMode hostMode);
 	void setCreateServerDialog(CreateServerDialog *dialog);
 
 private:
 	DPtr<GameRulesPanel> d;
 
-	void fillInLimits(GameCreateParams &params);
+	void applyModeToUi();
+	void fillInCVars(GameCreateParams &params);
 	void fillInModifiers(GameCreateParams &params);
-	void memorizeLimits();
-	void loadMemorizedLimits(const EnginePlugin *engine);
-	void removeLimitWidgets();
-	void setupDifficulty(const EnginePlugin *engine);
-	void setupLimitWidgets(const EnginePlugin *engine, const GameMode &gameMode);
+	void memorizeCVars();
+	void loadMemorizedCVars(const EnginePlugin *engine);
+	void setupCVarWidgets(const EnginePlugin *engine, const GameMode &gameMode);
 	void setupModifiers(const EnginePlugin *engine);
 };
 

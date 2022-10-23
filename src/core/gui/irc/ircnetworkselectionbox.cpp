@@ -20,13 +20,14 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2010 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
-#include "ircnetworkselectionbox.h"
-#include "ui_ircnetworkselectionbox.h"
+#include "gui/commongui.h"
 #include "gui/configuration/irc/cfgircdefinenetworkdialog.h"
 #include "irc/configuration/chatnetworkscfg.h"
 #include "irc/configuration/ircconfig.h"
 #include "irc/ircnetworkconnectioninfo.h"
+#include "ircnetworkselectionbox.h"
 #include "qtmetapointer.h"
+#include "ui_ircnetworkselectionbox.h"
 #include <QMessageBox>
 
 DClass<IRCNetworkSelectionBox> : public Ui::IRCNetworkSelectionBox
@@ -35,12 +36,13 @@ DClass<IRCNetworkSelectionBox> : public Ui::IRCNetworkSelectionBox
 
 DPointered(IRCNetworkSelectionBox)
 
-IRCNetworkSelectionBox::IRCNetworkSelectionBox(QWidget* parent)
-: QDialog(parent)
+IRCNetworkSelectionBox::IRCNetworkSelectionBox(QWidget *parent)
+	: QDialog(parent)
 {
 	d->setupUi(this);
+	CommonGUI::setupDialog(*this);
 
-	connect(d->cboNetwork, SIGNAL( currentIndexChanged(int) ), SLOT( networkChanged(int) ) );
+	connect(d->cboNetwork, SIGNAL(currentIndexChanged(int)), SLOT(networkChanged(int)));
 
 	initWidgets();
 }
@@ -52,12 +54,10 @@ IRCNetworkSelectionBox::~IRCNetworkSelectionBox()
 void IRCNetworkSelectionBox::accept()
 {
 	if (validate())
-	{
 		QDialog::accept();
-	}
 }
 
-void IRCNetworkSelectionBox::addNetworkToComboBox(const IRCNetworkEntity& network)
+void IRCNetworkSelectionBox::addNetworkToComboBox(const IRCNetworkEntity &network)
 {
 	d->cboNetwork->addItem(buildTitle(network), network.serializeQVariant());
 }
@@ -95,9 +95,7 @@ void IRCNetworkSelectionBox::editCurrentNetwork()
 	{
 		IRCNetworkEntity editedNetwork = dialog.getNetworkEntity();
 		if (replaceNetworkInConfig(network, editedNetwork))
-		{
 			updateCurrentNetwork(editedNetwork);
-		}
 	}
 }
 
@@ -105,20 +103,18 @@ void IRCNetworkSelectionBox::fetchNetworks()
 {
 	ChatNetworksCfg cfg;
 	QList<IRCNetworkEntity> networks = cfg.networks();
-	qSort(networks);
+	std::sort(networks.begin(), networks.end());
 	d->cboNetwork->blockSignals(true);
 	d->cboNetwork->clear();
 
-	foreach (const IRCNetworkEntity& network, networks)
+	for (const IRCNetworkEntity &network : networks)
 	{
 		addNetworkToComboBox(network);
 	}
 
 	IRCNetworkEntity lastUsedNetwork = cfg.lastUsedNetwork();
 	if (lastUsedNetwork.isValid())
-	{
 		setNetworkMatchingDescriptionAsCurrent(lastUsedNetwork.description());
-	}
 
 	updateNetworkInfo();
 	d->cboNetwork->blockSignals(false);
@@ -144,9 +140,7 @@ IRCNetworkEntity IRCNetworkSelectionBox::network() const
 void IRCNetworkSelectionBox::networkChanged(int index)
 {
 	if (index >= 0)
-	{
 		updateNetworkInfo();
-	}
 }
 
 IRCNetworkEntity IRCNetworkSelectionBox::networkCurrent() const
@@ -157,9 +151,7 @@ IRCNetworkEntity IRCNetworkSelectionBox::networkCurrent() const
 IRCNetworkEntity IRCNetworkSelectionBox::networkAtRow(int row) const
 {
 	if (row < 0 || row >= d->cboNetwork->count())
-	{
 		return IRCNetworkEntity();
-	}
 	return IRCNetworkEntity::deserializeQVariant(d->cboNetwork->itemData(row));
 }
 
@@ -208,8 +200,7 @@ void IRCNetworkSelectionBox::removeCurrentNetwork()
 	}
 	if (QMessageBox::question(this, tr("Doomseeker - remove IRC network"),
 		tr("Are you sure you wish to remove network '%1'?").arg(network.description()),
-		QMessageBox::Yes | QMessageBox::No)
-			== QMessageBox::Yes)
+		QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
 	{
 		ChatNetworksCfg cfg;
 		cfg.removeNetwork(network);
@@ -239,13 +230,13 @@ bool IRCNetworkSelectionBox::validate()
 
 	if (connectionInfo.nick.isEmpty())
 	{
-		QMessageBox::warning(NULL, ERROR_TITLE, tr("You must specify a nick."));
+		QMessageBox::warning(nullptr, ERROR_TITLE, tr("You must specify a nick."));
 		return false;
 	}
 
 	if (connectionInfo.networkEntity.address().isEmpty())
 	{
-		QMessageBox::warning(NULL, ERROR_TITLE, tr("You must specify a network address."));
+		QMessageBox::warning(nullptr, ERROR_TITLE, tr("You must specify a network address."));
 		return false;
 	}
 

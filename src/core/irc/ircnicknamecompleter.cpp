@@ -25,71 +25,68 @@
 #include "gui/irc/ircuserlistmodel.h"
 
 #include <QCompleter>
-#include <QRegExp>
+#include <QRegularExpression>
 
 class IRCNicknameCompleterState
 {
-	public:
-		int cursorPos;
-		QString textLine;
+public:
+	int cursorPos;
+	QString textLine;
 
-		IRCNicknameCompleterState()
-		{
-			cursorPos = -1;
-		}
+	IRCNicknameCompleterState()
+	{
+		cursorPos = -1;
+	}
 
-		QString extractNicknamePrefix() const
-		{
-			const QString NICKNAME_MATCH = "\\[\\]\\{\\}\\-\\^\\`\\|\\\\A-Za-z0-9_";
-			QRegExp regex(QString("(?:.*)[^%1]?([%1]*)").arg(NICKNAME_MATCH));
-			regex.setCaseSensitivity(Qt::CaseInsensitive);
-			regex.setMinimal(false);
-			regex.indexIn(leftText());
-			return regex.cap(1);
-		}
+	QString extractNicknamePrefix() const
+	{
+		const QString NICKNAME_MATCH = R"(\[\]\{\}\-\^\`\|\\A-Za-z0-9_)";
+		QRegularExpression regex(QString("(?:.*)[^%1]?([%1]*)").arg(NICKNAME_MATCH), QRegularExpression::CaseInsensitiveOption);
+		return regex.match(leftText()).captured(1);
+	}
 
-		bool isValid() const
-		{
-			return cursorPos >= 0;
-		}
+	bool isValid() const
+	{
+		return cursorPos >= 0;
+	}
 
-		QString leftText() const
-		{
-			return textLine.left(cursorPos);
-		}
+	QString leftText() const
+	{
+		return textLine.left(cursorPos);
+	}
 
-		QString leftTextMinusNicknamePrefix() const
-		{
-			return textLine.left(cursorPos - extractNicknamePrefix().length());
-		}
+	QString leftTextMinusNicknamePrefix() const
+	{
+		return textLine.left(cursorPos - extractNicknamePrefix().length());
+	}
 
-		QString rightText() const
-		{
-			return textLine.mid(cursorPos);
-		}
+	QString rightText() const
+	{
+		return textLine.mid(cursorPos);
+	}
 };
 
 DClass<IRCNicknameCompleter>
 {
-	public:
-		QCompleter completer;
-		IRCNicknameCompleterState state;
+public:
+	QCompleter completer;
+	IRCNicknameCompleterState state;
 
-		IRCCompletionResult complete()
+	IRCCompletionResult complete()
+	{
+		IRCCompletionResult result;
+		if (!completer.currentCompletion().isEmpty())
 		{
-			IRCCompletionResult result;
-			if (!completer.currentCompletion().isEmpty())
-			{
-				result.textLine = leftTextWithCompletedNickname() + state.rightText();
-				result.cursorPos = leftTextWithCompletedNickname().length();
-			}
-			return result;
+			result.textLine = leftTextWithCompletedNickname() + state.rightText();
+			result.cursorPos = leftTextWithCompletedNickname().length();
 		}
+		return result;
+	}
 
-		QString leftTextWithCompletedNickname() const
-		{
-			return state.leftTextMinusNicknamePrefix() + completer.currentCompletion();
-		}
+	QString leftTextWithCompletedNickname() const
+	{
+		return state.leftTextMinusNicknamePrefix() + completer.currentCompletion();
+	}
 };
 
 DPointeredNoCopy(IRCNicknameCompleter)
@@ -119,17 +116,11 @@ IRCCompletionResult IRCNicknameCompleter::complete(const QString &textLine,
 IRCCompletionResult IRCNicknameCompleter::cycleNext()
 {
 	if (d->completer.completionCount() == 0)
-	{
 		return IRCCompletionResult();
-	}
 	if (d->completer.currentRow() + 1 >= d->completer.completionCount())
-	{
 		d->completer.setCurrentRow(0);
-	}
 	else
-	{
 		d->completer.setCurrentRow(d->completer.currentRow() + 1);
-	}
 	return d->complete();
 }
 

@@ -25,8 +25,8 @@
 #include <QMessageBox>
 
 #ifndef Q_OS_WIN32
+#include <csignal>
 #include <QTextStream>
-#include <signal.h>
 #endif
 
 StandardServerConsole::StandardServerConsole(const QIcon &icon, const QString &program, const QStringList &arguments)
@@ -46,13 +46,13 @@ StandardServerConsole::StandardServerConsole(const QIcon &icon, const QString &p
 	// Start the process
 	process = new QProcess();
 	process->start(program, arguments);
-	if(process->waitForStarted())
+	if (process->waitForStarted())
 	{
 		show();
-		connect(console, SIGNAL(messageSent(const QString &)), this, SLOT(writeToStandardInput(const QString &)));
+		connect(console, SIGNAL(messageSent(const QString&)), this, SLOT(writeToStandardInput(const QString&)));
 		connect(process, SIGNAL(readyReadStandardError()), this, SLOT(errorDataReady()));
 		connect(process, SIGNAL(readyReadStandardOutput()), this, SLOT(outputDataReady()));
-		connect(process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(finish(int, QProcess::ExitStatus)));
+		connect(process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(finish(int,QProcess::ExitStatus)));
 	}
 	else // Didn't start get rid of this console.
 		close();
@@ -60,20 +60,20 @@ StandardServerConsole::StandardServerConsole(const QIcon &icon, const QString &p
 
 StandardServerConsole::~StandardServerConsole()
 {
-#ifndef Q_OS_WIN32
-	if(process->pid() != 0)
+	#ifndef Q_OS_WIN32
+	if (process->processId() != 0)
 	{
 		// On non-Windows systems try to find child processes and kill them.
-		// Unfrotunately it doesn't look like Qt can help us here (which kind of
+		// Unfortunately it doesn't look like Qt can help us here (which kind of
 		// makes sense considering it seems like there no real API to do it).
 		// Ideally only one process started and we don't have to do this.
-		QProcess *ps = new QProcess();
-		ps->start(QString("ps h --ppid %1 -o pid").arg(process->pid()));
+		auto ps = new QProcess();
+		ps->start("ps", {"h", "--ppid", QString::number(process->processId()), "-o", "pid"});
 		ps->waitForFinished();
 		QByteArray psOutput = ps->readAllStandardOutput();
 		QTextStream stream(&psOutput);
 		stream.skipWhiteSpace();
-		while(!stream.atEnd())
+		while (!stream.atEnd())
 		{
 			unsigned int cpid;
 			stream >> cpid;
@@ -82,7 +82,7 @@ StandardServerConsole::~StandardServerConsole()
 		}
 		delete ps;
 	}
-#endif
+	#endif
 
 	process->disconnect(this);
 	process->terminate();
@@ -99,7 +99,7 @@ void StandardServerConsole::errorDataReady()
 
 void StandardServerConsole::finish(int exitCode, QProcess::ExitStatus exitStatus)
 {
-	if(exitStatus == QProcess::CrashExit && exitCode != 0)
+	if (exitStatus == QProcess::CrashExit && exitCode != 0)
 		QMessageBox::critical(this, "Server crash", QString("The server terminated unexpectedly with exit code: %1").arg(exitCode));
 
 	close();
@@ -112,5 +112,5 @@ void StandardServerConsole::outputDataReady()
 
 void StandardServerConsole::writeToStandardInput(const QString &message)
 {
-	process->write((message+"\n").toUtf8());
+	process->write((message + "\n").toUtf8());
 }

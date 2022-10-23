@@ -22,24 +22,24 @@
 //------------------------------------------------------------------------------
 
 #include "global.h"
-#include "pluginmasterclient.h"
 #include "pluginengineplugin.h"
+#include "pluginmasterclient.h"
 #include "pluginserver.h"
-#include <serverapi/message.h>
 #include <QTimer>
+#include <serverapi/message.h>
 
 class PluginMasterClient::PrivData
 {
-	public:
-		int expectedPackets;
-		int gotPackets;
-		QTimer timeoutTimer;
+public:
+	int expectedPackets;
+	int gotPackets;
+	QTimer timeoutTimer;
 };
 //////////////////////////////////////////////////////////////////////////////
 const unsigned RESPONSE_TIMEOUT_MS = 1000;
 
 PluginMasterClient::PluginMasterClient()
-: MasterClient()
+	: MasterClient()
 {
 	d = new PrivData();
 	d->expectedPackets = 0;
@@ -54,11 +54,9 @@ PluginMasterClient::PluginMasterClient()
 	// somewhere later, and is a safe place to start the responder.
 	// Remember that responder must be started in a thread that can handle
 	// Qt events.
-	PluginEnginePlugin* plugin = (PluginEnginePlugin*) PluginEnginePlugin::staticInstance();
+	PluginEnginePlugin *plugin = (PluginEnginePlugin *) PluginEnginePlugin::staticInstance();
 	if (!plugin->isMasterResponderInstantiated())
-	{
 		plugin->startMasterResponder();
-	}
 }
 
 PluginMasterClient::~PluginMasterClient()
@@ -73,7 +71,7 @@ QByteArray PluginMasterClient::createServerListRequest()
 	return QByteArray("FAKE", 4);
 }
 
-const EnginePlugin* PluginMasterClient::plugin() const
+const EnginePlugin *PluginMasterClient::plugin() const
 {
 	return PluginEnginePlugin::staticInstance();
 }
@@ -83,12 +81,12 @@ MasterClient::Response PluginMasterClient::readMasterResponse(const QByteArray &
 	QStringList ports = QString(data).split(";");
 	// First element is amount of expected packets:
 	d->expectedPackets = ports.takeFirst().toUInt();
-	foreach (const QString& portEncoded, ports)
+	for (const QString &portEncoded : ports)
 	{
 		quint16 port = portEncoded.toUShort();
 		if (port != 0)
 		{
-			PluginServer* server = new PluginServer(QHostAddress("127.0.0.1"), port);
+			PluginServer *server = new PluginServer(QHostAddress("127.0.0.1"), port);
 			registerNewServer(ServerPtr(server));
 		}
 	}

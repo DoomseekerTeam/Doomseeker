@@ -1,6 +1,5 @@
-cmake_minimum_required( VERSION 2.8.12 )
-
 set( LZMA_FILES
+	C/7zAlloc.c
 	C/7zArcIn.c
 	C/7zBuf.c
 	C/7zBuf2.c
@@ -20,7 +19,9 @@ set( LZMA_FILES
 	C/Delta.c
 	C/DllSecur.c
 	C/LzFind.c
+	C/LzFindOpt.c
 	C/Lzma2Dec.c
+	C/Lzma2DecMt.c
 	C/Lzma2Enc.c
 	C/Lzma86Dec.c
 	C/Lzma86Enc.c
@@ -31,6 +32,7 @@ set( LZMA_FILES
 	C/Ppmd7Dec.c
 	C/Ppmd7Enc.c
 	C/Sha256.c
+	C/Sha256Opt.c
 	C/Sort.c
 	C/Xz.c
 	C/XzCrc64.c
@@ -45,6 +47,7 @@ if (WIN32)
 		C/Bcj2Enc.c
 		C/LzFindMt.c
 		C/MtCoder.c
+		C/MtDec.c
 		C/Threads.c
 		)
 endif ()
@@ -57,5 +60,9 @@ endif ()
 target_include_directories( lzma INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/C )
 
 if( CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "Clang" )
-	target_compile_options( lzma PRIVATE -Wall -Wextra -fomit-frame-pointer -fPIC )
+	target_compile_options( lzma PRIVATE -Wall -Wextra -fomit-frame-pointer)
+	# [Doomseeker] MinGW-w64 + clang will not compile with -fPIC
+	if (NOT WIN32)
+		target_compile_options( lzma PRIVATE -fPIC )
+	endif()
 endif()

@@ -23,10 +23,10 @@
 #ifndef __SERVER_LIST_CONTEXT_MENU_H_
 #define __SERVER_LIST_CONTEXT_MENU_H_
 
-#include <QObject>
-#include <QList>
-#include "serverapi/serverptr.h"
 #include "dptr.h"
+#include "serverapi/serverptr.h"
+#include <QList>
+#include <QObject>
 
 class Server;
 class ServerFilterBuilderMenu;
@@ -41,52 +41,52 @@ class ServerListContextMenu : public QObject
 {
 	Q_OBJECT
 
-	public:
-		enum Result
-		{
-			/// This is returned when something was copied to clipboard.
-			DataCopied,
+public:
+	enum Result
+	{
+		/// This is returned when something was copied to clipboard.
+		DataCopied,
 
-			Join,
-			OpenRemoteConsole,
-			OpenURL,
-			Refresh,
-			ShowJoinCommandLine,
-			SortAdditionallyAscending,
-			SortAdditionallyDescending,
-			ClearAdditionalSorting,
-			RemoveAdditionalSortingForColumn,
-			FindMissingWADs,
-			TogglePinServers,
+		Join,
+		OpenRemoteConsole,
+		OpenURL,
+		Refresh,
+		ShowJoinCommandLine,
+		SortAdditionallyAscending,
+		SortAdditionallyDescending,
+		ClearAdditionalSorting,
+		RemoveAdditionalSortingForColumn,
+		FindMissingWADs,
+		TogglePinServers,
 
-			/// This is returned upon cancel.
-			NothingHappened
-		};
+		/// This is returned upon cancel.
+		NothingHappened
+	};
 
-		ServerListContextMenu(ServerPtr serverAtIndex,
-			const ServerListFilterInfo& filter,
-			const QModelIndex &modelIndex,
-			const QList<ServerPtr> &servers,
-			ServerList *parent);
-		~ServerListContextMenu();
+	ServerListContextMenu(ServerPtr serverAtIndex,
+		const ServerListFilterInfo &filter,
+		const QModelIndex &modelIndex,
+		const QList<ServerPtr> &servers,
+		ServerList *parent);
+	~ServerListContextMenu() override;
 
-		const QModelIndex &modelIndex() const;
-		void popup(const QPoint& point);
-		ServerPtr server() const;
-		const QList<ServerPtr> &servers() const;
-		const ServerListFilterInfo& serverFilter() const;
-		Result translateQMenuResult(QAction* resultAction);
+	const QModelIndex &modelIndex() const;
+	void popup(const QPoint &point);
+	ServerPtr server() const;
+	const QList<ServerPtr> &servers() const;
+	const ServerListFilterInfo &serverFilter() const;
+	Result translateQMenuResult(QAction *resultAction);
 
-	signals:
-		void aboutToHide();
-		void triggered(QAction* action);
+signals:
+	void aboutToHide();
+	void triggered(QAction *action);
 
-	private:
-		DPtr<ServerListContextMenu> d;
+private:
+	DPtr<ServerListContextMenu> d;
 
-		QMenu* createCopyMenu(QWidget* parent);
-		void createMembers();
-		void initializeMembers();
+	QMenu *createCopyMenu(QWidget *parent);
+	void createMembers();
+	void initializeMembers();
 };
 
 #endif

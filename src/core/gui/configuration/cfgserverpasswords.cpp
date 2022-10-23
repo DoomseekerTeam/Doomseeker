@@ -25,8 +25,8 @@
 
 #include "configuration/passwordscfg.h"
 #include "configuration/serverpassword.h"
-#include "gui/helpers/datetablewidgetitem.h"
 #include "gui/commongui.h"
+#include "gui/helpers/datetablewidgetitem.h"
 #include <QMap>
 
 const int COL_PASS_PASSWORD = 0;
@@ -43,14 +43,14 @@ const QString HIDDEN_PASS = "***";
 
 DClass<CFGServerPasswords> : public Ui::CFGServerPasswords
 {
-	public:
-		bool bHidingPasswordsMode;
+public:
+	bool bHidingPasswordsMode;
 };
 
 DPointered(CFGServerPasswords)
 
-CFGServerPasswords::CFGServerPasswords(QWidget* parent)
-: ConfigPage(parent)
+CFGServerPasswords::CFGServerPasswords(QWidget *parent)
+	: ConfigPage(parent)
 {
 	d->setupUi(this);
 	d->bHidingPasswordsMode = true;
@@ -78,14 +78,14 @@ void CFGServerPasswords::addPasswordFromLineEdit()
 	}
 }
 
-void CFGServerPasswords::addServerPasswordToTable(const ServerPassword& password)
+void CFGServerPasswords::addServerPasswordToTable(const ServerPassword &password)
 {
 	int rowIndex = d->tablePasswords->rowCount();
 	d->tablePasswords->insertRow(rowIndex);
 	setPasswordInRow(rowIndex, password);
 }
 
-void CFGServerPasswords::clearTable(QTableWidget* table)
+void CFGServerPasswords::clearTable(QTableWidget *table)
 {
 	while (table->rowCount() > 0)
 	{
@@ -93,15 +93,13 @@ void CFGServerPasswords::clearTable(QTableWidget* table)
 	}
 }
 
-int CFGServerPasswords::findPassphraseInTable(const QString& phrase)
+int CFGServerPasswords::findPassphraseInTable(const QString &phrase)
 {
 	for (int i = 0; i < d->tablePasswords->rowCount(); ++i)
 	{
 		ServerPassword password = serverPasswordFromRow(i);
 		if (password.phrase() == phrase)
-		{
 			return i;
-		}
 	}
 	return -1;
 }
@@ -113,13 +111,13 @@ void CFGServerPasswords::hidePasswords()
 	d->lePassword->setEchoMode(QLineEdit::Password);
 	for (int i = 0; i < d->tablePasswords->rowCount(); ++i)
 	{
-		QTableWidgetItem* item = d->tablePasswords->item(i, COL_PASS_PASSWORD);
+		QTableWidgetItem *item = d->tablePasswords->item(i, COL_PASS_PASSWORD);
 		item->setText(HIDDEN_PASS);
 		item->setToolTip(HIDDEN_PASS);
 	}
 }
 
-bool CFGServerPasswords::isPassphraseInTable(const QString& phrase)
+bool CFGServerPasswords::isPassphraseInTable(const QString &phrase)
 {
 	return findPassphraseInTable(phrase) >= 0;
 }
@@ -127,6 +125,8 @@ bool CFGServerPasswords::isPassphraseInTable(const QString& phrase)
 void CFGServerPasswords::onPasswordTableCellChange(int currentRow, int currentColumn,
 	int previousRow, int previousColumn)
 {
+	Q_UNUSED(currentColumn);
+	Q_UNUSED(previousColumn);
 	if (currentRow != previousRow)
 	{
 		// Setting an invalid password will clear the table which is
@@ -140,9 +140,7 @@ void CFGServerPasswords::saveSettings()
 	PasswordsCfg cfg;
 	QList<ServerPassword> passwords;
 	for (int i = 0; i < d->tablePasswords->rowCount(); ++i)
-	{
 		passwords << serverPasswordFromRow(i);
-	}
 	cfg.setServerPasswords(passwords);
 	cfg.setMaxNumberOfServersPerPassword(d->spinMaxPasswords->value());
 }
@@ -150,14 +148,12 @@ void CFGServerPasswords::saveSettings()
 ServerPassword CFGServerPasswords::serverPasswordFromRow(int row)
 {
 	if (row < 0 || row >= d->tablePasswords->rowCount())
-	{
 		return ServerPassword();
-	}
 	return ServerPassword::deserializeQVariant(
 		d->tablePasswords->item(row, COL_PASS_PASSWORD)->data(Qt::UserRole));
 }
 
-void CFGServerPasswords::setPasswordInRow(int row, const ServerPassword& password)
+void CFGServerPasswords::setPasswordInRow(int row, const ServerPassword &password)
 {
 	// Disable sorting or bad things may happen.
 	bool wasSortingEnabled = d->tablePasswords->isSortingEnabled();
@@ -165,22 +161,18 @@ void CFGServerPasswords::setPasswordInRow(int row, const ServerPassword& passwor
 
 	QString phrase;
 	if (d->bHidingPasswordsMode)
-	{
 		phrase = HIDDEN_PASS;
-	}
 	else
-	{
 		phrase = password.phrase();
-	}
 
-	QTableWidgetItem* phraseItem = toolTipItem(phrase);
+	QTableWidgetItem *phraseItem = toolTipItem(phrase);
 	phraseItem->setData(Qt::UserRole, password.serializeQVariant());
 	d->tablePasswords->setItem(row, COL_PASS_PASSWORD, phraseItem);
 
 	d->tablePasswords->setItem(row, COL_PASS_LAST_GAME, toolTipItem(password.lastGame()));
 	d->tablePasswords->setItem(row, COL_PASS_LAST_SERVER, toolTipItem(password.lastServerName()));
 
-	DateTableWidgetItem* dateItem = new DateTableWidgetItem(password.lastTime());
+	DateTableWidgetItem *dateItem = new DateTableWidgetItem(password.lastTime());
 	dateItem->setToolTip(dateItem->displayedText());
 	d->tablePasswords->setItem(row, COL_PASS_LAST_TIME, dateItem);
 
@@ -189,17 +181,17 @@ void CFGServerPasswords::setPasswordInRow(int row, const ServerPassword& passwor
 	d->tablePasswords->resizeRowsToContents();
 }
 
-void CFGServerPasswords::setServersInTable(const ServerPassword& password)
+void CFGServerPasswords::setServersInTable(const ServerPassword &password)
 {
 	clearTable(d->tableServers);
 	// Disable sorting or bad things may happen.
 	d->tableServers->setSortingEnabled(false);
-	foreach (const ServerPasswordSummary& server, password.servers())
+	for (const ServerPasswordSummary &server : password.servers())
 	{
 		int rowIndex = d->tableServers->rowCount();
 		d->tableServers->insertRow(rowIndex);
 
-		QTableWidgetItem* gameItem = toolTipItem(server.game());
+		QTableWidgetItem *gameItem = toolTipItem(server.game());
 		gameItem->setData(Qt::UserRole, server.serializeQVariant());
 		d->tableServers->setItem(rowIndex, COL_SERV_GAME, gameItem);
 
@@ -207,7 +199,7 @@ void CFGServerPasswords::setServersInTable(const ServerPassword& password)
 		QString address = QString("%1:%2").arg(server.address()).arg(server.port());
 		d->tableServers->setItem(rowIndex, COL_SERV_ADDRESS, toolTipItem(address));
 
-		DateTableWidgetItem* dateItem = new DateTableWidgetItem(server.time());
+		DateTableWidgetItem *dateItem = new DateTableWidgetItem(server.time());
 		dateItem->setToolTip(dateItem->displayedText());
 		d->tableServers->setItem(rowIndex, COL_SERV_LAST_TIME, dateItem);
 	}
@@ -229,7 +221,7 @@ void CFGServerPasswords::readSettings()
 	clearTable(d->tableServers);
 
 	PasswordsCfg cfg;
-	foreach (const ServerPassword& pass, cfg.serverPasswords())
+	for (const ServerPassword &pass : cfg.serverPasswords())
 	{
 		addServerPasswordToTable(pass);
 	}
@@ -244,15 +236,13 @@ void CFGServerPasswords::removeSelectedPasswords()
 void CFGServerPasswords::removeSelectedServers()
 {
 	QList<ServerPasswordSummary> servers;
-	foreach (QTableWidgetItem* item, d->tableServers->selectedItems())
+	for (QTableWidgetItem *item : d->tableServers->selectedItems())
 	{
 		if (item->column() == COL_SERV_GAME)
-		{
 			servers << ServerPasswordSummary::deserializeQVariant(item->data(Qt::UserRole));
-		}
 	}
 	ServerPassword currentPassword = serverPasswordFromRow(d->tablePasswords->currentRow());
-	foreach (const ServerPasswordSummary& server, servers)
+	for (const ServerPasswordSummary &server : servers)
 	{
 		currentPassword.removeServer(server.game(), server.address(), server.port());
 	}
@@ -267,7 +257,7 @@ void CFGServerPasswords::revealPasswords()
 	d->bHidingPasswordsMode = false;
 	for (int i = 0; i < d->tablePasswords->rowCount(); ++i)
 	{
-		QTableWidgetItem* item = d->tablePasswords->item(i, COL_PASS_PASSWORD);
+		QTableWidgetItem *item = d->tablePasswords->item(i, COL_PASS_PASSWORD);
 		ServerPassword password = serverPasswordFromRow(i);
 		item->setText(password.phrase());
 		item->setToolTip(password.phrase());
@@ -277,31 +267,23 @@ void CFGServerPasswords::revealPasswords()
 void CFGServerPasswords::toggleRevealHide()
 {
 	if (d->bHidingPasswordsMode)
-	{
 		revealPasswords();
-	}
 	else
-	{
 		hidePasswords();
-	}
 }
 
-QTableWidgetItem* CFGServerPasswords::toolTipItem(const QString& contents)
+QTableWidgetItem *CFGServerPasswords::toolTipItem(const QString &contents)
 {
-	QTableWidgetItem* item = new QTableWidgetItem(contents);
+	auto item = new QTableWidgetItem(contents);
 	item->setToolTip(contents);
 	return item;
 }
 
-void CFGServerPasswords::updatePassword(const ServerPassword& password)
+void CFGServerPasswords::updatePassword(const ServerPassword &password)
 {
 	int row = findPassphraseInTable(password.phrase());
 	if (row >= 0)
-	{
 		setPasswordInRow(row, password);
-	}
 	else
-	{
 		addServerPasswordToTable(password);
-	}
 }

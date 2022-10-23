@@ -22,17 +22,17 @@
 //------------------------------------------------------------------------------
 #include "log.h"
 #include "strings.hpp"
+#include <cstdio>
 #include <QDateTime>
 #include <QMutexLocker>
-#include <cstdio>
 
 DClass<Log>
 {
-	public:
-		QString logContent;
-		QMutex mutex;
-		bool printToStderr;
-		bool timestamps;
+public:
+	QString logContent;
+	QMutex mutex;
+	bool printToStderr;
+	bool timestamps;
 };
 
 DPointeredNoCopy(Log)
@@ -49,7 +49,7 @@ Log::~Log()
 {
 }
 
-void Log::addEntry(const QString& string)
+void Log::addEntry(const QString &string)
 {
 	QString timestampString;
 	if (areTimestampsEnabled())
@@ -61,7 +61,7 @@ void Log::addEntry(const QString& string)
 	addUnformattedEntry(entry);
 }
 
-void Log::addUnformattedEntry(const QString& string)
+void Log::addUnformattedEntry(const QString &string)
 {
 	QMutexLocker locker(&d->mutex);
 
@@ -84,7 +84,7 @@ void Log::clearContent()
 	d->logContent.clear();
 }
 
-const QString& Log::content() const
+const QString &Log::content() const
 {
 	return d->logContent;
 }
@@ -99,7 +99,7 @@ bool Log::isPrintingToStdout() const
 	return isPrintingToStderr();
 }
 
-Log& Log::operator<<(const QString& string)
+Log &Log::operator<<(const QString &string)
 {
 	addEntry(string);
 	return *this;

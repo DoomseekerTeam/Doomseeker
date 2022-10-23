@@ -23,8 +23,8 @@
 #ifndef DOOMSEEKER_PLUGIN_ZANDRONUM_BINARIES_H
 #define DOOMSEEKER_PLUGIN_ZANDRONUM_BINARIES_H
 
-#include <QProgressDialog>
 #include <QNetworkReply>
+#include <QProgressDialog>
 
 #include <serverapi/exefile.h>
 
@@ -37,76 +37,76 @@ class ZandronumClientExeFile : public ExeFile
 {
 	Q_OBJECT
 
-	public:
-		static QString scriptFileExtension();
+public:
+	static QString scriptFileExtension();
 
-		ZandronumClientExeFile(const QSharedPointer<const ZandronumServer> &server);
-		~ZandronumClientExeFile();
+	ZandronumClientExeFile(const QSharedPointer<const ZandronumServer> &server);
+	~ZandronumClientExeFile() override;
 
-		Message install(QWidget *parent);
+	Message install(QWidget *parent) override;
 
-		/**
-		 *	If the parent Server is a normal server simple path to executable
-		 *	file is returned. If this is a testing server, a shell script is
-		 *	created	if necessary and a path to this shell script s returned.
-		 */
-		QString pathToExe(Message& message);
-		QString workingDirectory(Message& message);
+	/**
+	 * If the parent Server is a normal server simple path to executable
+	 * file is returned. If this is a testing server, a shell script is
+	 * created	if necessary and a path to this shell script s returned.
+	 */
+	QString pathToExe(Message &message) override;
+	QString workingDirectory(Message &message) override;
 
-	protected:
-		bool downloadTestingBinaries(const QDir &destination, QWidget *parent);
-		/**
-		 *	Creates Unix .sh file or Windows .bat file to
-		 *	launch client for parent server. Returns true if the file
-		 *	already exists.
-		 *	@param versionDir - convenience parameter. This is the directory
-		 *		where testing package was unpacked. This path was
-		 *		already created in clientBinary() method so let's reuse it.
-		 *	@param [out] fullPathToFile - path to created script file
-		 *	@param [out] error - error if return == false
-		 *	@return false if fail
-		 */
-		bool spawnTestingBatchFile(const QString& versionDir, QString& fullPathToFile, Message& message);
+protected:
+	bool downloadTestingBinaries(const QDir &destination, QWidget *parent);
+	/**
+	 * Creates Unix .sh file or Windows .bat file to
+	 * launch client for parent server. Returns true if the file
+	 * already exists.
+	 * @param versionDir - convenience parameter. This is the directory
+	 *     where testing package was unpacked. This path was
+	 *     already created in clientBinary() method so let's reuse it.
+	 * @param [out] fullPathToFile - path to created script file
+	 * @param [out] error - error if return == false
+	 * @return false if fail
+	 */
+	bool spawnTestingBatchFile(const QString &versionDir, QString &fullPathToFile, Message &message);
 
-	private:
-		class PrivData;
-		PrivData *d;
+private:
+	class PrivData;
+	PrivData *d;
 
-		IniSection &config();
-		/**
-		 * @return true - user accepts installation; false - user refuses.
-		 */
-		bool askToInstallTestingVersion(QWidget *parent) const;
-		QString testingVersion() const;
-		QString testingVersionInstallPath() const;
+	IniSection &config();
+	/**
+	 * @return true - user accepts installation; false - user refuses.
+	 */
+	bool askToInstallTestingVersion(QWidget *parent) const;
+	QString testingVersion() const;
+	QString testingVersionInstallPath() const;
 };
 
 class TestingProgressDialog : public QProgressDialog
 {
 	Q_OBJECT
 
-	public:
-		TestingProgressDialog(const QUrl& url, QWidget *parent);
+public:
+	TestingProgressDialog(const QUrl &url, QWidget *parent);
 
-		const QByteArray &data() const { return downloadedFileData; }
-		QString error() const { return networkError; }
-		const QString &filename() const { return downloadedFilename; }
+	const QByteArray &data() const { return downloadedFileData; }
+	QString error() const { return networkError; }
+	const QString &filename() const { return downloadedFilename; }
 
-	private slots:
-		void abort();
-		void errorReceived(QNetworkReply::NetworkError);
-		void downloadFinished();
-		void downloadProgress(qint64 value, qint64 max);
+private slots:
+	void abort();
+	void errorReceived(QNetworkReply::NetworkError);
+	void downloadFinished();
+	void downloadProgress(qint64 value, qint64 max);
 
 
-	private:
-		QByteArray downloadedFileData;
-		QString downloadedFilename;
-		QNetworkAccessManager networkAccessManager;
-		QNetworkReply* pNetworkReply;
-		QString networkError;
+private:
+	QByteArray downloadedFileData;
+	QString downloadedFilename;
+	QNetworkAccessManager networkAccessManager;
+	QNetworkReply *pNetworkReply;
+	QString networkError;
 
-		void getUrl(const QUrl& url);
+	void getUrl(const QUrl &url);
 };
 
 #endif

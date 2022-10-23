@@ -31,17 +31,17 @@ class IP2CUpdateBox : public QDialog
 {
 	Q_OBJECT
 
-	public:
-		IP2CUpdateBox(QWidget* parent = NULL);
-		~IP2CUpdateBox();
+public:
+	IP2CUpdateBox(QWidget *parent = nullptr);
+	~IP2CUpdateBox() override;
 
-	private:
-		DPtr<IP2CUpdateBox> d;
+private:
+	DPtr<IP2CUpdateBox> d;
 
-		void start();
+	void start();
 
-	private slots:
-		void updateInfo(int status);
+private slots:
+	void updateInfo(int status);
 };
 
 #endif

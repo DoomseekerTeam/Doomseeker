@@ -560,7 +560,7 @@ void ProcessUtils::convertWindowsCommandLine(LPCWSTR commandLine, int& argc, cha
 		  buffer,
 		  BUFFER_SIZE,
 		  0,
-		  false);
+		  NULL);
 
 		// note: if WideCharToMultiByte() fails it will return zero,
 		// in which case we store a zero-length argument in argv

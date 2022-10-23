@@ -25,7 +25,7 @@
 #include "irc/ircnetworkadapter.h"
 #include "utf8splitter.h"
 
-IRCChatAdapter::IRCChatAdapter(IRCNetworkAdapter* pNetwork, const QString& recipient)
+IRCChatAdapter::IRCChatAdapter(IRCNetworkAdapter *pNetwork, const QString &recipient)
 {
 	this->pNetwork = pNetwork;
 	this->recipientName = recipient;
@@ -33,21 +33,22 @@ IRCChatAdapter::IRCChatAdapter(IRCNetworkAdapter* pNetwork, const QString& recip
 
 IRCChatAdapter::~IRCChatAdapter()
 {
-	if (this->pNetwork != NULL)
+	if (this->pNetwork != nullptr)
 	{
 		// Prevent the situation where this->pNetwork is
 		// NULLified while we still may need it.
-		IRCNetworkAdapter* pTmpNetwork = this->pNetwork;
+		IRCNetworkAdapter *pTmpNetwork = this->pNetwork;
 
 		pTmpNetwork->detachChatWindow(this);
 	}
 }
 
-void IRCChatAdapter::doSendMessage(const QString& message, IRCAdapterBase* pOrigin)
+void IRCChatAdapter::doSendMessage(const QString &message, IRCAdapterBase *pOrigin)
 {
+	Q_UNUSED(pOrigin);
 	// If network is null and we can still send messages this might be a bug
 	// in the application.
-	if (pNetwork == NULL)
+	if (pNetwork == nullptr)
 	{
 		emit error("This chat window is not attached to any network. This is probably a bug in Doomseeker.");
 		return;
@@ -69,15 +70,15 @@ void IRCChatAdapter::doSendMessage(const QString& message, IRCAdapterBase* pOrig
 	}
 }
 
-void IRCChatAdapter::emitChatMessage(const QString& sender, const QString& content)
+void IRCChatAdapter::emitChatMessage(const QString &sender, const QString &content)
 {
 	emit message(QString("<%1>: %2").arg(sender, content));
 }
 
-QString IRCChatAdapter::extractMessageLine(QStringList& words, int maxLength)
+QString IRCChatAdapter::extractMessageLine(QStringList &words, int maxLength)
 {
 	QByteArray sentence = "";
-	while(!words.isEmpty())
+	while (!words.isEmpty())
 	{
 		QByteArray word = words.takeFirst().toUtf8();
 
@@ -86,7 +87,7 @@ QString IRCChatAdapter::extractMessageLine(QStringList& words, int maxLength)
 		{
 			// If there is no valid way of splitting the sentence; if
 			// the word itself is longer than maxLength we have to split
-			// the word. Dash will be appened to the end of such word.
+			// the word. Dash will be appended to the end of such word.
 			if (sentence.isEmpty())
 			{
 				// We need to split the word.
@@ -96,7 +97,7 @@ QString IRCChatAdapter::extractMessageLine(QStringList& words, int maxLength)
 				sentence += '-';
 
 				QString wordRemainder = "";
-				foreach (const QByteArray &wordToken, splitWordTokens)
+				for (const QByteArray &wordToken : splitWordTokens)
 				{
 					wordRemainder += QString::fromUtf8(wordToken.constData(), wordToken.size());
 				}
@@ -117,7 +118,7 @@ QString IRCChatAdapter::extractMessageLine(QStringList& words, int maxLength)
 	return QString::fromUtf8(sentence.constData(), sentence.size()).trimmed();
 }
 
-void IRCChatAdapter::sendChatMessage(const QString& message)
+void IRCChatAdapter::sendChatMessage(const QString &message)
 {
 	// Here we will split too long messages to make sure they don't
 	// exceed the 512 character limit as stated in RFC 1459.
@@ -128,7 +129,7 @@ void IRCChatAdapter::sendChatMessage(const QString& message)
 	int maxLength = IRCClient::SAFE_MESSAGE_LENGTH - ircCall.toUtf8().length();
 	QStringList wordLines = message.split("\n");
 
-	foreach(QString line, wordLines)
+	for (QString line : wordLines)
 	{
 		QStringList words = line.split(" ");
 
@@ -140,12 +141,12 @@ void IRCChatAdapter::sendChatMessage(const QString& message)
 	}
 }
 
-void IRCChatAdapter::setNetwork(IRCNetworkAdapter* pNetwork)
+void IRCChatAdapter::setNetwork(IRCNetworkAdapter *pNetwork)
 {
 	this->pNetwork = pNetwork;
 }
 
-void IRCChatAdapter::setRecipient(const QString& name)
+void IRCChatAdapter::setRecipient(const QString &name)
 {
 	this->recipientName = name;
 	emit titleChange();

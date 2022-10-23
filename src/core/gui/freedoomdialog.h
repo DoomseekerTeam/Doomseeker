@@ -32,14 +32,14 @@ class ModSet;
 
 class FreedoomDialog : public QDialog
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	FreedoomDialog(QWidget *parent);
-	~FreedoomDialog();
+	~FreedoomDialog() override;
 
 public slots:
-	void accept();
+	void accept() override;
 
 private:
 	enum Column

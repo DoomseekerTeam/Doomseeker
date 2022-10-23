@@ -23,8 +23,8 @@
 #ifndef id0C2CBB3A_3E88_4063_9F380FB52C71E32A
 #define id0C2CBB3A_3E88_4063_9F380FB52C71E32A
 
-#include <serverapi/gamehost.h>
 #include <QList>
+#include <serverapi/gamehost.h>
 
 class DMFlagsSection;
 
@@ -32,21 +32,22 @@ class Srb2GameHost : public GameHost
 {
 	Q_OBJECT
 
-	public:
-		Srb2GameHost();
+public:
+	Srb2GameHost();
 
-	protected:
-		void addExtra();
+protected:
+	void addExtra() override;
 
-	private:
-		Q_DISABLE_COPY(Srb2GameHost)
+private:
+	Q_DISABLE_COPY(Srb2GameHost)
 
-		bool casualServer;
-		bool listenServer;
+	bool listenServer;
+	bool casualServer;
 
-		void addDMFlags();
-		void addDMFlags(const QList<DMFlagsSection> &flags, bool enabled);
-		void addIwad();
+	void addDMFlags();
+	void addDMFlags(const QList<DMFlagsSection> &flags, bool enabled);
+	void addHostModeParams();
+	void addIwad();
 };
 
 #endif

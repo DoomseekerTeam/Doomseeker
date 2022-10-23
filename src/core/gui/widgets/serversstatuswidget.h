@@ -38,38 +38,38 @@ class ServersStatusWidget : public QLabel
 {
 	Q_OBJECT
 
-	public:
-		ServersStatusWidget(const EnginePlugin *plugin, const ServerList *serverList);
+public:
+	ServersStatusWidget(const EnginePlugin *plugin, const ServerList *serverList);
 
-		const ServerListCount &count() const;
+	const ServerListCount &count() const;
 
-	public slots:
-		/**
-		* @brief Changes the appearance of the widget basing on the boolean
-		* value.
-		*
-		* If set to true, apperance will be clear. If set to false, appearance
-		* will be "grayed out".
-		*/
-		void setMasterEnabledStatus(bool bEnabled);
-		void updateDisplay();
+public slots:
+	/**
+	 * @brief Changes the appearance of the widget basing on the boolean
+	 * value.
+	 *
+	 * If set to true, appearance will be clear. If set to false, appearance
+	 * will be "grayed out".
+	 */
+	void setMasterEnabledStatus(bool bEnabled);
+	void updateDisplay();
 
-	signals:
-		void clicked(const EnginePlugin* plugin);
-		void counterUpdated();
+signals:
+	void clicked(const EnginePlugin *plugin);
+	void counterUpdated();
 
-	private:
-		void mousePressEvent(QMouseEvent* event);
-		void paintEvent(QPaintEvent *event);
-		void registerServer(ServerPtr server);
-		QString refreshedPercentAsText() const;
+private:
+	void mousePressEvent(QMouseEvent *event) override;
+	void paintEvent(QPaintEvent *event) override;
+	void registerServer(ServerPtr server);
+	QString refreshedPercentAsText() const;
 
-		bool enabled;
-		QPixmap icon;
-		QPixmap iconDisabled;
-		ServerListCountTracker *countTracker;
-		const EnginePlugin *plugin;
-		const ServerList *serverList;
+	bool enabled;
+	QPixmap icon;
+	QPixmap iconDisabled;
+	ServerListCountTracker *countTracker;
+	const EnginePlugin *plugin;
+	const ServerList *serverList;
 };
 
 #endif /* __SERVERSSTATUSWIDGET_H__ */

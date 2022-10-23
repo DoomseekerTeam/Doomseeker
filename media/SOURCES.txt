@@ -49,7 +49,7 @@ flags/localhost-small.png
 flags/unknown-small.png
 
 
-- Copyright (C) 2009, 2014, 2016, 2017 Zalewa <zalewapl@gmail.com>
+- Copyright (C) 2009, 2014, 2016, 2017, 2019 Zalewa <zalewapl@gmail.com>
 
 ../src/core/unknownengine.xpm
 icons/ascending.png
@@ -58,6 +58,8 @@ icons/descending.png
 icons/magnifier.png
 icons/t.png
 icons/t.xcf
+icons/terminal.png
+icons/terminal-32.png
 
 
 - Copyright (C) 2014 MazterQyoun-ae
@@ -76,6 +78,16 @@ icons/plus.png
 icons/refresh.png
 icons/server_details.png
 icons/x.png
+
+
+- Copyright (C) 2019 Pol Marcet Sardà
+
+icons/file.png
+
+
+- Copyright (C) 2021 Zalewa
+
+icons/location.png
 
 
 - Crystal Clear (crystal_clear) by Everaldo Coelho
@@ -109,11 +121,11 @@ icons/preferences-system-4.png
   <http://creativecommons.org/licenses/by/3.0/>
 
 	link: http://p.yusukekamiyamane.com
-	alt. link: http://www.iconarchive.com/show/fugue-icons-by-yusuke-kamiyamane/tick-shield-icon.html
 	license: CC BY 3.0
 	license link: https://creativecommons.org/licenses/by/3.0/
 
-icons/shield.png
+icons/information-frame.png
+icons/shield.png (alt. link: http://www.iconarchive.com/show/fugue-icons-by-yusuke-kamiyamane/tick-shield-icon.html)
 
 
 - Tango Icon Library 0.8.90 (tango)
@@ -123,6 +135,8 @@ icons/shield.png
 
 icons/buddies.png (modified by Juuso "Linda" Lapinlampi <wubthecaptain@gmail.com>, 2017
                    - shirts changed; og name: system-users.png)
+icons/edit-redo.png
+icons/edit-redo-red.png (hue altered by Zalewa)
 icons/exclamation.png (og name: dialog-warning.png)
 icons/exclamation-16.png (og name: dialog-warning.png)
 icons/internet-web-browser.png
@@ -153,20 +167,6 @@ icons/person.png (blue hue changed to red by Zalewa)
 	license link: https://creativecommons.org/licenses/by/3.0/
 
 icons/pencil.png
-
-
-- Copyright (C) MaxMind
-	link: https://dev.maxmind.com/geoip/geoip2/geolite2/
-	license: Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
-	license link: https://creativecommons.org/licenses/by-sa/4.0/
-	Notes: data stored in this file does indeed come from MaxMind's
-		GeoIP2 database, although the format in which this data
-		is stored is native to Doomseeker.
-
-	This product includes GeoLite2 data created by MaxMind,
-	available from http://www.maxmind.com.
-
-IpToCountry.dat
 
 
 - Copyright unclaimed by The Doomseeker Team;

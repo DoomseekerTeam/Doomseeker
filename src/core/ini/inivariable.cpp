@@ -28,17 +28,17 @@
 
 DClass<IniVariable>
 {
-	public:
-		/**
-		 * @brief For non-const operations. Might be NULL even if pConstSection
-		 *        is not NULL.
-		 */
-		IniSection section;
+public:
+	/**
+	 * @brief For non-const operations. Might be nullptr even if pConstSection
+	 *        is not nullptr.
+	 */
+	IniSection section;
 
-		/**
-		 * @brief The key name of this variable.
-		 */
-		QString key;
+	/**
+	 * @brief The key name of this variable.
+	 */
+	QString key;
 };
 
 DPointered(IniVariable)
@@ -47,7 +47,7 @@ IniVariable::IniVariable()
 {
 }
 
-IniVariable::IniVariable(const IniSection &section, const QString& key)
+IniVariable::IniVariable(const IniSection &section, const QString &key)
 {
 	d->section = section;
 	d->key = key;
@@ -142,7 +142,7 @@ const IniVariable &IniVariable::operator=(float f)
 	return *this;
 }
 
-const QString& IniVariable::key()
+const QString &IniVariable::key()
 {
 	return d->key;
 }
@@ -152,7 +152,7 @@ bool IniVariable::isNull() const
 	return d->section.isNull();
 }
 
-void IniVariable::setValue(const QVariant& value)
+void IniVariable::setValue(const QVariant &value)
 {
 	d->section.setValue(d->key, value);
 }

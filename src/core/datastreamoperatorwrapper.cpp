@@ -24,23 +24,24 @@
 
 #include "strings.hpp"
 #include <cassert>
+#include <QIODevice>
 
 #define RETTYPE(type) \
-type tmp; \
-(*d->s) >> tmp; \
-return tmp;
+	type tmp; \
+	(*d->s) >> tmp; \
+	return tmp;
 
 DClass<DataStreamOperatorWrapper>
 {
-	public:
-		QDataStream *s;
+public:
+	QDataStream *s;
 };
 
 DPointered(DataStreamOperatorWrapper)
 
-DataStreamOperatorWrapper::DataStreamOperatorWrapper(QDataStream* stream)
+DataStreamOperatorWrapper::DataStreamOperatorWrapper(QDataStream *stream)
 {
-	assert(stream != NULL);
+	assert(stream != nullptr);
 	d->s = stream;
 }
 
@@ -48,12 +49,12 @@ DataStreamOperatorWrapper::~DataStreamOperatorWrapper()
 {
 }
 
-QDataStream* DataStreamOperatorWrapper::dataStream()
+QDataStream *DataStreamOperatorWrapper::dataStream()
 {
 	return d->s;
 }
 
-const QDataStream* DataStreamOperatorWrapper::dataStream() const
+const QDataStream *DataStreamOperatorWrapper::dataStream() const
 {
 	return d->s;
 }
@@ -140,9 +141,7 @@ QByteArray DataStreamOperatorWrapper::readRawMaxUntilByte(char stopByte, qint64 
 		++counter;
 
 		if (rByte == stopByte)
-		{
 			break;
-		}
 	}
 	return result;
 }

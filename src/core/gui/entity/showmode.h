@@ -27,14 +27,14 @@
 
 namespace Doomseeker
 {
-	enum ShowMode
-	{
-		Indifferent = 0,
-		ShowOnly,
-		ShowNone
-	};
+enum ShowMode
+{
+	Indifferent = 0,
+	ShowOnly,
+	ShowNone
+};
 
-	ShowMode checkboxTristateToShowMode(Qt::CheckState state);
-	Qt::CheckState showModeToCheckboxState(ShowMode mode);
+ShowMode checkboxTristateToShowMode(Qt::CheckState state);
+Qt::CheckState showModeToCheckboxState(ShowMode mode);
 }
 #endif

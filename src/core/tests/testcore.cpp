@@ -21,7 +21,7 @@
 // Copyright (C) 2010 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
 #include "testcore.h"
-#include <QTime>
+#include <QElapsedTimer>
 
 TestCore::TestCore()
 {
@@ -34,13 +34,13 @@ void TestCore::clearCounters()
 	testsSucceeded = 0;
 }
 
-void TestCore::executeTest(TestUnitBase* pTest)
+void TestCore::executeTest(TestUnitBase *pTest)
 {
 	testLog << "--------------------------------------------------------";
 	testLog << QString("Test: %1").arg(pTest->testName());
 	testLog << "--------------------------------------------------------";
 
-	QTime time;
+	QElapsedTimer time;
 	time.start();
 
 	bool bResult = pTest->executeTest();

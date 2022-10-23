@@ -22,12 +22,12 @@
 //------------------------------------------------------------------------------
 #include "srb2server.h"
 
+#include <climits>
+#include <cstring>
 #include <QBuffer>
 #include <QDataStream>
 #include <QFileInfo>
 #include <QScopedPointer>
-#include <climits>
-#include <cstring>
 
 #include "srb2engineplugin.h"
 #include "srb2gameclientrunner.h"
@@ -135,11 +135,17 @@ struct Srb2ServerPacket::ServerInfo
 
 	struct D
 	{
+		quint8 num255 = 0; // (since 2.2.6)
+		quint8 packetVersion; // (since 2.2.6)
 		quint8 version;
 		quint8 subversion;
 		quint8 numPlayers;
 		quint8 maxPlayers;
-		quint8 gameType;
+		union
+		{
+			quint8 gameType,
+				refuseReason; // (since 2.2.6)
+		};
 		quint8 modifiedGame;
 		quint8 cheatsEnabled;
 		quint8 dedicated;
@@ -156,6 +162,8 @@ struct Srb2ServerPacket::ServerInfo
 	};
 
 	D d;
+	QString gameTypeString; // 24 bytes (since 2.2.6)
+	QString application; // 16 bytes (since 2.2.6)
 	QString name; // 32 bytes
 	QString mapName; // 8 bytes
 	QString mapTitle; // 33 bytes
@@ -165,9 +173,18 @@ struct Srb2ServerPacket::ServerInfo
 	GameMode gameMode() const
 	{
 		QList<GameMode> modes = Srb2GameInfo::gameModes();
-		if (d.gameType < modes.length())
+		if (d.num255 == 255)
 		{
-			return modes[d.gameType];
+			for (auto &mode : modes)
+			{
+				if (gameTypeString == mode.name())
+					return mode;
+			}
+		}
+		else
+		{
+			if (d.gameType < modes.length())
+				return modes[d.gameType];
 		}
 		return GameMode::mkUnknown();
 	}
@@ -178,18 +195,27 @@ QDataStream &operator>>(QDataStream &stream, ServerInfo &info)
 	DataStreamOperatorWrapper reader(&stream);
 
 	stream >> info.d.version;
+	if (info.d.version == 255)
+	{
+		info.d.num255 = info.d.version;
+		stream >> info.d.packetVersion;
+		info.application = Srb2::asciiOnly(reader.readRaw(16));
+		stream >> info.d.version;
+	}
 	stream >> info.d.subversion;
 	stream >> info.d.numPlayers;
 	stream >> info.d.maxPlayers;
-	stream >> info.d.gameType;
+	stream >> info.d.refuseReason;
+	if (info.d.num255 == 255)
+		info.gameTypeString = Srb2::asciiOnly(reader.readRaw(24));
 	stream >> info.d.modifiedGame;
 	stream >> info.d.cheatsEnabled;
 	stream >> info.d.dedicated;
 
 	quint8 numModFiles = 0;
 	stream >> numModFiles;
-
-	stream >> info.d.numVerifiedPlayers;
+	if (info.d.num255 != 255)
+		stream >> info.d.numVerifiedPlayers;
 	stream >> info.d.time;
 	stream >> info.d.levelTime;
 	info.name = Srb2::asciiOnly(reader.readRaw(32));
@@ -304,7 +330,7 @@ public:
 };
 
 Srb2Server::Srb2Server(const QHostAddress &address, unsigned short port)
-: Server(address, port)
+	: Server(address, port)
 {
 	d = new PrivData();
 	set_customDetails(&Srb2Server::customDetails);
@@ -322,13 +348,13 @@ QString Srb2Server::customDetails()
 	return "";
 }
 
-GameClientRunner* Srb2Server::gameRunner()
+GameClientRunner *Srb2Server::gameRunner()
 {
 	return new Srb2GameClientRunner(
 		self().toStrongRef().staticCast<Srb2Server>());
 }
 
-EnginePlugin* Srb2Server::plugin() const
+EnginePlugin *Srb2Server::plugin() const
 {
 	return Srb2EnginePlugin::staticInstance();
 }
@@ -359,31 +385,27 @@ Server::Response Srb2Server::readRequest(const QByteArray &data)
 			d->playerInfo.reset(new PlayerInfo());
 			stream >> *d->playerInfo;
 		}
-		d->header.reset(NULL);
+		d->header.reset(nullptr);
 	}
 
 	if (!d->serverInfo.isNull() && !d->playerInfo.isNull())
-	{
 		return processInfoPackets();
-	}
 	else
-	{
 		return RESPONSE_PENDING;
-	}
 }
 
 Server::Response Srb2Server::processInfoPackets()
 {
 	Response response = processServerInfo(*d->serverInfo);
 	if (response != RESPONSE_GOOD)
-	{
 		return response;
-	}
 	return processPlayerInfo(*d->playerInfo);
 }
 
 Server::Response Srb2Server::processServerInfo(const ServerInfo &info)
 {
+	if (info.application != "SRB2" && !info.application.isEmpty())
+		return RESPONSE_BAD;
 	setName(info.name);
 	if (gameVersion().isEmpty())
 	{
@@ -402,10 +424,10 @@ Server::Response Srb2Server::processServerInfo(const ServerInfo &info)
 	setMap(info.mapName);
 	setGameMode(info.gameMode());
 
-	setIwad(info.files.first().name);
+	setIwad(!info.files.empty() ? info.files.first().name : "");
 	clearWads();
 	bool first = true;
-	foreach (const FileNeeded &file, info.files)
+	for (const FileNeeded &file : info.files)
 	{
 		if (first)
 		{
@@ -421,7 +443,7 @@ Server::Response Srb2Server::processServerInfo(const ServerInfo &info)
 Server::Response Srb2Server::processPlayerInfo(const PlayerInfo &info)
 {
 	clearPlayersList();
-	foreach (const PlayerInfo::Player &srbPlayer, info.players)
+	for (const PlayerInfo::Player &srbPlayer : info.players)
 	{
 		addPlayer(Player(srbPlayer.name, srbPlayer.d.score, USHRT_MAX,
 			srbPlayer.team(), srbPlayer.isSpectator()));
@@ -432,16 +454,16 @@ Server::Response Srb2Server::processPlayerInfo(const PlayerInfo &info)
 QByteArray Srb2Server::createSendRequest()
 {
 	// Reset header if it lingers from a previous refresh.
-	d->header.reset(NULL);
+	d->header.reset(nullptr);
 	// Also reset the old information.
-	d->serverInfo.reset(NULL);
-	d->playerInfo.reset(NULL);
+	d->serverInfo.reset(nullptr);
+	d->playerInfo.reset(nullptr);
 
 	/*
-		References:
-		- https://wiki.srb2.org/wiki/SRB2_network_documentation
-		- https://github.com/STJr/SRB2/blob/SRB2_release_2.1.14/src/d_net.c#L689
-	*/
+	References:
+	- https://wiki.srb2.org/wiki/SRB2_network_documentation
+	- https://github.com/STJr/SRB2/blob/SRB2_release_2.1.14/src/d_net.c#L689
+	 */
 	const int length = 13;
 	const unsigned char challenge[length] = {
 		// Header
@@ -451,7 +473,7 @@ QByteArray Srb2Server::createSendRequest()
 		0x00, // Version
 		0x00, 0x00, 0x00, 0x00 // Time
 	};
-	return QByteArray(reinterpret_cast<const char*>(challenge), length);
+	return QByteArray(reinterpret_cast<const char *>(challenge), length);
 }
 
 void Srb2Server::setGameVersion(const QString &version)

@@ -35,16 +35,16 @@ class VavoomServer : public Server
 {
 	Q_OBJECT
 
-	public:
-		VavoomServer(const QHostAddress &address, unsigned short port);
+public:
+	VavoomServer(const QHostAddress &address, unsigned short port);
 
-		GameClientRunner* gameRunner();
+	GameClientRunner *gameRunner();
 
-		EnginePlugin* plugin() const;
+	EnginePlugin *plugin() const;
 
-	protected:
-		QByteArray createSendRequest();
-		Response readRequest(const QByteArray &data);
+protected:
+	QByteArray createSendRequest();
+	Response readRequest(const QByteArray &data);
 };
 
 #endif /* __VAVOOMSERVER_H__ */

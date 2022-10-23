@@ -26,6 +26,7 @@
 #include "ui_flagspage.h"
 #include "zandronumgameinfo.h"
 #include <gui/widgets/createserverdialogpage.h>
+#include <cstdint>
 
 namespace Zandronum2
 {
@@ -45,93 +46,103 @@ class FlagsPage : public CreateServerDialogPage, private Ui::FlagsPage
 	friend class Zandronum2::FlagsPageValueController;
 	friend class Zandronum3::FlagsPageValueController;
 
-	Q_OBJECT;
+	Q_OBJECT
 
-	public:
-		/**
-		 * This is stored in config and indexing cannot change between versions.
-		 */
-		enum FallingDamageType
-		{
-			FDT_None = 0,
-			FDT_Old = 1,
-			FDT_Hexen = 2,
-			FDT_Strife = 3
-		};
+public:
+	/**
+	 * This is stored in config and indexing cannot change between versions.
+	 */
+	enum FallingDamageType
+	{
+		FDT_None = 0,
+		FDT_Old = 1,
+		FDT_Hexen = 2,
+		FDT_Strife = 3
+	};
 
-		/**
-		 * This is stored in config and indexing cannot change between versions.
-		 */
-		enum JumpCrouchAbility
-		{
-			JCA_Default = 0,
-			JCA_No = 1,
-			JCA_Yes = 2
-		};
+	/**
+	 * This is stored in config and indexing cannot change between versions.
+	 */
+	enum JumpCrouchAbility
+	{
+		JCA_Default = 0,
+		JCA_No = 1,
+		JCA_Yes = 2
+	};
 
-		/**
-		 * This is stored in config and indexing cannot change between versions.
-		 */
-		enum PlayerBlock
-		{
-			PB_NotSet = 0,
-			PB_Noclip = 1,
-			PB_AllyNoclip = 2,
-			PB_Block = 3
-		};
+	/**
+	 * This is stored in config and indexing cannot change between versions.
+	 */
+	enum PlayerBlock
+	{
+		PB_NotSet = 0,
+		PB_Noclip = 1,
+		PB_AllyNoclip = 2,
+		PB_Block = 3
+	};
 
-		/**
-		 * This is stored in config and indexing cannot change between versions.
-		 */
-		enum LevelExit
-		{
-			EXIT_NotSet = 0,
-			EXIT_NextMap = 1,
-			EXIT_RestartMap = 2,
-			EXIT_KillPlayer = 3
-		};
+	enum PrivateChat
+	{
+		PrivChat_Forbidden = 0,
+		PrivChat_Allowed = 1,
+		PrivChat_Team = 2,
+	};
 
-		static const ZandronumGameInfo::GameVersion DEFAULT_GAME_VERSION = ZandronumGameInfo::GV_Zandronum2;
+	/**
+	 * This is stored in config and indexing cannot change between versions.
+	 */
+	enum LevelExit
+	{
+		EXIT_NotSet = 0,
+		EXIT_NextMap = 1,
+		EXIT_RestartMap = 2,
+		EXIT_KillPlayer = 3
+	};
 
-		FlagsPage(CreateServerDialog* pParentDialog);
-		~FlagsPage();
+	static const ZandronumGameInfo::GameVersion DEFAULT_GAME_VERSION = ZandronumGameInfo::GV_Zandronum2;
 
-		virtual void fillInGameCreateParams(GameCreateParams &params);
-		virtual bool loadConfig(Ini& ini);
-		virtual bool saveConfig(Ini& ini);
+	FlagsPage(CreateServerDialog *pParentDialog);
+	~FlagsPage() override;
 
-	private:
-		class PrivData;
+	void fillInGameCreateParams(GameCreateParams &params) override;
+	bool loadConfig(Ini &ini) override;
+	bool saveConfig(Ini &ini) override;
 
-		PrivData* d;
+private:
+	class PrivData;
 
-		void initJumpCrouchComboBoxes(QComboBox* pComboBox);
-		void insertFlagsIfValid(QLineEdit* dst, QString flags, unsigned valIfInvalid = 0);
+	PrivData *d;
 
-		ZandronumGameInfo::GameVersion gameVersion() const;
-		void loadGameVersion(ZandronumGameInfo::GameVersion version);
-		void setGameVersion(ZandronumGameInfo::GameVersion version);
+	void initJumpCrouchComboBoxes(QComboBox *pComboBox);
+	void insertFlagsIfValid(QLineEdit *dst, QString flags, int32_t valIfInvalid = 0);
 
-		PlayerBlock playerBlock() const;
-		void setPlayerBlock(PlayerBlock playerBlock);
+	ZandronumGameInfo::GameVersion gameVersion() const;
+	void loadGameVersion(ZandronumGameInfo::GameVersion version);
+	void setGameVersion(ZandronumGameInfo::GameVersion version);
 
-		LevelExit levelExit() const;
-		void setLevelExit(LevelExit levelExit);
+	PlayerBlock playerBlock() const;
+	void setPlayerBlock(PlayerBlock playerBlock);
 
-	private slots:
-		void applyGameVersion();
+	LevelExit levelExit() const;
+	void setLevelExit(LevelExit levelExit);
 
-		/**
-		 * @brief Extracts dmflags values from widgets and inserts their
-		 *        numerical values into the text input widgets.
-		 */
-		void applyWidgetsChange();
+	QString country() const;
+	void setCountry(const QString &country);
 
-		/**
-		 * @brief Takes the numerical values of flags and applies them to
-		 *        widgets.
-		 */
-		void propagateFlagsInputsChanges();
+private slots:
+	void applyGameVersion();
+
+	/**
+	 * @brief Extracts dmflags values from widgets and inserts their
+	 *        numerical values into the text input widgets.
+	 */
+	void applyWidgetsChange();
+
+	/**
+	 * @brief Takes the numerical values of flags and applies them to
+	 *        widgets.
+	 */
+	void propagateFlagsInputsChanges();
 };
 
 #endif

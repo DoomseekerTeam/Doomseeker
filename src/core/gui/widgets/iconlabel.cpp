@@ -22,8 +22,8 @@
 //------------------------------------------------------------------------------
 #include "iconlabel.h"
 
-IconLabel::IconLabel(QWidget* pParent)
-: QWidget(pParent)
+IconLabel::IconLabel(QWidget *pParent)
+	: QWidget(pParent)
 {
 	lblIcon = new QLabel(this);
 	lblIcon->setPixmap(QPixmap(":/icons/help"));
@@ -41,22 +41,17 @@ IconLabel::IconLabel(QWidget* pParent)
 	this->setContentsMargins(0, 0, 0, 0);
 }
 
-const QPixmap* IconLabel::pixmap() const
-{
-	return lblIcon->pixmap();
-}
-
 QString IconLabel::text() const
 {
 	return lblText->text();
 }
 
-void IconLabel::setPixmap(const QPixmap& pixmap)
+void IconLabel::setPixmap(const QPixmap &pixmap)
 {
 	lblIcon->setPixmap(pixmap);
 }
 
-void IconLabel::setText(const QString& str)
+void IconLabel::setText(const QString &str)
 {
 	lblText->setText(str);
 }

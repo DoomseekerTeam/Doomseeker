@@ -24,9 +24,10 @@
 
 #include "mastermanager.h"
 
+#include "customservers.h"
+#include "serverapi/broadcastmanager.h"
 #include "serverapi/message.h"
 #include "serverapi/server.h"
-#include "customservers.h"
 
 // TODO: I don't think that MasterManager should store a duplicate of each
 // server (~Zalewa).
@@ -40,42 +41,48 @@ MasterManager::~MasterManager()
 {
 	clearServers();
 
-	for(int i = 0;i < masters.size();i++)
-		delete masters[i];
+	qDeleteAll(masters);
 
 	delete customServers;
 }
 
 void MasterManager::addMaster(MasterClient *master)
 {
-	if(master == NULL)
+	if (master == nullptr)
 		return;
 
 	masters.append(master);
 	master->setEnabled(true);
 
 	this->connect(master, SIGNAL(listUpdated()), SLOT(masterListUpdated()));
-	this->connect(master, SIGNAL(message(QString, QString, bool)),
-		SLOT(forwardMasterMessage(QString, QString, bool)));
+	this->connect(master, SIGNAL(message(QString,QString,bool)),
+		SLOT(forwardMasterMessage(QString,QString,bool)));
 	this->connect(master, SIGNAL(messageImportant(Message)),
 		SLOT(forwardMasterMessageImportant(Message)));
 }
 
 QList<ServerPtr> MasterManager::allServers() const
 {
-	QList<ServerPtr> result;
-	foreach (MasterClient *master, masters)
+	QSet<ServerPtr> result;
+	for (MasterClient *master : masters)
 	{
-		result << master->servers();
+		for (ServerPtr server : master->servers())
+			result.insert(server);
 	}
-	result << customServers->servers();
-	return result;
+	for (ServerPtr server : customServers->servers())
+		result.insert(server);
+	if (broadcastManager != nullptr)
+	{
+		for (ServerPtr server : broadcastManager->servers())
+			result.insert(server);
+	}
+	return result.values();
 }
 
 void MasterManager::masterListUpdated()
 {
-	MasterClient *master = static_cast<MasterClient*>(sender());
-	foreach(ServerPtr pServer, master->servers())
+	auto master = static_cast<MasterClient *>(sender());
+	for (ServerPtr pServer : master->servers())
 	{
 		registerNewServer(pServer);
 	}
@@ -90,6 +97,7 @@ void MasterManager::masterListUpdated()
 
 MasterManager::Response MasterManager::readMasterResponse(const QByteArray &data)
 {
+	Q_UNUSED(data);
 	assert(0 && "MasterManager::readMasterResponse should not get called.");
 	return RESPONSE_BAD;
 }
@@ -100,24 +108,29 @@ void MasterManager::refreshStarts()
 
 	clearServers();
 
-	for(int i = 0;i < masters.size();i++)
+	for (auto *master : masters)
 	{
-		if(!masters[i]->isEnabled())
+		if (!master->isEnabled())
 		{
 			continue;
 		}
 
-		mastersBeingRefreshed.insert(masters[i]);
-		masters[i]->refreshStarts();
+		mastersBeingRefreshed.insert(master);
+		master->refreshStarts();
 	}
 }
 
 void MasterManager::timeoutRefreshEx()
 {
-	foreach(MasterClient* pMaster, mastersBeingRefreshed)
+	for (MasterClient *pMaster : mastersBeingRefreshed)
 	{
 		pMaster->timeoutRefresh();
 	}
 
 	mastersBeingRefreshed.clear();
+}
+
+void MasterManager::setBroadcastManager(BroadcastManager *broadcastManagerPtr)
+{
+	broadcastManager = broadcastManagerPtr;
 }

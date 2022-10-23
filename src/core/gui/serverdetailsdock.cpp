@@ -24,13 +24,13 @@
 #include <QAction>
 #include <QBoxLayout>
 
-#include "serverdetailsdock.h"
-#include "ui_serverdetailsdock.h"
 #include "serverapi/playerslist.h"
 #include "serverapi/server.h"
 #include "serverapi/serverptr.h"
 #include "serverapi/serverstructs.h"
 #include "serverapi/tooltips/tooltipgenerator.h"
+#include "serverdetailsdock.h"
+#include "ui_serverdetailsdock.h"
 
 DClass<ServerDetailsDock> : public Ui::ServerDetailsDock
 {
@@ -60,15 +60,15 @@ void ServerDetailsDock::clear()
 void ServerDetailsDock::displaySelection(QList<ServerPtr> &selectedServers)
 {
 	ServerPtr server = selectServer(selectedServers);
-	if (server == NULL)
+	if (server == nullptr)
 	{
 		clear();
 		return;
 	}
 
 	d->lblServer->setText(server->name());
-	TooltipGenerator* tooltipGenerator = server->tooltipGenerator();
-	if(server->players().numClients() != 0)
+	TooltipGenerator *tooltipGenerator = server->tooltipGenerator();
+	if (server->players().numClients() != 0)
 		d->sbArea->setText(tooltipGenerator->playerTableHTML());
 	else
 		d->sbArea->setText(QString());
@@ -80,30 +80,22 @@ void ServerDetailsDock::reorientContentsBasingOnDimensions()
 {
 	const int TOPTOBOTTOM_PREFERENCE_THRESHOLD = 100;
 	if (height() + TOPTOBOTTOM_PREFERENCE_THRESHOLD > width())
-	{
-		static_cast<QBoxLayout*>(d->dataLayout)->setDirection(QBoxLayout::TopToBottom);
-	}
+		static_cast<QBoxLayout *>(d->dataLayout)->setDirection(QBoxLayout::TopToBottom);
 	else
-	{
-		static_cast<QBoxLayout*>(d->dataLayout)->setDirection(QBoxLayout::LeftToRight);
-	}
+		static_cast<QBoxLayout *>(d->dataLayout)->setDirection(QBoxLayout::LeftToRight);
 }
 
 void ServerDetailsDock::resizeEvent(QResizeEvent *event)
 {
+	Q_UNUSED(event);
 	reorientContentsBasingOnDimensions();
 }
 
 ServerPtr ServerDetailsDock::selectServer(QList<ServerPtr> &selectedServers)
 {
 	if (selectedServers.count() == 0)
-	{
 		return ServerPtr();
-	}
 	if (!selectedServers[0]->isKnown())
-	{
 		return ServerPtr();
-	}
 	return selectedServers[0];
 }
-

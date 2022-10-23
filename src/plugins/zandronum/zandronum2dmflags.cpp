@@ -22,13 +22,12 @@
 //------------------------------------------------------------------------------
 #include "zandronum2dmflags.h"
 
+#include "zandronumgamesettings.h"
 #include <QMutex>
 #include <serverapi/serverstructs.h>
-#include "zandronumgamesettings.h"
 
 namespace Zandronum2
 {
-
 static QList<DMFlagsSection> cachedFlags;
 static QMutex cacheMutex;
 
@@ -339,5 +338,4 @@ QList<DMFlagsSection> Dmflags::flags()
 	}
 	return cachedFlags;
 }
-
 }

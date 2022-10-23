@@ -34,144 +34,147 @@
 class SettingsProviderQt;
 
 /**
- *	@brief This Singleton holds most of Doomseeker IRC configuration in memory.
+ * @brief This Singleton holds most of Doomseeker IRC configuration in memory.
  *
- *	The first time it is instantiated the cfg variables are set to default
- *	values. Then they can be either read from or saved to a .ini file.
- *	The save is handled internally and external access to the .ini file
- *	should remain minimal.
+ * The first time it is instantiated the cfg variables are set to default
+ * values. Then they can be either read from or saved to a .ini file.
+ * The save is handled internally and external access to the .ini file
+ * should remain minimal.
  */
 class IRCConfig
 {
+public:
+	class AppearanceCfg
+	{
 	public:
-		class AppearanceCfg
-		{
-			public:
-			static const QString SECTION_NAME;
+		static const QString SECTION_NAME;
 
-			QString backgroundColor;
-			QString channelActionColor;
-			QString ctcpColor;
-			QString defaultTextColor;
-			QString errorColor;
-			QFont mainFont;
-			QString networkActionColor;
-			bool timestamps;
-			QString urlColor;
-			QFont userListFont;
-			QString userListSelectedTextColor;
-			QString userListSelectedBackgroundColor;
-			bool windowAlertOnImportantChatEvent;
+		QString backgroundColor;
+		QString channelActionColor;
+		QString ctcpColor;
+		QString defaultTextColor;
+		QString errorColor;
+		QFont mainFont;
+		QString networkActionColor;
+		bool timestamps;
+		QString urlColor;
+		QFont userListFont;
+		QString userListSelectedTextColor;
+		QString userListSelectedBackgroundColor;
+		bool windowAlertOnImportantChatEvent;
 
-			AppearanceCfg();
+		AppearanceCfg();
 
-			void init(IniSection& section);
-			void load(IniSection& section);
-			void save(IniSection& section);
-		};
+		void init(IniSection &section);
+		void load(IniSection &section);
+		void save(IniSection &section);
+	};
 
-		class GeneralCfg
-		{
-			public:
-			static const QString SECTION_NAME;
+	class GeneralCfg
+	{
+	public:
+		static const QString SECTION_NAME;
 
-			GeneralCfg();
+		GeneralCfg();
 
-			void load(IniSection& section);
-			void save(IniSection& section);
-		};
+		void load(IniSection &section);
+		void save(IniSection &section);
+	};
 
-		class PersonalCfg
-		{
-			public:
-			static const QString SECTION_NAME;
+	class PersonalCfg
+	{
+	public:
+		static const QString SECTION_NAME;
 
-			QString alternativeNickname;
-			QString fullName;
-			QString nickname;
-			QString quitMessage;
-			QString userName;
+		QString alternativeNickname;
+		QString fullName;
+		QString nickname;
+		QString quitMessage;
+		QString userName;
 
-			PersonalCfg();
+		PersonalCfg();
 
-			// This does not require a init since all values are meant
-			// to be empty by default.
+		// This does not require a init since all values are meant
+		// to be empty by default.
 
-			void load(IniSection& section);
-			void save(IniSection& section);
-		};
+		void load(IniSection &section);
+		void save(IniSection &section);
+	};
 
-		class SoundsCfg
-		{
-			public:
-			static const QString SECTION_NAME;
+	class SoundsCfg
+	{
+	public:
+		static const QString SECTION_NAME;
 
-			bool bUseNicknameUsedSound;
-			bool bUsePrivateMessageReceivedSound;
-			QString nicknameUsedSound;;
-			QString privateMessageReceivedSound;
+		bool bUseNicknameUsedSound;
+		bool bUsePrivateMessageReceivedSound;
+		QString nicknameUsedSound;
+		QString privateMessageReceivedSound;
 
-			SoundsCfg();
+		SoundsCfg();
 
-			void load(IniSection& section);
-			void save(IniSection& section);
-		};
+		void load(IniSection &section);
+		void save(IniSection &section);
+	};
 
-		/**
-		 *	@brief Returns the Singleton.
-		 */
-		static IRCConfig& config();
+	/**
+	 * @brief Returns the Singleton.
+	 */
+	static IRCConfig &config();
 
-		/**
-		 *	@brief Disposes of the Singleton.
-		 *
-		 *	This will @b NOT save the current config to a file.
-		 *	It is safe to call even if the config was not initialized
-		 *	first.
-		 */
-		static void dispose();
+	/**
+	 * @brief Disposes of the Singleton.
+	 *
+	 * This will @b NOT save the current config to a file.
+	 * It is safe to call even if the config was not initialized
+	 * first.
+	 */
+	static void dispose();
 
-		AppearanceCfg appearance;
-		GeneralCfg general;
-		PersonalCfg personal;
-		SoundsCfg sounds;
+	AppearanceCfg appearance;
+	GeneralCfg general;
+	PersonalCfg personal;
+	SoundsCfg sounds;
 
-		Ini* ini() { return this->pIni.data(); }
+	Ini *ini()
+	{
+		return this->pIni.data();
+	}
 
-		/**
-		 *	@brief Reads settings from ini file. This file must be
-		 *	previously set by setIniFile() method.
-		 */
-		bool readFromFile();
+	/**
+	 * @brief Reads settings from ini file. This file must be
+	 * previously set by setIniFile() method.
+	 */
+	bool readFromFile();
 
-		/**
-		 *	@brief Saves current settings to ini file. This file must
-		 *	be previously set by setIniFile() method.
-		 */
-		bool saveToFile();
+	/**
+	 * @brief Saves current settings to ini file. This file must
+	 * be previously set by setIniFile() method.
+	 */
+	bool saveToFile();
 
-		/**
-		 *	@brief Initializes the Ini class instance to point
-		 *	to a file.
-		 *
-		 *	This method will properly dispose of the previous
-		 *	ini file. However it will neither save the old ini file
-		 *	or read the new one.
-		 */
-		bool setIniFile(const QString& filePath);
+	/**
+	 * @brief Initializes the Ini class instance to point
+	 * to a file.
+	 *
+	 * This method will properly dispose of the previous
+	 * ini file. However it will neither save the old ini file
+	 * or read the new one.
+	 */
+	bool setIniFile(const QString &filePath);
 
 
-	private:
-		static IRCConfig* instance;
+private:
+	static IRCConfig *instance;
 
-		QScopedPointer<QSettings> settings;
-		QScopedPointer<SettingsProviderQt> settingsProvider;
-		QScopedPointer<Ini> pIni;
+	QScopedPointer<QSettings> settings;
+	QScopedPointer<SettingsProviderQt> settingsProvider;
+	QScopedPointer<Ini> pIni;
 
-		IRCConfig();
-		~IRCConfig();
+	IRCConfig();
+	~IRCConfig();
 
-		void loadNetworksFromPlugins();
+	void loadNetworksFromPlugins();
 };
 
 #endif

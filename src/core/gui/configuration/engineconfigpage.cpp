@@ -22,63 +22,63 @@
 //------------------------------------------------------------------------------
 
 #include "engineconfigpage.h"
-#include "ui_engineconfigpage.h"
+#include "filefilter.h"
 #include "gui/widgets/filepickwidget.h"
 #include "ini/ini.h"
 #include "plugins/engineplugin.h"
 #include "serverapi/gameexefactory.h"
 #include "serverapi/gamefile.h"
-#include "filefilter.h"
+#include "ui_engineconfigpage.h"
 
 #include <QFileDialog>
 #include <QTimer>
 
 DClass<EngineConfigPage> : public Ui::EngineConfigPage
 {
+public:
+	class KnownNeighbours : public FilePickWidget::NeighbourStrategy
+	{
 	public:
-		class KnownNeighbours : public FilePickWidget::NeighbourStrategy
+		DPtr< ::EngineConfigPage> *wrapper;
+		KnownNeighbours(DPtr< ::EngineConfigPage> *wrapper)
 		{
-		public:
-			DPtr< ::EngineConfigPage> *wrapper;
-			KnownNeighbours(DPtr< ::EngineConfigPage> *wrapper)
-			{
-				this->wrapper = wrapper;
-			}
-			QStringList neighbours()
-			{
-				return (*wrapper)->parent->collectKnownGameFilePaths();
-			}
-		};
-
-
-		::EngineConfigPage *parent;
-		IniSection *config;
-		EnginePlugin *plugin;
-		bool clientOnly;
-		QList<FilePickWidget*> filePickers;
-		QTimer errorTimer;
-
-		QStringList readStoredCustomParameters() const
-		{
-			return config->value("StoredCustomParameters").toStringList();
+			this->wrapper = wrapper;
 		}
-
-		void saveStoredCustomParameters(const QStringList &params)
+		QStringList neighbours() override
 		{
-			config->setValue("StoredCustomParameters", params);
+			return (*wrapper)->parent->collectKnownGameFilePaths();
 		}
+	};
 
-		bool existsInStoredCustomParameters(const QString &text) const
-		{
-			return readStoredCustomParameters().contains(text);
-		}
+
+	::EngineConfigPage *parent;
+	IniSection *config;
+	EnginePlugin *plugin;
+	bool clientOnly;
+	QList<FilePickWidget *> filePickers;
+	QTimer errorTimer;
+
+	QStringList readStoredCustomParameters() const
+	{
+		return config->value("StoredCustomParameters").toStringList();
+	}
+
+	void saveStoredCustomParameters(const QStringList &params)
+	{
+		config->setValue("StoredCustomParameters", params);
+	}
+
+	bool existsInStoredCustomParameters(const QString &text) const
+	{
+		return readStoredCustomParameters().contains(text);
+	}
 };
 
 DPointeredNoCopy(EngineConfigPage)
 
 
 EngineConfigPage::EngineConfigPage(EnginePlugin *plugin, IniSection &cfg, QWidget *parent)
-: ConfigPage(parent)
+	: ConfigPage(parent)
 {
 	d->parent = this;
 	d->plugin = plugin;
@@ -96,7 +96,7 @@ EngineConfigPage::EngineConfigPage(EnginePlugin *plugin, IniSection &cfg, QWidge
 
 	makeFileBrowsers();
 
-	if(!plugin->data()->hasMasterClient())
+	if (!plugin->data()->hasMasterClient())
 		d->masterAddressBox->hide();
 }
 
@@ -113,11 +113,11 @@ void EngineConfigPage::addWidget(QWidget *widget)
 
 void EngineConfigPage::autoFindNeighbouringPaths()
 {
-	FilePickWidget *picker = qobject_cast<FilePickWidget*>(sender());
+	auto picker = qobject_cast<FilePickWidget *>(sender());
 	if (QFileInfo(picker->path()).isFile())
 	{
 		QStringList knownPaths = collectKnownGameFilePaths();
-		foreach (FilePickWidget *picker, d->filePickers)
+		for (FilePickWidget *picker : d->filePickers)
 		{
 			if (picker->isEmpty())
 			{
@@ -133,12 +133,10 @@ void EngineConfigPage::autoFindNeighbouringPaths()
 QStringList EngineConfigPage::collectKnownGameFilePaths() const
 {
 	QStringList knownPaths;
-	foreach (const FilePickWidget *picker, d->filePickers)
+	for (const FilePickWidget *picker : d->filePickers)
 	{
 		if (!picker->isEmpty())
-		{
 			knownPaths << picker->path();
-		}
 	}
 	return knownPaths;
 }
@@ -156,11 +154,11 @@ QIcon EngineConfigPage::icon() const
 void EngineConfigPage::makeFileBrowsers()
 {
 	QSharedPointer<FilePickWidget::NeighbourStrategy> neighbours(
-			new PrivData<EngineConfigPage>::KnownNeighbours(&d));
+		new PrivData<EngineConfigPage>::KnownNeighbours(&d));
 	QList<GameFile> files = d->plugin->gameExe()->gameFiles().asQList();
-	foreach (const GameFile &file, files)
+	for (const GameFile &file : files)
 	{
-		FilePickWidget *widget = new FilePickWidget(d->exePickArea);
+		auto widget = new FilePickWidget(d->exePickArea);
 		widget->setFile(file);
 		widget->setNeighbourStrategy(neighbours);
 		this->connect(widget, SIGNAL(findFailed()), SLOT(showFindFailError()));
@@ -184,7 +182,7 @@ const EnginePlugin *EngineConfigPage::plugin() const
 
 void EngineConfigPage::readSettings()
 {
-	foreach (FilePickWidget *filePicker, d->filePickers)
+	for (FilePickWidget *filePicker : d->filePickers)
 	{
 		filePicker->blockSignals(true);
 		filePicker->load(*d->config);
@@ -194,7 +192,7 @@ void EngineConfigPage::readSettings()
 	d->cboCustomParameters->clear();
 	d->cboCustomParameters->addItems(d->readStoredCustomParameters());
 	d->cboCustomParameters->setEditText(d->config->value("CustomParameters").toString());
-	if(d->plugin->data()->hasMasterClient())
+	if (d->plugin->data()->hasMasterClient())
 		d->leMasterserverAddress->setText(d->config->value("Masterserver").toString());
 
 	updateCustomParametersSaveState();
@@ -239,15 +237,13 @@ void EngineConfigPage::saveCustomParameters()
 
 void EngineConfigPage::saveSettings()
 {
-	foreach (FilePickWidget *filePicker, d->filePickers)
+	for (FilePickWidget *filePicker : d->filePickers)
 	{
 		filePicker->save(*d->config);
 	}
 	d->config->setValue("CustomParameters", currentCustomParameters());
 	if (d->plugin->data()->hasMasterClient())
-	{
 		d->config->setValue("Masterserver", d->leMasterserverAddress->text());
-	}
 }
 
 void EngineConfigPage::showError(const QString &error)
@@ -278,7 +274,7 @@ void EngineConfigPage::updateCustomParametersSaveState()
 ConfigPage::Validation EngineConfigPage::validate()
 {
 	bool allFilesOk = true;
-	foreach (FilePickWidget *filePicker, d->filePickers)
+	for (FilePickWidget *filePicker : d->filePickers)
 	{
 		bool thisFileOk = filePicker->validate();
 		allFilesOk = allFilesOk && thisFileOk;

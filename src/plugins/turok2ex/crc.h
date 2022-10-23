@@ -24,6 +24,8 @@
 #ifndef __KEXCRC_H__
 #define __KEXCRC_H__
 
+#include "stdint.h"
+
 class kexCRC
 {
 public:

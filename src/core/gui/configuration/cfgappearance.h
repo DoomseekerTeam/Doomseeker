@@ -24,36 +24,43 @@
 #ifndef __CFG_APPEARANCE_H__
 #define __CFG_APPEARANCE_H__
 
-#include "gui/configuration/configpage.h"
 #include "dptr.h"
+#include "gui/configuration/configpage.h"
 #include <QIcon>
 
 class CFGAppearance : public ConfigPage
 {
 	Q_OBJECT
 
-	public:
-		CFGAppearance(QWidget *parent=NULL);
-		~CFGAppearance();
+public:
+	CFGAppearance(QWidget *parent = nullptr);
+	~CFGAppearance() override;
 
-		QIcon icon() const { return QIcon(":/icons/color-fill.png"); }
-		QString name() const { return tr("Appearance"); }
+	QIcon icon() const override
+	{
+		return QIcon(":/icons/color-fill.png");
+	}
+	QString name() const override
+	{
+		return tr("Appearance");
+	}
 
-		void readSettings();
+	void readSettings() override;
 
-	protected:
-		void saveSettings();
+protected:
+	void saveSettings() override;
 
-	private:
-		void initLanguagesList();
-		void initSlotStyles(const QString &selected);
-		void reject_();
-		void saveDynamicSettings();
+private:
+	void initLanguagesList();
+	void initSlotStyles(const QString &selected);
+	void reject_();
+	void saveDynamicSettings();
 
-		DPtr<CFGAppearance> d;
+	DPtr<CFGAppearance> d;
 
-	private slots:
-		void dynamicAppearanceChange();
+private slots:
+	void dynamicAppearanceChange();
+	void setVisibilityOfLanguageChangeNotificationIfNeeded();
 };
 
 #endif /* __CFG_APPEARANCE_H__ */

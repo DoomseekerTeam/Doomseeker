@@ -31,19 +31,19 @@ class IRCUserPrefix;
 
 class IRCISupportParser
 {
-	public:
-		IRCISupportParser();
-		~IRCISupportParser();
+public:
+	IRCISupportParser();
+	~IRCISupportParser();
 
-		void appendLine(const QString &line);
-		void parse();
-		const IRCUserPrefix &userPrefixes() const;
+	void appendLine(const QString &line);
+	void parse();
+	const IRCUserPrefix &userPrefixes() const;
 
-	private:
-		DPtr<IRCISupportParser> d;
+private:
+	DPtr<IRCISupportParser> d;
 
-		QString findValue(const QString &key);
-		void parsePrefix();
+	QString findValue(const QString &key);
+	void parsePrefix();
 };
 
 #endif

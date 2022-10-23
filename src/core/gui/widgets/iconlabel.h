@@ -29,19 +29,19 @@
 
 class IconLabel : public QWidget
 {
-	public:
-		IconLabel(QWidget* pParent = NULL);
+public:
+	IconLabel(QWidget *pParent = nullptr);
 
-		const QPixmap* pixmap() const;
-		QString text() const;
-		void setPixmap(const QPixmap& pixmap);
-		void setText(const QString& str);
-		void setWordWrap(bool wrap);
+	QString text() const;
+	// Getter removed for now since implementation would differ between Qt < 5.15 and we're not using it
+	void setPixmap(const QPixmap &pixmap);
+	void setText(const QString &str);
+	void setWordWrap(bool wrap);
 
-	private:
-		QHBoxLayout* pLayout;
-		QLabel* lblIcon;
-		QLabel* lblText;
+private:
+	QHBoxLayout *pLayout;
+	QLabel *lblIcon;
+	QLabel *lblText;
 };
 
 #endif

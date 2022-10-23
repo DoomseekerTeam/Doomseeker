@@ -22,10 +22,10 @@
 //------------------------------------------------------------------------------
 #include "fileutils.h"
 
+#include "log.h"
 #include <QCryptographicHash>
 #include <QDirIterator>
 #include <QFileInfo>
-#include "log.h"
 
 QByteArray FileUtils::md5(const QString &path)
 {
@@ -35,38 +35,49 @@ QByteArray FileUtils::md5(const QString &path)
 		QCryptographicHash hash(QCryptographicHash::Md5);
 		QByteArray chunk = f.read(1024 * 1024);
 		for (; !chunk.isEmpty(); chunk = f.read(1024 * 1024))
-		{
 			hash.addData(chunk);
-		}
 		f.close();
 		return hash.result();
 	}
 	return QByteArray();
 }
 
+QString FileUtils::cdUpUntilExists(QString path)
+{
+	static const int SANITY_LOOP_LIMIT = 1000;
+	QFileInfo fileInfo(QDir::cleanPath(path));
+	for (int i = 0; i < SANITY_LOOP_LIMIT; ++i)
+	{
+		if (fileInfo.filePath().endsWith("/.."))
+			return QString();
+		if (fileInfo.exists() || fileInfo.isRoot())
+			return fileInfo.filePath();
+		fileInfo = QFileInfo(QDir::cleanPath(fileInfo.filePath() + "/.."));
+	}
+	return QString();
+}
+
 Qt::CaseSensitivity FileUtils::comparisonSensitivity()
 {
-#if defined(Q_OS_WIN32)
+	#if defined(Q_OS_WIN32)
 	return Qt::CaseInsensitive;
-#else
+	#else
 	return Qt::CaseSensitive;
-#endif
+	#endif
 }
 
 bool FileUtils::containsPath(const QStringList &candidates, const QString &path)
 {
-	foreach (const QString &candidate, candidates)
+	for (const QString &candidate : candidates)
 	{
 		if (QFileInfo(candidate) == QFileInfo(path))
-		{
 			return true;
-		}
 	}
 	return false;
 }
 
-bool FileUtils::rmAllFiles(const QString& dirPath,
-	const QStringList & nameFilters)
+bool FileUtils::rmAllFiles(const QString &dirPath,
+	const QStringList &nameFilters)
 {
 	QDirIterator it(dirPath, nameFilters, QDir::Files);
 	bool bAllSuccess = true;

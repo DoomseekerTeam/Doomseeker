@@ -23,14 +23,18 @@
 #ifndef __SERVER_STRUCTS_H_
 #define __SERVER_STRUCTS_H_
 
-#include <QString>
+#include <climits>
+#include <QCryptographicHash>
 #include <QList>
 #include <QObject>
+#include <QString>
 #include <QVariant>
 
 #include "dptr.h"
 #include "global.h"
 
+class Checksum;
+class ModFile;
 /**
  * \ingroup group_pluginapi
  * \file serverstructs.h
@@ -57,40 +61,42 @@
  */
 class MAIN_EXPORT DMFlag
 {
-	public:
-		DMFlag();
-		DMFlag(const QString &internalName, unsigned value);
-		DMFlag(const QString &internalName, unsigned value, const QString &name);
-		virtual ~DMFlag();
+public:
+	DMFlag();
+	DMFlag(const QString &internalName, unsigned value);
+	DMFlag(const QString &internalName, unsigned value, const QString &name);
+	DMFlag(const DMFlag &other);
+	virtual ~DMFlag();
+	DMFlag &operator=(const DMFlag &other);
 
-		/**
-		 * @brief Uniquely identifiable name within its DMFlagsSection,
-		 *        ex. "Jump is allowed" or "jumpisallowed".
-		 *
-		 * @see DMFlagsSection::internalName().
-		 */
-		const QString &internalName() const;
+	/**
+	 * @brief Uniquely identifiable name within its DMFlagsSection,
+	 *        ex. "Jump is allowed" or "jumpisallowed".
+	 *
+	 * @see DMFlagsSection::internalName().
+	 */
+	const QString &internalName() const;
 
-		/**
-		 * @brief Valid objects have value() greater than zero.
-		 *
-		 * Invalid objects can be treated as 'Null'.
-		 */
-		bool isValid() const;
+	/**
+	 * @brief Valid objects have value() greater than zero.
+	 *
+	 * Invalid objects can be treated as 'Null'.
+	 */
+	bool isValid() const;
 
-		/**
-		 * @brief User-displayable, translateable name of the DMFlag,
-		 *        ex. "Jump is allowed".
-		 */
-		const QString &name() const;
+	/**
+	 * @brief User-displayable, translateable name of the DMFlag,
+	 *        ex. "Jump is allowed".
+	 */
+	const QString &name() const;
 
-		/**
-		 * @brief Bits that represent this flag (usually just a single '1' bit).
-		 */
-		unsigned value() const;
+	/**
+	 * @brief Bits that represent this flag (usually just a single '1' bit).
+	 */
+	unsigned value() const;
 
-	private:
-		DPtr<DMFlag> d;
+private:
+	DPtr<DMFlag> d;
 };
 
 /**
@@ -135,109 +141,111 @@ class MAIN_EXPORT DMFlag
  */
 class MAIN_EXPORT DMFlagsSection
 {
-	public:
-		/**
-		 * @brief Matches sections by internalName()
-		 *        and calls removed() on them.
-		 *
-		 * Sections that are emptied are also returned as empty sections.
-		 */
-		static QList<DMFlagsSection> removedBySection(
-			const QList<DMFlagsSection> &original,
-			const QList<DMFlagsSection> &removals);
+public:
+	/**
+	 * @brief Matches sections by internalName()
+	 *        and calls removed() on them.
+	 *
+	 * Sections that are emptied are also returned as empty sections.
+	 */
+	static QList<DMFlagsSection> removedBySection(
+		const QList<DMFlagsSection> &original,
+		const QList<DMFlagsSection> &removals);
 
-		DMFlagsSection();
+	DMFlagsSection();
 
-		/**
-		 * @brief Creates DMFlags section with same user-displayable
-		 *        and internal names.
-		 *
-		 * @warning Don't tr() this name!
-		 */
-		DMFlagsSection(const QString &internalName);
+	/**
+	 * @brief Creates DMFlags section with same user-displayable
+	 *        and internal names.
+	 *
+	 * @warning Don't tr() this name!
+	 */
+	DMFlagsSection(const QString &internalName);
 
-		/**
-		 * @brief Creates DMFlags section with different user-displayable
-		 *        and internal names.
-		 *
-		 * @warning Don't tr() the internalName!
-		 */
-		DMFlagsSection(const QString &internalName, const QString &name);
+	/**
+	 * @brief Creates DMFlags section with different user-displayable
+	 *        and internal names.
+	 *
+	 * @warning Don't tr() the internalName!
+	 */
+	DMFlagsSection(const QString &internalName, const QString &name);
 
-		virtual ~DMFlagsSection();
+	DMFlagsSection(const DMFlagsSection &other);
+	virtual ~DMFlagsSection();
+	DMFlagsSection &operator=(const DMFlagsSection &other);
 
-		/**
-		 * @brief Append a new DMFlag to this section.
-		 *
-		 * Note that conflicting DMFlags will still be accepted here, as no
-		 * check are performed. Objects added here affect results of
-		 * combineValues().
-		 */
-		void add(const DMFlag& flag);
-		/**
-		 * @brief Logical OR of all DMFlag::value() results in this collection.
-		 *
-		 * Invalid DMFlag objects, if present in the collection, do not affect
-		 * the output of this operation.
-		 */
-		unsigned combineValues() const;
+	/**
+	 * @brief Append a new DMFlag to this section.
+	 *
+	 * Note that conflicting DMFlags will still be accepted here, as no
+	 * check are performed. Objects added here affect results of
+	 * combineValues().
+	 */
+	void add(const DMFlag &flag);
+	/**
+	 * @brief Logical OR of all DMFlag::value() results in this collection.
+	 *
+	 * Invalid DMFlag objects, if present in the collection, do not affect
+	 * the output of this operation.
+	 */
+	unsigned combineValues() const;
 
-		/**
-		 * @brief Copies section maintaining its properties
-		 *        but removing all flags.
-		 */
-		DMFlagsSection copyEmpty() const;
+	/**
+	 * @brief Copies section maintaining its properties
+	 *        but removing all flags.
+	 */
+	DMFlagsSection copyEmpty() const;
 
-		/**
-		 * @brief Number of DMFlag objects inside the collection.
-		 */
-		int count() const;
+	/**
+	 * @brief Number of DMFlag objects inside the collection.
+	 */
+	int count() const;
 
-		/**
-		 * @param Name used for internal identification purposes.
-		 *
-		 * This name must be unique within given plugin.
-		 */
-		const QString &internalName() const;
+	/**
+	 * @param Name used for internal identification purposes.
+	 *
+	 * This name must be unique within given plugin.
+	 */
+	const QString &internalName() const;
 
-		/**
-		 * @brief Does this section contain any dmflag?
-		 */
-		bool isEmpty() const;
+	/**
+	 * @brief Does this section contain any dmflag?
+	 */
+	bool isEmpty() const;
 
-		/**
-		 * @brief User-displayable name of this section,
-		 *        ex. "Compatibility flags".
-		 */
-		const QString &name() const;
-		/**
-		 * @brief Access DMFlag at specific index with '[]' operator.
-		 */
-		const DMFlag &operator[](int index) const;
-		DMFlag &operator[](int index);
+	/**
+	 * @brief User-displayable name of this section,
+	 *        ex. "Compatibility flags".
+	 */
+	const QString &name() const;
+	/**
+	 * @brief Access DMFlag at specific index with '[]' operator.
+	 */
+	const DMFlag &operator[](int index) const;
+	DMFlag &operator[](int index);
 
-		/**
-		 * @brief Stream input operator that appends DMFlag to the collection,
-		 *        same as add().
-		 */
-		DMFlagsSection& operator<<(const DMFlag& flag)
-		{
-			add(flag);
-			return *this;
-		}
+	/**
+	 * @brief Stream input operator that appends DMFlag to the collection,
+	 *        same as add().
+	 */
+	DMFlagsSection &operator<<(const DMFlag &flag)
+	{
+		add(flag);
+		return *this;
+	}
 
-		/**
-		 * @brief Returns a copy of this list with specified DMFlags removed.
-		 *
-		 * Removal is determined basing on DMFlag::value() comparison.
-		 *
-		 * @param removals
-		 *     List of DMFlags to remove.
-		 */
-		DMFlagsSection removed(const DMFlagsSection &removals) const;
+	/**
+	 * @brief Returns a copy of this list with specified DMFlags removed.
+	 *
+	 * Removal is determined basing on DMFlag::value() comparison.
+	 *
+	 * @param removals
+	 *     List of DMFlags to remove.
+	 */
+	DMFlagsSection removed(const DMFlagsSection &removals) const;
 
-	private:
-		DPtr<DMFlagsSection> d;
+private:
+	DPtr<DMFlagsSection> d;
 };
 
 /**
@@ -248,51 +256,53 @@ class MAIN_EXPORT DMFlagsSection
  */
 class MAIN_EXPORT GameCVar
 {
-	public:
-		GameCVar();
-		GameCVar(const QString &name, const QString &command);
-		GameCVar(const QString &name, const QString &command, const QVariant &value);
-		virtual ~GameCVar();
+public:
+	GameCVar();
+	GameCVar(const QString &name, const QString &command);
+	GameCVar(const QString &name, const QString &command, const QVariant &value);
+	GameCVar(const GameCVar &other);
+	virtual ~GameCVar();
+	GameCVar &operator=(const GameCVar &other);
 
-		/**
-		 * @brief Command-line argument that sets this GameCVar.
-		 *
-		 * When launching a game, this command() is passed as one of the
-		 * command line arguments and the value() is what follows directly
-		 * after.
-		 */
-		const QString &command() const;
+	/**
+	 * @brief Command-line argument that sets this GameCVar.
+	 *
+	 * When launching a game, this command() is passed as one of the
+	 * command line arguments and the value() is what follows directly
+	 * after.
+	 */
+	const QString &command() const;
 
-		/**
-		 * @brief Is any value assigned to this GameCVar.
-		 */
-		bool hasValue() const;
-		/**
-		 * @brief 'Null' objects are invalid.
-		 */
-		bool isValid() const;
+	/**
+	 * @brief Is any value assigned to this GameCVar.
+	 */
+	bool hasValue() const;
+	/**
+	 * @brief 'Null' objects are invalid.
+	 */
+	bool isValid() const;
 
-		/**
-		 * @brief Nice name to display to user in Create Game dialog and
-		 *        in other widgets.
-		 */
-		const QString &name() const;
+	/**
+	 * @brief Nice name to display to user in Create Game dialog and
+	 *        in other widgets.
+	 */
+	const QString &name() const;
 
-		/**
-		 * @brief Assign value() to this GameCVar.
-		 */
-		void setValue(const QVariant& value);
+	/**
+	 * @brief Assign value() to this GameCVar.
+	 */
+	void setValue(const QVariant &value);
 
-		/**
-		 * @brief Passed as the second argument, following command().
-		 */
-		const QVariant &value() const;
-		QString valueString() const { return value().toString(); }
-		bool valueBool() const { return value().toBool(); }
-		int valueInt() const { return value().toInt(); }
+	/**
+	 * @brief Passed as the second argument, following command().
+	 */
+	const QVariant &value() const;
+	QString valueString() const { return value().toString(); }
+	bool valueBool() const { return value().toBool(); }
+	int valueInt() const { return value().toInt(); }
 
-	private:
-		DPtr<GameCVar> d;
+private:
+	DPtr<GameCVar> d;
 };
 
 /**
@@ -306,11 +316,11 @@ class MAIN_EXPORT GameCVar
  */
 class MAIN_EXPORT GameCVarProvider : public QObject
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	GameCVarProvider();
-	virtual ~GameCVarProvider();
+	virtual ~GameCVarProvider() override;
 
 	/**
 	 * @brief Default implementation creates empty set.
@@ -321,10 +331,30 @@ public:
 	virtual QList<GameCVar> get(const QVariant &context);
 
 private:
-	Q_DISABLE_COPY(GameCVarProvider);
+	Q_DISABLE_COPY(GameCVarProvider)
 
 	DPtr<GameCVarProvider> d;
 };
+
+/**
+ * @ingroup group_pluginapi
+ * @brief Unique identifier of a GameMode within the plugin.
+ *
+ * This is an integral value that can be cast to GameMode::StandardGameMode
+ * or whatever other integral value the plugin provides. It is used to
+ * uniquely identify the GameMode and is stored in game setup configurations
+ * created by "Create Game" dialog box.
+ *
+ * gamemode_id should be a small integer that can be safely cast to int
+ * regardless of the underlying CPU architecture. Plugins should not change
+ * ID of a GameMode in their version history once a concrete value is decided
+ * upon. Plugins also should not overlap GameMode::StandardGameMode values.
+ *
+ * When hosting a game, plugin should be prepared that the passed gamemode_id
+ * will be GameMode::SGM_Unknown, upon which plugin should leave it up to the
+ * game to pick the game mode.
+ */
+using gamemode_id = int;
 
 /**
  * @ingroup group_pluginapi
@@ -341,101 +371,103 @@ private:
  */
 class MAIN_EXPORT GameMode
 {
-	public:
+public:
+	/**
+	 * @brief These game modes are so common that Doomseeker represents
+	 *        them through internal values and static methods.
+	 *
+	 * If your plugin recognizes that the server uses one of these game
+	 * modes it's much better to use these values instead of implementing
+	 * your own representation.
+	 *
+	 * <b>More importantly</b>, static builder methods have been provided
+	 * that already create appropriate GameMode objects. These methods are:
+	 * mkCooperative(), mkDeathmatch(), mkTeamDeathmatch(),
+	 * mkCaptureTheFlag(), and mkUnknown().
+	 */
+	enum StandardGameMode
+	{
+		SGM_Cooperative = 900,
+		SGM_Deathmatch = 901,
+		SGM_TeamDeathmatch = 902,
+		SGM_CTF = 903,
 		/**
-		 * @brief These game modes are so common that Doomseeker represents
-		 *        them through internal values and static methods.
-		 *
-		 * If your plugin recognizes that the server uses one of these game
-		 * modes it's much better to use these values instead of implementing
-		 * your own representation.
-		 *
-		 * <b>More importantly</b>, static builder methods have been provided
-		 * that already create appropriate GameMode objects. These methods are:
-		 * mkCooperative(), mkDeathmatch(), mkTeamDeathmatch(),
-		 * mkCaptureTheFlag(), and mkUnknown().
+		 * @brief Impossible to determine the game mode.
 		 */
-		enum StandardGameMode
-		{
-			SGM_Cooperative = 900,
-			SGM_Deathmatch = 901,
-			SGM_TeamDeathmatch = 902,
-			SGM_CTF = 903,
-			/**
-			 * @brief Impossible to determine the game mode.
-			 */
-			SGM_Unknown = 904
-		};
+		SGM_Unknown = 904
+	};
 
-		// Standard game mode set
-		// These should be used in order to keep the names uniform.
-		// These can't be static members as translations may not work.
-		static GameMode mkCooperative();
-		static GameMode mkDeathmatch();
-		static GameMode mkTeamDeathmatch();
-		static GameMode mkCaptureTheFlag();
-		static GameMode mkUnknown();
+	// Standard game mode set
+	// These should be used in order to keep the names uniform.
+	// These can't be static members as translations may not work.
+	static GameMode mkCooperative();
+	static GameMode mkDeathmatch();
+	static GameMode mkTeamDeathmatch();
+	static GameMode mkCaptureTheFlag();
+	static GameMode mkUnknown();
 
-		/**
-		 * @brief Construct a custom FFA game where players don't belong
-		 *        to any teams.
-		 *
-		 * Cooperative game modes like "coop", "survival" or "invasion" are
-		 * also considered as FFA.
-		 *
-		 * @param index
-		 *     Value unique to given plugin but not within 900 - 1000 range.
-		 * @param name
-		 *     User-displayable name of the game mode.
-		 *
-		 * @see teamGame()
-		 */
-		static GameMode ffaGame(int index, const QString &name);
-		/**
-		 * @brief Game mode based on rivaling teams.
-		 *
-		 * @param index
-		 *     Value unique to given plugin but not within 900 - 1000 range.
-		 * @param name
-		 *     User-displayable name of the game mode.
-		 *
-		 * @see ffaGame()
-		 */
-		static GameMode teamGame(int index, const QString &name);
+	/**
+	 * @brief Construct a custom FFA game where players don't belong
+	 *        to any teams.
+	 *
+	 * Cooperative game modes like "coop", "survival" or "invasion" are
+	 * also considered as FFA.
+	 *
+	 * @param index
+	 *     Value unique to given plugin but not within 900 - 1000 range.
+	 * @param name
+	 *     User-displayable name of the game mode.
+	 *
+	 * @see teamGame()
+	 */
+	static GameMode ffaGame(int index, const QString &name);
+	/**
+	 * @brief Game mode based on rivaling teams.
+	 *
+	 * @param index
+	 *     Value unique to given plugin but not within 900 - 1000 range.
+	 * @param name
+	 *     User-displayable name of the game mode.
+	 *
+	 * @see ffaGame()
+	 */
+	static GameMode teamGame(int index, const QString &name);
 
-		/**
-		 * @brief Constructs an invalid GameMode object.
-		 */
-		GameMode();
-		virtual ~GameMode();
+	/**
+	 * @brief Constructs an invalid GameMode object.
+	 */
+	GameMode();
+	GameMode(const GameMode &other);
+	virtual ~GameMode();
+	GameMode &operator=(const GameMode &other);
 
-		/**
-		 * @brief Index, either a StandardGameMode or custom defined by plugin.
-		 */
-		int index() const;
+	/**
+	 * @brief Index, either a StandardGameMode or custom defined by plugin.
+	 */
+	gamemode_id index() const;
 
-		/**
-		 * @brief User-friendly name to display for game mode.
-		 *
-		 * This should be fairly short about no longer than "cooperative".
-		 */
-		const QString &name() const;
+	/**
+	 * @brief User-friendly name to display for game mode.
+	 *
+	 * This should be fairly short about no longer than "cooperative".
+	 */
+	const QString &name() const;
 
-		/**
-		 * @brief Is this GameMode based on rivaling teams?
-		 */
-		bool isTeamGame() const;
-		/**
-		 * @brief 'Null' objects are invalid.
-		 */
-		bool isValid() const;
+	/**
+	 * @brief Is this GameMode based on rivaling teams?
+	 */
+	bool isTeamGame() const;
+	/**
+	 * @brief 'Null' objects are invalid.
+	 */
+	bool isValid() const;
 
-	private:
-		DPtr<GameMode> d;
+private:
+	DPtr<GameMode> d;
 
-		GameMode(int index, const QString &name);
+	GameMode(gamemode_id index, const QString &name);
 
-		void setTeamGame(bool b);
+	void setTeamGame(bool b);
 };
 
 /**
@@ -448,21 +480,56 @@ class MAIN_EXPORT GameMode
  */
 class MAIN_EXPORT PWad
 {
-	public:
-		PWad(const QString &name, bool optional=false);
-		virtual ~PWad();
+public:
+	PWad(const QString &name, bool optional = false);
+	PWad(const QString &name, bool optional, const QList<Checksum> &checksums);
+	PWad(const ModFile &modFile);
+	PWad(const PWad &other);
+	virtual ~PWad();
+	PWad &operator=(const PWad &other);
 
-		/**
-		 * @brief Is this WAD required to join the server?
-		 */
-		bool isOptional() const;
-		/**
-		 * @brief File name of the WAD.
-		 */
-		const QString& name() const;
+	operator ModFile();
+	/**
+	 * @brief Is this WAD required to join the server?
+	 */
+	bool isOptional() const;
+	/**
+	 * @brief File name of the WAD.
+	 */
+	const QString &name() const;
+	/**
+	 * @brief List of checksums of the WAD.
+	 */
+	const QList<Checksum> checksums() const;
+	/**
+	 * @brief Adds a checksum to the WAD.
+	 *
+	 * @param hash - Hash resulting from hashing the WAD with the algorithm.
+	 * @param algorithm - Algorithm used to produce the hash.
+	 */
+	void addChecksum(const QByteArray &hash, const QCryptographicHash::Algorithm &algorithm);
+	/**
+	 * @brief Verifies if a file has the same checksums as the PWad.
+	 *
+	 * @param path - Path to the file.
+	 */
+	bool validFile(const QString &path) const;
+private:
+	DPtr<PWad> d;
+};
 
-	private:
-		DPtr<PWad> d;
+/**
+ * @ingroup group_pluginapi
+ * @brief Game difficulty setting.
+ */
+class Skill
+{
+public:
+	/**
+	 * Undefined difficulty; when creating a game, the skill setting
+	 * should be omitted upon encountering this value.
+	 */
+	static const unsigned char UNDEFINED = CHAR_MAX;
 };
 
 #endif

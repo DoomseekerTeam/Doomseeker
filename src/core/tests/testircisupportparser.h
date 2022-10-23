@@ -28,24 +28,20 @@
 
 class TestIRCISupportPrefix : public TestUnitBase
 {
-	public:
-		TestIRCISupportPrefix()
-		: TestUnitBase("RPL_ISUPPORT - PREFIX")
-		{
-		}
+public:
+	TestIRCISupportPrefix()
+		: TestUnitBase("RPL_ISUPPORT - PREFIX") {}
 
-		bool executeTest();
+	bool executeTest() override;
 };
 
 class TestIRCISupportNoPrefix : public TestUnitBase
 {
-	public:
-		TestIRCISupportNoPrefix()
-		: TestUnitBase("RPL_ISUPPORT - No PREFIX")
-		{
-		}
+public:
+	TestIRCISupportNoPrefix()
+		: TestUnitBase("RPL_ISUPPORT - No PREFIX") {}
 
-		bool executeTest();
+	bool executeTest() override;
 };
 
 

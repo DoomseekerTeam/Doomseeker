@@ -22,12 +22,12 @@
 //------------------------------------------------------------------------------
 #include "vavoomgamerunner.h"
 
-#include "vavoomgameinfo.h"
 #include "vavoomengineplugin.h"
+#include "vavoomgameinfo.h"
 #include "vavoomserver.h"
 
 VavoomGameClientRunner::VavoomGameClientRunner(QSharedPointer<VavoomServer> server)
-: GameClientRunner(server)
+	: GameClientRunner(server)
 {
 	this->server = server;
 	setArgForConnect("+connect");
@@ -47,7 +47,7 @@ void VavoomGameClientRunner::addIwad()
 	args() << ("-" + iwadParam);
 }
 
-const EnginePlugin* VavoomGameClientRunner::plugin() const
+const EnginePlugin *VavoomGameClientRunner::plugin() const
 {
 	return VavoomEnginePlugin::staticInstance();
 }

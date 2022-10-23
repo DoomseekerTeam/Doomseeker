@@ -23,34 +23,78 @@
 #ifndef ided18842d_ed12_42b5_9c38_c21abea3480f
 #define ided18842d_ed12_42b5_9c38_c21abea3480f
 
-#include "dptr.h"
 #include "../wadseekerexportinfo.h"
+#include "../dptr.h"
 
 #include <QString>
 #include <QUrl>
 
+class Checksum;
+
+/**
+ * @brief Class to store all necessary (and optional) information of a mod.
+ */
 class WADSEEKER_API ModFile
 {
 public:
 	ModFile();
+	ModFile(const QString &name);
+	ModFile(const ModFile &other);
 	virtual ~ModFile();
+	ModFile &operator=(const ModFile &other);
 
+	/**
+	 * @brief returns the name of the file that contains the mod.
+	 */
 	const QString &fileName() const;
+	/**
+	 * @brief Sets the name of the file containing the mod.
+	 */
 	void setFileName(const QString &) const;
 
+	/**
+	 * @brief returns the pretty name of the mod.
+	 */
 	const QString &name() const;
+	/**
+	 * @brief Sets a pretty name of the mod.
+	 */
 	void setName(const QString &) const;
 
+	/**
+	 * @brief returns the description for the mod.
+	 */
 	const QString &description() const;
+	/**
+	 * @brief Sets a description for the mod.
+	 */
 	void setDescription(const QString &) const;
 
-	const QString &md5() const;
-	void setMd5(const QString &) const;
+	/**
+	 * @brief returns the list of checksums accepted for the mod.
+	 */
+	const QList<Checksum> &checksums() const;
+	/**
+	 * @brief Sets a list of checksums accepted for the mod.
+	 */
+	void setChecksums(const QList<Checksum> &) const;
 
+	/**
+	 * @brief returns the known url to download the mod.
+	 */
 	const QUrl &url() const;
+	/**
+	 * @brief Sets a known url to download the mod.
+	 */
 	void setUrl(const QUrl &) const;
 
+	/**
+	 * @brief returns the version for the mod.
+	 */
 	const QString &version() const;
+	/**
+	 * @brief Sets a version for the mod.
+	 */
 	void setVersion(const QString &) const;
 
 private:

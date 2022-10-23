@@ -45,28 +45,27 @@ public:
 DPointeredNoCopy(CFGWadAlias)
 
 CFGWadAlias::CFGWadAlias(QWidget *parent)
-: ConfigPage(parent)
+	: ConfigPage(parent)
 {
 	d->setupUi(this);
 
 	d->resizeTimer.setSingleShot(true);
+	d->resizeTimer.setInterval(0);
 	connect(&d->resizeTimer, SIGNAL(timeout()), d->table, SLOT(resizeRowsToContents()));
 
 	QHeaderView *header = d->table->horizontalHeader();
+	connect(header, SIGNAL(sectionResized(int,int,int)), &d->resizeTimer, SLOT(start()));
+
 	header->resizeSection(PrivData<CFGWadAlias>::ColWad, 150);
-#if QT_VERSION >= 0x050000
 	header->setSectionResizeMode(PrivData<CFGWadAlias>::ColAliases, QHeaderView::Stretch);
-#else
-	header->setResizeMode(PrivData<CFGWadAlias>::ColAliases, QHeaderView::Stretch);
-#endif
 	header->resizeSection(PrivData<CFGWadAlias>::ColMatchType, 110);
 
 	d->table->sortByColumn(PrivData<CFGWadAlias>::ColWad, Qt::AscendingOrder);
 
-	d->matchTypeHelp = tr("Left-to-Right will use the alias files instead of "
+	d->matchTypeHelp = CFGWadAlias::tr("Left-to-Right will use the alias files instead of "
 		"the main file but not vice-versa.");
 	d->matchTypeHelp += "\n\n";
-	d->matchTypeHelp += tr("All Equal will treat all files as equal and try to "
+	d->matchTypeHelp += CFGWadAlias::tr("All Equal will treat all files as equal and try to "
 		"match them in any combination.");
 }
 
@@ -95,13 +94,12 @@ void CFGWadAlias::addAliasToTable(const FileAlias &alias)
 	}
 
 	d->table->setSortingEnabled(wasSortingEnabled);
-	resizeRowsToContents();
 }
 
 void CFGWadAlias::addDefaults()
 {
 	QList<FileAlias> aliases = FileAlias::standardWadAliases();
-	foreach (const FileAlias& alias, aliases)
+	for (const FileAlias &alias : aliases)
 	{
 		addAliasToTable(alias);
 	}
@@ -119,7 +117,7 @@ void CFGWadAlias::addNewEntry()
 	mkMatchTypeComboBox(row);
 
 	d->table->setSortingEnabled(wasSortingEnabled);
-	resizeRowsToContents();
+	resizeRowToContents(row);
 }
 
 QList<FileAlias> CFGWadAlias::aliases() const
@@ -129,9 +127,7 @@ QList<FileAlias> CFGWadAlias::aliases() const
 	{
 		FileAlias alias = aliasFromRow(row);
 		if (alias.isValid())
-		{
 			aliases << alias;
-		}
 	}
 	return FileAliasList::mergeDuplicates(aliases);
 }
@@ -141,14 +137,12 @@ FileAlias CFGWadAlias::aliasFromRow(int row) const
 	FileAlias alias;
 	alias.setName(d->table->item(row, PrivData<CFGWadAlias>::ColWad)->text().trimmed());
 	QStringList candidateAliases = d->table->item(row, PrivData<CFGWadAlias>::ColAliases)->text().split(";");
-	foreach (const QString &candidateAlias, candidateAliases)
+	for (const QString &candidateAlias : candidateAliases)
 	{
 		if (!candidateAlias.trimmed().isEmpty())
-		{
 			alias.addAlias(candidateAlias.trimmed());
-		}
 	}
-	QComboBox *cboMatchType = qobject_cast<QComboBox*>(d->table->cellWidget(
+	auto cboMatchType = qobject_cast<QComboBox *>(d->table->cellWidget(
 		row, PrivData<CFGWadAlias>::ColMatchType));
 	alias.setMatchType(static_cast<FileAlias::MatchType>(
 		cboMatchType->itemData(cboMatchType->currentIndex()).toInt()));
@@ -160,7 +154,7 @@ void CFGWadAlias::applyAliasToRow(int row, const FileAlias &alias)
 	d->table->setItem(row, PrivData<CFGWadAlias>::ColWad, toolTipItem(alias.name()));
 	d->table->setItem(row, PrivData<CFGWadAlias>::ColAliases, toolTipItem(alias.aliases().join("; ")));
 
-	QComboBox *cboMatchType = qobject_cast<QComboBox*>(
+	auto cboMatchType = qobject_cast<QComboBox *>(
 		d->table->cellWidget(row, PrivData<CFGWadAlias>::ColMatchType));
 	int matchTypeIdx = qMax(0, cboMatchType->findData(alias.matchType()));
 	cboMatchType->setCurrentIndex(matchTypeIdx);
@@ -186,7 +180,7 @@ QIcon CFGWadAlias::icon() const
 
 QComboBox *CFGWadAlias::mkMatchTypeComboBox(int row)
 {
-	QComboBox *cboMatchType = new QComboBox();
+	auto cboMatchType = new QComboBox();
 	cboMatchType->setToolTip(d->matchTypeHelp);
 	cboMatchType->addItem(tr("Left-to-Right"), FileAlias::LeftToRight);
 	cboMatchType->addItem(tr("All Equal"), FileAlias::AllEqual);
@@ -205,12 +199,10 @@ void CFGWadAlias::readSettings()
 	}
 	// Aliases from configuration are guaranteed to be unique.
 	QList<FileAlias> aliases = gConfig.doomseeker.wadAliases();
-	foreach (const FileAlias &alias, aliases)
+	for (const FileAlias &alias : aliases)
 	{
 		if (alias.isValid())
-		{
 			addAliasToTable(alias);
-		}
 	}
 
 	d->table->setSortingEnabled(wasSortingEnabled);
@@ -223,7 +215,20 @@ void CFGWadAlias::removeSelected()
 
 void CFGWadAlias::resizeRowsToContents()
 {
-	d->resizeTimer.start(0);
+	#ifdef Q_OS_WIN32
+	d->resizeTimer.start();
+	#else
+	d->table->resizeRowsToContents();
+	#endif
+}
+
+void CFGWadAlias::resizeRowToContents(int row)
+{
+	#ifdef Q_OS_WIN32
+	resizeRowsToContents(); // resizeRowToContents is not friendly on Windows.
+	#else
+	d->table->resizeRowToContents(row);
+	#endif
 }
 
 void CFGWadAlias::saveSettings()
@@ -233,12 +238,13 @@ void CFGWadAlias::saveSettings()
 
 void CFGWadAlias::showEvent(QShowEvent *event)
 {
+	Q_UNUSED(event);
 	resizeRowsToContents();
 }
 
 QTableWidgetItem *CFGWadAlias::toolTipItem(const QString &contents)
 {
-	QTableWidgetItem *item = new QTableWidgetItem(contents);
+	auto item = new QTableWidgetItem(contents);
 	item->setToolTip(contents);
 	return item;
 }

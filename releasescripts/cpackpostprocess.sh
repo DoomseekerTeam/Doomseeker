@@ -33,7 +33,13 @@ set -e
 if [[ ! -f CMakeCache.txt ]]
 then
 	echo 'Run this script from the build directory after running cpack.' >&2
+	exit 1
 fi
+
+# Set to 1 if the IpToCountry.dat file is found. With the current setup we can
+# assume that we stumble across it while doing version fixup instead of having
+# a pass specifically for it.
+declare FoundIP2CDat=0
 
 declare -A FixupVersions
 
@@ -56,6 +62,11 @@ do
 			mkdir control
 			cd control
 			tar xf ../control.tar.gz
+
+			# While we're at it: Look for IPToCountry.dat
+			if tar -tf ../data.tar.xz --wildcards '*/IpToCountry.dat' &>/dev/null; then
+				FoundIP2CDat=1
+			fi
 
 			# Sanity check our package against what we thought the name was
 			if grep -qP "^Package: ${Entry[0]}\$" control
@@ -89,3 +100,8 @@ do
 		fi
 	done < "$FileName"
 done < <(find . -name 'CPackComponent.version')
+
+if (( ! FoundIP2CDat )); then
+	echo 'ERROR: Failed to find IPToCountry.dat. Unless the omission was intentional check DOOMSEEKER_IP2C_DAT in your CMake config.' >&2
+	exit 1
+fi

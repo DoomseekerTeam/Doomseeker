@@ -23,41 +23,41 @@
 #include "autoupdater.h"
 
 #include "configuration/doomseekerconfig.h"
+#include "datapaths.h"
+#include "log.h"
+#include "strings.hpp"
 #include "updater/updatechannel.h"
 #include "updater/updatepackagefilter.h"
 #include "updater/updaterinfoparser.h"
 #include "updater/updaterscriptparser.h"
-#include "datapaths.h"
-#include "log.h"
-#include "strings.hpp"
 #include "version.h"
+#include <cassert>
 #include <QByteArray>
 #include <QDebug>
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QTemporaryFile>
-#include <cassert>
 
 DClass<AutoUpdater>
 {
-	public:
-		/// All scripts are merged to create one big script for all packages.
-		QList<QDomDocument> allScripts;
-		bool bDownloadAndInstallRequireConfirmation;
-		bool bIsRunning;
-		/// Used for overall progress.
-		bool bPackageDownloadStarted;
-		bool bStarted;
-		UpdateChannel channel;
-		UpdatePackage currentlyDownloadedPackage;
-		QStringList downloadedPackagesFilenames;
-		AutoUpdater::ErrorCode errorCode;
-		QMap<QString, QList<QString> > ignoredPackagesRevisions;
-		QList<UpdatePackage> newUpdatePackages;
-		QList<UpdatePackage> packagesInDownloadQueue;
-		QTemporaryFile* pCurrentPackageFile;
-		QNetworkAccessManager* pNam;
-		QNetworkReply* pNetworkReply;
+public:
+	/// All scripts are merged to create one big script for all packages.
+	QList<QDomDocument> allScripts;
+	bool bDownloadAndInstallRequireConfirmation;
+	bool bIsRunning;
+	/// Used for overall progress.
+	bool bPackageDownloadStarted;
+	bool bStarted;
+	UpdateChannel channel;
+	UpdatePackage currentlyDownloadedPackage;
+	QStringList downloadedPackagesFilenames;
+	AutoUpdater::ErrorCode errorCode;
+	QMap<QString, QList<QString> > ignoredPackagesRevisions;
+	QList<UpdatePackage> newUpdatePackages;
+	QList<UpdatePackage> packagesInDownloadQueue;
+	QTemporaryFile *pCurrentPackageFile;
+	QNetworkAccessManager *pNam;
+	QNetworkReply *pNetworkReply;
 };
 
 DPointered(AutoUpdater)
@@ -70,26 +70,26 @@ const QString AutoUpdater::QT_PACKAGE_NAME = "qt";
 const QString AutoUpdater::WADSEEKER_PACKAGE_NAME = "wadseeker";
 const QString AutoUpdater::UPDATER_INFO_URL_BASE = "https://doomseeker.drdteam.org/updates/";
 
-AutoUpdater::AutoUpdater(QObject* pParent)
-: QObject(pParent)
+AutoUpdater::AutoUpdater(QObject *pParent)
+	: QObject(pParent)
 {
 	d->bDownloadAndInstallRequireConfirmation = false;
 	d->bPackageDownloadStarted = false;
 	d->bIsRunning = false;
 	d->bStarted = false;
 	d->errorCode = EC_Ok;
-	d->pCurrentPackageFile = NULL;
+	d->pCurrentPackageFile = nullptr;
 	d->pNam = new QNetworkAccessManager();
-	d->pNetworkReply = NULL;
+	d->pNetworkReply = nullptr;
 }
 
 AutoUpdater::~AutoUpdater()
 {
-	if (d->pCurrentPackageFile != NULL)
+	if (d->pCurrentPackageFile != nullptr)
 	{
 		delete d->pCurrentPackageFile;
 	}
-	if (d->pNetworkReply != NULL)
+	if (d->pNetworkReply != nullptr)
 	{
 		d->pNetworkReply->disconnect();
 		d->pNetworkReply->abort();
@@ -101,17 +101,17 @@ AutoUpdater::~AutoUpdater()
 
 void AutoUpdater::abort()
 {
-	if (d->pNetworkReply != NULL)
+	if (d->pNetworkReply != nullptr)
 	{
 		d->pNetworkReply->disconnect();
 		d->pNetworkReply->abort();
 		d->pNetworkReply->deleteLater();
-		d->pNetworkReply = NULL;
+		d->pNetworkReply = nullptr;
 	}
 	emit finishWithError(EC_Aborted);
 }
 
-QDomDocument AutoUpdater::adjustUpdaterScriptXml(const QByteArray& xmlSource)
+QDomDocument AutoUpdater::adjustUpdaterScriptXml(const QByteArray &xmlSource)
 {
 	QDomDocument xmlDoc;
 	QString xmlError;
@@ -136,7 +136,7 @@ QDomDocument AutoUpdater::adjustUpdaterScriptXml(const QByteArray& xmlSource)
 	return xmlDoc;
 }
 
-const UpdateChannel& AutoUpdater::channel() const
+const UpdateChannel &AutoUpdater::channel() const
 {
 	return d->channel;
 }
@@ -148,21 +148,21 @@ void AutoUpdater::confirmDownloadAndInstall()
 	startNextPackageDownload();
 }
 
-const QStringList& AutoUpdater::downloadedPackagesFilenames() const
+const QStringList &AutoUpdater::downloadedPackagesFilenames() const
 {
 	return d->downloadedPackagesFilenames;
 }
 
-void AutoUpdater::dumpUpdatePackagesToLog(const QList<UpdatePackage>& packages)
+void AutoUpdater::dumpUpdatePackagesToLog(const QList<UpdatePackage> &packages)
 {
-	foreach (const UpdatePackage& pkg, packages)
+	for (const UpdatePackage &pkg : packages)
 	{
-		gLog << tr("Detected update for package \"%1\" from version \"%2\" to version \"%3\".")
+		gLog << tr(R"(Detected update for package "%1" from version "%2" to version "%3".)")
 			.arg(pkg.displayName, pkg.currentlyInstalledDisplayVersion, pkg.displayVersion);
 	}
 }
 
-void AutoUpdater::emitOverallProgress(const QString& message)
+void AutoUpdater::emitOverallProgress(const QString &message)
 {
 	int total = 1;
 	int current = 0;
@@ -191,37 +191,37 @@ QString AutoUpdater::errorCodeToString(ErrorCode code)
 {
 	switch (code)
 	{
-		case EC_Ok:
-			return tr("Ok");
-		case EC_Aborted:
-			return tr("Update was aborted.");
-		case EC_NullUpdateChannel:
-			return tr("Update channel is not configured. Please check your configuration.");
-		case EC_UpdaterInfoDownloadProblem:
-			return tr("Failed to download updater info file.");
-		case EC_UpdaterInfoCannotParse:
-			return tr("Cannot parse updater info file.");
-		case EC_UpdaterInfoMissingMainProgramNode:
-			return tr("Main program node is missing from updater info file.");
-		case EC_MissingRevisionInfo:
-			return tr("Revision info on one of the packages is missing from the "
-				"updater info file. Check the log for details.");
-		case EC_MissingDownloadUrl:
-			return tr("Download URL for one of the packages is missing from the "
-				"updater info file. Check the log for details.");
-		case EC_InvalidDownloadUrl:
-			return tr("Download URL for one of the packages is invalid. "
-				"Check the log for details.");
-		case EC_PackageDownloadProblem:
-			return tr("Update package download failed. Check the log for details.");
-		case EC_StorageDirCreateFailure:
-			return tr("Failed to create directory for updates packages storage.");
-		case EC_PackageCantBeSaved:
-			return tr("Failed to save update package.");
-		case EC_ScriptCantBeSaved:
-			return tr("Failed to save update script.");
-		default:
-			return tr("Unknown error.");
+	case EC_Ok:
+		return tr("Ok");
+	case EC_Aborted:
+		return tr("Update was aborted.");
+	case EC_NullUpdateChannel:
+		return tr("Update channel is not configured. Please check your configuration.");
+	case EC_UpdaterInfoDownloadProblem:
+		return tr("Failed to download updater info file.");
+	case EC_UpdaterInfoCannotParse:
+		return tr("Cannot parse updater info file.");
+	case EC_UpdaterInfoMissingMainProgramNode:
+		return tr("Main program node is missing from updater info file.");
+	case EC_MissingRevisionInfo:
+		return tr("Revision info on one of the packages is missing from the "
+			"updater info file. Check the log for details.");
+	case EC_MissingDownloadUrl:
+		return tr("Download URL for one of the packages is missing from the "
+			"updater info file. Check the log for details.");
+	case EC_InvalidDownloadUrl:
+		return tr("Download URL for one of the packages is invalid. "
+			"Check the log for details.");
+	case EC_PackageDownloadProblem:
+		return tr("Update package download failed. Check the log for details.");
+	case EC_StorageDirCreateFailure:
+		return tr("Failed to create directory for updates packages storage.");
+	case EC_PackageCantBeSaved:
+		return tr("Failed to save update package.");
+	case EC_ScriptCantBeSaved:
+		return tr("Failed to save update script.");
+	default:
+		return tr("Unknown error.");
 	}
 }
 
@@ -244,7 +244,7 @@ bool AutoUpdater::isRunning() const
 
 QNetworkReply::NetworkError AutoUpdater::lastNetworkError() const
 {
-	if (errorCode() != EC_Ok && d->pNetworkReply != NULL)
+	if (errorCode() != EC_Ok && d->pNetworkReply != nullptr)
 	{
 		return d->pNetworkReply->error();
 	}
@@ -256,7 +256,7 @@ QUrl AutoUpdater::mkVersionDataFileUrl()
 	return QUrl(UPDATER_INFO_URL_BASE + d->channel.versionDataFileName());
 }
 
-const QList<UpdatePackage>& AutoUpdater::newUpdatePackages() const
+const QList<UpdatePackage> &AutoUpdater::newUpdatePackages() const
 {
 	return d->newUpdatePackages;
 }
@@ -335,7 +335,7 @@ void AutoUpdater::onUpdaterInfoDownloadFinish()
 	}
 	QByteArray json = d->pNetworkReply->readAll();
 	UpdaterInfoParser parser;
-	ErrorCode parseResult = (ErrorCode) parser.parse(json);
+	auto parseResult = (ErrorCode) parser.parse(json);
 	if (parseResult == EC_Ok)
 	{
 		UpdatePackageFilter filter;
@@ -378,7 +378,7 @@ AutoUpdater::ErrorCode AutoUpdater::saveUpdaterScript()
 {
 	QDomDocument xmlDocAllScripts;
 	UpdaterScriptParser scriptParser(xmlDocAllScripts);
-	foreach (const QDomDocument& doc, d->allScripts)
+	for (const QDomDocument &doc : d->allScripts)
 	{
 		scriptParser.merge(doc);
 	}
@@ -392,12 +392,12 @@ AutoUpdater::ErrorCode AutoUpdater::saveUpdaterScript()
 	return EC_Ok;
 }
 
-void AutoUpdater::setChannel(const UpdateChannel& updateChannel)
+void AutoUpdater::setChannel(const UpdateChannel &updateChannel)
 {
 	d->channel = updateChannel;
 }
 
-void AutoUpdater::setIgnoreRevisions(const QMap<QString, QList<QString> >& packagesRevisions)
+void AutoUpdater::setIgnoreRevisions(const QMap<QString, QList<QString> > &packagesRevisions)
 {
 	d->ignoredPackagesRevisions = packagesRevisions;
 }
@@ -435,15 +435,15 @@ void AutoUpdater::start()
 	QNetworkRequest request;
 	request.setRawHeader("User-Agent", Version::userAgent().toUtf8());
 	request.setUrl(mkVersionDataFileUrl());
-	QNetworkReply* pReply = d->pNam->get(request);
+	QNetworkReply *pReply = d->pNam->get(request);
 	// The updater info file should always be very small and
 	// we can safely store it all in memory.
 	this->connect(pReply,
 		SIGNAL(finished()),
 		SLOT(onUpdaterInfoDownloadFinish()));
 	this->connect(pReply,
-		SIGNAL(downloadProgress(qint64, qint64)),
-		SIGNAL(packageDownloadProgress(qint64, qint64)));
+		SIGNAL(downloadProgress(qint64,qint64)),
+		SIGNAL(packageDownloadProgress(qint64,qint64)));
 	d->pNetworkReply = pReply;
 	emitOverallProgress(tr("Update info"));
 }
@@ -455,7 +455,7 @@ void AutoUpdater::startNextPackageDownload()
 	startPackageDownload(pkg);
 }
 
-void AutoUpdater::startPackageDownload(const UpdatePackage& pkg)
+void AutoUpdater::startPackageDownload(const UpdatePackage &pkg)
 {
 	QUrl url = pkg.downloadUrl;
 	if (!url.isValid() || url.isRelative())
@@ -475,7 +475,7 @@ void AutoUpdater::startPackageDownload(const UpdatePackage& pkg)
 		.arg(DataPaths::UPDATE_PACKAGE_FILENAME_PREFIX).arg(pkg.name);
 	QString filePathTemplate = Strings::combinePaths(updateStorageDirPath(), fileNameTemplate);
 	qDebug() << "filePathTemplate: " << filePathTemplate;
-	if (d->pCurrentPackageFile != NULL)
+	if (d->pCurrentPackageFile != nullptr)
 	{
 		delete d->pCurrentPackageFile;
 	}
@@ -485,7 +485,7 @@ void AutoUpdater::startPackageDownload(const UpdatePackage& pkg)
 	{
 		gLog << tr("Couldn't save file in path: %1").arg(updateStorageDirPath());
 		delete d->pCurrentPackageFile;
-		d->pCurrentPackageFile = NULL;
+		d->pCurrentPackageFile = nullptr;
 		finishWithError(EC_PackageCantBeSaved);
 		return;
 	}
@@ -495,18 +495,18 @@ void AutoUpdater::startPackageDownload(const UpdatePackage& pkg)
 	QNetworkRequest request;
 	request.setRawHeader("User-Agent", Version::userAgent().toUtf8());
 	request.setUrl(url);
-	QNetworkReply* pReply = d->pNam->get(request);
+	QNetworkReply *pReply = d->pNam->get(request);
 	d->currentlyDownloadedPackage = pkg;
 	d->pNetworkReply = pReply;
 	this->connect(pReply, SIGNAL(readyRead()),
 		SLOT(onPackageDownloadReadyRead()));
 	this->connect(pReply, SIGNAL(finished()),
 		SLOT(onPackageDownloadFinish()));
-	this->connect(pReply, SIGNAL(downloadProgress(qint64, qint64)),
-		SIGNAL(packageDownloadProgress(qint64, qint64)));
+	this->connect(pReply, SIGNAL(downloadProgress(qint64,qint64)),
+		SIGNAL(packageDownloadProgress(qint64,qint64)));
 }
 
-void AutoUpdater::startPackageScriptDownload(const UpdatePackage& pkg)
+void AutoUpdater::startPackageScriptDownload(const UpdatePackage &pkg)
 {
 	QUrl url = pkg.downloadScriptUrl;
 	if (!url.isValid() || url.isRelative())
@@ -524,7 +524,7 @@ void AutoUpdater::startPackageScriptDownload(const UpdatePackage& pkg)
 	QNetworkRequest request;
 	request.setRawHeader("User-Agent", Version::userAgent().toUtf8());
 	request.setUrl(url);
-	QNetworkReply* pReply = d->pNam->get(request);
+	QNetworkReply *pReply = d->pNam->get(request);
 	d->currentlyDownloadedPackage = pkg;
 	d->pNetworkReply = pReply;
 	// Scripts are small enough that they can be downloaded "in one take",
@@ -532,8 +532,8 @@ void AutoUpdater::startPackageScriptDownload(const UpdatePackage& pkg)
 	this->connect(pReply, SIGNAL(finished()),
 		SLOT(onPackageScriptDownloadFinish()));
 	this->connect(pReply,
-		SIGNAL(downloadProgress(qint64, qint64)),
-		SIGNAL(packageDownloadProgress(qint64, qint64)));
+		SIGNAL(downloadProgress(qint64,qint64)),
+		SIGNAL(packageDownloadProgress(qint64,qint64)));
 }
 
 QString AutoUpdater::updaterScriptPath()

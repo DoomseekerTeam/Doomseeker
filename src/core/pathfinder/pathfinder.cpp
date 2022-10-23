@@ -23,21 +23,23 @@
 #include "pathfinder.h"
 
 #include "configuration/doomseekerconfig.h"
-#include "pathfinder/caseinsensitivefsfileseeker.h"
-#include "pathfinder/casesensitivefsfileseeker.h"
-#include "pathfinder/filesearchpath.h"
 #include "datapaths.h"
+#include "fileseeker.h"
 #include "log.h"
+#include "pathfinder/filesearchpath.h"
 #include "strings.hpp"
+
+#include <cstdlib>
 #include <QDir>
 #include <QFileInfo>
-#include <cstdlib>
+#include <QScopedPointer>
+#include <QSharedPointer>
 
 DClass<PathFinderResult>
 {
-	public:
-		QStringList foundFiles;
-		QStringList missingFiles;
+public:
+	QStringList foundFiles;
+	QStringList missingFiles;
 };
 
 
@@ -52,22 +54,22 @@ PathFinderResult::~PathFinderResult()
 {
 }
 
-QStringList& PathFinderResult::foundFiles()
+QStringList &PathFinderResult::foundFiles()
 {
 	return d->foundFiles;
 }
 
-const QStringList& PathFinderResult::foundFiles() const
+const QStringList &PathFinderResult::foundFiles() const
 {
 	return d->foundFiles;
 }
 
-QStringList& PathFinderResult::missingFiles()
+QStringList &PathFinderResult::missingFiles()
 {
 	return d->missingFiles;
 }
 
-const QStringList& PathFinderResult::missingFiles() const
+const QStringList &PathFinderResult::missingFiles() const
 {
 	return d->missingFiles;
 }
@@ -76,25 +78,25 @@ const QStringList& PathFinderResult::missingFiles() const
 
 DClass<PathFinder>
 {
-	public:
-		QList<FileSearchPath> searchPaths;
+public:
+	QSharedPointer <QList<FileSearchPath> > searchPaths;
 
-		QString resolveDir(const QString &dir)
+	QString resolveDir(const QString &dir)
+	{
+		QFileInfo fileInfo(dir);
+		if (fileInfo.isSymLink())
+			fileInfo = QFileInfo(fileInfo.symLinkTarget());
+
+		if (fileInfo.isBundle())
+			return fileInfo.absoluteFilePath() + "/Contents/MacOS";
+		else
 		{
-			QFileInfo fileInfo(dir);
-			if(fileInfo.isSymLink())
-				fileInfo = QFileInfo(fileInfo.symLinkTarget());
-
-			if(fileInfo.isBundle())
-				return fileInfo.absoluteFilePath() + "/Contents/MacOS";
+			if (fileInfo.isFile())
+				return fileInfo.absoluteDir().absolutePath();
 			else
-			{
-				if(fileInfo.isFile())
-					return fileInfo.absoluteDir().absolutePath();
-				else
-					return fileInfo.absoluteFilePath();
-			}
+				return fileInfo.absoluteFilePath();
 		}
+	}
 };
 
 
@@ -103,15 +105,17 @@ DPointered(PathFinder)
 
 PathFinder::PathFinder()
 {
-	d->searchPaths = gConfig.combinedWadseekPaths();
+	d->searchPaths.reset(new QList<FileSearchPath>());
+	d->searchPaths->append(gConfig.combinedWadseekPaths());
+	removeUnneededPaths();
 }
 
-PathFinder::PathFinder(const QStringList& paths)
+PathFinder::PathFinder(const QStringList &paths)
 {
-	foreach (const QString& path, paths)
-	{
-		d->searchPaths << path;
-	}
+	d->searchPaths.reset(new QList<FileSearchPath>());
+	for (const QString &path : paths)
+		d->searchPaths->append(path);
+	removeUnneededPaths();
 }
 
 PathFinder::~PathFinder()
@@ -121,21 +125,21 @@ PathFinder::~PathFinder()
 PathFinder PathFinder::genericPathFinder(const QStringList &suffixes)
 {
 	QStringList paths;
-#if defined(Q_OS_WIN32)
+	#if defined(Q_OS_WIN32)
 	paths << "." << ".."
 		<< gDefaultDataPaths->workingDirectory()
 		<< gDefaultDataPaths->workingDirectory() + "/.."
 		<< DataPaths::programFilesDirectory(DataPaths::x64)
 		<< DataPaths::programFilesDirectory(DataPaths::x86);
-#else
+	#else
 	paths << "/usr/bin" << "/usr/local/bin" << "/usr/share/bin"
 		<< "/usr/games/" << "/usr/local/games/"
 		<< "/usr/share/games/" << gDefaultDataPaths->workingDirectory() << ".";
-#endif
+	#endif
 	QStringList pathsCopy(paths);
-	foreach (const QString &path, pathsCopy)
+	for (const QString &path : pathsCopy)
 	{
-		foreach (const QString &suffix, suffixes)
+		for (const QString &suffix : suffixes)
 		{
 			paths << Strings::combinePaths(path, suffix);
 		}
@@ -143,38 +147,31 @@ PathFinder PathFinder::genericPathFinder(const QStringList &suffixes)
 	return PathFinder(paths);
 }
 
-void PathFinder::addPrioritySearchDir(const QString& dir)
+void PathFinder::addPrioritySearchDir(const QString &dir)
 {
-	d->searchPaths.prepend(d->resolveDir(dir));
+	d->searchPaths->prepend(d->resolveDir(dir));
+	removeUnneededPaths();
 }
 
 void PathFinder::addSearchDir(const QString &dir)
 {
-	d->searchPaths << d->resolveDir(dir);
+	d->searchPaths->append(d->resolveDir(dir));
+	removeUnneededPaths();
 }
 
-QString PathFinder::findFile(const QString& fileName) const
+QString PathFinder::findFile(const QString &fileName) const
 {
-	if (d->searchPaths.count() == 0)
-	{
+	if (d->searchPaths->count() == 0)
 		return QString();
-	}
-
-	BaseFileSeeker* seeker = NULL;
-	#ifdef Q_OS_WIN32
-	seeker = new CaseInsensitiveFSFileSeeker();
-	#else
-	seeker = new CaseSensitiveFSFileSeeker();
-	#endif
-	QString result = seeker->findFile(fileName, d->searchPaths);
-	delete seeker;
+	QScopedPointer<FileSeeker> seeker(FileSeeker::createSeeker(d->searchPaths));
+	QString result = seeker->findFile(fileName);
 	return result;
 }
 
-PathFinderResult PathFinder::findFiles(const QStringList& files) const
+PathFinderResult PathFinder::findFiles(const QStringList &files) const
 {
 	PathFinderResult result;
-	foreach(const QString file, files)
+	for (const QString file : files)
 	{
 		QString filePath = findFile(file);
 		if (filePath.isNull())
@@ -188,4 +185,51 @@ PathFinderResult PathFinder::findFiles(const QStringList& files) const
 	}
 
 	return result;
+}
+
+void PathFinder::removeUnneededPaths() const
+{
+	Qt::CaseSensitivity caseSensitivity;
+	#ifdef Q_OS_WIN32
+	caseSensitivity = Qt::CaseInsensitive;
+	#else
+	caseSensitivity = Qt::CaseSensitive;
+	#endif
+
+	for (int mainIterator = 0; mainIterator < d->searchPaths->length(); ++mainIterator)
+	{
+		for (int subIterator = mainIterator + 1; subIterator < d->searchPaths->length(); ++subIterator)
+		{
+			const FileSearchPath &mainPath = d->searchPaths->at(mainIterator);
+			const FileSearchPath &subPath = d->searchPaths->at(subIterator);
+
+			// are they equal?
+			if (QDir(mainPath.path()).absolutePath().compare(QDir(subPath.path()).absolutePath(), caseSensitivity) == 0)
+			{
+				(*d->searchPaths.data())[mainIterator]
+					.setRecursive(mainPath.isRecursive() || subPath.isRecursive());
+				d->searchPaths->removeAt(subIterator);
+				--subIterator;
+				continue;
+			}
+
+			// is sub inside main and main is recursive?
+			if (mainPath.isRecursive() &&
+				QDir(subPath.path()).absolutePath().startsWith(QDir(mainPath.path()).absolutePath(), caseSensitivity))
+			{
+				d->searchPaths->removeAt(subIterator);
+				subIterator = mainIterator;
+				continue;
+			}
+
+			// is main inside sub and sub is recursive?
+			if (subPath.isRecursive() &&
+				QDir(mainPath.path()).absolutePath().startsWith(QDir(subPath.path()).absolutePath(), caseSensitivity))
+			{
+				d->searchPaths->removeAt(mainIterator);
+				mainIterator = 0;
+				break;
+			}
+		}
+	}
 }

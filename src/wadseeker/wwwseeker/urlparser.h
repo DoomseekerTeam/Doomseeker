@@ -40,68 +40,68 @@ class Link;
  */
 class UrlParser
 {
+public:
+	static bool hasSameHost(const QUrl &url1, const QUrl &url2);
+	/**
+	 * @brief Checks if URL is a direct link to one of the filenames.
+	 *
+	 * @return True if it's safe to assume that URL leads to one of the
+	 *         files specified on the wantedFilenames list.
+	 */
+	static bool isDirectLinkToFile(const QStringList &wantedFilenames, const QUrl &url);
+
+	static bool isWadnameTemplateUrl(const QString &url);
+	static QUrl resolveWadnameTemplateUrl(QString url, const QString &wadname);
+	/**
+	 * @brief Checks if URLs are the same. Ignores character case.
+	 */
+	static bool urlEqualsCaseInsensitive(QUrl url1, QUrl url2);
+
+	UrlParser(const QList<Link> &links);
+
+	/**
+	 * @brief Extracts a list of URLs leading directly to any of the
+	 *        wanted files.
+	 *
+	 * @param wantedFilenames
+	 *      A list of filenames we wish to extract from the URLs specified
+	 *      in the constructor.
+	 * @param baseUrl
+	 *      Relative URLs will be converted to absolute
+	 *      URLs using this URL as a base
+	 *
+	 * @return A list of URLs that match one or more of the filenames
+	 *         on the wantedFiles list.
+	 */
+	QList<Link> directLinks(const QStringList &wantedFilenames, const QUrl &baseUrl);
+
+	/**
+	 * @brief Extracts a list of URLs leading to subsites that may contain
+	 *        any of the wanted files.
+	 *
+	 * @param wantedFilenames
+	 *      A list of filenames we wish to extract from the URLs specified
+	 *      in the constructor.
+	 * @param baseUrl
+	 *      Relative URLs will be converted to absolute
+	 *      URLs using this URL as a base
+	 *
+	 * @return A list of URLs that match one or more of the filenames
+	 *         on the wantedFiles list.
+	 */
+	QList<Link> siteLinks(const QStringList &wantedFilenames, const QUrl &baseUrl);
+
+private:
+	class PrivData
+	{
 	public:
-		static bool hasSameHost(const QUrl& url1, const QUrl& url2);
-		/**
-		 * @brief Checks if URL is a direct link to one of the filenames.
-		 *
-		 * @return True if it's safe to assume that URL leads to one of the
-		 *         files specified on the wantedFilenames list.
-		 */
-		static bool isDirectLinkToFile(const QStringList& wantedFilenames, const QUrl& url);
+		QList<Link> links;
+	};
 
-		static bool isWadnameTemplateUrl(const QString &url);
-		static QUrl resolveWadnameTemplateUrl(QString url, const QString &wadname);
-		/**
-		 * @brief Checks if URLs are the same. Ignores character case.
-		 */
-		static bool urlEqualsCaseInsensitive(QUrl url1, QUrl url2);
+	PrivData d;
 
-		UrlParser(const QList<Link>& links);
-
-		/**
-		 * @brief Extracts a list of URLs leading directly to any of the
-		 *        wanted files.
-		 *
-		 * @param wantedFilenames
-		 *      A list of filenames we wish to extract from the URLs specified
-		 *      in the constructor.
-		 * @param baseUrl
-		 *      Relative URLs will be converted to absolute
-		 *   	URLs using this URL as a base
-		 *
-		 * @return A list of URLs that match one or more of the filenames
-		 *         on the wantedFiles list.
-		 */
-		QList<Link> directLinks(const QStringList& wantedFilenames, const QUrl& baseUrl);
-
-		/**
-		 * @brief Extracts a list of URLs leading to subsites that may contain
-		 *        any of the wanted files.
-		 *
-		 * @param wantedFilenames
-		 *      A list of filenames we wish to extract from the URLs specified
-		 *      in the constructor.
-		 * @param baseUrl
-		 *      Relative URLs will be converted to absolute
-		 *   	URLs using this URL as a base
-		 *
-		 * @return A list of URLs that match one or more of the filenames
-		 *         on the wantedFiles list.
-		 */
-		QList<Link> siteLinks(const QStringList& wantedFilenames, const QUrl& baseUrl);
-
-	private:
-		class PrivData
-		{
-			public:
-				QList<Link> links;
-		};
-
-		PrivData d;
-
-		static bool hasFileReferenceSomewhere(const QStringList& wantedFilenames, const Link& link);
-		static bool isDirectLinkToFile(const QStringList& wantedFilenames, const Link& link);
+	static bool hasFileReferenceSomewhere(const QStringList &wantedFilenames, const Link &link);
+	static bool isDirectLinkToFile(const QStringList &wantedFilenames, const Link &link);
 };
 
 #endif

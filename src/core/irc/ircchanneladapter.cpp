@@ -20,37 +20,35 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2010 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
-#include "ircchanneladapter.h"
 #include "irc/configuration/ircconfig.h"
 #include "irc/ircglobal.h"
 #include "irc/ircmessageclass.h"
 #include "irc/ircnetworkadapter.h"
 #include "irc/ircuserinfo.h"
 #include "irc/ircuserlist.h"
+#include "ircchanneladapter.h"
 
-IRCChannelAdapter::IRCChannelAdapter(IRCNetworkAdapter* pNetwork, const QString& recipient)
-: IRCChatAdapter(pNetwork, recipient)
+IRCChannelAdapter::IRCChannelAdapter(IRCNetworkAdapter *pNetwork, const QString &recipient)
+	: IRCChatAdapter(pNetwork, recipient)
 {
 	users = new IRCUserList();
 }
 
 IRCChannelAdapter::~IRCChannelAdapter()
 {
-	if (this->pNetwork != NULL)
-	{
+	if (this->pNetwork != nullptr)
 		sendMessage("/part " + this->recipientName + " " + gIRCConfig.personal.quitMessage);
-	}
 
 	delete users;
 }
 
 bool IRCChannelAdapter::amIOperator() const
 {
-	const QString& myNickname = pNetwork->myNickname();
+	const QString &myNickname = pNetwork->myNickname();
 	return isOperator(myNickname);
 }
 
-void IRCChannelAdapter::appendNameToCachedList(const QString& name)
+void IRCChannelAdapter::appendNameToCachedList(const QString &name)
 {
 	if (users->appendNameToCachedList(IRCUserInfo(name, network())))
 	{
@@ -59,15 +57,15 @@ void IRCChannelAdapter::appendNameToCachedList(const QString& name)
 	}
 }
 
-void IRCChannelAdapter::appendNamesToCachedList(const QStringList& names)
+void IRCChannelAdapter::appendNamesToCachedList(const QStringList &names)
 {
-	foreach (const QString &name, names)
+	for (const QString &name : names)
 	{
 		appendNameToCachedList(name);
 	}
 }
 
-void IRCChannelAdapter::banUser(const QString& nickname, const QString& reason)
+void IRCChannelAdapter::banUser(const QString &nickname, const QString &reason)
 {
 	pNetwork->banUser(nickname, reason, this->recipientName);
 }
@@ -77,22 +75,20 @@ void IRCChannelAdapter::emitCachedNameListUpdated()
 	emit nameListUpdated(*users);
 }
 
-void IRCChannelAdapter::emitChatMessage(const QString& sender, const QString& content)
+void IRCChannelAdapter::emitChatMessage(const QString &sender, const QString &content)
 {
 	// Ensure that all nickname artifacts are preserved.
-	const IRCUserInfo* pUserInfo = users->user(sender);
+	const IRCUserInfo *pUserInfo = users->user(sender);
 
 	QString actualSenderName = sender;
-	if (pUserInfo != NULL)
-	{
+	if (pUserInfo != nullptr)
 		actualSenderName = pUserInfo->prefixedName();
-	}
 
 	// Check if content has our nickname.
 	// (do not play sounds for our own messages)
-	const QString& myNickname = pNetwork->myNickname();
+	const QString &myNickname = pNetwork->myNickname();
 	if (content.contains(myNickname, Qt::CaseInsensitive)
-	&&	sender.compare(myNickname, Qt::CaseInsensitive) != 0)
+		&& sender.compare(myNickname, Qt::CaseInsensitive) != 0)
 	{
 		emit myNicknameUsed();
 	}
@@ -100,23 +96,21 @@ void IRCChannelAdapter::emitChatMessage(const QString& sender, const QString& co
 	IRCChatAdapter::emitChatMessage(actualSenderName, content);
 }
 
-bool IRCChannelAdapter::hasUser(const QString& nickname)
+bool IRCChannelAdapter::hasUser(const QString &nickname)
 {
 	return users->hasUser(nickname);
 }
 
-bool IRCChannelAdapter::isOperator(const QString& nickname) const
+bool IRCChannelAdapter::isOperator(const QString &nickname) const
 {
-	const IRCUserInfo* pUser = users->user(nickname);
-	if (pUser != NULL)
-	{
+	const IRCUserInfo *pUser = users->user(nickname);
+	if (pUser != nullptr)
 		return pUser->isOp();
-	}
 
 	return false;
 }
 
-void IRCChannelAdapter::kickUser(const QString& nickname, const QString& reason)
+void IRCChannelAdapter::kickUser(const QString &nickname, const QString &reason)
 {
 	if (hasUser(nickname))
 	{
@@ -125,36 +119,32 @@ void IRCChannelAdapter::kickUser(const QString& nickname, const QString& reason)
 	}
 }
 
-void IRCChannelAdapter::removeNameFromCachedList(const QString& name)
+void IRCChannelAdapter::removeNameFromCachedList(const QString &name)
 {
 	IRCUserInfo user = users->userCopy(name);
 
 	if (!users->removeNameFromCachedList(name))
-	{
-		emit error(QString("Attempted to remove name \"%1\" from the \"%2\" channel's name list but no such name is on the list.").arg(name, this->recipientName));
-	}
+		emit error(QString(R"(Attempted to remove name "%1" from the "%2" channel's name list but no such name is on the list.)").arg(name, this->recipientName));
 	else
-	{
 		emit nameRemoved(user);
-	}
 }
 
-void IRCChannelAdapter::setHalfOp(const QString& nickname, bool bSet)
+void IRCChannelAdapter::setHalfOp(const QString &nickname, bool bSet)
 {
 	pNetwork->setChannelMode(this->recipientName, nickname, "h", bSet);
 }
 
-void IRCChannelAdapter::setOp(const QString& nickname, bool bSet)
+void IRCChannelAdapter::setOp(const QString &nickname, bool bSet)
 {
 	pNetwork->setChannelMode(this->recipientName, nickname, "o", bSet);
 }
 
-void IRCChannelAdapter::setVoiced(const QString& nickname, bool bSet)
+void IRCChannelAdapter::setVoiced(const QString &nickname, bool bSet)
 {
 	pNetwork->setChannelMode(this->recipientName, nickname, "v", bSet);
 }
 
-void IRCChannelAdapter::userChangesNickname(const QString& oldNickname, const QString& newNickname)
+void IRCChannelAdapter::userChangesNickname(const QString &oldNickname, const QString &newNickname)
 {
 	if (hasUser(oldNickname))
 	{
@@ -169,7 +159,7 @@ void IRCChannelAdapter::userChangesNickname(const QString& oldNickname, const QS
 	}
 }
 
-void IRCChannelAdapter::userJoins(const QString& nickname, const QString& fullSignature)
+void IRCChannelAdapter::userJoins(const QString &nickname, const QString &fullSignature)
 {
 	appendNameToCachedList(nickname);
 
@@ -177,7 +167,7 @@ void IRCChannelAdapter::userJoins(const QString& nickname, const QString& fullSi
 		IRCMessageClass::ChannelAction);
 }
 
-void IRCChannelAdapter::userLeaves(const QString& nickname, const QString& farewellMessage, IRCQuitType quitType)
+void IRCChannelAdapter::userLeaves(const QString &nickname, const QString &farewellMessage, IRCQuitType quitType)
 {
 	if (!hasUser(nickname))
 	{
@@ -189,39 +179,39 @@ void IRCChannelAdapter::userLeaves(const QString& nickname, const QString& farew
 
 	switch (quitType)
 	{
-		case IRCChatAdapter::ChannelPart:
-			emit messageWithClass(tr("User %1 has left the channel. (PART: %2)").arg(nickname, farewellMessage),
-				IRCMessageClass::ChannelAction);
-			break;
+	case IRCChatAdapter::ChannelPart:
+		emit messageWithClass(tr("User %1 has left the channel. (PART: %2)").arg(nickname, farewellMessage),
+			IRCMessageClass::ChannelAction);
+		break;
 
-		case IRCChatAdapter::NetworkKill:
-			emit messageWithClass(tr("Connection for user %1 has been killed. (KILL: %2)").arg(nickname, farewellMessage),
-				IRCMessageClass::NetworkAction);
-			break;
+	case IRCChatAdapter::NetworkKill:
+		emit messageWithClass(tr("Connection for user %1 has been killed. (KILL: %2)").arg(nickname, farewellMessage),
+			IRCMessageClass::NetworkAction);
+		break;
 
-		case IRCChatAdapter::NetworkQuit:
-			emit messageWithClass(tr("User %1 has quit the network. (QUIT: %2)").arg(nickname, farewellMessage),
-				IRCMessageClass::NetworkAction);
-			break;
+	case IRCChatAdapter::NetworkQuit:
+		emit messageWithClass(tr("User %1 has quit the network. (QUIT: %2)").arg(nickname, farewellMessage),
+			IRCMessageClass::NetworkAction);
+		break;
 
-		default:
-			emit error(tr("Unknown quit type from user %1.").arg(nickname));
-			break;
+	default:
+		emit error(tr("Unknown quit type from user %1.").arg(nickname));
+		break;
 	}
 }
 
-void IRCChannelAdapter::userModeChanges(const QString& nickname,
+void IRCChannelAdapter::userModeChanges(const QString &nickname,
 	const QList<char> &addedFlags, const QList<char> &removedFlags)
 {
-	const IRCUserInfo* pUserInfo = this->users->user(nickname);
-	if (pUserInfo != NULL)
+	const IRCUserInfo *pUserInfo = this->users->user(nickname);
+	if (pUserInfo != nullptr)
 	{
 		IRCUserInfo newUserInfo = *pUserInfo;
-		foreach (char mode, addedFlags)
+		for (char mode : addedFlags)
 		{
 			newUserInfo.setMode(mode);
 		}
-		foreach (char mode, removedFlags)
+		for (char mode : removedFlags)
 		{
 			newUserInfo.unsetMode(mode);
 		}

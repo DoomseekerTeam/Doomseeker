@@ -22,8 +22,8 @@
 //------------------------------------------------------------------------------
 #include "chatlogscfg.h"
 
-#include "irc/configuration/ircconfig.h"
 #include "datapaths.h"
+#include "irc/configuration/ircconfig.h"
 
 DClass<ChatLogsCfg>
 {

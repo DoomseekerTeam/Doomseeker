@@ -38,106 +38,110 @@ class ServerListModel : public QStandardItemModel
 	friend class ServerList;
 	friend class ServerListProxyModel;
 
-	public:
-		/**
-		 *	Servers from the same group will be always kept together
-		 *  and sorted only inside this group. Group order is always descending:
-		 *  SG_NORMAL servers will be always on the top of the list, after them
-		 *  will be SG_WAIT servers, etc.
-		 *
-		 *  @b WARNING:
-		 *	Exception: custom servers will always be on top of the list
-		 *	and will be sorted inside their own group independentedly.
-		 */
-		enum ServerGroup
-		{
-			SG_NORMAL = 200,
-			SG_WAIT = 175,
-			SG_BANNED = 150,
-			SG_TIMEOUT = 125,
-			SG_BAD = 100,
-			SG_FIRST_QUERY = 50,
-		};
+public:
+	/**
+	 * Servers from the same group will be always kept together
+	 * and sorted only inside this group. Group order is always descending:
+	 * SG_NORMAL servers will be always on the top of the list, after them
+	 * will be SG_WAIT servers, etc.
+	 *
+	 * @b WARNING:
+	 * Exception: custom servers will always be on top of the list
+	 * and will be sorted inside their own group independentedly.
+	 */
+	enum ServerGroup
+	{
+		SG_NORMAL = 200,
+		SG_WAIT = 175,
+		SG_BANNED = 150,
+		SG_TIMEOUT = 125,
+		SG_BAD = 100,
+		SG_FIRST_QUERY = 50,
+	};
 
-		enum ServerListDataTypes
-		{
-			// Pointer to the server structure is always stored in the first column
-			SLDT_POINTER_TO_SERVER_STRUCTURE = Qt::UserRole+1,
-			SLDT_SORT = Qt::UserRole+2
-		};
+	enum ServerListDataTypes
+	{
+		// Pointer to the server structure is always stored in the first column
+		SLDT_POINTER_TO_SERVER_STRUCTURE = Qt::UserRole + 1,
+		SLDT_SORT = Qt::UserRole + 2,
+		SLDT_SERVER_GROUP = Qt::UserRole + 3
+	};
 
-		ServerListModel(ServerList* parent);
+	ServerListModel(ServerList *parent);
 
-		/**
-		 * @return New row index.
-		 */
-		int addServer(ServerPtr server);
-		QList<ServerPtr> customServers() const;
+	/**
+	 * @return New row index.
+	 */
+	int addServer(ServerPtr server);
+	QList<ServerPtr> customServers() const;
 
-		/**
-		 * Finds "the same" server (plugin, host, port) that
-		 * isn't necessarilly the same object.
-		 */
-		ServerPtr findSameServer(const Server *server);
+	/**
+	 * Finds "the same" server (plugin, host, port) that
+	 * isn't necessarilly the same object.
+	 */
+	ServerPtr findSameServer(const Server *server);
 
-		/**
-		 * @brief Finds index of the row where server is contained.
-		 *
-		 * @return -1 in case of a failure or index of the row otherwise.
-		 */
-		int findServerOnTheList(const Server *server);
+	/**
+	 * @brief Finds index of the row where server is contained.
+	 *
+	 * @return -1 in case of a failure or index of the row otherwise.
+	 */
+	int findServerOnTheList(const Server *server);
 
-		ServerList* handler() { return parentHandler; }
+	ServerList *handler()
+	{
+		return parentHandler;
+	}
 
 
-		QList<ServerPtr> nonSpecialServers() const;
-		QList<ServerPtr> servers() const;
-		QList<ServerPtr> serversForPlugin(const EnginePlugin *plugin) const;
+	QList<ServerPtr> nonSpecialServers() const;
+	QList<ServerPtr> servers() const;
+	QList<ServerPtr> serversForPlugin(const EnginePlugin *plugin) const;
 
-		/**
-		 * Enforces update of a given row. No modificiation is done
-		 * to the server info itself. Can be used to redraw things like
-		 * background.
-		 */
-		void redraw(int row);
+	/**
+	 * Enforces update of a given row. No modificiation is done
+	 * to the server info itself. Can be used to redraw things like
+	 * background.
+	 */
+	void redraw(int row);
 
-		/**
-		 * Redraws row for the specified server. Does nothing if
-		 * server is not found in the model.
-		 */
-		void redraw(Server *server);
+	/**
+	 * Redraws row for the specified server. Does nothing if
+	 * server is not found in the model.
+	 */
+	void redraw(Server *server);
 
-		void redrawAll();
+	void redrawAll();
 
-		void removeServer(const ServerPtr &server);
+	void removeServer(const ServerPtr &server);
 
-		/**
-		 *  Updates flag on given row.
-		 *  @param row - index of row to update
-		 */
-		void updateFlag(int row, bool force = true);
+	/**
+	 *  Updates flag on given row.
+	 *  @param row - index of row to update
+	 */
+	void updateFlag(int row, bool force = true);
 
-		/**
-		 *	Returns row index.
-		 */
-		int updateServer(int row, ServerPtr server);
+	/**
+	 * Returns row index.
+	 */
+	int updateServer(int row, ServerPtr server);
 
-		ServerPtr serverFromList(int rowIndex) const;
-		ServerPtr serverFromList(const QModelIndex&) const;
+	ServerPtr serverFromList(int rowIndex) const;
+	ServerPtr serverFromList(const QModelIndex &) const;
 
-		void setRefreshing(ServerPtr server);
+	void setRefreshing(ServerPtr server);
 
-	signals:
-		void allRowsContentChanged();
-		void rowContentChanged(int row);
+signals:
+	void allRowsContentChanged();
+	void rowContentChanged(int row);
 
-	private:
-		void prepareHeaders();
-		ServerGroup serverGroup(int row);
+private:
+	void prepareHeaders();
+	ServerGroup serverGroup(int row);
 
-		QVariant columnSortData(int row, int column);
+	QVariant columnSortData(int row, int column);
 
-		ServerList* parentHandler;
+	ServerList *parentHandler;
 };
 
 #endif

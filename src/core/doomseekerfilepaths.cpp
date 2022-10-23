@@ -23,12 +23,16 @@
 #include "doomseekerfilepaths.h"
 
 #include "datapaths.h"
+#include "strings.hpp"
+#include <QFile>
 
-DataPaths* DoomseekerFilePaths::pDataPaths = NULL;
+static const QString DATA_SEARCH_PREFIX = "data";
+
+DataPaths *DoomseekerFilePaths::pDataPaths = nullptr;
 
 const QString DoomseekerFilePaths::CACERTS_FILENAME = "cacerts.pem";
 const QString DoomseekerFilePaths::IP2C_DATABASE_FILENAME = "IpToCountry.dat";
-const QString DoomseekerFilePaths::IP2C_QT_SEARCH_PATH = "data:" + IP2C_DATABASE_FILENAME;
+const QString DoomseekerFilePaths::IP2C_QT_SEARCH_PATH = DATA_SEARCH_PREFIX + ":" + IP2C_DATABASE_FILENAME;
 const QString DoomseekerFilePaths::TEMP_SERVER_CONFIG_FILENAME = "tmpserver.cfg";
 const QString DoomseekerFilePaths::INI_FILENAME = "doomseeker.ini";
 const QString DoomseekerFilePaths::IRC_INI_FILENAME = "doomseeker-irc.ini";
@@ -37,7 +41,7 @@ const QString DoomseekerFilePaths::PASSWORD_INI_FILENAME = "doomseeker-password.
 QString DoomseekerFilePaths::cacerts()
 {
 	QStringList paths = pDataPaths->staticDataSearchDirs(CACERTS_FILENAME);
-	foreach (const QString &path, paths)
+	for (const QString &path : paths)
 	{
 		if (QFile(path).exists())
 			return path;
@@ -55,6 +59,17 @@ QString DoomseekerFilePaths::ircIni()
 	return joinIfNeitherEmpty(pDataPaths->programsDataDirectoryPath(), IRC_INI_FILENAME);
 }
 
+QString DoomseekerFilePaths::ip2cDatabaseAny()
+{
+	for (const QString &searchPath : QDir::searchPaths(DATA_SEARCH_PREFIX))
+	{
+		QString path = Strings::combinePaths(searchPath, IP2C_DATABASE_FILENAME);
+		if (QFile(path).exists())
+			return path;
+	}
+	return QString();
+}
+
 QString DoomseekerFilePaths::ip2cDatabase()
 {
 	return joinIfNeitherEmpty(pDataPaths->localDataLocationPath(), IP2C_DATABASE_FILENAME);
@@ -63,9 +78,7 @@ QString DoomseekerFilePaths::ip2cDatabase()
 QString DoomseekerFilePaths::joinIfNeitherEmpty(const QString &left, const QString &right)
 {
 	if (left.trimmed().isEmpty() || right.trimmed().isEmpty())
-	{
 		return QString();
-	}
 	return left + "/" + right;
 }
 

@@ -40,7 +40,7 @@
  */
 
 class Server;
-typedef QSharedPointer<Server> ServerPtr;
-typedef QSharedPointer<const Server> ServerCPtr;
+using ServerPtr = QSharedPointer<Server>;
+using ServerCPtr = QSharedPointer<const Server>;
 
 #endif

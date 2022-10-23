@@ -23,8 +23,8 @@
 
 #include "plugins/engineplugin.h"
 
-#include "vavoomgameinfo.h"
 #include "vavoomengineplugin.h"
+#include "vavoomgameinfo.h"
 #include "vavoommasterclient.h"
 #include "vavoomserver.h"
 

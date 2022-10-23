@@ -29,16 +29,16 @@ class ChocolateDoomGameHost : public GameHost
 {
 	Q_OBJECT
 
-	public:
-		ChocolateDoomGameHost();
+public:
+	ChocolateDoomGameHost();
 
-	protected:
-		void addExtra();
+protected:
+	void addExtra() override;
 
-	private:
-		Q_DISABLE_COPY(ChocolateDoomGameHost)
+private:
+	Q_DISABLE_COPY(ChocolateDoomGameHost)
 
-		void addWarp();
+	void addWarp();
 };
 
 #endif

@@ -18,16 +18,16 @@
 #------------------------------------------------------------------------------
 # Copyright (C) 2009 Braden "Blzut3" Obrzut <admin@maniacsvault.net>
 #------------------------------------------------------------------------------
-cmake_minimum_required(VERSION 2.8.12)
 
 set(PLUGIN_NAME odamex)
-set(PLUGIN_VERSION 32)
+set(PLUGIN_VERSION 40)
 include(../PluginHeader.cmake)
 
 set(ODAMEX_FILES
 	odamexengineplugin.cpp
 	odamexgamehost.cpp
 	odamexgameinfo.cpp
+	odamexgamemode.cpp
 	odamexgamerunner.cpp
 	odamexmasterclient.cpp
 	odamexserver.cpp
@@ -38,16 +38,15 @@ set(HEADER_FILES
 	odamexmasterclient.h
 	odamexgamehost.h
 	odamexgameinfo.h
+	odamexgamemode.h
 	odamexgamerunner.h
 	odamexserver.h
 )
 
 set(TRANSLATIONS_FILES
+	translations/odamex_ca_ES.ts
+	translations/odamex_es_ES.ts
 	translations/odamex_pl_PL.ts
-)
-set(FILES_TO_TRANSLATE
-	${ODAMEX_HEADER_FILES}
-	${ODAMEX_FILES}
 )
 
 include(../Translation.cmake)

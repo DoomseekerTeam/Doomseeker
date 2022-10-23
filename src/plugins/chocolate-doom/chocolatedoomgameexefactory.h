@@ -31,12 +31,13 @@ class GameFileList;
 
 class ChocolateDoomGameExeFactory : public GameExeFactory
 {
+	Q_OBJECT
 public:
 	static GameFile executableForIwad(const QString &iwad);
 	static GameFileList gameFiles();
 
 	ChocolateDoomGameExeFactory(EnginePlugin *plugin);
-	~ChocolateDoomGameExeFactory();
+	~ChocolateDoomGameExeFactory() override;
 
 private:
 	DPtr<ChocolateDoomGameExeFactory> d;

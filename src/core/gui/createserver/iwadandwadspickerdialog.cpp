@@ -22,9 +22,9 @@
 //------------------------------------------------------------------------------
 #include "iwadandwadspickerdialog.h"
 
-#include "ui_iwadandwadspickerdialog.h"
 #include "filefilter.h"
 #include "gui/commongui.h"
+#include "ui_iwadandwadspickerdialog.h"
 #include <QFileDialog>
 
 DClass<IwadAndWadsPickerDialog> : public Ui::IwadAndWadsPickerDialog
@@ -34,9 +34,10 @@ DClass<IwadAndWadsPickerDialog> : public Ui::IwadAndWadsPickerDialog
 DPointered(IwadAndWadsPickerDialog)
 
 IwadAndWadsPickerDialog::IwadAndWadsPickerDialog(QWidget *parent)
-: QDialog(parent)
+	: QDialog(parent)
 {
 	d->setupUi(this);
+	CommonGUI::setupDialog(*this);
 }
 
 IwadAndWadsPickerDialog::~IwadAndWadsPickerDialog()
@@ -50,12 +51,10 @@ QString IwadAndWadsPickerDialog::executable() const
 
 void IwadAndWadsPickerDialog::setExecutables(const QStringList &paths)
 {
-	foreach (const QString &path, paths)
+	for (const QString &path : paths)
 	{
 		if (d->executableInput->findText(path) < 0)
-		{
 			d->executableInput->addItem(path);
-		}
 	}
 }
 
@@ -65,11 +64,9 @@ void IwadAndWadsPickerDialog::browseExecutable()
 		executable(), FileFilter::executableFilesFilter());
 	if (!path.isEmpty())
 	{
-		CommonGUI::setCurrentText(d->executableInput, path);
+		d->executableInput->setCurrentText(path);
 		if (d->executableInput->findText(path) < 0)
-		{
 			d->executableInput->addItem(path);
-		}
 	}
 }
 

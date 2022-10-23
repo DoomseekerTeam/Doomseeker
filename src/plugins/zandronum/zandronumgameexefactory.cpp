@@ -23,9 +23,9 @@
 #include "zandronumgameexefactory.h"
 
 #include "zandronumbinaries.h"
-#include <QDir>
 #include <ini/inisection.h>
 #include <plugins/engineplugin.h>
+#include <QDir>
 #include <serverapi/exefile.h>
 #include <serverapi/gamefile.h>
 
@@ -36,7 +36,7 @@ public:
 DPointered(ZandronumGameExeFactory)
 
 ZandronumGameExeFactory::ZandronumGameExeFactory(EnginePlugin *plugin)
-: GameExeFactory(plugin)
+	: GameExeFactory(plugin)
 {
 	set_additionalExecutables(&ZandronumGameExeFactory::additionalExecutables);
 }
@@ -49,11 +49,11 @@ QList<ExeFilePath> ZandronumGameExeFactory::additionalExecutables(int execType) 
 {
 	QList<ExeFilePath> testingExecutables;
 	IniSection *cfg = plugin()->data()->pConfig;
-	if (cfg != NULL)
+	if (cfg != nullptr)
 	{
 		QDir directory(cfg->value("TestingPath").toString());
 		QStringList subdirs = directory.entryList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name | QDir::Reversed);
-		foreach (const QString &subdirName, subdirs)
+		for (const QString &subdirName : subdirs)
 		{
 			testingExecutables << scanSubdir(directory, subdirName, execType);
 		}
@@ -72,19 +72,19 @@ QList<ExeFilePath> ZandronumGameExeFactory::scanSubdir(const QDir &mainDir,
 		if (!subdir.entryList(QStringList(execName()), QDir::Files).isEmpty())
 		{
 			paths << mainDir.absoluteFilePath(
-				subdirName + ZandronumClientExeFile::scriptFileExtension());
+					subdirName + ZandronumClientExeFile::scriptFileExtension());
 		}
 	}
 	if (execType & GameFile::Server)
 	{
 		if (!subdir.entryList(QStringList(serverExecName()), QDir::Files).isEmpty())
 		{
-#ifdef Q_OS_WIN32
+			#ifdef Q_OS_WIN32
 			paths << mainDir.absoluteFilePath(
-				subdirName + ZandronumClientExeFile::scriptFileExtension());
-#else
+					subdirName + ZandronumClientExeFile::scriptFileExtension());
+			#else
 			paths << mainDir.absoluteFilePath(subdirName + "/zandronum-server");
-#endif
+			#endif
 		}
 	}
 	return paths;
@@ -92,18 +92,18 @@ QList<ExeFilePath> ZandronumGameExeFactory::scanSubdir(const QDir &mainDir,
 
 QString ZandronumGameExeFactory::execName() const
 {
-#ifdef Q_OS_WIN32
+	#ifdef Q_OS_WIN32
 	return "zandronum.exe";
-#else
+	#else
 	return "zandronum";
-#endif
+	#endif
 }
 
 QString ZandronumGameExeFactory::serverExecName() const
 {
-#ifdef Q_OS_WIN32
+	#ifdef Q_OS_WIN32
 	return "zandronum.exe";
-#else
+	#else
 	return "zandronum-server";
-#endif
+	#endif
 }

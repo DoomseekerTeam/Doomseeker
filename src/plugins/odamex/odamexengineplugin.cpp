@@ -26,11 +26,32 @@
 #include "irc/entities/ircnetworkentity.h"
 #include "plugins/engineplugin.h"
 
+#include "odamexengineplugin.h"
 #include "odamexgamehost.h"
 #include "odamexgameinfo.h"
+#include "odamexgamemode.h"
 #include "odamexmasterclient.h"
-#include "odamexengineplugin.h"
 #include "odamexserver.h"
+
+namespace
+{
+/**
+ * @brief Provides a (translated) About text for Odamex.
+ */
+class OdamexAboutProvider : public TextProvider
+{
+	Q_OBJECT
+
+public:
+	QString provide() override
+	{
+		QString aboutDescription = "Odamex (https://odamex.net/)\n\n";
+		aboutDescription += tr("This plugin is distributed under the terms of the LGPL v2.1 or later.\n\n");
+		return aboutDescription;
+	}
+};
+}
+
 
 INSTALL_PLUGIN(OdamexEnginePlugin)
 
@@ -42,6 +63,7 @@ OdamexEnginePlugin::OdamexEnginePlugin()
 	init("Odamex", odamex_xpm,
 		EP_Author, "The Doomseeker Team",
 		EP_Version, PLUGIN_VERSION,
+		EP_AboutProvider, new OdamexAboutProvider,
 
 		EP_AllowsURL,
 		EP_AllowsEmail,
@@ -59,6 +81,7 @@ OdamexEnginePlugin::OdamexEnginePlugin()
 		EP_ServerExeName, "odasrv",
 		EP_GameFileSearchSuffixes, "odamex",
 		EP_AllowsUpnp,
+		EP_AllowsLogging,
 		EP_Done
 	);
 }
@@ -70,15 +93,22 @@ QList<DMFlagsSection> OdamexEnginePlugin::dmFlags() const
 
 QList<GameMode> OdamexEnginePlugin::gameModes() const
 {
-	return OdamexGameInfo::gameModes();
+	return OdamexGameMode::base();
 }
 
-GameHost* OdamexEnginePlugin::gameHost()
+GameHost *OdamexEnginePlugin::gameHost()
 {
 	return new OdamexGameHost();
+}
+
+QList<GameCVar> OdamexEnginePlugin::limits(const GameMode &mode) const
+{
+	return OdamexGameInfo::extraSettings();
 }
 
 ServerPtr OdamexEnginePlugin::mkServer(const QHostAddress &address, unsigned short port) const
 {
 	return ServerPtr(new OdamexServer(address, port));
 }
+
+#include "odamexengineplugin.moc"

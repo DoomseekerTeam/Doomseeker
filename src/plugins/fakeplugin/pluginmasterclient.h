@@ -32,23 +32,23 @@ class PluginMasterClient : public MasterClient
 {
 	Q_OBJECT
 
-	public:
-		PluginMasterClient();
-		~PluginMasterClient();
+public:
+	PluginMasterClient();
+	~PluginMasterClient();
 
-		const EnginePlugin* plugin() const;
+	const EnginePlugin *plugin() const;
 
-		// Override
-		Response readMasterResponse(const QByteArray &data);
+	// Override
+	Response readMasterResponse(const QByteArray &data);
 
-	protected:
-		// Override
-		QByteArray createServerListRequest();
+protected:
+	// Override
+	QByteArray createServerListRequest();
 
-	private:
-		class PrivData;
+private:
+	class PrivData;
 
-		PrivData* d;
+	PrivData *d;
 };
 
 #endif

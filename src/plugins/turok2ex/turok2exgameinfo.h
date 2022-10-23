@@ -24,37 +24,50 @@
 #define __TUROK2EX_GAME_INFO_H_
 
 #include "serverapi/serverstructs.h"
+#include "serverapi/textprovider.h"
 #include <QObject>
 
 class Turok2ExGameInfo : public QObject
 {
 	Q_OBJECT
 
-	public:
-		enum Turok2ExGameModes
-		{
-			MODE_SINGLEPLAYER, // start of list
-			MODE_ROKMATCH,
-			MODE_TEAMROKMATCH,
-			MODE_FRAGTAG,
-			MODE_LASTTUROKSTANDING,
-			MODE_ROKMIX,
-			MODE_INSTAROK,
-			MODE_RAPTORFEST,
-			MODE_NUMMODES // end of list
-		};
+public:
+	enum Turok2ExGameModes
+	{
+		MODE_SINGLEPLAYER, // start of list
+		MODE_ROKMATCH,
+		MODE_TEAMROKMATCH,
+		MODE_FRAGTAG,
+		MODE_LASTTUROKSTANDING,
+		MODE_ROKMIX,
+		MODE_INSTAROK,
+		MODE_RAPTORFEST,
+		MODE_NUMMODES // end of list
+	};
 
-		static QList<GameMode> gameModes();
-		static QList<GameCVar> limits(const GameMode &gameMode);
+	static QList<GameMode> gameModes();
+	static QList<GameCVar> limits(const GameMode &gameMode);
 };
 
 class Turok2ExDifficultyProvider : GameCVarProvider
 {
 public:
-	QList<GameCVar> get(const QVariant &context)
+	QList<GameCVar> get(const QVariant &context) override
 	{
+		Q_UNUSED(context);
 		return QList<GameCVar>();
 	}
+};
+
+/**
+ * @brief Provides a (translated) About text for Turok2.
+ */
+class Turok2AboutProvider : public TextProvider
+{
+	Q_OBJECT
+
+public:
+	QString provide() override;
 };
 
 #endif

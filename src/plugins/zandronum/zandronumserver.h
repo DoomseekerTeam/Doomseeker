@@ -24,8 +24,8 @@
 #ifndef DOOMSEEKER_PLUGIN_ZANDRONUMSERVER_H
 #define DOOMSEEKER_PLUGIN_ZANDRONUMSERVER_H
 
-#include <QString>
 #include <QColor>
+#include <QString>
 
 #include "serverapi/server.h"
 
@@ -42,150 +42,156 @@ class ZandronumServer;
  */
 class ZandronumVersion
 {
-	public:
-		ZandronumVersion(QString version);
+public:
+	ZandronumVersion(QString version);
 
-		unsigned short int majorVersion() const { return major; }
-		unsigned short int minorVersion() const { return minor; }
-		unsigned short int revisionVersion() const { return revision; }
-		unsigned int hgVersionDate() const { return hgRevisionDate; }
-		unsigned short int hgVersionTime() const { return hgRevisionTime; }
+	unsigned short int majorVersion() const { return major; }
+	unsigned short int minorVersion() const { return minor; }
+	unsigned short int revisionVersion() const { return revision; }
+	unsigned int hgVersionDate() const { return hgRevisionDate; }
+	unsigned short int hgVersionTime() const { return hgRevisionTime; }
 
-		bool operator> (const ZandronumVersion &other) const;
+	bool operator> (const ZandronumVersion &other) const;
 
-	protected:
-		static const QRegExp versionExpression;
-		QString version;
+protected:
+	static const QRegularExpression versionExpression;
+	QString version;
 
-		unsigned short int major;
-		unsigned short int minor;
-		unsigned short int revision;
-		unsigned short int build;
-		QString tag;
-		unsigned int hgRevisionDate;
-		unsigned short int hgRevisionTime;
+	unsigned short int major;
+	unsigned short int minor;
+	unsigned short int revision;
+	unsigned short int build;
+	QString tag;
+	unsigned int hgRevisionDate;
+	unsigned short int hgRevisionTime;
 };
 
 class TeamInfo
 {
-	public:
-		TeamInfo(const QString &name=QObject::tr("<< Unknown >>"), const QColor &color=QColor(0,0,0), unsigned int score=0);
+public:
+	TeamInfo(QString name = QObject::tr("<< Unknown >>"), QColor color = QColor(0, 0, 0), unsigned int score = 0);
 
-		const QString &name() const { return teamName; }
-		const QColor &color() const { return teamColor; }
-		unsigned int score() const { return teamScore; }
+	const QString &name() const { return teamName; }
+	const QColor &color() const { return teamColor; }
+	unsigned int score() const { return teamScore; }
 
-	protected:
-		void setName(const QString &name) { teamName = name; }
-		void setColor(const QColor &color) { teamColor = color; }
-		void setScore(int score) { teamScore = score; }
+protected:
+	void setName(const QString &name) { teamName = name; }
+	void setColor(const QColor &color) { teamColor = color; }
+	void setScore(int score) { teamScore = score; }
 
-		friend class ZandronumServer;
+	friend class ZandronumServer;
 
-	private:
-		QString teamName;
-		QColor teamColor;
-		unsigned int teamScore;
+private:
+	QString teamName;
+	QColor teamColor;
+	unsigned int teamScore;
 };
 
 class ZandronumServer : public Server
 {
 	Q_OBJECT
 
-	public:
+public:
 
 
-		enum ZandronumQueryFlags
-		{
-			SQF_NAME = 0x00000001,
-			SQF_URL = 0x00000002,
-			SQF_EMAIL = 0x00000004,
-			SQF_MAPNAME = 0x00000008,
-			SQF_MAXCLIENTS = 0x00000010,
-			SQF_MAXPLAYERS = 0x00000020,
-			SQF_PWADS = 0x00000040,
-			SQF_GAMETYPE = 0x00000080,
-			SQF_GAMENAME = 0x00000100,
-			SQF_IWAD = 0x00000200,
-			SQF_FORCEPASSWORD = 0x00000400,
-			SQF_FORCEJOINPASSWORD = 0x00000800,
-			SQF_GAMESKILL = 0x00001000,
-			SQF_BOTSKILL = 0x00002000,
-			SQF_DMFLAGS = 0x00004000, // Deprecated
-			SQF_LIMITS = 0x00010000,
-			SQF_TEAMDAMAGE = 0x00020000,
-			SQF_TEAMSCORES = 0x00040000,
-			SQF_NUMPLAYERS = 0x00080000,
-			SQF_PLAYERDATA = 0x00100000,
-			SQF_TEAMINFO_NUMBER = 0x00200000,
-			SQF_TEAMINFO_NAME = 0x00400000,
-			SQF_TEAMINFO_COLOR = 0x00800000,
-			SQF_TEAMINFO_SCORE = 0x01000000,
-			SQF_TESTING_SERVER = 0x02000000,
-			SQF_DATA_MD5SUM = 0x04000000,
-			SQF_ALL_DMFLAGS = 0x08000000,
-			SQF_SECURITY_SETTINGS= 0x10000000,
-			SQF_OPTIONAL_WADS = 0x20000000,
-			SQF_DEH = 0x40000000,
+	enum ZandronumQueryFlags
+	{
+		SQF_NAME = 0x00000001,
+		SQF_URL = 0x00000002,
+		SQF_EMAIL = 0x00000004,
+		SQF_MAPNAME = 0x00000008,
+		SQF_MAXCLIENTS = 0x00000010,
+		SQF_MAXPLAYERS = 0x00000020,
+		SQF_PWADS = 0x00000040,
+		SQF_GAMETYPE = 0x00000080,
+		SQF_GAMENAME = 0x00000100,
+		SQF_IWAD = 0x00000200,
+		SQF_FORCEPASSWORD = 0x00000400,
+		SQF_FORCEJOINPASSWORD = 0x00000800,
+		SQF_GAMESKILL = 0x00001000,
+		SQF_BOTSKILL = 0x00002000,
+		SQF_DMFLAGS = 0x00004000, // Deprecated
+		SQF_LIMITS = 0x00010000,
+		SQF_TEAMDAMAGE = 0x00020000,
+		SQF_TEAMSCORES = 0x00040000,
+		SQF_NUMPLAYERS = 0x00080000,
+		SQF_PLAYERDATA = 0x00100000,
+		SQF_TEAMINFO_NUMBER = 0x00200000,
+		SQF_TEAMINFO_NAME = 0x00400000,
+		SQF_TEAMINFO_COLOR = 0x00800000,
+		SQF_TEAMINFO_SCORE = 0x01000000,
+		SQF_TESTING_SERVER = 0x02000000,
+		SQF_DATA_MD5SUM = 0x04000000,
+		SQF_ALL_DMFLAGS = 0x08000000,
+		SQF_SECURITY_SETTINGS = 0x10000000,
+		SQF_OPTIONAL_WADS = 0x20000000,
+		SQF_DEH = 0x40000000,
+		SQF_EXTENDED_INFO = 0x80000000,
 
-			SQF_STANDARDQUERY =
-				SQF_NAME|SQF_URL|SQF_EMAIL|SQF_MAPNAME|SQF_MAXCLIENTS|
-				SQF_MAXPLAYERS|SQF_PWADS|SQF_GAMETYPE|SQF_IWAD|
-				SQF_FORCEPASSWORD|SQF_FORCEJOINPASSWORD|SQF_LIMITS|
-				SQF_NUMPLAYERS|SQF_PLAYERDATA|SQF_TEAMINFO_NUMBER|
-				SQF_TEAMINFO_NAME|SQF_TEAMINFO_SCORE|SQF_GAMESKILL|
-				SQF_TESTING_SERVER|SQF_ALL_DMFLAGS|SQF_SECURITY_SETTINGS|
-				SQF_OPTIONAL_WADS|SQF_DEH
-		};
+		SQF_STANDARDQUERY =
+			SQF_NAME | SQF_URL | SQF_EMAIL | SQF_MAPNAME | SQF_MAXCLIENTS |
+			SQF_MAXPLAYERS | SQF_PWADS | SQF_GAMETYPE | SQF_IWAD |
+			SQF_FORCEPASSWORD | SQF_FORCEJOINPASSWORD | SQF_LIMITS |
+			SQF_NUMPLAYERS | SQF_PLAYERDATA | SQF_TEAMINFO_NUMBER |
+			SQF_TEAMINFO_NAME | SQF_TEAMINFO_SCORE | SQF_GAMESKILL |
+			SQF_TESTING_SERVER | SQF_ALL_DMFLAGS | SQF_SECURITY_SETTINGS |
+			SQF_OPTIONAL_WADS | SQF_DEH | SQF_EXTENDED_INFO,
 
-		ZandronumServer(const QHostAddress &address, unsigned short port);
+		SQF2_PWAD_HASHES = 0x00000001,
+		SQF2_COUNTRY = 0x00000002,
 
-		ExeFile *clientExe();
+		SQF2_STANDARDQUERY = SQF2_PWAD_HASHES | SQF2_COUNTRY
+	};
 
-		GameHost* gameHost();
-		GameClientRunner* gameRunner();
+	ZandronumServer(const QHostAddress &address, unsigned short port);
 
-		bool hasRcon() const { return true; }
+	ExeFile *clientExe() override;
 
-		QList<GameCVar> modifiers() const;
-		EnginePlugin* plugin() const;
+	GameHost *gameHost();
+	GameClientRunner *gameRunner() override;
 
-		RConProtocol *rcon();
+	bool hasRcon() const override { return true; }
 
-		QRgb teamColor(unsigned team) const;
-		QString teamName(unsigned team) const;
+	QList<GameCVar> modifiers() const override;
+	EnginePlugin *plugin() const override;
 
-		PathFinder wadPathFinder();
+	RConProtocol *rcon() override;
 
-	protected slots:
-		void updatedSlot(ServerPtr server, int response);
+	QRgb teamColor(unsigned team) const;
+	QString teamName(unsigned team) const;
 
-	protected:
-		bool buckshot;
-		bool instagib;
+	PathFinder wadPathFinder() override;
 
-		float teamDamage;
+protected slots:
+	void updatedSlot(ServerPtr server, int response);
 
-		unsigned short botSkill;
+protected:
+	bool buckshot;
+	bool instagib;
 
-		QByteArray lastReadRequest;
+	float teamDamage;
 
-		unsigned short duelLimit;
-		unsigned short fragLimit;
-		unsigned short pointLimit;
-		unsigned short winLimit;
+	unsigned short botSkill;
 
-		unsigned int numTeams;
-		TeamInfo teamInfo[ST_MAX_TEAMS];
+	QByteArray lastReadRequest;
 
-		QString testingArchive;
+	unsigned short duelLimit;
+	unsigned short fragLimit;
+	unsigned short pointLimit;
+	unsigned short winLimit;
 
-		QByteArray createSendRequest();
-		static unsigned int millisecondTime();
-		Response readRequest(const QByteArray &data);
+	unsigned int numTeams;
+	TeamInfo teamInfo[ST_MAX_TEAMS];
 
-	private:
-		void resetPwadsList(const QList<PWad> &wads);
+	QString testingArchive;
+
+	QByteArray createSendRequest();
+	static unsigned int millisecondTime();
+	Response readRequest(const QByteArray &data);
+
+private:
+	void resetPwadsList(const QList<PWad> &wads);
 };
 
 #endif

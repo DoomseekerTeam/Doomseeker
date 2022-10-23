@@ -27,10 +27,17 @@
 #  ./mergemacdmg.sh <qt4path> <qt5path>
 
 QT4=$1
-QT5=$2
-shift 2
+shift
+QT5=$1
+shift
 
-if true; then
+if [[ -z $QT4 || -z $QT5 ]]; then
+	echo 'Pass path to Qt4 and Qt5 installs.' >&2
+	exit 1
+fi
+
+rm -rf Qt4 Qt5 Doomseeker.app Doomseeker
+
 CC="${QT4_CC}" CXX="${QT4_CXX}" ./makemacdmg.sh -DQT_QMAKE_EXECUTABLE="$QT4/bin/qmake" "$@" || exit
 mkdir Qt4
 mv Doomseeker*.dmg Qt4/
@@ -40,9 +47,6 @@ QT5PATH="$QT5" CC="${QT5_CC}" CXX="${QT5_CXX}" ./makemacdmg.sh "$@" || exit
 mkdir Qt5
 mv Doomseeker*.dmg Qt5/
 mv Doomseeker.app Qt5/
-else
-rm -rf Doomseeker.app
-fi
 
 cp -a Qt4/Doomseeker.app Doomseeker.app
 cp -a Qt5/Doomseeker.app/Contents/Frameworks/Qt* Doomseeker.app/Contents/Frameworks/
@@ -112,7 +116,8 @@ function flatten_framework()
 			mv $Qt5Framework/$Filename $Framework/$Filename
 		fi
 	done
-	rm -vrf $Framework/Versions
+	# Contents directory not allowed with code signing
+	rm -vrf $Framework/Versions $Framework/Contents
 }
 
 function mergebin()
@@ -122,7 +127,7 @@ function mergebin()
 }
 
 # Merge our binaries
-mergebin Doomseeker.app/Contents/Frameworks/libwadseeker.dylib
+mergebin Doomseeker.app/Contents/Frameworks/libwadseeker.1.dylib
 mergebin Doomseeker.app/Contents/MacOS/doomseeker
 mergebin Doomseeker.app/Contents/MacOS/updater
 for i in `ls Doomseeker.app/Contents/MacOS/engines`

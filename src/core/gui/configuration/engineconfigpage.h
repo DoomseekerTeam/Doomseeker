@@ -24,8 +24,8 @@
 #ifndef __ENGINECONFIGBASE_H__
 #define __ENGINECONFIGBASE_H__
 
-#include "gui/configuration/configpage.h"
 #include "dptr.h"
+#include "gui/configuration/configpage.h"
 
 class EnginePlugin;
 class IniSection;
@@ -49,62 +49,54 @@ class MAIN_EXPORT EngineConfigPage : public ConfigPage
 {
 	Q_OBJECT
 
-	public:
-		/**
-		 * @param plugin
-		 *     Parent plugin handled by this page.
-		 * @param cfg
-		 *     IniSection which handles configuration for this plugin. Usually
-		 *     this should be set to whatever EnginePlugin::data()->pConfig
-		 *     points to.
-		 * @param parent
-		 *     Parent widget, most likely configuration dialog box.
-		 */
-		EngineConfigPage(EnginePlugin *plugin, IniSection &cfg, QWidget *parent=NULL);
-		virtual ~EngineConfigPage();
+public:
+	/**
+	 * @param plugin
+	 *     Parent plugin handled by this page.
+	 * @param cfg
+	 *     IniSection which handles configuration for this plugin. Usually
+	 *     this should be set to whatever EnginePlugin::data()->pConfig
+	 *     points to.
+	 * @param parent
+	 *     Parent widget, most likely configuration dialog box.
+	 */
+	EngineConfigPage(EnginePlugin *plugin, IniSection &cfg, QWidget *parent = nullptr);
+	virtual ~EngineConfigPage() override;
 
-		QIcon icon() const;
-		QString name() const;
-		/**
-		 * @brief Parent plugin handled by this page.
-		 */
-		const EnginePlugin *plugin() const;
-		QString title() const;
-		virtual Validation validate();
+	QIcon icon() const override;
+	QString name() const override;
+	/**
+	 * @brief Parent plugin handled by this page.
+	 */
+	const EnginePlugin *plugin() const;
+	QString title() const override;
+	Validation validate() override;
 
-	protected:
-		/**
-		 * @brief Add a new, custom widget below the standard ones.
-		 */
-		void addWidget(QWidget *widget);
-		void readSettings();
-		void saveSettings();
+protected:
+	/**
+	 * @brief Add a new, custom widget below the standard ones.
+	 */
+	void addWidget(QWidget *widget);
+	void readSettings() override;
+	void saveSettings() override;
 
-	private:
-		DPtr<EngineConfigPage> d;
-		friend class PrivData<EngineConfigPage>;
+private:
+	DPtr<EngineConfigPage> d;
+	friend class PrivData<EngineConfigPage>;
 
-#if __GNUC__ == 4 && __GNUC_MINOR__ == 0
-	// [QT_VERSION] Remove me when Qt4 is dropped since there won't be a real reason to support GCC 4.0
-	// which doesn't support the TR1 nested class visibility change.
-	public:
-#endif
-		QStringList collectKnownGameFilePaths() const;
-#if __GNUC__ == 4 && __GNUC_MINOR__ == 0
-	private:
-#endif
-		void makeFileBrowsers();
-		QString currentCustomParameters() const;
-		void removeStoredCustomParametersFromConfig(const QString &parameters);
-		void removeStoredCustomParametersFromWidget(const QString &parameters);
-		void showError(const QString &error);
+	QStringList collectKnownGameFilePaths() const;
+	void makeFileBrowsers();
+	QString currentCustomParameters() const;
+	void removeStoredCustomParametersFromConfig(const QString &parameters);
+	void removeStoredCustomParametersFromWidget(const QString &parameters);
+	void showError(const QString &error);
 
-	private slots:
-		void autoFindNeighbouringPaths();
-		void removeCurrentCustomParametersFromStorage();
-		void saveCustomParameters();
-		void showFindFailError();
-		void updateCustomParametersSaveState();
+private slots:
+	void autoFindNeighbouringPaths();
+	void removeCurrentCustomParametersFromStorage();
+	void saveCustomParameters();
+	void showFindFailError();
+	void updateCustomParametersSaveState();
 };
 
 #endif /* __ENGINECONFIGBASE_H__ */

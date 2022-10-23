@@ -28,21 +28,21 @@
 class PluginEnginePlugin : public EnginePlugin
 {
 	DECLARE_PLUGIN(PluginEnginePlugin)
-	public:
-		PluginEnginePlugin();
-		~PluginEnginePlugin();
+public:
+	PluginEnginePlugin();
+	~PluginEnginePlugin();
 
-		QList<DMFlagsSection> dmFlags() const;
-		GameHost *gameHost();
-		ServerPtr mkServer(const QHostAddress &address, unsigned short port) const;
+	QList<DMFlagsSection> dmFlags() const;
+	GameHost *gameHost();
+	ServerPtr mkServer(const QHostAddress &address, unsigned short port) const;
 
-		bool isMasterResponderInstantiated() const;
-		void startMasterResponder();
-		void start();
+	bool isMasterResponderInstantiated() const;
+	void startMasterResponder();
+	void start();
 
-	private:
-		class PrivData;
-		PrivData* d;
+private:
+	class PrivData;
+	PrivData *d;
 };
 
 #endif

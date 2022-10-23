@@ -22,83 +22,93 @@
 //------------------------------------------------------------------------------
 #include "commongui.h"
 #include <QComboBox>
+#include <QDialog>
 #include <QInputDialog>
 #include <QListView>
 #include <QStandardItemModel>
-#include <QTableWidget>
 #include <QStringList>
+#include <QTableWidget>
 
-QString CommonGUI::askString(const QString& title, const QString& label,
-	bool* ok, const QString& defaultString)
+QString CommonGUI::askString(const QString &title, const QString &label,
+	bool *ok, const QString &defaultString)
 {
-	return QInputDialog::getText(NULL, title,label, QLineEdit::Normal,
+	return getText(nullptr, title, label, QLineEdit::Normal,
 		defaultString, ok);
 }
 
-QList<bool> CommonGUI::listViewStandardItemsToBoolList(QListView* listview)
+QString CommonGUI::getText(QWidget *parent, const QString &title, const QString &label,
+	QLineEdit::EchoMode mode, const QString &text, bool *ok)
+{
+	bool _ok;
+	if (ok == nullptr)
+		ok = &_ok;
+	QInputDialog dialog(parent);
+	setupDialog(dialog);
+	dialog.setWindowTitle(title);
+	dialog.setLabelText(label);
+	dialog.setInputMode(QInputDialog::TextInput);
+	dialog.setTextValue(text);
+	dialog.setTextEchoMode(mode);
+	*ok = (dialog.exec() == QDialog::Accepted);
+	return (*ok) ? dialog.textValue() : QString();
+}
+
+QList<bool> CommonGUI::listViewStandardItemsToBoolList(QListView *listview)
 {
 	QList<bool> list;
-	QStandardItemModel* model = static_cast<QStandardItemModel*>(
+	auto model = static_cast<QStandardItemModel *>(
 		listview->model());
 	for (int i = 0; i < model->rowCount(); ++i)
-	{
 		list << (model->item(i)->checkState() == Qt::Checked);
-	}
 
 	return list;
 }
 
-QStringList CommonGUI::listViewStandardItemsToStringList(QListView* listview)
+QStringList CommonGUI::listViewStandardItemsToStringList(QListView *listview)
 {
 	QStringList list;
-	QStandardItemModel* model = static_cast<QStandardItemModel*>(
+	auto model = static_cast<QStandardItemModel *>(
 		listview->model());
 	for (int i = 0; i < model->rowCount(); ++i)
-	{
 		list << model->item(i)->text();
-	}
 
 	return list;
 }
 
-void CommonGUI::removeSelectedRowsFromQTableWidget(QTableWidget* table)
+void CommonGUI::removeSelectedRowsFromQTableWidget(QTableWidget *table)
 {
 	// Rows can't be just deleted with items from selectedItems()
 	// because the program will crash. This solution is so stupid
 	// that there must be another one, but nobody knows...
-	QMap<int, QTableWidgetItem*> uniqueRowsItems;
-	foreach (QTableWidgetItem* item, table->selectedItems())
+	QMap<int, QTableWidgetItem *> uniqueRowsItems;
+	for (QTableWidgetItem *item : table->selectedItems())
 	{
 		uniqueRowsItems.insert(item->row(), item);
 	}
-	foreach (QTableWidgetItem* item, uniqueRowsItems.values())
+	for (QTableWidgetItem *item : uniqueRowsItems.values())
 	{
 		int row = table->row(item);
 		if (row >= 0)
-		{
 			table->removeRow(row);
-		}
 	}
 }
 
-void CommonGUI::removeSelectedRowsFromStandardItemView(QAbstractItemView* view,
+void CommonGUI::removeSelectedRowsFromStandardItemView(QAbstractItemView *view,
 	bool bSelectNextItem)
 {
-	QItemSelectionModel* selModel = view->selectionModel();
+	QItemSelectionModel *selModel = view->selectionModel();
 	QModelIndexList indexList = selModel->selectedIndexes();
 	selModel->clear();
 
-	QStandardItemModel* model = static_cast<QStandardItemModel*>(view->model());
-	QList<QStandardItem*> itemList;
+	auto model = static_cast<QStandardItemModel *>(view->model());
+	QList<QStandardItem *> itemList;
 	int lowestRemovedRow = 0;
 	for (int i = 0; i < indexList.count(); ++i)
 	{
-		const QModelIndex& index = indexList[i];
+		const QModelIndex &index = indexList[i];
 		itemList << model->itemFromIndex(index);
 		if (index.row() > lowestRemovedRow)
-		{
 			lowestRemovedRow = index.row();
-		}
 	}
 
 	for (int i = 0; i < itemList.count(); ++i)
@@ -113,9 +123,7 @@ void CommonGUI::removeSelectedRowsFromStandardItemView(QAbstractItemView* view,
 		selectRowIdx -= indexList.size();
 
 		if (selectRowIdx + 1 < model->rowCount())
-		{
 			++selectRowIdx;
-		}
 
 		if (selectRowIdx >= 0)
 		{
@@ -125,39 +133,21 @@ void CommonGUI::removeSelectedRowsFromStandardItemView(QAbstractItemView* view,
 	}
 }
 
-void CommonGUI::setCurrentText(QComboBox *box, const QString &text)
+void CommonGUI::setupDialog(QDialog &dialog)
 {
-#if QT_VERSION >= 0x050000
-	box->setCurrentText(text);
-#else
-	if (box->isEditable())
-	{
-		box->setEditText(text);
-	}
-	else
-	{
-		for (int i = 0; i < box->count(); ++i)
-		{
-			if (box->itemText(i) == text)
-			{
-				box->setCurrentIndex(i);
-				break;
-			}
-		}
-	}
-#endif
+	dialog.setWindowFlags(dialog.windowFlags() & (~Qt::WindowContextHelpButtonHint));
 }
 
-void CommonGUI::stringListToStandardItemsListView(QListView* targetListview,
-	const QStringList& stringList)
+void CommonGUI::stringListToStandardItemsListView(QListView *targetListview,
+	const QStringList &stringList)
 {
-	QStandardItemModel* model = static_cast<QStandardItemModel*>(
+	auto model = static_cast<QStandardItemModel *>(
 		targetListview->model());
 	model->removeRows(0, model->rowCount());
 
-	foreach (const QString& str, stringList)
+	for (const QString &str : stringList)
 	{
-		QStandardItem* pItem = new QStandardItem();
+		auto pItem = new QStandardItem();
 		pItem->setText(str);
 		model->appendRow(pItem);
 	}

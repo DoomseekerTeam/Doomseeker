@@ -39,79 +39,78 @@ class WADSEEKER_API NetworkReplyTimeouter : public QObject
 {
 	Q_OBJECT
 
-	public:
-		NetworkReplyTimeouter(QNetworkReply* pReply);
-		virtual ~NetworkReplyTimeouter();
+public:
+	NetworkReplyTimeouter(QNetworkReply *pReply);
+	virtual ~NetworkReplyTimeouter() override;
 
-		QNetworkReply& reply()
-		{
-			return *pReply;
-		}
+	QNetworkReply &reply()
+	{
+		return *pReply;
+	}
 
-		/**
-		 * @brief Sets timeout that occurs when progress stops.
-		 *
-		 * This is the timeout between the receptions of either
-		 * downloadProgress() or uploadProgress() signals.
-		 *
-		 * @param timeoutMsecs
-		 *      Time in milliseconds after which the timeout will be
-		 *      registered and the underlying QNetworkReply will be
-		 *      aborted. Also generates a QNetworkReply::TimeoutError error.
-		 *      Set to 0 to disable timeout.
-		 */
-		void setProgressTimeout(unsigned timeoutMsecs);
+	/**
+	 * @brief Sets timeout that occurs when progress stops.
+	 *
+	 * This is the timeout between the receptions of either
+	 * downloadProgress() or uploadProgress() signals.
+	 *
+	 * @param timeoutMsecs
+	 *      Time in milliseconds after which the timeout will be
+	 *      registered and the underlying QNetworkReply will be
+	 *      aborted. Also generates a QNetworkReply::TimeoutError error.
+	 *      Set to 0 to disable timeout.
+	 */
+	void setProgressTimeout(unsigned timeoutMsecs);
 
-		/**
-		 * @brief Starts the timeout for connection establishment.
-		 *
-		 * This is the timeout between the call to
-		 * startConnectionTimeoutTimer() and first reception of
-		 * downloadProgress() or uploadProgress() signals.
-		 *
-		 * @param timeoutMsecs
-		 *      Time in milliseconds after which the timeout will be
-		 *      registered and the underlying QNetworkReply will be
-		 *      aborted. Also generates a QNetworkReply::TimeoutError error.
-		 */
-		void startConnectionTimeoutTimer(unsigned timeoutMsecs);
+	/**
+	 * @brief Starts the timeout for connection establishment.
+	 *
+	 * This is the timeout between the call to
+	 * startConnectionTimeoutTimer() and first reception of
+	 * downloadProgress() or uploadProgress() signals.
+	 *
+	 * @param timeoutMsecs
+	 *      Time in milliseconds after which the timeout will be
+	 *      registered and the underlying QNetworkReply will be
+	 *      aborted. Also generates a QNetworkReply::TimeoutError error.
+	 */
+	void startConnectionTimeoutTimer(unsigned timeoutMsecs);
 
-	signals:
-		/**
-		 * @brief This signal is connected directly to QNetworkReply and
-		 *        shouldn't really be used.
-		 */
-		void error(QNetworkReply::NetworkError code);
+signals:
+	/**
+	 * @brief This signal is connected directly to QNetworkReply and
+	 *        shouldn't really be used.
+	 */
+	void error(QNetworkReply::NetworkError code);
 
-	private:
-		/**
-		 * @brief Set to true when either downloadProgress() or
-		 *        uploadProgress() signal is captured.
-		 */
-		bool bIsProgressing;
+private:
+	/**
+	 * @brief Set to true when either downloadProgress() or
+	 *        uploadProgress() signal is captured.
+	 */
+	bool bIsProgressing;
 
-		/**
-		 * @brief Timeout before the connection is made.
-		 */
-		QTimer* pConnectionTimeoutTimer;
+	/**
+	 * @brief Timeout before the connection is made.
+	 */
+	QTimer *pConnectionTimeoutTimer;
 
-		/**
-		 * @brief Timeout when download progress stops.
-		 */
-		QTimer* pProgressTimeoutTimer;
+	/**
+	 * @brief Timeout when download progress stops.
+	 */
+	QTimer *pProgressTimeoutTimer;
 
-		QNetworkReply* pReply;
+	QNetworkReply *pReply;
 
-		unsigned progressTimeout;
+	unsigned progressTimeout;
 
-		void restartProgressTimeoutIfAllowed();
-		void stopTimerIfNotNull(QTimer* pTimer);
+	void restartProgressTimeoutIfAllowed();
+	void stopTimerIfNotNull(QTimer *pTimer);
 
-	private slots:
-		void progressRegistered(qint64 bytesReceived, qint64 bytesTotal);
-		void finishedSlot();
-		void timeout();
-
+private slots:
+	void progressRegistered();
+	void finishedSlot();
+	void timeout();
 };
 
 #endif

@@ -37,32 +37,32 @@ class NetworkReplySignalWrapper : public QObject
 {
 	Q_OBJECT
 
-	public:
-		NetworkReplySignalWrapper(NetworkReply* pReply);
+public:
+	NetworkReplySignalWrapper(NetworkReply *pReply);
 
-		NetworkReply& reply()
-		{
-			return *pReply;
-		}
+	NetworkReply &reply()
+	{
+		return *pReply;
+	}
 
-	signals:
-		void downloadProgress(NetworkReply* pCaller, qint64 bytesReceived, qint64 bytesTotal);
-		void error(NetworkReply* pCaller, QNetworkReply::NetworkError code);
-		void finished(NetworkReply* pCaller);
-		void metaDataChanged(NetworkReply* pCaller);
-		void sslErrors(NetworkReply* pCaller, const QList<QSslError> & errors);
-		void uploadProgress(NetworkReply* pCaller, qint64 bytesSent, qint64 bytesTotal);
+signals:
+	void downloadProgress(NetworkReply *pCaller, qint64 bytesReceived, qint64 bytesTotal);
+	void error(NetworkReply *pCaller, QNetworkReply::NetworkError code);
+	void finished(NetworkReply *pCaller);
+	void metaDataChanged(NetworkReply *pCaller);
+	void sslErrors(NetworkReply *pCaller, const QList<QSslError> &errors);
+	void uploadProgress(NetworkReply *pCaller, qint64 bytesSent, qint64 bytesTotal);
 
-	private:
-		NetworkReply* pReply;
+private:
+	NetworkReply *pReply;
 
-	private slots:
-		void downloadProgressSlot(qint64 bytesReceived, qint64 bytesTotal);
-		void errorSlot(QNetworkReply::NetworkError code);
-		void finishedSlot();
-		void metaDataChangedSlot();
-		void sslErrorsSlot(const QList<QSslError> & errors);
-		void uploadProgressSlot(qint64 bytesSent, qint64 bytesTotal);
+private slots:
+	void downloadProgressSlot(qint64 bytesReceived, qint64 bytesTotal);
+	void errorSlot(QNetworkReply::NetworkError code);
+	void finishedSlot();
+	void metaDataChangedSlot();
+	void sslErrorsSlot(const QList<QSslError> &errors);
+	void uploadProgressSlot(qint64 bytesSent, qint64 bytesTotal);
 };
 
 #endif

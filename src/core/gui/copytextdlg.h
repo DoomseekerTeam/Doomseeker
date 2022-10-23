@@ -24,23 +24,23 @@
 #ifndef __COPYTEXTDLG_H_
 #define __COPYTEXTDLG_H_
 
-#include "ui_copytextdlg.h"
 #include "dptr.h"
+#include "ui_copytextdlg.h"
 #include <QDialog>
 
 class CopyTextDlg : public QDialog
 {
-	Q_OBJECT;
+	Q_OBJECT
 
-	public:
-		CopyTextDlg(const QString& content, const QString& description = QString(), QWidget* parent = NULL);
-		~CopyTextDlg();
+public:
+	CopyTextDlg(const QString &content, const QString &description = QString(), QWidget *parent = nullptr);
+	~CopyTextDlg() override;
 
-	protected slots:
-		void copyContent();
+protected slots:
+	void copyContent();
 
-	private:
-		DPtr<CopyTextDlg> d;
+private:
+	DPtr<CopyTextDlg> d;
 };
 
 #endif

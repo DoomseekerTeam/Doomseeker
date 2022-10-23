@@ -23,18 +23,18 @@
 
 #include "plugins/engineplugin.h"
 
-#include "responder/masterresponder.h"
-#include "responder/respondercfg.h"
 #include "pluginengineplugin.h"
 #include "plugingamehost.h"
 #include "pluginmasterclient.h"
 #include "pluginserver.h"
+#include "responder/masterresponder.h"
+#include "responder/respondercfg.h"
 #include <cassert>
 
 class PluginEnginePlugin::PrivData
 {
-	public:
-		MasterResponder* masterResponder;
+public:
+	MasterResponder *masterResponder;
 };
 ///////////////////////////////////////////////////////////////////////////////
 INSTALL_PLUGIN(PluginEnginePlugin)
@@ -47,7 +47,7 @@ QString masterAddress()
 PluginEnginePlugin::PluginEnginePlugin()
 {
 	d = new PrivData();
-	d->masterResponder = NULL;
+	d->masterResponder = nullptr;
 }
 
 PluginEnginePlugin::~PluginEnginePlugin()
@@ -85,7 +85,7 @@ ServerPtr PluginEnginePlugin::mkServer(const QHostAddress &address, unsigned sho
 
 bool PluginEnginePlugin::isMasterResponderInstantiated() const
 {
-	return d->masterResponder != NULL;
+	return d->masterResponder != nullptr;
 }
 
 void PluginEnginePlugin::startMasterResponder()
@@ -97,7 +97,7 @@ void PluginEnginePlugin::startMasterResponder()
 
 void PluginEnginePlugin::start()
 {
-	init("Fake Plugin", NULL,
+	init("Fake Plugin", nullptr,
 		EP_Author, "The Doomseeker Team",
 		EP_Version, PLUGIN_VERSION,
 

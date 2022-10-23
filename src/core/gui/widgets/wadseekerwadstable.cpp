@@ -24,14 +24,15 @@
 
 #include "speedcalculator.h"
 #include "strings.hpp"
+#include "wadseeker/entities/modfile.h"
 
 #include <QDebug>
 #include <QHeaderView>
 #include <QProgressBar>
 #include <QUrl>
 
-WadseekerWadsTable::WadseekerWadsTable(QWidget* pParent)
-: TableWidgetMouseAware(pParent)
+WadseekerWadsTable::WadseekerWadsTable(QWidget *pParent)
+	: TableWidgetMouseAware(pParent)
 {
 	d.bAlreadyShownOnce = false;
 	d.updateClock.start();
@@ -39,14 +40,12 @@ WadseekerWadsTable::WadseekerWadsTable(QWidget* pParent)
 
 WadseekerWadsTable::~WadseekerWadsTable()
 {
-	QMap<QString, SpeedCalculator* >::iterator it;
+	QMap<QString, SpeedCalculator *>::iterator it;
 	for (it = d.speedCalculators.begin(); it != d.speedCalculators.end(); ++it)
-	{
 		delete it.value();
-	}
 }
 
-void WadseekerWadsTable::addFile(const QString& filename)
+void WadseekerWadsTable::addFile(const QString &filename)
 {
 	// Add new row to table, but only if file is not yet added.
 	if (findFileRow(filename) < 0)
@@ -57,7 +56,7 @@ void WadseekerWadsTable::addFile(const QString& filename)
 		// Create the row contents.
 		setSortingEnabled(false);
 
-		QProgressBar* pBar = new QProgressBar();
+		auto pBar = new QProgressBar();
 		pBar->setAlignment(Qt::AlignCenter);
 
 		setItem(rowIndex, IDX_NAME_COLUMN, new QTableWidgetItem(filename));
@@ -67,7 +66,7 @@ void WadseekerWadsTable::addFile(const QString& filename)
 		setItem(rowIndex, IDX_ETA_COLUMN, new QTableWidgetItem(tr("N/A")));
 		setItem(rowIndex, IDX_SIZE_COLUMN, new QTableWidgetItem(tr("N/A")));
 
-		SpeedCalculator* pCalculator = new SpeedCalculator();
+		auto pCalculator = new SpeedCalculator();
 		pCalculator->start();
 
 		d.speedCalculators.insert(filename, pCalculator);
@@ -76,16 +75,14 @@ void WadseekerWadsTable::addFile(const QString& filename)
 	}
 }
 
-WadseekerWadsTable::ContextMenu* WadseekerWadsTable::contextMenu(const QModelIndex& index, const QPoint& cursorPosition)
+WadseekerWadsTable::ContextMenu *WadseekerWadsTable::contextMenu(const QModelIndex &index, const QPoint &cursorPosition)
 {
-	WadseekerWadsTable::ContextMenu* menu = new ContextMenu(this);
+	auto menu = new ContextMenu(this);
 	QPoint displayPoint = this->viewport()->mapToGlobal(cursorPosition);
 	menu->move(displayPoint);
 
 	if (!index.isValid())
-	{
 		menu->actionSkipCurrentSite->setEnabled(false);
-	}
 
 	return menu;
 }
@@ -93,9 +90,7 @@ WadseekerWadsTable::ContextMenu* WadseekerWadsTable::contextMenu(const QModelInd
 qint64 WadseekerWadsTable::expectedDataSize(int row) const
 {
 	if (row < 0 || row >= this->rowCount())
-	{
 		return -1;
-	}
 
 	QString fileName = fileNameAtRow(row);
 	return d.speedCalculators[fileName]->expectedDataSize();
@@ -104,27 +99,23 @@ qint64 WadseekerWadsTable::expectedDataSize(int row) const
 QString WadseekerWadsTable::fileNameAtRow(int row) const
 {
 	if (row < 0 || row >= this->rowCount())
-	{
 		return QString();
-	}
 
 	return item(row, IDX_NAME_COLUMN)->text();
 }
 
-int WadseekerWadsTable::findFileRow(const QString& filename)
+int WadseekerWadsTable::findFileRow(const QString &filename)
 {
 	QList<QTableWidgetItem *> list = findItems(filename, Qt::MatchFixedString);
 	if (!list.isEmpty())
-	{
 		return list.first()->row();
-	}
 
 	return -1;
 }
 
-void WadseekerWadsTable::setFileDownloadFinished(const QString& filename)
+void WadseekerWadsTable::setFileDownloadFinished(const ModFile &filename)
 {
-	int row = findFileRow(filename);
+	int row = findFileRow(filename.fileName());
 
 	if (row >= 0)
 	{
@@ -141,9 +132,9 @@ void WadseekerWadsTable::setFileDownloadFinished(const QString& filename)
 	}
 }
 
-void WadseekerWadsTable::setFileFailed(const QString& filename)
+void WadseekerWadsTable::setFileFailed(const ModFile &filename)
 {
-	int row = findFileRow(filename);
+	int row = findFileRow(filename.fileName());
 
 	if (row >= 0)
 	{
@@ -153,18 +144,18 @@ void WadseekerWadsTable::setFileFailed(const QString& filename)
 	}
 }
 
-void WadseekerWadsTable::setFileProgress(const QString& filename, qint64 current, qint64 total)
+void WadseekerWadsTable::setFileProgress(const ModFile &filename, qint64 current, qint64 total)
 {
-	int row = findFileRow(filename);
+	int row = findFileRow(filename.fileName());
 
 	if (row >= 0)
 	{
-		QProgressBar* pBar = (QProgressBar*) this->cellWidget(row, IDX_PROGRESS_COLUMN);
+		auto pBar = (QProgressBar *) this->cellWidget(row, IDX_PROGRESS_COLUMN);
 		pBar->setMaximum(total);
 		pBar->setValue(current);
 
 		// Update ETA and speed
-		SpeedCalculator* pCalculator = d.speedCalculators.value(filename);
+		SpeedCalculator *pCalculator = d.speedCalculators.value(filename.fileName());
 		pCalculator->setExpectedDataSize(total);
 		pCalculator->registerDataAmount(current);
 
@@ -173,19 +164,17 @@ void WadseekerWadsTable::setFileProgress(const QString& filename, qint64 current
 	}
 }
 
-void WadseekerWadsTable::setFileSuccessful(const QString& filename)
+void WadseekerWadsTable::setFileSuccessful(const ModFile &filename)
 {
-	int row = findFileRow(filename);
+	int row = findFileRow(filename.fileName());
 
 	if (row >= 0)
 	{
 		// Set progress bar to 100%.
-		QProgressBar* pBar = (QProgressBar*) this->cellWidget(row, IDX_PROGRESS_COLUMN);
-		SpeedCalculator* pCalculator = d.speedCalculators[filename];
+		auto pBar = (QProgressBar *) this->cellWidget(row, IDX_PROGRESS_COLUMN);
+		SpeedCalculator *pCalculator = d.speedCalculators[filename.fileName()];
 		if (pCalculator->expectedDataSize() == 0)
-		{
 			pCalculator->setExpectedDataSize(1);
-		}
 
 		pCalculator->registerDataAmount(pCalculator->expectedDataSize());
 
@@ -203,48 +192,44 @@ void WadseekerWadsTable::setFileSuccessful(const QString& filename)
 	}
 }
 
-void WadseekerWadsTable::setFileUrl(const QString& filename, const QUrl& url)
+void WadseekerWadsTable::setFileUrl(const ModFile &filename, const QUrl &url)
 {
-	// At this point we know that a new download has sstarted.
+	// At this point we know that a new download has started.
 	// We should reset certain values.
-	int row = findFileRow(filename);
+	int row = findFileRow(filename.fileName());
 
 	if (row >= 0)
 	{
-		QTableWidgetItem* pItem = this->item(row, IDX_URL_COLUMN);
+		QTableWidgetItem *pItem = this->item(row, IDX_URL_COLUMN);
 		pItem->setText(url.toString());
 		pItem->setToolTip(url.toString());
 
-		QProgressBar* pBar = (QProgressBar*) this->cellWidget(row, IDX_PROGRESS_COLUMN);
+		auto pBar = (QProgressBar *) this->cellWidget(row, IDX_PROGRESS_COLUMN);
 		pBar->setMaximum(0);
 		pBar->setValue(0);
 
-		SpeedCalculator* pCalculator = d.speedCalculators[filename];
+		SpeedCalculator *pCalculator = d.speedCalculators[filename.fileName()];
 		pCalculator->start();
 	}
 }
 
-void WadseekerWadsTable::showEvent(QShowEvent* pEvent)
+void WadseekerWadsTable::showEvent(QShowEvent *pEvent)
 {
+	Q_UNUSED(pEvent);
 	if (!d.bAlreadyShownOnce)
 	{
 		// Events in this block must occur after the widget has been
 		// constructed, but only once.
-		QHeaderView* pHeader = horizontalHeader();
+		QHeaderView *pHeader = horizontalHeader();
 
 		// Setup resizing
-#if QT_VERSION >= 0x050000
 		pHeader->setSectionResizeMode(IDX_URL_COLUMN, QHeaderView::Stretch);
-#else
-		pHeader->setResizeMode(IDX_URL_COLUMN, QHeaderView::Stretch);
-#endif
 
 		pHeader->resizeSection(IDX_NAME_COLUMN, 140);
 		pHeader->resizeSection(IDX_PROGRESS_COLUMN, 85);
 		pHeader->resizeSection(IDX_ETA_COLUMN, 85);
 		pHeader->resizeSection(IDX_SIZE_COLUMN, 150);
 		pHeader->resizeSection(IDX_SPEED_COLUMN, 85);
-
 	}
 }
 
@@ -253,21 +238,19 @@ double WadseekerWadsTable::totalDonePercentage() const
 	double sumDownloadPercentages = 0.0;
 
 	if (this->rowCount() == 0)
-	{
 		return -1.0;
-	}
 
 	for (int i = 0; i < this->rowCount(); ++i)
 	{
-		const QProgressBar* pBar = (const QProgressBar*) this->cellWidget(i, IDX_PROGRESS_COLUMN);
-		if (pBar != NULL)
+		const auto pBar = (const QProgressBar *) this->cellWidget(i, IDX_PROGRESS_COLUMN);
+		if (pBar != nullptr)
 		{
 			int val = pBar->value();
 			int max = pBar->maximum();
 
 			if (max > 0)
 			{
-				double curPercentage = 	(double) val / (double) max;
+				double curPercentage =  (double) val / (double) max;
 				sumDownloadPercentages += curPercentage;
 			}
 		}
@@ -291,7 +274,7 @@ void WadseekerWadsTable::updateDataInfoValues(bool bForce)
 		{
 			// Find the calculator for specified row.
 			QString filename = this->item(i, IDX_NAME_COLUMN)->text();
-			SpeedCalculator* pCalculator = d.speedCalculators.value(filename);
+			SpeedCalculator *pCalculator = d.speedCalculators.value(filename);
 
 			// Update data amount.
 			QString strCurrent = Strings::formatDataAmount(pCalculator->lastRegisterAttemptedDataAmount());
@@ -315,9 +298,7 @@ void WadseekerWadsTable::updateDataInfoValues(bool bForce)
 					item(i, IDX_ETA_COLUMN)->setText(strEta);
 				}
 				else
-				{
 					item(i, IDX_ETA_COLUMN)->setText(tr("N/A"));
-				}
 
 				if (ldSpeed >= 0.0)
 				{
@@ -325,16 +306,14 @@ void WadseekerWadsTable::updateDataInfoValues(bool bForce)
 					item(i, IDX_SPEED_COLUMN)->setText(strSpeed);
 				}
 				else
-				{
 					item(i, IDX_SPEED_COLUMN)->setText(tr("N/A"));
-				}
 			}
 		}
 	}
 }
 ///////////////////////////////////////////////////////////////////////////////
-WadseekerWadsTable::ContextMenu::ContextMenu(QWidget* pParent)
-: QMenu(pParent)
+WadseekerWadsTable::ContextMenu::ContextMenu(QWidget *pParent)
+	: QMenu(pParent)
 {
 	this->actionSkipCurrentSite = new QAction(tr("Skip current URL"), this);
 

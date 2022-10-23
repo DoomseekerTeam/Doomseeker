@@ -32,8 +32,8 @@
  */
 class TestBase
 {
-	protected:
-		static Log testLog;
+protected:
+	static Log testLog;
 };
 
 /**
@@ -41,16 +41,16 @@ class TestBase
  */
 class TestUnitBase : public TestBase
 {
-	public:
-		TestUnitBase(const QString& testName);
-		virtual ~TestUnitBase() {}
+public:
+	TestUnitBase(const QString &testName);
+	virtual ~TestUnitBase() {}
 
-		virtual bool executeTest() = 0;
+	virtual bool executeTest() = 0;
 
-		const QString& testName() const { return _testName; }
+	const QString &testName() const { return _testName; }
 
-	protected:
-		QString _testName;
+protected:
+	QString _testName;
 };
 
 #endif

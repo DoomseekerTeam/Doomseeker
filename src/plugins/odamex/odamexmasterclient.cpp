@@ -25,11 +25,11 @@
 
 #include "datastreamoperatorwrapper.h"
 #include "global.h"
-#include "odamexmasterclient.h"
 #include "odamexengineplugin.h"
+#include "odamexmasterclient.h"
 #include "odamexserver.h"
 
-#define MASTER_CHALLENGE		0x000BDBA3
+#define MASTER_CHALLENGE 0x000BDBA3
 
 OdamexMasterClient::OdamexMasterClient() : MasterClient()
 {
@@ -42,7 +42,7 @@ QByteArray OdamexMasterClient::createServerListRequest()
 	return QByteArray (challenge, 4);
 }
 
-const EnginePlugin* OdamexMasterClient::plugin() const
+const EnginePlugin *OdamexMasterClient::plugin() const
 {
 	return OdamexEnginePlugin::staticInstance();
 }
@@ -62,15 +62,13 @@ MasterClient::Response OdamexMasterClient::readMasterResponse(const QByteArray &
 
 
 	if (response != MASTER_CHALLENGE)
-	{
 		return RESPONSE_BAD;
-	}
 
 	// Make sure we have an empty list.
 	emptyServerList();
 
 	int numServers = in.readQUInt16();
-	for(;numServers > 0;numServers--)
+	for (; numServers > 0; numServers--)
 	{
 		// This might be able to be simplified a little bit...
 		quint8 ip1 = in.readQUInt8();

@@ -21,8 +21,8 @@
 // Copyright (C) 2010 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
 #include "cfgircappearance.h"
-#include "ui_cfgircappearance.h"
 #include "irc/configuration/ircconfig.h"
+#include "ui_cfgircappearance.h"
 
 DClass<CFGIRCAppearance> : public Ui::CFGIRCAppearance
 {
@@ -30,8 +30,8 @@ DClass<CFGIRCAppearance> : public Ui::CFGIRCAppearance
 
 DPointered(CFGIRCAppearance)
 
-CFGIRCAppearance::CFGIRCAppearance(QWidget* parent)
-: ConfigPage(parent)
+CFGIRCAppearance::CFGIRCAppearance(QWidget *parent)
+	: ConfigPage(parent)
 {
 	d->setupUi(this);
 }

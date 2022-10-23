@@ -22,8 +22,8 @@
 //------------------------------------------------------------------------------
 
 #include "clipboard.h"
-#include "logdock.h"
 #include "log.h"
+#include "logdock.h"
 #include "ui_logdock.h"
 
 #include <QAction>
@@ -34,20 +34,20 @@ DClass<LogDock> : public Ui::LogDock
 
 DPointered(LogDock)
 
-LogDock::LogDock(QWidget* parent) : QDockWidget(parent)
+LogDock::LogDock(QWidget *parent) : QDockWidget(parent)
 {
 	d->setupUi(this);
 	this->toggleViewAction()->setIcon(QIcon(":/icons/log.png"));
 
-	connect(d->btnClear, SIGNAL( clicked() ), this, SLOT( clearContent() ) );
-	connect(d->btnCopy, SIGNAL( clicked() ), this, SLOT( btnCopyClicked() ) );
+	connect(d->btnClear, SIGNAL(clicked()), this, SLOT(clearContent()));
+	connect(d->btnCopy, SIGNAL(clicked()), this, SLOT(btnCopyClicked()));
 }
 
 LogDock::~LogDock()
 {
 }
 
-void LogDock::appendLogEntry(const QString& entry)
+void LogDock::appendLogEntry(const QString &entry)
 {
 	d->teContent->moveCursor(QTextCursor::End);
 	d->teContent->insertPlainText(entry);

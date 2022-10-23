@@ -23,41 +23,41 @@
 #ifndef __PASSWORDDIALOG_H__
 #define __PASSWORDDIALOG_H__
 
-#include "serverapi/serverptr.h"
 #include "dptr.h"
+#include "serverapi/serverptr.h"
+#include <QtContainerFwd>
 #include <QDialog>
 
 class EnginePlugin;
 class Server;
-class QStringList;
 
 class PasswordDlg : public QDialog
 {
 	Q_OBJECT
 
-	public:
-		PasswordDlg(ServerCPtr server, QWidget *parent=NULL);
-		~PasswordDlg();
+public:
+	PasswordDlg(ServerCPtr server, QWidget *parent = nullptr);
+	~PasswordDlg() override;
 
-		QString connectPassword() const;
-		QString inGamePassword() const;
+	QString connectPassword() const;
+	QString inGamePassword() const;
 
-	public slots:
-		void accept();
+public slots:
+	void accept() override;
 
-	private:
-		DPtr<PasswordDlg> d;
+private:
+	DPtr<PasswordDlg> d;
 
-		void applyInputsVisibility();
-		void loadConfiguration();
-		void saveConfiguration();
-		void setCurrentConnectPassword(const QString& password);
-		void setCurrentIngamePassword(const QString& password);
-		void setPasswords(const QStringList& passwords);
+	void applyInputsVisibility();
+	void loadConfiguration();
+	void saveConfiguration();
+	void setCurrentConnectPassword(const QString &password);
+	void setCurrentIngamePassword(const QString &password);
+	void setPasswords(const QStringList &passwords);
 
-	private slots:
-		void removeCurrentConnectPassword();
-		void removeCurrentIngamePassword();
+private slots:
+	void removeCurrentConnectPassword();
+	void removeCurrentIngamePassword();
 };
 
 #endif /* __PASSWORDDIALOG_H__ */

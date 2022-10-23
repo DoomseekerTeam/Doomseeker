@@ -28,6 +28,7 @@
 #include <QLabel>
 #include <QMainWindow>
 #include <QMessageBox>
+#include <QMetaType>
 #include <QObject>
 #include <QSslConfiguration>
 #include <QThreadPool>
@@ -35,43 +36,53 @@
 
 #include <cstdio>
 
+#include "application.h"
+#include "cmdargshelp.h"
+#include "commandlinetokenizer.h"
 #include "configuration/doomseekerconfig.h"
 #include "configuration/passwordscfg.h"
 #include "configuration/queryspeed.h"
 #include "connectionhandler.h"
-#include "gui/mainwindow.h"
-#include "gui/remoteconsole.h"
-#include "ip2c/ip2c.h"
-#include "ini/ini.h"
-#include "irc/configuration/ircconfig.h"
-#include "serverapi/server.h"
-#include "application.h"
-#include "cmdargshelp.h"
-#include "commandlinetokenizer.h"
 #include "datapaths.h"
 #include "doomseekerfilepaths.h"
+#include "gui/createserverdialog.h"
+#include "gui/mainwindow.h"
+#include "gui/remoteconsole.h"
+#include "ini/ini.h"
+#include "ip2c/ip2c.h"
+#include "irc/configuration/ircconfig.h"
 #include "localization.h"
 #include "log.h"
 #include "main.h"
+#include "pattern.h"
 #include "plugins/engineplugin.h"
 #include "plugins/pluginloader.h"
 #include "refresher/refresher.h"
 #include "serverapi/server.h"
+#include "serverapi/server.h"
 #include "strings.hpp"
 #include "tests/testruns.h"
-#include "wadseeker/wadseeker.h"
 #include "updater/updateinstaller.h"
 #include "versiondump.h"
+#include "wadseeker/wadseeker.h"
+
+#ifdef Q_OS_OPENBSD
+#include <unistd.h>
+#endif
 
 QString Main::argDataDir;
 bool Main::bInstallUpdatesAndRestart = false;
-QList<LocalizationInfo> Main::localizations;
 
 
-Main::Main(int argc, char* argv[])
-: arguments(argv), argumentsCount(argc),
-  startRcon(false)
+Main::Main(int argc, char *argv[])
+	: arguments(argv), argumentsCount(argc),
+	startCreateGame(false), startRcon(false)
 {
+	#ifdef Q_OS_OPENBSD
+	pledge ("stdio rpath wpath cpath tmppath inet mcast fattr chown flock unix "
+		"dns getpw sendfd recvfd tty proc exec prot_exec ps audio video unveil",
+		"");
+	#endif
 	bIsFirstRun = false;
 	bTestMode = false;
 	bPortableMode = false;
@@ -79,8 +90,13 @@ Main::Main(int argc, char* argv[])
 	logVerbosity = LV_Default;
 	updateFailedCode = 0;
 
+	qRegisterMetaType<Pattern>("Pattern");
 	qRegisterMetaType<ServerPtr>("ServerPtr");
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+	qRegisterMetaTypeStreamOperators<Pattern>("Pattern");
 	qRegisterMetaType<ServerCPtr>("ServerCPtr");
+#endif
 }
 
 Main::~Main()
@@ -116,7 +132,7 @@ int Main::connectToServerByURL()
 {
 	ConnectionHandler *handler = ConnectionHandler::connectByUrl(connectUrl);
 
-	if(handler)
+	if (handler)
 	{
 		connect(handler, SIGNAL(finished(int)), gApp, SLOT(quit()));
 		handler->run();
@@ -138,46 +154,16 @@ int Main::run()
 	applyLogVerbosity();
 
 	Application::init(argumentsCount, arguments);
-#ifdef Q_OS_MAC
+	#ifdef Q_OS_DARWIN
 	// In Mac OS X it is abnormal to have menu icons unless it's a shortcut to a file of some kind.
 	gApp->setAttribute(Qt::AA_DontShowIconsInMenus);
-#endif
+	#endif
 
 	gLog << "Starting Doomseeker. Hello World! :)";
 	gLog << "Setting up data directories.";
 
 	if (!initDataDirectories())
-	{
-		// Inform the user which directories cannot be created and QUIT.
-		QStringList failedDirsToCreateList = gDefaultDataPaths->directoriesExist();
-		// Also, in case the permissions are incorrect inform more properly the user.
-		QStringList failedDirsPermissionsList = gDefaultDataPaths->directoriesWithoutPermissions();
-
-		// We will transform the list to text. In case a list is empty,
-		// we should give a more accurate error message of what is going wrong.
-		QString failedDirsToCreateString = failedDirsToCreateList.join("\n");
-		QString failedDirsPermissionsString = failedDirsPermissionsList.join("\n");
-		QString errorMessage;
-		// Case where dir cannot be created
-		if (failedDirsToCreateString != "")
-		{
-			errorMessage = tr("Doomseeker will not run because following directories cannot be created:");
-			errorMessage += "\n" + failedDirsToCreateString;
-		}
-		// Case where dir has improper permissions
-		else if (failedDirsPermissionsString != "")
-		{
-			errorMessage = tr("Doomseeker will not run because following directories have incorrect permissions:");
-			errorMessage += "\n" + failedDirsPermissionsString;
-		}
-		// Other unexpected cases (These lines of code should never be reached. Left for test in Windows)
-		else
-		{
-			errorMessage = tr("Doomseeker will not run because some directories cannot be used properly.");
-		}
-		QMessageBox::critical(NULL, tr("Doomseeker startup error"), errorMessage);
 		return 0;
-	}
 
 	initCaCerts();
 
@@ -210,7 +196,11 @@ int Main::run()
 	initPluginConfig();
 	initIRCConfig();
 
-	if (startRcon)
+	if (startCreateGame)
+	{
+		QTimer::singleShot(0, this, SLOT(runCreateGame()));
+	}
+	else if (startRcon)
 	{
 		QTimer::singleShot(0, this, SLOT(runRemoteConsole()));
 	}
@@ -261,7 +251,7 @@ int Main::run()
 		if (installResult != UpdateInstaller::EC_Ok
 			&& installResult != UpdateInstaller::EC_NothingToUpdate)
 		{
-			QMessageBox::critical(NULL, tr("Doomseeker - Updates Install Failure"),
+			QMessageBox::critical(nullptr, tr("Doomseeker - Updates Install Failure"),
 				UpdateInstaller::errorCodeToStr((UpdateInstaller::ErrorCode)installResult));
 		}
 	}
@@ -339,7 +329,7 @@ void Main::createMainWindow()
 {
 	gLog << tr("Preparing GUI.");
 
-	gApp->setMainWindow(new MainWindow(gApp, argumentsCount, arguments));
+	gApp->setMainWindow(new MainWindow(gApp));
 	gApp->mainWindow()->show();
 
 	if (bIsFirstRun)
@@ -348,15 +338,23 @@ void Main::createMainWindow()
 	}
 }
 
+void Main::runCreateGame()
+{
+	gLog << tr("Starting Create Game box.");
+	auto dialog = new CreateServerDialog(GameCreateParams::Host, nullptr);
+	dialog->setWindowIcon(Application::icon());
+	dialog->show();
+}
+
 void Main::runRemoteConsole()
 {
 	gLog << tr("Starting RCon client.");
-	if(rconPluginName.isEmpty())
+	if (rconPluginName.isEmpty())
 	{
 		bool canAnyEngineRcon = false;
-		for(unsigned int i = 0;i < gPlugins->numPlugins();i++)
+		for (unsigned int i = 0; i < gPlugins->numPlugins(); i++)
 		{
-			const EnginePlugin* info = gPlugins->plugin(i)->info();
+			const EnginePlugin *info = gPlugins->plugin(i)->info();
 			if (info->server(QHostAddress("localhost"), 0)->hasRcon())
 			{
 				canAnyEngineRcon = true;
@@ -367,21 +365,21 @@ void Main::runRemoteConsole()
 		{
 			QString error = tr("None of the currently loaded game plugins supports RCon.");
 			gLog << error;
-			QMessageBox::critical(NULL, tr("Doomseeker RCon"), error);
+			QMessageBox::critical(nullptr, tr("Doomseeker RCon"), error);
 			gApp->exit(2);
 			return;
 		}
 
-		RemoteConsole *rc = new RemoteConsole();
+		auto rc = new RemoteConsole();
 		rc->show();
 	}
 	else
 	{
 		// Find plugin
 		int pIndex = gPlugins->pluginIndexFromName(rconPluginName);
-		if(pIndex == -1)
+		if (pIndex == -1)
 		{
-			gLog << tr("Couldn't find specified plugin: ") + rconPluginName;
+			gLog << tr("Couldn't find the specified plugin: ") + rconPluginName;
 			gApp->exit(2);
 			return;
 		}
@@ -389,7 +387,7 @@ void Main::runRemoteConsole()
 		// Check for RCon Availability.
 		const EnginePlugin *plugin = gPlugins->plugin(pIndex)->info();
 		ServerPtr server = plugin->server(QHostAddress(rconAddress), rconPort);
-		if(!server->hasRcon())
+		if (!server->hasRcon())
 		{
 			gLog << tr("Plugin does not support RCon.");
 			gApp->exit(2);
@@ -413,7 +411,7 @@ void Main::initCaCerts()
 		QSslConfiguration sslConf = QSslConfiguration::defaultConfiguration();
 		QList<QSslCertificate> cacerts = sslConf.caCertificates();
 		QList<QSslCertificate> extraCerts = QSslCertificate::fromDevice(&certsFile);
-		gLog << tr("Appending %n extra CA certificate(s).", NULL, extraCerts.size());
+		gLog << tr("Appending %n extra CA certificate(s).", nullptr, extraCerts.size());
 		cacerts.append(extraCerts);
 		sslConf.setCaCertificates(cacerts);
 		QSslConfiguration::setDefaultConfiguration(sslConf);
@@ -425,8 +423,20 @@ bool Main::initDataDirectories()
 {
 	DataPaths::initDefault(bPortableMode);
 	DoomseekerFilePaths::pDataPaths = gDefaultDataPaths;
-	if (!gDefaultDataPaths->createDirectories())
+	QList<DataPaths::DirErrno> failedDirsErrno = gDefaultDataPaths->createDirectories();
+	if (!failedDirsErrno.isEmpty())
 	{
+		// Inform the user which directories failed and QUIT.
+		// We give an accurate error message of what is going wrong, thanks to errno.
+		QString errorMessage = tr("Doomseeker will not run because some directories cannot be used properly.\n");
+		for (const DataPaths::DirErrno &failedDirErrno : failedDirsErrno)
+		{
+			errorMessage += "\n[" + QString::number(failedDirErrno.errnoNum) + "] ";
+			errorMessage += failedDirErrno.directory.absolutePath() + ": ";
+			errorMessage += failedDirErrno.errnoString;
+		}
+		// Prompt the errorMessage and exit.
+		QMessageBox::critical(nullptr, tr("Doomseeker startup error"), errorMessage);
 		return false;
 	}
 
@@ -437,10 +447,10 @@ bool Main::initDataDirectories()
 
 	// Continue with standard dirs:
 	dataDirectories << "./";
-#if defined(Q_OS_LINUX)
+	#if defined(Q_OS_LINUX)
 	// check in /usr/local/share/doomseeker/ on Linux
 	dataDirectories << INSTALL_PREFIX "/share/doomseeker/";
-#endif
+	#endif
 
 	dataDirectories << ":/";
 	QDir::setSearchPaths("data", dataDirectories);
@@ -477,15 +487,15 @@ void Main::initIRCConfig()
 void Main::initLocalizationsDefinitions()
 {
 	gLog << tr("Loading translations definitions");
-	localizations = Localization::loadLocalizationsList(
+	Localization::get()->loadLocalizationsList(
 		DataPaths::staticDataSearchDirs(DataPaths::TRANSLATIONS_DIR_NAME));
 
-	LocalizationInfo bestMatchedLocalization = LocalizationInfo::findBestMatch(
-		localizations, gConfig.doomseeker.localization);
-	if (bestMatchedLocalization.isValid() && bestMatchedLocalization != LocalizationInfo::DEFAULT)
+	LocalizationInfo bestMatchedLocalization = Localization::get()->coerceBestMatchingLocalization(
+		gConfig.doomseeker.localization);
+	if (bestMatchedLocalization.isValid() && bestMatchedLocalization != LocalizationInfo::PROGRAM_NATIVE)
 	{
 		gLog << tr("Loading translation \"%1\".").arg(bestMatchedLocalization.localeName);
-		bool bSuccess = Localization::loadTranslation(bestMatchedLocalization.localeName);
+		bool bSuccess = Localization::get()->loadTranslation(bestMatchedLocalization.localeName);
 		if (bSuccess)
 		{
 			gLog << tr("Translation loaded.");
@@ -564,14 +574,15 @@ int Main::installPendingUpdates()
 
 bool Main::interpretCommandLineParameters()
 {
+	QString failure;
 	//first argument is the command to run the program, example: ./doomseeker. better use 1 instead of 0
-	for(int i = 1; i < argumentsCount; ++i)
+	for (int i = 1; i < argumentsCount && failure.isEmpty(); ++i)
 	{
-		const char* arg = arguments[i];
+		const char *arg = arguments[i];
 
-		if(strcmp(arg, "--connect") == 0)
+		if (strcmp(arg, "--connect") == 0)
 		{
-			if (i+1 < argumentsCount)
+			if (i + 1 < argumentsCount)
 			{
 				++i;
 				connectUrl = QUrl(arguments[i]);
@@ -579,15 +590,16 @@ bool Main::interpretCommandLineParameters()
 			else
 			{
 				//basically prevent the program from running if there are no arguments given.
-				gLog.setTimestampsEnabled(false);
-				gLog << tr("doomseeker: expected one argument in option %1").arg(arg);
-				logHelpOnBadRun();
-				return false;
+				failure = CmdArgsHelp::missingArgs(1, arg);
 			}
 		}
-		else if(strcmp(arg, "--datadir") == 0)
+		else if (strcmp(arg, "--create-game") == 0)
 		{
-			if (i+1 < argumentsCount)
+			startCreateGame = true;
+		}
+		else if (strcmp(arg, "--datadir") == 0)
+		{
+			if (i + 1 < argumentsCount)
 			{
 				++i;
 				dataDirectories.prepend(arguments[i]);
@@ -595,34 +607,23 @@ bool Main::interpretCommandLineParameters()
 			}
 			else
 			{
-				gLog.setTimestampsEnabled(false);
-				gLog << tr("doomseeker: expected one argument in option %1").arg(arg);
-				logHelpOnBadRun();
-				return false;
+				failure = CmdArgsHelp::missingArgs(1, arg);
 			}
 		}
-		else if(strcmp(arg, "--rcon") == 0)
+		else if (strcmp(arg, "--rcon") == 0)
 		{
 			startRcon = true;
-			if(i+2 < argumentsCount)
+			if (i + 2 < argumentsCount)
 			{
 				rconPluginName = arguments[++i];
 				Strings::translateServerAddress(arguments[++i], rconAddress, rconPort, "localhost:10666");
 			}
-			else
-			{
-				gLog.setTimestampsEnabled(false);
-				gLog << tr("doomseeker: expected two arguments in option %1").arg(arg);
-				logHelpOnBadRun();
-				return false;
-			}
 		}
-		else if(strcmp(arg, "--help") == 0)
+		else if (strcmp(arg, "--help") == 0)
 		{
 			gLog.setTimestampsEnabled(false);
 			// Print information to the log and terminate.
-			gLog << tr("Available command line parameters:\n");
-			gLog << CmdArgsHelp::argsHelp();
+			gLog << CmdArgsHelp::availableCommands();
 			return false;
 		}
 		else if (strcmp(arg, "--update-failed") == 0)
@@ -658,24 +659,25 @@ bool Main::interpretCommandLineParameters()
 					versionDumpFile = filename;
 				}
 			}
-
 		}
 		else
 		{
-			gLog.setTimestampsEnabled(false);
-			gLog << tr("doomseeker: unrecognized option '%1'").arg(arg);
-			logHelpOnBadRun();
-			return false;
+			failure = CmdArgsHelp::unrecognizedOption(arg);
 		}
 	}
 
-	return true;
-}
+	QList<bool> exclusives;
+	exclusives << !connectUrl.isEmpty() << startCreateGame << startRcon;
+	if (exclusives.count(true) > 1)
+		failure = tr("doomseeker: `--connect`, `--create-game` and `--rcon` are mutually exclusive");
 
-void Main::logHelpOnBadRun()
-{
-    gLog << tr("Available command line parameters:\n");
-    gLog << CmdArgsHelp::argsHelp();
+	if (!failure.isEmpty())
+	{
+		gLog.setTimestampsEnabled(false);
+		gLog << failure;
+		return false;
+	}
+	return true;
 }
 
 void Main::setupRefreshingThread()
@@ -698,7 +700,7 @@ bool Main::shouldLogToStderr() const
 
 #ifdef _MSC_VER
 	#ifdef NDEBUG
-		#define USE_WINMAIN_AS_ENTRY_POINT
+#define USE_WINMAIN_AS_ENTRY_POINT
 	#endif
 #endif
 
@@ -707,28 +709,28 @@ bool Main::shouldLogToStderr() const
 QStringList getCommandLineArgs()
 {
 	CommandLineTokenizer tokenizer;
-	return tokenizer.tokenize(QString::fromUtf16((const ushort*)GetCommandLineW()));
+	return tokenizer.tokenize(QString::fromUtf16((const ushort *)GetCommandLineW()));
 }
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR szCmdLine, int nCmdShow)
 {
 	int argc = 0;
-	char** argv = NULL;
+	char **argv = nullptr;
 
 	QStringList commandLine = getCommandLineArgs();
 
 	// At least one is ensured to be here.
 	argc = commandLine.size();
-	argv = new char*[argc];
+	argv = new char *[argc];
 
 	for (int i = 0; i < commandLine.size(); ++i)
 	{
-		const QString& parameter = commandLine[i];
+		const QString &parameter = commandLine[i];
 		argv[i] = new char[parameter.toUtf8().size() + 1];
 		strcpy(argv[i], parameter.toUtf8().constData());
 	}
 
-	Main* pMain = new Main(argc, argv);
+	Main *pMain = new Main(argc, argv);
 	int returnValue = pMain->run();
 
 	// Cleans up after the program.
@@ -745,9 +747,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR szCmdLine
 	return returnValue;
 }
 #else
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
-	Main* pMain = new Main(argc, argv);
+	Main *pMain = new Main(argc, argv);
 	int returnValue = pMain->run();
 
 	// Cleans up after the program.
@@ -756,4 +758,3 @@ int main(int argc, char* argv[])
 	return returnValue;
 }
 #endif
-

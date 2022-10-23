@@ -28,16 +28,17 @@
 #include "strings.hpp"
 
 #include <cassert>
+#include <QRegularExpression>
 
 DClass<Ini>
 {
-	public:
-		SettingsProvider* provider;
+public:
+	SettingsProvider *provider;
 };
 
 DPointered(Ini)
 
-Ini::Ini(SettingsProvider* provider)
+Ini::Ini(SettingsProvider *provider)
 {
 	d->provider = provider;
 }
@@ -46,107 +47,95 @@ Ini::~Ini()
 {
 }
 
-IniVariable Ini::createSetting(const QString& sectionName, const QString& name, const QVariant& data)
+IniVariable Ini::createSetting(const QString &sectionName, const QString &name, const QVariant &data)
 {
 	IniSection s = section(sectionName);
 	if (s.isNull())
-	{
 		return IniVariable();
-	}
 
 	return s.createSetting(name, data);
 }
 
-void Ini::deleteSection(const QString& sectionName)
+void Ini::deleteSection(const QString &sectionName)
 {
-	foreach (const QString &key, d->provider->allKeys())
+	for (const QString &key : d->provider->allKeys())
 	{
 		if (key.startsWith(sectionName + "/", Qt::CaseInsensitive))
 			removeKey(key);
 	}
 }
 
-void Ini::deleteSetting(const QString& sectionName, const QString& settingName)
+void Ini::deleteSetting(const QString &sectionName, const QString &settingName)
 {
 	removeKey(sectionName + "/" + settingName);
 }
 
-bool Ini::hasSetting(const QString& sectionname, const QString& settingname) const
+bool Ini::hasSetting(const QString &sectionname, const QString &settingname) const
 {
 	return d->provider->hasKey(sectionname + "/" + settingname);
 }
 
-void Ini::removeKey(const QString& key)
+void Ini::removeKey(const QString &key)
 {
 	d->provider->remove(key);
 }
 
-IniVariable Ini::retrieveSetting(const QString& sectionName, const QString& variableName)
+IniVariable Ini::retrieveSetting(const QString &sectionName, const QString &variableName)
 {
 	IniSection section = this->section(sectionName);
 	if (section.isNull())
-	{
 		return IniVariable();
-	}
 
 	return section.retrieveSetting(variableName);
 }
 
-IniSection Ini::section(const QString& name)
+IniSection Ini::section(const QString &name)
 {
 	if (name.isEmpty())
-	{
 		return IniSection();
-	}
 
 	return IniSection(this, name);
 }
 
-QVector<IniSection> Ini::sectionsArray(const QString& regexPattern)
+QVector<IniSection> Ini::sectionsArray(const QString &regexPattern)
 {
 	QVector<IniSection> sectionsReferencesArray;
 
-	QRegExp regExp(regexPattern, Qt::CaseInsensitive);
+	QRegularExpression regExp(regexPattern, QRegularExpression::CaseInsensitiveOption);
 
 	QStringList groups = d->provider->allSections();
 
-	foreach (const QString& key, groups)
+	for (const QString &key : groups)
 	{
 		if (key.contains(regExp))
-		{
 			sectionsReferencesArray << IniSection(this, key);
-		}
 	}
 
 	return sectionsReferencesArray;
 }
 
-IniVariable Ini::setting(const QString& sectionName, const QString& variableName)
+IniVariable Ini::setting(const QString &sectionName, const QString &variableName)
 {
 	if (sectionName.isEmpty() || variableName.isEmpty())
-	{
 		return IniVariable();
-	}
 
 	IniVariable var = retrieveSetting(sectionName, variableName);
 	if (var.isNull())
-	{
 		return createSetting(sectionName, variableName, QVariant());
-	}
 
 	return var;
 }
 
-void Ini::setValue(const QString& key, const QVariant& value)
+void Ini::setValue(const QString &key, const QVariant &value)
 {
-	assert(d->provider != NULL);
+	assert(d->provider != nullptr);
 
 	d->provider->setValue(key, value);
 }
 
-QVariant Ini::value(const QString& key) const
+QVariant Ini::value(const QString &key) const
 {
-	assert(d->provider != NULL);
+	assert(d->provider != nullptr);
 
 	return d->provider->value(key);
 }

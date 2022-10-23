@@ -39,7 +39,7 @@ QList<IdgamesFile> IdgamesFile::parseSearchResult(const QVariant &rawData)
 	QVariant varFile = rawData.toMap()["file"];
 	if (!varFile.toList().isEmpty())
 	{
-		foreach (const QVariant &element, varFile.toList())
+		for (const QVariant &element : varFile.toList())
 		{
 			collection << IdgamesFile(element);
 		}

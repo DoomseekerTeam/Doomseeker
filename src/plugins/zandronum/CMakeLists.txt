@@ -18,20 +18,10 @@
 #------------------------------------------------------------------------------
 # Copyright (C) 2012 "Zalewa" <zalewapl@gmail.com>
 #------------------------------------------------------------------------------
-cmake_minimum_required(VERSION 2.8.12)
-
-if(POLICY CMP0071)
-	cmake_policy(SET CMP0071 NEW)
-endif()
 
 set(PLUGIN_NAME zandronum)
-set(PLUGIN_VERSION 38)
+set(PLUGIN_VERSION 49)
 include(../PluginHeader.cmake)
-
-qt4_wrap_ui(ZANDRONUM_UI_FILES
-	createserverdialogpages/flagspage.ui
-	createserverdialogpages/votingsetupwidget.ui
-)
 
 set(ZANDRONUM_FILES
 	createserverdialogpages/flagsid.cpp
@@ -93,21 +83,17 @@ set(HEADER_FILES
 )
 
 set(TRANSLATIONS_FILES
+	translations/zandronum_ca_ES.ts
+	translations/zandronum_es_ES.ts
 	translations/zandronum_pl_PL.ts
-)
-set(FILES_TO_TRANSLATE
-	${HEADER_FILES}
-	${ZANDRONUM_UI_FILES}
-	${ZANDRONUM_FILES}
 )
 
 include(../Translation.cmake)
 
-add_library(${PLUGIN_NAME} 
-	MODULE 
-	${ZANDRONUM_FILES} 
+add_library(${PLUGIN_NAME}
+	MODULE
+	${ZANDRONUM_FILES}
 	${HEADER_FILES}
-	${ZANDRONUM_UI_FILES}
 	${QM_FILES}
 )
 
@@ -115,7 +101,7 @@ if (NOT UNIX OR APPLE)
 	# Linking Wadseeker is not needed on Linux and only causes
 	# the resulting .so to get an RPATH. Windows still needs
 	# to link it, though, or otherwise the compilation will fail.
-	target_link_libraries(${PLUGIN_NAME} LINK_PRIVATE wadseeker)
+	target_link_libraries(${PLUGIN_NAME} LINK_PRIVATE Wadseeker::wadseeker)
 endif()
 
 include(../PluginFooter.cmake)

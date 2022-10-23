@@ -27,9 +27,9 @@
 
 DClass<PlayerTable>
 {
-	public:
-		int numOfColumns;
-		ServerCPtr server;
+public:
+	int numOfColumns;
+	ServerCPtr server;
 };
 
 DPointered(PlayerTable)
@@ -48,7 +48,7 @@ PlayerTable::~PlayerTable()
 QString PlayerTable::generateHTML()
 {
 	QString tableStyle = "background-color: #FFFFFF; color: #000000";
-	QString table = "<table cellspacing=\"4\" style=\"" + tableStyle + "\">";
+	QString table = R"(<table cellspacing="4" style=")" + tableStyle + R"(">)";
 	table += tableHeader();
 	table += tableContent();
 	table += "</table>";
@@ -67,7 +67,7 @@ void PlayerTable::setNumberOfColumns()
 	}
 }
 
-QString PlayerTable::spawnPartOfPlayerTable(const PlayersList& list, bool bAppendEmptyRowAtBeginning)
+QString PlayerTable::spawnPartOfPlayerTable(const PlayersList &list, bool bAppendEmptyRowAtBeginning)
 {
 	QString ret;
 	if (list.count() != 0)
@@ -79,7 +79,7 @@ QString PlayerTable::spawnPartOfPlayerTable(const PlayersList& list, bool bAppen
 
 		for (int i = 0; i < list.count(); ++i)
 		{
-			const Player& player = list[i];
+			const Player &player = list[i];
 
 			QString status = "";
 			if (player.isBot())
@@ -96,7 +96,7 @@ QString PlayerTable::spawnPartOfPlayerTable(const PlayersList& list, bool bAppen
 			{
 				strPlayer += QString("<td>%1</td>").arg(d->server->teamName(player.teamNum()));
 			}
-			strPlayer += "<td>%1</td><td align=\"right\">%2</td><td align=\"right\">%3</td><td>%4</td></tr>";
+			strPlayer += R"(<td>%1</td><td align="right">%2</td><td align="right">%3</td><td>%4</td></tr>)";
 			QString ping;
 			if (player.ping() != USHRT_MAX)
 			{
@@ -112,12 +112,12 @@ QString PlayerTable::spawnPartOfPlayerTable(const PlayersList& list, bool bAppen
 	return ret;
 }
 
-QString PlayerTable::spawnPlayersRows(const PlayersByTeams& playersByTeams)
+QString PlayerTable::spawnPlayersRows(const PlayersByTeams &playersByTeams)
 {
 	QString playersRows;
 
 	bool bAppendEmptyRowAtBeginning = false;
-	foreach (const PlayersList &playersList, playersByTeams.values())
+	for (const PlayersList &playersList : playersByTeams.values())
 	{
 		playersRows += spawnPartOfPlayerTable(playersList, bAppendEmptyRowAtBeginning);
 		if (!bAppendEmptyRowAtBeginning)
@@ -129,7 +129,7 @@ QString PlayerTable::spawnPlayersRows(const PlayersByTeams& playersByTeams)
 	return playersRows;
 }
 
-QString	PlayerTable::tableContent()
+QString PlayerTable::tableContent()
 {
 	PlayersByTeams playersByTeams;
 	PlayersList bots, spectators;
@@ -176,7 +176,7 @@ QString PlayerTable::tableHeader()
 	header += "<td align=\"right\">&nbsp;" + PING + "</td>";
 	header += "<td>" + STATUS + "</td>";
 	header += "</tr>";
-	header += QString("<tr><td colspan=\"%1\"><hr width=\"100%\"></td></tr>").arg(d->numOfColumns);
+	header += QString(R"(<tr><td colspan="%1"><hr width="100%"></td></tr>)").arg(d->numOfColumns);
 
 	return header;
 }

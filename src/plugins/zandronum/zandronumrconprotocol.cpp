@@ -23,18 +23,19 @@
 //------------------------------------------------------------------------------
 #include "zandronumrconprotocol.h"
 
+#include "huffman/huffman.h"
+#include "zandronumserver.h"
+#include <datastreamoperatorwrapper.h>
 #include <QBuffer>
 #include <QCryptographicHash>
 #include <QDateTime>
 #include <QMessageBox>
-#include <datastreamoperatorwrapper.h>
-#include "huffman/huffman.h"
-#include "zandronumserver.h"
+#include <QRegularExpression>
 
-#define RCON_PROTOCOL_VERSION	3
+#define RCON_PROTOCOL_VERSION   3
 
 ZandronumRConProtocol::ZandronumRConProtocol(ServerPtr server)
-: RConProtocol(server)
+	: RConProtocol(server)
 {
 	set_disconnectFromServer(&ZandronumRConProtocol::disconnectFromServer);
 	set_sendCommand(&ZandronumRConProtocol::sendCommand);
@@ -46,13 +47,13 @@ ZandronumRConProtocol::ZandronumRConProtocol(ServerPtr server)
 	authTime.invalidate();
 
 	huffmanSocket.setSocket(&socket());
-	connect(&socket(), SIGNAL( readyRead() ), this, SLOT( readAllPendingDatagrams() ));
+	connect(&socket(), SIGNAL(readyRead()), this, SLOT(readAllPendingDatagrams()));
 
 	// Note: the original rcon utility did TIMEOUT/4.
 	// Try to get at least 4 packets in before timing out,
 	pingTimer.setInterval(2500);
-	connect(&pingTimer, SIGNAL( timeout() ), this, SLOT( sendPong() ));
-	connect(&pingTimer, SIGNAL( timeout() ), this, SLOT( readAllPendingDatagrams() ));
+	connect(&pingTimer, SIGNAL(timeout()), this, SLOT(sendPong()));
+	connect(&pingTimer, SIGNAL(timeout()), this, SLOT(readAllPendingDatagrams()));
 
 	timeoutTimer.setSingleShot(true);
 	this->connect(&timeoutTimer, SIGNAL(timeout()), SLOT(packetTimeout()));
@@ -92,8 +93,8 @@ void ZandronumRConProtocol::sendCommand(const QString &cmd)
 {
 	char packet[4096];
 	packet[0] = CLRC_COMMAND;
-	packet[cmd.length()+1] = 0;
-	memcpy(packet+1, cmd.toUtf8().constData(), cmd.length());
+	packet[cmd.length() + 1] = 0;
+	memcpy(packet + 1, cmd.toUtf8().constData(), cmd.length());
 	huffmanSocket.writeDatagram(packet, 4096, address(), port());
 }
 
@@ -118,7 +119,7 @@ void ZandronumRConProtocol::sendMemorizedPassword()
 		// Create the packet
 		char passwordPacket[34];
 		passwordPacket[0] = CLRC_PASSWORD;
-		memcpy(passwordPacket+1, md5.data(), md5.size());
+		memcpy(passwordPacket + 1, md5.data(), md5.size());
 		passwordPacket[33] = 0;
 
 		huffmanSocket.writeDatagram(passwordPacket, 34, address(), port());
@@ -170,7 +171,7 @@ void ZandronumRConProtocol::stepConnect()
 			{
 				emit messageReceived(
 					tr("Delaying for about %n seconds before next authentication attempt.",
-					0, qMax(1, delta / 1000)));
+					nullptr, qMax(1, delta / 1000)));
 			}
 			setReconnectState();
 			QTimer::singleShot(delta, this, SLOT(stepConnect()));
@@ -190,7 +191,7 @@ void ZandronumRConProtocol::sendPong()
 
 void ZandronumRConProtocol::readAllPendingDatagrams()
 {
-	while(socket().hasPendingDatagrams())
+	while (socket().hasPendingDatagrams())
 	{
 		timeoutTimer.stop();
 		QByteArray packet = huffmanSocket.readDatagram();
@@ -234,119 +235,119 @@ void ZandronumRConProtocol::processEstablishingPacket(QIODevice &ioDevice)
 	DataStreamOperatorWrapper in(&dataStream);
 
 	qint8 code = in.readQInt8();
-	switch(code)
+	switch (code)
 	{
-		case SVRC_BANNED:
-			emit messageReceived(tr("You have been banned from this server."));
-			setDisconnectedState();
-			break;
-		default:
-		case SVRC_OLDPROTOCOL:
-			emit messageReceived(tr("The protocol appears to be outdated."));
-			setDisconnectedState();
-			break;
-		case SVRC_SALT:
-			setConnected(true);
-			salt = QString(in.readRawUntilByte('\0'));
-			pingTimer.start();
-			connectStage = ConnectPassword;
-			stepConnect();
-			break;
+	case SVRC_BANNED:
+		emit messageReceived(tr("You have been banned from this server."));
+		setDisconnectedState();
+		break;
+	default:
+	case SVRC_OLDPROTOCOL:
+		emit messageReceived(tr("The protocol appears to be outdated."));
+		setDisconnectedState();
+		break;
+	case SVRC_SALT:
+		setConnected(true);
+		salt = QString(in.readRawUntilByte('\0'));
+		pingTimer.start();
+		connectStage = ConnectPassword;
+		stepConnect();
+		break;
 	}
 }
 
-void ZandronumRConProtocol::processPacket(QIODevice* ioDevice, bool initial, int maxUpdates)
+void ZandronumRConProtocol::processPacket(QIODevice *ioDevice, bool initial, int maxUpdates)
 {
-	static const QRegExp colorCode("\\\\c(\\[[a-zA-Z0-9]*\\]|[a-v+\\-!*])");
+	static const QRegularExpression colorCode(R"(\\c(\[[a-zA-Z0-9]*\]|[a-v+\-!*]))");
 
 	// QIODevice is assumed to be already opened at this point.
 	QDataStream dataStream(ioDevice);
 	dataStream.setByteOrder(QDataStream::LittleEndian);
 	DataStreamOperatorWrapper in(&dataStream);
 
-	while(in.hasRemaining() && maxUpdates-- != 0)
+	while (in.hasRemaining() && maxUpdates-- != 0)
 	{
 		// Determine how we get to the update.
 		int update = 0;
-		if(initial)
+		if (initial)
 			update = SVRC_UPDATE;
 		else
 			update = in.readQUInt8();
 
-		switch(update)
+		switch (update)
 		{
-			default:
-				qDebug() << "Unknown update (" << update << ")";
-				return;
-			case SVRC_INVALIDPASSWORD:
-				authTime.start();
-				emit messageReceived(tr("Authentication failure."));
-				emit invalidPassword();
-				break;
-			case SVRC_LOGGEDIN:
+		default:
+			qDebug() << "Unknown update (" << update << ")";
+			return;
+		case SVRC_INVALIDPASSWORD:
+			authTime.start();
+			emit messageReceived(tr("Authentication failure."));
+			emit invalidPassword();
+			break;
+		case SVRC_LOGGEDIN:
+		{
+			emit messageReceived(tr("Remote console connection established."));
+			emit messageReceived(tr("-----")); // Just a delimiter.
+			connectStage = ConnectEstablished;
+			serverProtocolVersion = in.readQUInt8();
+			hostName = in.readRawUntilByte('\0');
+			emit serverNameChanged(hostName);
+
+			int numUpdates = in.readQUInt8();
+
+			processPacket(ioDevice, true, numUpdates);
+
+			int numStrings = in.readQUInt8();
+			while (numStrings-- > 0)
 			{
-				emit messageReceived(tr("Remote console connection established."));
-				emit messageReceived(tr("-----")); // Just a delimiter.
-				connectStage = ConnectEstablished;
-				serverProtocolVersion = in.readQUInt8();
-				hostName = in.readRawUntilByte('\0');
-				emit serverNameChanged(hostName);
-
-				int numUpdates = in.readQUInt8();
-
-				processPacket(ioDevice, true, numUpdates);
-
-				int numStrings = in.readQUInt8();
-				while(numStrings-- > 0)
-				{
-					QString message = in.readRawUntilByte('\0');
-					message.replace(colorCode, "\034\\1");
-					emit messageReceived(message.trimmed());
-				}
-				break;
-			}
-			case SVRC_MESSAGE:
-			{
-				QString message = QDateTime::currentDateTime().toString("[hh:mm:ss ap] ") + in.readRawUntilByte('\0');
+				QString message = in.readRawUntilByte('\0');
 				message.replace(colorCode, "\034\\1");
-				emit messageReceived(message);
+				emit messageReceived(message.trimmed());
+			}
+			break;
+		}
+		case SVRC_MESSAGE:
+		{
+			QString message = QDateTime::currentDateTime().toString("[hh:mm:ss ap] ") + in.readRawUntilByte('\0');
+			message.replace(colorCode, "\034\\1");
+			emit messageReceived(message);
+			break;
+		}
+		case SVRC_UPDATE:
+			int updateType = in.readQUInt8();
+			switch (updateType)
+			{
+			default:
+				qDebug() << "Uknown streamlined update (" << update << ")";
+				return;
+			case SVRCU_MAP:
+			{
+				QString map = in.readRawUntilByte('\0');
 				break;
 			}
-			case SVRC_UPDATE:
-				int updateType = in.readQUInt8();
-				switch(updateType)
-				{
-					default:
-						qDebug() << "Uknown streamlined update (" << update << ")";
-						return;
-					case SVRCU_MAP:
-					{
-						QString map = in.readRawUntilByte('\0');
-						break;
-					}
-					case SVRCU_ADMINCOUNT:
-					{
-						// Unused:
-						// int admins = in.readQUint8();
-						// !!! MAKE SURE to remove the line below if line above
-						// is uncommented!
-						in.skipRawData(1);
-						break;
-					}
-					case SVRCU_PLAYERDATA:
-					{
-						int players = in.readQUInt8();
-						this->playersMutable().clear();
-						while(players-- > 0)
-						{
-							QString player = in.readRawUntilByte('\0');
-							this->playersMutable().append(Player(player, 0, 0));
-						}
-						emit playerListUpdated();
-						break;
-					}
-				}
+			case SVRCU_ADMINCOUNT:
+			{
+				// Unused:
+				// int admins = in.readQUint8();
+				// !!! MAKE SURE to remove the line below if line above
+				// is uncommented!
+				in.skipRawData(1);
 				break;
+			}
+			case SVRCU_PLAYERDATA:
+			{
+				int players = in.readQUInt8();
+				this->playersMutable().clear();
+				while (players-- > 0)
+				{
+					QString player = in.readRawUntilByte('\0');
+					this->playersMutable().append(Player(player, 0, 0));
+				}
+				emit playerListUpdated();
+				break;
+			}
+			}
+			break;
 		}
 	}
 }

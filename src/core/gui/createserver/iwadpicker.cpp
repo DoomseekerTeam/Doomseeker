@@ -37,7 +37,7 @@ DClass<IwadPicker> : public Ui::IwadPicker
 DPointered(IwadPicker)
 
 IwadPicker::IwadPicker(QWidget *parent)
-: QWidget(parent)
+	: QWidget(parent)
 {
 	d->setupUi(this);
 	loadIwads();
@@ -47,12 +47,10 @@ IwadPicker::~IwadPicker()
 {
 }
 
-void IwadPicker::addIwad(const QString& path)
+void IwadPicker::addIwad(const QString &path)
 {
 	if (path.trimmed().isEmpty())
-	{
 		return;
-	}
 
 	for (int i = 0; i < d->cboIwad->count(); ++i)
 	{
@@ -95,6 +93,7 @@ void IwadPicker::loadIwads()
 		"freedoom1.wad", "freedoom2.wad", "strife1.wad", ""
 	};
 
+	QString currentSelection = d->cboIwad->currentText();
 	d->cboIwad->clear();
 	for (int i = 0; !iwads[i].isEmpty(); ++i)
 	{
@@ -102,9 +101,15 @@ void IwadPicker::loadIwads()
 		wadPathFinder.setAllowAliases(false);
 		QString path = wadPathFinder.find(iwads[i]).path();
 		if (!path.isEmpty())
-		{
 			d->cboIwad->addItem(path);
-		}
+	}
+	if (!currentSelection.isEmpty())
+	{
+		int selectionIdx = d->cboIwad->findText(currentSelection);
+		if (selectionIdx >= 0)
+			d->cboIwad->setCurrentIndex(selectionIdx);
+		else
+			d->cboIwad->setEditText(currentSelection);
 	}
 }
 

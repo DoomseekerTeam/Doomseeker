@@ -26,11 +26,11 @@
 #include <QDebug>
 
 #define T_ASSERT_EQUAL(a, b) \
-if ((a) != (b)) \
-{ \
-	qDebug() << "a:" << (a) << ", b:" << (b); \
-	return false; \
-}
+	if ((a) != (b)) \
+	{ \
+		qDebug() << "a:" << (a) << ", b:" << (b); \
+		return false; \
+	}
 
 bool TestUtf8Splitter::executeTest()
 {

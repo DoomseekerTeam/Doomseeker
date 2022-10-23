@@ -31,18 +31,18 @@ MemoryLineEdit::MemoryLineEdit(QWidget *parent) : QLineEdit(parent)
 
 void MemoryLineEdit::keyPressEvent(QKeyEvent *event)
 {
-	if(history.count() != 0)
+	if (history.count() != 0)
 	{
-		if(event->key() == Qt::Key_Up)
+		if (event->key() == Qt::Key_Up)
 		{
-			if(position != history.begin())
+			if (position != history.begin())
 				position--;
 			setText(*position);
 		}
-		else if(event->key() == Qt::Key_Down && position != history.end())
+		else if (event->key() == Qt::Key_Down && position != history.end())
 		{
 			position++;
-			if(position != history.end())
+			if (position != history.end())
 				setText(*position);
 			else
 				setText("");
@@ -54,7 +54,7 @@ void MemoryLineEdit::keyPressEvent(QKeyEvent *event)
 void MemoryLineEdit::storeCommand()
 {
 	history.append(text());
-	if(history.count() > 50)
+	if (history.count() > 50)
 		history.removeFirst();
 	position = history.end();
 }

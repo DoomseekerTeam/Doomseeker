@@ -29,15 +29,15 @@ class OdamexServer;
 
 class OdamexGameClientRunner : public GameClientRunner
 {
-	public:
-		OdamexGameClientRunner(QSharedPointer<OdamexServer> server);
+public:
+	OdamexGameClientRunner(QSharedPointer<OdamexServer> server);
 
-	private:
-		QSharedPointer<OdamexServer> server;
+private:
+	QSharedPointer<OdamexServer> server;
 
-		void addConnectCommand();
-		void addExtra();
-		void addPassword();
+	void addConnectCommand();
+	void addExtra();
+	void addPassword();
 };
 
 #endif

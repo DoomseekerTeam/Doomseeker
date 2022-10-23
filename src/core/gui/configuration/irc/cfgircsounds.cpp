@@ -4,22 +4,26 @@
 // Copyright (C) 2011 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
 #include "cfgircsounds.h"
-#include "ui_cfgircsounds.h"
 #include "irc/configuration/ircconfig.h"
+#include "ui_cfgircsounds.h"
 
-#include <QFile>
+#include <QFileInfo>
 #include <QFileDialog>
-#include <QSound>
+#include <QSoundEffect>
 
 DClass<CFGIRCSounds> : public Ui::CFGIRCSounds
 {
+public:
+	QSoundEffect *sfx;
 };
 
 DPointered(CFGIRCSounds)
 
-CFGIRCSounds::CFGIRCSounds(QWidget* parent)
-: ConfigPage(parent)
+CFGIRCSounds::CFGIRCSounds(QWidget *parent)
+	: ConfigPage(parent)
 {
+	d->sfx = new QSoundEffect(this);
+
 	d->setupUi(this);
 	d->lblNicknameUsedWarning->hide();
 	d->lblPrivateMessageWarning->hide();
@@ -67,10 +71,11 @@ void CFGIRCSounds::playPrivateMessage()
 
 void CFGIRCSounds::playSound(const QString &path) const
 {
-	QFile file(path);
+	QFileInfo file(path);
 	if (file.exists())
 	{
-		QSound::play(path);
+		d->sfx->setSource(QUrl::fromLocalFile(file.absoluteFilePath()));
+		d->sfx->play();
 	}
 }
 
@@ -92,13 +97,11 @@ void CFGIRCSounds::saveSettings()
 	gIRCConfig.sounds.privateMessageReceivedSound = d->lePrivateMessage->text().trimmed();
 }
 
-void CFGIRCSounds::setPath(QLineEdit* pLineEdit, const QString& path)
+void CFGIRCSounds::setPath(QLineEdit *pLineEdit, const QString &path)
 {
 	QString trimmedPath = path.trimmed();
 	if (!trimmedPath.isEmpty())
-	{
 		pLineEdit->setText(trimmedPath);
-	}
 	emit validationRequested();
 }
 
@@ -125,19 +128,13 @@ ConfigPage::Validation CFGIRCSounds::validate()
 QString CFGIRCSounds::validateFilePath(const QString &path) const
 {
 	if (path.trimmed().isEmpty())
-	{
 		return tr("No path specified.");
-	}
 
 	QFileInfo fileInfo(path.trimmed());
 	if (!fileInfo.exists())
-	{
 		return tr("File doesn't exist.");
-	}
 
 	if (!fileInfo.isFile())
-	{
 		return tr("This is not a file.");
-	}
 	return "";
 }

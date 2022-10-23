@@ -22,8 +22,8 @@
 //------------------------------------------------------------------------------
 #include "chocolatedoomgameexefactory.h"
 
-#include <serverapi/gamefile.h>
 #include <QStringList>
+#include <serverapi/gamefile.h>
 
 static QStringList searchSuffixes()
 {
@@ -34,9 +34,9 @@ static QStringList searchSuffixes()
 	games << "doom" << "heretic" << "hexen" << "strife";
 
 	QStringList suffixes;
-	foreach (const QString &tmplate, templates)
+	for (const QString &tmplate : templates)
 	{
-		foreach (const QString &game, games)
+		for (const QString &game : games)
 		{
 			suffixes << tmplate.arg(game);
 		}
@@ -51,7 +51,7 @@ public:
 DPointered(ChocolateDoomGameExeFactory)
 
 ChocolateDoomGameExeFactory::ChocolateDoomGameExeFactory(EnginePlugin *plugin)
-: GameExeFactory(plugin)
+	: GameExeFactory(plugin)
 {
 	set_gameFiles(&ChocolateDoomGameExeFactory::gameFiles_);
 }
@@ -64,17 +64,11 @@ GameFile ChocolateDoomGameExeFactory::executableForIwad(const QString &iwad)
 {
 	GameFileList list = gameFiles();
 	if (iwad == "hexen.wad")
-	{
 		return list.findByConfigName("ChocolateHexenBinaryPath");
-	}
 	else if (iwad == "heretic.wad" || iwad == "heretic1.wad")
-	{
 		return list.findByConfigName("ChocolateHereticBinaryPath");
-	}
 	else if (iwad == "strife1.wad" || iwad == "strife0.wad")
-	{
 		return list.findByConfigName("ChocolateStrifeBinaryPath");
-	}
 	return list.findByConfigName("BinaryPath");
 }
 

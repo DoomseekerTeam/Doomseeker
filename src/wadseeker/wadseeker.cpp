@@ -20,17 +20,19 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2009 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
+#include "entities/modfile.h"
+#include "entities/modset.h"
 #include "entities/waddownloadinfo.h"
 #include "protocols/wadarchive/wadarchiveclient.h"
 #include "wadretriever/wadretriever.h"
+#include "wadseeker.h"
+#include "wadseekerversioninfo.h"
 #include "wwwseeker/entities/fileseekinfo.h"
 #include "wwwseeker/idgames.h"
 #include "wwwseeker/urlparser.h"
 #include "wwwseeker/wwwseeker.h"
-#include "zip/unzip.h"
 #include "zip/un7zip.h"
-#include "wadseeker.h"
-#include "wadseekerversioninfo.h"
+#include "zip/unzip.h"
 #include <QDebug>
 #include <QDir>
 #include <QFileInfo>
@@ -49,8 +51,8 @@ const QString Wadseeker::forbiddenWads[] =
 	"attack", "blacktwr", "bloodsea", "canyon", "catwalk", "combine", "doom",
 	"doom2", "fistula", "garrison", "geryon", "heretic", "hexen", "hexdd",
 	"manor", "mephisto", "minos", "nessus", "paradox", "plutonia", "subspace",
-	"subterra", "teeth", "tnt", "ttrap", "strife1", "vesperas", "virgil",
-	"voices", ""
+	"subterra", "teeth", "tnt", "ttrap", "sigil_shreds", "sigil_shreds_compat",
+	"strife1", "vesperas", "virgil", "voices", ""
 };
 ///////////////////////////////////////////////////////////////////////
 DClass<Wadseeker>
@@ -61,12 +63,12 @@ public:
 	public:
 		bool bIdgamesEnabled;
 		bool bWadArchiveEnabled;
-		QString customSiteUrl;
+		QStringList customSiteUrls;
 		QString idgamesUrl;
 		unsigned maxConcurrentDownloads;
 		unsigned maxConcurrentSeeks;
 		QString saveDirectoryPath;
-		QStringList seekedWads;
+		ModSet seekedWads;
 		QStringList sitesUrls;
 
 		SeekParameters()
@@ -94,35 +96,35 @@ public:
 	 * list the Wadseeker will return true on isWorking() as there
 	 * is a potential chance that new links to files will be found.
 	 */
-	QList<Idgames* > idgamesClients;
+	QList<Idgames *> idgamesClients;
 
 	SeekParameters seekParameters;
 
 	/**
 	 * This object is created when startSeek() method is called. This will
 	 * ensure that the parameters won't change during the seek operation.
-	 * When seek is not in progress this is NULL.
+	 * When seek is not in progress this is nullptr.
 	 */
-	SeekParameters* seekParametersForCurrentSeek;
+	SeekParameters *seekParametersForCurrentSeek;
 
-	WadArchiveClient* wadArchiveClient;
-	WadRetriever* wadRetriever;
-	WWWSeeker* wwwSeeker;
+	WadArchiveClient *wadArchiveClient;
+	WadRetriever *wadRetriever;
+	WWWSeeker *wwwSeeker;
 };
 DPointeredNoCopy(Wadseeker)
 ///////////////////////////////////////////////////////////////////////////
 Wadseeker::Wadseeker()
 {
 	d->bIsAborting = false;
-	d->seekParametersForCurrentSeek = NULL;
-	d->wadArchiveClient = NULL;
-	d->wadRetriever = NULL;
-	d->wwwSeeker = NULL;
+	d->seekParametersForCurrentSeek = nullptr;
+	d->wadArchiveClient = nullptr;
+	d->wadRetriever = nullptr;
+	d->wwwSeeker = nullptr;
 }
 
 Wadseeker::~Wadseeker()
 {
-	if (d->wadArchiveClient != NULL)
+	if (d->wadArchiveClient != nullptr)
 	{
 		delete d->wadArchiveClient;
 	}
@@ -132,17 +134,17 @@ Wadseeker::~Wadseeker()
 		delete d->idgamesClients.takeFirst();
 	}
 
-	if (d->wwwSeeker != NULL)
+	if (d->wwwSeeker != nullptr)
 	{
 		delete d->wwwSeeker;
 	}
 
-	if (d->wadRetriever != NULL)
+	if (d->wadRetriever != nullptr)
 	{
 		delete d->wadRetriever;
 	}
 
-	if (d->seekParametersForCurrentSeek != NULL)
+	if (d->seekParametersForCurrentSeek != nullptr)
 	{
 		delete d->seekParametersForCurrentSeek;
 	}
@@ -154,7 +156,7 @@ void Wadseeker::abort()
 	{
 		d->bIsAborting = true;
 		abortSeekers();
-		if (d->wadRetriever != NULL)
+		if (d->wadRetriever != nullptr)
 		{
 			d->wadRetriever->abort();
 		}
@@ -170,7 +172,7 @@ void Wadseeker::abortSeekers()
 
 void Wadseeker::abortWwwSeeker()
 {
-	if (d->wwwSeeker != NULL)
+	if (d->wwwSeeker != nullptr)
 	{
 		d->wwwSeeker->abort();
 	}
@@ -186,27 +188,27 @@ void Wadseeker::cleanUpIfAllFinished()
 
 void Wadseeker::cleanUpAfterFinish()
 {
-	if (d->seekParametersForCurrentSeek == NULL)
+	if (d->seekParametersForCurrentSeek == nullptr)
 	{
 		return;
 	}
 
 	// If there are no more WAD downloads pending for URLs when finish is
-	// announced, then the Wadeeker procedure is a success.
+	// announced, then the Wadseeker procedure is a success.
 	bool bSuccess = !d->wadRetriever->isAnyWadPendingUrl() && !d->bIsAborting;
 	d->bIsAborting = false;
 
 	delete d->seekParametersForCurrentSeek;
-	d->seekParametersForCurrentSeek = NULL;
+	d->seekParametersForCurrentSeek = nullptr;
 
 	delete d->wadArchiveClient;
-	d->wadArchiveClient = NULL;
+	d->wadArchiveClient = nullptr;
 
 	d->wadRetriever->deleteLater();
-	d->wadRetriever = NULL;
+	d->wadRetriever = nullptr;
 
 	delete d->wwwSeeker;
-	d->wwwSeeker = NULL;
+	d->wwwSeeker = nullptr;
 
 	emit allDone(bSuccess);
 }
@@ -226,18 +228,18 @@ QStringList Wadseeker::defaultSitesListEncoded()
 	return list;
 }
 
-void Wadseeker::fileLinkFound(const QString& filename, const QUrl& url)
+void Wadseeker::fileLinkFound(const QString &filename, const QUrl &url)
 {
 	emit message(tr("Found link to file \"%1\": %2").arg(filename)
-				.arg(url.toEncoded().constData()), WadseekerLib::Notice);
+		.arg(url.toEncoded().constData()), WadseekerLib::Notice);
 
-	d->wadRetriever->addUrl(filename, url);
+	d->wadRetriever->addUrl(d->seekParameters.seekedWads.findFileName(filename), url);
 }
 
-void Wadseeker::fileMirrorLinksFound(const QString& filename, const QList<QUrl>& urls)
+void Wadseeker::fileMirrorLinksFound(const QString &filename, const QList<QUrl> &urls)
 {
 	emit message(tr("Found mirror links to file \"%1\":").arg(filename), WadseekerLib::Notice);
-	foreach (const QUrl& url, urls)
+	for (const QUrl &url : urls)
 	{
 		QString strUrl = url.toEncoded().constData();
 		emit message(tr("    %2").arg(strUrl), WadseekerLib::Notice);
@@ -246,36 +248,36 @@ void Wadseeker::fileMirrorLinksFound(const QString& filename, const QList<QUrl>&
 	d->wadRetriever->addMirrorUrls(filename, urls);
 }
 
-QStringList Wadseeker::filterAllowedOnlyWads(const QStringList &wads)
+ModSet Wadseeker::filterAllowedOnlyWads(const ModSet &wads)
 {
-	QStringList result;
-	foreach (const QString &wad, wads)
+	ModSet result;
+	for (const ModFile &wad : wads.modFiles())
 	{
 		if (!isForbiddenWad(wad))
 		{
-			result << wad;
+			result.addModFile(wad);
 		}
 	}
 	return result;
 }
 
-QStringList Wadseeker::filterForbiddenOnlyWads(const QStringList &wads)
+ModSet Wadseeker::filterForbiddenOnlyWads(const ModSet &wads)
 {
-	QStringList result;
-	foreach (const QString &wad, wads)
+	ModSet result;
+	for (const ModFile &wad : wads.modFiles())
 	{
 		if (isForbiddenWad(wad))
 		{
-			result << wad;
+			result.addModFile(wad);
 		}
 	}
 	return result;
 }
 
-void Wadseeker::idgamesClientFinished(Idgames* pEmitter)
+void Wadseeker::idgamesClientFinished(Idgames *pEmitter)
 {
 	emit message(tr("IDGames client for file \"%1\" has finished->").arg(pEmitter->file().name()),
-				WadseekerLib::NoticeImportant);
+		WadseekerLib::NoticeImportant);
 
 	d->idgamesClients.removeOne(pEmitter);
 	delete pEmitter;
@@ -300,19 +302,19 @@ bool Wadseeker::isAllFinished() const
 	return !isWorking();
 }
 
-bool Wadseeker::isDownloadingFile(const QString& file) const
+bool Wadseeker::isDownloadingFile(const ModFile &file) const
 {
-	if (d->wadRetriever != NULL)
+	if (d->wadRetriever != nullptr)
 	{
-		return d->wadRetriever->isDownloadingWad(file);
+		return d->wadRetriever->isDownloadingWad(file.fileName());
 	}
 
 	return false;
 }
 
-bool Wadseeker::isForbiddenWad(const QString& wad)
+bool Wadseeker::isForbiddenWad(const ModFile &wad)
 {
-	QFileInfo fiWad(wad);
+	QFileInfo fiWad(wad.fileName());
 	// Check the basename, ignore extension.
 	// This will block names like "doom2.zip" but also "doom2.pk3" and
 	// "doom2.whatever".
@@ -330,7 +332,7 @@ bool Wadseeker::isForbiddenWad(const QString& wad)
 
 bool Wadseeker::isWorking() const
 {
-	if (d->seekParametersForCurrentSeek == NULL)
+	if (d->seekParametersForCurrentSeek == nullptr)
 	{
 		// We're in a "waiting for orders" state, ie. seek is not in progress.
 		return false;
@@ -338,7 +340,7 @@ bool Wadseeker::isWorking() const
 
 	return d->wwwSeeker->isWorking()
 		|| d->wadRetriever->isAnyDownloadWorking()
-		|| (d->wadArchiveClient != NULL && d->wadArchiveClient->isWorking())
+		|| (d->wadArchiveClient != nullptr && d->wadArchiveClient->isWorking())
 		|| !d->idgamesClients.isEmpty();
 }
 
@@ -349,22 +351,22 @@ void Wadseeker::prepareSeekObjects()
 	d->wwwSeeker->setUserAgent(WadseekerVersionInfo::userAgent());
 
 	// Connect signals to slots.
-	this->connect(d->wwwSeeker, SIGNAL( finished() ),
-		SLOT( wwwSeekerFinished() ), Qt::QueuedConnection);
-	this->connect(d->wwwSeeker, SIGNAL( linkFound(const QString&, const QUrl&)),
-		SLOT( fileLinkFound(const QString&, const QUrl&) ), Qt::QueuedConnection);
+	this->connect(d->wwwSeeker, SIGNAL(finished()),
+		SLOT(wwwSeekerFinished()), Qt::QueuedConnection);
+	this->connect(d->wwwSeeker, SIGNAL(linkFound(const QString&,const QUrl&)),
+		SLOT(fileLinkFound(const QString&,const QUrl&)), Qt::QueuedConnection);
 
 	// Forward signals up to outside of the library.
-	this->connect(d->wwwSeeker, SIGNAL( message(const QString&, WadseekerLib::MessageType) ),
-		SIGNAL( message(const QString&, WadseekerLib::MessageType) ) );
-	this->connect(d->wwwSeeker, SIGNAL( siteFinished(const QUrl&) ),
-		SIGNAL( siteFinished(const QUrl&) ), Qt::QueuedConnection);
-	this->connect(d->wwwSeeker, SIGNAL( siteProgress(const QUrl&, qint64, qint64) ),
-		SIGNAL( siteProgress(const QUrl&, qint64, qint64) ), Qt::QueuedConnection);
-	this->connect(d->wwwSeeker, SIGNAL( siteRedirect(const QUrl&, const QUrl&) ),
-		SIGNAL( siteRedirect(const QUrl&, const QUrl&) ), Qt::QueuedConnection);
-	this->connect(d->wwwSeeker, SIGNAL( siteStarted(const QUrl&) ),
-		SIGNAL( siteStarted(const QUrl&) ), Qt::QueuedConnection);
+	this->connect(d->wwwSeeker, SIGNAL(message(const QString&,WadseekerLib::MessageType)),
+		SIGNAL(message(const QString&,WadseekerLib::MessageType)));
+	this->connect(d->wwwSeeker, SIGNAL(siteFinished(const QUrl&)),
+		SIGNAL(siteFinished(const QUrl&)), Qt::QueuedConnection);
+	this->connect(d->wwwSeeker, SIGNAL(siteProgress(const QUrl&,qint64,qint64)),
+		SIGNAL(siteProgress(const QUrl&,qint64,qint64)), Qt::QueuedConnection);
+	this->connect(d->wwwSeeker, SIGNAL(siteRedirect(const QUrl&,const QUrl&)),
+		SIGNAL(siteRedirect(const QUrl&,const QUrl&)), Qt::QueuedConnection);
+	this->connect(d->wwwSeeker, SIGNAL(siteStarted(const QUrl&)),
+		SIGNAL(siteStarted(const QUrl&)), Qt::QueuedConnection);
 
 	// WadRetriever
 	d->wadRetriever = new WadRetriever();
@@ -375,38 +377,43 @@ void Wadseeker::prepareSeekObjects()
 
 	// The wadRetrieverFinished() slot will handle difference between finished()
 	// and pendingUrls() signals.
-	this->connect(d->wadRetriever, SIGNAL( finished() ),
+	this->connect(d->wadRetriever, SIGNAL(finished()),
 		SLOT(wadRetrieverFinished()), Qt::QueuedConnection);
-	this->connect(d->wadRetriever, SIGNAL( pendingUrls() ),
+	this->connect(d->wadRetriever, SIGNAL(pendingUrls()),
 		SLOT(wadRetrieverFinished()), Qt::QueuedConnection);
 
-	this->connect(d->wadRetriever, SIGNAL( message(const QString&, WadseekerLib::MessageType) ),
-		SLOT( wadRetrieverMessage(const QString&, WadseekerLib::MessageType) ) );
+	this->connect(d->wadRetriever, SIGNAL(message(const QString&,WadseekerLib::MessageType)),
+		SLOT(wadRetrieverMessage(const QString&,WadseekerLib::MessageType)));
 
-	this->connect(d->wadRetriever, SIGNAL( wadDownloadFinished(WadDownloadInfo) ),
-		SLOT( wadRetrieverDownloadFinished(WadDownloadInfo) ) );
+	this->connect(d->wadRetriever, SIGNAL(wadDownloadFinished(WadDownloadInfo)),
+		SLOT(wadRetrieverDownloadFinished(WadDownloadInfo)));
 
-	this->connect(d->wadRetriever, SIGNAL( wadDownloadStarted(WadDownloadInfo, const QUrl&) ),
-		SLOT(wadRetrieverDownloadStarted(WadDownloadInfo, const QUrl&) ));
+	this->connect(d->wadRetriever, SIGNAL(wadDownloadStarted(WadDownloadInfo,const QUrl&)),
+		SLOT(wadRetrieverDownloadStarted(WadDownloadInfo,const QUrl&)));
 
-	this->connect(d->wadRetriever, SIGNAL( wadDownloadProgress(WadDownloadInfo, qint64, qint64) ),
-		SLOT(wadRetrieverDownloadProgress(WadDownloadInfo, qint64, qint64) ) );
+	this->connect(d->wadRetriever, SIGNAL(wadDownloadProgress(WadDownloadInfo,qint64,qint64)),
+		SLOT(wadRetrieverDownloadProgress(WadDownloadInfo,qint64,qint64)));
 
-	this->connect(d->wadRetriever, SIGNAL( wadInstalled(WadDownloadInfo) ),
-		SLOT( wadRetrieverWadInstalled(WadDownloadInfo) ) );
+	this->connect(d->wadRetriever, SIGNAL(wadInstalled(WadDownloadInfo)),
+		SLOT(wadRetrieverWadInstalled(WadDownloadInfo)));
 }
 
 void Wadseeker::reportBadUrl(const QUrl &url)
 {
-	if (d->wadArchiveClient != NULL)
+	if (d->wadArchiveClient != nullptr)
 	{
 		d->wadArchiveClient->reportBadUrlIfOriginatingFromHere(url);
 	}
 }
 
-void Wadseeker::setCustomSite(const QString& url)
+void Wadseeker::setCustomSite(const QString &url)
 {
-	d->seekParameters.customSiteUrl = url;
+	d->seekParameters.customSiteUrls = QStringList(url);
+}
+
+void Wadseeker::setCustomSites(const QStringList &urls)
+{
+	d->seekParameters.customSiteUrls = urls;
 }
 
 void Wadseeker::setIdgamesEnabled(bool bEnabled)
@@ -439,7 +446,7 @@ void Wadseeker::setMaximumConcurrentSeeks(unsigned max)
 	d->seekParameters.maxConcurrentSeeks = max;
 }
 
-void Wadseeker::setPrimarySites(const QStringList& urlList)
+void Wadseeker::setPrimarySites(const QStringList &urlList)
 {
 	d->seekParameters.sitesUrls = urlList;
 }
@@ -454,7 +461,7 @@ void Wadseeker::setPrimarySitesToDefault()
 	setPrimarySites(list);
 }
 
-void Wadseeker::setTargetDirectory(const QString& dir)
+void Wadseeker::setTargetDirectory(const QString &dir)
 {
 	QString targetDir = dir;
 	if (!dir.isEmpty())
@@ -473,31 +480,31 @@ void Wadseeker::setWadArchiveEnabled(bool enabled)
 	d->seekParameters.bWadArchiveEnabled = enabled;
 }
 
-void Wadseeker::setupIdgamesClients(const QList<WadDownloadInfo>& wadDownloadInfoList)
+void Wadseeker::setupIdgamesClients(const QList<WadDownloadInfo> &wadDownloadInfoList)
 {
-	foreach (const WadDownloadInfo& wad, wadDownloadInfoList)
+	for (const WadDownloadInfo &wad : wadDownloadInfoList)
 	{
-		Idgames* pIdgames = new Idgames(d->seekParametersForCurrentSeek->idgamesUrl);
+		auto pIdgames = new Idgames(d->seekParametersForCurrentSeek->idgamesUrl);
 
 		pIdgames->setUserAgent(WadseekerVersionInfo::userAgent());
 		pIdgames->setFile(wad);
 
-		this->connect(pIdgames, SIGNAL( finished(Idgames*) ),
-			SLOT( idgamesClientFinished(Idgames*) ) );
+		this->connect(pIdgames, SIGNAL(finished(Idgames*)),
+			SLOT(idgamesClientFinished(Idgames*)));
 
-		this->connect(pIdgames, SIGNAL( message(const QString&, WadseekerLib::MessageType) ),
-			SIGNAL( message(const QString&, WadseekerLib::MessageType) ) );
+		this->connect(pIdgames, SIGNAL(message(const QString&,WadseekerLib::MessageType)),
+			SIGNAL(message(const QString&,WadseekerLib::MessageType)));
 
-		this->connect(pIdgames, SIGNAL( fileLinksFound(const QString&, const QList<QUrl>&)),
-			SLOT( fileMirrorLinksFound(const QString&, const QList<QUrl>&) ) );
+		this->connect(pIdgames, SIGNAL(fileLinksFound(const QString&,const QList<QUrl>&)),
+			SLOT(fileMirrorLinksFound(const QString&,const QList<QUrl>&)));
 
 		// Forward signals as with WWWSeeker
-		this->connect(pIdgames, SIGNAL( siteFinished(const QUrl&) ),
-			SIGNAL( siteFinished(const QUrl&) ), Qt::QueuedConnection);
-		this->connect(pIdgames, SIGNAL( siteProgress(const QUrl&, qint64, qint64) ),
-			SIGNAL( siteProgress(const QUrl&, qint64, qint64) ), Qt::QueuedConnection);
-		this->connect(pIdgames, SIGNAL( siteStarted(const QUrl&) ),
-			SIGNAL( siteStarted(const QUrl&) ), Qt::QueuedConnection);
+		this->connect(pIdgames, SIGNAL(siteFinished(const QUrl&)),
+			SIGNAL(siteFinished(const QUrl&)), Qt::QueuedConnection);
+		this->connect(pIdgames, SIGNAL(siteProgress(const QUrl&,qint64,qint64)),
+			SIGNAL(siteProgress(const QUrl&,qint64,qint64)), Qt::QueuedConnection);
+		this->connect(pIdgames, SIGNAL(siteStarted(const QUrl&)),
+			SIGNAL(siteStarted(const QUrl&)), Qt::QueuedConnection);
 
 		d->idgamesClients << pIdgames;
 	}
@@ -505,73 +512,63 @@ void Wadseeker::setupIdgamesClients(const QList<WadDownloadInfo>& wadDownloadInf
 
 void Wadseeker::setupSitesUrls()
 {
-	const int PRIORITY_CUSTOM = 100;
-	const int PRIORITY_NORMAL = 0;
 	d->wwwSeeker->clearVisitedUrlsList();
 
-	if (UrlParser::isWadnameTemplateUrl(d->seekParametersForCurrentSeek->customSiteUrl))
-	{
-		// If URL containts wadname placeholder we need to create a unique
-		// URL for each searched wad.
-		foreach (const QString& wad, d->seekParametersForCurrentSeek->seekedWads)
+	auto incorporateUrl = [&] (bool isCustom, const QString &strSiteUrl)
 		{
-			QUrl url = UrlParser::resolveWadnameTemplateUrl(
-				d->seekParametersForCurrentSeek->customSiteUrl, wad);
-			if (url.isValid())
+			if (UrlParser::isWadnameTemplateUrl(strSiteUrl))
 			{
-				d->wwwSeeker->addFileSiteUrlWithPriority(wad, url, PRIORITY_CUSTOM);
-			}
-		}
-	}
-	else
-	{
-		d->wwwSeeker->setCustomSiteUrl(d->seekParametersForCurrentSeek->customSiteUrl);
-	}
-
-	foreach (const QString& strSiteUrl, d->seekParametersForCurrentSeek->sitesUrls)
-	{
-		if (UrlParser::isWadnameTemplateUrl(strSiteUrl))
-		{
-			foreach (const QString& wad, d->seekParametersForCurrentSeek->seekedWads)
-			{
-				QUrl url = UrlParser::resolveWadnameTemplateUrl(strSiteUrl, wad);
-				if (url.isValid())
+				for (const ModFile &wad : d->seekParametersForCurrentSeek->seekedWads.modFiles())
 				{
-					d->wwwSeeker->addFileSiteUrlWithPriority(wad, url, PRIORITY_NORMAL);
+					QUrl url = UrlParser::resolveWadnameTemplateUrl(strSiteUrl, wad.fileName());
+					if (url.isValid())
+					{
+						const int priority = isCustom ?
+							WWWSeeker::PRIORITY_HIGH : WWWSeeker::PRIORITY_NORMAL;
+						d->wwwSeeker->addFileSiteUrlWithPriority(wad.fileName(), url, priority);
+					}
 				}
 			}
-		}
-		else
-		{
-			QUrl url(strSiteUrl);
-			if (url.isValid())
+			else
 			{
-				d->wwwSeeker->addSiteUrl(url);
+				QUrl url(strSiteUrl);
+				if (url.isValid())
+				{
+					if (isCustom)
+						d->wwwSeeker->addCustomSiteUrl(url);
+					else
+						d->wwwSeeker->addSiteUrl(url);
+				}
 			}
-		}
-	}
+		};
+
+	for (const auto &urlStr : d->seekParametersForCurrentSeek->customSiteUrls)
+		incorporateUrl(true, urlStr);
+
+	for (const QString &strSiteUrl : d->seekParametersForCurrentSeek->sitesUrls)
+		incorporateUrl(false, strSiteUrl);
 }
 
 void Wadseeker::setupWadArchiveClient(const QList<WadDownloadInfo> &wadDownloadInfos)
 {
 	d->wadArchiveClient = new WadArchiveClient();
 	d->wadArchiveClient->setUserAgent(WadseekerVersionInfo::userAgent());
-	foreach (const WadDownloadInfo &wad, wadDownloadInfos)
+	for (const WadDownloadInfo &wad : wadDownloadInfos)
 	{
 		d->wadArchiveClient->enqueue(wad);
 	}
 
-	this->connect(d->wadArchiveClient, SIGNAL(message(QString, WadseekerLib::MessageType)),
-		SIGNAL(message(QString, WadseekerLib::MessageType)));
+	this->connect(d->wadArchiveClient, SIGNAL(message(QString,WadseekerLib::MessageType)),
+		SIGNAL(message(QString,WadseekerLib::MessageType)));
 	this->connect(d->wadArchiveClient, SIGNAL(finished()),
 		SLOT(wadArchiveFinished()));
-	this->connect(d->wadArchiveClient, SIGNAL(urlFound(QString, QUrl)),
-		SLOT(fileLinkFound(QString, QUrl)));
+	this->connect(d->wadArchiveClient, SIGNAL(urlFound(QString,QUrl)),
+		SLOT(fileLinkFound(QString,QUrl)));
 }
 
-void Wadseeker::skipFileCurrentUrl(const QString& fileName)
+void Wadseeker::skipFileCurrentUrl(const QString &fileName)
 {
-	if (d->wadRetriever != NULL)
+	if (d->wadRetriever != nullptr)
 	{
 		d->wadRetriever->skipCurrentUrl(fileName);
 	}
@@ -595,9 +592,9 @@ void Wadseeker::skipService(const QString &service)
 	}
 }
 
-void Wadseeker::skipSiteSeek(const QUrl& url)
+void Wadseeker::skipSiteSeek(const QUrl &url)
 {
-	if (d->wwwSeeker != NULL)
+	if (d->wwwSeeker != nullptr)
 	{
 		d->wwwSeeker->skipSite(url);
 	}
@@ -613,7 +610,7 @@ void Wadseeker::startNextIdgamesClient()
 {
 	if (!d->bIsAborting && !d->idgamesClients.isEmpty())
 	{
-		Idgames* pIdgames = d->idgamesClients.first();
+		Idgames *pIdgames = d->idgamesClients.first();
 
 		pIdgames->startSearch();
 	}
@@ -652,18 +649,18 @@ void Wadseeker::startWadArchiveClient()
 
 void Wadseeker::stopWadArchiveClient()
 {
-	if (d->wadArchiveClient != NULL)
+	if (d->wadArchiveClient != nullptr)
 	{
 		d->wadArchiveClient->abort();
 	}
 }
 
-bool Wadseeker::startSeek(const QStringList& wads)
+bool Wadseeker::startSeek(const ModSet &wads)
 {
-	if (d->seekParametersForCurrentSeek != NULL)
+	if (d->seekParametersForCurrentSeek != nullptr)
 	{
 		emit message(tr("Seek already in progress. Please abort the current seek before starting a new one."),
-					WadseekerLib::CriticalError);
+			WadseekerLib::CriticalError);
 		return false;
 	}
 
@@ -678,27 +675,26 @@ bool Wadseeker::startSeek(const QStringList& wads)
 	if (!targetDir.exists())
 	{
 		emit message(tr("File save directory \"%1\" doesn't exist or is a file. Aborting.").arg(d->seekParameters.saveDirectoryPath),
-					WadseekerLib::CriticalError);
+			WadseekerLib::CriticalError);
 		return false;
 	}
 
-	QStringList filteredWadsList;
-	foreach (QString wad, wads)
+	ModSet filteredWadsList;
+	for (ModFile wad : wads.modFiles())
 	{
-		wad = wad.trimmed();
-		if (wad.isEmpty())
+		if (wad.fileName().isEmpty())
 		{
 			continue;
 		}
 
 		if (isForbiddenWad(wad))
 		{
-			emit message(tr("WAD \"%1\" is on the forbidden list. Wadseeker will not download this WAD.").arg(wad),
+			emit message(tr("WAD \"%1\" is on the forbidden list. Wadseeker will not download this WAD.").arg(wad.fileName()),
 				WadseekerLib::Error);
 			continue;
 		}
 
-		filteredWadsList << wad;
+		filteredWadsList.addModFile(wad);
 	}
 
 	if (filteredWadsList.isEmpty())
@@ -721,7 +717,7 @@ bool Wadseeker::startSeek(const QStringList& wads)
 	QList<FileSeekInfo> fileSeekInfosList;
 	QList<WadDownloadInfo> wadDownloadInfoList;
 
-	foreach (const QString& wad, filteredWadsList)
+	for (const ModFile &wad : filteredWadsList.modFiles())
 	{
 		// Create download info object for this WAD.
 		WadDownloadInfo wadDownloadInfo(wad);
@@ -732,8 +728,8 @@ bool Wadseeker::startSeek(const QStringList& wads)
 		possibleFilenames << wadDownloadInfo.possibleArchiveNames();
 		possibleFilenames << wadDownloadInfo.name();
 
-		fileSeekInfosList << FileSeekInfo(wad, possibleFilenames);
-		emit message(tr("WAD %1: %2").arg(wad, fileSeekInfosList.last().possibleFilenames().join(", ")), WadseekerLib::Notice);
+		fileSeekInfosList << FileSeekInfo(wad.fileName(), possibleFilenames);
+		emit message(tr("WAD %1: %2").arg(wad.fileName(), fileSeekInfosList.last().possibleFilenames().join(", ")), WadseekerLib::Notice);
 	}
 
 	if (d->seekParametersForCurrentSeek->bIdgamesEnabled)
@@ -786,10 +782,10 @@ void Wadseeker::wadRetrieverDownloadProgress(WadDownloadInfo wadDownloadInfo, qi
 	emit fileDownloadProgress(wadDownloadInfo.name(), current, total);
 }
 
-void Wadseeker::wadRetrieverDownloadStarted(WadDownloadInfo wadDownloadInfo, const QUrl& url)
+void Wadseeker::wadRetrieverDownloadStarted(WadDownloadInfo wadDownloadInfo, const QUrl &url)
 {
-	emit message(tr("Started downloading file \"%1\" from URL \"%2\"")
-				.arg(wadDownloadInfo.name(), url.toString()), WadseekerLib::Notice);
+	emit message(tr(R"(Started downloading file "%1" from URL "%2")")
+		.arg(wadDownloadInfo.name(), url.toString()), WadseekerLib::Notice);
 	emit fileDownloadStarted(wadDownloadInfo.name(), url);
 }
 
@@ -814,7 +810,7 @@ void Wadseeker::wadRetrieverFinished()
 	}
 }
 
-void Wadseeker::wadRetrieverMessage(const QString& message, WadseekerLib::MessageType type)
+void Wadseeker::wadRetrieverMessage(const QString &message, WadseekerLib::MessageType type)
 {
 	emit this->message(message, type);
 

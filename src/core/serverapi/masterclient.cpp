@@ -22,12 +22,12 @@
 //------------------------------------------------------------------------------
 #include "masterclient.h"
 
+#include "datapaths.h"
 #include "log.h"
 #include "plugins/engineplugin.h"
 #include "serverapi/message.h"
-#include "serverapi/server.h"
 #include "serverapi/playerslist.h"
-#include "datapaths.h"
+#include "serverapi/server.h"
 
 #include <QDataStream>
 #include <QErrorMessage>
@@ -38,36 +38,36 @@
 
 DClass<MasterClient>
 {
-	public:
-		QHostAddress address;
+public:
+	QHostAddress address;
 
-		bool timeouted;
-		bool enabled;
-		unsigned short port;
-		QList<ServerPtr> servers;
+	bool timeouted;
+	bool enabled;
+	unsigned short port;
+	QList<ServerPtr> servers;
 
-		QFile *cache;
+	QFile *cache;
 
-		bool isCacheOpenForReading() const
-		{
-			return cache != NULL && cache->isReadable();
-		}
+	bool isCacheOpenForReading() const
+	{
+		return cache != nullptr && cache->isReadable();
+	}
 
-		bool isCacheOpenForWriting() const
-		{
-			return cache != NULL && cache->isWritable();
-		}
+	bool isCacheOpenForWriting() const
+	{
+		return cache != nullptr && cache->isWritable();
+	}
 
-		QString (MasterClient::*masterBanHelp)() const;
+	QString (MasterClient::*masterBanHelp)() const;
 };
 
 DPointered(MasterClient)
 
-POLYMORPHIC_DEFINE_CONST(QString, MasterClient, masterBanHelp, (), ());
+POLYMORPHIC_DEFINE_CONST(QString, MasterClient, masterBanHelp, (), ())
 
 MasterClient::MasterClient()
 {
-	d->cache = NULL;
+	d->cache = nullptr;
 	d->timeouted = false;
 	d->enabled = true;
 	d->port = 0;
@@ -78,7 +78,7 @@ MasterClient::~MasterClient()
 {
 	emptyServerList();
 	resetPacketCaching();
-	if (d->cache != NULL)
+	if (d->cache != nullptr)
 	{
 		delete d->cache;
 	}
@@ -96,7 +96,7 @@ void MasterClient::clearServers()
 
 bool MasterClient::isAddressSame(const QHostAddress &address, unsigned short port) const
 {
-	return (d->address.toIPv4Address() == address.toIPv4Address() && d->port == port);
+	return d->address.toIPv4Address() == address.toIPv4Address() && d->port == port;
 }
 
 void MasterClient::emitBannedMessage()
@@ -119,7 +119,7 @@ void MasterClient::emptyServerList()
 
 QString MasterClient::engineName() const
 {
-	if (plugin() == NULL)
+	if (plugin() == nullptr)
 	{
 		return "";
 	}
@@ -143,29 +143,29 @@ QString MasterClient::masterBanHelp_default() const
 
 void MasterClient::notifyResponse(Response response)
 {
-	switch(response)
+	switch (response)
 	{
-		default:
-			break;
-		case RESPONSE_BANNED:
-		{
-			emitBannedMessage();
-			break;
-		}
-		case RESPONSE_WAIT:
-			emit message(engineName(), tr("Could not fetch a new server list from the "
-				"master because not enough time has passed."), true);
-			readPacketCache();
-			break;
-		case RESPONSE_BAD:
-			emit message(engineName(), tr("Bad response from master server."), true);
-			readPacketCache();
-			break;
-		case RESPONSE_OLD:
-			emit message(engineName(),
-				tr("Could not fetch a new server list. The protocol you are using is too old. "
-				"An update may be available."), true);
-			break;
+	default:
+		break;
+	case RESPONSE_BANNED:
+	{
+		emitBannedMessage();
+		break;
+	}
+	case RESPONSE_WAIT:
+		emit message(engineName(), tr("Could not fetch a new server list from the "
+			"master because not enough time has passed."), true);
+		readPacketCache();
+		break;
+	case RESPONSE_BAD:
+		emit message(engineName(), tr("Bad response from master server."), true);
+		readPacketCache();
+		break;
+	case RESPONSE_OLD:
+		emit message(engineName(),
+			tr("Could not fetch a new server list. The protocol you are using is too old. "
+			"An update may be available."), true);
+		break;
 	}
 }
 
@@ -188,12 +188,12 @@ bool MasterClient::preparePacketCache(bool write)
 {
 	if (write ? !d->isCacheOpenForWriting() : !d->isCacheOpenForReading())
 	{
-		if(plugin() == NULL)
+		if (plugin() == nullptr)
 		{
 			return false;
 		}
 
-		if(d->cache == NULL)
+		if (d->cache == nullptr)
 		{
 			QString cacheFile = gDefaultDataPaths->cacheLocationPath() + "/"
 				+ QString(plugin()->data()->name).replace(' ', "");
@@ -204,7 +204,7 @@ bool MasterClient::preparePacketCache(bool write)
 			d->cache->close();
 		}
 
-		if(!d->cache->open(write ? QIODevice::WriteOnly|QIODevice::Truncate : QIODevice::ReadOnly))
+		if (!d->cache->open(write ? QIODevice::WriteOnly | QIODevice::Truncate : QIODevice::ReadOnly))
 		{
 			resetPacketCaching();
 			return false;
@@ -216,12 +216,12 @@ bool MasterClient::preparePacketCache(bool write)
 		// reading from the beginning.
 		d->cache->seek(0);
 	}
-	return d->cache != NULL;
+	return d->cache != nullptr;
 }
 
 void MasterClient::pushPacketToCache(const QByteArray &data)
 {
-	if(!preparePacketCache(true))
+	if (!preparePacketCache(true))
 	{
 		return;
 	}
@@ -243,7 +243,7 @@ MasterClient::Response MasterClient::readResponse(const QByteArray &data)
 
 void MasterClient::readPacketCache()
 {
-	if(!preparePacketCache(false))
+	if (!preparePacketCache(false))
 	{
 		// Cache didn't open? Guess we just emit the signal.
 		emit listUpdated();
@@ -262,7 +262,7 @@ void MasterClient::readPacketCache()
 
 	gLog << tr("Reloading master server results from cache for %1!").arg(plugin()->data()->name);
 	bool hasGood = false;
-	while(!strm.atEnd())
+	while (!strm.atEnd())
 	{
 		quint16 size;
 		strm >> size;
@@ -275,7 +275,7 @@ void MasterClient::readPacketCache()
 		{
 			hasGood = true;
 		}
-		if(response != RESPONSE_GOOD && response != RESPONSE_PENDING)
+		if (response != RESPONSE_GOOD && response != RESPONSE_PENDING)
 		{
 			// Cache was not read properly. We need to emit the signal
 			// to notify the program that this master client finished
@@ -302,10 +302,10 @@ void MasterClient::registerNewServer(ServerPtr server)
 
 void MasterClient::resetPacketCaching()
 {
-	if(d->cache != NULL)
+	if (d->cache != nullptr)
 	{
 		delete d->cache;
-		d->cache = NULL;
+		d->cache = nullptr;
 	}
 }
 
@@ -318,12 +318,12 @@ void MasterClient::refreshStarts()
 
 bool MasterClient::sendRequest(QUdpSocket *socket)
 {
-	if(d->address.isNull())
+	if (d->address.isNull())
 		return false;
 
 	// Make request
 	QByteArray request = createServerListRequest();
-	if(request.isEmpty())
+	if (request.isEmpty())
 		return false;
 	socket->writeDatagram(request, d->address, d->port);
 	return true;
@@ -370,15 +370,15 @@ void MasterClient::updateAddress()
 	plugin()->masterHost(host, port);
 
 	QHostInfo info = QHostInfo::fromName(host);
-	if(info.addresses().size() == 0)
+	if (info.addresses().size() == 0)
 		return;
 
 	d->address = info.addresses().first();
 	if (d->address.protocol() != QAbstractSocket::IPv4Protocol)
 	{
-		foreach(const QHostAddress &addr, info.addresses())
+		for (const QHostAddress &addr : info.addresses())
 		{
-			if(addr.protocol() == QAbstractSocket::IPv4Protocol)
+			if (addr.protocol() == QAbstractSocket::IPv4Protocol)
 				d->address = addr;
 		}
 	}

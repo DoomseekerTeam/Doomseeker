@@ -20,8 +20,8 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2010 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
-#include "teststrings.h"
 #include "strings.hpp"
+#include "teststrings.h"
 
 bool TestStringsWrapUrls::executeTest()
 {

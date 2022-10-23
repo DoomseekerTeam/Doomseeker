@@ -33,7 +33,7 @@ target_compile_definitions(${PLUGIN_NAME} PRIVATE "-DPLUGIN_VERSION=${PLUGIN_VER
 
 target_link_libraries(${PLUGIN_NAME} LINK_PUBLIC ${PLUGIN_LIBS} ${QT_LIBRARIES} doomseeker)
 
-set_target_properties(${PLUGIN_NAME} PROPERTIES AUTOMOC ON)
+set_target_properties(${PLUGIN_NAME} PROPERTIES AUTOMOC ON AUTOUIC ON)
 
 # Installation is on by default unless explicitly disabled.
 if (NOT DONT_INSTALL) # if install

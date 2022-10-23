@@ -22,8 +22,8 @@
 //------------------------------------------------------------------------------
 #include "huffmanudpsocket.h"
 
-#include <cassert>
 #include "huffmanqt.h"
+#include <cassert>
 
 class HuffmanUdpSocket::PrivData
 {
@@ -51,7 +51,7 @@ bool HuffmanUdpSocket::hasPendingDatagrams() const
 
 bool HuffmanUdpSocket::isNull() const
 {
-	return d->socket == NULL;
+	return d->socket == nullptr;
 }
 
 QByteArray HuffmanUdpSocket::readDatagram(QHostAddress *address, quint16 *port)

@@ -22,12 +22,12 @@
 //------------------------------------------------------------------------------
 #include "turok2exgamerunner.h"
 
-#include <datapaths.h>
 #include "turok2exgameinfo.h"
 #include "turok2exserver.h"
+#include <datapaths.h>
 
 Turok2ExGameClientRunner::Turok2ExGameClientRunner(QSharedPointer<Turok2ExServer> server)
-: GameClientRunner(server)
+	: GameClientRunner(server)
 {
 	this->server = server;
 	set_addConnectCommand(&Turok2ExGameClientRunner::addConnectCommand);
@@ -42,19 +42,16 @@ void Turok2ExGameClientRunner::addConnectCommand()
 
 void Turok2ExGameClientRunner::addFiles(const QStringList &files)
 {
+	Q_UNUSED(files);
 	QString waddir = "";
-	for(int i = 0; i < server->numWads(); ++i)
+	for (int i = 0; i < server->numWads(); ++i)
 	{
 		QString pwad = findWad(server->wad(i).name());
-		if(pwad.length() > 0)
-		{
+		if (pwad.length() > 0)
 			waddir += " \"" + pwad + '"';
-		}
 	}
-	if(waddir.length() > 0)
-	{
+	if (waddir.length() > 0)
 		args() << "-file" << waddir;
-	}
 }
 
 void Turok2ExGameClientRunner::addIwad()

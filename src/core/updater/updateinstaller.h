@@ -30,61 +30,61 @@ class UpdateInstaller : public QObject
 {
 	Q_OBJECT
 
-	public:
-		/**
-		 * @brief "--update-failed" values.
-		 */
-		enum ProcessErrorCode
-		{
-			PEC_Ok,
-			PEC_UnableToReadUpdateScript = 1,
-			PEC_NoInstallationDirectorySpecified = 2,
-			PEC_UnableToDeterminePathOfUpdater = 3,
-			PEC_GeneralFailure = 10000
-		};
+public:
+	/**
+	 * @brief "--update-failed" values.
+	 */
+	enum ProcessErrorCode
+	{
+		PEC_Ok,
+		PEC_UnableToReadUpdateScript = 1,
+		PEC_NoInstallationDirectorySpecified = 2,
+		PEC_UnableToDeterminePathOfUpdater = 3,
+		PEC_GeneralFailure = 10000
+	};
 
-		enum ErrorCode
-		{
-			/// Update started properly.
-			EC_Ok,
-			/// No update needed.
-			EC_NothingToUpdate,
-			EC_UpdatePackageMissing,
-			EC_ProcessStartFailure
-		};
+	enum ErrorCode
+	{
+		/// Update started properly.
+		EC_Ok,
+		/// No update needed.
+		EC_NothingToUpdate,
+		EC_UpdatePackageMissing,
+		EC_ProcessStartFailure
+	};
 
-		static QString errorCodeToStr(ErrorCode code);
-		static QString processErrorCodeToStr(ProcessErrorCode code);
+	static QString errorCodeToStr(ErrorCode code);
+	static QString processErrorCodeToStr(ProcessErrorCode code);
 
-		UpdateInstaller(QObject* pParent = NULL);
-		~UpdateInstaller();
+	UpdateInstaller(QObject *pParent = nullptr);
+	~UpdateInstaller() override;
 
-		/**
-		 * @brief Starts update process.
-		 *
-		 * Checks if UPDATER_SCRIPT_FILENAME exists and launches updater
-		 * program.
-		 *
-		 * - If EC_Ok is returned then current program should shut down
-		 *   itself.
-		 * - If EC_NothingToUpdate is returned then program should continue
-		 *   normally.
-		 * - If anything else is returned then program should notify
-		 *   user of error.
-		 *
-		 * @return EC_Ok if update process was successfully started.
-		 *         EC_NothingToUpdate is returned if no update packages
-		 *         were detected. Everything else is an error.
-		 */
-		ErrorCode startInstallation();
+	/**
+	 * @brief Starts update process.
+	 *
+	 * Checks if UPDATER_SCRIPT_FILENAME exists and launches updater
+	 * program.
+	 *
+	 * - If EC_Ok is returned then current program should shut down
+	 *   itself.
+	 * - If EC_NothingToUpdate is returned then program should continue
+	 *   normally.
+	 * - If anything else is returned then program should notify
+	 *   user of error.
+	 *
+	 * @return EC_Ok if update process was successfully started.
+	 *         EC_NothingToUpdate is returned if no update packages
+	 *         were detected. Everything else is an error.
+	 */
+	ErrorCode startInstallation();
 
-	private:
-		/**
-		 * @brief @return Path to the new executable.
-		 */
-		QString copyUpdaterExecutableToTemporarySpace();
-		QString getPercentEncodedCurrentProcessArgs();
-		bool startUpdaterProcess(const QString& packagesDir, const QString& scriptFilePath);
+private:
+	/**
+	 * @brief @return Path to the new executable.
+	 */
+	QString copyUpdaterExecutableToTemporarySpace();
+	QString getPercentEncodedCurrentProcessArgs();
+	bool startUpdaterProcess(const QString &packagesDir, const QString &scriptFilePath);
 };
 
 #endif

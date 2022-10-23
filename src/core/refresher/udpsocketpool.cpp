@@ -39,7 +39,11 @@ public:
 		Asset()
 		{
 			socket = new QUdpSocket();
+			#ifdef Q_OS_OPENBSD
+			valid = socket->bind(QHostAddress("0.0.0.0"));
+			#else
 			valid = socket->bind();
+			#endif
 		}
 
 		~Asset()
@@ -63,7 +67,7 @@ public:
 		}
 	};
 
-	QList<Asset*> pool;
+	QList<Asset *> pool;
 	int sliceSize;
 };
 DPointeredNoCopy(UdpSocketPool)
@@ -82,7 +86,7 @@ QUdpSocket *UdpSocketPool::acquire(const QHostAddress &address, quint16 port)
 {
 	HostPort hostPort(address, port);
 	// Return if already acquired.
-	foreach (PrivData<UdpSocketPool>::Asset *asset, d->pool)
+	for (PrivData<UdpSocketPool>::Asset *asset : d->pool)
 	{
 		if (asset->hasAddress(hostPort))
 		{
@@ -90,7 +94,7 @@ QUdpSocket *UdpSocketPool::acquire(const QHostAddress &address, quint16 port)
 		}
 	}
 	// Acquire existing.
-	foreach (PrivData<UdpSocketPool>::Asset *asset, d->pool)
+	for (PrivData<UdpSocketPool>::Asset *asset : d->pool)
 	{
 		if (asset->size() < d->sliceSize)
 		{
@@ -99,7 +103,7 @@ QUdpSocket *UdpSocketPool::acquire(const QHostAddress &address, quint16 port)
 		}
 	}
 	// Acquire new.
-	PrivData<UdpSocketPool>::Asset *asset = new PrivData<UdpSocketPool>::Asset();
+	auto asset = new PrivData<UdpSocketPool>::Asset();
 	if (asset->valid)
 	{
 		this->connect(asset->socket, SIGNAL(readyRead()), SIGNAL(readyRead()));
@@ -110,7 +114,7 @@ QUdpSocket *UdpSocketPool::acquire(const QHostAddress &address, quint16 port)
 	else
 	{
 		delete asset;
-		return NULL;
+		return nullptr;
 	}
 }
 
@@ -127,7 +131,7 @@ void UdpSocketPool::releaseAll()
 
 bool UdpSocketPool::hasPendingDatagrams() const
 {
-	foreach (PrivData<UdpSocketPool>::Asset *asset, d->pool)
+	for (PrivData<UdpSocketPool>::Asset *asset : d->pool)
 	{
 		if (asset->socket->hasPendingDatagrams())
 			return true;
@@ -137,7 +141,7 @@ bool UdpSocketPool::hasPendingDatagrams() const
 
 QByteArray UdpSocketPool::readNextDatagram(QHostAddress *address, quint16 *port)
 {
-	foreach (PrivData<UdpSocketPool>::Asset *asset, d->pool)
+	for (PrivData<UdpSocketPool>::Asset *asset : d->pool)
 	{
 		QUdpSocket *socket = asset->socket;
 		if (socket->hasPendingDatagrams())

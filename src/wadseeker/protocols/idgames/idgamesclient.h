@@ -37,20 +37,20 @@ class IdgamesReply;
  */
 class IdgamesClient
 {
-	public:
-		static const QUrl DEFAULT_URL;
+public:
+	static const QUrl DEFAULT_URL;
 
-		IdgamesClient(QNetworkAccessManager *nam, const QUrl &baseUrl);
-		~IdgamesClient();
+	IdgamesClient(QNetworkAccessManager *nam, const QUrl &baseUrl);
+	~IdgamesClient();
 
-		const QUrl &baseUrl() const;
-		IdgamesReply *search(const QString &filename);
-		void setBaseUrl(const QUrl &baseUrl);
-		void setUserAgent(const QString &userAgent);
+	const QUrl &baseUrl() const;
+	IdgamesReply *search(const QString &filename);
+	void setBaseUrl(const QUrl &baseUrl);
+	void setUserAgent(const QString &userAgent);
 
-	private:
-		class PrivData;
-		PrivData *d;
+private:
+	class PrivData;
+	PrivData *d;
 };
 
 

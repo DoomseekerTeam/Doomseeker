@@ -23,8 +23,8 @@
 #ifndef __CFGCUSTOMSERVERS_H_
 #define __CFGCUSTOMSERVERS_H_
 
-#include "gui/configuration/configpage.h"
 #include "dptr.h"
+#include "gui/configuration/configpage.h"
 #include <QIcon>
 
 class CustomServerInfo;
@@ -37,63 +37,69 @@ class CFGCustomServers : public ConfigPage
 {
 	Q_OBJECT
 
-	public:
-		CFGCustomServers(QWidget *parent=NULL);
-		~CFGCustomServers();
+public:
+	CFGCustomServers(QWidget *parent = nullptr);
+	~CFGCustomServers() override;
 
-		QIcon icon() const { return QIcon(":/flags/localhost-small"); }
-		QString name() const { return tr("Pinned Servers"); }
+	QIcon icon() const override
+	{
+		return QIcon(":/flags/localhost-small");
+	}
+	QString name() const override
+	{
+		return tr("Pinned servers");
+	}
 
-	protected:
-		void readSettings();
-		void saveSettings();
+protected:
+	void readSettings() override;
+	void saveSettings() override;
 
-	private:
-		enum CheckAndFixPorts
-		{
-			AllOk,
-			AtLeastOneFixed
-		};
+private:
+	enum CheckAndFixPorts
+	{
+		AllOk,
+		AtLeastOneFixed
+	};
 
-		enum ColumnIndices
-		{
-			EngineColumnIndex = 0,
-			AddressColumnIndex = 1,
-			PortColumnIndex = 2,
-			EnabledIndex = 3
-		};
+	enum ColumnIndices
+	{
+		EngineColumnIndex = 0,
+		AddressColumnIndex = 1,
+		PortColumnIndex = 2,
+		EnabledIndex = 3
+	};
 
-		DPtr<CFGCustomServers> d;
+	DPtr<CFGCustomServers> d;
 
-		/**
-		 *	@brief Moves through rows and checks if network port information
-		 *	is correct.
-		 *
-		 *	@param firstRow - First row to be checked (inclusive).
-		 *	@param lastRow - Last row to be checked (inclusive).
-		 */
-		CheckAndFixPorts checkAndFixPorts(int firstRow, int lastRow);
-		const EnginePlugin* getPluginInfoForRow(int rowIndex);
-		bool isPortColumnWithinRange(int leftmostColumnIndex, int rightmostColumnIndex);
-		bool isPortCorrect(int rowIndex);
+	/**
+	 *	@brief Moves through rows and checks if network port information
+	 *	is correct.
+	 *
+	 *	@param firstRow - First row to be checked (inclusive).
+	 *	@param lastRow - Last row to be checked (inclusive).
+	 */
+	CheckAndFixPorts checkAndFixPorts(int firstRow, int lastRow);
+	const EnginePlugin *getPluginInfoForRow(int rowIndex);
+	bool isPortColumnWithinRange(int leftmostColumnIndex, int rightmostColumnIndex);
+	bool isPortCorrect(int rowIndex);
 
-		void prepareEnginesComboBox();
-		void prepareTable();
-		void setEnabledOnSelected(bool enabled);
-		void setEngineOnItem(QStandardItem*, const QString& engineName);
-		void setPortToDefault(int rowIndex);
+	void prepareEnginesComboBox();
+	void prepareTable();
+	void setEnabledOnSelected(bool enabled);
+	void setEngineOnItem(QStandardItem *, const QString &engineName);
+	void setPortToDefault(int rowIndex);
 
-		QVector<CustomServerInfo> tableGetServers();
+	QVector<CustomServerInfo> tableGetServers();
 
-	private slots:
-		void add();
-		void add(const QString& engineName, const QString& host,
-			unsigned short port, bool enabled);
-		void dataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight);
-		void disableSelected();
-		void enableSelected();
-		void remove();
-		void setEngine();
+private slots:
+	void add();
+	void add(const QString &engineName, const QString &host,
+		unsigned short port, bool enabled);
+	void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight);
+	void disableSelected();
+	void enableSelected();
+	void remove();
+	void setEngine();
 };
 
 #endif

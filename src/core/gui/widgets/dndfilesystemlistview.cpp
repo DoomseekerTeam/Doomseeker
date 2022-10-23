@@ -29,43 +29,34 @@
 #include <QMimeData>
 #include <QUrl>
 
-DndFileSystemListView::DndFileSystemListView(QWidget* pParent)
-: QListView(pParent)
+DndFileSystemListView::DndFileSystemListView(QWidget *pParent)
+	: QListView(pParent)
 {
 }
 
-void DndFileSystemListView::dragEnterEvent(QDragEnterEvent* pEvent)
+void DndFileSystemListView::dragEnterEvent(QDragEnterEvent *pEvent)
 {
 	if (pEvent->mimeData()->hasUrls())
-	{
 		pEvent->acceptProposedAction();
-	}
 	else
-	{
 		QListView::dragEnterEvent(pEvent);
-	}
 }
 
-void DndFileSystemListView::dropEvent(QDropEvent* pEvent)
+void DndFileSystemListView::dropEvent(QDropEvent *pEvent)
 {
 	if (pEvent->mimeData()->hasUrls())
 	{
 		QList<QUrl> droppedUrls = pEvent->mimeData()->urls();
-		for(int i = 0; i < droppedUrls.size(); ++i)
+		for (const auto &droppedUrl : droppedUrls)
 		{
-			QString localPath = droppedUrls[i].toLocalFile();
+			QString localPath = droppedUrl.toLocalFile();
 			QFileInfo fileInfo(localPath);
-			if(!localPath.isEmpty() && fileInfo.exists())
-			{
+			if (!localPath.isEmpty() && fileInfo.exists())
 				emit fileSystemPathDropped(fileInfo.absoluteFilePath());
-			}
 		}
 
 		pEvent->acceptProposedAction();
 	}
 	else
-	{
 		QListView::dropEvent(pEvent);
-	}
 }
-

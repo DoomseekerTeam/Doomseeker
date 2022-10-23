@@ -38,119 +38,119 @@ class WadDownloadInfo;
  */
 class WadInstaller : public QObject
 {
+public:
+	/**
+	 * @brief Result of a WAD install procedure.
+	 */
+	class WadInstallerResult
+	{
 	public:
 		/**
-		 * @brief Result of a WAD install procedure.
+		 * @brief Error reason if bError is true.
 		 */
-		class WadInstallerResult
+		QString error;
+
+		/**
+		 * @brief QFileInfo objects denoting installed WADs.
+		 */
+		QList<QFileInfo> installedWads;
+
+		static WadInstallerResult makeCriticalError(const QString &error)
 		{
-			public:
-				/**
- 				 * @brief Error reason if bError is true.
-				 */
-				QString error;
+			WadInstallerResult result;
 
-				/**
- 				 * @brief QFileInfo objects denoting installed WADs.
-				 */
-				QList<QFileInfo> installedWads;
+			result.errorLevel = Critical;
+			result.error = error;
 
-				static WadInstallerResult makeCriticalError(const QString& error)
-				{
-					WadInstallerResult result;
+			return result;
+		}
 
-					result.errorLevel = Critical;
-					result.error = error;
+		static WadInstallerResult makeError(const QString &error)
+		{
+			WadInstallerResult result;
 
-					return result;
-				}
+			result.errorLevel = Normal;
+			result.error = error;
 
-				static WadInstallerResult makeError(const QString& error)
-				{
-					WadInstallerResult result;
+			return result;
+		}
 
-					result.errorLevel = Normal;
-					result.error = error;
+		static WadInstallerResult makeSuccess(const QFileInfo &file)
+		{
+			WadInstallerResult result;
 
-					return result;
-				}
+			result.installedWads << file;
 
-				static WadInstallerResult makeSuccess(const QFileInfo& file)
-				{
-					WadInstallerResult result;
+			return result;
+		}
 
-					result.installedWads << file;
+		WadInstallerResult()
+		{
+			errorLevel = None;
+		}
 
-					return result;
-				}
+		bool isCriticalError() const
+		{
+			return errorLevel == Critical;
+		}
 
-				WadInstallerResult()
-				{
-					errorLevel = None;
-				}
-
-				bool isCriticalError() const
-				{
-					return errorLevel == Critical;
-				}
-
-				bool isError() const
-				{
-					return errorLevel != None;
-				}
-
-			private:
-				enum ErrorLevel
-				{
-					None,
-					Normal,
-					Critical
-				};
-				ErrorLevel errorLevel;
-		};
-
-		WadInstaller(const QString& installPath);
-
-		/**
- 		 * @brief Extracts contents of an archive.
-		 *
-		 * @param pArchive
-		 *      UnArchive object from which files will be extracted.
-		 * @param requestedFilenames
-		 *      WadDownloadInfo objects describing requested WADs..
-		 *
-		 * @return WadInstallerResult object.
-		 */
-		WadInstallerResult installArchive(UnArchive& archive, const QList< WadDownloadInfo* >& requestedWads);
-
-		/**
-		 * @brief Saves specified file.
-		 *
-		 * @param fileName
-		 *      Name under which the file will be saved.
-		 * @param stream
-		 *      QIODevice ready for read operations.
-		 *
-		 * @return WadInstallerResult object.
-		 */
-		WadInstallerResult installFile(const QString& fileName, QIODevice* stream);
+		bool isError() const
+		{
+			return errorLevel != None;
+		}
 
 	private:
-		class PrivData
+		enum ErrorLevel
 		{
-			public:
-				QString installPath;
+			None,
+			Normal,
+			Critical
 		};
+		ErrorLevel errorLevel;
+	};
 
-		PrivData d;
+	WadInstaller(const QString &installPath);
 
-		/**
-		 * @brief Checks if dir path exists. If not, creates it.
-		 *
-		 * @return WadInstallerResult object will carry an error if path
-		 *         creation fails.
-		 */
-		WadInstallerResult makeSureDirPathExists(QDir& dir);
+	/**
+	 * @brief Extracts contents of an archive.
+	 *
+	 * @param pArchive
+	 *      UnArchive object from which files will be extracted.
+	 * @param requestedFilenames
+	 *      WadDownloadInfo objects describing requested WADs..
+	 *
+	 * @return WadInstallerResult object.
+	 */
+	WadInstallerResult installArchive(UnArchive &archive, const QList<WadDownloadInfo *> &requestedWads);
+
+	/**
+	 * @brief Saves specified file.
+	 *
+	 * @param fileName
+	 *      Name under which the file will be saved.
+	 * @param stream
+	 *      QIODevice ready for read operations.
+	 *
+	 * @return WadInstallerResult object.
+	 */
+	WadInstallerResult installFile(const QString &fileName, QIODevice *stream);
+
+private:
+	class PrivData
+	{
+	public:
+		QString installPath;
+	};
+
+	PrivData d;
+
+	/**
+	 * @brief Checks if dir path exists. If not, creates it.
+	 *
+	 * @return WadInstallerResult object will carry an error if path
+	 *         creation fails.
+	 */
+	WadInstallerResult makeSureDirPathExists(QDir &dir);
 };
 
 #endif

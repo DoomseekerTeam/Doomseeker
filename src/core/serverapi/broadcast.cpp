@@ -30,7 +30,7 @@ public:
 DPointered(Broadcast)
 
 Broadcast::Broadcast(QObject *parent)
-: QObject(parent)
+	: QObject(parent)
 {
 	d->enabled = true;
 }

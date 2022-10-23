@@ -24,21 +24,30 @@ macro(add_doomseeker_plugin PLUGIN_NAME)
 	set(PLUGIN_LIST ${PLUGIN_LIST} ${PLUGIN_NAME} PARENT_SCOPE)
 endmacro()
 
-add_subdirectory(chocolate-doom)
-add_subdirectory(odamex)
-add_subdirectory(srb2)
-add_subdirectory(zandronum)
-add_subdirectory(turok2ex)
+# Permit redistribution of our source code without plugins which may violate
+# certain distribution polices (particularly in regards to use of trademarks).
+macro(add_opt_subdirectory PLUGIN_NAME)
+	if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${PLUGIN_NAME}")
+		add_subdirectory(${PLUGIN_NAME})
+	endif()
+endmacro()
+
+add_opt_subdirectory(chocolate-doom)
+add_opt_subdirectory(odamex)
+add_opt_subdirectory(srb2)
+add_opt_subdirectory(zandronum)
+add_opt_subdirectory(zandronumq)
+add_opt_subdirectory(turok2ex)
 
 # For unmaintained source ports
 option(BUILD_LEGACY_PLUGINS "Build plugins for discontinued source ports." OFF)
 if(BUILD_LEGACY_PLUGINS)
-	add_subdirectory(vavoom)
+	add_opt_subdirectory(vavoom)
 endif()
 
 option(BUILD_FAKE_PLUGINS "Build plugins that are used for development purposes only." OFF)
 if(BUILD_FAKE_PLUGINS)
-	add_subdirectory(fakeplugin)
+	add_opt_subdirectory(fakeplugin)
 endif()
 
 foreach(PLUGIN ${PLUGIN_LIST})

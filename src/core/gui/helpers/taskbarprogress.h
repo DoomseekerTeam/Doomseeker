@@ -38,12 +38,12 @@ class QWinTaskbarProgress;
  */
 class TaskbarProgress : public QObject
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 	friend class TaskbarButton;
 
 public:
-	TaskbarProgress(QObject *parent = 0);
+	TaskbarProgress(QObject *parent = nullptr);
 
 	bool isPaused() const;
 	bool isStopped() const;
@@ -75,7 +75,7 @@ signals:
 private:
 	DPtr<TaskbarProgress> d;
 
-	TaskbarProgress(QWinTaskbarProgress *progress, QObject *parent = 0);
+	TaskbarProgress(QWinTaskbarProgress *progress, QObject *parent = nullptr);
 	void construct();
 };
 

@@ -25,24 +25,23 @@
 
 #include "dptr.h"
 
+#include <QtContainerFwd>
 #include <QWidget>
-
-class QStringList;
 
 class WadsPicker : public QWidget
 {
-Q_OBJECT
+	Q_OBJECT
 
 public:
 	WadsPicker(QWidget *parent);
-	~WadsPicker();
+	~WadsPicker() override;
 
 	QList<bool> fileOptional() const;
 	QStringList filePaths() const;
 	void setFilePaths(const QStringList &paths, const QList<bool> &optionals);
 
 private slots:
-	void addWadPath(const QString &wadPath, bool required=true);
+	void addWadPath(const QString &wadPath, bool required = true);
 	void browseAndAdd();
 	void removeAll();
 	void removeSelected();

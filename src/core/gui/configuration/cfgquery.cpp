@@ -21,9 +21,9 @@
 // Copyright (C) 2009 Braden "Blzut3" Obrzut <admin@maniacsvault.net>
 //------------------------------------------------------------------------------
 #include "cfgquery.h"
-#include "ui_cfgquery.h"
 #include "configuration/doomseekerconfig.h"
 #include "configuration/queryspeed.h"
+#include "ui_cfgquery.h"
 
 DClass<CFGQuery> : public Ui::CFGQuery
 {
@@ -48,7 +48,7 @@ public:
 DPointered(CFGQuery)
 
 CFGQuery::CFGQuery(QWidget *parent)
-: ConfigPage(parent)
+	: ConfigPage(parent)
 {
 	d->setupUi(this);
 

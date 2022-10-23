@@ -70,219 +70,219 @@ class MAIN_EXPORT GameHost : public QObject
 {
 	Q_OBJECT
 
-	public:
-		GameHost(EnginePlugin* plugin);
-		virtual ~GameHost();
+public:
+	GameHost(EnginePlugin *plugin);
+	virtual ~GameHost() override;
 
-		/**
-		 * @return Message::isError() == false if command line was
-		 *         successfully created.
-		 */
-		Message createHostCommandLine(const GameCreateParams& params, CommandLineInfo& cmdLine);
+	/**
+	 * @return Message::isError() == false if command line was
+	 *         successfully created.
+	 */
+	Message createHostCommandLine(const GameCreateParams &params, CommandLineInfo &cmdLine);
 
-		/**
-		 * @see createHostCommandLine()
-		 */
-		Message host(const GameCreateParams& params);
+	/**
+	 * @see createHostCommandLine()
+	 */
+	Message host(const GameCreateParams &params);
 
-		/**
-		 * @brief EnginePlugin that this GameHost is associated with.
-		 */
-		EnginePlugin* plugin() const;
+	/**
+	 * @brief EnginePlugin that this GameHost is associated with.
+	 */
+	EnginePlugin *plugin() const;
 
-	protected:
-		/**
-		 * @brief Command line parameter that is used to load a BEX file.
-		 *
-		 * Default: "-deh".
-		 */
-		const QString& argForBexLoading() const;
+protected:
+	/**
+	 * @brief Command line parameter that is used to load a BEX file.
+	 *
+	 * Default: "-deh".
+	 */
+	const QString &argForBexLoading() const;
 
-		/**
-		 * @brief Command line parameter that is used to load a DEHACKED file.
-		 *
-		 * Default: "-deh".
-		 */
-		const QString& argForDehLoading() const;
+	/**
+	 * @brief Command line parameter that is used to load a DEHACKED file.
+	 *
+	 * Default: "-deh".
+	 */
+	const QString &argForDehLoading() const;
 
-		/**
-		 * @brief Command line parameter that is used to set IWAD.
-		 *
-		 * Default: "-iwad".
-		 */
-		const QString& argForIwadLoading() const;
+	/**
+	 * @brief Command line parameter that is used to set IWAD.
+	 *
+	 * Default: "-iwad".
+	 */
+	const QString &argForIwadLoading() const;
 
-		/**
-		 * @brief Command line parameter that is used to load optional WADs.
-		 *
-		 * Default: "-file".
-		 */
-		const QString& argForOptionalWadLoading() const;
+	/**
+	 * @brief Command line parameter that is used to load optional WADs.
+	 *
+	 * Default: "-file".
+	 */
+	const QString &argForOptionalWadLoading() const;
 
-		/**
-		 * @brief Command line parameter that is used to set network port for
-		 * the game.
-		 *
-		 * Default: "-port".
-		 */
-		const QString& argForPort() const;
+	/**
+	 * @brief Command line parameter that is used to set network port for
+	 * the game.
+	 *
+	 * Default: "-port".
+	 */
+	const QString &argForPort() const;
 
-		/**
-		 * @brief Command line parameter that is used to load a PWAD.
-		 *
-		 * Default: "-file".
-		 */
-		const QString& argForPwadLoading() const;
+	/**
+	 * @brief Command line parameter that is used to load a PWAD.
+	 *
+	 * Default: "-file".
+	 */
+	const QString &argForPwadLoading() const;
 
-		/**
-		 * @brief Command line parameter for playing back a demo.
-		 *
-		 * Default: "-playdemo".
-		 */
-		const QString& argForDemoPlayback() const;
-		/**
-		 * @brief Command line parameter for recording a demo.
-		 *
-		 * Default: "-record";
-		 */
-		const QString& argForDemoRecord() const;
+	/**
+	 * @brief Command line parameter for playing back a demo.
+	 *
+	 * Default: "-playdemo".
+	 */
+	const QString &argForDemoPlayback() const;
+	/**
+	 * @brief Command line parameter for recording a demo.
+	 *
+	 * Default: "-record";
+	 */
+	const QString &argForDemoRecord() const;
 
-		/**
-		 * @brief Command line parameter used to launch a server.
-		 *
-		 * No default.
-		 */
-		const QString& argForServerLaunch() const;
+	/**
+	 * @brief Command line parameter used to launch a server.
+	 *
+	 * No default.
+	 */
+	const QString &argForServerLaunch() const;
 
-		/**
-		 * @brief Reference to command line arguments.
-		 *
-		 * This is where plugins should write all CMD line arguments they
-		 * create for the executable run.
-		 */
-		QStringList &args();
+	/**
+	 * @brief Reference to command line arguments.
+	 *
+	 * This is where plugins should write all CMD line arguments they
+	 * create for the executable run.
+	 */
+	QStringList &args();
 
-		/**
-		 * @brief "Custom parameters" are specified directly by user
-		 * in "Create Game" dialog box.
-		 */
-		virtual void addCustomParameters();
+	/**
+	 * @brief "Custom parameters" are specified directly by user
+	 * in "Create Game" dialog box.
+	 */
+	virtual void addCustomParameters();
 
-		/**
-		 * @brief @b [Virtual] Creates engine specific command line parameters
-		 *        out of passed DM flags list.
-		 *
-		 * Default behavior does nothing.
-		 */
-		void addDMFlags();
-		POLYMORPHIC_SETTER_DECLARE(void, GameHost, addDMFlags, ());
-		void addDMFlags_default();
+	/**
+	 * @brief @b [Virtual] Creates engine specific command line parameters
+	 *        out of passed DM flags list.
+	 *
+	 * Default behavior does nothing.
+	 */
+	void addDMFlags();
+	POLYMORPHIC_SETTER_DECLARE(void, GameHost, addDMFlags, ())
+	void addDMFlags_default();
 
-		/**
-		 * @brief Creates engine specific command line parameters out of
-		 *        Server class fields.
-		 *
-		 * Following settings are already set by default implementation of
-		 * createHostCommandLine() and don't need any additional handling:
-		 *
-		 * - Calls to all other add*() methods.
-		 * - Network port on which the server is hosted (if any is hosted).
-		 * - GameCVars passed from CreateServerDialog.
-		 *   GameCVar objects are interpreted as 'argument - value' pairs.
-		 * - Demo record or playback.
-		 *
-		 * @see createHostCommandLine() - cvars parameter.
-		 */
-		virtual void addExtra();
+	/**
+	 * @brief Creates engine specific command line parameters out of
+	 *        Server class fields.
+	 *
+	 * Following settings are already set by default implementation of
+	 * createHostCommandLine() and don't need any additional handling:
+	 *
+	 * - Calls to all other add*() methods.
+	 * - Network port on which the server is hosted (if any is hosted).
+	 * - GameCVars passed from CreateServerDialog.
+	 *   GameCVar objects are interpreted as 'argument - value' pairs.
+	 * - Demo record or playback.
+	 *
+	 * @see createHostCommandLine() - cvars parameter.
+	 */
+	virtual void addExtra();
 
-		/**
-		 * @brief @b [Virtual] Adds custom parameters as defined in
-		 * Doomseeker's configuration box.
-		 *
-		 * These parameters are added at the very beginning of the
-		 * command line.
-		 */
-		void addGlobalGameCustomParameters();
-		POLYMORPHIC_SETTER_DECLARE(void, GameHost, addGlobalGameCustomParameters, ());
-		void addGlobalGameCustomParameters_default();
+	/**
+	 * @brief @b [Virtual] Adds custom parameters as defined in
+	 * Doomseeker's configuration box.
+	 *
+	 * These parameters are added at the very beginning of the
+	 * command line.
+	 */
+	void addGlobalGameCustomParameters();
+	POLYMORPHIC_SETTER_DECLARE(void, GameHost, addGlobalGameCustomParameters, ())
+	void addGlobalGameCustomParameters_default();
 
-		/**
-		 * @brief @b [Virtual] Loads IWAD.
-		 */
-		void addIwad();
-		POLYMORPHIC_SETTER_DECLARE(void, GameHost, addIwad, ());
-		void addIwad_default();
+	/**
+	 * @brief @b [Virtual] Loads IWAD.
+	 */
+	void addIwad();
+	POLYMORPHIC_SETTER_DECLARE(void, GameHost, addIwad, ())
+	void addIwad_default();
 
-		/**
-		 * @brief @b [Virtual] Loads PWADs and other mod files
-		 * (dehacked patches, pk3s, etc.)
-		 */
-		void addPwads();
-		POLYMORPHIC_SETTER_DECLARE(void, GameHost, addPwads, ());
-		void addPwads_default();
-		/**
-		 * @brief See: GameClientRunner::addModFiles_prefixOnce()
-		 */
-		void addPwads_prefixOnce();
+	/**
+	 * @brief @b [Virtual] Loads PWADs and other mod files
+	 * (dehacked patches, pk3s, etc.)
+	 */
+	void addPwads();
+	POLYMORPHIC_SETTER_DECLARE(void, GameHost, addPwads, ())
+	void addPwads_default();
+	/**
+	 * @brief See: GameClientRunner::addModFiles_prefixOnce()
+	 */
+	void addPwads_prefixOnce();
 
-		/**
-		 * @brief Builds command line arguments sequentially by
-		 * calling other methods.
-		 *
-		 * This can be overridden if the default behavior does the
-		 * completely wrong thing. In most cases however this method
-		 * should be left untouched and appropriate add*() methods
-		 * should be overridden instead, or appropriate arg*()
-		 * properties should be configured.
-		 */
-		virtual void createCommandLineArguments();
+	/**
+	 * @brief Builds command line arguments sequentially by
+	 * calling other methods.
+	 *
+	 * This can be overridden if the default behavior does the
+	 * completely wrong thing. In most cases however this method
+	 * should be left untouched and appropriate add*() methods
+	 * should be overridden instead, or appropriate arg*()
+	 * properties should be configured.
+	 */
+	virtual void createCommandLineArguments();
 
-		/**
-		 * @brief GameCreateParams with which this game should be
-		 * configured.
-		 */
-		const GameCreateParams& params() const;
+	/**
+	 * @brief GameCreateParams with which this game should be
+	 * configured.
+	 */
+	const GameCreateParams &params() const;
 
-		void setArgForBexLoading(const QString& arg);
-		void setArgForDehLoading(const QString& arg);
-		void setArgForIwadLoading(const QString& arg);
-		void setArgForOptionalWadLoading(const QString& arg);
-		void setArgForPort(const QString& arg);
-		void setArgForPwadLoading(const QString& arg);
-		void setArgForDemoPlayback(const QString& arg);
-		void setArgForDemoRecord(const QString& arg);
-		void setArgForServerLaunch(const QString& arg);
+	void setArgForBexLoading(const QString &arg);
+	void setArgForDehLoading(const QString &arg);
+	void setArgForIwadLoading(const QString &arg);
+	void setArgForOptionalWadLoading(const QString &arg);
+	void setArgForPort(const QString &arg);
+	void setArgForPwadLoading(const QString &arg);
+	void setArgForDemoPlayback(const QString &arg);
+	void setArgForDemoRecord(const QString &arg);
+	void setArgForServerLaunch(const QString &arg);
 
-		/**
-		 * @brief Call this method to convey errors.
-		 *
-		 * GameHost checks for errors before making certain steps. If
-		 * plugins want to prevent execution of the game, they should
-		 * set a Message instance that will return 'true' on Message::isError().
-		 */
-		void setMessage(const Message& message);
+	/**
+	 * @brief Call this method to convey errors.
+	 *
+	 * GameHost checks for errors before making certain steps. If
+	 * plugins want to prevent execution of the game, they should
+	 * set a Message instance that will return 'true' on Message::isError().
+	 */
+	void setMessage(const Message &message);
 
-		/**
-		 * @brief Verifies if all `params().pwadsPaths()` exist.
-		 *
-		 * If at least one path points to a non-existing file, an error message
-		 * is set through setMessage() and false is returned.
-		 * If all paths are fine, true is returned.
-		 *
-		 * Called by addPwads_default() and addPwads_prefixOnce().
-		 */
-		bool verifyPwadPaths();
+	/**
+	 * @brief Verifies if all `params().pwadsPaths()` exist.
+	 *
+	 * If at least one path points to a non-existing file, an error message
+	 * is set through setMessage() and false is returned.
+	 * If all paths are fine, true is returned.
+	 *
+	 * Called by addPwads_default() and addPwads_prefixOnce().
+	 */
+	bool verifyPwadPaths();
 
-	private:
-		DPtr<GameHost> d;
+private:
+	DPtr<GameHost> d;
 
-		Q_DISABLE_COPY(GameHost);
+	Q_DISABLE_COPY(GameHost)
 
-		void addDemoPlaybackIfApplicable();
-		void addDemoRecordIfApplicable();
-		QString fileLoadingPrefix(int index) const;
-		void saveDemoMetaData();
-		void setupGamePaths();
+	void addDemoPlaybackIfApplicable();
+	void addDemoRecordIfApplicable();
+	QString fileLoadingPrefix(int index) const;
+	void saveDemoMetaData();
+	void setupGamePaths();
 };
 
 #endif

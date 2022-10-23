@@ -23,11 +23,13 @@
 #include "maplistpanel.h"
 #include "ui_maplistpanel.h"
 
-#include "ini/ini.h"
+#include "commongui.h"
 #include "gui/createserverdialog.h"
+#include "ini/ini.h"
+#include "maplistselector.h"
 #include "plugins/engineplugin.h"
 #include "serverapi/gamecreateparams.h"
-#include "commongui.h"
+
 #include <QStandardItemModel>
 #include <QTimer>
 
@@ -40,16 +42,19 @@ public:
 DPointered(MapListPanel)
 
 MapListPanel::MapListPanel(QWidget *parent)
-:QWidget(parent)
+	: QWidget(parent)
 {
 	d->setupUi(this);
-	d->lstMaplist->setModel(new QStandardItemModel(this));
-	this->connect(QApplication::instance(), SIGNAL(focusChanged(QWidget*, QWidget*)),
-		SLOT(onFocusChanged(QWidget*, QWidget*)));
+	auto model = new QStandardItemModel(this);
+	d->lstMaplist->setModel(model);
+	this->connect(model, SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &)),
+		SLOT(updateMapWarningVisibility()));
+	this->connect(QApplication::instance(), SIGNAL(focusChanged(QWidget*,QWidget*)),
+		SLOT(onFocusChanged(QWidget*,QWidget*)));
 
-	d->parentDialog = NULL;
+	d->parentDialog = nullptr;
 
-	d->lblWarning->setText(tr("Current map isn't present on map list. Game may misbehave."));
+	d->lblWarning->setText(MapListPanel::tr("Current map isn't present on map list. Game may misbehave."));
 	d->lblWarning->setPixmap(QPixmap(":/icons/exclamation.png"));
 	d->lblWarning->setWordWrap(true);
 }
@@ -63,30 +68,37 @@ void MapListPanel::addMapFromEditBoxToList()
 	addMapToMaplist(d->leMapname->text().trimmed());
 }
 
+void MapListPanel::addMapsFromLoadedWads()
+{
+	auto mapListSelector = new MapListSelector(this);
+	mapListSelector->addPaths(d->parentDialog->wadPaths());
+	if (mapListSelector->exec() == QDialog::Accepted)
+	{
+		for (QString map : mapListSelector->selectedMaps())
+		{
+			addMapToMaplist(map);
+		}
+	}
+}
+
 void MapListPanel::addMapToMaplist(const QString &map)
 {
 	if (map.isEmpty())
-	{
 		return;
-	}
-	QStandardItemModel* model = static_cast<QStandardItemModel*>(d->lstMaplist->model());
-	QStandardItem* it = new QStandardItem(map);
+	auto model = static_cast<QStandardItemModel *>(d->lstMaplist->model());
+	auto it = new QStandardItem(map);
 	it->setDragEnabled(true);
 	it->setDropEnabled(false);
 	model->appendRow(it);
 	updateMapWarningVisibility();
 }
 
-void MapListPanel::onFocusChanged(QWidget* old, QWidget* now)
+void MapListPanel::onFocusChanged(QWidget *old, QWidget *now)
 {
 	if (now == d->leMapname)
-	{
 		d->btnAddMapToMaplist->setDefault(true);
-	}
 	else if (old == d->leMapname)
-	{
 		d->btnAddMapToMaplist->setDefault(false);
-	}
 }
 
 void MapListPanel::removeSelectedFromList()
@@ -109,11 +121,14 @@ bool MapListPanel::hasMaps() const
 
 bool MapListPanel::isMapOnList(const QString &mapName) const
 {
-	foreach (const QString &candidate, CommonGUI::listViewStandardItemsToStringList(d->lstMaplist))
+	for (const QString &candidate : CommonGUI::listViewStandardItemsToStringList(d->lstMaplist))
 	{
-		if (candidate.compare(mapName, Qt::CaseInsensitive) == 0)
+		const QStringList tokens = candidate.trimmed().split(" ");
+		if (!tokens.isEmpty())
 		{
-			return true;
+			const QString mapFromList = tokens[0];
+			if (mapFromList.compare(mapName, Qt::CaseInsensitive) == 0)
+				return true;
 		}
 	}
 	return false;
@@ -121,6 +136,7 @@ bool MapListPanel::isMapOnList(const QString &mapName) const
 
 void MapListPanel::showEvent(QShowEvent *event)
 {
+	Q_UNUSED(event);
 	updateMapWarningVisibility();
 }
 
@@ -135,7 +151,7 @@ void MapListPanel::loadConfig(Ini &config)
 	QStringList stringList = section["maplist"].valueString().split(";");
 	QAbstractItemModel *model = d->lstMaplist->model();
 	model->removeRows(0, model->rowCount());
-	foreach(QString s, stringList)
+	for (QString s : stringList)
 	{
 		addMapToMaplist(s);
 	}

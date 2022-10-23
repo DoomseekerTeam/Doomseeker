@@ -31,59 +31,59 @@
 
 class ServerPassword
 {
+public:
+	static ServerPassword deserializeQVariant(const QVariant &map);
+
+	/**
+	 * @brief Password is valid if its phrase is not an empty string.
+	 *
+	 * Technically passwords full of whitespace are also valid.
+	 */
+	bool isValid() const
+	{
+		return !d.phrase.isEmpty();
+	}
+
+	QString lastGame() const;
+	ServerPasswordSummary lastServer() const;
+	QString lastServerName() const;
+	QDateTime lastTime() const;
+
+	ServerPasswordSummary mostSimilarServer(const ServerPasswordSummary &other, float *outSimilarity = nullptr) const;
+
+	const QList<ServerPasswordSummary> &servers() const
+	{
+		return d.servers;
+	}
+
+	const QString &phrase() const
+	{
+		return d.phrase;
+	}
+
+	QVariant serializeQVariant() const;
+
+	void addServer(const ServerPasswordSummary &v);
+	void removeServer(const QString &game, const QString &address, unsigned short port);
+
+	void setPhrase(const QString &v)
+	{
+		d.phrase = v;
+	}
+
+	void setServers(const QList<ServerPasswordSummary> &v)
+	{
+		d.servers = v;
+	}
+
+private:
+	class PrivData
+	{
 	public:
-		static ServerPassword deserializeQVariant(const QVariant& map);
-
-		/**
-		 * @brief Password is valid if its phrase is not an empty string.
-		 *
-		 * Technically passwords full of whitespace are also valid.
-		 */
-		bool isValid() const
-		{
-			return !d.phrase.isEmpty();
-		}
-
-		QString lastGame() const;
-		ServerPasswordSummary lastServer() const;
-		QString lastServerName() const;
-		QDateTime lastTime() const;
-
-		ServerPasswordSummary mostSimilarServer(const ServerPasswordSummary& other, float* outSimilarity = NULL) const;
-
-		const QList<ServerPasswordSummary>& servers() const
-		{
-			return d.servers;
-		}
-
-		const QString& phrase() const
-		{
-			return d.phrase;
-		}
-
-		QVariant serializeQVariant() const;
-
-		void addServer(const ServerPasswordSummary& v);
-		void removeServer(const QString& game, const QString& address, unsigned short port);
-
-		void setPhrase(const QString& v)
-		{
-			d.phrase = v;
-		}
-
-		void setServers(const QList<ServerPasswordSummary>& v)
-		{
-			d.servers = v;
-		}
-
-	private:
-		class PrivData
-		{
-		public:
-			QList<ServerPasswordSummary> servers;
-			QString phrase;
-		};
-		PrivData d;
+		QList<ServerPasswordSummary> servers;
+		QString phrase;
+	};
+	PrivData d;
 };
 
 #endif

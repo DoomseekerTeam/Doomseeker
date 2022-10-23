@@ -23,10 +23,11 @@
 #ifndef id5E252D92_36B9_40C2_964DBFD7D0E99622
 #define id5E252D92_36B9_40C2_964DBFD7D0E99622
 
-#include "global.h"
 #include "dptr.h"
+#include "global.h"
 
 #include <QApplication>
+#include <QIcon>
 
 #define gApp (Application::instance())
 
@@ -43,69 +44,70 @@ class MainWindow;
  */
 class MAIN_EXPORT Application : public QApplication
 {
-	public:
-		/**
-		 * @brief Program name - doomseeker.
-		 */
-		static const QString NAME;
+public:
+	/**
+	 * @brief Program name - doomseeker.
+	 */
+	static const QString NAME;
 
-		/**
-		 * @brief Deinitializes the program; executed when program is shutting
-		 *        down.
-		 *
-		 * Doesn't delete the actual instance() but calls destroy()
-		 * method.
-		 *
-		 * That way certain data fields can still be accessed after the
-		 * program is deinitialized. Actual instance is never deleted
-		 * explicitly, and OS will clear the memory anyway.
-		 */
-		static void deinit();
-		static bool isInit();
-		static void init(int &argc, char **argv);
-		static Application *instance();
+	/**
+	 * @brief Deinitializes the program; executed when program is shutting
+	 *        down.
+	 *
+	 * Doesn't delete the actual instance() but calls destroy()
+	 * method.
+	 *
+	 * That way certain data fields can still be accessed after the
+	 * program is deinitialized. Actual instance is never deleted
+	 * explicitly, and OS will clear the memory anyway.
+	 */
+	static void deinit();
+	static bool isInit();
+	static void init(int &argc, char **argv);
+	static Application *instance();
+	static QIcon icon();
 
-		virtual ~Application();
+	virtual ~Application() override;
 
-		/**
-		 * @brief Plugins and other threads can use this to figure out
-		 *        if program is closing.
-		 *
-		 * Threads should exit their loops and let the program close gracefully.
-		 */
-		bool isRunning() const;
+	/**
+	 * @brief Plugins and other threads can use this to figure out
+	 *        if program is closing.
+	 *
+	 * Threads should exit their loops and let the program close gracefully.
+	 */
+	bool isRunning() const;
 
-		/**
-		 * @brief MainWindow of the program.
-		 *
-		 * Might be NULL if current run doesn't create a MainWindow.
-		 */
-		MainWindow *mainWindow() const;
-		/**
-		 * @brief Returns MainWindow as a QWidget.
-		 *
-		 * Useful for plugins that need to specify parent widget for dialog
-		 * boxes or such, as MainWindow class itself is not exported.
-		 *
-		 * Might be NULL if current run doesn't create a MainWindow.
-		 */
-		QWidget *mainWindowAsQWidget() const;
+	/**
+	 * @brief MainWindow of the program.
+	 *
+	 * Might be nullptr if current run doesn't create a MainWindow.
+	 */
+	MainWindow *mainWindow() const;
+	/**
+	 * @brief Returns MainWindow as a QWidget.
+	 *
+	 * Useful for plugins that need to specify parent widget for dialog
+	 * boxes or such, as MainWindow class itself is not exported.
+	 *
+	 * Might be nullptr if current run doesn't create a MainWindow.
+	 */
+	QWidget *mainWindowAsQWidget() const;
 
-		void setMainWindow(MainWindow* mainWindow);
-		/**
-		 * @brief Makes isRunning() return false.
-		 *
-		 * Called when program is shutting down.
-		 */
-		void stopRunning();
+	void setMainWindow(MainWindow *mainWindow);
+	/**
+	 * @brief Makes isRunning() return false.
+	 *
+	 * Called when program is shutting down.
+	 */
+	void stopRunning();
 
-	private:
-		DPtr<Application> d;
+private:
+	DPtr<Application> d;
 
-		static Application *staticInstance;
+	static Application *staticInstance;
 
-		Application(int &argc, char **argv);
-		void destroy();
+	Application(int &argc, char **argv);
+	void destroy();
 };
 
 

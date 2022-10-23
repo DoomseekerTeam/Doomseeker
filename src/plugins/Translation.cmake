@@ -20,14 +20,20 @@
 #------------------------------------------------------------------------------
 message(STATUS "    ${PLUGIN_NAME} provides translations")
 if (UPDATE_TRANSLATIONS)
-	qt4_create_translation(TS_FILES
-		${FILES_TO_TRANSLATE}
+	qtx_create_translation(TS_FILES
+		${CMAKE_CURRENT_SOURCE_DIR}
 		${TRANSLATIONS_FILES}
 	)
-	add_custom_target(${PLUGIN_NAME}_translations_target DEPENDS ${TS_FILES})
+	add_custom_target(_${PLUGIN_NAME}_translations_target_touch
+		COMMAND ${CMAKE_COMMAND} -E touch_nocreate ${CMAKE_CURRENT_SOURCE_DIR})
+	add_custom_target(${PLUGIN_NAME}_translations_target
+		DEPENDS
+			_${PLUGIN_NAME}_translations_target_touch
+			${TS_FILES}
+	)
 	message(STATUS "    make ${PLUGIN_NAME}_translations_target")
 else ()
 	add_custom_target(${PLUGIN_NAME}_translations_target)
 endif ()
 
-qt4_add_translation(QM_FILES ${TRANSLATIONS_FILES})
+qtx_add_translation(QM_FILES ${TRANSLATIONS_FILES})

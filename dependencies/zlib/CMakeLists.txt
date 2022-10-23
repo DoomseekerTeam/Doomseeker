@@ -72,8 +72,9 @@ if(MSVC)
     include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 endif()
 
-# [Doomseeker]
-if( CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "Clang" )
+# [Doomseeker] -fPIC must not be used on Windows or else compilation
+# doesn't work in MinGW-w64 + clang
+if(NOT WIN32 AND (CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "Clang" ))
     set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC" )
 endif()
 

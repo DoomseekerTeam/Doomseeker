@@ -29,19 +29,17 @@
 
 IRCUserInfo::IRCUserInfo()
 {
-	this->parentNetwork = NULL;
+	this->parentNetwork = nullptr;
 }
 
-IRCUserInfo::IRCUserInfo(const QString& nickname, const IRCNetworkAdapter *parentNetwork,
-	const QString& fullSignature)
+IRCUserInfo::IRCUserInfo(const QString &nickname, const IRCNetworkAdapter *parentNetwork,
+	const QString &fullSignature)
 {
 	this->fullSignature = fullSignature;
 	this->parentNetwork = parentNetwork;
 
-	if (nickname.isEmpty() || parentNetwork == NULL)
-	{
+	if (nickname.isEmpty() || parentNetwork == nullptr)
 		return;
-	}
 
 	this->userName = parentNetwork->userPrefixes().cleanNickname(nickname);
 	this->userModes << parentNetwork->userPrefixes().modeFromNickname(nickname);
@@ -76,12 +74,12 @@ bool IRCUserInfo::isOp() const
 	return modes().contains('o');
 }
 
-bool IRCUserInfo::isSameNickname(const IRCUserInfo& otherUser) const
+bool IRCUserInfo::isSameNickname(const IRCUserInfo &otherUser) const
 {
-	return ((*this) == otherUser);
+	return (*this) == otherUser;
 }
 
-bool IRCUserInfo::isSameNickname(const QString& otherNickname) const
+bool IRCUserInfo::isSameNickname(const QString &otherNickname) const
 {
 	IRCUserInfo otherUser(otherNickname, network());
 	return isSameNickname(otherUser);
@@ -89,7 +87,7 @@ bool IRCUserInfo::isSameNickname(const QString& otherNickname) const
 
 bool IRCUserInfo::isValid() const
 {
-	return !userName.isEmpty() && parentNetwork != NULL;
+	return !userName.isEmpty() && parentNetwork != nullptr;
 }
 
 const QList<char> &IRCUserInfo::modes() const
@@ -106,28 +104,24 @@ void IRCUserInfo::setPrefixedNickname(const QString &nickname)
 {
 	this->userName = prefixes().cleanNickname(nickname);
 	if (prefixes().modeFromNickname(nickname) != 0)
-	{
 		setMode(prefixes().modeFromNickname(nickname));
-	}
 }
 
-bool IRCUserInfo::operator==(const IRCUserInfo& otherUser) const
+bool IRCUserInfo::operator==(const IRCUserInfo &otherUser) const
 {
 	QString thisNickname = this->cleanNicknameLowerCase();
 	QString otherNickname = otherUser.cleanNicknameLowerCase();
 
-	return (thisNickname.compare(otherNickname) == 0);
+	return thisNickname.compare(otherNickname) == 0;
 }
 
-bool IRCUserInfo::operator<=(const IRCUserInfo& otherUser) const
+bool IRCUserInfo::operator<=(const IRCUserInfo &otherUser) const
 {
-	assert(parentNetwork != NULL);
+	assert(parentNetwork != nullptr);
 	char mode1 = prefixes().topMostMode(modes());
 	char mode2 = prefixes().topMostMode(otherUser.modes());
 	if (prefixes().compare(mode1, mode2) != 0)
-	{
 		return prefixes().compare(mode1, mode2) < 0;
-	}
 
 	QString thisNickname = this->cleanNicknameLowerCase();
 	QString otherNickname = otherUser.cleanNicknameLowerCase();
@@ -138,7 +132,7 @@ bool IRCUserInfo::operator<=(const IRCUserInfo& otherUser) const
 
 QString IRCUserInfo::prefixedName() const
 {
-	assert(parentNetwork != NULL);
+	assert(parentNetwork != nullptr);
 	char mode = prefixes().topMostMode(modes());
 	if (mode != 0)
 	{
@@ -146,9 +140,7 @@ QString IRCUserInfo::prefixedName() const
 			.arg(cleanNickname());
 	}
 	else
-	{
 		return cleanNickname();
-	}
 }
 
 QString IRCUserInfo::prefixedNameLowerCase() const
@@ -169,9 +161,7 @@ void IRCUserInfo::setModes(const QList<char> &modes)
 void IRCUserInfo::setMode(char mode)
 {
 	if (!userModes.contains(mode))
-	{
 		userModes << mode;
-	}
 }
 
 void IRCUserInfo::unsetMode(char mode)

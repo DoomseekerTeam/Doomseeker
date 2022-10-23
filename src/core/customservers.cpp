@@ -20,19 +20,19 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2009 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
-#include "customservers.h"
 #include "configuration/doomseekerconfig.h"
+#include "customservers.h"
+#include "log.h"
 #include "plugins/engineplugin.h"
 #include "plugins/pluginloader.h"
 #include "serverapi/server.h"
-#include "log.h"
+#include <cassert>
 #include <QHostInfo>
 #include <QUrl>
-#include <cassert>
 
 CustomServerInfo CustomServerInfo::fromServer(const Server *server)
 {
-	assert(server != NULL);
+	assert(server != nullptr);
 	CustomServerInfo obj;
 	obj.engine = server->plugin()->data()->name;
 	obj.engineIndex = gPlugins->pluginIndexFromName(obj.engine);
@@ -51,7 +51,7 @@ bool CustomServerInfo::isSameServer(const CustomServerInfo &other) const
 
 ////////////////////////////////////////
 
-void CustomServers::decodeConfigEntries(const QString& str, QList<CustomServerInfo>& outCustomServerInfoList)
+void CustomServers::decodeConfigEntries(const QString &str, QList<CustomServerInfo> &outCustomServerInfoList)
 {
 	outCustomServerInfoList.clear();
 
@@ -84,25 +84,19 @@ void CustomServers::decodeConfigEntries(const QString& str, QList<CustomServerIn
 				customServerInfo.host = QUrl::fromPercentEncoding(entryList[1].toUtf8());
 				customServerInfo.enabled = true;
 				if (entryList.size() >= 4)
-				{
 					customServerInfo.enabled = entryList[3].toInt() != 0;
-				}
 
 				bool ok = false;
 				int port = QString(entryList[2]).toInt(&ok);
 				if (ok && port >= 1 && port <= 65535)
-				{
 					customServerInfo.port = port;
-				}
 				else if (engineIndex >= 0)
 				{
-					const PluginLoader::Plugin* pPlugin = gPlugins->plugin(engineIndex);
+					const PluginLoader::Plugin *pPlugin = gPlugins->plugin(engineIndex);
 					customServerInfo.port = pPlugin->info()->data()->defaultServerPort;
 				}
 				else
-				{
 					customServerInfo.port = 1;
-				}
 
 				outCustomServerInfoList << customServerInfo;
 			} // end of if
@@ -112,12 +106,10 @@ void CustomServers::decodeConfigEntries(const QString& str, QList<CustomServerIn
 
 bool CustomServers::isServerPinned(const CustomServerInfo &serverInfo)
 {
-	foreach (const CustomServerInfo &knownPinned, gConfig.doomseeker.customServers)
+	for (const CustomServerInfo &knownPinned : gConfig.doomseeker.customServers)
 	{
 		if (knownPinned.isSameServer(serverInfo))
-		{
 			return knownPinned.enabled;
-		}
 	}
 	return false;
 }
@@ -125,7 +117,7 @@ bool CustomServers::isServerPinned(const CustomServerInfo &serverInfo)
 bool CustomServers::hasSameServer(const Server *otherServer) const
 {
 	CustomServerInfo otherServerInfo = CustomServerInfo::fromServer(otherServer);
-	foreach (ServerCPtr knownServer, servers())
+	for (ServerCPtr knownServer : servers())
 	{
 		if (CustomServerInfo::fromServer(knownServer.data()).isSameServer(otherServerInfo))
 			return true;
@@ -153,17 +145,15 @@ void CustomServers::setServerPinned(const CustomServerInfo &serverInfo, bool pin
 	// Server is not yet on the memorized servers list.
 	// If we're about to pin it, just add it to the list.
 	if (pinned)
-	{
 		gConfig.doomseeker.customServers << serverInfo;
-	}
 }
 
-QList<ServerPtr> CustomServers::setServers(const QList<CustomServerInfo>& serverDefs)
+QList<ServerPtr> CustomServers::setServers(const QList<CustomServerInfo> &serverDefs)
 {
 	emptyServerList();
 
 	QList<ServerPtr> servers;
-	foreach (const CustomServerInfo& customServerInfo, serverDefs)
+	for (const CustomServerInfo &customServerInfo : serverDefs)
 	{
 		if (!customServerInfo.enabled)
 			continue;
@@ -189,13 +179,13 @@ QList<ServerPtr> CustomServers::setServers(const QList<CustomServerInfo>& server
 			address = hostInfo.addresses().first();
 		}
 
-		const EnginePlugin* pInterface = gPlugins->plugin(customServerInfo.engineIndex)->info();
+		const EnginePlugin *pInterface = gPlugins->plugin(customServerInfo.engineIndex)->info();
 		ServerPtr p = pInterface->server(address, customServerInfo.port);
-		if(p == NULL)
+		if (p == nullptr)
 		{
-			gLog << tr("Plugin returned NULL \"Server*\" for custom server %1:%2. "
-				"This is a problem with the plugin.")
-					.arg(customServerInfo.host).arg(customServerInfo.port);
+			gLog << tr("Plugin returned nullptr \"Server*\" for custom server %1:%2. "
+					"This is a problem with the plugin.")
+				.arg(customServerInfo.host).arg(customServerInfo.port);
 			continue;
 		}
 		p->setCustom(true);

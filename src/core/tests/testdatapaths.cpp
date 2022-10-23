@@ -20,16 +20,16 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2010 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
-#include "testdatapaths.h"
 #include "datapaths.h"
 #include "strings.hpp"
+#include "testdatapaths.h"
 
 #include <QCoreApplication>
 #include <QDir>
 #include <QProcessEnvironment>
 
 TestDataPathsAppDataDirectoryAccess::TestDataPathsAppDataDirectoryAccess(bool bPortable)
-: TestUnitBase("Data Paths - App Data directory access")
+	: TestUnitBase("Data Paths - App Data directory access")
 {
 	if (bPortable)
 	{
@@ -53,7 +53,7 @@ bool TestDataPathsAppDataDirectoryAccess::executeTest()
 ////////////////////////////////////////////////////////////////////////////////
 
 TestDataPathsAppDataDirectoryWrite::TestDataPathsAppDataDirectoryWrite(bool bPortable)
-: TestUnitBase("Data Paths - App Data directory write")
+	: TestUnitBase("Data Paths - App Data directory write")
 {
 	if (bPortable)
 	{
@@ -79,8 +79,7 @@ bool TestDataPathsAppDataDirectoryWrite::executeTest()
 		// be quite easy.
 		randomDirName = Strings::createRandomAlphaNumericString(32);
 		bEntryDoesExist = appDataDir.exists(randomDirName);
-	}
-	while (bEntryDoesExist == true);
+	} while (bEntryDoesExist == true);
 
 	QString randomDirPath = appDataDirPath + "/" + randomDirName;
 

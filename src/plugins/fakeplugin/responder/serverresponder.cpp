@@ -28,14 +28,14 @@
 
 class ServerResponder::PrivData
 {
-	public:
-		QList<AwaitingClient> awaitingClients;
-		int responseFailChance;
-		QUdpSocket* socket;
+public:
+	QList<AwaitingClient> awaitingClients;
+	int responseFailChance;
+	QUdpSocket *socket;
 };
 ///////////////////////////////////////////////////////////////////////////////
-ServerResponder::ServerResponder(QObject* parent)
-: QObject(parent)
+ServerResponder::ServerResponder(QObject *parent)
+	: QObject(parent)
 {
 	d = new PrivData();
 	d->socket = new QUdpSocket();
@@ -102,10 +102,7 @@ void ServerResponder::setResponseFailChance(unsigned chance)
 bool ServerResponder::shouldRespond() const
 {
 	if (d->responseFailChance == 0)
-	{
 		return true;
-	}
 	int roll = qrand() % MAX_CHANCE + 1;
 	return roll > d->responseFailChance;
 }
-

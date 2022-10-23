@@ -23,51 +23,48 @@
 #ifndef __WADSEEKERSITESTABLE_H__
 #define __WADSEEKERSITESTABLE_H__
 
-#include <QSignalMapper>
 #include "gui/widgets/tablewidgetmouseaware.h"
 
 class WadseekerSitesTable : public TableWidgetMouseAware
 {
-	Q_OBJECT;
+	Q_OBJECT
 
+public:
+	static const int IDX_URL_COLUMN = 0;
+	static const int IDX_PROGRESS_COLUMN = 1;
+	static const int IDX_ABORT_COLUMN = 2;
+
+	WadseekerSitesTable(QWidget *pParent = nullptr);
+
+	void addUrl(const QUrl &url);
+	void removeUrl(const QUrl &url);
+
+public slots:
+	void addService(const QString &service);
+	void removeService(const QString &service);
+	void setUrlProgress(const QUrl &url, qint64 current, qint64 total);
+
+signals:
+	void serviceAbortRequested(const QString &service);
+	void urlAbortRequested(const QUrl &url);
+
+protected:
+	void showEvent(QShowEvent *pEvent) override;
+
+private:
+	class PrivData
+	{
 	public:
-		static const int IDX_URL_COLUMN = 0;
-		static const int IDX_PROGRESS_COLUMN = 1;
-		static const int IDX_ABORT_COLUMN = 2;
+		bool bAlreadyShownOnce;
+	};
 
-		WadseekerSitesTable(QWidget* pParent = NULL);
+	PrivData d;
 
-		void addUrl(const QUrl& url);
-		void removeUrl(const QUrl& url);
+	int findRow(const QString &text);
+	int findRow(const QUrl &url);
 
-	public slots:
-		void addService(const QString &service);
-		void removeService(const QString &service);
-		void setUrlProgress(const QUrl& url, qint64 current, qint64 total);
-
-	signals:
-		void serviceAbortRequested(const QString &service);
-		void urlAbortRequested(const QUrl &url);
-
-	protected:
-		void showEvent(QShowEvent* pEvent);
-
-	private:
-		class PrivData
-		{
-			public:
-				bool bAlreadyShownOnce;
-				QSignalMapper serviceAborter;
-				QSignalMapper urlAborter;
-		};
-
-		PrivData d;
-
-		int findRow(const QString &text);
-		int findRow(const QUrl &url);
-
-	private slots:
-		void requestUrlAbort(const QString &urlAsString);
+private slots:
+	void requestUrlAbort(const QString &urlAsString);
 };
 
 #endif

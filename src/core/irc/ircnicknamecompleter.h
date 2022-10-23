@@ -29,38 +29,38 @@
 
 class IRCCompletionResult
 {
-	public:
-		int cursorPos;
-		QString textLine;
+public:
+	int cursorPos;
+	QString textLine;
 
-		IRCCompletionResult()
-		{
-			cursorPos = -1;
-		}
+	IRCCompletionResult()
+	{
+		cursorPos = -1;
+	}
 
-		bool isValid() const
-		{
-			return cursorPos >= 0;
-		}
+	bool isValid() const
+	{
+		return cursorPos >= 0;
+	}
 };
 
 class IRCNicknameCompleter
 {
-	public:
-		IRCNicknameCompleter();
-		~IRCNicknameCompleter();
+public:
+	IRCNicknameCompleter();
+	~IRCNicknameCompleter();
 
-		/**
-		 * @brief Parses current command line and returns a modified one.
-		 */
-		IRCCompletionResult complete(const QString &textLine, int cursorPosition);
-		IRCCompletionResult cycleNext();
-		bool isReset() const;
-		void reset();
-		void setModel(QAbstractItemModel *model);
+	/**
+	 * @brief Parses current command line and returns a modified one.
+	 */
+	IRCCompletionResult complete(const QString &textLine, int cursorPosition);
+	IRCCompletionResult cycleNext();
+	bool isReset() const;
+	void reset();
+	void setModel(QAbstractItemModel *model);
 
-	private:
-		DPtr<IRCNicknameCompleter> d;
+private:
+	DPtr<IRCNicknameCompleter> d;
 };
 
 #endif

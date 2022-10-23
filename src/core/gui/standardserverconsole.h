@@ -40,19 +40,19 @@ class StandardServerConsole : public QMainWindow
 {
 	Q_OBJECT
 
-	public:
-		StandardServerConsole(const QIcon &icon, const QString &program, const QStringList &arguments);
-		~StandardServerConsole();
+public:
+	StandardServerConsole(const QIcon &icon, const QString &program, const QStringList &arguments);
+	~StandardServerConsole() override;
 
-	private slots:
-		void errorDataReady();
-		void finish(int exitCode, QProcess::ExitStatus exitStatus);
-		void outputDataReady();
-		void writeToStandardInput(const QString &message);
+private slots:
+	void errorDataReady();
+	void finish(int exitCode, QProcess::ExitStatus exitStatus);
+	void outputDataReady();
+	void writeToStandardInput(const QString &message);
 
-	private:
-		ServerConsole *console;
-		QProcess *process;
+private:
+	ServerConsole *console;
+	QProcess *process;
 };
 
 #endif

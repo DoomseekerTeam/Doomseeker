@@ -25,12 +25,12 @@
 
 #include "dptr.h"
 
-#include <QUrl>
 #include <QObject>
+#include <QUrl>
 
 class UrlOpener : public QObject
 {
-Q_OBJECT
+	Q_OBJECT
 
 public:
 	static UrlOpener *instance();
@@ -41,7 +41,7 @@ private:
 	DPtr<UrlOpener> d;
 
 	UrlOpener();
-	~UrlOpener();
+	~UrlOpener() override;
 
 	static UrlOpener *inst;
 

@@ -21,8 +21,17 @@
 #include "localizationinfo.h"
 
 #include <QLocale>
+#include <QStringList>
 
-const LocalizationInfo LocalizationInfo::DEFAULT = {
+const LocalizationInfo LocalizationInfo::SYSTEM_FOLLOW = {
+	// Unlike other translations, the "display name" in this one needs
+	// to be displayed in the currently active language. We cannot use
+	// tr() here because that would be init exactly once and also most
+	// likely before the translations are loaded.
+	"", "system", "system default"
+};
+
+const LocalizationInfo LocalizationInfo::PROGRAM_NATIVE = {
 	"GBR", "en", "English"
 };
 
@@ -31,7 +40,7 @@ LocalizationInfo LocalizationInfo::findBestMatch(
 	const QString &localeName)
 {
 	LocalizationInfo matchLanguage;
-	foreach (const LocalizationInfo &candidate, candidates)
+	for (const LocalizationInfo &candidate : candidates)
 	{
 		LocaleMatch matchScore = matchLocale(candidate.localeName, localeName);
 		switch (matchScore)
@@ -54,7 +63,7 @@ bool LocalizationInfo::isValid() const
 	return !localeName.isEmpty();
 }
 
-bool LocalizationInfo::operator==(const LocalizationInfo& o2) const
+bool LocalizationInfo::operator==(const LocalizationInfo &o2) const
 {
 	return countryCodeName == o2.countryCodeName
 		&& QLocale(localeName) == QLocale(o2.localeName)

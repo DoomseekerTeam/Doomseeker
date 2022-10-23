@@ -37,7 +37,7 @@ public:
 DPointered(MiscServerSetupPanel)
 
 MiscServerSetupPanel::MiscServerSetupPanel(QWidget *parent)
-: QWidget(parent)
+	: QWidget(parent)
 {
 	d->setupUi(this);
 	d->anythingAvailable = false;

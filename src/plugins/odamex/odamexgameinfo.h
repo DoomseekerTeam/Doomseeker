@@ -20,30 +20,22 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2010 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
-#ifndef __ODAMEX_GAME_INFO_H_
-#define __ODAMEX_GAME_INFO_H_
+#ifndef DOOMSEEKER_ODAMEX_GAME_INFO_H
+#define DOOMSEEKER_ODAMEX_GAME_INFO_H
 
-#include "serverapi/serverstructs.h"
+#include <serverapi/serverstructs.h>
 #include <QObject>
 
 class OdamexGameInfo : public QObject
 {
 	Q_OBJECT
 
-	public:
-		enum OdamexGameModes
-		{
-			MODE_COOPERATIVE,
-			MODE_DEATHMATCH,
-			MODE_DEATHMATCH2,
-			MODE_TEAM_DEATHMATCH,
-			MODE_CAPTURE_THE_FLAG,
-			MODE_DUEL
-		};
+public:
+	static QList<DMFlagsSection> dmFlags();
+	static QList<GameCVar> extraSettings();
 
-		static QList<DMFlagsSection> dmFlags();
-		static QList<GameMode> gameModes();
-		static GameMode gameModeDuel();
+private:
+	OdamexGameInfo() = delete;
 };
 
 #endif

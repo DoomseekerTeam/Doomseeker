@@ -25,69 +25,73 @@
 
 #include "serverapi/masterclient.h"
 #include "serverapi/message.h"
+#include <QSharedPointer>
 
+class BroadcastManager;
 class CustomServers;
 class MasterClientSignalProxy;
 
 /**
- *	@brief Manager class for a number of MasterClient instances.
+ * @brief Manager class for a number of MasterClient instances.
  *
- *	MasterManager will emit listUpdated() signal once the last MasterClient
- *	that is on the mastersBeingRefreshed list emits its own listUpdate() signal.
+ * MasterManager will emit listUpdated() signal once the last MasterClient
+ * that is on the mastersBeingRefreshed list emits its own listUpdate() signal.
  */
 class MasterManager : public MasterClient
 {
 	Q_OBJECT
 
-	public:
-		MasterManager();
-		~MasterManager();
+public:
+	MasterManager();
+	~MasterManager() override;
 
-		void addMaster(MasterClient *master);
-		QList<ServerPtr> allServers() const;
-		CustomServers *customServs() { return customServers; }
+	void addMaster(MasterClient *master);
+	QList<ServerPtr> allServers() const;
+	CustomServers *customServs() { return customServers; }
 
-		int numMasters() const { return masters.size(); }
+	int numMasters() const { return masters.size(); }
+	void setBroadcastManager(BroadcastManager *broadcastManagerPtr);
+	const EnginePlugin *plugin() const override { return nullptr; }
 
-		const EnginePlugin *plugin() const { return NULL; }
+	MasterClient *operator[](int index) { return masters[index]; }
 
-		MasterClient *operator[](int index) { return masters[index]; }
+public slots:
+	void refreshStarts() override;
 
-	public slots:
-		void refreshStarts();
+signals:
+	/**
+	 * @brief Emitted for every MasterClient that emits listUpdated()
+	 * signal.
+	 */
+	void listUpdatedForMaster(MasterClient *pSender);
+	void masterMessage(MasterClient *pSender, const QString &title, const QString &content, bool isError);
+	void masterMessageImportant(MasterClient *pSender, const Message &objMessage);
 
-	signals:
-		/**
-		 *	@brief Emitted for every MasterClient that emits listUpdated()
-		 *	signal.
-		 */
-		void listUpdatedForMaster(MasterClient* pSender);
-		void masterMessage(MasterClient* pSender, const QString& title, const QString& content, bool isError);
-		void masterMessageImportant(MasterClient* pSender, const Message& objMessage);
+private:
+	CustomServers *customServers;
+	QList<MasterClient *> masters;
+	QSet<MasterClient *> mastersBeingRefreshed;
 
-	private:
-		CustomServers *customServers;
-		QList<MasterClient *> masters;
-		QSet<MasterClient *> mastersBeingRefreshed;
+	BroadcastManager *broadcastManager;
 
-		QByteArray createServerListRequest() { return QByteArray(); }
-		Response readMasterResponse(const QByteArray &data);
-		void timeoutRefreshEx();
+	QByteArray createServerListRequest() override { return QByteArray(); }
+	Response readMasterResponse(const QByteArray &data) override;
+	void timeoutRefreshEx() override;
 
-	private slots:
-		void masterListUpdated();
+private slots:
+	void masterListUpdated();
 
-		void forwardMasterMessage(const QString& title, const QString& content, bool isError)
-		{
-			MasterClient* master = static_cast<MasterClient*>(sender());
-			emit masterMessage(master, title, content, isError);
-		}
+	void forwardMasterMessage(const QString &title, const QString &content, bool isError)
+	{
+		auto master = static_cast<MasterClient *>(sender());
+		emit masterMessage(master, title, content, isError);
+	}
 
-		void forwardMasterMessageImportant(const Message &message)
-		{
-			MasterClient* master = static_cast<MasterClient*>(sender());
-			emit masterMessageImportant(master, message);
-		}
+	void forwardMasterMessageImportant(const Message &message)
+	{
+		auto master = static_cast<MasterClient *>(sender());
+		emit masterMessageImportant(master, message);
+	}
 };
 
 #endif

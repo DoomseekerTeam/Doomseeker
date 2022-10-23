@@ -27,24 +27,24 @@
 
 class TestDataPathsAppDataDirectoryAccess : public TestUnitBase
 {
-	public:
-		TestDataPathsAppDataDirectoryAccess(bool bPortable);
+public:
+	TestDataPathsAppDataDirectoryAccess(bool bPortable);
 
-		bool executeTest();
+	bool executeTest() override;
 
-	protected:
-		bool bPortable;
+protected:
+	bool bPortable;
 };
 
 class TestDataPathsAppDataDirectoryWrite : public TestUnitBase
 {
-	public:
-		TestDataPathsAppDataDirectoryWrite(bool bPortable);
+public:
+	TestDataPathsAppDataDirectoryWrite(bool bPortable);
 
-		bool executeTest();
+	bool executeTest() override;
 
-	protected:
-		bool bPortable;
+protected:
+	bool bPortable;
 };
 
 class TestDataPathsResolveTemplated : public TestUnitBase

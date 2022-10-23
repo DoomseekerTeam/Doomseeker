@@ -32,21 +32,21 @@ class PathFinder;
 
 class WadFindResult
 {
-	public:
-		WadFindResult();
-		virtual ~WadFindResult();
+public:
+	WadFindResult();
+	virtual ~WadFindResult();
 
-		const QString &alias() const;
-		void setAlias(const QString &val);
+	const QString &alias() const;
+	void setAlias(const QString &val);
 
-		bool isAlias() const;
-		bool isValid() const;
+	bool isAlias() const;
+	bool isValid() const;
 
-		const QString &path() const;
-		void setPath(const QString &val);
+	const QString &path() const;
+	void setPath(const QString &val);
 
-	private:
-		DPtr<WadFindResult> d;
+private:
+	DPtr<WadFindResult> d;
 };
 
 /**
@@ -75,22 +75,22 @@ class WadFindResult
  */
 class WadPathFinder
 {
-	public:
-		WadPathFinder(PathFinder pathFinder);
-		~WadPathFinder();
+public:
+	WadPathFinder(PathFinder pathFinder);
+	~WadPathFinder();
 
-		WadFindResult find(const QString &name);
+	WadFindResult find(const QString &name);
 
-		/**
-		 * @brief Can disable WAD aliasing for contexts where only
-		 * specific WADs should be found.
-		 */
-		void setAllowAliases(bool allowed);
+	/**
+	 * @brief Can disable WAD aliasing for contexts where only
+	 * specific WADs should be found.
+	 */
+	void setAllowAliases(bool allowed);
 
-	private:
-		DPtr<WadPathFinder> d;
+private:
+	DPtr<WadPathFinder> d;
 
-		QStringList aliases(const QString &name) const;
+	QStringList aliases(const QString &name) const;
 };
 
 WadFindResult findWad(ServerPtr server, const QString &wadName);

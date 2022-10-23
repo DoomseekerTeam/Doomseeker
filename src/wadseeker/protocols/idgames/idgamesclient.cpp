@@ -29,10 +29,10 @@ const QUrl IdgamesClient::DEFAULT_URL("https://www.doomworld.com/idgames/api/api
 
 class IdgamesClient::PrivData
 {
-	public:
-		QUrl baseUrl;
-		QNetworkAccessManager *nam;
-		QString userAgent;
+public:
+	QUrl baseUrl;
+	QNetworkAccessManager *nam;
+	QString userAgent;
 };
 
 IdgamesClient::IdgamesClient(QNetworkAccessManager *nam, const QUrl &baseUrl)
@@ -57,7 +57,7 @@ IdgamesReply *IdgamesClient::search(const QString &filename)
 	QString url = d->baseUrl.toString().trimmed();
 	url += QString("?out=json&action=search&query=%1&dir=desc").arg(filename);
 	#ifndef NDEBUG
-		qDebug() << "idgames search:" << url;
+	qDebug() << "idgames search:" << url;
 	#endif
 	QNetworkRequest request;
 	request.setUrl(url);

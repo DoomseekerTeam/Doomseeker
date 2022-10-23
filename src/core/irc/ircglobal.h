@@ -27,16 +27,16 @@
 
 class IRCGlobal
 {
-	public:
-		static bool isChannelDenotingCharacter(char character);
-		static bool isChannelName(const QString& name);
+public:
+	static bool isChannelDenotingCharacter(char character);
+	static bool isChannelName(const QString &name);
 
-		/**
-		 *	@brief RFC 1459 compliant toLower() method.
-		 *
-		 *	This will treat {}| characters as lower-case of []\.
-		 */
-		static QString toIrcLower(const QString& str);
+	/**
+	 * @brief RFC 1459 compliant toLower() method.
+	 *
+	 * This will treat {}| characters as lower-case of []\.
+	 */
+	static QString toIrcLower(const QString &str);
 };
 
 #endif

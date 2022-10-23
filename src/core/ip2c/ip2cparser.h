@@ -23,125 +23,45 @@
 #ifndef __IP2CPARSER_H__
 #define __IP2CPARSER_H__
 
-#include "ip2c.h"
-#include <QMutex>
-#include <QThread>
+#include "ip2crange.h"
+
+#include <QIODevice>
+#include <QList>
+#include <QMap>
+#include <QString>
 
 /**
- * Compacted database file format, version 2:
- * (all strings are null terminated)
- * Header:
- * @code
- * TYPE			LENGTH		DESCRIPTION
- * -----------------------------------------------------
- * unsigned long	4			'I' 'P' '2' 'C' bytes
- * unsigned short	2			Version (equal to 2)
- * @endcode
+ * Compacted IP2C database file format parser.
  *
- * Block repeated until EOF:
- * @code
- * TYPE			LENGTH		DESCRIPTION
- * -----------------------------------------------------
- * string			N/A		Country full name, UTF-8
- * string			N/A		Country abbreviation (3 letters version)
- * unsigned long	4			Number of IP Blocks (N_IP_BLOCKS)
- *
- * -- BLOCK: repeated N_IP_BLOCKS times.
- * unsigned long	4			Beginning of an IP range
- * unsigned long	4			End of an IP range
- * -- END OF BLOCK
- * @endcode
+ * Detects the version of the database and uses the correct subparser.
  */
-class IP2CParser : public QObject
+class IP2CParser
 {
-	Q_OBJECT
+	friend class IP2CParserV2;
+	friend class IP2CParserV3;
 
-	public:
-		IP2CParser(IP2C* pTargetDatabase);
+public:
+	const QList<IP2CRange> ranges() const
+	{
+		return ranges_;
+	}
 
-		/**
-		 *	@brief Retrieves the IP2C database this parser operates on.
-		 */
-		IP2C* ip2c() const { return pTargetDatabase; }
+	const QMap<QString, QString> licences() const
+	{
+		return licences_;
+	}
 
-		/**
-		 *	@brief For multi-threading purposes. If this is true it is not
-		 *	recommended to delete this object nor the underlying IP2C database.
-		 */
-		bool isParsing() const { return bIsParsing; }
+	const QString url() const
+	{
+		return url_;
+	}
 
-		bool readDatabase(const QString& filePath);
-		void readDatabaseThreaded(const QString& filePath);
+	bool parse(QIODevice &dataBase);
 
-	signals:
-		/**
-		 *	@brief A signal emitted when parser finishes its job.
-		 *
-		 *	It is not safe to delete IP2CParser object after readDatabase()
-		 *	call and before this signal is emitted.
-		 */
-		void parsingFinished(bool bSuccess);
-
-	protected:
-		/**
-		 *	@brief Sets states for IP2C when being constructed and destructed.
-		 *
-		 *	//TODO: A nicer name?
-		 */
-		class ConstructorDestructorParserStateSetter
-		{
-			public:
-				ConstructorDestructorParserStateSetter(IP2CParser* pParser);
-				~ConstructorDestructorParserStateSetter();
-
-			private:
-				IP2CParser* pParser;
-		};
-
-		class ParsingThread : public QThread
-		{
-			public:
-				bool bSuccessState;
-				QString filePath;
-				IP2CParser* pParser;
-
-
-				ParsingThread(IP2CParser* pParser, const QString& filePath)
-				{
-					bSuccessState = false;
-					this->filePath = filePath;
-					this->pParser = pParser;
-				}
-
-				void run();
-		};
-
-		/**
-		 *	Key value is the abbreviation of the country name.
-		 */
-		typedef QHash<QString, QList<IP2C::IP2CData> > Countries;
-		typedef QHash<QString, QList<IP2C::IP2CData> >::iterator CountriesIt;
-		typedef QHash<QString, QList<IP2C::IP2CData> >::const_iterator CountriesConstIt;
-
-		bool bIsParsing;
-		ParsingThread* currentParsingThread;
-
-		/**
-		 *	@brief Database to which the IP2C parser will save the data it
-		 *	retrieves from IP2C file.
-		 *
-		 *	Since IP2CParser is prepared to work in a separate thread it is
-		 *	not advised to delete the IP2C object before parsing is complete.
-		 */
-		IP2C* pTargetDatabase;
-
-		QMutex thisLock;
-
-		bool doReadDatabase(const QString& filePath);
-		bool readDatabaseVersion2(const QByteArray& dataArray);
-
-	protected slots:
-		void parsingThreadFinished();
+private:
+	QList<IP2CRange> ranges_;
+	QMap<QString, QString> licences_;
+	QString url_;
 };
 
 #endif

@@ -30,14 +30,14 @@ class VavoomServer;
 
 class VavoomGameClientRunner : public GameClientRunner
 {
-	public:
-		VavoomGameClientRunner(QSharedPointer<VavoomServer> server);
+public:
+	VavoomGameClientRunner(QSharedPointer<VavoomServer> server);
 
-		const EnginePlugin* plugin() const;
-	private:
-		QSharedPointer<VavoomServer> server;
+	const EnginePlugin *plugin() const;
+private:
+	QSharedPointer<VavoomServer> server;
 
-		void addIwad();
+	void addIwad();
 };
 
 #endif

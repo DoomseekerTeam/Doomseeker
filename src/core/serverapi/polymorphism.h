@@ -24,14 +24,14 @@
 #define idDB7BACD7_96AF_4A8E_9530F074031E6A19
 
 #define POLYMORPHIC_SETTER_DECLARE(ret, self, name, args) \
-	template<typename X> void set_##name(ret (X::*x)args) \
+	template<typename X> void set_##name(ret (X::*x) args) \
 	{ \
-		set_##name(static_cast<ret (self::*)args>(x)); \
+		set_##name(static_cast<ret (self::*) args>(x)); \
 	} \
-	void set_##name(ret (self::*f)args); \
+	void set_##name(ret (self::*f) args); \
 
 #define POLYMORPHIC_DEFINE(ret, self, name, args, callargs) \
-	void self::set_##name(ret (self::*f)args) \
+	void self::set_##name(ret (self::*f) args) \
 	{ \
 		d->name = f; \
 	} \
@@ -41,14 +41,14 @@
 	}
 
 #define POLYMORPHIC_SETTER_DECLARE_CONST(ret, self, name, args) \
-	template<typename X> void set_##name(ret (X::*x)args const) \
+	template<typename X> void set_##name(ret (X::*x) args const) \
 	{ \
-		set_##name(static_cast<ret (self::*)args const>(x)); \
+		set_##name(static_cast<ret (self::*) args const>(x)); \
 	} \
-	void set_##name(ret (self::*f)args const); \
+	void set_##name(ret (self::*f) args const); \
 
 #define POLYMORPHIC_DEFINE_CONST(ret, self, name, args, callargs) \
-	void self::set_##name(ret (self::*f)args const) \
+	void self::set_##name(ret (self::*f) args const) \
 	{ \
 		d->name = f; \
 	} \

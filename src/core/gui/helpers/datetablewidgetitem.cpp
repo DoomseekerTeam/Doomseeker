@@ -22,8 +22,8 @@
 //------------------------------------------------------------------------------
 #include "datetablewidgetitem.h"
 
-DateTableWidgetItem::DateTableWidgetItem(const QDateTime& date,
-	const QString& displayFormat)
+DateTableWidgetItem::DateTableWidgetItem(const QDateTime &date,
+	const QString &displayFormat)
 {
 	this->date = date;
 	this->displayFormat = displayFormat;
@@ -35,18 +35,18 @@ QString DateTableWidgetItem::displayedText() const
 	return date.toString(displayFormat);
 }
 
-bool DateTableWidgetItem::operator<(const QTableWidgetItem& other) const
+bool DateTableWidgetItem::operator<(const QTableWidgetItem &other) const
 {
 	return data(Qt::EditRole).toDateTime() < other.data(Qt::EditRole).toDateTime();
 }
 
-void DateTableWidgetItem::setDisplayFormat(const QString& format)
+void DateTableWidgetItem::setDisplayFormat(const QString &format)
 {
-	this->displayFormat = displayFormat;
+	this->displayFormat = format;
 	updateInternalData();
 }
 
-void DateTableWidgetItem::setDateTime(const QDateTime& date)
+void DateTableWidgetItem::setDateTime(const QDateTime &date)
 {
 	this->date = date;
 	updateInternalData();

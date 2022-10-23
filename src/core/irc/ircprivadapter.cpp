@@ -20,17 +20,17 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2010 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
-#include "ircprivadapter.h"
-#include "irc/ircmessageclass.h"
 #include "irc/ircglobal.h"
+#include "irc/ircmessageclass.h"
 #include "irc/ircuserinfo.h"
+#include "ircprivadapter.h"
 
-IRCPrivAdapter::IRCPrivAdapter(IRCNetworkAdapter* pNetwork, const QString& recipient)
-: IRCChatAdapter(pNetwork, recipient)
+IRCPrivAdapter::IRCPrivAdapter(IRCNetworkAdapter *pNetwork, const QString &recipient)
+	: IRCChatAdapter(pNetwork, recipient)
 {
 }
 
-void IRCPrivAdapter::userChangesNickname(const QString& oldNickname, const QString& newNickname)
+void IRCPrivAdapter::userChangesNickname(const QString &oldNickname, const QString &newNickname)
 {
 	if (recipientName.compare(oldNickname, Qt::CaseInsensitive) == 0)
 	{
@@ -40,12 +40,14 @@ void IRCPrivAdapter::userChangesNickname(const QString& oldNickname, const QStri
 	}
 }
 
-void IRCPrivAdapter::userJoins(const QString& nickname, const QString& fullSignature)
+void IRCPrivAdapter::userJoins(const QString &nickname, const QString &fullSignature)
 {
+	Q_UNUSED(nickname);
+	Q_UNUSED(fullSignature);
 	// Ignore. This has no sensible application here.
 }
 
-void IRCPrivAdapter::userLeaves(const QString& nickname, const QString& farewellMessage, IRCQuitType quitType)
+void IRCPrivAdapter::userLeaves(const QString &nickname, const QString &farewellMessage, IRCQuitType quitType)
 {
 	// Make sure that this user is the recipient of this adapter.
 	IRCUserInfo recipientUserInfo(recipientName, network());
@@ -55,22 +57,20 @@ void IRCPrivAdapter::userLeaves(const QString& nickname, const QString& farewell
 
 		switch (quitType)
 		{
-			case IRCChatAdapter::NetworkKill:
-				message = tr("This user connection has been killed. (KILL: %1)").arg(farewellMessage);
-				break;
+		case IRCChatAdapter::NetworkKill:
+			message = tr("This user connection has been killed. (KILL: %1)").arg(farewellMessage);
+			break;
 
-			case IRCChatAdapter::NetworkQuit:
-				message = tr("This user has left the network. (QUIT: %1)").arg(farewellMessage);
-				break;
+		case IRCChatAdapter::NetworkQuit:
+			message = tr("This user has left the network. (QUIT: %1)").arg(farewellMessage);
+			break;
 
-			default:
-				emit error(tr("Unhandled IRCQuitType in IRCPrivAdapter::userLeaves()"));
-				break;
+		default:
+			emit error(tr("Unhandled IRCQuitType in IRCPrivAdapter::userLeaves()"));
+			break;
 		}
 
 		if (!message.isEmpty())
-		{
 			emit messageWithClass(message, IRCMessageClass::NetworkAction);
-		}
 	}
 }

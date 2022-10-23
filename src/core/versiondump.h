@@ -28,7 +28,7 @@ class QIODevice;
 class VersionDump
 {
 public:
-	static void dumpJsonToIO(QIODevice& io);
+	static void dumpJsonToIO(QIODevice &io);
 
 private:
 	class Module;

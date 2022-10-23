@@ -2,6 +2,8 @@
 // crc.cpp
 //------------------------------------------------------------------------------
 //
+// Copyright (C) 2015 "Samuel Villarreal"
+//
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
 // License as published by the Free Software Foundation; either
@@ -16,9 +18,31 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 // 02110-1301  USA
+
+// Copyright (c) 2004-2006 Intel Corporation.
+// All rights reserved.
 //
-//------------------------------------------------------------------------------
-// Copyright (C) 2015 "Samuel Villarreal"
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+//
+//    * Redistributions of source code must retain the above copyright notice,
+//      this list of conditions and the following disclaimer.
+//    * Redistributions in binary form must reproduce the above copyright
+//      notice, this list of conditions and the following disclaimer in the
+//      documentation and/or other materials provided with the distribution.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+// POSSIBILITY OF SUCH DAMAGE.
+//
 //------------------------------------------------------------------------------
 
 /*
@@ -35,7 +59,6 @@
 * File Name = ............................ 8x256_tables.c
 */
 
-#include "stdint.h"
 #include "crc.h"
 
 uint32_t kexCRC::crc32_tab[8][256] =
@@ -194,10 +217,10 @@ const uint32_t kexCRC::Mem32(const void *pInData, int32_t length, uint32_t crcHa
 {
 	crcHash = ~crcHash;
 
-	const uint8_t *pData = (uint8_t*)pInData;
+	const uint8_t *pData = (uint8_t *)pInData;
 
-	const uint32_t *pData4 = (const uint32_t*)pData;
-	for(uint32_t repeat = length / 8; repeat; --repeat)
+	const uint32_t *pData4 = (const uint32_t *)pData;
+	for (uint32_t repeat = length / 8; repeat; --repeat)
 	{
 		uint32_t v1 = *pData4++ ^ crcHash;
 		uint32_t v2 = *pData4++;
@@ -213,10 +236,10 @@ const uint32_t kexCRC::Mem32(const void *pInData, int32_t length, uint32_t crcHa
 			crc32_tab[0][v2 >> 24];
 	}
 
-	pData = (const uint8_t*)pData4;
+	pData = (const uint8_t *)pData4;
 	length %= 8;
 
-	for(; length; --length)
+	for (; length; --length)
 	{
 		crcHash = (crcHash >> 8) ^ crc32_tab[0][(crcHash & 0xff) ^ *pData++];
 	}

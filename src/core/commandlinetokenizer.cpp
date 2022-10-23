@@ -32,44 +32,42 @@ class CommandLineTokenizer::PrivData
 {
 public:
 	#ifdef Q_OS_WIN32
-		static QStringList tokenize(const QString &cmdLine)
+	static QStringList tokenize(const QString &cmdLine)
+	{
+		if (cmdLine.isEmpty())
 		{
-			if (cmdLine.isEmpty())
-			{
-				// CommandLineToArgvW() returns path to current executable
-				// if lpCmdLine argument is an empty string. We don't want that
-				// here.
-				return QStringList();
-			}
-			int numArgs = 0;
-			LPCWSTR winapiCmdLine = (LPCWSTR)cmdLine.utf16();
-			LPWSTR* winapiTokens = CommandLineToArgvW(winapiCmdLine, &numArgs);
-
-			if (winapiTokens == NULL)
-			{
-				return QStringList();
-			}
-
-			QStringList result;
-			for (int i = 0; i < numArgs; ++i)
-			{
-				// Conversion to "ushort*" seems to work for LPWSTR.
-				result << QString::fromUtf16((const ushort*)winapiTokens[i]);
-			}
-			LocalFree(winapiTokens);
-			return result;
+			// CommandLineToArgvW() returns path to current executable
+			// if lpCmdLine argument is an empty string. We don't want that
+			// here.
+			return QStringList();
 		}
+		int numArgs = 0;
+		LPCWSTR winapiCmdLine = (LPCWSTR)cmdLine.utf16();
+		LPWSTR *winapiTokens = CommandLineToArgvW(winapiCmdLine, &numArgs);
+
+		if (winapiTokens == nullptr)
+			return QStringList();
+
+		QStringList result;
+		for (int i = 0; i < numArgs; ++i)
+		{
+			// Conversion to "ushort*" seems to work for LPWSTR.
+			result << QString::fromUtf16((const ushort *)winapiTokens[i]);
+		}
+		LocalFree(winapiTokens);
+		return result;
+	}
 	#else
-		static QStringList tokenize(const QString &cmdLine)
+	static QStringList tokenize(const QString &cmdLine)
+	{
+		QStringList result;
+		Scanner sc(cmdLine.toUtf8().constData(), cmdLine.length());
+		while (sc.nextString())
 		{
-			QStringList result;
-			Scanner sc(cmdLine.toUtf8().constData(), cmdLine.length());
-			while (sc.nextString())
-			{
-				result << sc->str();
-			}
-			return result;
+			result << sc->str();
 		}
+		return result;
+	}
 	#endif
 };
 

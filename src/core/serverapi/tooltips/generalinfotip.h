@@ -23,35 +23,35 @@
 #ifndef __GENERAL_INFO_TIP_H_
 #define __GENERAL_INFO_TIP_H_
 
-#include "serverapi/serverptr.h"
 #include "dptr.h"
 #include "global.h"
-#include <QString>
+#include "serverapi/serverptr.h"
 #include <QObject>
+#include <QString>
 
 class GeneralInfoTip : public QObject
 {
 	Q_OBJECT
 
-	public:
-		GeneralInfoTip(const ServerCPtr &server);
-		~GeneralInfoTip();
+public:
+	GeneralInfoTip(const ServerCPtr &server);
+	~GeneralInfoTip() override;
 
-		QString generateHTML();
+	QString generateHTML();
 
-	private:
-		DPtr<GeneralInfoTip> d;
+private:
+	DPtr<GeneralInfoTip> d;
 
-		/**
-		 *	Generates output in format
-		 *	@code
-		 *	<label>: <valueString> + '\\n'
-		 *	@endcode
-		 *
-		 *	@return Empty string if valueString is also empty. Otherwise
-		 *	output in format mentioned above is generated.
-		 */
-		QString labelString(QString label, QString valueString);
+	/**
+	 * Generates output in format
+	 * @code
+	 * <label>: <valueString> + '\\n'
+	 * @endcode
+	 *
+	 * @return Empty string if valueString is also empty. Otherwise
+	 * output in format mentioned above is generated.
+	 */
+	QString labelString(QString label, QString valueString);
 };
 
 #endif

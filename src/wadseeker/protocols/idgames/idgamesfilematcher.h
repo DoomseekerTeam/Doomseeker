@@ -30,9 +30,9 @@ class WadDownloadInfo;
 
 class IdgamesFileMatcher
 {
-	public:
-		static IdgamesFile match(const WadDownloadInfo &wad,
-			const QList<IdgamesFile> &candidates);
+public:
+	static IdgamesFile match(const WadDownloadInfo &wad,
+		const QList<IdgamesFile> &candidates);
 };
 
 #endif

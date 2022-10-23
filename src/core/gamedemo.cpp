@@ -22,11 +22,11 @@
 //------------------------------------------------------------------------------
 #include "gamedemo.h"
 
+#include "datapaths.h"
 #include "ini/ini.h"
 #include "ini/settingsproviderqt.h"
 #include "plugins/engineplugin.h"
 #include "serverapi/serverstructs.h"
-#include "datapaths.h"
 #include <cassert>
 #include <QDateTime>
 #include <QDir>
@@ -64,9 +64,7 @@ QString GameDemo::mkDemoName(const EnginePlugin &plugin)
 		arg(plugin.data()->name).
 		arg(QDateTime::currentDateTime().toString("dd.MM.yyyy_hh.mm.ss"));
 	if (!plugin.data()->demoExtensionAutomatic)
-	{
 		demoName += QString(".%1").arg(plugin.data()->demoExtension);
-	}
 	return demoName;
 }
 
@@ -81,9 +79,7 @@ void GameDemo::saveDemoMetaData(const QString &demoName, const EnginePlugin &plu
 			.arg(plugin.data()->demoExtension);
 	}
 	else
-	{
 		metaFileName = demoName + ".ini";
-	}
 
 	QSettings settings(metaFileName, QSettings::IniFormat);
 	SettingsProviderQt settingsProvider(&settings);
@@ -93,16 +89,12 @@ void GameDemo::saveDemoMetaData(const QString &demoName, const EnginePlugin &plu
 	QStringList requiredPwads;
 	QStringList optionalPwads;
 
-	foreach (const PWad &wad, pwads)
+	for (const PWad &wad : pwads)
 	{
 		if (wad.isOptional())
-		{
 			optionalPwads << wad.name();
-		}
 		else
-		{
 			requiredPwads << wad.name();
-		}
 	}
 
 	metaSection.createSetting("iwad", iwad.toLower());

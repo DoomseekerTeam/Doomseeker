@@ -23,8 +23,8 @@
 #ifndef __SERVERLISTPROXYMODEL_H__
 #define __SERVERLISTPROXYMODEL_H__
 
-#include "serverapi/serverptr.h"
 #include "dptr.h"
+#include "serverapi/serverptr.h"
 #include <QSortFilterProxyModel>
 
 class ServerListFilterInfo;
@@ -33,23 +33,23 @@ class Server;
 
 class ColumnSort
 {
-	public:
-		static ColumnSort deserializeQVariant(const QVariant &v);
+public:
+	static ColumnSort deserializeQVariant(const QVariant &v);
 
-		ColumnSort();
-		ColumnSort(int columnId, Qt::SortOrder order);
+	ColumnSort();
+	ColumnSort(int columnId, Qt::SortOrder order);
 
-		int columnId() const;
-		bool isValid() const;
-		Qt::SortOrder order() const;
+	int columnId() const;
+	bool isValid() const;
+	Qt::SortOrder order() const;
 
-		bool operator==(const ColumnSort &other) const;
+	bool operator==(const ColumnSort &other) const;
 
-		QVariant serializeQVariant() const;
+	QVariant serializeQVariant() const;
 
-	private:
-		int columnId_;
-		Qt::SortOrder order_;
+private:
+	int columnId_;
+	Qt::SortOrder order_;
 };
 
 
@@ -57,45 +57,45 @@ class ServerListProxyModel : public QSortFilterProxyModel
 {
 	Q_OBJECT
 
-	public:
-		ServerListProxyModel(ServerList* serverListHandler);
-		~ServerListProxyModel();
+public:
+	ServerListProxyModel(ServerList *serverListHandler);
+	~ServerListProxyModel() override;
 
-		void addAdditionalColumnSorting(int column, Qt::SortOrder order);
-		const QList<ColumnSort> &additionalSortColumns() const;
-		void clearAdditionalSorting();
-		const ServerListFilterInfo& filterInfo() const;
+	void addAdditionalColumnSorting(int column, Qt::SortOrder order);
+	const QList<ColumnSort> &additionalSortColumns() const;
+	void clearAdditionalSorting();
+	const ServerListFilterInfo &filterInfo() const;
 
-		bool isAnyColumnSortedAdditionally() const;
-		bool isSortingAdditionallyByColumn(int column) const;
+	bool isAnyColumnSortedAdditionally() const;
+	bool isSortingAdditionallyByColumn(int column) const;
 
-		void removeAdditionalColumnSorting(int column);
-		void setAdditionalSortColumns(const QList<ColumnSort> &columns);
-		/**
-		 * @brief Sets new filter info and immediately calls invalidate()
-		 */
-		void setFilterInfo(const ServerListFilterInfo& filterInfo);
-		void setGroupServersWithPlayersAtTop(bool b);
+	void removeAdditionalColumnSorting(int column);
+	void setAdditionalSortColumns(const QList<ColumnSort> &columns);
+	/**
+	 * @brief Sets new filter info and immediately calls invalidate()
+	 */
+	void setFilterInfo(const ServerListFilterInfo &filterInfo);
+	void setGroupServersWithPlayersAtTop(bool b);
 
-		void sortServers(int column, Qt::SortOrder order = Qt::AscendingOrder);
+	void sortServers(int column, Qt::SortOrder order = Qt::AscendingOrder);
 
-	signals:
-		void additionalSortColumnsChanged();
+signals:
+	void additionalSortColumnsChanged();
 
-	protected:
-		/**
-		 * Overloaded method that will filter out rows basing on pFilterInfo.
-		 */
-		bool filterAcceptsRow(int sourceRow, const QModelIndex& sourceParent) const;
+protected:
+	/**
+	 * Overloaded method that will filter out rows basing on pFilterInfo.
+	 */
+	bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override;
 
-	private:
-		DPtr<ServerListProxyModel> d;
+private:
+	DPtr<ServerListProxyModel> d;
 
-		int compareColumnSortData(QVariant& var1, QVariant& var2, int column) const;
-		bool lessThan(const QModelIndex& left, const QModelIndex& right) const;
+	int compareColumnSortData(QVariant &var1, QVariant &var2, int column) const;
+	bool lessThan(const QModelIndex &left, const QModelIndex &right) const override;
 
-		ServerPtr serverFromList(const QModelIndex& index) const;
-		ServerPtr serverFromList(int row) const;
+	ServerPtr serverFromList(const QModelIndex &index) const;
+	ServerPtr serverFromList(int row) const;
 };
 
 #endif

@@ -28,13 +28,13 @@
 
 class VavoomGameInfo : public QObject
 {
-	public:
-		enum VavoomGameModes
-		{
-			MODE_UNKNOWN
-		};
+public:
+	enum VavoomGameModes
+	{
+		MODE_UNKNOWN
+	};
 
-		static QList<GameMode> gameModes();
+	static QList<GameMode> gameModes();
 };
 
 #endif

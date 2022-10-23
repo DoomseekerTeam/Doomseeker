@@ -22,8 +22,12 @@
 //------------------------------------------------------------------------------
 #include "freedoominfoparser.h"
 
+#include "entities/checksum.h"
 #include "entities/modset.h"
-#include "protocols/json.h"
+
+#include <QCryptographicHash>
+#include <QJsonDocument>
+#include <QVariant>
 
 DClass<FreedoomInfoParser>
 {
@@ -35,7 +39,7 @@ public:
 	void readRoot()
 	{
 		QString str = QString::fromUtf8(contents.data(), contents.size());
-		root = QtJson::Json::parse(str).toMap();
+		root = QJsonDocument::fromJson(str.toUtf8()).toVariant().toMap();
 	}
 
 	void parseAndAppendModFile(const QString &filename, const QVariantMap &var)
@@ -47,10 +51,14 @@ public:
 	ModFile parseModFile(const QString &filename, const QVariantMap &var)
 	{
 		ModFile file;
+
+		QList<Checksum> checksums;
+		checksums << Checksum(QByteArray::fromHex(var["md5"].toByteArray()), QCryptographicHash::Md5);
+
 		file.setFileName(filename);
 		file.setName(var["name"].toString());
 		file.setDescription(var["description"].toString());
-		file.setMd5(var["md5"].toString());
+		file.setChecksums(checksums);
 		file.setUrl(var["url"].toString());
 		file.setVersion(var["version"].toString());
 		return file;
@@ -71,7 +79,7 @@ ModSet FreedoomInfoParser::parse()
 {
 	d->modSet.clear();
 	d->readRoot();
-	foreach (const QString &filename, d->root.keys())
+	for (const QString &filename : d->root.keys())
 	{
 		d->parseAndAppendModFile(filename, d->root[filename].toMap());
 	}

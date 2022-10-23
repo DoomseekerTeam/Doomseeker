@@ -21,10 +21,10 @@
 // Copyright (C) 2010 Braden "Blzut3" Obrzut <admin@maniacsvault.net>
 //------------------------------------------------------------------------------
 
-#include "global.h"
-#include "chocolatedoommasterclient.h"
 #include "chocolatedoomengineplugin.h"
+#include "chocolatedoommasterclient.h"
 #include "chocolatedoomserver.h"
+#include "global.h"
 
 #define NET_MASTER_PACKET_TYPE_QUERY 2
 #define NET_MASTER_PACKET_TYPE_QUERY_RESPONSE 3
@@ -39,7 +39,7 @@ QByteArray ChocolateDoomMasterClient::createServerListRequest()
 	return QByteArray(challenge, 2);
 }
 
-const EnginePlugin* ChocolateDoomMasterClient::plugin() const
+const EnginePlugin *ChocolateDoomMasterClient::plugin() const
 {
 	return ChocolateDoomEnginePlugin::staticInstance();
 }
@@ -47,22 +47,20 @@ const EnginePlugin* ChocolateDoomMasterClient::plugin() const
 MasterClient::Response ChocolateDoomMasterClient::readMasterResponse(const QByteArray &data)
 {
 	// Decompress the response.
-	const char* in = data.data();
+	const char *in = data.data();
 
 	// Check the response code
 	if (in[1] != NET_MASTER_PACKET_TYPE_QUERY_RESPONSE)
-	{
 		return RESPONSE_BAD;
-	}
 
 	// Make sure we have an empty list.
 	emptyServerList();
 
 	int pos = 2;
-	while(pos < data.size())
+	while (pos < data.size())
 	{
 		QString address(&in[pos]);
-		pos += address.length()+1;
+		pos += address.length() + 1;
 		QStringList ip = address.split(":");
 		ChocolateDoomServer *server = new ChocolateDoomServer(QHostAddress(ip[0]), ip[1].toUShort());
 		registerNewServer(ServerPtr(server));

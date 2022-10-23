@@ -22,56 +22,56 @@
 //------------------------------------------------------------------------------
 #include "gamehost.h"
 
+#include "apprunner.h"
+#include "commandlinetokenizer.h"
 #include "configuration/doomseekerconfig.h"
+#include "gamedemo.h"
 #include "ini/inisection.h"
 #include "ini/inivariable.h"
 #include "plugins/engineplugin.h"
 #include "serverapi/gamecreateparams.h"
 #include "serverapi/message.h"
 #include "serverapi/serverstructs.h"
-#include "apprunner.h"
-#include "commandlinetokenizer.h"
-#include "gamedemo.h"
 #include <cassert>
 #include <QFileInfo>
 #include <QStringList>
 
 #define BAIL_ON_ERROR(method) \
-{ \
-	method; \
-	if (d->message.isError()) \
 	{ \
-		return; \
-	} \
-}
+		method; \
+		if (d->message.isError()) \
+		{ \
+			return; \
+		} \
+	}
 
 DClass<GameHost>
 {
-	public:
-		QString argBexLoading;
-		QString argDehLoading;
-		QString argIwadLoading;
-		QString argOptionalWadLoading;
-		QString argPort;
-		QString argPwadLoading;
-		QString argDemoPlayback;
-		QString argDemoRecord;
-		QString argServerLaunch;
+public:
+	QString argBexLoading;
+	QString argDehLoading;
+	QString argIwadLoading;
+	QString argOptionalWadLoading;
+	QString argPort;
+	QString argPwadLoading;
+	QString argDemoPlayback;
+	QString argDemoRecord;
+	QString argServerLaunch;
 
-		CommandLineInfo* currentCmdLine;
-		Message message;
-		GameCreateParams params;
-		EnginePlugin* plugin;
+	CommandLineInfo *currentCmdLine;
+	Message message;
+	GameCreateParams params;
+	EnginePlugin *plugin;
 
-		void (GameHost::*addIwad)();
-		void (GameHost::*addPwads)();
-		void (GameHost::*addDMFlags)();
-		void (GameHost::*addGlobalGameCustomParameters)();
+	void (GameHost::*addIwad)();
+	void (GameHost::*addPwads)();
+	void (GameHost::*addDMFlags)();
+	void (GameHost::*addGlobalGameCustomParameters)();
 };
 
 DPointered(GameHost)
 
-GameHost::GameHost(EnginePlugin* plugin)
+GameHost::GameHost(EnginePlugin *plugin)
 {
 	d->argBexLoading = "-deh";
 	d->argDehLoading = "-deh";
@@ -81,7 +81,7 @@ GameHost::GameHost(EnginePlugin* plugin)
 	d->argPwadLoading = "-file";
 	d->argDemoPlayback = "-playdemo";
 	d->argDemoRecord = "-record";
-	d->currentCmdLine = NULL;
+	d->currentCmdLine = nullptr;
 	d->plugin = plugin;
 
 	set_addIwad(&GameHost::addIwad_default);
@@ -94,10 +94,10 @@ GameHost::~GameHost()
 {
 }
 
-POLYMORPHIC_DEFINE(void, GameHost, addIwad, (), ());
-POLYMORPHIC_DEFINE(void, GameHost, addPwads, (), ());
-POLYMORPHIC_DEFINE(void, GameHost, addDMFlags, (), ());
-POLYMORPHIC_DEFINE(void, GameHost, addGlobalGameCustomParameters, (), ());
+POLYMORPHIC_DEFINE(void, GameHost, addIwad, (), ())
+POLYMORPHIC_DEFINE(void, GameHost, addPwads, (), ())
+POLYMORPHIC_DEFINE(void, GameHost, addDMFlags, (), ())
+POLYMORPHIC_DEFINE(void, GameHost, addGlobalGameCustomParameters, (), ())
 
 void GameHost::addCustomParameters()
 {
@@ -141,11 +141,11 @@ void GameHost::addGlobalGameCustomParameters_default()
 
 void GameHost::addIwad_default()
 {
-	const QString& iwadPath = params().iwadPath();
+	const QString &iwadPath = params().iwadPath();
 
 	if (iwadPath.isEmpty())
 	{
-		setMessage(Message::customError(tr("Iwad is not set")));
+		setMessage(Message::customError(tr("IWAD is not set")));
 		return;
 	}
 
@@ -153,7 +153,7 @@ void GameHost::addIwad_default()
 
 	if (!fi.isFile())
 	{
-		QString error = tr("Iwad Path error:\n\"%1\" doesn't exist or is a directory!").arg(iwadPath);
+		QString error = tr("IWAD Path error:\n\"%1\" doesn't exist or is a directory!").arg(iwadPath);
 		setMessage(Message::customError(error));
 	}
 
@@ -163,7 +163,7 @@ void GameHost::addIwad_default()
 void GameHost::addPwads_default()
 {
 	verifyPwadPaths();
-	for(int i = 0;i < params().pwadsPaths().size();++i)
+	for (int i = 0; i < params().pwadsPaths().size(); ++i)
 	{
 		const QString &pwad = params().pwadsPaths()[i];
 		args() << fileLoadingPrefix(i) << pwad;
@@ -174,16 +174,16 @@ void GameHost::addPwads_prefixOnce()
 {
 	verifyPwadPaths();
 	QMap<QString, QStringList> groups;
-	for (int i = 0;i < params().pwadsPaths().size();++i)
+	for (int i = 0; i < params().pwadsPaths().size(); ++i)
 	{
 		const QString &pwad = params().pwadsPaths()[i];
 		QString prefix = fileLoadingPrefix(i);
 		groups[prefix] << pwad;
 	}
-	foreach (const QString &prefix, groups.keys())
+	for (const QString &prefix : groups.keys())
 	{
 		args() << prefix;
-		foreach (const QString &file, groups[prefix])
+		for (const QString &file : groups[prefix])
 		{
 			args() << file;
 		}
@@ -213,47 +213,47 @@ QString GameHost::fileLoadingPrefix(int index) const
 	return argForPwadLoading();
 }
 
-const QString& GameHost::argForBexLoading() const
+const QString &GameHost::argForBexLoading() const
 {
 	return d->argBexLoading;
 }
 
-const QString& GameHost::argForDehLoading() const
+const QString &GameHost::argForDehLoading() const
 {
 	return d->argDehLoading;
 }
 
-const QString& GameHost::argForIwadLoading() const
+const QString &GameHost::argForIwadLoading() const
 {
 	return d->argIwadLoading;
 }
 
-const QString& GameHost::argForOptionalWadLoading() const
+const QString &GameHost::argForOptionalWadLoading() const
 {
 	return d->argOptionalWadLoading;
 }
 
-const QString& GameHost::argForPort() const
+const QString &GameHost::argForPort() const
 {
 	return d->argPort;
 }
 
-const QString& GameHost::argForPwadLoading() const
+const QString &GameHost::argForPwadLoading() const
 {
 	return d->argPwadLoading;
 }
 
-const QString& GameHost::argForDemoPlayback() const
+const QString &GameHost::argForDemoPlayback() const
 {
 	return d->argDemoPlayback;
 }
 
-const QString& GameHost::argForDemoRecord() const
+const QString &GameHost::argForDemoRecord() const
 {
 	return d->argDemoRecord;
 }
 
-const QString& GameHost::argForServerLaunch() const
+const QString &GameHost::argForServerLaunch() const
 {
 	return d->argServerLaunch;
 }
@@ -277,9 +277,17 @@ void GameHost::createCommandLineArguments()
 
 	// CVars
 	const QList<GameCVar> &cvars = params().cvars();
-	foreach (const GameCVar &c, cvars)
+	for (const GameCVar &c : cvars)
 	{
-		args() << QString(c.command()) << c.valueString();
+		if (c.value().type() == QVariant::Bool)
+		{
+			// Games like their bools passed in as 0/1 numbers.
+			args() << c.command() << QString::number(c.valueInt());
+		}
+		else
+		{
+			args() << c.command() << c.valueString();
+		}
 	}
 
 	if (params().hostMode() == GameCreateParams::Host)
@@ -300,7 +308,7 @@ void GameHost::createCommandLineArguments()
 	saveDemoMetaData();
 }
 
-Message GameHost::createHostCommandLine(const GameCreateParams& params, CommandLineInfo& cmdLine)
+Message GameHost::createHostCommandLine(const GameCreateParams &params, CommandLineInfo &cmdLine)
 {
 	d->message = Message();
 	d->currentCmdLine = &cmdLine;
@@ -318,7 +326,7 @@ Message GameHost::createHostCommandLine(const GameCreateParams& params, CommandL
 	return d->message;
 }
 
-Message GameHost::host(const GameCreateParams& params)
+Message GameHost::host(const GameCreateParams &params)
 {
 	CommandLineInfo cmdLine;
 
@@ -328,16 +336,16 @@ Message GameHost::host(const GameCreateParams& params)
 		return message;
 	}
 
-#ifdef Q_OS_WIN32
+	#ifdef Q_OS_WIN32
 	const bool WRAP_IN_SSS_CONSOLE = false;
-#else
+	#else
 	const bool WRAP_IN_SSS_CONSOLE = params.hostMode() == GameCreateParams::Host;
-#endif
+	#endif
 
 	if (WRAP_IN_SSS_CONSOLE)
 	{
 		QIcon icon;
-		if (plugin() != NULL)
+		if (plugin() != nullptr)
 		{
 			icon = plugin()->icon();
 		}
@@ -350,12 +358,12 @@ Message GameHost::host(const GameCreateParams& params)
 	}
 }
 
-const GameCreateParams& GameHost::params() const
+const GameCreateParams &GameHost::params() const
 {
 	return d->params;
 }
 
-EnginePlugin* GameHost::plugin() const
+EnginePlugin *GameHost::plugin() const
 {
 	return d->plugin;
 }
@@ -369,52 +377,52 @@ void GameHost::saveDemoMetaData()
 	}
 }
 
-void GameHost::setArgForBexLoading(const QString& arg)
+void GameHost::setArgForBexLoading(const QString &arg)
 {
 	d->argBexLoading = arg;
 }
 
-void GameHost::setArgForDehLoading(const QString& arg)
+void GameHost::setArgForDehLoading(const QString &arg)
 {
 	d->argDehLoading = arg;
 }
 
-void GameHost::setArgForIwadLoading(const QString& arg)
+void GameHost::setArgForIwadLoading(const QString &arg)
 {
 	d->argIwadLoading = arg;
 }
 
-void GameHost::setArgForOptionalWadLoading(const QString& arg)
+void GameHost::setArgForOptionalWadLoading(const QString &arg)
 {
 	d->argOptionalWadLoading = arg;
 }
 
-void GameHost::setArgForPort(const QString& arg)
+void GameHost::setArgForPort(const QString &arg)
 {
 	d->argPort = arg;
 }
 
-void GameHost::setArgForPwadLoading(const QString& arg)
+void GameHost::setArgForPwadLoading(const QString &arg)
 {
 	d->argPwadLoading = arg;
 }
 
-void GameHost::setArgForDemoPlayback(const QString& arg)
+void GameHost::setArgForDemoPlayback(const QString &arg)
 {
 	d->argDemoPlayback = arg;
 }
 
-void GameHost::setArgForDemoRecord(const QString& arg)
+void GameHost::setArgForDemoRecord(const QString &arg)
 {
 	d->argDemoRecord = arg;
 }
 
-void GameHost::setArgForServerLaunch(const QString& arg)
+void GameHost::setArgForServerLaunch(const QString &arg)
 {
 	d->argServerLaunch = arg;
 }
 
-void GameHost::setMessage(const Message& message)
+void GameHost::setMessage(const Message &message)
 {
 	d->message = message;
 }
@@ -424,22 +432,22 @@ void GameHost::setupGamePaths()
 	QFileInfo fileInfo(params().executablePath());
 	if (!fileInfo.isFile() && !fileInfo.isBundle())
 	{
-		QString error = tr("%1\n doesn't exist or is not a file.").arg(fileInfo.filePath());
+		QString error = tr("%1\ndoesn't exist or is not a file.").arg(fileInfo.filePath());
 		setMessage(Message::customError(error));
 		return;
 	}
-	d->currentCmdLine->executable = params().executablePath();
+	d->currentCmdLine->executable = QFileInfo(params().executablePath());
 	d->currentCmdLine->applicationDir = fileInfo.dir();
 }
 
 bool GameHost::verifyPwadPaths()
 {
-	foreach (const QString &pwad, params().pwadsPaths())
+	for (const QString &pwad : params().pwadsPaths())
 	{
 		QFileInfo fi(pwad);
 		if (!fi.isFile())
 		{
-			QString error = tr("Pwad path error:\n\"%1\" doesn't exist or is a directory!").arg(pwad);
+			QString error = tr("PWAD path error:\n\"%1\" doesn't exist or is a directory!").arg(pwad);
 			setMessage(Message::customError(error));
 			return false;
 		}

@@ -32,69 +32,69 @@ class NetworkReply;
  */
 class Http
 {
-	public:
-		enum HttpResponseCodes
-		{
-			OK = 200,
-			PermanentlyMoved = 301,
-			Redirect = 302,
-		};
+public:
+	enum HttpResponseCodes
+	{
+		OK = 200,
+		PermanentlyMoved = 301,
+		Redirect = 302,
+	};
 
-		Http(const NetworkReply* pReply);
+	Http(const NetworkReply *pReply);
 
-		/**
-		 * @brief Extracts attachment name form contentDisposition() list.
-		 *
-		 * Attachment must be present - hasAttachment() must return true.
-		 * Attachment name is located as the next element on the content
-		 * disposition list.
-		 *
-		 * @return Attachment name is returned if attachment is present
-		 *         and name can be extracted.
-		 */
-		QString attachmentName() const;
+	/**
+	 * @brief Extracts attachment name form contentDisposition() list.
+	 *
+	 * Attachment must be present - hasAttachment() must return true.
+	 * Attachment name is located as the next element on the content
+	 * disposition list.
+	 *
+	 * @return Attachment name is returned if attachment is present
+	 *         and name can be extracted.
+	 */
+	QString attachmentName() const;
 
-		/**
-		 * @brief Splits "Content-Disposition" by ';' delimiter.
-		 *
-		 * Returned values are trimmed.
-		 */
-		QStringList contentDisposition() const;
+	/**
+	 * @brief Splits "Content-Disposition" by ';' delimiter.
+	 *
+	 * Returned values are trimmed.
+	 */
+	QStringList contentDisposition() const;
 
-		/**
-		 * @brief Value under "Content-Length" field.
-		 */
-		qint64 contentLength() const;
+	/**
+	 * @brief Value under "Content-Length" field.
+	 */
+	qint64 contentLength() const;
 
-		/**
-		 * @brief Value under "Content-Type" field.
-		 */
-		QString contentType() const;
+	/**
+	 * @brief Value under "Content-Type" field.
+	 */
+	QString contentType() const;
 
-		/**
-		 * @brief Checks for "attachment" value in contentDisposition() list.
-		 */
-		bool hasAttachment() const;
+	/**
+	 * @brief Checks for "attachment" value in contentDisposition() list.
+	 */
+	bool hasAttachment() const;
 
-		/**
-		 * @brief True if Content-Type starts with "application/"
-		 */
-		bool isApplicationContentType() const;
+	/**
+	 * @brief True if Content-Type starts with "application/"
+	 */
+	bool isApplicationContentType() const;
 
-		/**
-		 * @brief True if Content-Type indicates HTML content.
-		 *
-		 * @return True for "text/html".
-		 */
-		bool isHtmlContentType() const;
+	/**
+	 * @brief True if Content-Type indicates HTML content.
+	 *
+	 * @return True for "text/html".
+	 */
+	bool isHtmlContentType() const;
 
-		/**
-		 * @brief Extracts filename from URL.
-		 */
-		QString urlFilename() const;
+	/**
+	 * @brief Extracts filename from URL.
+	 */
+	QString urlFilename() const;
 
-	private:
-		const NetworkReply* pReply;
+private:
+	const NetworkReply *pReply;
 };
 
 #endif

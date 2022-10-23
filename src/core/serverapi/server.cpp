@@ -22,101 +22,101 @@
 //------------------------------------------------------------------------------
 #include "server.h"
 
-#include "log.h"
 #include "configuration/doomseekerconfig.h"
 #include "configuration/queryspeed.h"
+#include "log.h"
 #include "pathfinder/pathfinder.h"
 #include "pathfinder/wadpathfinder.h"
 #include "plugins/engineplugin.h"
-#include "strings.hpp"
-#include "serverapi/tooltips/tooltipgenerator.h"
 #include "serverapi/exefile.h"
 #include "serverapi/gameclientrunner.h"
 #include "serverapi/gameexeretriever.h"
 #include "serverapi/message.h"
 #include "serverapi/playerslist.h"
-#include <QElapsedTimer>
-#include <QTime>
-#include <QUdpSocket>
+#include "serverapi/tooltips/tooltipgenerator.h"
+#include "strings.hpp"
 #include <cassert>
+#include <QElapsedTimer>
+#include <QUdpSocket>
 
 ////////////////////////////////////////////////////////////////////////////////
 
 DClass<Server>
 {
-	public:
-		PrivData()
-		{
-			gameMode = GameMode::mkCooperative();
-		}
+public:
+	PrivData()
+	{
+		gameMode = GameMode::mkCooperative();
+	}
 
-		/**
-		 * This should be set to true upon successful return from doRefresh(),
-		 * and to false upon failure. setServers() protected slot handles this.
-		 * Example usage: Skulltag servers can use this to update ping
-		 * if the server responds with "wait before refreshing".
-		 */
-		bool bKnown;
+	/**
+	 * This should be set to true upon successful return from doRefresh(),
+	 * and to false upon failure. setServers() protected slot handles this.
+	 * Example usage: Skulltag servers can use this to update ping
+	 * if the server responds with "wait before refreshing".
+	 */
+	bool bKnown;
 
-		/**
-		 * Refresher sets this to false before calling the virtual
-		 * readRequest() method. If this method sets this to true, Refresher
-		 * will not modify the ping field assuming that readRequest()
-		 * set ping to a correct value. If it remains false after the
-		 * readRequest() call Doomseeker will use a global method to determine
-		 * ping, which may be less accurate.
-		 */
-		bool bPingIsSet;
+	/**
+	 * Refresher sets this to false before calling the virtual
+	 * readRequest() method. If this method sets this to true, Refresher
+	 * will not modify the ping field assuming that readRequest()
+	 * set ping to a correct value. If it remains false after the
+	 * readRequest() call Doomseeker will use a global method to determine
+	 * ping, which may be less accurate.
+	 */
+	bool bPingIsSet;
 
-		bool bSecure;
-		GameMode gameMode;
-		unsigned int ping;
-		bool custom;
-		QList<DMFlagsSection> dmFlags;
-		QString email;
-		QElapsedTimer lastRefreshClock;
-		QString iwad;
-		bool lan;
-		bool locked;
-		bool lockedInGame;
-		QStringList mapList;
-		QString mapName;
-		unsigned short maxClients;
-		unsigned short maxPlayers;
-		QString motd;
-		QString name;
-		QTime pingClock;
-		PlayersList players;
-		bool randomMapRotation;
-		Server::Response response;
-		QList<int> scores;
-		unsigned int scoreLimit;
-		unsigned short timeLeft;
-		unsigned short timeLimit;
-		unsigned char skill;
-		bool testingServer;
-		QString version;
-		QList<PWad> wads;
-		QString webSite;
+	bool bSecure;
+	QString country;
+	GameMode gameMode;
+	unsigned int ping;
+	bool custom;
+	QList<DMFlagsSection> dmFlags;
+	QString email;
+	QElapsedTimer lastRefreshClock;
+	QString iwad;
+	bool lan;
+	bool locked;
+	bool lockedInGame;
+	QStringList mapList;
+	QString mapName;
+	unsigned short maxClients;
+	unsigned short maxPlayers;
+	QString motd;
+	QString name;
+	QElapsedTimer pingClock;
+	PlayersList players;
+	bool randomMapRotation;
+	Server::Response response;
+	QList<int> scores;
+	unsigned int scoreLimit;
+	unsigned short timeLeft;
+	unsigned short timeLimit;
+	unsigned char skill;
+	bool testingServer;
+	QString version;
+	QList<PWad> wads;
+	QString webSite;
+	QStringList additionalWebSites;
+	/**
+	 * This is used to make
+	 * sure that refresh isn't run on
+	 * server that is already refreshing.
+	 */
+	bool bIsRefreshing;
+	QHostAddress address;
+	QHostInfo host;
+	unsigned short port;
+	/**
+	 * @brief Track how many resends we should try.
+	 */
+	int triesLeft;
+	QWeakPointer<Server> self;
 
-		/**
-		 * This is used to make
-		 * sure that refresh isn't run on
-		 * server that is already refreshing.
-		 */
-		bool bIsRefreshing;
-		QHostAddress address;
-		QHostInfo host;
-		unsigned short port;
-		/**
- 		 * @brief Track how many resends we should try.
-		 */
-		int triesLeft;
-		QWeakPointer<Server> self;
-
-		QString (Server::*customDetails)();
-		QByteArray (Server::*createSendRequest)();
-		Server::Response (Server::*readRequest)(const QByteArray&);
+	QString (Server::*customDetails)();
+	QByteArray (Server::*createSendRequest)();
+	Server::Response (Server::*readRequest)(const QByteArray &);
 };
 
 DPointeredNoCopy(Server)
@@ -132,7 +132,7 @@ QString Server::teamNames[] =
 };
 
 Server::Server(const QHostAddress &address, unsigned short port)
-: QObject()
+	: QObject()
 {
 	d->address = address;
 	d->port = port;
@@ -165,7 +165,7 @@ Server::Server(const QHostAddress &address, unsigned short port)
 	set_createSendRequest(&Server::createSendRequest_default);
 	set_readRequest(&Server::readRequest_default);
 
-	if(gConfig.doomseeker.bLookupHosts)
+	if (gConfig.doomseeker.bLookupHosts)
 	{
 		lookupHost();
 	}
@@ -176,21 +176,21 @@ Server::~Server()
 	clearDMFlags();
 }
 
-POLYMORPHIC_DEFINE(QString, Server, customDetails, (), ());
-POLYMORPHIC_DEFINE(QByteArray, Server, createSendRequest, (), ());
-POLYMORPHIC_DEFINE(Server::Response, Server, readRequest, (const QByteArray& data), (data));
+POLYMORPHIC_DEFINE(QString, Server, customDetails, (), ())
+POLYMORPHIC_DEFINE(QByteArray, Server, createSendRequest, (), ())
+POLYMORPHIC_DEFINE(Server::Response, Server, readRequest, (const QByteArray &data), (data))
 
-void Server::addPlayer(const Player& player)
+void Server::addPlayer(const Player &player)
 {
 	d->players << player;
 }
 
-void Server::addWad(const PWad& wad)
+void Server::addWad(const PWad &wad)
 {
 	d->wads << wad;
 }
 
-const QHostAddress& Server::address() const
+const QHostAddress &Server::address() const
 {
 	return d->address;
 }
@@ -207,14 +207,14 @@ QStringList Server::allWadNames() const
 	{
 		result << d->iwad;
 	}
-	foreach (const PWad& wad, d->wads)
+	for (const PWad &wad : d->wads)
 	{
 		result << wad.name();
 	}
 	return result;
 }
 
-bool Server::anyWadnameContains(const QString& text, Qt::CaseSensitivity cs) const
+bool Server::anyWadnameContains(const QString &text, Qt::CaseSensitivity cs) const
 {
 	if (d->iwad.contains(text, cs))
 	{
@@ -223,7 +223,7 @@ bool Server::anyWadnameContains(const QString& text, Qt::CaseSensitivity cs) con
 
 	for (int j = 0; j < numWads(); ++j)
 	{
-		const PWad& pwad = wad(j);
+		const PWad &pwad = wad(j);
 		if (pwad.name().contains(text, cs))
 		{
 			return true;
@@ -253,9 +253,9 @@ void Server::clearWads()
 	d->wads.clear();
 }
 
-ExeFile* Server::clientExe()
+ExeFile *Server::clientExe()
 {
-	ExeFile* f = new ExeFile();
+	auto f = new ExeFile();
 	// TODO: Figure out a way so that plugins don't have to reset following
 	// values if they don't change:
 	f->setProgramName(plugin()->data()->name);
@@ -264,24 +264,29 @@ ExeFile* Server::clientExe()
 	return f;
 }
 
+const QString &Server::country() const
+{
+	return d->country;
+}
+
 QString Server::customDetails_default()
 {
 	return "";
 }
 
-const QList<DMFlagsSection>& Server::dmFlags() const
+const QList<DMFlagsSection> &Server::dmFlags() const
 {
 	return d->dmFlags;
 }
 
-const QString& Server::email() const
+const QString &Server::email() const
 {
 	return d->email;
 }
 
 QString Server::engineName() const
 {
-	if (plugin() != NULL)
+	if (plugin() != nullptr)
 	{
 		return plugin()->data()->name;
 	}
@@ -291,7 +296,7 @@ QString Server::engineName() const
 	}
 }
 
-const GameMode& Server::gameMode() const
+const GameMode &Server::gameMode() const
 {
 	return d->gameMode;
 }
@@ -301,14 +306,14 @@ GameClientRunner *Server::gameRunner()
 	return new GameClientRunner(self());
 }
 
-const QString& Server::gameVersion() const
+const QString &Server::gameVersion() const
 {
 	return d->version;
 }
 
 QString Server::hostName(bool forceAddress) const
 {
-	if(!forceAddress && gConfig.doomseeker.bLookupHosts &&
+	if (!forceAddress && gConfig.doomseeker.bLookupHosts &&
 		d->host.error() == QHostInfo::NoError && d->host.lookupId() != -1)
 	{
 		return QString("%1:%2").arg(d->host.hostName()).arg(port());
@@ -381,7 +386,7 @@ bool Server::isTestingServer() const
 	return d->testingServer;
 }
 
-const QString& Server::iwad() const
+const QString &Server::iwad() const
 {
 	return d->iwad;
 }
@@ -397,12 +402,12 @@ void Server::lookupHost()
 		SLOT(setHostName(QHostInfo)));
 }
 
-const QStringList& Server::mapList() const
+const QStringList &Server::mapList() const
 {
 	return d->mapList;
 }
 
-const QString& Server::map() const
+const QString &Server::map() const
 {
 	return d->mapName;
 }
@@ -422,25 +427,27 @@ QList<GameCVar> Server::modifiers() const
 	return QList<GameCVar>();
 }
 
-const QString& Server::motd() const
+const QString &Server::motd() const
 {
 	return d->motd;
 }
 
-const QString& Server::name() const
+const QString &Server::name() const
 {
 	return d->name;
 }
 
 int Server::numFreeClientSlots() const
 {
-	int returnValue = numTotalSlots() - d->players.numClients();
+	int returnValue = static_cast<int>(d->maxClients)
+		- static_cast<int>(d->players.numClients());
 	return (returnValue < 0) ? 0 : returnValue;
 }
 
 int Server::numFreeJoinSlots() const
 {
-	int returnValue = d->maxPlayers - d->players.numClients();
+	int returnValue = static_cast<int>(qMin(d->maxPlayers, d->maxClients))
+		- static_cast<int>(d->players.numClients());
 	return (returnValue < 0) ? 0 : returnValue;
 }
 
@@ -455,7 +462,7 @@ unsigned int Server::ping() const
 	return d->ping;
 }
 
-const Player& Server::player(int index) const
+const Player &Server::player(int index) const
 {
 	return d->players[index];
 }
@@ -470,13 +477,14 @@ unsigned short Server::port() const
 	return d->port;
 }
 
-Server::Response Server::readRefreshQueryResponse(const QByteArray& data)
+Server::Response Server::readRefreshQueryResponse(const QByteArray &data)
 {
 	return readRequest(data);
 }
 
 Server::Response Server::readRequest_default(const QByteArray &data)
 {
+	Q_UNUSED(data);
 	assert(0 && "Server::readRequest(const QByteArray&) is not implemented.");
 	return RESPONSE_BAD;
 }
@@ -518,12 +526,12 @@ unsigned int Server::scoreLimit() const
 	return d->scoreLimit;
 }
 
-const QList<int>& Server::scores() const
+const QList<int> &Server::scores() const
 {
 	return d->scores;
 }
 
-QList<int>& Server::scoresMutable()
+QList<int> &Server::scoresMutable()
 {
 	return d->scores;
 }
@@ -533,7 +541,7 @@ QWeakPointer<Server> Server::self() const
 	return d->self;
 }
 
-bool Server::sendRefreshQuery(QUdpSocket* socket)
+bool Server::sendRefreshQuery(QUdpSocket *socket)
 {
 	if (d->triesLeft <= 0)
 	{
@@ -557,27 +565,32 @@ bool Server::sendRefreshQuery(QUdpSocket* socket)
 	return true;
 }
 
+void Server::setCountry(const QString &country)
+{
+	d->country = country.trimmed().toUpper();
+}
+
 void Server::setCustom(bool custom)
 {
 	d->custom = custom;
 }
 
-void Server::setDmFlags(const QList<DMFlagsSection>& dmFlags)
+void Server::setDmFlags(const QList<DMFlagsSection> &dmFlags)
 {
 	d->dmFlags = dmFlags;
 }
 
-void Server::setEmail(const QString& email)
+void Server::setEmail(const QString &email)
 {
 	d->email = email;
 }
 
-void Server::setGameMode(const GameMode& gameMode)
+void Server::setGameMode(const GameMode &gameMode)
 {
 	d->gameMode = gameMode;
 }
 
-void Server::setGameVersion(const QString& version)
+void Server::setGameVersion(const QString &version)
 {
 	d->version = version;
 }
@@ -585,11 +598,11 @@ void Server::setGameVersion(const QString& version)
 void Server::setHostName(QHostInfo host)
 {
 	d->host = host;
-	if(!d->bIsRefreshing)
+	if (!d->bIsRefreshing)
 		emit updated(self(), lastResponse());
 }
 
-void Server::setIwad(const QString& iwad)
+void Server::setIwad(const QString &iwad)
 {
 	d->iwad = iwad;
 }
@@ -604,12 +617,12 @@ void Server::setLockedInGame(bool locked)
 	d->lockedInGame = locked;
 }
 
-void Server::setMapList(const QStringList& mapList)
+void Server::setMapList(const QStringList &mapList)
 {
 	d->mapList = mapList;
 }
 
-void Server::setMap(const QString& mapName)
+void Server::setMap(const QString &mapName)
 {
 	d->mapName = mapName;
 }
@@ -624,12 +637,12 @@ void Server::setMaxPlayers(unsigned short maxPlayers)
 	d->maxPlayers = maxPlayers;
 }
 
-void Server::setMotd(const QString& motd)
+void Server::setMotd(const QString &motd)
 {
 	d->motd = motd;
 }
 
-void Server::setName(const QString& serverName)
+void Server::setName(const QString &serverName)
 {
 	d->name = serverName;
 	// Don't let servers occupy more than one row with newline chars.
@@ -669,7 +682,7 @@ void Server::setResponse(Response response)
 	}
 }
 
-void Server::setScores(const QList<int>& scores)
+void Server::setScores(const QList<int> &scores)
 {
 	d->scores = scores;
 }
@@ -709,29 +722,34 @@ void Server::setSkill(unsigned char skill)
 	d->skill = skill;
 }
 
-void Server::setWads(const QList<PWad>& wads)
+void Server::setWads(const QList<PWad> &wads)
 {
 	d->wads = wads;
 }
 
-void Server::setWebSite(const QString& webSite)
+void Server::setWebSite(const QString &webSite)
 {
 	d->webSite = webSite;
 }
 
+void Server::setAdditionalWebSites(const QStringList &list)
+{
+	d->additionalWebSites = list;
+}
+
 QRgb Server::teamColor(int team) const
 {
-	switch(team)
+	switch (team)
 	{
-		case Player::TEAM_BLUE:
-			return qRgb(0, 0, 255);
-		case Player::TEAM_RED:
-			return qRgb(255, 0, 0);
-		case Player::TEAM_GREEN:
-			return qRgb(0, 255, 0);
-		case Player::TEAM_GOLD:
-			return qRgb(255, 255, 0);
-		default: break;
+	case Player::TEAM_BLUE:
+		return qRgb(0, 0, 255);
+	case Player::TEAM_RED:
+		return qRgb(255, 0, 0);
+	case Player::TEAM_GREEN:
+		return qRgb(0, 255, 0);
+	case Player::TEAM_GOLD:
+		return qRgb(255, 255, 0);
+	default: break;
 	}
 	return qRgb(0, 255, 0);
 }
@@ -763,7 +781,7 @@ qint64 Server::timeMsSinceLastRefresh() const
 	}
 }
 
-TooltipGenerator* Server::tooltipGenerator() const
+TooltipGenerator *Server::tooltipGenerator() const
 {
 	return new TooltipGenerator(self());
 }
@@ -773,7 +791,7 @@ unsigned char Server::skill() const
 	return d->skill;
 }
 
-const PWad& Server::wad(int index) const
+const PWad &Server::wad(int index) const
 {
 	return wads()[index];
 }
@@ -781,11 +799,14 @@ const PWad& Server::wad(int index) const
 PathFinder Server::wadPathFinder()
 {
 	PathFinder pathFinder;
+	#ifdef Q_OS_WIN32
 	{
 		GameExeRetriever exeRetriever(*plugin()->gameExe());
 		Message msg;
 		pathFinder.addPrioritySearchDir(exeRetriever.pathToOfflineExe(msg));
 	}
+	#endif
+	if (isTestingServer())
 	{
 		QScopedPointer<ExeFile> exeFile(clientExe());
 		Message msg;
@@ -794,14 +815,26 @@ PathFinder Server::wadPathFinder()
 	return pathFinder;
 }
 
-const QList<PWad>& Server::wads() const
+const QList<PWad> &Server::wads() const
 {
 	return d->wads;
 }
 
-const QString& Server::webSite() const
+const QString &Server::webSite() const
 {
 	return d->webSite;
+}
+
+const QStringList &Server::additionalWebSites() const
+{
+	return d->additionalWebSites;
+}
+
+QStringList Server::allWebSites() const
+{
+	QStringList sites = additionalWebSites();
+	sites.prepend(webSite());
+	return sites;
 }
 
 bool Server::isLan() const

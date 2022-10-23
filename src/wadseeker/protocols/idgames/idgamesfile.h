@@ -31,18 +31,18 @@
  */
 class IdgamesFile
 {
-	public:
-		static QList<IdgamesFile> parseSearchResult(const QVariant &rawData);
+public:
+	static QList<IdgamesFile> parseSearchResult(const QVariant &rawData);
 
-		IdgamesFile();
-		IdgamesFile(const QVariant &rawData);
+	IdgamesFile();
+	IdgamesFile(const QVariant &rawData);
 
-		QString filename() const;
-		bool isNull() const;
-		QString url() const;
+	QString filename() const;
+	bool isNull() const;
+	QString url() const;
 
-	private:
-		QVariantMap data;
+private:
+	QVariantMap data;
 };
 
 #endif

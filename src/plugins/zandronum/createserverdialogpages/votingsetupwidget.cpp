@@ -22,11 +22,11 @@
 //------------------------------------------------------------------------------
 #include "votingsetupwidget.h"
 
-#include <ini/inisection.h>
 #include <ini/ini.h>
+#include <ini/inisection.h>
 
 VotingSetupWidget::VotingSetupWidget(QWidget *parent)
-: QWidget(parent)
+	: QWidget(parent)
 {
 	setupUi(this);
 	mainPanel->setEnabled(false);
@@ -61,11 +61,14 @@ QStringList VotingSetupWidget::gameParametersList() const
 	params << "+sv_notimelimitvote" << (!cbTimeLimitVote->isChecked() ? "1" : "0");
 	params << "+sv_nowinlimitvote" << (!cbWinLimitVote->isChecked() ? "1" : "0");
 	params << "+sv_noforcespecvote" << (!cbForceSpectatorVote->isChecked() ? "1" : "0");
+	params << "+sv_noflagvote" << (!cbFlagsVote->isChecked() ? "1" : "0");
+	params << "+sv_nonextmapvote" << (!cbNextMapVote->isChecked() ? "1" : "0");
+	params << "+sv_nonextsecretvote" << (!cbNextSecretVote->isChecked() ? "1" : "0");
 
 	return params;
 }
 
-bool VotingSetupWidget::loadConfig(Ini& ini)
+bool VotingSetupWidget::loadConfig(Ini &ini)
 {
 	IniSection section = ini.section("voting");
 
@@ -84,11 +87,14 @@ bool VotingSetupWidget::loadConfig(Ini& ini)
 	cbPointLimitVote->setChecked(section.value("PointLimitVote", true).toBool());
 	cbWinLimitVote->setChecked(section.value("WinLimitVote", true).toBool());
 	cbForceSpectatorVote->setChecked(section.value("ForceSpectatorVote", true).toBool());
+	cbFlagsVote->setChecked(section.value("FlagsVote", false).toBool());
+	cbNextMapVote->setChecked(section.value("NextMapVote", true).toBool());
+	cbNextSecretVote->setChecked(section.value("NextSecretVote", true).toBool());
 
 	return true;
 }
 
-bool VotingSetupWidget::saveConfig(Ini& ini)
+bool VotingSetupWidget::saveConfig(Ini &ini)
 {
 	IniSection section = ini.section("voting");
 
@@ -107,6 +113,9 @@ bool VotingSetupWidget::saveConfig(Ini& ini)
 	section["PointLimitVote"] = cbPointLimitVote->isChecked();
 	section["WinLimitVote"] = cbWinLimitVote->isChecked();
 	section["ForceSpectatorVote"] = cbForceSpectatorVote->isChecked();
+	section["FlagsVote"] = cbFlagsVote->isChecked();
+	section["NextMapVote"] = cbNextMapVote->isChecked();
+	section["NextSecretVote"] = cbNextSecretVote->isChecked();
 
 	return true;
 }

@@ -25,16 +25,16 @@
 
 #include "datastreamoperatorwrapper.h"
 #include "global.h"
-#include "turok2exmasterclient.h"
 #include "turok2exengineplugin.h"
+#include "turok2exmasterclient.h"
 #include "turok2exserver.h"
 
 #define NETM_MSLIST 11
 
 Turok2ExMasterClient::Turok2ExMasterClient()
 	: MasterClient(),
-	  seedIP(0),
-	  seedPort(0)
+	seedIP(0),
+	seedPort(0)
 {
 }
 
@@ -49,7 +49,7 @@ QByteArray Turok2ExMasterClient::createServerListRequest()
 	return QByteArray (challenge, size);
 }
 
-const EnginePlugin* Turok2ExMasterClient::plugin() const
+const EnginePlugin *Turok2ExMasterClient::plugin() const
 {
 	return Turok2ExEnginePlugin::staticInstance();
 }
@@ -64,7 +64,7 @@ MasterClient::Response Turok2ExMasterClient::readMasterResponse(const QByteArray
 	inStream.setByteOrder(QDataStream::LittleEndian);
 	DataStreamOperatorWrapper in(&inStream);
 
-	while(in.remaining() >= 6)
+	while (in.remaining() >= 6)
 	{
 		// IP address is stored back to front
 		quint8 ip4 = in.readQUInt8();
@@ -74,7 +74,7 @@ MasterClient::Response Turok2ExMasterClient::readMasterResponse(const QByteArray
 
 		quint16 port = in.readQUInt16();
 
-		if(ip1 == 0 && ip2 == 0 && ip3 == 0 && ip4 == 0 && port == 0)
+		if (ip1 == 0 && ip2 == 0 && ip3 == 0 && ip4 == 0 && port == 0)
 		{
 			// end of list
 			emit listUpdated();

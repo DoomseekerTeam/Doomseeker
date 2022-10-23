@@ -22,32 +22,32 @@
 //------------------------------------------------------------------------------
 #include "urlprovider.h"
 
-#include "wwwseeker/urlparser.h"
 #include "wadseekerversioninfo.h"
+#include "wwwseeker/urlparser.h"
 #include <QFileInfo>
 
 class MirrorStorage
 {
-	public:
-		QList<QUrl> urls;
+public:
+	QList<QUrl> urls;
 
-		bool hasUrl(const QUrl& url) const
+	bool hasUrl(const QUrl &url) const
+	{
+		for (const QUrl &urlOnList : urls)
 		{
-			foreach (const QUrl& urlOnList, urls)
+			if (UrlParser::urlEqualsCaseInsensitive(urlOnList, url))
 			{
-				if (UrlParser::urlEqualsCaseInsensitive(urlOnList, url))
-				{
-					return true;
-				}
+				return true;
 			}
-
-			return false;
 		}
 
-		bool isEmpty() const
-		{
-			return urls.isEmpty();
-		}
+		return false;
+	}
+
+	bool isEmpty() const
+	{
+		return urls.isEmpty();
+	}
 };
 ///////////////////////////////////////////////////////////////////////////////
 URLProvider::URLProvider()
@@ -58,20 +58,20 @@ URLProvider::URLProvider()
 
 URLProvider::~URLProvider()
 {
-	foreach(MirrorStorage* pMirror, mirrors)
+	for (MirrorStorage *pMirror : mirrors)
 	{
 		delete pMirror;
 	}
 }
 
-void URLProvider::addMirror(const QUrl& originalUrl, const QUrl& mirrorUrl)
+void URLProvider::addMirror(const QUrl &originalUrl, const QUrl &mirrorUrl)
 {
-	QList<MirrorStorage*> mirrors = mirrorsWithUrl(originalUrl);
+	QList<MirrorStorage *> mirrors = mirrorsWithUrl(originalUrl);
 	if (!mirrors.isEmpty())
 	{
 		if (!hasOrHadUrl(mirrorUrl))
 		{
-			MirrorStorage* pFirstMirror = mirrors.first();
+			MirrorStorage *pFirstMirror = mirrors.first();
 			pFirstMirror->urls << mirrorUrl;
 			insertUrlPrioritized(mirrorUrl);
 		}
@@ -90,11 +90,11 @@ void URLProvider::addMirror(const QUrl& originalUrl, const QUrl& mirrorUrl)
 	}
 }
 
-void URLProvider::addMirrorUrls(const QList<QUrl>& urls)
+void URLProvider::addMirrorUrls(const QList<QUrl> &urls)
 {
-	MirrorStorage* pMirrorStorage = new MirrorStorage();
+	auto pMirrorStorage = new MirrorStorage();
 
-	foreach (const QUrl& url, urls)
+	for (const QUrl &url : urls)
 	{
 		if (!hasOrHadUrl(url))
 		{
@@ -113,11 +113,11 @@ void URLProvider::addMirrorUrls(const QList<QUrl>& urls)
 	}
 }
 
-void URLProvider::addUrl(const QUrl& url)
+void URLProvider::addUrl(const QUrl &url)
 {
 	if (!hasOrHadUrl(url))
 	{
-		MirrorStorage* pMirrorStorage = new MirrorStorage();
+		auto pMirrorStorage = new MirrorStorage();
 		pMirrorStorage->urls << url;
 		insertUrlPrioritized(url);
 		mirrors << pMirrorStorage;
@@ -127,7 +127,7 @@ void URLProvider::addUrl(const QUrl& url)
 QList<QUrl> URLProvider::allAvailableUrls() const
 {
 	QList<QUrl> urls;
-	foreach (const QList<QUrl>& partial, allUrlsPrioritized.values())
+	for (const QList<QUrl> &partial : allUrlsPrioritized.values())
 	{
 		urls += partial;
 	}
@@ -139,7 +139,7 @@ QUrl URLProvider::first() const
 	return allAvailableUrls().first();
 }
 
-void URLProvider::insertUrlPrioritized(const QUrl& url)
+void URLProvider::insertUrlPrioritized(const QUrl &url)
 {
 	QFileInfo fileInfo(url.path());
 	if (WadseekerVersionInfo::supportedArchiveExtensions().contains(fileInfo.suffix()))
@@ -154,7 +154,7 @@ void URLProvider::insertUrlPrioritized(const QUrl& url)
 
 bool URLProvider::isEmpty() const
 {
-	foreach (const QList<QUrl>& chunk, allUrlsPrioritized.values())
+	for (const QList<QUrl> &chunk : allUrlsPrioritized.values())
 	{
 		if (!chunk.isEmpty())
 		{
@@ -164,9 +164,9 @@ bool URLProvider::isEmpty() const
 	return true;
 }
 
-bool URLProvider::hasOrHadUrl(const QUrl& url) const
+bool URLProvider::hasOrHadUrl(const QUrl &url) const
 {
-	foreach (MirrorStorage* pMirror, mirrors)
+	for (MirrorStorage *pMirror : mirrors)
 	{
 		if (pMirror->hasUrl(url))
 		{
@@ -177,9 +177,9 @@ bool URLProvider::hasOrHadUrl(const QUrl& url) const
 	return false;
 }
 
-bool URLProvider::hasUrl(const QUrl& url) const
+bool URLProvider::hasUrl(const QUrl &url) const
 {
-	foreach (const QUrl& urlOnList, allAvailableUrls())
+	for (const QUrl &urlOnList : allAvailableUrls())
 	{
 		if (UrlParser::urlEqualsCaseInsensitive(urlOnList, url))
 		{
@@ -189,10 +189,10 @@ bool URLProvider::hasUrl(const QUrl& url) const
 	return false;
 }
 
-QList<MirrorStorage*> URLProvider::mirrorsWithUrl(const QUrl& url)
+QList<MirrorStorage *> URLProvider::mirrorsWithUrl(const QUrl &url)
 {
-	QList<MirrorStorage*> mirrorsWithUrls;
-	foreach (MirrorStorage* pMirror, mirrors)
+	QList<MirrorStorage *> mirrorsWithUrls;
+	for (MirrorStorage *pMirror : mirrors)
 	{
 		if (pMirror->hasUrl(url))
 		{
@@ -208,32 +208,32 @@ unsigned URLProvider::numUrls() const
 	return allAvailableUrls().size();
 }
 
-URLProvider& URLProvider::operator<<(const QUrl& url)
+URLProvider &URLProvider::operator<<(const QUrl &url)
 {
 	addUrl(url);
 	return *this;
 }
 
-void URLProvider::removeAllUrls(const MirrorStorage* pMirror)
+void URLProvider::removeAllUrls(const MirrorStorage *pMirror)
 {
-	foreach (const QUrl& url, pMirror->urls)
+	for (const QUrl &url : pMirror->urls)
 	{
 		removeUrl(url);
 	}
 }
 
-void URLProvider::removeUrl(const QUrl& url)
+void URLProvider::removeUrl(const QUrl &url)
 {
-	foreach (int key, allUrlsPrioritized.uniqueKeys())
+	for (int key : allUrlsPrioritized.keys())
 	{
 		allUrlsPrioritized[key].removeAll(url);
 	}
 }
 
-void URLProvider::removeUrlAndMirrors(const QUrl& url)
+void URLProvider::removeUrlAndMirrors(const QUrl &url)
 {
-	QList<MirrorStorage*> mirrors = mirrorsWithUrl(url);
-	foreach (MirrorStorage* pMirror, mirrors)
+	QList<MirrorStorage *> mirrors = mirrorsWithUrl(url);
+	for (MirrorStorage *pMirror : mirrors)
 	{
 		removeAllUrls(pMirror);
 	}
@@ -245,4 +245,3 @@ QUrl URLProvider::takeFirst()
 	removeUrl(url);
 	return url;
 }
-

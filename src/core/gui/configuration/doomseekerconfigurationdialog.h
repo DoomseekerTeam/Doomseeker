@@ -31,37 +31,52 @@ class DoomseekerConfigurationDialog : public ConfigurationDialog
 {
 	Q_OBJECT
 
-	public:
-		DoomseekerConfigurationDialog(QWidget* parent = NULL);
+public:
+	DoomseekerConfigurationDialog(QWidget *parent = nullptr);
 
-		QStandardItem* addConfigPage(QStandardItem* rootItem, ConfigPage* configPage, int position = -1);
-		bool addEngineConfiguration(ConfigPage* configPage);
-		bool customServersChanged() const { return bCustomServersChanged; }
-		void initOptionsList();
-		void showPluginConfiguration(const EnginePlugin *plugin);
-		bool wasAppearanceChanged() const { return bAppearanceChanged; }
+	QStandardItem *addConfigPage(QStandardItem *rootItem, ConfigPage *configPage, int position = -1) override;
+	bool addEngineConfiguration(ConfigPage *configPage);
+	bool customServersChanged() const
+	{
+		return bCustomServersChanged;
+	}
+	void initOptionsList();
+	void showPluginConfiguration(const EnginePlugin *plugin);
+	bool wasAppearanceChanged() const
+	{
+		return bAppearanceChanged;
+	}
+	bool isRestartNeeded() const
+	{
+		return bRestartNeeded;
+	}
 
-		static void openConfiguration(const EnginePlugin *showPlugin=NULL);
-		static bool isOpen();
+	static void openConfiguration(QWidget *parent, const EnginePlugin *showPlugin = nullptr);
+	static bool isOpen();
 
-	signals:
-		void appearanceChanged();
+signals:
+	void appearanceChanged();
 
-	private:
-		bool bAppearanceChanged;
-		bool bCustomServersChanged;
-		ConfigPage* customServersCfgBox;
-		QStandardItem* enginesRoot;
+private:
+	bool bAppearanceChanged;
+	bool bRestartNeeded;
+	bool bCustomServersChanged;
+	ConfigPage *customServersCfgBox;
+	QStandardItem *enginesRoot;
 
-		void appendFilePathsConfigurationBoxes();
-		void appendWadseekerConfigurationBoxes();
-		void doSaveSettings();
+	void appendFilePathsConfigurationBoxes();
+	void appendWadseekerConfigurationBoxes();
+	void doSaveSettings() override;
 
-	private slots:
-		/**
-		 *	When called, sets bAppearanceChanged to true.
-		 */
-		void appearanceChangedSlot();
+private slots:
+	/**
+	 *	When called, sets bAppearanceChanged to true.
+	 */
+	void appearanceChangedSlot();
+	/**
+	 *	When called, sets bRestartNeeded to true.
+	 */
+	void restartNeededSlot();
 };
 
 #endif

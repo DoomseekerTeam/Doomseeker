@@ -23,12 +23,13 @@
 #ifndef ida6f4579f_f353_49df_a314_5b3ebcdbcad7
 #define ida6f4579f_f353_49df_a314_5b3ebcdbcad7
 
+#include "pattern.h"
+
 #include <QList>
-#include <QRegExp>
 #include <QString>
 #include <QVariant>
 
-class PatternList : public QList<QRegExp>
+class PatternList : public QList<Pattern>
 {
 public:
 	bool isExactMatchAny(const QString &candidate) const;

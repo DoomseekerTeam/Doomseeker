@@ -63,10 +63,10 @@ private:
 
 	QVector<IniSection> allNetworksSections() const;
 	void clearNetworkSections();
-	Ini& ini() const;
+	Ini &ini() const;
 	IRCNetworkEntity loadNetwork(const IniSection &section) const;
 	IniSection networkSection(int id);
-	void saveNetwork(IniSection section, const IRCNetworkEntity& network);
+	void saveNetwork(IniSection section, const IRCNetworkEntity &network);
 };
 
 #endif

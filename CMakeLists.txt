@@ -18,7 +18,11 @@
 #------------------------------------------------------------------------------
 # Copyright (C) 2009 Braden "Blzut3" Obrzut <admin@maniacsvault.net>
 #------------------------------------------------------------------------------
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.5...3.21)
+if(CMAKE_VERSION VERSION_LESS 3.12)
+	cmake_policy(VERSION ${CMAKE_VERSION})
+endif()
+
 project(Doomseeker)
 
 # Multiarch support
@@ -47,7 +51,7 @@ if(USE_CPACK)
 	# Right now all we support is DEB, but we'll probably want to make this a
 	# user option later?
 	set(CPACK_GENERATOR "DEB")
-	set(CPACK_PACKAGE_CONTACT "First Last <example@example.com>" CACHE STRING "Contact info for archive maintainer.")
+	set(CPACK_PACKAGE_CONTACT "First Last <example@localhost.localdomain>" CACHE STRING "Contact info for archive maintainer.")
 	# We encode the install prefix into the binary, so we should use the same prefix when packaging.
 	set(CPACK_PACKAGING_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 	set(CPACK_STRIP_FILES ON)
@@ -71,27 +75,31 @@ if(USE_CPACK)
 	endmacro()
 endif()
 
-option(FORCE_QT4 "Force Qt4" NO)
 if(WIN32)
 	set(FORCE_INTERNAL_ZLIB YES)
 	set(FORCE_INTERNAL_BZIP2 YES)
+	set(FORCE_INTERNAL_WADSEEKER YES)
 else()
 	option(FORCE_INTERNAL_ZLIB "Use internal zlib" OFF)
 	option(FORCE_INTERNAL_BZIP2 "Use internal bzip2" OFF)
+	option(FORCE_INTERNAL_WADSEEKER "Use internal wadseeker" ON)
+endif()
 
-	include(${CMAKE_SOURCE_DIR}/cmake/Modules/Macros.cmake)
+include(${CMAKE_SOURCE_DIR}/cmake/Modules/Macros.cmake)
 
-	if(NOT FORCE_INTERNAL_ZLIB)
-		find_package_ZLIB()
-	endif()
-	if(NOT FORCE_INTERNAL_BZIP2)
-		find_package_BZip2()
-	endif()
+if(NOT FORCE_INTERNAL_ZLIB)
+	find_package_ZLIB()
+endif()
+if(NOT FORCE_INTERNAL_BZIP2)
+	find_package_BZip2()
+endif()
+if(NOT FORCE_INTERNAL_WADSEEKER)
+	find_package_wadseeker()
 endif()
 
 if( ZLIB_FOUND AND NOT FORCE_INTERNAL_ZLIB )
 	message( STATUS "Using system zlib" )
-else( ZLIB_FOUND AND NOT FORCE_INTERNAL_ZLIB )
+else()
 	message( STATUS "Using internal zlib" )
 	set( ZLIB_INTERNAL YES )
 	set(SKIP_INSTALL_ALL ON)
@@ -105,7 +113,7 @@ endif()
 
 if( BZIP2_FOUND AND NOT FORCE_INTERNAL_BZIP2 )
 	message( STATUS "Using system bzip2 library" )
-else( BZIP2_FOUND AND NOT FORCE_INTERNAL_BZIP2 )
+else()
 	message( STATUS "Using internal bzip2 library" )
 	set( BZIP2_INTERNAL YES )
 	add_subdirectory( dependencies/bzip2 )
@@ -113,6 +121,16 @@ else( BZIP2_FOUND AND NOT FORCE_INTERNAL_BZIP2 )
 	set( BZIP2_INCLUDE_DIR "${BZIP2_INCLUDE_DIRS}" )
 	set( BZIP2_LIBRARIES bz2 )
 	set( BZIP2_LIBRARY bz2 )
+endif()
+
+if ( wadseeker_FOUND AND NOT FORCE_INTERNAL_WADSEEKER )
+	message( STATUS "Using system Wadseeker library" )
+else()
+	message( STATUS "Using internal Wadseeker library" )
+	set( WADSEEKER_INTERNAL YES )
+	add_subdirectory( src/wadseeker )
+	set( WADSEEKER_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/src/wadseeker" )
+	set( WADSEEKER_INCLUDE_DIR "${WADSEEKER_INCLUDE_DIRS}" )
 endif()
 
 if(MSVC AND NOT MSVC90 AND NOT MSVC12)
@@ -125,7 +143,11 @@ if(MSVC AND NOT MSVC90 AND NOT MSVC12)
 	)
 endif()
 
-if(WIN32 OR APPLE)
+# C++ standard
+set(CMAKE_CXX_STANDARD 11)
+set(CXX_STANDARD_REQUIRED ON)
+
+if(WIN32)
 	set(WITH_AUTOUPDATES 1)
 	add_subdirectory(tools/updateinstaller)
 endif()
@@ -134,7 +156,6 @@ add_subdirectory(tools/updaterevision)
 
 add_subdirectory(src/core)
 add_subdirectory(src/plugins)
-add_subdirectory(src/wadseeker)
 
 message(STATUS "'INSTALL' will dump files to \"${CMAKE_INSTALL_PREFIX}\"")
 

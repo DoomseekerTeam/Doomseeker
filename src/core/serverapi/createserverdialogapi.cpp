@@ -23,8 +23,8 @@
 #include "createserverdialogapi.h"
 
 #include "gui/createserverdialog.h"
-#include <QPointer>
 #include <cassert>
+#include <QPointer>
 
 DClass<CreateServerDialogApi>
 {
@@ -36,7 +36,7 @@ DPointered(CreateServerDialogApi)
 
 CreateServerDialogApi::CreateServerDialogApi(QWidget *parent)
 {
-	d->dialog = new CreateServerDialog(parent);
+	d->dialog = new CreateServerDialog(GameCreateParams::Host, parent);
 }
 
 CreateServerDialogApi::~CreateServerDialogApi()
@@ -49,7 +49,7 @@ CreateServerDialogApi::~CreateServerDialogApi()
 
 CreateServerDialogApi *CreateServerDialogApi::createNew(QWidget *parent)
 {
-	CreateServerDialogApi *api = new CreateServerDialogApi(parent);
+	auto api = new CreateServerDialogApi(parent);
 	return api;
 }
 
@@ -61,13 +61,14 @@ QDialog *CreateServerDialogApi::dialog() const
 bool CreateServerDialogApi::fillInCommandLineArguments(QString &executable, QStringList &args)
 {
 	assert(d->dialog);
-	return d->dialog->commandLineArguments(executable, args);
+	return d->dialog->commandLineArguments(executable, args, false);
 }
 
 void CreateServerDialogApi::makeRemoteGameSetup(const EnginePlugin *plugin)
 {
+	Q_UNUSED(plugin)
 	assert(d->dialog);
-	d->dialog->makeRemoteGameSetupDialog(plugin);
+	d->dialog->makeRemoteGameSetupDialog(const_cast<EnginePlugin*>(plugin));
 }
 
 void CreateServerDialogApi::setIwadByName(const QString &iwad)

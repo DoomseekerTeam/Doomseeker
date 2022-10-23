@@ -34,7 +34,7 @@ public:
 DPointeredNoCopy(Freedoom)
 
 Freedoom::Freedoom(QObject *parent)
-: QObject(parent)
+	: QObject(parent)
 {
 	d->query.reset(new FreedoomQuery());
 }

@@ -36,37 +36,37 @@
 
 class Idgames::PrivData
 {
-	public:
-		bool bIsAborting;
-		QNetworkReply* currentRequest;
-		QString idgamesBaseUrl;
-		IdgamesClient *idgamesClient;
-		IdgamesReply *idgamesReply;
-		QNetworkAccessManager* nam;
-		WadDownloadInfo seekedFile;
-		QString userAgent;
+public:
+	bool bIsAborting;
+	QNetworkReply *currentRequest;
+	QString idgamesBaseUrl;
+	IdgamesClient *idgamesClient;
+	IdgamesReply *idgamesReply;
+	QNetworkAccessManager *nam;
+	WadDownloadInfo seekedFile;
+	QString userAgent;
 };
 
 
-Idgames::Idgames(const QString& idgamesPage)
+Idgames::Idgames(const QString &idgamesPage)
 {
 	d = new PrivData();
 	d->nam = new QNetworkAccessManager();
 	d->idgamesBaseUrl = idgamesPage;
 	d->idgamesClient = new IdgamesClient(d->nam, idgamesPage);
-	d->idgamesReply = NULL;
+	d->idgamesReply = nullptr;
 	d->bIsAborting = false;
-	d->currentRequest = NULL;
+	d->currentRequest = nullptr;
 }
 
 Idgames::~Idgames()
 {
-	if (d->idgamesReply != NULL)
+	if (d->idgamesReply != nullptr)
 	{
 		delete d->idgamesReply;
 	}
 	delete d->idgamesClient;
-	if (d->currentRequest != NULL)
+	if (d->currentRequest != nullptr)
 	{
 		d->currentRequest->deleteLater();
 	}
@@ -80,11 +80,11 @@ void Idgames::abort()
 	{
 		d->bIsAborting = true;
 		// If one is occuring, others cannot.
-		if (d->idgamesReply != NULL)
+		if (d->idgamesReply != nullptr)
 		{
 			d->idgamesReply->abort();
 		}
-		else if (d->currentRequest != NULL)
+		else if (d->currentRequest != nullptr)
 		{
 			d->currentRequest->abort();
 		}
@@ -100,7 +100,7 @@ QString Idgames::defaultIdgamesUrl()
 	return IdgamesClient::DEFAULT_URL.toString();
 }
 
-void Idgames::extractAndEmitLinks(QByteArray& pageData, const QUrl& pageUrl)
+void Idgames::extractAndEmitLinks(QByteArray &pageData, const QUrl &pageUrl)
 {
 	// Get all <A HREFs> from HTML.
 	HtmlParser html(pageData);
@@ -116,7 +116,7 @@ void Idgames::extractAndEmitLinks(QByteArray& pageData, const QUrl& pageUrl)
 	if (!directLinks.isEmpty())
 	{
 		QList<QUrl> directUrls;
-		foreach (const Link& link, directLinks)
+		for (const Link &link : directLinks)
 		{
 			directUrls << link.url;
 		}
@@ -127,7 +127,7 @@ void Idgames::extractAndEmitLinks(QByteArray& pageData, const QUrl& pageUrl)
 	emit finished(this);
 }
 
-const WadDownloadInfo& Idgames::file() const
+const WadDownloadInfo &Idgames::file() const
 {
 	return d->seekedFile;
 }
@@ -137,7 +137,7 @@ void Idgames::onIdgamesApiQueryFinished()
 	emit siteFinished(d->idgamesClient->baseUrl());
 	IdgamesResult result = d->idgamesReply->result();
 	delete d->idgamesReply;
-	d->idgamesReply = NULL;
+	d->idgamesReply = nullptr;
 	if (d->bIsAborting)
 	{
 		emit finished(this);
@@ -174,7 +174,7 @@ void Idgames::queryIdgamesApi()
 	this->connect(d->idgamesReply, SIGNAL(finished()), SLOT(onIdgamesApiQueryFinished()));
 }
 
-void Idgames::setFile(const WadDownloadInfo& wad)
+void Idgames::setFile(const WadDownloadInfo &wad)
 {
 	d->seekedFile = wad;
 }
@@ -204,7 +204,7 @@ void Idgames::startSearch()
 
 void Idgames::networkRequestFinished()
 {
-	if (d->currentRequest == NULL)
+	if (d->currentRequest == nullptr)
 	{
 		return;
 	}
@@ -218,7 +218,7 @@ void Idgames::networkRequestFinished()
 
 	// Clean up to accept new requests.
 	d->currentRequest->deleteLater();
-	d->currentRequest = NULL;
+	d->currentRequest = nullptr;
 
 	if (d->bIsAborting)
 	{
@@ -243,34 +243,34 @@ void Idgames::networkRequestFinished()
 
 void Idgames::networkRequestProgress(qint64 done, qint64 total)
 {
-	if (d->currentRequest != NULL)
+	if (d->currentRequest != nullptr)
 	{
 		emit siteProgress(d->currentRequest->url(), done, total);
 	}
 }
 
-void Idgames::setPage(const QString& url)
+void Idgames::setPage(const QString &url)
 {
 	d->idgamesBaseUrl = url;
 }
 
-void Idgames::setUserAgent(const QString& userAgent)
+void Idgames::setUserAgent(const QString &userAgent)
 {
 	d->userAgent = userAgent;
 }
 
-void Idgames::startNetworkQuery(const QUrl& url)
+void Idgames::startNetworkQuery(const QUrl &url)
 {
 	QNetworkRequest request;
 	request.setUrl(url);
 	request.setRawHeader("User-Agent", d->userAgent.toUtf8());
 
-	QNetworkReply* pReply = d->nam->get(request);
+	QNetworkReply *pReply = d->nam->get(request);
 	d->currentRequest = pReply;
-	this->connect(pReply, SIGNAL( downloadProgress(qint64, qint64)),
-		SLOT( networkRequestProgress(qint64, qint64) ) );
-	this->connect(pReply, SIGNAL( finished() ),
-		SLOT( networkRequestFinished() ) );
+	this->connect(pReply, SIGNAL(downloadProgress(qint64,qint64)),
+		SLOT(networkRequestProgress(qint64,qint64)));
+	this->connect(pReply, SIGNAL(finished()),
+		SLOT(networkRequestFinished()));
 
 	emit siteStarted(url);
 }

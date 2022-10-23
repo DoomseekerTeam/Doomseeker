@@ -23,16 +23,16 @@
 #ifndef id82392785_6608_4e45_9e65_905e8d266187
 #define id82392785_6608_4e45_9e65_905e8d266187
 
-#include <QString>
 #include "pathfinder/pathfinder.h"
+#include <QString>
 
 class GameFile;
 
 namespace PathFind
 {
-	QString findExe(const PathFinder &pathFinder, const QString &name);
-	QString findGameFile(const QStringList &knownPaths, const GameFile &gameFile);
-	QString findGameFile(const PathFinder &pathFinder, const GameFile &gameFile);
-};
+QString findExe(const PathFinder &pathFinder, const QString &name);
+QString findGameFile(const QStringList &knownPaths, const GameFile &gameFile);
+QString findGameFile(const PathFinder &pathFinder, const GameFile &gameFile);
+}
 
 #endif

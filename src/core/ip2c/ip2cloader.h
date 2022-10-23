@@ -25,35 +25,39 @@
 
 #include "dptr.h"
 
+#include <QByteArray>
 #include <QObject>
+#include <QString>
+
+class IP2C;
 
 class IP2CLoader : public QObject
 {
 	Q_OBJECT
+	Q_DISABLE_COPY(IP2CLoader)
 
-	public:
-		IP2CLoader(QObject *parent = NULL);
-		~IP2CLoader();
+public:
+	IP2CLoader(IP2C &ip2c, QObject *parent = nullptr);
 
-		void load();
+	void load();
 
-	public slots:
-		void update();
+public slots:
+	void update();
 
-	signals:
-		void downloadProgress(qint64 current, qint64 total);
-		void finished();
+signals:
+	void downloadProgress(qint64 current, qint64 total);
+	void finished();
 
-	private:
-		DPtr<IP2CLoader> d;
+private:
+	DPtr<IP2CLoader> d;
 
-		void ip2cJobsFinished();
-		void ip2cParseDatabase();
+	void ip2cJobsFinished();
+	void ip2cReadDatabase(const QString &filePath);
 
-	private slots:
-		void ip2cFinishUpdate(const QByteArray& downloadedData);
-		void ip2cFinishedParsing(bool bSuccess);
-		void onUpdateNeeded(int status);
+private slots:
+	void onParsingFinished();
+	void onUpdateFinished(const QByteArray &downloadedData);
+	void onUpdateNeeded(int status);
 };
 
 #endif

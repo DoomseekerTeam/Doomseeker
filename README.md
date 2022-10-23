@@ -9,6 +9,10 @@ library.
 Doomseeker and Wadseeker are licensed under the GNU LGPL v2.1 or later.
 
 * [Website](https://doomseeker.drdteam.org)
+* [Install Guide](https://wiki.zandronum.com/Install_Doomseeker)
+* Suggestions & bug reporting: [Zandronum Tracker](https://zandronum.com/tracker/)
+  / Doomseeker project
+* Direct support: [Zandronum Discord](https://discord.gg/8QqxCBR)
 
 Compiling
 ---------
@@ -16,6 +20,14 @@ Compiling
 Doomseeker uses Qt 5 as its sole dependency.  Projects for all platforms should
 be generated through CMake.  Please see COMPILE.txt and COMPILE.Windows.txt for
 more detailed information.
+
+Contact
+-------
+
+Doomseeker's maintainers may be contacted personally via email:
+
+* [Blzut3](mailto:admin@maniacsvault.net)
+* [Zalewa](mailto:zalewapl@gmail.com)
 
 Copyright
 ---------

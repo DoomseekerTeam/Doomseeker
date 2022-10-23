@@ -22,14 +22,14 @@
 //------------------------------------------------------------------------------
 #include "srb2gamehost.h"
 
-#include <serverapi/gamecreateparams.h>
-#include <serverapi/serverstructs.h>
 #include "srb2engineplugin.h"
 #include "srb2gameinfo.h"
+#include <serverapi/gamecreateparams.h>
+#include <serverapi/serverstructs.h>
 
 Srb2GameHost::Srb2GameHost()
-: GameHost(Srb2EnginePlugin::staticInstance()),
-  listenServer(false), casualServer(false)
+	: GameHost(Srb2EnginePlugin::staticInstance()),
+	listenServer(false), casualServer(false)
 {
 	setArgForIwadLoading("-file");
 	setArgForDemoPlayback("-playdemo");
@@ -52,7 +52,7 @@ void Srb2GameHost::addDMFlags()
 
 void Srb2GameHost::addDMFlags(const QList<DMFlagsSection> &flags, bool enabled)
 {
-	foreach (const DMFlagsSection &section, flags)
+	for (const DMFlagsSection &section : flags)
 	{
 		for (int i = 0; i < section.count(); ++i)
 		{
@@ -70,9 +70,7 @@ void Srb2GameHost::addDMFlags(const QList<DMFlagsSection> &flags, bool enabled)
 				QString command = Srb2GameInfo::commandFromFlag(
 					static_cast<Srb2GameInfo::Flag>(flag.value()));
 				if (!command.isEmpty())
-				{
 					args() << command << (enabled ? "1" : "0");
-				}
 			}
 			}
 		}
@@ -81,23 +79,30 @@ void Srb2GameHost::addDMFlags(const QList<DMFlagsSection> &flags, bool enabled)
 
 void Srb2GameHost::addExtra()
 {
-	if (params().hostMode() == GameCreateParams::Host)
-	{
-		args() << (listenServer ? "-server" : "-dedicated");
-	}
-
 	unsigned int modeNum = params().gameMode().index();
-	switch(params().gameMode().index())
+	switch (params().gameMode().index())
 	{
-		default:
-			modeNum = params().gameMode().index();
-			break;
-		case GameMode::SGM_Cooperative: modeNum = 0; break;
-		case GameMode::SGM_Deathmatch: modeNum = 3; break;
-		case GameMode::SGM_TeamDeathmatch: modeNum = 4; break;
-		case GameMode::SGM_CTF: modeNum = 7; break;
+	default:
+		modeNum = params().gameMode().index();
+		break;
+	case GameMode::SGM_Cooperative: modeNum = 0; break;
+	case GameMode::SGM_Deathmatch: modeNum = 3; break;
+	case GameMode::SGM_TeamDeathmatch: modeNum = 4; break;
+	case GameMode::SGM_CTF: modeNum = 7; break;
 	}
-	args() << "-gametype" << QString::number(modeNum);
+	if (modeNum != GameMode::SGM_Unknown)
+		args() << "-gametype" << QString::number(modeNum);
+
+	if (!params().map().isEmpty())
+		args() << "+map" << params().map();
+
+	if (params().hostMode() == GameCreateParams::Host)
+		addHostModeParams();
+}
+
+void Srb2GameHost::addHostModeParams()
+{
+	args() << (listenServer ? "-server" : "-dedicated");
 	args() << "+servername" << params().name();
 	args() << "+maxplayers" << QString::number(params().maxPlayers());
 
@@ -108,20 +113,11 @@ void Srb2GameHost::addExtra()
 		args() << "-room" << (casualServer ? CASUAL_ROOM : STANDARD_ROOM);
 	}
 
-	if (!params().map().isEmpty())
-	{
-		args() << "+map" << params().map();
-	}
-
 	if (!params().rconPassword().isEmpty())
-	{
 		args() << "-password" << params().rconPassword();
-	}
 
 	if (!params().motd().trimmed().isEmpty())
-	{
 		args() << "+motd" << params().motd().trimmed();
-	}
 }
 
 void Srb2GameHost::addIwad()

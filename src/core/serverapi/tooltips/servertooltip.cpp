@@ -23,17 +23,18 @@
 #include "servertooltip.h"
 
 #include "configuration/doomseekerconfig.h"
+#include "pathfinder/pathfinder.h"
 #include "pathfinder/wadpathfinder.h"
-#include "serverapi/tooltips/tooltipgenerator.h"
 #include "serverapi/playerslist.h"
 #include "serverapi/server.h"
 #include "serverapi/serverstructs.h"
+#include "serverapi/tooltips/tooltipgenerator.h"
 
 namespace ServerTooltip
 {
-	QString FONT_COLOR_MISSING = "#ff0000";
-	QString FONT_COLOR_OPTIONAL = "#ff9f00";
-	QString FONT_COLOR_FOUND = "#009f00";
+QString FONT_COLOR_MISSING = "#ff0000";
+QString FONT_COLOR_WARNING = "#ff9f00";
+QString FONT_COLOR_FOUND = "#009f00";
 }
 
 QString ServerTooltip::createIwadToolTip(ServerPtr server)
@@ -69,17 +70,17 @@ QString ServerTooltip::createIwadToolTip(ServerPtr server)
 
 QString ServerTooltip::createPlayersToolTip(ServerCPtr server)
 {
-	if (server == NULL || !server->isKnown())
+	if (server == nullptr || !server->isKnown())
 	{
 		return QString();
 	}
 
-	TooltipGenerator* tooltipGenerator = server->tooltipGenerator();
+	TooltipGenerator *tooltipGenerator = server->tooltipGenerator();
 
 	QString ret;
 	ret = "<div style='white-space: pre'>";
 	ret += tooltipGenerator->gameInfoTableHTML();
-	if(server->players().numClients() != 0)
+	if (server->players().numClients() != 0)
 	{
 		ret += tooltipGenerator->playerTableHTML();
 	}
@@ -91,7 +92,7 @@ QString ServerTooltip::createPlayersToolTip(ServerCPtr server)
 
 QString ServerTooltip::createPortToolTip(ServerCPtr server)
 {
-	if (server == NULL || !server->isKnown())
+	if (server == nullptr || !server->isKnown())
 		return QString();
 
 	QString ret;
@@ -106,7 +107,7 @@ QString ServerTooltip::createPortToolTip(ServerCPtr server)
 
 QString ServerTooltip::createPwadsToolTip(ServerPtr server)
 {
-	if (server == NULL || !server->isKnown() || server->numWads() == 0)
+	if (server == nullptr || !server->isKnown() || server->numWads() == 0)
 	{
 		return QString();
 	}
@@ -115,7 +116,7 @@ QString ServerTooltip::createPwadsToolTip(ServerPtr server)
 	static const QString toolTip = "<div style='white-space: pre'>%1</div>";
 	QString content;
 
-	const QList<PWad>& pwads = server->wads();
+	const QList<PWad> &pwads = server->wads();
 
 	// Check if we should seek and colorize.
 	bool bFindWads = gConfig.doomseeker.bTellMeWhereAreTheWADsWhenIHoverCursorOverWADSColumn;
@@ -124,9 +125,11 @@ QString ServerTooltip::createPwadsToolTip(ServerPtr server)
 	if (bFindWads)
 	{
 		QStringList pwadsFormatted;
-		foreach (const PWad &wad, pwads)
+		PathFinder pathFinder = server->wadPathFinder();
+		WadPathFinder wadFinder(pathFinder);
+		for (const PWad &wad : pwads)
 		{
-			pwadsFormatted << createPwadToolTipInfo(wad, server);
+			pwadsFormatted << createPwadToolTipInfo(wad, wadFinder);
 		}
 
 		content = "<table cellspacing=1>";
@@ -135,7 +138,7 @@ QString ServerTooltip::createPwadsToolTip(ServerPtr server)
 	}
 	else
 	{
-		foreach (const PWad &wad, pwads)
+		for (const PWad &wad : pwads)
 		{
 			content += wad.name() + "\n";
 		}
@@ -145,24 +148,24 @@ QString ServerTooltip::createPwadsToolTip(ServerPtr server)
 	return toolTip.arg(content);
 }
 
-QString ServerTooltip::createPwadToolTipInfo(const PWad& pwad, const ServerPtr &server)
+QString ServerTooltip::createPwadToolTipInfo(const PWad &pwad, WadPathFinder &wadFinder)
 {
-	WadFindResult path = findWad(server, pwad.name());
+	WadFindResult findResult = wadFinder.find(pwad.name());
 
 	QString fontColor = "#777777";
 	QStringList cells;
 
 	cells << pwad.name();
-	if (path.isValid())
+	if (findResult.isValid())
 	{
 		fontColor = FONT_COLOR_FOUND;
-		cells << path.path();
+		cells << findResult.path();
 	}
 	else
 	{
 		if (pwad.isOptional())
 		{
-			fontColor = FONT_COLOR_OPTIONAL;
+			fontColor = FONT_COLOR_WARNING;
 			cells << L10n::tr("OPTIONAL");
 		}
 		else
@@ -171,7 +174,7 @@ QString ServerTooltip::createPwadToolTipInfo(const PWad& pwad, const ServerPtr &
 			cells << L10n::tr("MISSING");
 		}
 	}
-	if (path.isAlias())
+	if (findResult.isAlias())
 	{
 		cells << L10n::tr("ALIAS");
 	}
@@ -183,7 +186,7 @@ QString ServerTooltip::createPwadToolTipInfo(const PWad& pwad, const ServerPtr &
 	QString formattedStringBegin = QString("<tr style=\"color: %1;\">").arg(fontColor);
 	QString formattedStringMiddle;
 	QString space = "";
-	foreach (const QString &cell, cells)
+	for (const QString &cell : cells)
 	{
 		formattedStringMiddle += QString("<td style=\"padding-right: 5;\">%1</td>").arg(cell);
 		space = " ";
@@ -193,12 +196,12 @@ QString ServerTooltip::createPwadToolTipInfo(const PWad& pwad, const ServerPtr &
 
 QString ServerTooltip::createServerNameToolTip(ServerCPtr server)
 {
-	if (server == NULL)
+	if (server == nullptr)
 	{
 		return QString();
 	}
 
-	TooltipGenerator* tooltipGenerator = server->tooltipGenerator();
+	TooltipGenerator *tooltipGenerator = server->tooltipGenerator();
 
 	QString ret;
 	QString generalInfo = tooltipGenerator->generalInfoHTML();

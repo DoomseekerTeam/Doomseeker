@@ -18,7 +18,6 @@
 #-------------------------------------------------------------------------------
 # Copyright (C) 2011 Braden "Blzut3" Obrzut <admin@maniacsvault.net>
 #-------------------------------------------------------------------------------
-cmake_minimum_required(VERSION 2.8.12)
 
 # Regarding Microsoft Visual Studio:
 # Creating proper builds with MSVC required setting subsystem to windows,
@@ -37,13 +36,6 @@ cmake_minimum_required(VERSION 2.8.12)
 # Conclusion: If current MSVC subsystem setup is changed the code may not
 # compile, as the proper entry point will be missing.
 
-if (POLICY CMP0046)
-	cmake_policy(SET CMP0046 NEW)
-endif()
-if (POLICY CMP0071)
-	cmake_policy(SET CMP0071 NEW)
-endif()
-
 if (WIN32 OR APPLE)
 	set(DEFAULT_NONFREE_INSTALL "yes")
 else()
@@ -53,6 +45,7 @@ else()
 endif()
 
 option(DOOMSEEKER_INSTALL_NONFREE "Install non-free resources?" ${DEFAULT_NONFREE_INSTALL})
+set(DOOMSEEKER_IP2C_DAT "" CACHE FILEPATH "Path to IpToCountry.dat; optional")
 
 # Get the revision from vcs
 add_custom_target(revision_check ALL
@@ -61,44 +54,35 @@ add_custom_target(revision_check ALL
 	DEPENDS updaterevision
 )
 
-if(NOT FORCE_QT4)
-	find_package(Qt5Widgets)
+# In case gitinfo.h isn't yet generated create a dummy file so our file listing
+# will contain it. We can't just add it to the file listing since then CMake
+# would complain that it doesn't exist.
+if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/gitinfo.h")
+	file(WRITE "${CMAKE_CURRENT_SOURCE_DIR}/gitinfo.h" "")
 endif()
 
-if(NOT Qt5Widgets_FOUND)
-	find_package(Qt4 COMPONENTS QtCore QtGui QtNetwork QtXml REQUIRED)
-	set(QT_LIBRARIES Qt4::QtCore Qt4::QtGui Qt4::QtNetwork Qt4::QtXml)
+find_package(${Qt_PACKAGE} COMPONENTS Widgets)
+
+if(NOT ${Qt_PACKAGE}Widgets_FOUND)
+	message(FATAL_ERROR "${Qt_PACKAGE} not found. Please make sure to set the ${Qt_PACKAGE}_DIR variable")
 else()
-	find_package(Qt5Core REQUIRED)
-	find_package(Qt5Gui REQUIRED)
-	find_package(Qt5LinguistTools REQUIRED)
-	find_package(Qt5Multimedia REQUIRED)
-	find_package(Qt5Network REQUIRED)
-	find_package(Qt5Xml REQUIRED)
+	find_package(${Qt_PACKAGE} COMPONENTS Core Gui LinguistTools Multimedia Network Xml REQUIRED)
 	if (WIN32)
-		find_package(Qt5WinExtras REQUIRED)
+		find_package(${Qt_PACKAGE} COMPONENTS WinExtras REQUIRED)
 	endif()
-	macro(qt4_add_resources)
-		qt5_add_resources(${ARGV})
-	endmacro()
-	macro(qt4_wrap_ui)
-		qt5_wrap_ui(${ARGV})
-	endmacro()
-	macro(qt4_add_translation)
-		qt5_add_translation(${ARGV})
-	endmacro()
-	macro(qt4_create_translation)
-		qt5_create_translation(${ARGV})
-	endmacro()
-	set(QT_LIBRARIES Qt5::Widgets Qt5::Multimedia Qt5::Network Qt5::Xml Qt5::Gui Qt5::Core)
-	if(Qt5WinExtras_FOUND)
-		set(QT_LIBRARIES ${QT_LIBRARIES} Qt5::WinExtras)
+	set(QT_LIBRARIES ${Qt_PACKAGE}::Widgets ${Qt_PACKAGE}::Multimedia ${Qt_PACKAGE}::Network ${Qt_PACKAGE}::Xml ${Qt_PACKAGE}::Gui ${Qt_PACKAGE}::Core)
+	if(${Qt_PACKAGE}WinExtras_FOUND)
+		list(APPEND QT_LIBRARIES ${Qt_PACKAGE}::WinExtras)
 	endif()
-	get_target_property(QMAKE_EXEC Qt5::qmake LOCATION)
+	get_target_property(QMAKE_EXEC ${Qt_PACKAGE}::qmake LOCATION)
 endif()
 
 if(NOT TARGET ZLIB::ZLIB)
 	find_package_ZLIB(REQUIRED)
+endif()
+
+if(NOT TARGET Wadseeker::wadseeker AND NOT WADSEEKER_INTERNAL)
+	find_package_wadseeker(REQUIRED)
 endif()
 
 include("CMakeSpawnFileListing.cmake")
@@ -112,29 +96,22 @@ configure_file(
 )
 include("CMakeFileListing.cmake")
 
-qt4_wrap_ui(doomseekerUI ${UI_FILES})
-
-qt4_add_resources(doomseekerResources
-	${Doomseeker_SOURCE_DIR}/media/resources.qrc
-)
-
 # Translations
 set (TRANSLATIONS_FILES
+	translations/ca_ES.ts
+	translations/es_ES.ts
 	translations/pl_PL.ts
 )
 
 option (UPDATE_TRANSLATIONS "Update source translation translations/*.ts files (WARNING: make clean will delete the source .ts files! Danger!)")
 if (UPDATE_TRANSLATIONS)
-	set(FILES_TO_TRANSLATE
-		${doomseekerUI}
-		${SOURCE_FILES}
-		${HEADER_FILES}
-	)
-	qt4_create_translation(TS_FILES
-		${FILES_TO_TRANSLATE}
+	qtx_create_translation(TS_FILES
+		${CMAKE_CURRENT_SOURCE_DIR}
 		${TRANSLATIONS_FILES}
 	)
-	add_custom_target(translations_target DEPENDS ${TS_FILES})
+	add_custom_target(_translations_target_touch
+		COMMAND ${CMAKE_COMMAND} -E touch_nocreate ${CMAKE_CURRENT_SOURCE_DIR})
+	add_custom_target(translations_target DEPENDS _translations_target_touch ${TS_FILES})
 	message(WARNING
 		"Update source translation translations/*.ts files (WARNING: make clean will delete the source .ts files! Danger!)"
 	)
@@ -143,44 +120,28 @@ else ()
 	add_custom_target(translations_target)
 endif ()
 
-if (WIN32 AND NOT Qt5Widgets_FOUND)
-	# Compile&copy Qt4 translations that need to be redistributed with the .exe.
-	# .qm files from these need to be redistributed with the application.
-	# WARNING: This should always be defined after UPDATE_TRANSLATIONS "if".
-	set(TRANSLATIONS_FILES
-		${TRANSLATIONS_FILES}
-		${QT_TRANSLATIONS_DIR}/qt_pl.ts)
-endif()
+qtx_add_translation(QM_FILES ${TRANSLATIONS_FILES})
 
-qt4_add_translation(QM_FILES ${TRANSLATIONS_FILES})
-
-if (WIN32 AND Qt5Widgets_FOUND)
+if (WIN32 AND ${Qt_PACKAGE}Widgets_FOUND)
 	# Copy Qt5 translations that need to be redistributed with the .exe.
-	# WARNING: This should always be defined after qt4_add_translation.
+	# WARNING: This should always be defined after qt5_add_translation.
 	execute_process(COMMAND ${QMAKE_EXEC} -query QT_INSTALL_TRANSLATIONS
 		OUTPUT_VARIABLE QT_TRANSLATIONS_DIR
 		OUTPUT_STRIP_TRAILING_WHITESPACE)
 	set(QM_FILES
 		${QM_FILES}
+		${QT_TRANSLATIONS_DIR}/qtbase_ca.qm
+		${QT_TRANSLATIONS_DIR}/qtbase_es.qm
 		${QT_TRANSLATIONS_DIR}/qtbase_pl.qm
+		${QT_TRANSLATIONS_DIR}/qtmultimedia_ca.qm
+		${QT_TRANSLATIONS_DIR}/qtmultimedia_es.qm
 		${QT_TRANSLATIONS_DIR}/qtmultimedia_pl.qm)
 endif ()
 
 # windows.rc
 if(WIN32)
 	# compile the Windows resource file.  How we do this depends on the compiler.
-	if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-		add_custom_command(
-			OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/windows.o
-			COMMAND windres -o ${CMAKE_CURRENT_BINARY_DIR}/windows.o -i ${Doomseeker_SOURCE_DIR}/media/windows.rc
-			WORKING_DIRECTORY ${Doomseeker_SOURCE_DIR}/media
-			COMMENT "Generating windows resources (windows.rc)"
-		)
-
-		set(SOURCE_FILES ${SOURCE_FILES} windows.o)
-	else()
-		set(SOURCE_FILES ${SOURCE_FILES} ${Doomseeker_SOURCE_DIR}/media/windows.rc)
-	endif()
+	set(SOURCE_FILES ${SOURCE_FILES} ${Doomseeker_SOURCE_DIR}/media/windows.rc)
 endif()
 
 # Generate versiondefs.h
@@ -189,8 +150,7 @@ configure_file(versiondefs.h.in versiondefs.h)
 set(HEADER_FILES "${HEADER_FILES}" versiondefs.h)
 
 add_executable(doomseeker
-	${doomseekerUI}
-	${doomseekerResources}
+	${Doomseeker_SOURCE_DIR}/media/resources.qrc
 	${QM_FILES}
 	${UI_FILES}
 	${SOURCE_FILES}
@@ -221,7 +181,7 @@ add_dependencies(doomseeker revision_check)
 
 target_link_libraries(doomseeker
 LINK_PRIVATE
-	wadseeker
+	Wadseeker::wadseeker
 	ZLIB::ZLIB
 	${CMAKE_DL_LIBS}
 LINK_PUBLIC
@@ -243,7 +203,7 @@ foreach(FILE_TO_COPY ${TRANSLATION_FILES_TO_COPY})
 	)
 endforeach(FILE_TO_COPY)
 
-set_target_properties(doomseeker PROPERTIES AUTOMOC 1)
+set_target_properties(doomseeker PROPERTIES AUTOMOC ON AUTOUIC ON AUTORCC ON)
 # Allow plugins to link with doomseeker
 set_target_properties(doomseeker PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR} ENABLE_EXPORTS 1)
 
@@ -273,7 +233,7 @@ if(WIN32)
 			LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS"
 			LINK_FLAGS_RELWITHDEBINFO "/SUBSYSTEM:WINDOWS"
 			LINK_FLAGS_MINSIZEREL "/SUBSYSTEM:WINDOWS")
-	else(MSVC)
+	else()
 		set_target_properties(doomseeker PROPERTIES
 			LINK_FLAGS_RELEASE "-Wl,-subsystem,windows"
 			LINK_FLAGS_MINSIZEREL "-Wl,-subsystem,windows")
@@ -292,7 +252,7 @@ if(WIN32)
 	# then program.exe will be dumped to "C:\Program Files\program.exe"
 	install(TARGETS doomseeker RUNTIME DESTINATION . COMPONENT doomseeker)
 	# Install Qt libraries.
-	if (Qt5Widgets_FOUND)
+	if (${Qt_PACKAGE}Widgets_FOUND)
 		# Qt5*.dll
 		foreach(qtlib ${QT_LIBRARIES})
 			get_target_property(qtlib_location ${qtlib} LOCATION)
@@ -336,11 +296,23 @@ if(WIN32)
 		COMPONENT doomseeker
 		RENAME doomseeker.ico
 	)
-	# Install MSVC runtime. Only Visual 2008 and 2013 are supported at the moment.
+	# Install runtime libraries.
 	if (MSVC90 OR MSVC12)
 		# Install redist and manifest for the program.
 		include("${CMAKE_SOURCE_DIR}/cmake/Modules/FindRequiredSystemLibraries.cmake")
 		install_programs(. ${REQUIRED_SYSTEM_LIBRARIES})
+	elseif(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "Clang")
+		# MinGW-w64 release signature: i686-8.1.0-release-posix-dwarf-rt_v6-rev0
+		#
+		# Get MinGW-w64 path from CMAKE_LINKER variable because this path
+		# is the same regardless if we're using MinGW's GCC or Clang compiled
+		# with MinGW-w64.
+		get_filename_component(MINGW_PATH ${CMAKE_LINKER} PATH)
+		install_programs(.
+			${MINGW_PATH}/libgcc_s_dw2-1.dll
+			${MINGW_PATH}/libstdc++-6.dll
+			${MINGW_PATH}/libwinpthread-1.dll
+		)
 	endif()
 	if (MSVC90)
 		# Install manifest for plugins.
@@ -354,7 +326,6 @@ if(WIN32)
 	# so rename them all accordingly.
 	set(LICENSE_FILES
 		LICENSE
-		LICENSE.json
 	)
 	foreach (LICFILE ${LICENSE_FILES})
 		install(FILES "${CMAKE_SOURCE_DIR}/${LICFILE}" DESTINATION .
@@ -365,6 +336,9 @@ if(WIN32)
 	# Translatons
 	install(FILES ${TRANSLATION_FILES_TO_COPY} DESTINATION translations COMPONENT doomseeker)
 	# Other
+	if(DOOMSEEKER_IP2C_DAT)
+		install(FILES ${DOOMSEEKER_IP2C_DAT} DESTINATION . RENAME IpToCountry.dat COMPONENT doomseeker)
+	endif()
 	install(FILES ${CMAKE_SOURCE_DIR}/tools/doomseeker-portable.bat DESTINATION . COMPONENT doomseeker)
 	install(FILES ${CMAKE_SOURCE_DIR}/CHANGELOG.md DESTINATION . COMPONENT doomseeker RENAME CHANGELOG.txt)
 endif()
@@ -374,8 +348,11 @@ if(UNIX AND NOT APPLE)
 	install(FILES ${CMAKE_SOURCE_DIR}/media/icon.png DESTINATION share/icons COMPONENT doomseeker RENAME doomseeker.png)
 	install(FILES ${TRANSLATION_FILES_TO_COPY} DESTINATION share/doomseeker/translations COMPONENT doomseeker)
 	install(FILES ${CMAKE_SOURCE_DIR}/media/org.drdteam.Doomseeker.desktop DESTINATION share/applications COMPONENT doomseeker)
-	install(FILES ${CMAKE_SOURCE_DIR}/LICENSE.json DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/doc/doomseeker COMPONENT doomseeker)
 	install_all_slot_styles()
+
+	if(DOOMSEEKER_IP2C_DAT)
+		install(FILES ${DOOMSEEKER_IP2C_DAT} DESTINATION share/doomseeker RENAME IpToCountry.dat COMPONENT doomseeker)
+	endif()
 
 	# When not installing to /usr we should use an install rpath.
 	if(NOT CMAKE_INSTALL_PREFIX STREQUAL "/usr")
@@ -406,16 +383,21 @@ if(WIN32 OR APPLE)
 		set(AUTOUPDATE_PACKAGE_DIRECTORY ${CMAKE_BUILD_DIR})
 	endif()
 	if(RUBY_EXEC)
+		set(INSTALL_TARGET "install")
+		if (CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "Clang")
+			set(INSTALL_TARGET "install/strip")
+		endif()
+
 		add_custom_target(package_beta
 			COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR}
-				--target install --config ${CMAKE_CFG_INTDIR}
+				--target ${INSTALL_TARGET} --config ${CMAKE_CFG_INTDIR}
 			COMMAND ${RUBY_EXEC}
 				"${CMAKE_SOURCE_DIR}/tools/updateinstaller/tools/build-update-kit.rb"
 				-c beta -i "${CMAKE_INSTALL_PREFIX}"
 			WORKING_DIRECTORY ${AUTOUPDATE_PACKAGE_DIRECTORY})
 		add_custom_target(package_stable
 			COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR}
-				--target install --config ${CMAKE_CFG_INTDIR}
+				--target ${INSTALL_TARGET} --config ${CMAKE_CFG_INTDIR}
 			COMMAND ${RUBY_EXEC}
 				"${CMAKE_SOURCE_DIR}/tools/updateinstaller/tools/build-update-kit.rb"
 				-c stable -i "${CMAKE_INSTALL_PREFIX}"

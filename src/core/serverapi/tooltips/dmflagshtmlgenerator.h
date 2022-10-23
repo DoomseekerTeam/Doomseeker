@@ -23,23 +23,23 @@
 #ifndef id0CB78D4D_98A3_4FF4_B664C60EAD35E524
 #define id0CB78D4D_98A3_4FF4_B664C60EAD35E524
 
-#include "serverapi/serverptr.h"
 #include "dptr.h"
+#include "serverapi/serverptr.h"
 #include <QObject>
 #include <QString>
 
 class DmflagsHtmlGenerator : public QObject
 {
-	Q_OBJECT;
+	Q_OBJECT
 
-	public:
-		DmflagsHtmlGenerator(const ServerCPtr &server);
-		~DmflagsHtmlGenerator();
+public:
+	DmflagsHtmlGenerator(const ServerCPtr &server);
+	~DmflagsHtmlGenerator() override;
 
-		QString generate();
+	QString generate();
 
-	private:
-		DPtr<DmflagsHtmlGenerator> d;
+private:
+	DPtr<DmflagsHtmlGenerator> d;
 };
 
 #endif // header

@@ -23,51 +23,48 @@
 #ifndef __GAME_INFO_TIP_H_
 #define __GAME_INFO_TIP_H_
 
-#include "serverapi/serverptr.h"
 #include "dptr.h"
-#include <QString>
+#include "serverapi/serverptr.h"
 #include <QObject>
+#include <QString>
 
 class GameInfoTip : public QObject
 {
 	Q_OBJECT
 
-	public:
-		GameInfoTip(const ServerCPtr &server);
-		~GameInfoTip();
+public:
+	GameInfoTip(const ServerCPtr &server);
+	~GameInfoTip() override;
 
-		QString generateHTML();
+	QString generateHTML();
 
-	private:
-		DPtr<GameInfoTip> d;
+private:
+	DPtr<GameInfoTip> d;
 
-		static const QString UNLIMITED;
+	static const QString UNLIMITED;
 
-		/**
-		 *	@brief Generic method for spawning HTML row describing a game limit.
-		 *
-		 *	Format is:
-		 *	@code
-		 *<limitName>: <valueArgsTemplate>
-		 *	@endcode
-		 *
-		 *	@param limitName - Name of the limit.
-		 *	@param valueArgsTemplate - Placeholder for values. Must be in format
-		 *		understood by QString.arg() AND @b MUST have at least one
-		 *		placeholder for value argument.
-		 *	@param value - This will replace %1 argument. If equal
-		 *		to zero, UNLIMITED string will be replaced instead.
-		 *	@return HTML row ready to be put inside a table.
-		 */
-		QString limitHTML(QString limitName, QString valueArgsTemplate, int value);
+	/**
+	 * @brief Generic method for spawning HTML row describing a game limit.
+	 *
+	 * Format is:
+	 * @code
+	 *<limitName>: <valueArgsTemplate>
+	 * @endcode
+	 *
+	 * @param limitName - Name of the limit.
+	 * @param valueArgsTemplate - Placeholder for values. Must be in format
+	 *     understood by QString.arg() AND @b MUST have at least one
+	 *     placeholder for value argument.
+	 * @param value - This will replace %1 argument. If equal
+	 *     to zero, UNLIMITED string will be replaced instead.
+	 * @return HTML row ready to be put inside a table.
+	 */
+	QString limitHTML(QString limitName, QString valueArgsTemplate, int value);
 
-		QString playersHTML();
-
-		QString scorelimitHTML();
-
-		QString teamScoresHTML();
-
-		QString timelimitHTML();
+	QString playersHTML();
+	QString scorelimitHTML();
+	QString teamScoresHTML();
+	QString timelimitHTML();
 };
 
 #endif

@@ -22,25 +22,25 @@
 //------------------------------------------------------------------------------
 #include "idgamesreply.h"
 
-#include <QDebug>
 #include "protocols/idgames/idgamesresult.h"
-#include "protocols/json.h"
+#include <QDebug>
+#include <QJsonDocument>
 
 static const int MAX_REDIRECTS = 10;
 
 class IdgamesReply::PrivData
 {
-	public:
-		QNetworkReply *reply;
-		QNetworkRequest request;
-		IdgamesResult result;
-		int redirects;
+public:
+	QNetworkReply *reply;
+	QNetworkRequest request;
+	IdgamesResult result;
+	int redirects;
 };
 
 IdgamesReply::IdgamesReply(const QNetworkRequest &request, QNetworkReply *reply)
 {
 	d = new PrivData();
-	d->reply = NULL;
+	d->reply = nullptr;
 	d->request = request;
 	d->redirects = 0;
 	setReply(reply);
@@ -66,7 +66,7 @@ void IdgamesReply::onNetworkFinished()
 		if (possibleRedirect.isValid())
 		{
 			#ifndef NDEBUG
-				qDebug() << "idgames redirect: " << possibleRedirect;
+			qDebug() << "idgames redirect: " << possibleRedirect;
 			#endif
 			redirect(possibleRedirect.toUrl());
 		}
@@ -74,10 +74,10 @@ void IdgamesReply::onNetworkFinished()
 		{
 			QString json = d->reply->readAll();
 			#ifndef NDEBUG
-				qDebug() << "idgames onNetworkFinished()" << json;
-				qDebug() << "idgames onNetworkFinished() parsed" << QtJson::Json::parse(json);
+			qDebug() << "idgames onNetworkFinished()" << json;
+			qDebug() << "idgames onNetworkFinished() parsed" << QJsonDocument::fromJson(json.toUtf8());
 			#endif
-			finish(IdgamesResult(QtJson::Json::parse(json)));
+			finish(IdgamesResult(QJsonDocument::fromJson(json.toUtf8()).toVariant()));
 		}
 	}
 	else
@@ -117,7 +117,7 @@ IdgamesResult IdgamesReply::result() const
 
 void IdgamesReply::setReply(QNetworkReply *reply)
 {
-	if (d->reply != NULL)
+	if (d->reply != nullptr)
 	{
 		d->reply->disconnect();
 		d->reply->deleteLater();

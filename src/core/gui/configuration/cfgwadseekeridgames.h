@@ -23,31 +23,40 @@
 #ifndef __WADSEEKERCONFIG_IDGAMES_H_
 #define __WADSEEKERCONFIG_IDGAMES_H_
 
-#include "gui/configuration/configpage.h"
 #include "dptr.h"
+#include "gui/configuration/configpage.h"
 #include <QIcon>
 
 class CFGWadseekerIdgames : public ConfigPage
 {
 	Q_OBJECT
 
-	public:
-		CFGWadseekerIdgames(QWidget* parent = NULL);
-		~CFGWadseekerIdgames();
+public:
+	CFGWadseekerIdgames(QWidget *parent = nullptr);
+	~CFGWadseekerIdgames() override;
 
-		QIcon icon() const { return QIcon(":/icons/utilities-file-archiver-2.png"); }
-		QString name() const { return tr("Archives"); }
-		void readSettings();
-		QString title() const { return tr("Wadseeker - Archives"); }
+	QIcon icon() const override
+	{
+		return QIcon(":/icons/utilities-file-archiver-2.png");
+	}
+	QString name() const override
+	{
+		return tr("Archives");
+	}
+	void readSettings() override;
+	QString title() const override
+	{
+		return tr("Wadseeker - Archives");
+	}
 
-	protected slots:
-		void btnIdgamesURLDefaultClicked();
+protected slots:
+	void btnIdgamesURLDefaultClicked();
 
-	protected:
-		void saveSettings();
+protected:
+	void saveSettings() override;
 
-	private:
-		DPtr<CFGWadseekerIdgames> d;
+private:
+	DPtr<CFGWadseekerIdgames> d;
 };
 
 #endif

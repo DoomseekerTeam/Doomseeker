@@ -123,3 +123,52 @@ macro(find_package_BZip2)
 		endif()
 	endif()
 endmacro()
+
+macro(find_package_wadseeker)
+	find_package(wadseeker CONFIG ${ARGV0})
+	#Probably not needed. The config should do it's job.
+	if (wadseeker_FOUND AND NOT TARGET Wadseeker::wadseeker)
+		add_library(Wadseeker::wadseeker UNKNOWN IMPORTED)
+		set_target_properties(Wadseeker::wadseeker PROPERTIES
+		INTERFACE_INCLUDE_DIRECTORIES "${wadseeker_INCLUDE_DIRS}")
+
+		if(wadseeker_LIBRARY_RELEASE)
+			set_property(TARGET Wadseeker::wadseeker APPEND PROPERTY
+				IMPORTED_CONFIGURATIONS RELEASE)
+			set_target_properties(Wadseeker::wadseeker PROPERTIES
+				IMPORTED_LOCATION_RELEASE "${wadseeker_LIBRARY_RELEASE}")
+		endif()
+
+		if(W_LIBRARY_DEBUG)
+			set_property(TARGET Wadseeker::wadseeker APPEND PROPERTY
+				IMPORTED_CONFIGURATIONS DEBUG)
+			set_target_properties(Wadseeker::wadseeker PROPERTIES
+				IMPORTED_LOCATION_DEBUG "${wadseeker_LIBRARY_DEBUG}")
+		endif()
+
+		if(NOT wadseeker_LIBRARY_RELEASE AND NOT wadseeker_LIBRARY_DEBUG)
+			set_property(TARGET Wadseeker::wadseeker APPEND PROPERTY
+				IMPORTED_LOCATION "${wadseeker_LIBRARY}")
+		endif()
+	endif()
+endmacro()
+
+# Qt5/6 compatibility
+
+set(Qt_PACKAGE "Qt5" CACHE STRING "Qt package name")
+
+macro(qtx_add_translation)
+	if(Qt_PACKAGE STREQUAL "Qt6")
+		qt6_add_translation(${ARGV})
+	else()
+		qt5_add_translation(${ARGV})
+	endif()
+endmacro()
+
+macro(qtx_create_translation)
+	if(Qt_PACKAGE STREQUAL "Qt6")
+		qt6_create_translation(${ARGV})
+	else()
+		qt5_create_translation(${ARGV})
+	endif()
+endmacro()

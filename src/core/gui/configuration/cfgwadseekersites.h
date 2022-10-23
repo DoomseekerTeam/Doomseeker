@@ -23,8 +23,8 @@
 #ifndef __WADSEEKERCONFIG_SITES_H_
 #define __WADSEEKERCONFIG_SITES_H_
 
-#include "gui/configuration/configpage.h"
 #include "dptr.h"
+#include "gui/configuration/configpage.h"
 #include <QIcon>
 
 class QUrl;
@@ -33,27 +33,36 @@ class CFGWadseekerSites : public ConfigPage
 {
 	Q_OBJECT
 
-	public:
-		CFGWadseekerSites(QWidget* parent = NULL);
-		~CFGWadseekerSites();
+public:
+	CFGWadseekerSites(QWidget *parent = nullptr);
+	~CFGWadseekerSites() override;
 
-		QIcon icon() const { return QIcon(":/icons/internet-web-browser.png"); }
-		QString name() const { return tr("Sites"); }
-		void readSettings();
-		QString title() const { return tr("Wadseeker - Sites"); }
+	QIcon icon() const override
+	{
+		return QIcon(":/icons/internet-web-browser.png");
+	}
+	QString name() const override
+	{
+		return tr("Sites");
+	}
+	void readSettings() override;
+	QString title() const override
+	{
+		return tr("Wadseeker - Sites");
+	}
 
-	protected slots:
-		void btnUrlAddClicked();
-		void btnUrlDefaultClicked();
-		void btnUrlRemoveClicked();
+protected slots:
+	void btnUrlAddClicked();
+	void btnUrlDefaultClicked();
+	void btnUrlRemoveClicked();
 
-	protected:
-		void saveSettings();
+protected:
+	void saveSettings() override;
 
-	private:
-		DPtr<CFGWadseekerSites> d;
+private:
+	DPtr<CFGWadseekerSites> d;
 
-		void insertUrl(const QString& url);
+	void insertUrl(const QString &url);
 };
 
 #endif

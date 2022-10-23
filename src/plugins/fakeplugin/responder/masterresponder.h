@@ -33,26 +33,26 @@ class MasterResponder : public QObject
 {
 	Q_OBJECT
 
-	public:
-		MasterResponder(QObject* parent = NULL);
-		~MasterResponder();
+public:
+	MasterResponder(QObject *parent = nullptr);
+	~MasterResponder();
 
-		bool bind(unsigned short port);
+	bool bind(unsigned short port);
 
-	private:
-		class PrivData;
+private:
+	class PrivData;
 
-		PrivData* d;
+	PrivData *d;
 
-		bool areServerRespondersRunning();
-		void bindServer(ServerResponder* server, unsigned short port);
-		QList<QByteArray> buildResponsePackets();
-		void startServerResponders();
+	bool areServerRespondersRunning();
+	void bindServer(ServerResponder *server, unsigned short port);
+	QList<QByteArray> buildResponsePackets();
+	void startServerResponders();
 
-	private slots:
-		void readPendingDatagrams();
-		void readPendingDatagram();
-		void respond();
+private slots:
+	void readPendingDatagrams();
+	void readPendingDatagram();
+	void respond();
 };
 
 #endif

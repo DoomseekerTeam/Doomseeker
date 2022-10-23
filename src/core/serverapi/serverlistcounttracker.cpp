@@ -39,15 +39,15 @@ public:
 
 	bool isPassingPluginFilter(const ServerPtr &server) const
 	{
-		return plugin == NULL || server->plugin() == plugin;
+		return plugin == nullptr || server->plugin() == plugin;
 	}
 };
 DPointered(ServerListCountTracker)
 
 ServerListCountTracker::ServerListCountTracker(QObject *parent)
-: QObject(parent)
+	: QObject(parent)
 {
-	d->plugin = NULL;
+	d->plugin = nullptr;
 	d->hasRegisterBeenCalled = false;
 }
 
@@ -88,7 +88,7 @@ void ServerListCountTracker::registerServer(ServerPtr server)
 	{
 		this->connect(server.data(), SIGNAL(begunRefreshing(ServerPtr)),
 			SLOT(onServerBegunRefreshing(ServerPtr)));
-		this->connect(server.data(), SIGNAL(updated(ServerPtr, int)),
+		this->connect(server.data(), SIGNAL(updated(ServerPtr,int)),
 			SLOT(onServerUpdated(ServerPtr)));
 
 		d->count.countServer(server);
@@ -186,7 +186,7 @@ int ServerListCount::refreshedPercent() const
 	}
 }
 
-ServerListCount& ServerListCount::operator+=(const ServerListCount &other)
+ServerListCount &ServerListCount::operator+=(const ServerListCount &other)
 {
 	numBots += other.numBots;
 	numHumanPlayers += other.numHumanPlayers;

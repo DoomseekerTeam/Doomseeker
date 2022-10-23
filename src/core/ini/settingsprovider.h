@@ -35,8 +35,8 @@
 #ifndef idEB87F251C_EC08_4EFE_9DC1754821652427
 #define idEB87F251C_EC08_4EFE_9DC1754821652427
 
-#include "global.h"
 #include "dptr.h"
+#include "global.h"
 
 #include <QString>
 #include <QStringList>
@@ -47,26 +47,26 @@
  */
 class MAIN_EXPORT SettingsProvider
 {
-	public:
-		SettingsProvider();
-		virtual ~SettingsProvider();
+public:
+	SettingsProvider();
+	virtual ~SettingsProvider();
 
-		virtual QStringList allKeys() const = 0;
-		virtual QStringList allSections() const = 0;
-		virtual bool hasKey(const QString& key) const = 0;
-		virtual void remove(const QString& key) = 0;
-		virtual void setValue(const QString& key, const QVariant& value) = 0;
-		virtual QVariant value(const QString& key, QVariant defValue = QVariant()) const = 0;
+	virtual QStringList allKeys() const = 0;
+	virtual QStringList allSections() const = 0;
+	virtual bool hasKey(const QString &key) const = 0;
+	virtual void remove(const QString &key) = 0;
+	virtual void setValue(const QString &key, const QVariant &value) = 0;
+	virtual QVariant value(const QString &key, QVariant defValue = QVariant()) const = 0;
 
-		/**
-		 * @brief Copies all settings from 'other' to 'this'.
-		 *
-		 * Duplicate settings are replaced.
-		 */
-		void copyFrom(const SettingsProvider& other);
+	/**
+	 * @brief Copies all settings from 'other' to 'this'.
+	 *
+	 * Duplicate settings are replaced.
+	 */
+	void copyFrom(const SettingsProvider &other);
 
-	private:
-		DPtr<SettingsProvider> d;
+private:
+	DPtr<SettingsProvider> d;
 };
 
 #endif // header

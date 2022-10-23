@@ -32,3 +32,10 @@ QList<GameMode> ChocolateDoomGameInfo::gameModes()
 	gameModesList << GameMode::ffaGame(MODE_ALTDEATH, QObject::tr("Altdeath (Deathmatch 2.0)"));
 	return gameModesList;
 }
+
+QString ChocolateDoomAboutProvider::provide()
+{
+	QString aboutDescription = "Chocolate Doom (https://www.chocolate-doom.org/)\n\n";
+	aboutDescription += tr("This plugin is distributed under the terms of the LGPL v2.1 or later.\n\n");
+	return aboutDescription;
+}

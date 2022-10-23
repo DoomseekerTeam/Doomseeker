@@ -24,43 +24,43 @@
 
 #include "plugins/engineplugin.h"
 #include "plugins/pluginloader.h"
-#include "json.h"
 #include "version.h"
 #include <QIODevice>
+#include <QJsonDocument>
 #include <QString>
 #include <wadseeker/wadseekerversioninfo.h>
 
 class VersionDump::Module
 {
-	public:
-		Module(const QString& displayName, const QString &revision,
-			const QString& displayVersion = QString())
+public:
+	Module(const QString &displayName, const QString &revision,
+		const QString &displayVersion = QString())
+	{
+		_displayName = displayName;
+		_revision = revision;
+		_displayVersion = displayVersion;
+	}
+
+	QVariantMap toVariantMap()
+	{
+		QVariantMap result;
+		result["display-name"] = _displayName;
+		result["revision"] = _revision;
+
+		if (!_displayVersion.isNull())
 		{
-			_displayName = displayName;
-			_revision = revision;
-			_displayVersion = displayVersion;
+			result["display-version"] = _displayVersion;
 		}
+		return result;
+	}
 
-		QVariantMap toVariantMap()
-		{
-			QVariantMap result;
-			result["display-name"] = _displayName;
-			result["revision"] = _revision;
-
-			if (!_displayVersion.isNull())
-			{
-				result["display-version"] = _displayVersion;
-			}
-			return result;
-		}
-
-	private:
-		QString _displayName;
-		QString _revision;
-		QString _displayVersion;
+private:
+	QString _displayName;
+	QString _revision;
+	QString _displayVersion;
 };
 
-void VersionDump::dumpJsonToIO(QIODevice& io)
+void VersionDump::dumpJsonToIO(QIODevice &io)
 {
 	QVariantMap root;
 	Module doomseeker(Version::name(), QString::number(Version::revisionNumber()),
@@ -73,12 +73,12 @@ void VersionDump::dumpJsonToIO(QIODevice& io)
 	root["qt"] = Module("Qt", Version::qtPackageVersion()).toVariantMap();
 	for (unsigned int i = 0; i < gPlugins->numPlugins(); ++i)
 	{
-		const PluginLoader::Plugin* plugin = gPlugins->plugin(i);
+		const PluginLoader::Plugin *plugin = gPlugins->plugin(i);
 		QString name = plugin->info()->data()->name;
 		QString keyword = "p-" + name.toLower().replace(" ", "");
 		root[keyword] = Module(name, QString::number(plugin->info()->data()->version)).toVariantMap();
 	}
 
-	io.write(QtJson::Json::serialize(root));
+	io.write(QJsonDocument::fromVariant(root).toJson());
 	io.write("\n");
 }

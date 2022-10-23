@@ -27,13 +27,11 @@
 
 class TestUtf8Splitter : public TestUnitBase
 {
-	public:
-		TestUtf8Splitter()
-		: TestUnitBase("UTF-8 Splitter")
-		{
-		}
+public:
+	TestUtf8Splitter()
+		: TestUnitBase("UTF-8 Splitter") {}
 
-		bool executeTest();
+	bool executeTest() override;
 };
 
 

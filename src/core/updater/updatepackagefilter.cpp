@@ -24,39 +24,39 @@
 
 #include "plugins/engineplugin.h"
 #include "plugins/pluginloader.h"
-#include "updater/autoupdater.h"
 #include "strings.hpp"
+#include "updater/autoupdater.h"
 #include "version.h"
+#include <cassert>
 #include <QCoreApplication>
 #include <QFile>
-#include <cassert>
 #include <wadseeker/wadseekerversioninfo.h>
 
 class UpdatePackageFilter::PluginInfo
 {
-	public:
-		QString name;
-		QString revision;
+public:
+	QString name;
+	QString revision;
 };
 //////////////////////////////////////////////////////////////////////////////
 DClass<UpdatePackageFilter>
 {
-	public:
-		bool bWasAnyUpdatePackageIgnored;
-		QMap<QString, QList<QString> > ignoredPackagesRevisions;
-		QMap<QString, UpdatePackageFilter::PluginInfo> plugins;
+public:
+	bool bWasAnyUpdatePackageIgnored;
+	QMap<QString, QList<QString> > ignoredPackagesRevisions;
+	QMap<QString, UpdatePackageFilter::PluginInfo> plugins;
 
-		bool hasMainProgramPackage(const QList<UpdatePackage> &packages) const
+	bool hasMainProgramPackage(const QList<UpdatePackage> &packages) const
+	{
+		for (const UpdatePackage &pkg : packages)
 		{
-			foreach (const UpdatePackage &pkg, packages)
+			if (pkg.name == AutoUpdater::MAIN_PROGRAM_PACKAGE_NAME)
 			{
-				if (pkg.name == AutoUpdater::MAIN_PROGRAM_PACKAGE_NAME)
-				{
-					return true;
-				}
+				return true;
 			}
-			return false;
 		}
+		return false;
+	}
 };
 
 DPointered(UpdatePackageFilter)
@@ -74,8 +74,8 @@ UpdatePackageFilter::~UpdatePackageFilter()
 QMap<QString, UpdatePackageFilter::PluginInfo> UpdatePackageFilter::collectPluginInfo()
 {
 	QMap<QString, PluginInfo> infos;
-	const QList<PluginLoader::Plugin*> plugins = gPlugins->plugins();
-	foreach (const PluginLoader::Plugin* plugin, plugins)
+	const QList<PluginLoader::Plugin *> plugins = gPlugins->plugins();
+	for (const PluginLoader::Plugin *plugin : plugins)
 	{
 		PluginInfo pluginInfo;
 		pluginInfo.name = plugin->info()->data()->name;
@@ -86,12 +86,12 @@ QMap<QString, UpdatePackageFilter::PluginInfo> UpdatePackageFilter::collectPlugi
 	return infos;
 }
 
-QList<UpdatePackage> UpdatePackageFilter::filter(const QList<UpdatePackage>& packages)
+QList<UpdatePackage> UpdatePackageFilter::filter(const QList<UpdatePackage> &packages)
 {
 	QList<UpdatePackage> filtered;
 	d->plugins = collectPluginInfo();
 	QList<UpdatePackage> packagesOnIgnoredList;
-	foreach (UpdatePackage pkg, packages)
+	for (UpdatePackage pkg : packages)
 	{
 		if (isDifferentThanInstalled(pkg))
 		{
@@ -116,7 +116,7 @@ QList<UpdatePackage> UpdatePackageFilter::filter(const QList<UpdatePackage>& pac
 	return filtered;
 }
 
-bool UpdatePackageFilter::isDifferentThanInstalled(UpdatePackage& pkg) const
+bool UpdatePackageFilter::isDifferentThanInstalled(UpdatePackage &pkg) const
 {
 	if (pkg.name == AutoUpdater::MAIN_PROGRAM_PACKAGE_NAME)
 	{
@@ -144,7 +144,7 @@ bool UpdatePackageFilter::isDifferentThanInstalled(UpdatePackage& pkg) const
 		// the version of Qt5 we're launching with requires Lion or
 		// higher.  Thus only 64-bit Intel Macs need to even bother
 		// checking this package.
-#if !defined(Q_OS_MAC) || defined(__x86_64__)
+		#if !defined(Q_OS_DARWIN) || defined(__x86_64__)
 		if (QString(Version::qtPackageVersion()) != pkg.revision)
 		{
 			pkg.currentlyInstalledDisplayVersion = Version::qtPackageVersion();
@@ -156,15 +156,15 @@ bool UpdatePackageFilter::isDifferentThanInstalled(UpdatePackage& pkg) const
 		// Qt is such auxiliary package in 1.1~beta, some files
 		// failed to install.
 		bool checkBrokenQt = false;
-#ifdef Q_OS_WIN32
+		#ifdef Q_OS_WIN32
 		checkBrokenQt = true;
-#endif
+		#endif
 		if (checkBrokenQt && !isQtInstallOk())
 		{
 			pkg.currentlyInstalledDisplayVersion = Version::qtPackageVersion() + tr("-BROKEN");
 			return true;
 		}
-#endif
+		#endif
 	}
 	else
 	{
@@ -186,7 +186,7 @@ bool UpdatePackageFilter::isQtInstallOk() const
 {
 	QStringList files;
 	files << "libeay32.dll" << "ssleay32.dll";
-	foreach (const QString &filename, files)
+	for (const QString &filename : files)
 	{
 		QString fileLocation = Strings::combinePaths(
 			QCoreApplication::applicationDirPath(), filename);
@@ -199,14 +199,13 @@ bool UpdatePackageFilter::isQtInstallOk() const
 	return true;
 }
 
-bool UpdatePackageFilter::isOnIgnoredList(const QString& package, const QString &revision) const
+bool UpdatePackageFilter::isOnIgnoredList(const QString &package, const QString &revision) const
 {
-	const QList<QString>& list = d->ignoredPackagesRevisions[package];
+	const QList<QString> &list = d->ignoredPackagesRevisions[package];
 	return list.contains(revision);
 }
 
-void UpdatePackageFilter::setIgnoreRevisions(
-	const QMap<QString, QList<QString> >& packagesRevisions)
+void UpdatePackageFilter::setIgnoreRevisions(const QMap<QString, QList<QString> > &packagesRevisions)
 {
 	d->ignoredPackagesRevisions = packagesRevisions;
 }

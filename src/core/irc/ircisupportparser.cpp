@@ -24,6 +24,7 @@
 
 #include "irc/entities/ircuserprefix.h"
 #include <QByteArray>
+#include <QRegularExpression>
 #include <QStringList>
 
 DClass<IRCISupportParser>
@@ -56,7 +57,7 @@ IRCISupportParser::~IRCISupportParser()
 
 void IRCISupportParser::appendLine(const QString &line)
 {
-	foreach (const QString &element, line.split(" "))
+	for (const QString &element : line.split(" "))
 	{
 		if (element == ":are")
 		{
@@ -70,12 +71,10 @@ void IRCISupportParser::appendLine(const QString &line)
 
 QString IRCISupportParser::findValue(const QString &key)
 {
-	foreach (const QString &element, d->iSupportParams)
+	for (const QString &element : d->iSupportParams)
 	{
 		if (element.startsWith(key))
-		{
 			return element.mid(key.length());
-		}
 	}
 	return QString();
 }
@@ -90,26 +89,18 @@ void IRCISupportParser::parsePrefix()
 {
 	QString value = findValue("PREFIX=");
 	if (value.isNull())
-	{
 		return;
-	}
-	QRegExp regex("\\((\\S+)\\)(\\S+)$");
-	regex.setMinimal(true);
-	if (regex.indexIn(value) < 0)
-	{
+	QRegularExpression regex(R"(\((\S+)\)(\S+)$)", QRegularExpression::InvertedGreedinessOption);
+	auto match = regex.match(value);
+	if (!match.hasMatch())
 		return;
-	}
-	QByteArray modes = regex.cap(1).toUtf8();
-	QByteArray prefixes = regex.cap(2).toUtf8();
+	QByteArray modes = match.captured(1).toUtf8();
+	QByteArray prefixes = match.captured(2).toUtf8();
 	if (modes.size() != prefixes.size())
-	{
 		return;
-	}
 	IRCUserPrefix userPrefixes;
 	for (int i = 0; i < modes.size(); ++i)
-	{
 		userPrefixes.assignPrefix(modes[i], prefixes[i]);
-	}
 	d->state.userPrefixes = userPrefixes;
 }
 

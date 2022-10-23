@@ -24,8 +24,8 @@
 
 DClass<PlayersList>
 {
-	public:
-		QList<Player> players;
+public:
+	QList<Player> players;
 };
 
 DPointered(PlayersList)
@@ -35,12 +35,12 @@ PlayersList::PlayersList()
 	// Nothing to store yet. Future backward compatibility with plugins.
 }
 
-PlayersList::PlayersList(const PlayersList& other)
+PlayersList::PlayersList(const PlayersList &other)
 {
 	d = other.d;
 }
 
-PlayersList& PlayersList::operator=(const PlayersList& other)
+PlayersList &PlayersList::operator=(const PlayersList &other)
 {
 	d = other.d;
 	return *this;
@@ -50,11 +50,11 @@ PlayersList::~PlayersList()
 {
 }
 
-void PlayersList::bots(PlayersList& botsList) const
+void PlayersList::bots(PlayersList &botsList) const
 {
 	botsList.clear();
 
-	foreach(Player player, players())
+	for (Player player : players())
 	{
 		if (player.isBot())
 		{
@@ -63,11 +63,11 @@ void PlayersList::bots(PlayersList& botsList) const
 	}
 }
 
-void PlayersList::botsWithoutTeam(PlayersList& botsList) const
+void PlayersList::botsWithoutTeam(PlayersList &botsList) const
 {
 	botsList.clear();
 
-	foreach(Player player, players())
+	for (Player player : players())
 	{
 		if (player.isBot() && player.teamNum() == Player::TEAM_NONE)
 		{
@@ -84,7 +84,7 @@ void PlayersList::clear()
 int PlayersList::numBots() const
 {
 	int bots = 0;
-	foreach(Player player, players())
+	for (Player player : players())
 	{
 		if (player.isBot())
 		{
@@ -98,7 +98,7 @@ int PlayersList::numBots() const
 int PlayersList::numBotsOnTeam(int team) const
 {
 	int bots = 0;
-	foreach(Player player, players())
+	for (Player player : players())
 	{
 		if (player.isBot() && player.teamNum() == team)
 		{
@@ -109,10 +109,10 @@ int PlayersList::numBotsOnTeam(int team) const
 	return bots;
 }
 
-int	PlayersList::numBotsWithoutTeam() const
+int PlayersList::numBotsWithoutTeam() const
 {
 	int bots = 0;
-	foreach(Player player, players())
+	for (Player player : players())
 	{
 		if (player.isBot() && player.teamNum() == Player::TEAM_NONE)
 		{
@@ -123,7 +123,7 @@ int	PlayersList::numBotsWithoutTeam() const
 	return bots;
 }
 
-int	PlayersList::numClients() const
+int PlayersList::numClients() const
 {
 	return size();
 }
@@ -133,11 +133,11 @@ int PlayersList::numClientsWithoutBots() const
 	return size() - numBots();
 }
 
-int	PlayersList::numHumansInGame() const
+int PlayersList::numHumansInGame() const
 {
 	int humansInGame = 0;
 
-	foreach(Player player, players())
+	for (Player player : players())
 	{
 		if (!player.isBot() && !player.isSpectating())
 		{
@@ -151,11 +151,11 @@ int	PlayersList::numHumansInGame() const
 int PlayersList::numHumansOnTeam(int team) const
 {
 	int humans = 0;
-	foreach(Player player, players())
+	for (Player player : players())
 	{
 		if (!player.isBot()
-		&& !player.isSpectating()
-		&& player.teamNum() == team)
+			&& !player.isSpectating()
+			&& player.teamNum() == team)
 		{
 			++humans;
 		}
@@ -164,14 +164,14 @@ int PlayersList::numHumansOnTeam(int team) const
 	return humans;
 }
 
-int	PlayersList::numHumansWithoutTeam() const
+int PlayersList::numHumansWithoutTeam() const
 {
 	int humans = 0;
-	foreach(Player player, players())
+	for (Player player : players())
 	{
 		if (!player.isBot()
-		&& !player.isSpectating()
-		&& player.teamNum() == Player::TEAM_NONE)
+			&& !player.isSpectating()
+			&& player.teamNum() == Player::TEAM_NONE)
 		{
 			++humans;
 		}
@@ -183,7 +183,7 @@ int	PlayersList::numHumansWithoutTeam() const
 int PlayersList::numPlayersOnTeam(int team) const
 {
 	int teamSize = 0;
-	foreach(Player player, players())
+	for (Player player : players())
 	{
 		if (player.teamNum() == team)
 		{
@@ -198,7 +198,7 @@ int PlayersList::numSpectators() const
 {
 	int spectators = 0;
 
-	foreach(Player player, players())
+	for (Player player : players())
 	{
 		if (player.isSpectating())
 		{
@@ -230,11 +230,11 @@ const QList<Player> &PlayersList::players() const
 	return d->players;
 }
 
-void PlayersList::inGamePlayersByTeams(PlayersByTeams& playersListMap) const
+void PlayersList::inGamePlayersByTeams(PlayersByTeams &playersListMap) const
 {
 	playersListMap.clear();
 
-	foreach(const Player &player, players())
+	for (const Player &player : players())
 	{
 		if (!player.isSpectating() && !player.isTeamlessBot())
 		{
@@ -258,11 +258,11 @@ int PlayersList::size() const
 	return d->players.size();
 }
 
-void PlayersList::spectators(PlayersList& spectatorsList) const
+void PlayersList::spectators(PlayersList &spectatorsList) const
 {
 	spectatorsList.clear();
 
-	foreach(Player player, players())
+	for (Player player : players())
 	{
 		if (player.isSpectating())
 		{

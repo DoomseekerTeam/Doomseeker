@@ -26,16 +26,18 @@
 #include "zandronum3dmflags.h"
 #include "zandronumgameinfo.h"
 #include "zandronumserver.h"
-#include <serverapi/serverstructs.h>
 #include <datastreamoperatorwrapper.h>
+#include <serverapi/serverstructs.h>
+
+#include <cstdint>
 
 ZandronumServerDmflagsParser *ZandronumServerDmflagsParser::mkParser(
 	ZandronumServer *server, QDataStream *in)
 {
 	ZandronumVersion version(server->gameVersion());
-	if (version.majorVersion() >= 3)
-		return new ZandronumServer3DmflagsParser(server, in);
-	return new ZandronumServer2DmflagsParser(server, in);
+	if (version.majorVersion() == 2)
+		return new ZandronumServer2DmflagsParser(server, in);
+	return new ZandronumServer3DmflagsParser(server, in);
 }
 
 ZandronumServerDmflagsParser::ZandronumServerDmflagsParser(
@@ -45,8 +47,7 @@ ZandronumServerDmflagsParser::ZandronumServerDmflagsParser(
 	this->inStream = in;
 }
 
-QList<DMFlagsSection> ZandronumServerDmflagsParser::sequential32Parse(
-	const QList<DMFlagsSection> &knownFlags)
+QList<DMFlagsSection> ZandronumServerDmflagsParser::sequential32Parse(const QList<DMFlagsSection> &knownFlags)
 {
 	DataStreamOperatorWrapper in(inStream);
 	int numSections = in.readQInt8();
@@ -55,16 +56,16 @@ QList<DMFlagsSection> ZandronumServerDmflagsParser::sequential32Parse(
 	// Read each dmflags section separately.
 	for (int i = 0; i < knownFlags.count() && i < numSections; ++i)
 	{
-		quint32 dmflags = in.readQUInt32();
+		int32_t dmflags = in.readQInt32();
 
-		const DMFlagsSection& knownSection = knownFlags[i];
+		const DMFlagsSection &knownSection = knownFlags[i];
 		DMFlagsSection detectedSection = knownSection.copyEmpty();
 
 		// Iterate through every known flag to check whether it should be
 		// inserted into the structure of this server.
 		for (int j = 0; j < knownSection.count(); ++j)
 		{
-			if ( (dmflags & knownSection[j].value()) != 0)
+			if ((dmflags & knownSection[j].value()) != 0)
 			{
 				detectedSection << knownSection[j];
 			}

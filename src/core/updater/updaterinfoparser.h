@@ -35,29 +35,29 @@ class UpdaterInfoParser : public QObject
 {
 	Q_OBJECT
 
-	public:
-		UpdaterInfoParser();
-		~UpdaterInfoParser();
+public:
+	UpdaterInfoParser();
+	~UpdaterInfoParser() override;
 
-		const QList<UpdatePackage>& packages() const;
+	const QList<UpdatePackage> &packages() const;
 
-		/**
-		 * @brief Parses updater info JSON and sets certain internal
-		 *        properties which can then be accessed through getters.
-		 *
-		 * Information on all parsed packages can be obtained through
-		 * packages() getter.
-		 *
-		 * @return The returned value is an error code defined in
-		 *         AutoUpdater::ErrorCode. AutoUpdater::ErrorCode::EC_Ok
-		 *         is returned on success.
-		 */
-		int parse(const QByteArray& json);
+	/**
+	 * @brief Parses updater info JSON and sets certain internal
+	 *        properties which can then be accessed through getters.
+	 *
+	 * Information on all parsed packages can be obtained through
+	 * packages() getter.
+	 *
+	 * @return The returned value is an error code defined in
+	 *         AutoUpdater::ErrorCode. AutoUpdater::ErrorCode::EC_Ok
+	 *         is returned on success.
+	 */
+	int parse(const QByteArray &json);
 
-	private:
-		DPtr<UpdaterInfoParser> d;
+private:
+	DPtr<UpdaterInfoParser> d;
 
-		int parsePackageNode(const QString& packageName, const QVariantMap& map);
+	int parsePackageNode(const QString &packageName, const QVariantMap &map);
 };
 
 #endif

@@ -24,33 +24,39 @@
 #ifndef __CFG_QUERY_H__
 #define __CFG_QUERY_H__
 
-#include "gui/configuration/configpage.h"
 #include "dptr.h"
+#include "gui/configuration/configpage.h"
 #include <QIcon>
 
 class CFGQuery : public ConfigPage
 {
 	Q_OBJECT
 
-	public:
-		CFGQuery(QWidget *parent=NULL);
-		~CFGQuery();
+public:
+	CFGQuery(QWidget *parent = nullptr);
+	~CFGQuery() override;
 
-		QIcon icon() const { return QIcon(":/icons/view-refresh-2.png"); }
-		QString name() const { return tr("Query"); }
-		void readSettings();
+	QIcon icon() const override
+	{
+		return QIcon(":/icons/view-refresh-2.png");
+	}
+	QString name() const override
+	{
+		return tr("Query");
+	}
+	void readSettings() override;
 
-	protected:
-		void saveSettings();
+protected:
+	void saveSettings() override;
 
-	private:
-		DPtr<CFGQuery> d;
+private:
+	DPtr<CFGQuery> d;
 
-	private slots:
-		void setCautiousQueryPreset();
-		void setModerateQueryPreset();
-		void setAggressiveQueryPreset();
-		void setVeryAggressiveQueryPreset();
+private slots:
+	void setCautiousQueryPreset();
+	void setModerateQueryPreset();
+	void setAggressiveQueryPreset();
+	void setVeryAggressiveQueryPreset();
 };
 
 #endif /* __CFG_QUERY_H__ */

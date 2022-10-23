@@ -38,23 +38,26 @@ class OdamexServer : public Server
 {
 	Q_OBJECT
 
-	public:
-		OdamexServer(const QHostAddress &address, unsigned short port);
+public:
+	OdamexServer(const QHostAddress &address, unsigned short port);
 
-		QString customDetails();
+	QString customDetails();
 
-		const QStringList& dehs() const { return dehPatches; }
-		GameClientRunner* gameRunner();
+	const QStringList &dehs() const
+	{
+		return dehPatches;
+	}
+	GameClientRunner *gameRunner() override;
 
-		EnginePlugin* plugin() const;
+	EnginePlugin *plugin() const override;
 
-	protected:
-		Response readRequest(const QByteArray &data);
-		QByteArray createSendRequest();
+protected:
+	Response readRequest(const QByteArray &data);
+	QByteArray createSendRequest();
 
-		QMap<QString, QString> cvars;
-		short protocol;
-		QStringList dehPatches;
+	QMap<QString, QString> cvars;
+	short protocol;
+	QStringList dehPatches;
 };
 
 #endif /* __ODAMEXSERVER_H__ */

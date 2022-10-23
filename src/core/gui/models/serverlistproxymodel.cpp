@@ -23,9 +23,9 @@
 #include "serverlistproxymodel.h"
 
 #include "gui/entity/serverlistfilterinfo.h"
+#include "gui/mainwindow.h"
 #include "gui/models/serverlistcolumn.h"
 #include "gui/models/serverlistmodel.h"
-#include "gui/mainwindow.h"
 #include "gui/serverlist.h"
 #include "serverapi/playerslist.h"
 #include "serverapi/server.h"
@@ -35,42 +35,40 @@
 
 DClass<ServerListProxyModel>
 {
-	public:
-		QList<ColumnSort> additionalSortColumns;
-		bool groupServersWithPlayersAtTop;
-		int mainSortColumn;
-		ServerList* parentHandler;
-		ServerListFilterInfo filterInfo;
-		Qt::SortOrder sortOrder;
+public:
+	QList<ColumnSort> additionalSortColumns;
+	bool groupServersWithPlayersAtTop;
+	int mainSortColumn;
+	ServerList *parentHandler;
+	ServerListFilterInfo filterInfo;
+	Qt::SortOrder sortOrder;
 
-		ColumnSort additionalSortForColumn(int column) const
+	ColumnSort additionalSortForColumn(int column) const
+	{
+		for (const ColumnSort &sort : additionalSortColumns)
 		{
-			foreach (const ColumnSort &sort, additionalSortColumns)
-			{
-				if (sort.columnId() == column)
-				{
-					return sort;
-				}
-			}
-			return ColumnSort();
+			if (sort.columnId() == column)
+				return sort;
 		}
+		return ColumnSort();
+	}
 
-		bool removeAdditionalColumnSorting(int column)
+	bool removeAdditionalColumnSorting(int column)
+	{
+		ColumnSort sort = additionalSortForColumn(column);
+		if (sort.isValid())
 		{
-			ColumnSort sort = additionalSortForColumn(column);
-			if (sort.isValid())
-			{
-				additionalSortColumns.removeAll(sort);
-				return true;
-			}
-			return false;
+			additionalSortColumns.removeAll(sort);
+			return true;
 		}
+		return false;
+	}
 };
 
 DPointered(ServerListProxyModel)
 
-ServerListProxyModel::ServerListProxyModel(ServerList* serverListHandler)
-: QSortFilterProxyModel(serverListHandler)
+ServerListProxyModel::ServerListProxyModel(ServerList *serverListHandler)
+	: QSortFilterProxyModel(serverListHandler)
 {
 	d->groupServersWithPlayersAtTop = true;
 	d->mainSortColumn = -1;
@@ -117,82 +115,71 @@ void ServerListProxyModel::clearAdditionalSorting()
 }
 
 #define RET_COMPARE(a, b) \
-{ \
-	if ((a) < (b)) \
-		return -1; \
-	if ((a) == (b)) \
-		return 0; \
-	else \
-		return 1; \
-}
+	{ \
+		if ((a) < (b)) \
+			return -1; \
+		if ((a) == (b)) \
+			return 0; \
+		else \
+			return 1; \
+	}
 
-int ServerListProxyModel::compareColumnSortData(QVariant& var1, QVariant& var2, int column) const
+int ServerListProxyModel::compareColumnSortData(QVariant &var1, QVariant &var2, int column) const
 {
 	using namespace ServerListColumnId;
 
-	if ( !(var1.isValid() || !var2.isValid()) )
+	if (!(var1.isValid() || !var2.isValid()))
 	{
 		if (var1.isValid())
-		{
 			return -1;
-		}
 		if (var2.isValid())
-		{
 			return 1;
-		}
 		return 0;
 	}
 
-	switch(column)
+	switch (column)
 	{
-		case IDAddress:
-			RET_COMPARE(var1.toUInt(), var2.toUInt());
+	case IDAddress:
+		RET_COMPARE(var1.toUInt(), var2.toUInt());
 
-		case IDPing:
-		case IDPlayers:
-			RET_COMPARE(var1.toInt(), var2.toInt());
+	case IDPing:
+	case IDPlayers:
+		RET_COMPARE(var1.toInt(), var2.toInt());
 
-		case IDPort:
-		case IDGametype:
-		case IDIwad:
-		case IDMap:
-		case IDServerName:
-		case IDWads:
-			RET_COMPARE(var1.toString(), var2.toString());
+	case IDPort:
+	case IDGametype:
+	case IDIwad:
+	case IDMap:
+	case IDServerName:
+	case IDWads:
+		RET_COMPARE(var1.toString(), var2.toString());
 
-		default:
-			return 0;
+	default:
+		return 0;
 	}
 }
 
-bool ServerListProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex& sourceParent) const
+bool ServerListProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
 {
+	Q_UNUSED(sourceParent);
 	ServerPtr s = serverFromList(sourceRow);
-	if (s == NULL)
-	{
+	if (s == nullptr)
 		return false;
-	}
 
-	const QString& nameFilter = d->filterInfo.serverName;
+	const QString &nameFilter = d->filterInfo.serverName;
 	if (!nameFilter.isEmpty())
 	{
 		if (!s->name().contains(nameFilter, Qt::CaseInsensitive))
-		{
 			return false;
-		}
 	}
 
 	if (!d->filterInfo.bEnabled)
-	{
 		return true;
-	}
 
 	if (!s->isKnown())
 	{
 		if (d->filterInfo.bShowOnlyValid)
-		{
 			return false;
-		}
 	}
 	else
 	{
@@ -203,41 +190,32 @@ bool ServerListProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex& so
 		// The ServerListFilterInfo copy constructor and operator= make
 		// sure that all strings are trimmed.
 		if (!d->filterInfo.bShowEmpty && s->isEmpty())
-		{
 			return false;
-		}
 
 		if (!d->filterInfo.bShowFull && s->isFull())
-		{
 			return false;
-		}
 
 		if (d->filterInfo.maxPing > 0 && d->filterInfo.maxPing < s->ping())
-		{
 			return false;
-		}
+
+		if (d->filterInfo.lockedServers == Doomseeker::ShowOnly && !s->isLockedAnywhere())
+			return false;
+		else if (d->filterInfo.lockedServers == Doomseeker::ShowNone && s->isLockedAnywhere())
+			return false;
 
 		if (d->filterInfo.testingServers == Doomseeker::ShowOnly && !s->isTestingServer())
-		{
 			return false;
-		}
 		else if (d->filterInfo.testingServers == Doomseeker::ShowNone && s->isTestingServer())
-		{
 			return false;
-		}
 
 		if (!d->filterInfo.gameModes.isEmpty())
 		{
 			if (!d->filterInfo.gameModes.contains(s->gameMode().name(), Qt::CaseInsensitive))
-			{
 				return false;
-			}
 		}
 
 		if (d->filterInfo.gameModesExcluded.contains(s->gameMode().name(), Qt::CaseInsensitive))
-		{
 			return false;
-		}
 
 		if (!d->filterInfo.wads.isEmpty())
 		{
@@ -245,7 +223,7 @@ bool ServerListProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex& so
 
 			// TODO
 			// This may cause performance drops. Testing is required
-			foreach (const QString& filteredWad, d->filterInfo.wads)
+			for (const QString &filteredWad : d->filterInfo.wads)
 			{
 				if (s->anyWadnameContains(filteredWad))
 				{
@@ -255,19 +233,15 @@ bool ServerListProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex& so
 			}
 
 			if (!bWadFound)
-			{
 				return false;
-			}
 		}
 
 		if (!d->filterInfo.wadsExcluded.isEmpty())
 		{
-			foreach (const QString& filteredWad, d->filterInfo.wadsExcluded)
+			for (const QString &filteredWad : d->filterInfo.wadsExcluded)
 			{
 				if (s->anyWadnameContains(filteredWad))
-				{
 					return false;
-				}
 			}
 		}
 	}
@@ -275,7 +249,7 @@ bool ServerListProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex& so
 	return true;
 }
 
-const ServerListFilterInfo& ServerListProxyModel::filterInfo() const
+const ServerListFilterInfo &ServerListProxyModel::filterInfo() const
 {
 	return d->filterInfo;
 }
@@ -290,37 +264,27 @@ bool ServerListProxyModel::isSortingAdditionallyByColumn(int column) const
 	return d->additionalSortForColumn(column).isValid();
 }
 
-bool ServerListProxyModel::lessThan(const QModelIndex& left, const QModelIndex& right) const
+bool ServerListProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
 {
 	if (!d->parentHandler->getMainWindow()->isEffectivelyActiveWindow())
-	{
 		return false;
-	}
 
-	ServerListModel* model = static_cast<ServerListModel*>(sourceModel());
+	auto model = static_cast<ServerListModel *>(sourceModel());
 
 	ServerPtr s1 = serverFromList(left);
 	ServerPtr s2 = serverFromList(right);
 
-	if (s1 != NULL && s2 != NULL)
+	if (s1 != nullptr && s2 != nullptr)
 	{
 		if (s1->isCustom() && !s2->isCustom())
-		{
 			return d->sortOrder == Qt::AscendingOrder;
-		}
 		else if (!s1->isCustom() && s2->isCustom())
-		{
 			return d->sortOrder == Qt::DescendingOrder;
-		}
 
 		if (s1->isLan() && !s2->isLan())
-		{
 			return d->sortOrder == Qt::AscendingOrder;
-		}
 		else if (!s1->isLan() && s2->isLan())
-		{
 			return d->sortOrder == Qt::DescendingOrder;
-		}
 	}
 
 	ServerListModel::ServerGroup sg1 = model->serverGroup(left.row());
@@ -329,13 +293,9 @@ bool ServerListProxyModel::lessThan(const QModelIndex& left, const QModelIndex& 
 	if (sg1 != sg2 && sg1 != 0 && sg2 != 0)
 	{
 		if (sg1 > sg2)
-		{
 			return d->sortOrder == Qt::AscendingOrder;
-		}
 		else
-		{
 			return d->sortOrder == Qt::DescendingOrder;
-		}
 	}
 
 	if (d->groupServersWithPlayersAtTop)
@@ -347,13 +307,9 @@ bool ServerListProxyModel::lessThan(const QModelIndex& left, const QModelIndex& 
 		int numPlayers2 = sourceModel()->data(right.sibling(right.row(),
 			ServerListColumnId::IDPlayers), sortRole()).toInt();
 		if (numPlayers1 > 0 && numPlayers2 == 0)
-		{
 			return d->sortOrder == Qt::AscendingOrder;
-		}
 		else if (numPlayers1 == 0 && numPlayers2 > 0)
-		{
 			return d->sortOrder == Qt::DescendingOrder;
-		}
 	}
 
 	QVariant leftVar = sourceModel()->data(left, sortRole());
@@ -361,7 +317,7 @@ bool ServerListProxyModel::lessThan(const QModelIndex& left, const QModelIndex& 
 	int comparison = compareColumnSortData(leftVar, rightVar, left.column());
 	if (comparison == 0)
 	{
-		foreach (const ColumnSort &additionalSort, d->additionalSortColumns)
+		for (const ColumnSort &additionalSort : d->additionalSortColumns)
 		{
 			QModelIndex additionalLeft = left.sibling(left.row(), additionalSort.columnId());
 			QModelIndex additionalRight = right.sibling(right.row(), additionalSort.columnId());
@@ -371,9 +327,7 @@ bool ServerListProxyModel::lessThan(const QModelIndex& left, const QModelIndex& 
 			if (comparison != 0)
 			{
 				if (additionalSort.order() == Qt::DescendingOrder)
-				{
 					comparison *= -1;
-				}
 				break;
 			}
 		}
@@ -385,16 +339,12 @@ void ServerListProxyModel::removeAdditionalColumnSorting(int column)
 {
 	bool anythingRemoved = d->removeAdditionalColumnSorting(column);
 	if (d->mainSortColumn > 0)
-	{
 		sort(d->mainSortColumn, d->sortOrder);
-	}
 	if (anythingRemoved)
-	{
 		emit additionalSortColumnsChanged();
-	}
 }
 
-void ServerListProxyModel::setFilterInfo(const ServerListFilterInfo& filterInfo)
+void ServerListProxyModel::setFilterInfo(const ServerListFilterInfo &filterInfo)
 {
 	d->filterInfo = filterInfo;
 	invalidate();
@@ -406,14 +356,14 @@ void ServerListProxyModel::setGroupServersWithPlayersAtTop(bool b)
 	invalidate();
 }
 
-ServerPtr ServerListProxyModel::serverFromList(const QModelIndex& index) const
+ServerPtr ServerListProxyModel::serverFromList(const QModelIndex &index) const
 {
 	return serverFromList(index.row());
 }
 
 ServerPtr ServerListProxyModel::serverFromList(int row) const
 {
-	ServerListModel* model = static_cast<ServerListModel*>(sourceModel());
+	auto model = static_cast<ServerListModel *>(sourceModel());
 	return model->serverFromList(row);
 }
 
@@ -428,9 +378,7 @@ void ServerListProxyModel::sortServers(int column, Qt::SortOrder order)
 	d->mainSortColumn = column;
 	d->sortOrder = order;
 	if (d->removeAdditionalColumnSorting(column))
-	{
 		emit additionalSortColumnsChanged();
-	}
 	sort(column, order);
 }
 ///////////////////////////////////////////////////////////////////////////////

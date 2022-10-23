@@ -32,14 +32,14 @@ class PluginServer : public Server
 {
 	Q_OBJECT
 
-	public:
-		PluginServer(const QHostAddress& address, quint16 port);
+public:
+	PluginServer(const QHostAddress &address, quint16 port);
 
-		EnginePlugin* plugin() const;
+	EnginePlugin *plugin() const;
 
-	private:
-		QByteArray createSendRequest();
-		Response readRequest(const QByteArray &data);
+private:
+	QByteArray createSendRequest();
+	Response readRequest(const QByteArray &data);
 };
 
 #endif

@@ -31,15 +31,15 @@ class PatternList;
 
 class IRCIgnoresManager : public QDialog
 {
-Q_OBJECT
+	Q_OBJECT
 
 public:
 	IRCIgnoresManager(QWidget *parent, const QString &networkDescription);
-	~IRCIgnoresManager();
+	~IRCIgnoresManager() override;
 
 protected:
-	void done(int result);
-	void keyPressEvent(QKeyEvent *event);
+	void done(int result) override;
+	void keyPressEvent(QKeyEvent *event) override;
 
 private:
 	DPtr<IRCIgnoresManager> d;

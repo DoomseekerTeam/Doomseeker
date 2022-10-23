@@ -33,7 +33,8 @@
 #include <QCoreApplication>
 #include <QStringList>
 
-#include <wadseeker.h>
+#include <wadseeker/entities/modset.h>
+#include <wadseeker/wadseekerversioninfo.h>
 #include <iostream>
 #include <cstring>
 
@@ -50,7 +51,7 @@ int main(int argc, char* argv[])
 	instance = app.instance();
 
 	// Print version information.
-	cout << "Wadseeker (" << WadseekerVersionInfo::version().toAscii().constData() << ")\n";
+	cout << "Wadseeker (" << WadseekerVersionInfo::version().toLatin1().constData() << ")\n";
 	if(argc < 2) // Not enough parameters display usage.
 		cout << "Usage: wadseeker [-o output_dir] filename ...\n";
 	else
@@ -100,7 +101,10 @@ WadseekerInterface::WadseekerInterface(const QString &output) : lastProgressRepo
 void WadseekerInterface::seek(const QStringList &files)
 {
 	// Pass the wad list into wadseeker.
-	wadseeker.startSeek(files);
+	ModSet modSet;
+	for (auto file : files)
+		modSet.addModFile(file);
+	wadseeker.startSeek(modSet);
 }
 
 void WadseekerInterface::done()
@@ -119,12 +123,12 @@ void WadseekerInterface::downloadProgress(const QString &filename, qint64 done, 
 	// Update the download progress indicator.
 	QString progress = QString("Download Progress %1: %2/%3 (%4%)").arg(filename).arg(done).arg(total).arg(done*100/total);
 
-	cout << QString(lastProgressReportLength, '\b').toAscii().constData();
-	cout << progress.toAscii().constData();
+	cout << QString(lastProgressReportLength, '\b').toLatin1().constData();
+	cout << progress.toLatin1().constData();
 	if(lastProgressReportLength - progress.length() > 0)
 	{
-		cout << QString(lastProgressReportLength - progress.length(), ' ').toAscii().constData();
-		cout << QString(lastProgressReportLength - progress.length(), '\b').toAscii().constData();
+		cout << QString(lastProgressReportLength - progress.length(), ' ').toLatin1().constData();
+		cout << QString(lastProgressReportLength - progress.length(), '\b').toLatin1().constData();
 	}
 	cout.flush();
 	lastProgressReportLength = progress.length();
@@ -153,5 +157,5 @@ void WadseekerInterface::recieveMessage(const QString &msg, WadseekerLib::Messag
 			cout << "CRITICAL ERROR: ";
 			break;
 	}
-	cout << msg.toAscii().constData() << "\n";
+	cout << msg.toLatin1().constData() << "\n";
 }

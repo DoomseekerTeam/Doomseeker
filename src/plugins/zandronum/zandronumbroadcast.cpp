@@ -24,11 +24,11 @@
 
 #include "zandronumengineplugin.h"
 #include "zandronumserver.h"
-#include <serverapi/server.h>
 #include <log.h>
 #include <QElapsedTimer>
 #include <QTimer>
 #include <QUdpSocket>
+#include <serverapi/server.h>
 
 DClass<ZandronumBroadcast>
 {
@@ -82,14 +82,14 @@ DPointeredNoCopy(ZandronumBroadcast)
 ZandronumBroadcast::ZandronumBroadcast()
 {
 	d->bindFailureLogged = false;
-	d->socket = NULL;
+	d->socket = nullptr;
 }
 
 ZandronumBroadcast::~ZandronumBroadcast()
 {
 }
 
-EnginePlugin* ZandronumBroadcast::plugin() const
+EnginePlugin *ZandronumBroadcast::plugin() const
 {
 	return ZandronumEnginePlugin::staticInstance();
 }
@@ -119,7 +119,7 @@ void ZandronumBroadcast::bindSocket()
 		if (!d->bindFailureLogged)
 		{
 			gLog << tr("Failed to bind Zandronum's LAN broadcasts listening socket on port %1. "
-				"Will keep retrying silently.").arg(port);
+					"Will keep retrying silently.").arg(port);
 			d->bindFailureLogged = true;
 		}
 		QTimer::singleShot(10000, this, SLOT(bindSocket()));

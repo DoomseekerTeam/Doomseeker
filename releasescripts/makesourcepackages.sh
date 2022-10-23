@@ -19,10 +19,35 @@
 # 02110-1301  USA
 #
 #------------------------------------------------------------------------------
-# Copyright (C) 2010 Braden "Blzut3" Obrzut <admin@maniacsvault.net>
+# Copyright (C) 2018 Braden "Blzut3" Obrzut <admin@maniacsvault.net>
 #------------------------------------------------------------------------------
 
 set -o pipefail
+
+# Send SIGINT to child process not the shell, so if the user sends SIGINT we
+# can still roll back our stack and cleanup
+trap "kill -INT -$BASHPID" INT
+
+declare SignEnabled=-1
+declare SignGpgKey=""
+
+declare Arg
+for Arg in "$@"; do
+	if [[ $Arg == "--sign" || $Arg =~ ^--sign= ]]; then
+		SignEnabled=1
+		SignGpgKey=${Arg:7}
+	elif [[ $Arg == "--no-sign" ]]; then
+		SignEnabled=0
+	else
+		echo "ERROR: Unknown option $Arg" >&2
+		exit 1
+	fi
+done
+
+if (( SignEnabled < 0 )); then
+	echo 'Specify --sign or --no-sign.' >&2
+	exit 1
+fi
 
 # Process a cmake file and print the value of a given variable
 function cmake_extract_var
@@ -45,19 +70,47 @@ function create_vcs_info
 	declare SrcDir=$(realpath "$1")
 	shift
 
-	if ! mkdir build; then
+	declare BuildDir
+	if ! BuildDir=$(mktemp -d -p . build.XXXXXXXXXX); then
 		echo 'Failed to create temporary build directory.' >&2
 		exit 1
 	fi
 
 	(
-		cd build &&
+		cd "$BuildDir" &&
 			cmake "$SrcDir" &&
 			cmake --build . -- revision_check
 	)
 	declare Ret=$?
 
-	rm -rf build
+	rm -rf "$BuildDir"
+	return "$Ret"
+}
+
+
+function sign_archive
+{
+	declare FileName=$1
+	shift
+
+	if (( ! SignEnabled )); then
+		return 0
+	fi
+
+	declare -a SignOpts=(-v)
+	if [[ $SignGpgKey ]]; then
+		SignOpts+=(-u "$SignGpgKey")
+	fi
+
+	echo "Signing $FileName..."
+	rm -f "$FileName.sig"
+	gpg "${SignOpts[@]}" --output "$FileName.sig" --detach-sig "$FileName"
+	declare Ret=$?
+
+	if (( Ret != 0 )); then
+		echo "Failed to sign $FileName!" >&2
+	fi
+
 	return "$Ret"
 }
 
@@ -74,8 +127,8 @@ readonly wadseekerArchiveName="libwadseeker-$wadseekerVersion"
 echo "Doomseeker version: $doomseekerVersion"
 echo "wadseeker version: $wadseekerVersion"
 
-if ! hg archive "$doomseekerArchiveName"; then
-	echo 'Failed to call hg archive! Is this a mercurial clone?' >&2
+if ! (cd "$(git rev-parse --show-toplevel)" && git archive --prefix="$doomseekerArchiveName/" HEAD) | tar -x; then
+	echo 'Failed to call git archive! Is this a git clone?' >&2
 	exit 1
 fi
 
@@ -91,11 +144,20 @@ if ! tar -c "$doomseekerArchiveName" --owner=doomseeker --group=doomseeker | xz 
 	echo 'Failed to create Doomseeker archive!' >&2
 	Error=1
 else
+	echo 'Adding licence and dependencies for independent building...'
+	cp "$doomseekerArchiveName/LICENSE" "$doomseekerArchiveName/src/wadseeker"
+	cp -r "$doomseekerArchiveName/cmake" "$doomseekerArchiveName/src/wadseeker"
+	cp -r "$doomseekerArchiveName/dependencies" "$doomseekerArchiveName/src/wadseeker"
+
 	echo 'Creating Wadseeker archive...'
 	if ! tar -cC "$doomseekerArchiveName/src" wadseeker --transform "s,^wadseeker,$wadseekerArchiveName," --owner=doomseeker --group=doomseeker | xz -9 > "$wadseekerArchiveName.tar.xz"; then
 		echo 'Failed to create Wadseeker archive!' >&2
 		Error=1
 	fi
+fi
+
+if ! sign_archive "$doomseekerArchiveName.tar.xz" || ! sign_archive "$wadseekerArchiveName.tar.xz"; then
+	Error=1
 fi
 
 rm -rf "$doomseekerArchiveName"

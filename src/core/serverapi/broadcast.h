@@ -31,11 +31,11 @@ class EnginePlugin;
 
 class MAIN_EXPORT Broadcast : public QObject
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
-	Broadcast(QObject *parent = 0);
-	virtual ~Broadcast();
+	Broadcast(QObject *parent = nullptr);
+	virtual ~Broadcast() override;
 
 	/**
 	 * @brief Is LAN broadcast capture enabled?
@@ -55,7 +55,7 @@ public:
 	 * each plugin should keep a global instance of EnginePlugin (singleton?)
 	 * and a pointer to this instance should be returned.
 	 */
-	virtual EnginePlugin* plugin() const = 0;
+	virtual EnginePlugin *plugin() const = 0;
 
 signals:
 	void enabledChanged(bool enabled);

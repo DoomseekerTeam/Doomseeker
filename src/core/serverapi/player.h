@@ -36,50 +36,50 @@
  */
 class MAIN_EXPORT Player
 {
-	public:
-		enum PlayerTeam
-		{
-			TEAM_BLUE,
-			TEAM_RED,
-			TEAM_GREEN,
-			TEAM_GOLD,
+public:
+	enum PlayerTeam
+	{
+		TEAM_BLUE,
+		TEAM_RED,
+		TEAM_GREEN,
+		TEAM_GOLD,
 
-			TEAM_NONE = 0xFF
-		};
+		TEAM_NONE = 0xFF
+	};
 
-		Player();
-		Player(const QString &name, long score, unsigned long ping,
-			PlayerTeam team=TEAM_NONE, bool spectator=false, bool bot=false);
-		Player(const Player& other);
-		Player& operator=(const Player& other);
-		virtual ~Player();
+	Player();
+	Player(const QString &name, long score, unsigned long ping,
+		PlayerTeam team = TEAM_NONE, bool spectator = false, bool bot = false);
+	Player(const Player &other);
+	Player &operator=(const Player &other);
+	virtual ~Player();
 
-		const QString &name() const;
-		long score() const;
-		unsigned long ping() const;
-		bool isSpectating() const;
-		bool isBot() const;
-		bool isTeamlessBot() const;
-		PlayerTeam teamNum() const;
+	const QString &name() const;
+	long score() const;
+	unsigned long ping() const;
+	bool isSpectating() const;
+	bool isBot() const;
+	bool isTeamlessBot() const;
+	PlayerTeam teamNum() const;
 
-		bool operator==(const Player& other) const;
+	bool operator==(const Player &other) const;
 
-		/**
-		 * Formats string into HTML format.
-		 */
-		QString nameFormatted() const;
+	/**
+	 * Formats string into HTML format.
+	 */
+	QString nameFormatted() const;
 
-		/**
-		 * Seeks for characters that are not from the <32; 126> range,
-		 * removes them and the characters that appear after them,
-		 * then returns new string.
-		 */
-		QString nameColorTagsStripped() const;
+	/**
+	 * Seeks for characters that are not from the <32; 126> range,
+	 * removes them and the characters that appear after them,
+	 * then returns new string.
+	 */
+	QString nameColorTagsStripped() const;
 
-	private:
-		DPtr<Player> d;
+private:
+	DPtr<Player> d;
 };
 
-uint qHash(const Player& player);
+uint qHash(const Player &player);
 
 #endif

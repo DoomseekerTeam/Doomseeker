@@ -23,9 +23,9 @@
 #ifndef DOOMSEEKER_UPDATER_UPDATERPACKAGEFILTER_H
 #define DOOMSEEKER_UPDATER_UPDATERPACKAGEFILTER_H
 
+#include "dptr.h"
 #include "updater/updatechannel.h"
 #include "updater/updatepackage.h"
-#include "dptr.h"
 #include <QList>
 #include <QMap>
 #include <QString>
@@ -52,43 +52,43 @@
  */
 class UpdatePackageFilter : public QObject
 {
-	Q_OBJECT;
+	Q_OBJECT
 
-	public:
-		UpdatePackageFilter();
-		~UpdatePackageFilter();
+public:
+	UpdatePackageFilter();
+	~UpdatePackageFilter() override;
 
-		QList<UpdatePackage> filter(const QList<UpdatePackage>& packages);
-		void setIgnoreRevisions(const QMap<QString, QList<QString> >& packagesRevisions);
-		/**
-		 * @brief After filter() flag which says if any package was ignored.
-		 *
-		 * This flag is set to correct value after a call to filter().
-		 * If true then at least one package was ignored due to being on
-		 * setIgnoreRevisions() list.
-		 *
-		 * Note that if package was on ignore list but the list itself was
-		 * ignored because of other valid update packages which weren't on
-		 * it then this will return false. This is consistent with
-		 * the description of this class.
-		 *
-		 * @return true if at least one package was discarded.
-		 *         false if no package was discarded.
-		 */
-		bool wasAnyUpdatePackageIgnored() const;
+	QList<UpdatePackage> filter(const QList<UpdatePackage> &packages);
+	void setIgnoreRevisions(const QMap<QString, QList<QString> > &packagesRevisions);
+	/**
+	 * @brief After filter() flag which says if any package was ignored.
+	 *
+	 * This flag is set to correct value after a call to filter().
+	 * If true then at least one package was ignored due to being on
+	 * setIgnoreRevisions() list.
+	 *
+	 * Note that if package was on ignore list but the list itself was
+	 * ignored because of other valid update packages which weren't on
+	 * it then this will return false. This is consistent with
+	 * the description of this class.
+	 *
+	 * @return true if at least one package was discarded.
+	 *         false if no package was discarded.
+	 */
+	bool wasAnyUpdatePackageIgnored() const;
 
-	private:
-		Q_DISABLE_COPY(UpdatePackageFilter);
+private:
+	Q_DISABLE_COPY(UpdatePackageFilter)
 
-		class PluginInfo;
+	class PluginInfo;
 
-		DPtr<UpdatePackageFilter> d;
-		friend class PrivData<UpdatePackageFilter>;
+	DPtr<UpdatePackageFilter> d;
+	friend class PrivData<UpdatePackageFilter>;
 
-		QMap<QString, PluginInfo> collectPluginInfo();
-		bool isDifferentThanInstalled(UpdatePackage& pkg) const;
-		bool isOnIgnoredList(const QString& package, const QString &revision) const;
-		bool isQtInstallOk() const;
+	QMap<QString, PluginInfo> collectPluginInfo();
+	bool isDifferentThanInstalled(UpdatePackage &pkg) const;
+	bool isOnIgnoredList(const QString &package, const QString &revision) const;
+	bool isQtInstallOk() const;
 };
 
 #endif

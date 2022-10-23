@@ -1,7 +1,5 @@
-cmake_minimum_required(VERSION 2.8.12)
-
 set(PLUGIN_NAME turok2ex)
-set(PLUGIN_VERSION 2)
+set(PLUGIN_VERSION 7)
 include(../PluginHeader.cmake)
 
 set(TUROK2EX_FILES
@@ -25,11 +23,9 @@ set(HEADER_FILES
 )
 
 set(TRANSLATIONS_FILES
+	translations/turok2ex_ca_ES.ts
+	translations/turok2ex_es_ES.ts
 	translations/turok2ex_pl_PL.ts
-)
-set(FILES_TO_TRANSLATE
-	${HEADER_FILES}
-	${TUROK2EX_FILES}
 )
 
 include(../Translation.cmake)

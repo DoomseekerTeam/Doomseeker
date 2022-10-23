@@ -23,24 +23,25 @@
 #ifndef id86d749c6_00f5_4612_ade3_caf9613c33dd
 #define id86d749c6_00f5_4612_ade3_caf9613c33dd
 
-#include <QString>
 #include "serverapi/serverptr.h"
+#include <QString>
 
 class PWad;
+class WadPathFinder;
 
 namespace ServerTooltip
 {
-	class L10n : public QObject
-	{
-		Q_OBJECT;
-	};
-
-	QString createIwadToolTip(ServerPtr server);
-	QString createPlayersToolTip(ServerCPtr server);
-	QString createPortToolTip(ServerCPtr server);
-	QString createPwadsToolTip(ServerPtr server);
-	QString createPwadToolTipInfo(const PWad& pwad, const ServerPtr &server);
-	QString createServerNameToolTip(ServerCPtr server);
+class L10n : public QObject
+{
+	Q_OBJECT
 };
+
+QString createIwadToolTip(ServerPtr server);
+QString createPlayersToolTip(ServerCPtr server);
+QString createPortToolTip(ServerCPtr server);
+QString createPwadsToolTip(ServerPtr server);
+QString createPwadToolTipInfo(const PWad &pwad, WadPathFinder &wadFinder);
+QString createServerNameToolTip(ServerCPtr server);
+}
 
 #endif

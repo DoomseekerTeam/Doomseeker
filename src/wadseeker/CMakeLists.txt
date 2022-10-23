@@ -19,12 +19,12 @@
 # Copyright (C) 2009 "Zalewa" <zalewapl@gmail.com>
 #------------------------------------------------------------------------------
 
-cmake_minimum_required(VERSION 2.8.12)
-project(Wadseeker)
-
-if(POLICY CMP0042)
-	cmake_policy(SET CMP0042 NEW)
+cmake_minimum_required(VERSION 3.5...3.21)
+if(CMAKE_VERSION VERSION_LESS 3.12)
+	cmake_policy(VERSION ${CMAKE_VERSION})
 endif()
+
+project(Wadseeker)
 
 if (MSVC)
 	set(CMAKE_SHARED_LIBRARY_PREFIX "lib")
@@ -40,47 +40,82 @@ if(NOT DEFINED CMAKE_INSTALL_LIBDIR)
 	endif()
 endif()
 
+# C++ standard
+set(CMAKE_CXX_STANDARD 11)
+set(CXX_STANDARD_REQUIRED ON)
+
 add_subdirectory(lzma)
 
 include(${CMAKE_SOURCE_DIR}/cmake/Modules/Macros.cmake)
 
-if(NOT FORCE_QT4)
-	find_package(Qt5Core)
-endif()
+find_package(${Qt_PACKAGE} COMPONENTS Core)
 
-if(NOT Qt5Core_FOUND)
-	find_package(Qt4 COMPONENTS QtCore QtNetwork REQUIRED)
-	set(QT_LIBRARIES Qt4::QtCore Qt4::QtNetwork)
+if(NOT ${Qt_PACKAGE}_FOUND)
+	message(FATAL_ERROR "${Qt_PACKAGE} not found. Please make sure to set the ${Qt_PACKAGE}_DIR variable")
 else()
-	find_package(Qt5LinguistTools REQUIRED)
-	find_package(Qt5Network REQUIRED)
-	macro(qt4_add_resources)
-		qt5_add_resources(${ARGV})
-	endmacro()
-	macro(qt4_wrap_ui)
-		qt5_wrap_ui(${ARGV})
-	endmacro()
-	macro(qt4_add_translation)
-		qt5_add_translation(${ARGV})
-	endmacro()
-	macro(qt4_create_translation)
-		qt5_create_translation(${ARGV})
-	endmacro()
-	set(QT_LIBRARIES Qt5::Core Qt5::Network)
+	find_package(${Qt_PACKAGE} COMPONENTS LinguistTools Network REQUIRED)
+	set(QT_LIBRARIES ${Qt_PACKAGE}::Core ${Qt_PACKAGE}::Network)
 endif()
 
-if(NOT TARGET ZLIB::ZLIB)
-	find_package_ZLIB(REQUIRED)
+if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+	if(WIN32)
+		set(FORCE_INTERNAL_ZLIB YES)
+		set(FORCE_INTERNAL_BZIP2 YES)
+	else()
+		option(FORCE_INTERNAL_ZLIB "Use internal zlib" OFF)
+		option(FORCE_INTERNAL_BZIP2 "Use internal bzip2" OFF)
+
+		include(${CMAKE_SOURCE_DIR}/cmake/Modules/Macros.cmake)
+
+		if(NOT FORCE_INTERNAL_ZLIB)
+			find_package_ZLIB()
+		endif()
+		if(NOT FORCE_INTERNAL_BZIP2)
+			find_package_BZip2()
+		endif()
+	endif()
+
+	if( ZLIB_FOUND AND NOT FORCE_INTERNAL_ZLIB )
+		message( STATUS "Using system zlib" )
+	else()
+		message( STATUS "Using internal zlib" )
+		set( ZLIB_INTERNAL YES )
+		set(SKIP_INSTALL_ALL ON)
+		add_subdirectory( dependencies/zlib )
+		unset(SKIP_INSTALL_ALL)
+		set( ZLIB_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/zlib" )
+		set( ZLIB_INCLUDE_DIR "${ZLIB_INCLUDE_DIRS}" )
+		set( ZLIB_LIBRARIES ZLIB::ZLIB )
+		set( ZLIB_LIBRARY ZLIB::ZLIB )
+	endif()
+
+	if( BZIP2_FOUND AND NOT FORCE_INTERNAL_BZIP2 )
+		message( STATUS "Using system bzip2 library" )
+	else()
+		message( STATUS "Using internal bzip2 library" )
+		set( BZIP2_INTERNAL YES )
+		add_subdirectory( dependencies/bzip2 )
+		set( BZIP2_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/bzip2" )
+		set( BZIP2_INCLUDE_DIR "${BZIP2_INCLUDE_DIRS}" )
+		set( BZIP2_LIBRARIES bz2 )
+		set( BZIP2_LIBRARY bz2 )
+	endif()
+else()
+	if(NOT TARGET ZLIB::ZLIB)
+		find_package_ZLIB(REQUIRED)
+	endif()
+	if(NOT TARGET BZip2::BZip2)
+		find_package_BZip2(REQUIRED)
+	endif()
+	find_package(Threads REQUIRED)
 endif()
-if(NOT TARGET BZip2::BZip2)
-	find_package_BZip2(REQUIRED)
-endif()
-find_package(Threads REQUIRED)
 
 include("wadseekerversiondefs.cmake")
 configure_file(wadseekerversiondefs.h.in wadseekerversiondefs.h)
 
 set(WADSEEKER_FILES
+	entities/checksum.cpp
+	entities/hash.cpp
 	entities/link.cpp
 	entities/modfile.cpp
 	entities/modset.cpp
@@ -93,7 +128,6 @@ set(WADSEEKER_FILES
 	protocols/idgames/idgamesreply.cpp
 	protocols/idgames/idgamesresult.cpp
 	protocols/wadarchive/wadarchiveclient.cpp
-	protocols/json.cpp
 	protocols/http.cpp
 	protocols/networkreply.cpp
 	protocols/networkreplysignalwrapper.cpp
@@ -121,6 +155,8 @@ set(WADSEEKER_FILES
 
 # For the purpose of generation proper project files.
 set(HEADER_FILES
+	entities/checksum.h
+	entities/hash.h
 	entities/link.h
 	entities/modfile.h
 	entities/modset.h
@@ -133,7 +169,6 @@ set(HEADER_FILES
 	protocols/idgames/idgamesreply.h
 	protocols/idgames/idgamesresult.h
 	protocols/wadarchive/wadarchiveclient.h
-	protocols/json.h
 	protocols/http.h
 	protocols/networkreply.h
 	protocols/networkreplysignalwrapper.h
@@ -163,19 +198,21 @@ set(HEADER_FILES
 )
 
 add_library(wadseeker SHARED ${WADSEEKER_FILES} ${HEADER_FILES})
+if(NOT CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+	add_library(Wadseeker::wadseeker ALIAS wadseeker)
+endif()
 
 target_include_directories(wadseeker
 PRIVATE
 	${CMAKE_CURRENT_BINARY_DIR}
 	${CMAKE_CURRENT_SOURCE_DIR}
 INTERFACE
-	${CMAKE_CURRENT_SOURCE_DIR}/..
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
 )
 
 target_link_libraries(wadseeker
-LINK_PUBLIC
-	${QT_LIBRARIES}
 LINK_PRIVATE
+	${QT_LIBRARIES}
 	${CMAKE_THREAD_LIBS_INIT}
 	BZip2::BZip2
 	lzma
@@ -191,17 +228,30 @@ if(DEFINED Doomseeker_BINARY_DIR)
 	set_target_properties(wadseeker PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${Doomseeker_BINARY_DIR} RUNTIME_OUTPUT_DIRECTORY ${Doomseeker_BINARY_DIR})
 endif()
 
+set(TARGETS_EXPORT_NAME "wadseekerTargets")
 if(NOT WIN32 AND NOT XCODE_VERSION)
-	install(TARGETS wadseeker LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT wadseeker NAMELINK_SKIP)
-	install(TARGETS wadseeker LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT wadseeker-dev NAMELINK_ONLY)
-	install(FILES ${CMAKE_SOURCE_DIR}/LICENSE.json DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/doc/wadseeker COMPONENT wadseeker)
+	install(
+		TARGETS wadseeker
+		EXPORT ${TARGETS_EXPORT_NAME}
+		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT wadseeker NAMELINK_SKIP
+		INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+	)
+	install(
+		TARGETS wadseeker
+		EXPORT ${TARGETS_EXPORT_NAME}
+		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT wadseeker-dev NAMELINK_ONLY
+	)
 elseif(WIN32)
-	install(TARGETS wadseeker RUNTIME DESTINATION . COMPONENT wadseeker)
-
+	install(
+		TARGETS wadseeker
+		EXPORT ${TARGETS_EXPORT_NAME}
+		RUNTIME DESTINATION . COMPONENT wadseeker
+		ARCHIVE DESTINATION ./lib COMPONENT wadseeker
+		INCLUDES DESTINATION ${CMAKE_INSTALL_PREFIX}/include
+	)
 	# License files.
 	set(LICENSE_FILES
 		LICENSE
-		LICENSE.json
 	)
 	foreach (LICFILE ${LICENSE_FILES})
 		install(FILES "${CMAKE_SOURCE_DIR}/${LICFILE}" DESTINATION .
@@ -218,12 +268,6 @@ if(NOT CMAKE_VERSION VERSION_LESS "3.6.0")
 	# to correct the versions per component we're better off generating it
 	# manually. This means there will be a lintian error until that step is run.
 	configure_file(deb-extra/shlibs.in ${CMAKE_CURRENT_BINARY_DIR}/shlibs)
-
-	cpack_add_component(wadseeker
-		DISPLAY_NAME libwadseeker
-		DESCRIPTION "Library for automatically locating and downloading mods for Doom."
-		REQUIRED)
-	parent_scope_component(wadseeker)
 
 	set(CPACK_PACKAGE_VERSION ${VERSION_STRING})
 
@@ -247,5 +291,38 @@ if(NOT CMAKE_VERSION VERSION_LESS "3.6.0")
 		set(CPACK_COMPONENT_WADSEEKER-DEV_DESCRIPTION ${CPACK_COMPONENT_WADSEEKER-DEV_DESCRIPTION} PARENT_SCOPE)
 
 		file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/CPackComponent.version" "${CPACK_DEBIAN_WADSEEKER_PACKAGE_NAME} ${VERSION_STRING}\n${CPACK_DEBIAN_WADSEEKER-DEV_PACKAGE_NAME} ${VERSION_STRING}\n")
+	else()
+		include(CPack)
+		include(CMakePackageConfigHelpers)
+		set(CONFIG_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/wadseeker")
+
+		set(generated_dir "${CMAKE_CURRENT_BINARY_DIR}/generated")
+		set(VERSION_CONFIG "${generated_dir}/wadseekerConfigVersion.cmake")
+		set(PROJECT_CONFIG "${generated_dir}/wadseekerConfig.cmake")
+		configure_package_config_file(wadseekerConfig.cmake.in
+			${PROJECT_CONFIG}
+			INSTALL_DESTINATION ${CONFIG_INSTALL_DIR}
+		)
+		write_basic_package_version_file (
+			${VERSION_CONFIG} COMPATIBILITY SameMajorVersion
+			VERSION ${VERSION_STRING}
+		)
+
+		install(
+			EXPORT ${TARGETS_EXPORT_NAME}
+			NAMESPACE ${PROJECT_NAME}::
+			DESTINATION ${CONFIG_INSTALL_DIR}
+		)
+		install(
+			FILES ${PROJECT_CONFIG} ${VERSION_CONFIG}
+			DESTINATION ${CONFIG_INSTALL_DIR}
+		)
+	endif()
+	cpack_add_component(wadseeker
+		DISPLAY_NAME libwadseeker
+		DESCRIPTION "Library for automatically locating and downloading mods for Doom."
+		REQUIRED)
+	if(COMMAND parent_scope_component)
+		parent_scope_component(wadseeker)
 	endif()
 endif()

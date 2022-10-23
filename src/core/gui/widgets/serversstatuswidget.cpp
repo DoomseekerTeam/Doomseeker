@@ -21,19 +21,19 @@
 // Copyright (C) 2009 Braden "Blzut3" Obrzut <admin@maniacsvault.net>
 //------------------------------------------------------------------------------
 
+#include <cmath>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QMouseEvent>
 #include <QPainter>
-#include <cmath>
 
-#include "serversstatuswidget.h"
 #include "gui/serverlist.h"
 #include "plugins/engineplugin.h"
 #include "serverapi/masterclient.h"
 #include "serverapi/playerslist.h"
 #include "serverapi/server.h"
 #include "serverapi/serverlistcounttracker.h"
+#include "serversstatuswidget.h"
 
 ServersStatusWidget::ServersStatusWidget(const EnginePlugin *plugin, const ServerList *serverList)
 	: QLabel(), enabled(false), icon(plugin->icon())
@@ -72,12 +72,12 @@ ServersStatusWidget::ServersStatusWidget(const EnginePlugin *plugin, const Serve
 	iconDisabled = QPixmap::fromImage(iconImage);
 
 	// Have an inset frame unless we're on the Mac
-#ifndef Q_OS_MAC
+	#ifndef Q_OS_DARWIN
 	setFrameShape(QFrame::Panel);
 	setFrameShadow(QFrame::Sunken);
-#else
+	#else
 	setFrameShape(QFrame::NoFrame);
-#endif
+	#endif
 
 	setFixedHeight(22);
 	setToolTip(tr("Players (Humans + Bots) / Servers Refreshed%"));
@@ -91,12 +91,10 @@ const ServerListCount &ServersStatusWidget::count() const
 	return countTracker->count();
 }
 
-void ServersStatusWidget::mousePressEvent(QMouseEvent* event)
+void ServersStatusWidget::mousePressEvent(QMouseEvent *event)
 {
 	if (event->button() == Qt::LeftButton)
-	{
 		emit clicked(plugin);
-	}
 }
 
 void ServersStatusWidget::paintEvent(QPaintEvent *event)
@@ -113,13 +111,9 @@ QString ServersStatusWidget::refreshedPercentAsText() const
 {
 	const ServerListCount &count = countTracker->count();
 	if (count.numServers == 0)
-	{
 		return tr("N/A");
-	}
 	else
-	{
 		return tr("%1%").arg(count.refreshedPercent());
-	}
 }
 
 void ServersStatusWidget::setMasterEnabledStatus(bool bEnabled)
@@ -136,13 +130,9 @@ void ServersStatusWidget::updateDisplay()
 		QString text = tr("%1 (%2+%3) / %4").arg(count.numPlayers).arg(count.numHumanPlayers)
 			.arg(count.numBots).arg(count.numServers);
 		if (count.numRefreshing > 0)
-		{
 			text += tr(" %1").arg(refreshedPercentAsText());
-		}
 		setText(text);
 	}
 	else
-	{
 		setText(tr("N/A"));
-	}
 }

@@ -23,6 +23,6 @@
 #include "ircdelayedoperation.h"
 
 IRCDelayedOperation::IRCDelayedOperation(QObject *parent)
-: QObject(parent)
+	: QObject(parent)
 {
 }

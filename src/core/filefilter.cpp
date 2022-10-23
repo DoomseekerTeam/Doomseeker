@@ -24,16 +24,15 @@
 
 QString FileFilter::allFilesFilter()
 {
-	return tr("All files(*)");
+	return tr("All files (*)");
 }
 
 QString FileFilter::executableFilesFilter()
 {
-#if defined(Q_OS_WIN32)
+	#if defined(Q_OS_WIN32)
 	return tr("Runnable files (*.exe;*.bat;*.com);;") + allFilesFilter();
-#else
+	#else
 	// Other platforms do not have an extension for their binary files.
 	return allFilesFilter();
-#endif
-
+	#endif
 }

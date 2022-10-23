@@ -32,20 +32,20 @@ class Ini;
 
 class IwadPicker : public QWidget
 {
-Q_OBJECT
+	Q_OBJECT
 
 public:
 	IwadPicker(QWidget *parent);
-	~IwadPicker();
+	~IwadPicker() override;
 
 	void addIwad(const QString &path);
 	QString currentIwad() const;
+	void loadIwads();
 	void setIwadByName(const QString &iwad);
 
 private:
-	void loadIwads();
-
 	DPtr<IwadPicker> d;
+
 private slots:
 	void browse();
 };

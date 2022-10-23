@@ -30,12 +30,12 @@
 class HuffmanUdpSocket
 {
 public:
-	HuffmanUdpSocket(QUdpSocket *socket = NULL);
+	HuffmanUdpSocket(QUdpSocket *socket = nullptr);
 	~HuffmanUdpSocket();
 
 	bool hasPendingDatagrams() const;
 	bool isNull() const;
-	QByteArray readDatagram(QHostAddress *address = 0, quint16 *port = 0);
+	QByteArray readDatagram(QHostAddress *address = nullptr, quint16 *port = nullptr);
 	void setSocket(QUdpSocket *socket);
 	bool writeDatagram(const QByteArray &datagram, const QHostAddress &host, quint16 port);
 	bool writeDatagram(const char *data, int size, const QHostAddress &host, quint16 port);

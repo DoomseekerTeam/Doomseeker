@@ -30,28 +30,28 @@
  */
 class IdgamesResult
 {
-	public:
-		static IdgamesResult mkError(const QString &type, const QString &message);
+public:
+	static IdgamesResult mkError(const QString &type, const QString &message);
 
-		IdgamesResult() {};
-		IdgamesResult(const QVariant &rawData);
+	IdgamesResult() {}
+	IdgamesResult(const QVariant &rawData);
 
-		QVariant content() const;
-		QString errorType() const;
-		QString errorMessage() const;
-		/**
-		 * @brief true for either warning and error.
-		 */
-		bool hasErrorMessage() const;
-		bool isError() const;
-		bool isNull() const;
-		bool isOk() const;
-		bool isWarning() const;
+	QVariant content() const;
+	QString errorType() const;
+	QString errorMessage() const;
+	/**
+	 * @brief true for either warning and error.
+	 */
+	bool hasErrorMessage() const;
+	bool isError() const;
+	bool isNull() const;
+	bool isOk() const;
+	bool isWarning() const;
 
-	private:
-		QVariantMap data;
+private:
+	QVariantMap data;
 
-		QString errorKeyword() const;
+	QString errorKeyword() const;
 };
 
 #endif

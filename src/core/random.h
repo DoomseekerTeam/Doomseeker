@@ -25,38 +25,39 @@
 
 #include "global.h"
 
+#include <QSharedPointer>
+#include <random>
+
 /**
  * @ingroup group_pluginapi
  * @brief Random values generator.
  *
- * Each call to a method that generates a value performs
- * a bIsInit == true check first. If this check fails a builtInInit() is
- * called. This ensures that Random number generator is always initialized
- * before the rand() call is made.
- *
- * Internally this uses srand() and rand() functions from C Standard Library.
+ * Each call to a method that generates a value checks for a properly seeded
+ * generator. If this check fails a builtInInit() is called. This ensures that a
+ * Random number generator is always initialized. Internally this uses the
+ * random C++ Standard Library, using the Mersenne Twister algorithm.
  */
 class MAIN_EXPORT Random
 {
-	public:
-		/**
-		 *	@brief Inits or re-inits the Random class with specified seed.
-		 */
-		static void init(int seed);
+public:
+	/**
+	 * @brief Inits or re-inits the Random class with specified seed.
+	 */
+	static void init(int seed);
 
-		/**
-		 *	@brief Generates a new random unsigned short.
-		 *
-		 *	@param max
-		 *		Maximum value for the generated number. This is exclusive,
-		 *		ie. generated value is in range 0 <= x < max
-		 */
-		static unsigned short nextUShort(unsigned short max);
+	/**
+	 * @brief Generates a new random unsigned short.
+	 *
+	 * @param max
+	 *     Maximum value for the generated number. This is exclusive,
+	 *     ie. generated value is in range 0 <= x < max
+	 */
+	static unsigned short nextUShort(unsigned short max);
 
-	private:
-		static bool bIsInit;
+private:
+	static QSharedPointer<std::mt19937> generator;
 
-		static void builtInInit();
+	static void builtInInit();
 };
 
 #endif

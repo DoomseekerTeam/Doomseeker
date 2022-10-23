@@ -44,10 +44,10 @@ QStringList WadseekerVersionInfo::knownWadExtensions()
 	return list;
 }
 
-bool WadseekerVersionInfo::isSupportedArchiveExtension(const QString& suffix)
+bool WadseekerVersionInfo::isSupportedArchiveExtension(const QString &suffix)
 {
 	QStringList extensions = supportedArchiveExtensions();
-	foreach (const QString& supported, extensions)
+	for (const QString &supported : extensions)
 	{
 		if (suffix.compare(supported, Qt::CaseInsensitive) == 0)
 		{
@@ -80,5 +80,5 @@ QString WadseekerVersionInfo::version()
 
 QString WadseekerVersionInfo::yearSpan()
 {
-	return "2009 - 2018";
+	return "2009 - 2019, 2021 - 2022";
 }

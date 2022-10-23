@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>853</width>
-    <height>476</height>
+    <width>938</width>
+    <height>568</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -83,96 +83,173 @@ p, li { white-space: pre-wrap; }
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="QGroupBox" name="groupBox">
-           <property name="title">
-            <string>Environment</string>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_2">
-            <item>
-             <layout class="QFormLayout" name="formLayout">
-              <property name="labelAlignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-              </property>
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_6">
-                <property name="text">
-                 <string>Falling damage:</string>
-                </property>
-                <property name="alignment">
+          <layout class="QVBoxLayout" name="verticalLayout_34">
+           <item>
+            <widget class="QGroupBox" name="groupBox">
+             <property name="title">
+              <string>Environment</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_2">
+              <item>
+               <layout class="QFormLayout" name="formLayout">
+                <property name="labelAlignment">
                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_6">
+                  <property name="text">
+                   <string>Falling damage:</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QComboBox" name="cboFallingDamage"/>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QWidget" name="widget" native="true">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>8</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>8</height>
+                 </size>
                 </property>
                </widget>
               </item>
-              <item row="0" column="1">
-               <widget class="QComboBox" name="cboFallingDamage"/>
+              <item>
+               <widget class="QCheckBox" name="cbNoMonsters">
+                <property name="text">
+                 <string>No monsters</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QWidget" name="widget_2" native="true">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>8</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>8</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbItemsRespawn">
+                <property name="text">
+                 <string>Items respawn</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbBarrelsRespawn">
+                <property name="text">
+                 <string>Barrels respawn</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbMegaPowerupsRespawn">
+                <property name="toolTip">
+                 <string>Respawn invulnerability and invisibility spheres.</string>
+                </property>
+                <property name="text">
+                 <string>Mega powerups respawn</string>
+                </property>
+               </widget>
               </item>
              </layout>
-            </item>
-            <item>
-             <widget class="QWidget" name="widget" native="true">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>8</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>8</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="cbNoMonsters">
-              <property name="text">
-               <string>No monsters</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QWidget" name="widget_2" native="true">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>8</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>8</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="cbItemsRespawn">
-              <property name="text">
-               <string>Items respawn</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="cbBarrelsRespawn">
-              <property name="text">
-               <string>Barrels respawn</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="cbMegaPowerupsRespawn">
-              <property name="toolTip">
-               <string>Respawn invulnerability and invisibility spheres.</string>
-              </property>
-              <property name="text">
-               <string>Mega powerups respawn</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_17">
+             <property name="title">
+              <string>Server</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_35">
+              <item>
+               <layout class="QGridLayout" name="gridLayout_7">
+                <item row="0" column="0">
+                 <widget class="QCheckBox" name="cbNoUnlagged">
+                  <property name="toolTip">
+                   <string>Don't use ping-based backwards reconciliation for player-fired hitscans and rails.</string>
+                  </property>
+                  <property name="text">
+                   <string>No unlagged</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QCheckBox" name="cbNoUnlaggedBfgTracers">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Don't use backwards reconcilation for the hitscan tracers fired from the BFG9000.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="text">
+                   <string>No unlagged on BFG tracers</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QWidget" name="serverCountryPanel" native="true">
+                <layout class="QFormLayout" name="formLayout_5">
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label_18">
+                   <property name="text">
+                    <string>Server country:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QComboBox" name="cbServerCountry">
+                   <property name="toolTip">
+                    <string>&lt;p&gt;Sets the country of the server, which will be presented to server browsers.&lt;/p&gt; &lt;p&gt;The value of this variable can be one of:&lt;ul&gt;&lt;li&gt;an ISO 3166-1 alpha-3 country code, for example GBR for the United Kingdom, USA for the United States&lt;/li&gt;&lt;li&gt;&amp;quot;automatic&amp;quot;, to tell the launcher to use IP geolocation (default)&lt;/li&gt;&lt;li&gt;or &amp;quot;unknown&amp;quot;.&lt;/li&gt;&lt;/p&gt;
+
+&lt;p&gt;This was introduced to allow hosts to combat the inaccuracies of the IP geolocation that launchers rely on. Not all servers browsers may support this feature and will use the IP geolocation instead.&lt;/p&gt;</string>
+                   </property>
+                   <property name="editable">
+                    <bool>true</bool>
+                   </property>
+                   <property name="maxVisibleItems">
+                    <number>20</number>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
          </item>
          <item>
           <widget class="QGroupBox" name="groupBox_2">
@@ -261,26 +338,6 @@ p, li { white-space: pre-wrap; }
        </item>
        <item>
         <layout class="QGridLayout" name="gridLayout_6">
-         <item row="0" column="0">
-          <widget class="QCheckBox" name="cbNoUnlagged">
-           <property name="toolTip">
-            <string>Don't use ping-based backwards reconciliation for player-fired hitscans and rails.</string>
-           </property>
-           <property name="text">
-            <string>No unlagged</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QCheckBox" name="cbAlwaysApplyLMSSpectatorSettings">
-           <property name="toolTip">
-            <string>Apply lmsspectatorsettings in all game modes.</string>
-           </property>
-           <property name="text">
-            <string>Always apply LMS spectator settings</string>
-           </property>
-          </widget>
-         </item>
          <item row="0" column="1">
           <widget class="QCheckBox" name="cbNoMedals">
            <property name="toolTip">
@@ -403,9 +460,9 @@ p, li { white-space: pre-wrap; }
                </widget>
               </item>
               <item row="0" column="1">
-               <widget class="QCheckBox" name="cbNoUseCustomGLLightingSettings">
+               <widget class="QCheckBox" name="cbNoUseCustomRendererSettings">
                 <property name="text">
-                 <string>Use custom GL lighting settings</string>
+                 <string>Use custom renderer settings</string>
                 </property>
                </widget>
               </item>
@@ -491,6 +548,16 @@ p, li { white-space: pre-wrap; }
               </property>
              </widget>
             </item>
+            <item>
+             <widget class="QCheckBox" name="cbNoClosingDoors">
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If set, stops doors from being manually closed. This prevents players intentionally (or unintentionally) griefing by closing doors that other players (or the same player) have opened.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="text">
+               <string>Closing doors</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </widget>
          </item>
@@ -526,6 +593,26 @@ p, li { white-space: pre-wrap; }
                 </item>
                 <item row="1" column="1">
                  <widget class="QComboBox" name="cboCrouching"/>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QComboBox" name="cboPlayerBlock"/>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_16">
+                  <property name="text">
+                   <string>Blocking:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="label_17">
+                  <property name="text">
+                   <string>Private chat:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="QComboBox" name="cboPrivateChat"/>
                 </item>
                </layout>
               </item>
@@ -567,43 +654,40 @@ p, li { white-space: pre-wrap; }
                 </property>
                </widget>
               </item>
-             </layout>
-            </widget>
-           </item>
-           <item>
-            <widget class="QGroupBox" name="groupBox_5">
-             <property name="title">
-              <string>Behavior</string>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_8">
-              <item>
-               <widget class="QRadioButton" name="rbPlayersCanWalkThroughEachOther">
-                <property name="text">
-                 <string>Players can walk through each other</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QRadioButton" name="rbAlliesCanWalkThroughEachOther">
-                <property name="text">
-                 <string>Allies can walk through each other</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QRadioButton" name="rbPlayersBlockEachOtherNormally">
-                <property name="text">
-                 <string>Players block each other normally</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
               <item>
                <widget class="QCheckBox" name="cbDontCheckAmmoWhenSwitchingWeapons">
                 <property name="text">
                  <string>Don't check ammo when switching weapons</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbLimitVerticalLook">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Forces the player's pitch to be limited to what's allowed in the software renderer.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string>Limit vertical look range to the limit of the software renderer</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbShootThroughAllies">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Allows players to fire hitscans and projectiles through teammates.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string>Players can shoot through allies</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbDontPushAllies">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Players aren't pushed by attacks caused by their teammates (e.g. BFG tracers).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string>Players don't push allies when shooting them</string>
                 </property>
                </widget>
               </item>
@@ -674,128 +758,149 @@ p, li { white-space: pre-wrap; }
           <number>0</number>
          </property>
          <item>
-          <layout class="QVBoxLayout" name="verticalLayout_10">
-           <item>
-            <widget class="QCheckBox" name="cbScoreDamageNotKills">
-             <property name="text">
-              <string>Score damage, not kills</string>
-             </property>
-            </widget>
-           </item>
+          <layout class="QVBoxLayout" name="verticalLayout_10" stretch="0,0,0">
            <item>
             <widget class="QGroupBox" name="groupBox_7">
              <property name="title">
-              <string>Environment</string>
+              <string>Don't spawn...</string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_11">
               <item>
                <widget class="QCheckBox" name="cbDontSpawnDeathmatchWeapons">
                 <property name="text">
-                 <string>Don't spawn Deathmatch weapons</string>
+                 <string>Deathmatch weapons</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QCheckBox" name="cbDontSpawnAnyMultiplayerItem">
                 <property name="toolTip">
-                 <string>Spawn map actors in coop as if the game was single player.</string>
+                 <string>&lt;p&gt;Spawn map items, monsters and other objects in coop as if the game was single player.&lt;/p&gt;</string>
                 </property>
                 <property name="text">
-                 <string>Don't spawn any multiplayer actor in coop</string>
+                 <string>any multiplayer actor in coop</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_9">
+             <property name="title">
+              <string>Monsters...</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_12">
+              <item>
+               <widget class="QCheckBox" name="cbMonstersAreFast">
+                <property name="text">
+                 <string>are fast (like Nightmare)</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QGroupBox" name="groupBox_9">
-                <property name="title">
-                 <string>Monsters...</string>
+               <widget class="QCheckBox" name="cbMonstersRespawn">
+                <property name="text">
+                 <string>respawn (like Nightmare)</string>
                 </property>
-                <layout class="QVBoxLayout" name="verticalLayout_12">
-                 <item>
-                  <widget class="QCheckBox" name="cbMonstersAreFast">
-                   <property name="text">
-                    <string>are fast (like Nightmare)</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QCheckBox" name="cbMonstersRespawn">
-                   <property name="text">
-                    <string>respawn (like Nightmare)</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QCheckBox" name="cbMonstersMustBeKilledToExit">
-                   <property name="text">
-                    <string>must be killed to enable exit</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <layout class="QFormLayout" name="formLayout_3">
-                   <property name="labelAlignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label_9">
-                     <property name="text">
-                      <string>Kill percentage:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="1">
-                    <widget class="QSpinBox" name="spinMonsterKillPercentage">
-                     <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                     </property>
-                     <property name="maximum">
-                      <number>100</number>
-                     </property>
-                     <property name="value">
-                      <number>100</number>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="0">
-                    <widget class="QLabel" name="label_14">
-                     <property name="toolTip">
-                      <string>Multiplier of damage dealt by monsters.</string>
-                     </property>
-                     <property name="text">
-                      <string>Damage factor:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="1">
-                    <widget class="QDoubleSpinBox" name="spinMonstersDamageFactor">
-                     <property name="toolTip">
-                      <string>&lt;html&gt;&lt;body&gt;&lt;p&gt;Multiplier of damage dealt by monsters.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                     </property>
-                     <property name="maximum">
-                      <double>999999.000000000000000</double>
-                     </property>
-                     <property name="singleStep">
-                      <double>0.100000000000000</double>
-                     </property>
-                     <property name="value">
-                      <double>1.000000000000000</double>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <widget class="QCheckBox" name="cbKillBossMonsters">
-                   <property name="text">
-                    <string>Kill all monsters spawned by a boss cube when the boss dies</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbMonstersMustBeKilledToExit">
+                <property name="text">
+                 <string>must be killed to enable exit</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QFormLayout" name="formLayout_3">
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_9">
+                  <property name="text">
+                   <string>Kill percentage:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QSpinBox" name="spinMonsterKillPercentage">
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                  <property name="maximum">
+                   <number>100</number>
+                  </property>
+                  <property name="value">
+                   <number>100</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_14">
+                  <property name="toolTip">
+                   <string>Multiplier of damage dealt by monsters.</string>
+                  </property>
+                  <property name="text">
+                   <string>Damage factor:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QDoubleSpinBox" name="spinMonstersDamageFactor">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;body&gt;&lt;p&gt;Multiplier of damage dealt by monsters.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                  <property name="maximum">
+                   <double>999999.000000000000000</double>
+                  </property>
+                  <property name="singleStep">
+                   <double>0.100000000000000</double>
+                  </property>
+                  <property name="value">
+                   <double>1.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbKillBossMonsters">
+                <property name="text">
+                 <string>Kill all monsters spawned by a boss cube when the boss dies</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_6">
+             <property name="title">
+              <string>Survival</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_32">
+              <item>
+               <widget class="QCheckBox" name="cbSurvivalNoMapResetOnDeath">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Players will be respawned with full lives but the map will not be reset. Inventory will be preserved in accordance to &amp;quot;Lose inventory&amp;quot; flags. Players will be able to continue from the point where they died.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string>No map reset when all players die</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbDeadPlayersCanKeepInventory">
+                <property name="toolTip">
+                 <string>&lt;p&gt;If set, players who lose all lives and become dead spectators will still keep inventory in accordance to the &amp;quot;Lose inventory&amp;quot; flags. When they will finally be able to play again, all their items will be returned to them.&lt;/p&gt;
+
+&lt;p&gt;If unset, players who lose all lives will always lose their entire inventory, regardless of the &amp;quot;Lose inventory&amp;quot; flags.&lt;/p&gt;</string>
+                </property>
+                <property name="text">
+                 <string>Players who lose all lives can keep inventory</string>
+                </property>
                </widget>
               </item>
              </layout>
@@ -804,98 +909,98 @@ p, li { white-space: pre-wrap; }
           </layout>
          </item>
          <item>
-          <widget class="QGroupBox" name="groupBox_8">
-           <property name="title">
-            <string>On player death...</string>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_13">
-            <item>
-             <widget class="QCheckBox" name="cbRespawnWhereDied">
-              <property name="text">
-               <string>Respawn where died</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="cbLoseAllInventory">
-              <property name="text">
-               <string>Lose all inventory</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="cbLoseArmor">
-              <property name="text">
-               <string>Lose armor</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="cbLoseKeys">
-              <property name="text">
-               <string>Lose keys</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="cbLosePowerups">
-              <property name="text">
-               <string>Lose powerups</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="cbLoseWeapons">
-              <property name="text">
-               <string>Lose weapons</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="cbLoseAllAmmo">
-              <property name="text">
-               <string>Lose all ammo</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="cbLoseHalfAmmo">
-              <property name="text">
-               <string>Lose half ammo</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="cbDeadPlayersCanKeepInventory">
-              <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Affects game modes where &amp;quot;max. lives&amp;quot; can be used. If set, players who become dead spectators (run out of lives) will still keep inventory in accordance to the &amp;quot;Lose *&amp;quot; flags above. If unset, players who lose all lives will always lose entire inventory.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-              <property name="text">
-               <string>Players who lose all lives can keep inventory</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
+          <layout class="QVBoxLayout" name="verticalLayout_31" stretch="0,1">
+           <item>
+            <widget class="QGroupBox" name="groupBox_16">
+             <property name="title">
+              <string>Players...</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_33">
+              <item>
+               <widget class="QCheckBox" name="cbScoreDamageNotKills">
+                <property name="text">
+                 <string>score damage, not kills</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbShareKeys">
+                <property name="text">
+                 <string>share keys</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_8">
+             <property name="title">
+              <string>On player death...</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_13">
+              <item>
+               <widget class="QCheckBox" name="cbRespawnWhereDied">
+                <property name="text">
+                 <string>respawn where died</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbLoseAllInventory">
+                <property name="text">
+                 <string>lose all inventory</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbLoseArmor">
+                <property name="text">
+                 <string>lose armor</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbLoseKeys">
+                <property name="text">
+                 <string>lose keys</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbLosePowerups">
+                <property name="text">
+                 <string>lose powerups</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbLoseWeapons">
+                <property name="text">
+                 <string>lose weapons</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbLoseAllAmmo">
+                <property name="text">
+                 <string>lose all ammo</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbLoseHalfAmmo">
+                <property name="text">
+                 <string>lose half ammo</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="cbShareKeys">
-         <property name="text">
-          <string>Share keys between players</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="cbSurvivalNoMapResetOnDeath">
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Players will be respawned with full lives but the map will not be reset. Inventory will be preserved in accordance to &amp;quot;Lose inventory&amp;quot; flags. Players will be able to continue from the point where they died.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="text">
-          <string>Survival only: no map reset when all players die</string>
-         </property>
-        </widget>
        </item>
        <item>
         <spacer name="verticalSpacer_3">
@@ -923,46 +1028,112 @@ p, li { white-space: pre-wrap; }
           <string>When players die, they...</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
-          <item row="0" column="0">
-           <widget class="QCheckBox" name="cbRespawnAutomatically">
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="cbRespawnWithAShotgun">
             <property name="text">
-             <string>Respawn automatically</string>
+             <string>respawn with a shotgun</string>
             </property>
            </widget>
           </item>
           <item row="0" column="1">
            <widget class="QCheckBox" name="cbDropWeaponOnDeath">
             <property name="text">
-             <string>Drop their weapon</string>
+             <string>drop their weapon</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
-           <widget class="QCheckBox" name="cbRespawnFarthestAwayFromOthers">
+          <item row="0" column="0">
+           <widget class="QCheckBox" name="cbRespawnAutomatically">
             <property name="text">
-             <string>Respawn farthest away from others</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QCheckBox" name="cbLoseAFragOnDeath">
-            <property name="text">
-             <string>Lose a frag</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QCheckBox" name="cbRespawnWithAShotgun">
-            <property name="text">
-             <string>Respawn with a shotgun</string>
+             <string>respawn automatically</string>
             </property>
            </widget>
           </item>
           <item row="2" column="1">
            <widget class="QCheckBox" name="cbNoRespawnProtection">
             <property name="text">
-             <string>Don't get respawn protection</string>
+             <string>don't get respawn protection</string>
             </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="cbRespawnFarthestAwayFromOthers">
+            <property name="text">
+             <string>respawn farthest away from others</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QCheckBox" name="cbLoseAFragOnDeath">
+            <property name="text">
+             <string>lose a frag</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QWidget" name="respawnDelayPanel" native="true">
+            <layout class="QGridLayout" name="gridLayout_8">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item row="0" column="2">
+              <widget class="QLabel" name="label_20">
+               <property name="text">
+                <string>sec.</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QSpinBox" name="spinRespawnDelay">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>60</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;How long a player must wait after dying before they can respawn. This doesn't apply to players who are spawn telefragged.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="correctionMode">
+                <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
+               </property>
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>99999999</number>
+               </property>
+               <property name="value">
+                <number>1</number>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QCheckBox" name="cbRespawnDelayEnabled">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>can respawn only after:</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
          </layout>
@@ -979,7 +1150,7 @@ p, li { white-space: pre-wrap; }
             <item>
              <widget class="QRadioButton" name="rbContinueToTheNextMap">
               <property name="text">
-               <string>Continue to the next map</string>
+               <string>continue to the next map</string>
               </property>
               <property name="checked">
                <bool>true</bool>
@@ -989,14 +1160,14 @@ p, li { white-space: pre-wrap; }
             <item>
              <widget class="QRadioButton" name="rbRestartTheCurrentLevel">
               <property name="text">
-               <string>Restart the current level</string>
+               <string>restart the current level</string>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QRadioButton" name="rbKillThePlayer">
               <property name="text">
-               <string>Kill the player</string>
+               <string>kill the player</string>
               </property>
              </widget>
             </item>
@@ -1060,21 +1231,21 @@ p, li { white-space: pre-wrap; }
               <item>
                <widget class="QCheckBox" name="cbDontSpawnHealth">
                 <property name="text">
-                 <string>Health</string>
+                 <string>health</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QCheckBox" name="cbDontSpawnArmor">
                 <property name="text">
-                 <string>Armor</string>
+                 <string>armor</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QCheckBox" name="cbDontSpawnRunes">
                 <property name="text">
-                 <string>Runes</string>
+                 <string>runes</string>
                 </property>
                </widget>
               </item>
@@ -1189,62 +1360,6 @@ p, li { white-space: pre-wrap; }
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_20">
            <item>
-            <layout class="QFormLayout" name="formLayout_4">
-             <property name="labelAlignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-             <property name="formAlignment">
-              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-             </property>
-             <item row="0" column="0">
-              <widget class="QLabel" name="label_10">
-               <property name="text">
-                <string>lmsallowedweapons:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QLineEdit" name="leLMSAllowedWeapons">
-               <property name="maximumSize">
-                <size>
-                 <width>100</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>0</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="label_11">
-               <property name="text">
-                <string>lmsspectatorsettings:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QLineEdit" name="leLMSSpectatorSettings">
-               <property name="maximumSize">
-                <size>
-                 <width>100</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>0</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
             <widget class="QGroupBox" name="groupBox_15">
              <property name="title">
               <string>Spectators can...</string>
@@ -1253,16 +1368,91 @@ p, li { white-space: pre-wrap; }
               <item>
                <widget class="QCheckBox" name="cbLMSSpectatorsCanTalkToActivePlayers">
                 <property name="text">
-                 <string>Talk to active players</string>
+                 <string>talk to active players</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QCheckBox" name="cbLMSSpectatorsCanViewTheGame">
                 <property name="text">
-                 <string>View the game</string>
+                 <string>view the game</string>
                 </property>
                </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_5">
+             <property name="title">
+              <string>LMS flags</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_8">
+              <item>
+               <widget class="QCheckBox" name="cbAlwaysApplyLMSSpectatorSettings">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Apply lmsspectatorsettings in all game modes, not only in LMS.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string>Always apply LMS spectator settings</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QFormLayout" name="formLayout_4">
+                <property name="labelAlignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+                <property name="formAlignment">
+                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+                </property>
+                <item row="1" column="1">
+                 <widget class="QLineEdit" name="leLMSSpectatorSettings">
+                  <property name="maximumSize">
+                   <size>
+                    <width>100</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>0</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_11">
+                  <property name="text">
+                   <string>lmsspectatorsettings:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QLineEdit" name="leLMSAllowedWeapons">
+                  <property name="maximumSize">
+                   <size>
+                    <width>100</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>0</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_10">
+                  <property name="text">
+                   <string>lmsallowedweapons:</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
              </layout>
             </widget>
@@ -1358,7 +1548,7 @@ p, li { white-space: pre-wrap; }
            <item>
             <widget class="QCheckBox" name="cbCompatOriginalWeaponSwitch">
              <property name="toolTip">
-              <string>Clients use the vanilla Doom weapon on pickup behavior.</string>
+              <string>When a weapon is picked up, the weapon switch behaves like in vanilla Doom.</string>
              </property>
              <property name="text">
               <string>Original weapon switch</string>
@@ -1475,6 +1665,13 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
+            <widget class="QCheckBox" name="cbCompatMonstersCantBePushedOffCliffs">
+             <property name="text">
+              <string>Monsters can't be pushed off cliffs</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QCheckBox" name="cbCompatInstantlyMovingFloorsArentSilent">
              <property name="toolTip">
               <string>Instantly moving floors are not silent.</string>
@@ -1505,14 +1702,10 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="cbCompatMonstersCantBePushedOffCliffs">
-             <property name="text">
-              <string>Monsters can't be pushed off cliffs</string>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QCheckBox" name="cbCompatOldDamageRadiusInfiniteHeight">
+             <property name="toolTip">
+              <string>&lt;p&gt;Shooting a rocket against a wall will damage the actors near this wall even if they are far below or above the explosion.&lt;/p&gt;</string>
+             </property>
              <property name="text">
               <string>Old damage radius (infinite height)</string>
              </property>
@@ -1583,6 +1776,9 @@ p, li { white-space: pre-wrap; }
           <layout class="QVBoxLayout" name="verticalLayout_30">
            <item>
             <widget class="QCheckBox" name="cbCompatUseOriginalMissileClippingHeight">
+             <property name="toolTip">
+              <string>&lt;p&gt;This allows for decorations to be pass-through for projectiles as they were originally in Doom.&lt;/p&gt;</string>
+             </property>
              <property name="text">
               <string>Use original missile clipping height</string>
              </property>
@@ -1645,7 +1841,7 @@ p, li { white-space: pre-wrap; }
            <item>
             <widget class="QCheckBox" name="cbOldZDoomHorizontalThrust">
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If this is enabled, explosions cause a strong horizontal thrust like in old ZDoom versions.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;p&gt;If this is enabled, explosions cause a strong horizontal thrust like in old ZDoom versions.&lt;/p&gt;</string>
              </property>
              <property name="text">
               <string>Old ZDoom horizontal thrust</string>
@@ -1655,8 +1851,7 @@ p, li { white-space: pre-wrap; }
            <item>
             <widget class="QCheckBox" name="cbOldZDoomBridgeDrops">
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If this is enabled, non-SOLID things like flags fall through bridges (as they used to do in old ZDoom versions).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-</string>
+              <string>&lt;p&gt;If this is enabled, non-SOLID things like flags fall through bridges (as they used to do in old ZDoom versions).&lt;/p&gt;</string>
              </property>
              <property name="text">
               <string>Old ZDoom bridge drops</string>
@@ -1694,6 +1889,16 @@ p, li { white-space: pre-wrap; }
             <widget class="QCheckBox" name="cbCompatBadAngles">
              <property name="text">
               <string>It is impossible to face directly NSEW</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatResetWorldAcsVarsOnMapReset">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;World and global-scope ACS variables/arrays will be reset upon resetting the map like in survival.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Reset global/world ACS vars on map reset</string>
              </property>
             </widget>
            </item>
@@ -1737,6 +1942,9 @@ p, li { white-space: pre-wrap; }
            </item>
            <item>
             <widget class="QCheckBox" name="cbCompatActorsAreInfinitelyTall">
+             <property name="toolTip">
+              <string>&lt;p&gt;Like in vanilla Doom.&lt;/p&gt;</string>
+             </property>
              <property name="text">
               <string>Actors are infinitely tall</string>
              </property>
@@ -1794,6 +2002,36 @@ p, li { white-space: pre-wrap; }
              </property>
             </widget>
            </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatSkulltagJumping">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the jumping behavior known from Skulltag.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Skulltag jumping</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatNoObituaries">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Prevent obituary messages from being printed to the console when a player dies.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Don't display player obituaries</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbCompatPushWindow">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disable the window check in CheckForPushSpecial(). For maps that expect non-blocking push lines to activate when you are standing on them and run into a completely different line. Some maps may need this to enable climbing up ladders.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Non-blocking lines can be pushed</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </item>
         </layout>
@@ -1827,6 +2065,13 @@ p, li { white-space: pre-wrap; }
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>dmflags</string>
+       </property>
+      </widget>
+     </item>
      <item row="0" column="4">
       <widget class="QLabel" name="label_5">
        <property name="text">
@@ -1844,22 +2089,8 @@ p, li { white-space: pre-wrap; }
        </property>
       </widget>
      </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>dmflags</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>dmflags2</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="leDmflags2">
+     <item row="1" column="5">
+      <widget class="QLineEdit" name="leZandronumCompatflags">
        <property name="text">
         <string>0</string>
        </property>
@@ -1868,15 +2099,8 @@ p, li { white-space: pre-wrap; }
        </property>
       </widget>
      </item>
-     <item row="1" column="4">
-      <widget class="QLabel" name="label_4">
-       <property name="text">
-        <string>zandronum compatflags</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="5">
-      <widget class="QLineEdit" name="leZandronumCompatflags">
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="leDmflags2">
        <property name="text">
         <string>0</string>
        </property>
@@ -1892,13 +2116,17 @@ p, li { white-space: pre-wrap; }
        </property>
       </widget>
      </item>
-     <item row="0" column="5">
-      <widget class="QLineEdit" name="leZandronumDmflags">
+     <item row="1" column="4">
+      <widget class="QLabel" name="label_4">
        <property name="text">
-        <string>0</string>
+        <string>zandronum compatflags</string>
        </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>dmflags2</string>
        </property>
       </widget>
      </item>
@@ -1929,6 +2157,16 @@ p, li { white-space: pre-wrap; }
        </property>
       </widget>
      </item>
+     <item row="0" column="5">
+      <widget class="QLineEdit" name="leZandronumDmflags">
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
   </layout>
@@ -1950,22 +2188,23 @@ p, li { white-space: pre-wrap; }
   <tabstop>cbItemsRespawn</tabstop>
   <tabstop>cbBarrelsRespawn</tabstop>
   <tabstop>cbMegaPowerupsRespawn</tabstop>
+  <tabstop>cbNoUnlagged</tabstop>
+  <tabstop>cbNoUnlaggedBfgTracers</tabstop>
+  <tabstop>cbServerCountry</tabstop>
   <tabstop>cbServerPicksTeams</tabstop>
   <tabstop>cbPlayersCantSwitchTeams</tabstop>
   <tabstop>cbKeepTeamsAfterAMapChange</tabstop>
   <tabstop>cbHideAlliesOnTheAutomap</tabstop>
   <tabstop>cbDontLetPlayersSpyOnAllies</tabstop>
   <tabstop>cbInstantFlagSkullReturn</tabstop>
-  <tabstop>cbNoUnlagged</tabstop>
   <tabstop>cbNoMedals</tabstop>
-  <tabstop>cbAlwaysApplyLMSSpectatorSettings</tabstop>
   <tabstop>cbNoSuicide</tabstop>
   <tabstop>cbNoRespawn</tabstop>
   <tabstop>cbNoItemDrop</tabstop>
   <tabstop>cbNoRocketJump</tabstop>
   <tabstop>cbNoTaunt</tabstop>
   <tabstop>cbNoUseAutomap</tabstop>
-  <tabstop>cbNoUseCustomGLLightingSettings</tabstop>
+  <tabstop>cbNoUseCustomRendererSettings</tabstop>
   <tabstop>cbNoUseCrosshairs</tabstop>
   <tabstop>cbNoTurnOffTranslucency</tabstop>
   <tabstop>cbNoTargetIdentify</tabstop>
@@ -1975,19 +2214,21 @@ p, li { white-space: pre-wrap; }
   <tabstop>cbNoUseFreelook</tabstop>
   <tabstop>cbNoUseLandConsoleCommand</tabstop>
   <tabstop>cbNoMaxBloodScalar</tabstop>
+  <tabstop>cbNoClosingDoors</tabstop>
   <tabstop>cboJumping</tabstop>
   <tabstop>cboCrouching</tabstop>
+  <tabstop>cboPlayerBlock</tabstop>
+  <tabstop>cboPrivateChat</tabstop>
   <tabstop>cbInfiniteInventory</tabstop>
   <tabstop>cbInfiniteAmmo</tabstop>
   <tabstop>cbSlowlyLoseHealthWhenOver100</tabstop>
   <tabstop>cbCanUseChasecam</tabstop>
   <tabstop>cbAllowBFGFreeaiming</tabstop>
-  <tabstop>rbPlayersCanWalkThroughEachOther</tabstop>
-  <tabstop>rbAlliesCanWalkThroughEachOther</tabstop>
-  <tabstop>rbPlayersBlockEachOtherNormally</tabstop>
   <tabstop>cbDontCheckAmmoWhenSwitchingWeapons</tabstop>
+  <tabstop>cbLimitVerticalLook</tabstop>
+  <tabstop>cbShootThroughAllies</tabstop>
+  <tabstop>cbDontPushAllies</tabstop>
   <tabstop>spinForceInactivePlayersSpectatingMins</tabstop>
-  <tabstop>cbScoreDamageNotKills</tabstop>
   <tabstop>cbDontSpawnDeathmatchWeapons</tabstop>
   <tabstop>cbDontSpawnAnyMultiplayerItem</tabstop>
   <tabstop>cbMonstersAreFast</tabstop>
@@ -1996,20 +2237,23 @@ p, li { white-space: pre-wrap; }
   <tabstop>spinMonsterKillPercentage</tabstop>
   <tabstop>spinMonstersDamageFactor</tabstop>
   <tabstop>cbKillBossMonsters</tabstop>
+  <tabstop>cbSurvivalNoMapResetOnDeath</tabstop>
+  <tabstop>cbDeadPlayersCanKeepInventory</tabstop>
+  <tabstop>cbScoreDamageNotKills</tabstop>
+  <tabstop>cbShareKeys</tabstop>
   <tabstop>cbRespawnWhereDied</tabstop>
   <tabstop>cbLoseAllInventory</tabstop>
   <tabstop>cbLoseArmor</tabstop>
   <tabstop>cbLoseKeys</tabstop>
   <tabstop>cbLosePowerups</tabstop>
-  <tabstop>cbLoseWeapons</tabstop>
   <tabstop>cbLoseAllAmmo</tabstop>
+  <tabstop>cbLoseWeapons</tabstop>
   <tabstop>cbLoseHalfAmmo</tabstop>
-  <tabstop>cbDeadPlayersCanKeepInventory</tabstop>
-  <tabstop>cbShareKeys</tabstop>
-  <tabstop>cbSurvivalNoMapResetOnDeath</tabstop>
   <tabstop>cbRespawnAutomatically</tabstop>
   <tabstop>cbRespawnFarthestAwayFromOthers</tabstop>
   <tabstop>cbRespawnWithAShotgun</tabstop>
+  <tabstop>cbRespawnDelayEnabled</tabstop>
+  <tabstop>spinRespawnDelay</tabstop>
   <tabstop>cbDropWeaponOnDeath</tabstop>
   <tabstop>cbLoseAFragOnDeath</tabstop>
   <tabstop>cbNoRespawnProtection</tabstop>
@@ -2032,10 +2276,11 @@ p, li { white-space: pre-wrap; }
   <tabstop>cbLMSGrenadeLauncher</tabstop>
   <tabstop>cbLMSPlasmaRifle</tabstop>
   <tabstop>cbLMSRailgun</tabstop>
-  <tabstop>leLMSAllowedWeapons</tabstop>
-  <tabstop>leLMSSpectatorSettings</tabstop>
   <tabstop>cbLMSSpectatorsCanTalkToActivePlayers</tabstop>
   <tabstop>cbLMSSpectatorsCanViewTheGame</tabstop>
+  <tabstop>cbAlwaysApplyLMSSpectatorSettings</tabstop>
+  <tabstop>leLMSAllowedWeapons</tabstop>
+  <tabstop>leLMSSpectatorSettings</tabstop>
   <tabstop>cbCompatEnableWallRunning</tabstop>
   <tabstop>cbCompatDontLetOthersHearPickups</tabstop>
   <tabstop>cbCompatAllowInstantRespawn</tabstop>
@@ -2054,10 +2299,10 @@ p, li { white-space: pre-wrap; }
   <tabstop>cbCompatScrollingSectorsAreAdditive</tabstop>
   <tabstop>cbCompatSectorSoundsUseOriginalMethod</tabstop>
   <tabstop>cbCompatNoMonstersDropoffMove</tabstop>
+  <tabstop>cbCompatMonstersCantBePushedOffCliffs</tabstop>
   <tabstop>cbCompatInstantlyMovingFloorsArentSilent</tabstop>
   <tabstop>cbCompatClientsSendFullButtonInfo</tabstop>
   <tabstop>cbCompatOldRandomNumberGenerator</tabstop>
-  <tabstop>cbCompatMonstersCantBePushedOffCliffs</tabstop>
   <tabstop>cbCompatOldDamageRadiusInfiniteHeight</tabstop>
   <tabstop>cbCompatMinotaur</tabstop>
   <tabstop>cbCompatOriginalVelocityCalcForMushroomInDehacked</tabstop>
@@ -2077,6 +2322,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>cbCompatUseVanillaAutoaimTracerBehavior</tabstop>
   <tabstop>cbCompatMaskedMidtex</tabstop>
   <tabstop>cbCompatBadAngles</tabstop>
+  <tabstop>cbCompatResetWorldAcsVarsOnMapReset</tabstop>
   <tabstop>cbCompatFindShortestTexturesLikeDoom</tabstop>
   <tabstop>cbCompatLimitPainElementals</tabstop>
   <tabstop>cbCompatSpawnItemDropsOnTheFloor</tabstop>
@@ -2089,7 +2335,9 @@ p, li { white-space: pre-wrap; }
   <tabstop>cbCompatFullWeaponLower</tabstop>
   <tabstop>cbCompatWestSpawnsAreSilent</tabstop>
   <tabstop>cbCompatFloorMove</tabstop>
-  <tabstop>votingPage</tabstop>
+  <tabstop>cbCompatSkulltagJumping</tabstop>
+  <tabstop>cbCompatNoObituaries</tabstop>
+  <tabstop>cbCompatPushWindow</tabstop>
   <tabstop>leDmflags</tabstop>
   <tabstop>leDmflags2</tabstop>
   <tabstop>leCompatflags</tabstop>
@@ -2106,8 +2354,8 @@ p, li { white-space: pre-wrap; }
    <slot>propagateFlagsInputsChanges()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>239</x>
-     <y>439</y>
+     <x>189</x>
+     <y>528</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -2122,8 +2370,8 @@ p, li { white-space: pre-wrap; }
    <slot>propagateFlagsInputsChanges()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>809</x>
-     <y>439</y>
+     <x>927</x>
+     <y>528</y>
     </hint>
     <hint type="destinationlabel">
      <x>349</x>
@@ -2138,8 +2386,8 @@ p, li { white-space: pre-wrap; }
    <slot>propagateFlagsInputsChanges()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>239</x>
-     <y>465</y>
+     <x>117</x>
+     <y>557</y>
     </hint>
     <hint type="destinationlabel">
      <x>124</x>
@@ -2154,8 +2402,8 @@ p, li { white-space: pre-wrap; }
    <slot>propagateFlagsInputsChanges()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>500</x>
-     <y>439</y>
+     <x>568</x>
+     <y>528</y>
     </hint>
     <hint type="destinationlabel">
      <x>572</x>
@@ -2170,8 +2418,8 @@ p, li { white-space: pre-wrap; }
    <slot>propagateFlagsInputsChanges()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>809</x>
-     <y>465</y>
+     <x>927</x>
+     <y>557</y>
     </hint>
     <hint type="destinationlabel">
      <x>567</x>
@@ -2186,8 +2434,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>144</x>
-     <y>165</y>
+     <x>244</x>
+     <y>173</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -2202,8 +2450,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>159</x>
-     <y>204</y>
+     <x>258</x>
+     <y>216</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -2218,8 +2466,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>176</x>
-     <y>227</y>
+     <x>258</x>
+     <y>243</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -2234,8 +2482,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>185</x>
-     <y>250</y>
+     <x>258</x>
+     <y>270</y>
     </hint>
     <hint type="destinationlabel">
      <x>1</x>
@@ -2250,8 +2498,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>598</x>
-     <y>103</y>
+     <x>904</x>
+     <y>133</y>
     </hint>
     <hint type="destinationlabel">
      <x>570</x>
@@ -2266,8 +2514,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>598</x>
-     <y>126</y>
+     <x>904</x>
+     <y>152</y>
     </hint>
     <hint type="destinationlabel">
      <x>572</x>
@@ -2282,8 +2530,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>598</x>
-     <y>149</y>
+     <x>904</x>
+     <y>203</y>
     </hint>
     <hint type="destinationlabel">
      <x>570</x>
@@ -2298,8 +2546,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>598</x>
-     <y>188</y>
+     <x>904</x>
+     <y>262</y>
     </hint>
     <hint type="destinationlabel">
      <x>575</x>
@@ -2314,8 +2562,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>598</x>
-     <y>211</y>
+     <x>904</x>
+     <y>297</y>
     </hint>
     <hint type="destinationlabel">
      <x>575</x>
@@ -2330,8 +2578,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>598</x>
-     <y>250</y>
+     <x>904</x>
+     <y>356</y>
     </hint>
     <hint type="destinationlabel">
      <x>575</x>
@@ -2346,8 +2594,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>300</x>
-     <y>107</y>
+     <x>208</x>
+     <y>110</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -2362,8 +2610,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>154</x>
-     <y>85</y>
+     <x>168</x>
+     <y>94</y>
     </hint>
     <hint type="destinationlabel">
      <x>1</x>
@@ -2378,8 +2626,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>237</x>
-     <y>85</y>
+     <x>310</x>
+     <y>94</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -2394,8 +2642,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>154</x>
-     <y>130</y>
+     <x>169</x>
+     <y>154</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -2410,8 +2658,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>237</x>
-     <y>130</y>
+     <x>310</x>
+     <y>154</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -2426,8 +2674,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>124</x>
-     <y>190</y>
+     <x>172</x>
+     <y>218</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -2442,8 +2690,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>124</x>
-     <y>217</y>
+     <x>172</x>
+     <y>249</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -2452,14 +2700,14 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
-   <sender>cbNoUseCustomGLLightingSettings</sender>
+   <sender>cbNoUseCustomRendererSettings</sender>
    <signal>clicked()</signal>
    <receiver>FlagsPage</receiver>
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>301</x>
-     <y>190</y>
+     <x>452</x>
+     <y>218</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -2474,8 +2722,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>301</x>
-     <y>217</y>
+     <x>452</x>
+     <y>249</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -2490,8 +2738,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>185</x>
-     <y>289</y>
+     <x>431</x>
+     <y>329</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -2506,8 +2754,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>214</x>
-     <y>312</y>
+     <x>289</x>
+     <y>356</y>
     </hint>
     <hint type="destinationlabel">
      <x>1</x>
@@ -2522,8 +2770,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>597</x>
-     <y>135</y>
+     <x>903</x>
+     <y>215</y>
     </hint>
     <hint type="destinationlabel">
      <x>586</x>
@@ -2538,8 +2786,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>597</x>
-     <y>158</y>
+     <x>903</x>
+     <y>242</y>
     </hint>
     <hint type="destinationlabel">
      <x>586</x>
@@ -2554,8 +2802,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>597</x>
-     <y>181</y>
+     <x>903</x>
+     <y>269</y>
     </hint>
     <hint type="destinationlabel">
      <x>586</x>
@@ -2570,8 +2818,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>597</x>
-     <y>204</y>
+     <x>903</x>
+     <y>296</y>
     </hint>
     <hint type="destinationlabel">
      <x>586</x>
@@ -2586,8 +2834,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>597</x>
-     <y>227</y>
+     <x>903</x>
+     <y>323</y>
     </hint>
     <hint type="destinationlabel">
      <x>586</x>
@@ -2602,8 +2850,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>124</x>
-     <y>244</y>
+     <x>172</x>
+     <y>280</y>
     </hint>
     <hint type="destinationlabel">
      <x>586</x>
@@ -2618,8 +2866,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>301</x>
-     <y>244</y>
+     <x>452</x>
+     <y>280</y>
     </hint>
     <hint type="destinationlabel">
      <x>586</x>
@@ -2634,7 +2882,7 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>596</x>
+     <x>846</x>
      <y>85</y>
     </hint>
     <hint type="destinationlabel">
@@ -2650,7 +2898,7 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>596</x>
+     <x>902</x>
      <y>111</y>
     </hint>
     <hint type="destinationlabel">
@@ -2666,8 +2914,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>196</x>
-     <y>335</y>
+     <x>453</x>
+     <y>383</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -2682,28 +2930,12 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>126</x>
-     <y>284</y>
+     <x>240</x>
+     <y>340</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
      <y>290</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>cbAlwaysApplyLMSSpectatorSettings</sender>
-   <signal>clicked()</signal>
-   <receiver>FlagsPage</receiver>
-   <slot>applyWidgetsChange()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>116</x>
-     <y>307</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>2</x>
-     <y>324</y>
     </hint>
    </hints>
   </connection>
@@ -2714,8 +2946,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>135</x>
-     <y>58</y>
+     <x>836</x>
+     <y>97</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -2730,8 +2962,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>176</x>
-     <y>104</y>
+     <x>452</x>
+     <y>97</y>
     </hint>
     <hint type="destinationlabel">
      <x>1</x>
@@ -2746,8 +2978,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>244</x>
-     <y>173</y>
+     <x>386</x>
+     <y>193</y>
     </hint>
     <hint type="destinationlabel">
      <x>1</x>
@@ -2762,8 +2994,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>196</y>
+     <x>390</x>
+     <y>220</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -2778,28 +3010,12 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>241</x>
-     <y>219</y>
+     <x>383</x>
+     <y>247</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
      <y>225</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>cbMonstersMustBeKilledToExit</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>spinMonsterKillPercentage</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>301</x>
-     <y>219</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>351</x>
-     <y>246</y>
     </hint>
    </hints>
   </connection>
@@ -2810,8 +3026,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>819</x>
-     <y>84</y>
+     <x>903</x>
+     <y>198</y>
     </hint>
     <hint type="destinationlabel">
      <x>586</x>
@@ -2826,8 +3042,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>819</x>
-     <y>111</y>
+     <x>903</x>
+     <y>230</y>
     </hint>
     <hint type="destinationlabel">
      <x>586</x>
@@ -2842,8 +3058,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>819</x>
-     <y>138</y>
+     <x>903</x>
+     <y>262</y>
     </hint>
     <hint type="destinationlabel">
      <x>586</x>
@@ -2858,8 +3074,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>819</x>
-     <y>165</y>
+     <x>903</x>
+     <y>294</y>
     </hint>
     <hint type="destinationlabel">
      <x>586</x>
@@ -2874,8 +3090,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>819</x>
-     <y>192</y>
+     <x>903</x>
+     <y>326</y>
     </hint>
     <hint type="destinationlabel">
      <x>586</x>
@@ -2890,8 +3106,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>819</x>
-     <y>219</y>
+     <x>903</x>
+     <y>358</y>
     </hint>
     <hint type="destinationlabel">
      <x>586</x>
@@ -2906,8 +3122,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>819</x>
-     <y>246</y>
+     <x>903</x>
+     <y>390</y>
     </hint>
     <hint type="destinationlabel">
      <x>586</x>
@@ -2922,8 +3138,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>819</x>
-     <y>273</y>
+     <x>903</x>
+     <y>422</y>
     </hint>
     <hint type="destinationlabel">
      <x>586</x>
@@ -2938,7 +3154,7 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>175</x>
+     <x>375</x>
      <y>79</y>
     </hint>
     <hint type="destinationlabel">
@@ -2954,7 +3170,7 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>167</x>
+     <x>416</x>
      <y>102</y>
     </hint>
     <hint type="destinationlabel">
@@ -2970,8 +3186,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>173</x>
-     <y>125</y>
+     <x>445</x>
+     <y>149</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -2986,7 +3202,7 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>599</x>
+     <x>799</x>
      <y>79</y>
     </hint>
     <hint type="destinationlabel">
@@ -3002,7 +3218,7 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>599</x>
+     <x>905</x>
      <y>102</y>
     </hint>
     <hint type="destinationlabel">
@@ -3018,8 +3234,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>599</x>
-     <y>125</y>
+     <x>905</x>
+     <y>149</y>
     </hint>
     <hint type="destinationlabel">
      <x>586</x>
@@ -3034,8 +3250,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>597</x>
-     <y>183</y>
+     <x>903</x>
+     <y>250</y>
     </hint>
     <hint type="destinationlabel">
      <x>586</x>
@@ -3050,8 +3266,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>597</x>
-     <y>206</y>
+     <x>903</x>
+     <y>277</y>
     </hint>
     <hint type="destinationlabel">
      <x>586</x>
@@ -3066,8 +3282,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>597</x>
-     <y>262</y>
+     <x>903</x>
+     <y>346</y>
     </hint>
     <hint type="destinationlabel">
      <x>586</x>
@@ -3082,8 +3298,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>597</x>
-     <y>285</y>
+     <x>903</x>
+     <y>373</y>
     </hint>
     <hint type="destinationlabel">
      <x>586</x>
@@ -3098,8 +3314,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>597</x>
-     <y>308</y>
+     <x>903</x>
+     <y>400</y>
     </hint>
     <hint type="destinationlabel">
      <x>586</x>
@@ -3114,8 +3330,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>222</x>
-     <y>189</y>
+     <x>297</x>
+     <y>258</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -3130,8 +3346,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>181</x>
-     <y>219</y>
+     <x>453</x>
+     <y>294</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -3146,8 +3362,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>202</x>
-     <y>249</y>
+     <x>453</x>
+     <y>330</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -3162,8 +3378,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>181</x>
-     <y>302</y>
+     <x>453</x>
+     <y>391</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -3210,8 +3426,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>138</x>
-     <y>126</y>
+     <x>162</x>
+     <y>150</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -3226,8 +3442,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>138</x>
-     <y>149</y>
+     <x>162</x>
+     <y>177</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -3242,8 +3458,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>138</x>
-     <y>172</y>
+     <x>162</x>
+     <y>204</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -3258,8 +3474,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>138</x>
-     <y>195</y>
+     <x>162</x>
+     <y>231</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -3274,8 +3490,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>138</x>
-     <y>218</y>
+     <x>162</x>
+     <y>258</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -3290,8 +3506,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>138</x>
-     <y>241</y>
+     <x>162</x>
+     <y>285</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -3306,8 +3522,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>138</x>
-     <y>264</y>
+     <x>162</x>
+     <y>312</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -3322,8 +3538,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>138</x>
-     <y>287</y>
+     <x>162</x>
+     <y>339</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -3338,8 +3554,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>597</x>
-     <y>135</y>
+     <x>903</x>
+     <y>97</y>
     </hint>
     <hint type="destinationlabel">
      <x>586</x>
@@ -3354,8 +3570,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>597</x>
-     <y>158</y>
+     <x>903</x>
+     <y>124</y>
     </hint>
     <hint type="destinationlabel">
      <x>586</x>
@@ -3370,8 +3586,8 @@ p, li { white-space: pre-wrap; }
    <slot>propagateFlagsInputsChanges()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>365</x>
-     <y>62</y>
+     <x>433</x>
+     <y>223</y>
     </hint>
     <hint type="destinationlabel">
      <x>586</x>
@@ -3386,8 +3602,8 @@ p, li { white-space: pre-wrap; }
    <slot>propagateFlagsInputsChanges()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>365</x>
-     <y>88</y>
+     <x>433</x>
+     <y>252</y>
     </hint>
     <hint type="destinationlabel">
      <x>586</x>
@@ -3402,8 +3618,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>202</x>
-     <y>358</y>
+     <x>453</x>
+     <y>410</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -3418,8 +3634,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>147</x>
-     <y>242</y>
+     <x>386</x>
+     <y>283</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -3434,8 +3650,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>76</x>
-     <y>150</y>
+     <x>356</x>
+     <y>175</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -3450,7 +3666,7 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>79</x>
+     <x>329</x>
      <y>58</y>
     </hint>
     <hint type="destinationlabel">
@@ -3466,8 +3682,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>158</x>
-     <y>173</y>
+     <x>397</x>
+     <y>202</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -3482,7 +3698,7 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>120</x>
+     <x>346</x>
      <y>81</y>
     </hint>
     <hint type="destinationlabel">
@@ -3498,8 +3714,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>124</x>
-     <y>196</y>
+     <x>363</x>
+     <y>229</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -3514,7 +3730,7 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>125</x>
+     <x>351</x>
      <y>104</y>
     </hint>
     <hint type="destinationlabel">
@@ -3530,7 +3746,7 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>607</x>
+     <x>807</x>
      <y>58</y>
     </hint>
     <hint type="destinationlabel">
@@ -3546,8 +3762,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>121</x>
-     <y>127</y>
+     <x>360</x>
+     <y>148</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -3562,8 +3778,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>143</x>
-     <y>219</y>
+     <x>382</x>
+     <y>256</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -3578,8 +3794,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>607</x>
-     <y>127</y>
+     <x>915</x>
+     <y>148</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -3594,7 +3810,7 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>607</x>
+     <x>913</x>
      <y>81</y>
     </hint>
     <hint type="destinationlabel">
@@ -3610,8 +3826,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>607</x>
-     <y>150</y>
+     <x>915</x>
+     <y>175</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -3626,7 +3842,7 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>607</x>
+     <x>913</x>
      <y>104</y>
     </hint>
     <hint type="destinationlabel">
@@ -3642,8 +3858,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>607</x>
-     <y>173</y>
+     <x>915</x>
+     <y>202</y>
     </hint>
     <hint type="destinationlabel">
      <x>1</x>
@@ -3658,8 +3874,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>607</x>
-     <y>196</y>
+     <x>915</x>
+     <y>229</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -3674,8 +3890,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>178</x>
-     <y>127</y>
+     <x>452</x>
+     <y>124</y>
     </hint>
     <hint type="destinationlabel">
      <x>293</x>
@@ -3690,8 +3906,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>607</x>
-     <y>219</y>
+     <x>915</x>
+     <y>256</y>
     </hint>
     <hint type="destinationlabel">
      <x>627</x>
@@ -3706,8 +3922,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>558</x>
-     <y>242</y>
+     <x>915</x>
+     <y>283</y>
     </hint>
     <hint type="destinationlabel">
      <x>628</x>
@@ -3722,7 +3938,7 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>83</x>
+     <x>333</x>
      <y>58</y>
     </hint>
     <hint type="destinationlabel">
@@ -3738,7 +3954,7 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>187</x>
+     <x>413</x>
      <y>81</y>
     </hint>
     <hint type="destinationlabel">
@@ -3754,7 +3970,7 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>133</x>
+     <x>359</x>
      <y>104</y>
     </hint>
     <hint type="destinationlabel">
@@ -3770,8 +3986,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>265</x>
-     <y>127</y>
+     <x>304</x>
+     <y>152</y>
     </hint>
     <hint type="destinationlabel">
      <x>631</x>
@@ -3786,8 +4002,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>241</x>
-     <y>150</y>
+     <x>280</x>
+     <y>180</y>
     </hint>
     <hint type="destinationlabel">
      <x>631</x>
@@ -3802,8 +4018,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>289</x>
-     <y>173</y>
+     <x>328</x>
+     <y>208</y>
     </hint>
     <hint type="destinationlabel">
      <x>631</x>
@@ -3818,8 +4034,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>284</x>
-     <y>196</y>
+     <x>323</x>
+     <y>236</y>
     </hint>
     <hint type="destinationlabel">
      <x>631</x>
@@ -3834,8 +4050,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>244</x>
-     <y>219</y>
+     <x>283</x>
+     <y>264</y>
     </hint>
     <hint type="destinationlabel">
      <x>631</x>
@@ -3850,8 +4066,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>239</x>
-     <y>242</y>
+     <x>278</x>
+     <y>292</y>
     </hint>
     <hint type="destinationlabel">
      <x>631</x>
@@ -3866,7 +4082,7 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>607</x>
+     <x>807</x>
      <y>58</y>
     </hint>
     <hint type="destinationlabel">
@@ -3882,7 +4098,7 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>607</x>
+     <x>913</x>
      <y>81</y>
     </hint>
     <hint type="destinationlabel">
@@ -3898,7 +4114,7 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>607</x>
+     <x>913</x>
      <y>104</y>
     </hint>
     <hint type="destinationlabel">
@@ -3914,8 +4130,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>607</x>
-     <y>127</y>
+     <x>915</x>
+     <y>148</y>
     </hint>
     <hint type="destinationlabel">
      <x>631</x>
@@ -3930,8 +4146,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>607</x>
-     <y>150</y>
+     <x>915</x>
+     <y>175</y>
     </hint>
     <hint type="destinationlabel">
      <x>631</x>
@@ -3946,8 +4162,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>607</x>
-     <y>173</y>
+     <x>915</x>
+     <y>202</y>
     </hint>
     <hint type="destinationlabel">
      <x>631</x>
@@ -3962,8 +4178,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>607</x>
-     <y>196</y>
+     <x>915</x>
+     <y>229</y>
     </hint>
     <hint type="destinationlabel">
      <x>631</x>
@@ -3978,8 +4194,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>607</x>
-     <y>219</y>
+     <x>915</x>
+     <y>256</y>
     </hint>
     <hint type="destinationlabel">
      <x>631</x>
@@ -3994,8 +4210,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>607</x>
-     <y>242</y>
+     <x>915</x>
+     <y>283</y>
     </hint>
     <hint type="destinationlabel">
      <x>631</x>
@@ -4010,8 +4226,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>164</x>
-     <y>265</y>
+     <x>403</x>
+     <y>320</y>
     </hint>
     <hint type="destinationlabel">
      <x>631</x>
@@ -4026,8 +4242,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>607</x>
-     <y>265</y>
+     <x>915</x>
+     <y>310</y>
     </hint>
     <hint type="destinationlabel">
      <x>607</x>
@@ -4042,8 +4258,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>608</x>
-     <y>285</y>
+     <x>916</x>
+     <y>412</y>
     </hint>
     <hint type="destinationlabel">
      <x>604</x>
@@ -4058,8 +4274,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>597</x>
-     <y>352</y>
+     <x>903</x>
+     <y>350</y>
     </hint>
     <hint type="destinationlabel">
      <x>631</x>
@@ -4074,8 +4290,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>240</x>
-     <y>294</y>
+     <x>382</x>
+     <y>336</y>
     </hint>
     <hint type="destinationlabel">
      <x>315</x>
@@ -4090,8 +4306,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>45</x>
-     <y>335</y>
+     <x>903</x>
+     <y>124</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -4106,60 +4322,12 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>76</x>
-     <y>381</y>
+     <x>351</x>
+     <y>437</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
      <y>322</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>rbPlayersCanWalkThroughEachOther</sender>
-   <signal>clicked()</signal>
-   <receiver>FlagsPage</receiver>
-   <slot>applyWidgetsChange()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>553</x>
-     <y>280</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>628</x>
-     <y>270</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>rbAlliesCanWalkThroughEachOther</sender>
-   <signal>clicked()</signal>
-   <receiver>FlagsPage</receiver>
-   <slot>applyWidgetsChange()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>479</x>
-     <y>303</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>631</x>
-     <y>291</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>rbPlayersBlockEachOtherNormally</sender>
-   <signal>clicked()</signal>
-   <receiver>FlagsPage</receiver>
-   <slot>applyWidgetsChange()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>494</x>
-     <y>322</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>631</x>
-     <y>319</y>
     </hint>
    </hints>
   </connection>
@@ -4170,8 +4338,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>45</x>
-     <y>249</y>
+     <x>334</x>
+     <y>310</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -4186,8 +4354,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>588</x>
-     <y>256</y>
+     <x>915</x>
+     <y>310</y>
     </hint>
     <hint type="destinationlabel">
      <x>623</x>
@@ -4202,8 +4370,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>39</x>
-     <y>281</y>
+     <x>328</x>
+     <y>337</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -4218,8 +4386,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>41</x>
-     <y>297</y>
+     <x>330</x>
+     <y>364</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -4234,8 +4402,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>795</x>
-     <y>288</y>
+     <x>915</x>
+     <y>337</y>
     </hint>
     <hint type="destinationlabel">
      <x>595</x>
@@ -4250,8 +4418,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>448</x>
-     <y>302</y>
+     <x>915</x>
+     <y>364</y>
     </hint>
     <hint type="destinationlabel">
      <x>556</x>
@@ -4266,8 +4434,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>79</x>
-     <y>324</y>
+     <x>359</x>
+     <y>391</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -4282,8 +4450,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>756</x>
-     <y>334</y>
+     <x>915</x>
+     <y>391</y>
     </hint>
     <hint type="destinationlabel">
      <x>629</x>
@@ -4298,8 +4466,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>707</x>
-     <y>357</y>
+     <x>915</x>
+     <y>418</y>
     </hint>
     <hint type="destinationlabel">
      <x>631</x>
@@ -4314,8 +4482,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>80</x>
-     <y>350</y>
+     <x>360</x>
+     <y>418</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -4330,8 +4498,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>51</x>
-     <y>278</y>
+     <x>340</x>
+     <y>348</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -4346,8 +4514,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>795</x>
-     <y>299</y>
+     <x>915</x>
+     <y>337</y>
     </hint>
     <hint type="destinationlabel">
      <x>630</x>
@@ -4362,8 +4530,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>131</x>
-     <y>295</y>
+     <x>370</x>
+     <y>376</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -4378,8 +4546,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>89</x>
-     <y>323</y>
+     <x>328</x>
+     <y>404</y>
     </hint>
     <hint type="destinationlabel">
      <x>1</x>
@@ -4394,8 +4562,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>440</x>
-     <y>314</y>
+     <x>915</x>
+     <y>364</y>
     </hint>
     <hint type="destinationlabel">
      <x>847</x>
@@ -4410,8 +4578,8 @@ p, li { white-space: pre-wrap; }
    <slot>propagateFlagsInputsChanges()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>393</x>
-     <y>454</y>
+     <x>414</x>
+     <y>557</y>
     </hint>
     <hint type="destinationlabel">
      <x>384</x>
@@ -4426,8 +4594,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyGameVersion()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>136</x>
-     <y>48</y>
+     <x>192</x>
+     <y>67</y>
     </hint>
     <hint type="destinationlabel">
      <x>1</x>
@@ -4442,8 +4610,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>323</x>
-     <y>82</y>
+     <x>452</x>
+     <y>112</y>
     </hint>
     <hint type="destinationlabel">
      <x>369</x>
@@ -4458,8 +4626,8 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>42</x>
-     <y>351</y>
+     <x>452</x>
+     <y>405</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -4474,12 +4642,236 @@ p, li { white-space: pre-wrap; }
    <slot>applyWidgetsChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>664</x>
-     <y>290</y>
+     <x>452</x>
+     <y>432</y>
     </hint>
     <hint type="destinationlabel">
      <x>845</x>
      <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cboPlayerBlock</sender>
+   <signal>activated(int)</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>902</x>
+     <y>137</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>468</x>
+     <y>317</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cboPrivateChat</sender>
+   <signal>activated(int)</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>902</x>
+     <y>187</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>468</x>
+     <y>283</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbAlwaysApplyLMSSpectatorSettings</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>903</x>
+     <y>193</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>324</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbLimitVerticalLook</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>903</x>
+     <y>377</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>935</x>
+     <y>333</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbShootThroughAllies</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>903</x>
+     <y>404</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>936</x>
+     <y>362</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbDontPushAllies</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>903</x>
+     <y>431</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>935</x>
+     <y>392</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbNoClosingDoors</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>383</x>
+     <y>464</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>4</x>
+     <y>435</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatResetWorldAcsVarsOnMapReset</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>370</x>
+     <y>432</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>46</x>
+     <y>350</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatSkulltagJumping</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>915</x>
+     <y>391</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>79</x>
+     <y>371</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbNoUnlaggedBfgTracers</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>451</x>
+     <y>340</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>67</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatPushWindow</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>915</x>
+     <y>445</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>931</x>
+     <y>339</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbCompatNoObituaries</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>915</x>
+     <y>418</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>937</x>
+     <y>349</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbRespawnDelayEnabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinRespawnDelay</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>41</x>
+     <y>166</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>220</x>
+     <y>162</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbMonstersMustBeKilledToExit</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinMonsterKillPercentage</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>452</x>
+     <y>247</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>451</x>
+     <y>278</y>
     </hint>
    </hints>
   </connection>

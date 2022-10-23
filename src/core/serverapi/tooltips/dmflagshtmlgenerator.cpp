@@ -27,18 +27,18 @@
 
 DClass<DmflagsHtmlGenerator>
 {
-	public:
-		ServerCPtr server;
+public:
+	ServerCPtr server;
 
-		QString mkSectionContents(const DMFlagsSection &section)
+	QString mkSectionContents(const DMFlagsSection &section)
+	{
+		QString result;
+		for (int i = 0; i < section.count(); ++i)
 		{
-			QString result;
-			for (int i = 0; i < section.count(); ++i)
-			{
-				result += "<li>" + section[i].name() + "</li>";
-			}
-			return result;
+			result += "<li>" + section[i].name() + "</li>";
 		}
+		return result;
+	}
 };
 
 DPointered(DmflagsHtmlGenerator)
@@ -56,11 +56,17 @@ QString DmflagsHtmlGenerator::generate()
 {
 	QString result;
 	const QList<DMFlagsSection> sections = d->server->dmFlags();
-	foreach(const DMFlagsSection &section, sections)
+	for (const DMFlagsSection &section : sections)
 	{
 		if (!section.isEmpty())
 		{
-			result += QString("<li><b>%1 (%2):</b></li>").arg(section.name()).arg(section.combineValues());
+			// Hack (#3944): the dmflag bits are stored in Doomseeker in the
+			// 32-bit unsigned format, but ZDoom-based ports use signed. If port
+			// uses the most significant bit for a dmflag the combined values
+			// will go into negative numbers.
+			const int32_t numerical = static_cast<int32_t>(section.combineValues());
+
+			result += QString("<li><b>%1 (%2):</b></li>").arg(section.name()).arg(numerical);
 			result += "<ul>";
 			result += d->mkSectionContents(section);
 			result += "</ul>";

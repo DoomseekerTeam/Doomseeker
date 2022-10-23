@@ -33,10 +33,10 @@ class EnginePlugin;
 
 namespace Srb2ServerPacket
 {
-	struct Header;
-	struct ServerInfo; /// PT_SERVERINFO
-	struct FileNeeded; /// PT_SERVERINFO
-	struct PlayerInfo; /// PT_PLAYERINFO
+struct Header;
+struct ServerInfo; /// PT_SERVERINFO
+struct FileNeeded; /// PT_SERVERINFO
+struct PlayerInfo; /// PT_PLAYERINFO
 }
 
 QDataStream &operator>>(QDataStream &stream, Srb2ServerPacket::Header &header);
@@ -50,20 +50,20 @@ class Srb2Server : public Server
 
 public:
 	Srb2Server(const QHostAddress &address, unsigned short port);
-	~Srb2Server();
+	~Srb2Server() override;
 
 	QString customDetails();
 
-	GameClientRunner* gameRunner();
+	GameClientRunner *gameRunner() override;
 
-	EnginePlugin* plugin() const;
+	EnginePlugin *plugin() const override;
 
 	void setGameVersion(const QString &version);
 
 protected:
 	Response readRequest(const QByteArray &data);
 	QByteArray createSendRequest();
-	PathFinder wadPathFinder();
+	PathFinder wadPathFinder() override;
 
 private:
 	class PrivData;

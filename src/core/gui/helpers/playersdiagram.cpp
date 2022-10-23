@@ -22,15 +22,16 @@
 //------------------------------------------------------------------------------
 #include "playersdiagram.h"
 
-#include "serverapi/playerslist.h"
-#include "serverapi/server.h"
 #include "datapaths.h"
 #include "log.h"
+#include "serverapi/playerslist.h"
+#include "serverapi/server.h"
 #include "strings.hpp"
+#include <cassert>
 #include <QDir>
 #include <QPainter>
 #include <QResource>
-#include <cassert>
+#include <utility>
 
 QImage PlayersDiagram::openImage;
 QImage PlayersDiagram::openSpecImage;
@@ -42,12 +43,10 @@ const QString PlayersDiagram::DEFAULT_STYLE = "blocks";
 QString PlayersDiagram::currentlyLoadedStyle;
 
 PlayersDiagram::PlayersDiagram(ServerCPtr server)
-: server(server)
+	: server(std::move(server))
 {
-	if(openImage.isNull())
-	{
+	if (openImage.isNull())
 		return;
-	}
 
 	obtainPlayerNumbers();
 	draw();
@@ -67,10 +66,10 @@ QList<PlayersDiagramStyle> PlayersDiagram::availableSlotStyles()
 
 	// Extra.
 	QStringList knownNames;
-	foreach (QDir dir, stylePaths())
+	for (QDir dir : stylePaths())
 	{
 		QStringList extraSlots = dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
-		foreach (QString slotsName, extraSlots)
+		for (QString slotsName : extraSlots)
 		{
 			if (!knownNames.contains(slotsName, Qt::CaseInsensitive))
 			{
@@ -87,20 +86,18 @@ QImage PlayersDiagram::colorizePlayer(QImage image, const QColor &color)
 {
 	QVector<QRgb> colors = image.colorTable();
 	QColor destinationColor = color.toHsv();
-	for(int i = 0; i < colors.size(); ++i)
+	for (QRgb &color : colors)
 	{
 		// Cyan has no red so move on if this color has red.
-		if(qRed(colors[i]) != 0 || qAlpha(colors[i]) == 0)
-		{
+		if (qRed(color) != 0 || qAlpha(color) == 0)
 			continue;
-		}
 
 		int hue = 0;
 		int saturation = 0;
 		int value = 0;
 		destinationColor.getHsv(&hue, &saturation, &value);
-		destinationColor.setHsv(hue, saturation, QColor(colors[i]).toHsv().value());
-		colors[i] = destinationColor.rgb();
+		destinationColor.setHsv(hue, saturation, QColor(color).toHsv().value());
+		color = destinationColor.rgb();
 	}
 	image.setColorTable(colors);
 
@@ -110,10 +107,10 @@ QImage PlayersDiagram::colorizePlayer(QImage image, const QColor &color)
 void PlayersDiagram::draw()
 {
 	// Don't bother trying to draw an empty image.
-	if(server->numTotalSlots() == 0)
+	if (server->maxClients() == 0)
 		return;
 
-	diagram = QPixmap(server->numTotalSlots() * playerImage.width(), playerImage.height());
+	diagram = QPixmap(server->maxClients() * playerImage.width(), playerImage.height());
 	diagram.fill(Qt::transparent);
 
 	slotSize = playerImage.width();
@@ -130,19 +127,13 @@ void PlayersDiagram::draw()
 	drawTeam(Bot, Player::TEAM_NONE, numBotsWithoutTeam);
 
 	if (numSpectators > 0)
-	{
 		drawPictures(spectatorImage, numSpectators);
-	}
 
 	if (numFreeJoinSlots > 0)
-	{
 		drawPictures(openImage, numFreeJoinSlots);
-	}
 
 	if (numFreeSpectatorSlots > 0)
-	{
 		drawPictures(openSpecImage, numFreeSpectatorSlots);
-	}
 
 	delete painter;
 }
@@ -153,19 +144,19 @@ void PlayersDiagram::drawTeam(PlayerType playerType, int team, int howMany)
 	{
 		QImage baseImage;
 
-		switch(playerType)
+		switch (playerType)
 		{
-			case Bot:
-				baseImage = botImage;
-				break;
+		case Bot:
+			baseImage = botImage;
+			break;
 
-			case Human:
-				baseImage = playerImage;
-				break;
+		case Human:
+			baseImage = playerImage;
+			break;
 
-			default:
-				gLog << "Error inside PlayersDiagram::drawTeam(): unknown PlayerType";
-				return;
+		default:
+			gLog << "Error inside PlayersDiagram::drawTeam(): unknown PlayerType";
+			return;
 		}
 
 		const QImage picture = colorizePlayer(baseImage, QColor(server->teamColor(team)));
@@ -208,7 +199,7 @@ QImage PlayersDiagram::loadImage(const QString &style, const QString &name)
 	if (style != DEFAULT_STYLE)
 	{
 		QString resourcePath;
-		foreach(const QString &dir, stylePaths())
+		for (const QString &dir : stylePaths())
 		{
 			image = QImage(Strings::combinePaths(dir, style + "/" + name + ".png"));
 			if (!image.isNull())
@@ -216,9 +207,7 @@ QImage PlayersDiagram::loadImage(const QString &style, const QString &name)
 		}
 	}
 	if (image.isNull())
-	{
 		image = QImage(":/slots/" + DEFAULT_STYLE + "/" + name);
-	}
 	return image;
 }
 
@@ -235,7 +224,7 @@ void PlayersDiagram::obtainPlayerNumbers()
 	numHumansWithoutTeam = players.numHumansWithoutTeam();
 	numSpectators = players.numSpectators();
 
-	for(int i = 0; i < MAX_TEAMS; ++i)
+	for (int i = 0; i < MAX_TEAMS; ++i)
 	{
 		numBotsOnTeam[i] = players.numBotsOnTeam(i);
 		numHumansOnTeam[i] = players.numHumansOnTeam(i);

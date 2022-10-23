@@ -21,28 +21,30 @@
 // Copyright (C) 2014 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
 #include "serverstructs.h"
-
-#include <QRegExp>
+#include "wadseeker/entities/checksum.h"
+#include "wadseeker/entities/hash.h"
+#include "wadseeker/entities/modfile.h"
+#include <QRegularExpression>
 #include <QVector>
 
 
 static QString coerceInternalName(const QString &name)
 {
-	return name.toLower().remove(QRegExp("[^a-z0-9]"));
+	return name.toLower().remove(QRegularExpression("[^a-z0-9]"));
 }
 
 
 DClass<DMFlag>
 {
-	public:
-		QString name;
-		unsigned value;
-		QString internalName;
+public:
+	QString name;
+	unsigned value;
+	QString internalName;
 
-		void setInternalName(const QString &name)
-		{
-			internalName = coerceInternalName(name);
-		}
+	void setInternalName(const QString &name)
+	{
+		internalName = coerceInternalName(name);
+	}
 };
 
 DPointered(DMFlag)
@@ -66,8 +68,20 @@ DMFlag::DMFlag(const QString &internalName, unsigned value, const QString &name)
 	d->value = value;
 }
 
+DMFlag::DMFlag(const DMFlag &other)
+{
+	this->d = other.d;
+}
+
 DMFlag::~DMFlag()
 {
+}
+
+DMFlag &DMFlag::operator=(const DMFlag &other)
+{
+	if (this != &other)
+		this->d = other.d;
+	return *this;
 }
 
 const QString &DMFlag::internalName() const
@@ -94,15 +108,15 @@ unsigned DMFlag::value() const
 
 DClass<DMFlagsSection>
 {
-	public:
-		QString name;
-		QString internalName;
-		QVector<DMFlag> flags;
+public:
+	QString name;
+	QString internalName;
+	QVector<DMFlag> flags;
 
-		void setInternalName(const QString &name)
-		{
-			internalName = coerceInternalName(name);
-		}
+	void setInternalName(const QString &name)
+	{
+		internalName = coerceInternalName(name);
+	}
 };
 
 DPointered(DMFlagsSection)
@@ -123,11 +137,23 @@ DMFlagsSection::DMFlagsSection(const QString &internalName, const QString &name)
 	d->setInternalName(internalName);
 }
 
+DMFlagsSection::DMFlagsSection(const DMFlagsSection &other)
+{
+	this->d = other.d;
+}
+
 DMFlagsSection::~DMFlagsSection()
 {
 }
 
-void DMFlagsSection::add(const DMFlag& flag)
+DMFlagsSection &DMFlagsSection::operator=(const DMFlagsSection &other)
+{
+	if (this != &other)
+		this->d = other.d;
+	return *this;
+}
+
+void DMFlagsSection::add(const DMFlag &flag)
 {
 	d->flags << flag;
 }
@@ -135,7 +161,7 @@ void DMFlagsSection::add(const DMFlag& flag)
 unsigned DMFlagsSection::combineValues() const
 {
 	unsigned result = 0;
-	foreach (const DMFlag& flag, d->flags)
+	for (const DMFlag &flag : d->flags)
 	{
 		result |= flag.value();
 	}
@@ -164,17 +190,17 @@ bool DMFlagsSection::isEmpty() const
 	return count() == 0;
 }
 
-const QString& DMFlagsSection::name() const
+const QString &DMFlagsSection::name() const
 {
 	return d->name;
 }
 
-const DMFlag& DMFlagsSection::operator[](int index) const
+const DMFlag &DMFlagsSection::operator[](int index) const
 {
 	return d->flags[index];
 }
 
-DMFlag& DMFlagsSection::operator[](int index)
+DMFlag &DMFlagsSection::operator[](int index)
 {
 	return d->flags[index];
 }
@@ -184,10 +210,10 @@ QList<DMFlagsSection> DMFlagsSection::removedBySection(
 	const QList<DMFlagsSection> &removals)
 {
 	QList<DMFlagsSection> copy;
-	foreach (const DMFlagsSection &section, original)
+	for (const DMFlagsSection &section : original)
 	{
 		bool removed = false;
-		foreach (const DMFlagsSection &removal, removals)
+		for (const DMFlagsSection &removal : removals)
 		{
 			if (section.internalName() == removal.internalName())
 			{
@@ -207,7 +233,7 @@ QList<DMFlagsSection> DMFlagsSection::removedBySection(
 DMFlagsSection DMFlagsSection::removed(const DMFlagsSection &removals) const
 {
 	DMFlagsSection copy = *this;
-	foreach (const DMFlag &removal, removals.d->flags)
+	for (const DMFlag &removal : removals.d->flags)
 	{
 		QMutableVectorIterator<DMFlag> i(copy.d->flags);
 		while (i.hasNext())
@@ -227,10 +253,10 @@ DMFlagsSection DMFlagsSection::removed(const DMFlagsSection &removals) const
 
 DClass<GameCVar>
 {
-	public:
-		QString command;
-		QString name;
-		QVariant value;
+public:
+	QString command;
+	QString name;
+	QVariant value;
 };
 
 DPointered(GameCVar)
@@ -252,8 +278,20 @@ GameCVar::GameCVar(const QString &name, const QString &command, const QVariant &
 	setValue(value);
 }
 
+GameCVar::GameCVar(const GameCVar &other)
+{
+	this->d = other.d;
+}
+
 GameCVar::~GameCVar()
 {
+}
+
+GameCVar &GameCVar::operator=(const GameCVar &other)
+{
+	if (this != &other)
+		this->d = other.d;
+	return *this;
 }
 
 const QString &GameCVar::command() const
@@ -276,7 +314,7 @@ const QString &GameCVar::name() const
 	return d->name;
 }
 
-void GameCVar::setValue(const QVariant& value)
+void GameCVar::setValue(const QVariant &value)
 {
 	d->value = value;
 }
@@ -304,6 +342,7 @@ GameCVarProvider::~GameCVarProvider()
 
 QList<GameCVar> GameCVarProvider::get(const QVariant &context)
 {
+	Q_UNUSED(context);
 	return QList<GameCVar>();
 }
 
@@ -311,29 +350,41 @@ QList<GameCVar> GameCVarProvider::get(const QVariant &context)
 
 DClass<GameMode>
 {
-	public:
-		int index;
-		QString name;
-		bool teamgame;
+public:
+	gamemode_id index;
+	QString name;
+	bool teamgame;
 };
 
 DPointered(GameMode)
 
 GameMode::GameMode()
 {
-	d->index = -1;
+	d->index = SGM_Unknown;
 	d->teamgame = false;
 }
 
-GameMode::GameMode(int index, const QString &name)
+GameMode::GameMode(gamemode_id index, const QString &name)
 {
 	d->index = index;
 	d->name = name;
 	d->teamgame = false;
 }
 
+GameMode::GameMode(const GameMode &other)
+{
+	this->d = other.d;
+}
+
 GameMode::~GameMode()
 {
+}
+
+GameMode &GameMode::operator=(const GameMode &other)
+{
+	if (this != &other)
+		this->d = other.d;
+	return *this;
 }
 
 GameMode GameMode::ffaGame(int index, const QString &name)
@@ -343,7 +394,7 @@ GameMode GameMode::ffaGame(int index, const QString &name)
 	return result;
 }
 
-int GameMode::index() const
+gamemode_id GameMode::index() const
 {
 	return d->index;
 }
@@ -404,12 +455,20 @@ GameMode GameMode::teamGame(int index, const QString &name)
 
 DClass<PWad>
 {
-	public:
-		QString name;
-		bool optional;
+public:
+	QString name;
+	bool optional;
+	QList<Checksum> checksums;
 };
 
 DPointered(PWad)
+
+PWad::PWad(const QString &name, bool optional, const QList<Checksum> &checksums)
+{
+	d->name = name;
+	d->optional = optional;
+	d->checksums = checksums;
+}
 
 PWad::PWad(const QString &name, bool optional)
 {
@@ -417,8 +476,34 @@ PWad::PWad(const QString &name, bool optional)
 	d->optional = optional;
 }
 
+PWad::PWad(const ModFile &modFile)
+{
+	d->name = modFile.fileName();
+	d->optional = false;
+	d->checksums = modFile.checksums();
+}
+
+PWad::PWad(const PWad &other)
+{
+	this->d = other.d;
+}
+
 PWad::~PWad()
 {
+}
+
+PWad &PWad::operator=(const PWad &other)
+{
+	if (this != &other)
+		this->d = other.d;
+	return *this;
+}
+
+PWad::operator ModFile()
+{
+	ModFile modFile(d->name);
+	modFile.setChecksums(d->checksums);
+	return modFile;
 }
 
 bool PWad::isOptional() const
@@ -426,7 +511,29 @@ bool PWad::isOptional() const
 	return d->optional;
 }
 
-const QString& PWad::name() const
+const QString &PWad::name() const
 {
 	return d->name;
+}
+
+const QList<Checksum> PWad::checksums() const
+{
+	return d->checksums;
+}
+
+void PWad::addChecksum(const QByteArray &hash, const QCryptographicHash::Algorithm &algorithm)
+{
+	d->checksums.append(Checksum(hash, algorithm));
+}
+
+bool PWad::validFile(const QString &path) const
+{
+	for (const Checksum checksum : d->checksums)
+	{
+		if (Hash::hashFile(path, checksum.algorithm()) != checksum.hash())
+		{
+			return false;
+		}
+	}
+	return true;
 }

@@ -34,7 +34,7 @@ public:
 
 DPointered(UrlOpener)
 
-UrlOpener *UrlOpener::inst = NULL;
+UrlOpener *UrlOpener::inst = nullptr;
 
 UrlOpener::UrlOpener()
 {
@@ -54,7 +54,7 @@ void UrlOpener::doOpen()
 
 UrlOpener *UrlOpener::instance()
 {
-	if (inst == NULL)
+	if (inst == nullptr)
 	{
 		inst = new UrlOpener();
 	}

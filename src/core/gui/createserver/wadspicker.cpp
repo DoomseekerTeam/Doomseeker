@@ -20,8 +20,8 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2014 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
-#include "wadspicker.h"
 #include "ui_wadspicker.h"
+#include "wadspicker.h"
 
 #include "configuration/doomseekerconfig.h"
 #include "gui/commongui.h"
@@ -36,6 +36,7 @@ DPointered(WadsPicker)
 
 WadsPicker::WadsPicker(QWidget *parent)
 {
+	Q_UNUSED(parent);
 	d->setupUi(this);
 	d->lstAdditionalFiles->setModel(new QStandardItemModel(this));
 }
@@ -47,21 +48,17 @@ WadsPicker::~WadsPicker()
 void WadsPicker::addWadPath(const QString &wadPath, bool required)
 {
 	if (wadPath.isEmpty())
-	{
 		return;
-	}
 	QFileInfo fileInfo(wadPath);
 	if (!fileInfo.isFile())
-	{
 		return;
-	}
 
-	QStandardItemModel* model = static_cast<QStandardItemModel*>(d->lstAdditionalFiles->model());
+	auto model = static_cast<QStandardItemModel *>(d->lstAdditionalFiles->model());
 
 	// Check if this path exists already, if so - do nothing.
-	for(int i = 0; i < model->rowCount(); ++i)
+	for (int i = 0; i < model->rowCount(); ++i)
 	{
-		QStandardItem* item = model->item(i);
+		QStandardItem *item = model->item(i);
 		QString dir = item->text();
 		Qt::CaseSensitivity cs;
 
@@ -72,12 +69,10 @@ void WadsPicker::addWadPath(const QString &wadPath, bool required)
 		#endif
 
 		if (dir.compare(wadPath, cs) == 0)
-		{
 			return;
-		}
 	}
 
-	QStandardItem* it = new QStandardItem(wadPath);
+	auto it = new QStandardItem(wadPath);
 
 	it->setDragEnabled(true);
 	it->setDropEnabled(false);
@@ -101,7 +96,7 @@ void WadsPicker::browseAndAdd()
 		QFileInfo fi(filesNames[0]);
 		gConfig.doomseeker.previousCreateServerWadDir = fi.absolutePath();
 
-		foreach (const QString& strFile, filesNames)
+		for (const QString &strFile : filesNames)
 		{
 			addWadPath(strFile);
 		}
@@ -112,8 +107,8 @@ QList<bool> WadsPicker::fileOptional() const
 {
 	QList<bool> checked = CommonGUI::listViewStandardItemsToBoolList(d->lstAdditionalFiles);
 	// We check required WADs and want to return optional wads.
-	for(int i = 0;i < checked.size();++i)
-		checked[i] = !checked[i];
+	for (bool &i : checked)
+		i = !i;
 	return checked;
 }
 
@@ -125,15 +120,13 @@ QStringList WadsPicker::filePaths() const
 void WadsPicker::setFilePaths(const QStringList &paths, const QList<bool> &optionals)
 {
 	removeAll();
-	for(int i = 0;i < paths.size();++i)
-	{
+	for (int i = 0; i < paths.size(); ++i)
 		addWadPath(paths[i], i >= optionals.size() || !optionals[i]);
-	}
 }
 
 void WadsPicker::removeAll()
 {
-	QStandardItemModel* pModel = (QStandardItemModel*)d->lstAdditionalFiles->model();
+	auto pModel = (QStandardItemModel *)d->lstAdditionalFiles->model();
 	pModel->clear();
 }
 

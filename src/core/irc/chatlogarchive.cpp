@@ -22,11 +22,11 @@
 //------------------------------------------------------------------------------
 #include "chatlogarchive.h"
 
+#include "irc/chatlogs.h"
+#include "irc/entities/ircnetworkentity.h"
 #include <QDateTime>
 #include <QDir>
 #include <QFileInfo>
-#include "irc/entities/ircnetworkentity.h"
-#include "irc/chatlogs.h"
 
 DClass<ChatLogArchive>
 {

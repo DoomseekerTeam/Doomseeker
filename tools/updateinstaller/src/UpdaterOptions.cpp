@@ -78,14 +78,6 @@ std::string uriDecode(const std::string& sSrc)
 	return sResult;
 }
 
-#if defined(PLATFORM_WINDOWS) && _MSC_VER < 1800
-// Microsoft Visual Studio 2013 already has this function defined.
-long long atoll(const char* string)
-{
-	return _atoi64(string);
-}
-#endif
-
 UpdaterOptions::UpdaterOptions()
 : mode(UpdateInstaller::Setup)
 , waitPid(0)

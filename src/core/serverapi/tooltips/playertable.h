@@ -23,9 +23,9 @@
 #ifndef __PLAYER_TABLE_H_
 #define __PLAYER_TABLE_H_
 
+#include "dptr.h"
 #include "serverapi/playerslist.h"
 #include "serverapi/serverptr.h"
-#include "dptr.h"
 #include <QObject>
 #include <QString>
 
@@ -33,29 +33,29 @@ class PlayerTable : public QObject
 {
 	Q_OBJECT
 
-	public:
-		PlayerTable(const ServerCPtr &server);
-		~PlayerTable();
+public:
+	PlayerTable(const ServerCPtr &server);
+	~PlayerTable() override;
 
-		QString generateHTML();
+	QString generateHTML();
 
-	private:
-		DPtr<PlayerTable> d;
+private:
+	DPtr<PlayerTable> d;
 
-		/**
-		 *	@brief Sets numOfColumns based on pServer states.
-		 */
-		void setNumberOfColumns();
+	/**
+	 * @brief Sets numOfColumns based on pServer states.
+	 */
+	void setNumberOfColumns();
 
-		/**
-		 *	This will return absolutely nothing if the list in the first
-		 *	argument is empty.
-		 */
-		QString spawnPartOfPlayerTable(const PlayersList& list, bool bAppendEmptyRowAtBeginning);
-		QString spawnPlayersRows(const PlayersByTeams& playersByTeams);
+	/**
+	 * This will return absolutely nothing if the list in the first
+	 * argument is empty.
+	 */
+	QString spawnPartOfPlayerTable(const PlayersList &list, bool bAppendEmptyRowAtBeginning);
+	QString spawnPlayersRows(const PlayersByTeams &playersByTeams);
 
-		QString tableContent();
-		QString tableHeader();
+	QString tableContent();
+	QString tableHeader();
 };
 
 #endif

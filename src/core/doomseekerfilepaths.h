@@ -38,27 +38,43 @@ class DataPaths;
  */
 class MAIN_EXPORT DoomseekerFilePaths
 {
-	public:
-		static const QString CACERTS_FILENAME;
-		static const QString IP2C_DATABASE_FILENAME;
-		static const QString IP2C_QT_SEARCH_PATH;
-		static const QString TEMP_SERVER_CONFIG_FILENAME;
-		static const QString INI_FILENAME;
-		static const QString IRC_INI_FILENAME;
-		static const QString PASSWORD_INI_FILENAME;
+public:
+	static const QString CACERTS_FILENAME;
+	static const QString IP2C_DATABASE_FILENAME;
 
-		static DataPaths* pDataPaths;
+	/// @deprecated not used anymore; delete
+	static const QString IP2C_QT_SEARCH_PATH;
 
-		static QString cacerts();
-		static QString ini();
-		static QString ircIni();
-		static QString ip2cDatabase();
-		static QString passwordIni();
-		static QString tempServerConfig();
-		static QString updatePackagesStorageDir();
+	static const QString TEMP_SERVER_CONFIG_FILENAME;
+	static const QString INI_FILENAME;
+	static const QString IRC_INI_FILENAME;
+	static const QString PASSWORD_INI_FILENAME;
 
-	private:
-		static QString joinIfNeitherEmpty(const QString &left, const QString &right);
+	static DataPaths *pDataPaths;
+
+	static QString cacerts();
+	static QString ini();
+	static QString ircIni();
+	/**
+	 * This is any IP2C database available in the order of usual
+	 * loading preference.
+	 *
+	 * @return The return value can vary depending on where
+	 * in the file system the file resides. If it's nowhere
+	 * to be found, empty string is returned.
+	 */
+	static QString ip2cDatabaseAny();
+	/**
+	 * This always points to the location of the locally downloaded
+	 * database regardless if the file exists or not.
+	 */
+	static QString ip2cDatabase();
+	static QString passwordIni();
+	static QString tempServerConfig();
+	static QString updatePackagesStorageDir();
+
+private:
+	static QString joinIfNeitherEmpty(const QString &left, const QString &right);
 };
 
 #endif

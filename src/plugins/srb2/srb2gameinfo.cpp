@@ -119,23 +119,18 @@ QList<GameCVar> Srb2GameInfo::limits(const GameMode &gameMode)
 		break;
 	case Tag:
 	case HideAndSeek:
-		limits << GameCVar(tr("Hide time"), "+hidetime", 30);
-		// Intentional fall-through.
+		limits << GameCVar(tr("Hide time"), "+hidetime", 30); // Intentional fall-through.
 	case GameMode::SGM_Deathmatch:
 	case GameMode::SGM_TeamDeathmatch:
 	case GameMode::SGM_CTF:
 		if (gameMode.index() == GameMode::SGM_CTF)
-		{
 			limits << GameCVar(tr("Team difference autobalance"), "+autobalance", 0);
-		}
-		limits << GameCVar(tr("Point limit"), "+pointlimit");
-		limits << GameCVar(tr("Time limit"), "+timelimit");
+		limits << GameCVar(tr("Point limit"), "+pointlimit", 0);
+		limits << GameCVar(tr("Time limit"), "+timelimit", 0);
 		break;
 	}
 	if (gameMode.index() == GameMode::SGM_CTF)
-	{
 		limits << GameCVar(tr("Flag auto-return time"), "+flagtime", 30);
-	}
 	limits << GameCVar(tr("Force server character (skin)"), "+forceskin", -1);
 	limits << GameCVar(tr("Respawn item time"), "+respawnitemtime", 30);
 	limits << GameCVar(tr("Intermission time"), "+inttime", 20);
@@ -144,4 +139,11 @@ QList<GameCVar> Srb2GameInfo::limits(const GameMode &gameMode)
 	limits << GameCVar(tr("Tics until client timeout"), "+nettimeout", 525);
 	limits << GameCVar(tr("Resynch attempts before kicking clients"), "+resynchattempts", 10);
 	return limits;
+}
+
+QString Srb2AboutProvider::provide()
+{
+	QString aboutDescription = "Sonic Robo Blast 2 (https://www.srb2.org/)\n\n";
+	aboutDescription += tr("This plugin is distributed under the terms of the LGPL v2.1 or later.\n\n");
+	return aboutDescription;
 }

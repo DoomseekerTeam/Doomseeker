@@ -26,19 +26,19 @@ QString StaticMessages::getMessage(unsigned messageType)
 {
 	switch (messageType)
 	{
-		case Message::Type::BANNED_FROM_MASTERSERVER:
-			return tr("You have been banned from master server.");
-		default:
-			return QString("%1 IS NOT A VALID ERROR MESSAGE! FIX THIS!").arg(messageType);
+	case Message::Type::BANNED_FROM_MASTERSERVER:
+		return tr("You have been banned from master server.");
+	default:
+		return QString("%1 IS NOT A VALID ERROR MESSAGE! FIX THIS!").arg(messageType);
 	}
 }
 
 DClass<Message>
 {
-	public:
-		QString content;
-		unsigned timestamp;
-		unsigned type;
+public:
+	QString content;
+	unsigned timestamp;
+	unsigned type;
 };
 
 DPointered(Message)
@@ -81,7 +81,11 @@ void Message::construct()
 {
 	qRegisterMetaType<Message>("Message");
 	d->type = Type::IGNORE_TYPE;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+	d->timestamp = QDateTime::currentDateTime().toSecsSinceEpoch();
+#else
 	d->timestamp = QDateTime::currentDateTime().toTime_t();
+#endif
 }
 
 QString Message::contents() const
@@ -125,4 +129,3 @@ unsigned Message::type() const
 {
 	return d->type;
 }
-

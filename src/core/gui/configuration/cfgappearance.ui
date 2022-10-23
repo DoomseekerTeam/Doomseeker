@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>CFGAppearance</class>
- <widget class="QWidget" name="CFGAppearance">
+ <widget class="CFGAppearance" name="CFGAppearance">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>436</width>
-    <height>392</height>
+    <width>442</width>
+    <height>464</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -28,6 +28,71 @@
      <property name="formAlignment">
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
      </property>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Language:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QComboBox" name="cboLanguage">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>26</width>
+           <height>15</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="translationRestartNotifierWidget" native="true">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>2</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="label_11">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="pixmap">
+             <pixmap resource="../../../../media/resources.qrc">:/icons/information-frame.png</pixmap>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_12">
+            <property name="text">
+             <string>Full retranslation requires a restart.</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_5">
        <property name="text">
@@ -63,7 +128,7 @@
      <item row="2" column="0">
       <widget class="QLabel" name="label_6">
        <property name="text">
-        <string>Custom servers color:</string>
+        <string>Pinned servers color:</string>
        </property>
       </widget>
      </item>
@@ -76,140 +141,6 @@
         </sizepolicy>
        </property>
       </widget>
-     </item>
-     <item row="5" column="0">
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>Bots are not players</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1">
-      <widget class="QCheckBox" name="cbBotsNotPlayers">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Hide passwords</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="1">
-      <widget class="QCheckBox" name="cbHidePasswords">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>Lookup server hosts</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="1">
-      <widget class="QCheckBox" name="cbLookupHosts">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_4">
-       <property name="text">
-        <string>Language:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QComboBox" name="cboLanguage">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>26</width>
-         <height>15</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="0">
-      <widget class="QLabel" name="label_7">
-       <property name="text">
-        <string>Colorize server console</string>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="1">
-      <widget class="QCheckBox" name="cbColorizeConsole">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="0">
-      <widget class="QLabel" name="label_8">
-       <property name="text">
-        <string>Draw grid in server table</string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="1">
-      <widget class="QCheckBox" name="cbDrawGridInServerTable">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="label_9">
-       <property name="text">
-        <string>Servers with buddies color:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QCheckBox" name="cbMarkServersWithBuddies">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="ColorButton" name="btnBuddyServersColor">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
      </item>
      <item row="3" column="0">
       <widget class="QLabel" name="label_10">
@@ -228,7 +159,83 @@
        </property>
       </widget>
      </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_9">
+       <property name="text">
+        <string>Servers with buddies color:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="ColorButton" name="btnBuddyServersColor">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="cbMarkServersWithBuddies">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="cbHidePasswords">
+     <property name="text">
+      <string>Hide passwords</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="cbLookupHosts">
+     <property name="text">
+      <string>Lookup server hosts</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="cbColorizeConsole">
+     <property name="text">
+      <string>Colorize server console</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="cbBotsNotPlayers">
+     <property name="text">
+      <string>Bots are not players</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="cbDrawGridInServerTable">
+     <property name="text">
+      <string>Draw grid in server table</string>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="QGroupBox" name="gboUseTrayIcon">
@@ -273,8 +280,16 @@
     <signal>colorUpdated(QColor,QColor)</signal>
    </slots>
   </customwidget>
+  <customwidget>
+   <class>CFGAppearance</class>
+   <extends>QWidget</extends>
+   <header>gui/configuration/cfgappearance.h</header>
+   <container>1</container>
+  </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="../../../../media/resources.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>slotStyle</sender>
@@ -283,11 +298,11 @@
    <slot>dynamicAppearanceChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>284</x>
-     <y>37</y>
+     <x>421</x>
+     <y>70</y>
     </hint>
     <hint type="destinationlabel">
-     <x>439</x>
+     <x>431</x>
      <y>99</y>
     </hint>
    </hints>
@@ -299,11 +314,11 @@
    <slot>dynamicAppearanceChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>146</x>
-     <y>222</y>
+     <x>283</x>
+     <y>260</y>
     </hint>
     <hint type="destinationlabel">
-     <x>439</x>
+     <x>431</x>
      <y>226</y>
     </hint>
    </hints>
@@ -315,11 +330,11 @@
    <slot>dynamicAppearanceChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>152</x>
-     <y>64</y>
+     <x>168</x>
+     <y>105</y>
     </hint>
     <hint type="destinationlabel">
-     <x>437</x>
+     <x>431</x>
      <y>60</y>
     </hint>
    </hints>
@@ -331,11 +346,11 @@
    <slot>dynamicAppearanceChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>156</x>
-     <y>90</y>
+     <x>168</x>
+     <y>134</y>
     </hint>
     <hint type="destinationlabel">
-     <x>439</x>
+     <x>431</x>
      <y>87</y>
     </hint>
    </hints>
@@ -347,11 +362,11 @@
    <slot>dynamicAppearanceChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>176</x>
-     <y>124</y>
+     <x>188</x>
+     <y>164</y>
     </hint>
     <hint type="destinationlabel">
-     <x>439</x>
+     <x>431</x>
      <y>138</y>
     </hint>
    </hints>
@@ -363,17 +378,33 @@
    <slot>dynamicAppearanceChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>142</x>
-     <y>121</y>
+     <x>150</x>
+     <y>159</y>
     </hint>
     <hint type="destinationlabel">
-     <x>439</x>
+     <x>431</x>
      <y>128</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cboLanguage</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>CFGAppearance</receiver>
+   <slot>setVisibilityOfLanguageChangeNotificationIfNeeded()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>372</x>
+     <y>8</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>435</x>
+     <y>30</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
-  <slot>dynamicAppearanceChange()</slot>
+  <slot>setVisibilityOfLanguageChangeNotificationIfNeeded()</slot>
  </slots>
 </ui>

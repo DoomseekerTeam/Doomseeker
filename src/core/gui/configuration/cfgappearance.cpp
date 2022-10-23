@@ -23,14 +23,14 @@
 #include "cfgappearance.h"
 #include "ui_cfgappearance.h"
 
-#include "gui/helpers/playersdiagram.h"
 #include "configuration/doomseekerconfig.h"
-#include <QColorDialog>
-#include <QSystemTrayIcon>
+#include "gui/helpers/playersdiagram.h"
 #include "ip2c/ip2c.h"
 #include "localization.h"
 #include "log.h"
 #include "main.h"
+#include <QColorDialog>
+#include <QSystemTrayIcon>
 
 DClass<CFGAppearance> : public Ui::CFGAppearance
 {
@@ -62,11 +62,12 @@ public:
 DPointered(CFGAppearance)
 
 CFGAppearance::CFGAppearance(QWidget *parent)
-: ConfigPage(parent)
+	: ConfigPage(parent)
 {
 	set_reject(&CFGAppearance::reject_);
 	d->setupUi(this);
 	d->readingSettings = false;
+	d->translationRestartNotifierWidget->setVisible(false);
 }
 
 CFGAppearance::~CFGAppearance()
@@ -84,13 +85,19 @@ void CFGAppearance::dynamicAppearanceChange()
 
 void CFGAppearance::initLanguagesList()
 {
-	foreach (const LocalizationInfo& obj, Main::localizations)
+	for (const LocalizationInfo &obj : Localization::get()->localizations)
 	{
-		const QString& flagName = obj.countryCodeName;
-		const QString& translationName = obj.localeName;
-		const QString& displayName = obj.niceName;
+		const QString &flagName = obj.countryCodeName;
+		const QString &translationName = obj.localeName;
 
-		QPixmap flag = IP2C::instance()->flag(flagName);
+		QString displayName = obj.niceName;
+		if (translationName == LocalizationInfo::SYSTEM_FOLLOW.localeName)
+			displayName = tr("Use system language");
+
+		QPixmap flag;
+		if (!flagName.isEmpty())
+			flag = IP2C::instance()->flag(flagName);
+
 		d->cboLanguage->addItem(flag, displayName, translationName);
 	}
 }
@@ -99,13 +106,11 @@ void CFGAppearance::initSlotStyles(const QString &selected)
 {
 	QList<PlayersDiagramStyle> styles = PlayersDiagram::availableSlotStyles();
 	d->slotStyle->clear();
-	foreach (const PlayersDiagramStyle &style, styles)
+	for (const PlayersDiagramStyle &style : styles)
 	{
 		d->slotStyle->addItem(style.displayName, style.name);
 		if (style.name == selected)
-		{
 			d->slotStyle->setCurrentIndex(d->slotStyle->count() - 1);
-		}
 	}
 }
 
@@ -130,9 +135,7 @@ void CFGAppearance::readSettings()
 
 	// Load settings into widgets.
 	if (d->cboLanguage->count() == 0)
-	{
 		initLanguagesList();
-	}
 	initSlotStyles(gConfig.doomseeker.slotStyle);
 
 	d->btnCustomServersColor->setColorHtml(gConfig.doomseeker.customServersColor);
@@ -168,20 +171,19 @@ void CFGAppearance::readSettings()
 	d->cbBotsNotPlayers->setChecked(gConfig.doomseeker.bBotsAreNotPlayers);
 
 	// Set language.
+	const QString &localization = gConfig.doomseeker.localization;
 	LocalizationInfo bestMatchedLocalization = LocalizationInfo::findBestMatch(
-		Main::localizations, gConfig.doomseeker.localization);
+		Localization::get()->localizations, localization);
 	int idxLanguage = -1;
 	if (bestMatchedLocalization.isValid())
 		idxLanguage = d->cboLanguage->findData(bestMatchedLocalization.localeName);
 	if (idxLanguage >= 0)
-	{
 		d->cboLanguage->setCurrentIndex(idxLanguage);
-	}
 	else
 	{
 		// Display that there is something wrong.
 		QString name = gConfig.doomseeker.localization;
-		const QPixmap& icon = IP2C::instance()->flagUnknown;
+		const QPixmap &icon = IP2C::instance()->flagUnknown;
 		QString str = tr("Unknown language definition \"%1\"").arg(name);
 		d->cboLanguage->addItem(icon, str, name);
 		d->cboLanguage->setCurrentIndex(d->cboLanguage->count() - 1);
@@ -205,17 +207,15 @@ void CFGAppearance::saveSettings()
 	{
 		// Translation may be strenuous so do it only if the selected
 		// value actually changed.
+		LocalizationInfo previousLocalization = Localization::get()->currentLocalization();
+
 		gConfig.doomseeker.localization = localization;
-		if (QLocale(localization) == QLocale(LocalizationInfo::DEFAULT.localeName))
+		gLog << tr("Loading translation \"%1\"").arg(localization);
+		Localization::get()->loadTranslation(localization);
+		if (Localization::get()->currentLocalization() != previousLocalization)
 		{
-			// No tr() on purpose.
-			gLog << "Return to default translation requires restart of the program";
-		}
-		else
-		{
-			gLog << tr("Loading translation \"%1\"").arg(localization);
-			Localization::loadTranslation(localization);
 			gLog << tr("Program needs to be restarted to fully apply the translation");
+			emit restartNeeded();
 		}
 	}
 
@@ -231,4 +231,18 @@ void CFGAppearance::saveDynamicSettings()
 	gConfig.doomseeker.customServersColor = d->btnCustomServersColor->colorHtml();
 	gConfig.doomseeker.lanServersColor = d->btnLanServersColor->colorHtml();
 	gConfig.doomseeker.slotStyle = d->slotStyle->itemData(d->slotStyle->currentIndex()).toString();
+}
+
+void CFGAppearance::setVisibilityOfLanguageChangeNotificationIfNeeded()
+{
+	QString chosenLocalization = d->cboLanguage->itemData(d->cboLanguage->currentIndex()).toString();
+	bool switchingToOsLocaleWhichIsAlsoTheCurrentLocale = false;
+	if (chosenLocalization == LocalizationInfo::SYSTEM_FOLLOW.localeName)
+	{
+		switchingToOsLocaleWhichIsAlsoTheCurrentLocale =
+			Localization::get()->isCurrentlyLoaded(QLocale::system().name());
+	}
+	d->translationRestartNotifierWidget->setVisible(
+		!Localization::get()->isCurrentlyLoaded(chosenLocalization) &&
+		!switchingToOsLocaleWhichIsAlsoTheCurrentLocale);
 }

@@ -24,41 +24,58 @@
 #include "ui_generalgamesetuppanel.h"
 
 #include "configuration/doomseekerconfig.h"
+#include "filefilter.h"
 #include "gui/createserver/maplistpanel.h"
 #include "gui/createserverdialog.h"
 #include "ini/ini.h"
 #include "plugins/engineplugin.h"
+#include "plugins/pluginloader.h"
 #include "serverapi/gamecreateparams.h"
 #include "serverapi/gameexefactory.h"
 #include "serverapi/gamefile.h"
-#include "filefilter.h"
+#include <cassert>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QMessageBox>
 #include <QTimer>
-#include <cassert>
 
 DClass<GeneralGameSetupPanel> : public Ui::GeneralGameSetupPanel
 {
 public:
 	EnginePlugin *currentEngine;
+	GameCreateParams::HostMode hostMode;
 	bool iwadSetExplicitly;
 	CreateServerDialog *parentDialog;
-	bool remoteGameSetup;
+
+	int serverNameRow;
+	int portRow;
+	int hostModeSpacerRow;
+
+	bool isValidExecutable(const QString &executablePath)
+	{
+		QFileInfo fileInfo(executablePath);
+		return !executablePath.isEmpty() && fileInfo.isFile();
+	}
 };
 
 DPointered(GeneralGameSetupPanel)
 
 
 GeneralGameSetupPanel::GeneralGameSetupPanel(QWidget *parent)
-: QWidget(parent)
+	: QWidget(parent)
 {
 	d->setupUi(this);
+	d->hostMode = GameCreateParams::Host;
 	d->iwadSetExplicitly = false;
-	d->remoteGameSetup = false;
-	d->parentDialog = NULL;
+	d->parentDialog = nullptr;
 
-	d->executableInput->setAllowedExecutables(GameFile::CreateGame);
+	d->hostExecutableInput->setAllowedExecutables(GameFile::Server);
+	d->offlineExecutableInput->setAllowedExecutables(GameFile::Offline);
+	d->remoteExecutableInput->setAllowedExecutables(GameFile::Client);
+
+	d->formLayout->getWidgetPosition(d->leServerName, &d->serverNameRow, nullptr);
+	d->formLayout->getWidgetPosition(d->portArea, &d->portRow, nullptr);
+	d->formLayout->getWidgetPosition(d->hostModeSpacer, &d->hostModeSpacerRow, nullptr);
 
 	this->connect(d->cboEngine, SIGNAL(currentPluginChanged(EnginePlugin*)),
 		SIGNAL(pluginChanged(EnginePlugin*)));
@@ -68,18 +85,27 @@ GeneralGameSetupPanel::~GeneralGameSetupPanel()
 {
 }
 
+QStringList GeneralGameSetupPanel::getAllWadPaths() const
+{
+	QStringList paths;
+	paths << d->iwadPicker->currentIwad() << d->wadsPicker->filePaths();
+	return paths;
+}
+
 void GeneralGameSetupPanel::fillInParams(GameCreateParams &params)
 {
 	params.setExecutablePath(pathToExe());
 	params.setIwadPath(d->iwadPicker->currentIwad());
+	params.setLoggingPath(d->logDirectoryPicker->validatedCurrentPath());
 	params.setPwadsPaths(d->wadsPicker->filePaths());
 	params.setPwadsOptional(d->wadsPicker->fileOptional());
 	params.setBroadcastToLan(d->cbBroadcastToLAN->isChecked());
 	params.setBroadcastToMaster(d->cbBroadcastToMaster->isChecked());
 	params.setMap(d->leMap->text());
-	params.setName(d->leServername->text());
+	params.setName(d->leServerName->text());
 	params.setPort(d->spinPort->isEnabled() ? d->spinPort->value() : 0);
 	params.setGameMode(currentGameMode());
+	params.setSkill(d->cboDifficulty->itemData(d->cboDifficulty->currentIndex()).toInt());
 	params.setUpnp(d->cbUpnp->isChecked());
 	params.setUpnpPort(d->spinUpnpPort->value());
 }
@@ -88,40 +114,65 @@ void GeneralGameSetupPanel::loadConfig(Ini &config, bool loadingPrevious)
 {
 	IniSection general = config.section("General");
 
-	// General
-	if (!d->remoteGameSetup)
+	// Engine
+	const EnginePlugin *prevEngine = d->currentEngine;
+	QString configEngineName = general["engine"];
+	bool engineChanged = false;
+	if (d->hostMode != GameCreateParams::Remote)
 	{
-		QString currentExecutable = d->executableInput->path();
-		QString engineName = general["engine"];
-		const EnginePlugin* prevEngine = d->currentEngine;
-		if(!setEngine(engineName))
+		if (!setEngine(configEngineName))
 			return;
-
-		bool bChangeExecutable = (prevEngine != d->currentEngine || !d->cbLockExecutable->isChecked());
-		QString executablePath = *general["executable"];
-		QFileInfo fileInfo(executablePath);
-		if (!executablePath.isEmpty() && fileInfo.isFile() && bChangeExecutable)
-		{
-			d->executableInput->setPath(executablePath);
-		}
-		else if (!bChangeExecutable)
-		{
-			d->executableInput->setPath(currentExecutable);
-		}
+		engineChanged = (prevEngine != d->currentEngine);
 	}
 
-	d->leServername->setText(general["name"]);
+	// Executables
+	bool changeExecutable = engineChanged || !d->cbLockExecutable->isChecked();
+	if (d->hostMode == GameCreateParams::Remote)
+	{
+		// If we're configuring a remote game the engine cannot be changed.
+		// Don't substitute the executable when the config that is being
+		// loaded is for a different game.
+		auto *plugin = gPlugins->plugin(gPlugins->pluginIndexFromName(configEngineName));
+		if (plugin == nullptr || d->currentEngine != plugin->info())
+			changeExecutable = false;
+	}
+
+	if (changeExecutable)
+	{
+		QString hostExecutablePath = *general["hostExecutable"];
+		if (d->isValidExecutable(hostExecutablePath))
+			d->hostExecutableInput->setPath(hostExecutablePath);
+
+		QString offlineExecutablePath = *general["offlineExecutable"];
+		if (d->isValidExecutable(offlineExecutablePath))
+			d->offlineExecutableInput->setPath(offlineExecutablePath);
+
+		QString remoteExecutablePath = *general["remoteExecutable"];
+		if (d->isValidExecutable(remoteExecutablePath))
+			d->remoteExecutableInput->setPath(remoteExecutablePath);
+	}
+
+	// Other
+	d->leServerName->setText(general["name"]);
 	d->spinPort->setValue(general["port"]);
-	d->cboGamemode->setCurrentIndex(general["gamemode"]);
+
+	int gameModeIndex = d->cboGamemode->findData(static_cast<gamemode_id>(general["gamemode"]));
+	if (gameModeIndex >= 0)
+		d->cboGamemode->setCurrentIndex(gameModeIndex);
+
+	int difficultyIndex = d->cboDifficulty->findData(static_cast<int>(general["difficulty"]));
+	d->cboDifficulty->setCurrentIndex(qMax(0, difficultyIndex));
+
 	d->leMap->setText(general["map"]);
 
 	if (!(loadingPrevious && d->iwadSetExplicitly))
-	{
 		d->iwadPicker->addIwad(general["iwad"]);
-	}
+
+	d->logDirectoryPicker->setLoggingEnabled(general["logEnabled"]);
+	d->logDirectoryPicker->setPathAndUpdate(general["logDir"]);
 
 	QList<bool> optionalWads;
-	foreach(QString value, general["pwadsOptional"].valueString().split(";"))
+	for (QString value : general["pwadsOptional"].valueString().split(";"))
 	{
 		optionalWads << (value != "0");
 	}
@@ -140,18 +191,25 @@ void GeneralGameSetupPanel::saveConfig(Ini &config)
 {
 	IniSection general = config.section("General");
 	general["engine"] = d->cboEngine->currentText();
-	general["executable"] = pathToExe();
-	general["name"] = d->leServername->text();
+	general["hostExecutable"] = d->hostExecutableInput->path();
+	general["offlineExecutable"] = d->offlineExecutableInput->path();
+	general["remoteExecutable"] = d->remoteExecutableInput->path();
+	general["name"] = d->leServerName->text();
 	general["port"] = d->spinPort->value();
-	general["gamemode"] = d->cboGamemode->currentIndex();
+	general["logDir"] = d->logDirectoryPicker->currentPath();
+	general["logEnabled"] = d->logDirectoryPicker->isLoggingEnabled();
+	general["gamemode"] = d->cboGamemode->itemData(d->cboGamemode->currentIndex()).toInt();
 	general["map"] = d->leMap->text();
+	general["difficulty"] = d->cboDifficulty->itemData(d->cboDifficulty->currentIndex()).toInt();
 	general["iwad"] = d->iwadPicker->currentIwad();
 
 	general["pwads"] = d->wadsPicker->filePaths().join(";");
 	QList<bool> optionalWads = d->wadsPicker->fileOptional();
 	QStringList optionalList;
-	foreach(bool optional, optionalWads)
+	for (bool optional : optionalWads)
+	{
 		optionalList << (optional ? "1" : "0");
+	}
 	general["pwadsOptional"] = optionalList.join(";");
 
 	general["broadcastToLAN"] = d->cbBroadcastToLAN->isChecked();
@@ -160,44 +218,100 @@ void GeneralGameSetupPanel::saveConfig(Ini &config)
 	general["upnpPort"] = d->spinUpnpPort->value();
 }
 
+void GeneralGameSetupPanel::reloadAppConfig()
+{
+	d->hostExecutableInput->reloadExecutables();
+	d->offlineExecutableInput->reloadExecutables();
+	d->remoteExecutableInput->reloadExecutables();
+	d->iwadPicker->loadIwads();
+}
+
+void GeneralGameSetupPanel::setupDifficulty(const EnginePlugin *engine)
+{
+	QVariant oldDifficulty = d->cboDifficulty->itemData(d->cboDifficulty->currentIndex());
+	d->cboDifficulty->clear();
+
+	QList<GameCVar> levels = engine->data()->difficulty->get(QVariant());
+	d->labelDifficulty->setVisible(!levels.isEmpty());
+	d->cboDifficulty->setVisible(!levels.isEmpty());
+	d->cboDifficulty->addItem(tr("< NONE >"), Skill::UNDEFINED);
+	for (const GameCVar &level : levels)
+	{
+		d->cboDifficulty->addItem(level.name(), level.value());
+	}
+	int memorizedIndex = d->cboDifficulty->findData(oldDifficulty);
+	if (memorizedIndex >= 0)
+		d->cboDifficulty->setCurrentIndex(memorizedIndex);
+}
+
 void GeneralGameSetupPanel::setupForEngine(EnginePlugin *engine)
 {
 	d->currentEngine = engine;
 
+	d->cboEngine->setPluginByName(engine->data()->name);
 	d->labelIwad->setVisible(engine->data()->hasIwad);
 	d->iwadPicker->setVisible(engine->data()->hasIwad);
+	d->labelLogging->setVisible(engine->data()->allowsLogging);
+	d->logDirectoryPicker->setVisible(engine->data()->allowsLogging);
 	d->upnpArea->setVisible(engine->data()->allowsUpnp);
 	d->spinUpnpPort->setVisible(engine->data()->allowsUpnpPort);
 
-	d->executableInput->setPlugin(engine);
+	d->hostExecutableInput->setPlugin(engine);
+	d->offlineExecutableInput->setPlugin(engine);
+	d->remoteExecutableInput->setPlugin(engine);
 
 	d->spinPort->setValue(d->currentEngine->data()->defaultServerPort);
 
 	d->cboGamemode->clear();
+	d->cboGamemode->addItem(tr("< NONE >"), GameMode::SGM_Unknown);
+
 	QList<GameMode> gameModes = d->currentEngine->gameModes();
-	if (!gameModes.isEmpty())
-	{
-		for (int i = 0; i < gameModes.count(); ++i)
-		{
-			d->cboGamemode->addItem(gameModes[i].name(), i);
-		}
-	}
+	for (int i = 0; i < gameModes.count(); ++i)
+		d->cboGamemode->addItem(gameModes[i].name(), gameModes[i].index());
+	setupDifficulty(engine);
 }
 
-void GeneralGameSetupPanel::setupForRemoteGame()
+void GeneralGameSetupPanel::setupForHostMode(GameCreateParams::HostMode hostMode)
 {
-	d->remoteGameSetup = true;
-	d->cbAllowTheGameToChoosePort->hide();
-	QWidget *disableControls[] =
-	{
-		d->cboEngine, d->leServername, d->spinPort,
-		d->cbBroadcastToLAN, d->cbBroadcastToMaster,
-		d->upnpArea,
+	d->hostMode = hostMode;
 
-		NULL
-	};
-	for(int i = 0;disableControls[i] != NULL;++i)
-		disableControls[i]->setDisabled(true);
+	d->cboEngine->setDisabled(hostMode == GameCreateParams::Remote);
+
+	d->hostExecutableInput->hide();
+	d->offlineExecutableInput->hide();
+	d->remoteExecutableInput->hide();
+	switch (hostMode)
+	{
+	default:
+	case GameCreateParams::Host: d->hostExecutableInput->show(); break;
+	case GameCreateParams::Offline: d->offlineExecutableInput->show(); break;
+	case GameCreateParams::Remote: d->remoteExecutableInput->show(); break;
+	}
+
+	d->labelServerName->setVisible(hostMode == GameCreateParams::Host);
+	d->leServerName->setVisible(hostMode == GameCreateParams::Host);
+	d->labelPort->setVisible(hostMode == GameCreateParams::Host);
+	d->portArea->setVisible(hostMode == GameCreateParams::Host);
+	d->hostModeSpacer->setVisible(hostMode == GameCreateParams::Host);
+	d->broadcastOptionsArea->setVisible(hostMode == GameCreateParams::Host);
+
+	// Insert/remove operations are necessary to get rid of extra
+	// spacing remaining when hiding form elements.
+	if (hostMode == GameCreateParams::Host)
+	{
+		d->formLayout->insertRow(d->serverNameRow, d->labelServerName, d->leServerName);
+		d->formLayout->insertRow(d->portRow, d->labelPort, d->portArea);
+		d->formLayout->insertRow(d->hostModeSpacerRow, d->hostModeSpacer,
+			static_cast<QWidget *>(nullptr));
+	}
+	else
+	{
+		d->formLayout->removeWidget(d->labelServerName);
+		d->formLayout->removeWidget(d->leServerName);
+		d->formLayout->removeWidget(d->labelPort);
+		d->formLayout->removeWidget(d->portArea);
+		d->formLayout->removeWidget(d->hostModeSpacer);
+	}
 }
 
 void GeneralGameSetupPanel::setCreateServerDialog(CreateServerDialog *dialog)
@@ -213,6 +327,7 @@ void GeneralGameSetupPanel::setIwadByName(const QString &iwad)
 
 void GeneralGameSetupPanel::showEvent(QShowEvent *event)
 {
+	Q_UNUSED(event);
 	updateMapWarningVisibility();
 }
 
@@ -223,29 +338,30 @@ QString GeneralGameSetupPanel::mapName() const
 
 QString GeneralGameSetupPanel::pathToExe()
 {
-	return d->executableInput->path();
+	switch (d->hostMode)
+	{
+	default:
+	case GameCreateParams::Host: return d->hostExecutableInput->path();
+	case GameCreateParams::Offline: return d->offlineExecutableInput->path();
+	case GameCreateParams::Remote: return d->remoteExecutableInput->path();
+	}
 }
 
 void GeneralGameSetupPanel::onGameModeChanged(int index)
 {
 	if (index >= 0)
-	{
-		QList<GameMode> gameModes = d->currentEngine->gameModes();
-		emit gameModeChanged(gameModes[index]);
-	}
+		emit gameModeChanged(currentGameMode());
 }
 
 GameMode GeneralGameSetupPanel::currentGameMode() const
 {
 	QList<GameMode> gameModes = d->currentEngine->gameModes();
-	foreach (const GameMode& mode, gameModes)
+	for (const GameMode &mode : gameModes)
 	{
-		if (mode.name().compare(d->cboGamemode->currentText()) == 0)
-		{
+		if (mode.index() == d->cboGamemode->itemData(d->cboGamemode->currentIndex()).toInt())
 			return mode;
-		}
 	}
-	return GameMode();
+	return GameMode::mkUnknown();
 }
 
 EnginePlugin *GeneralGameSetupPanel::currentPlugin() const
@@ -266,7 +382,7 @@ bool GeneralGameSetupPanel::setEngine(const QString &engineName)
 
 void GeneralGameSetupPanel::updateMapWarningVisibility()
 {
-	assert(d->parentDialog != NULL);
+	assert(d->parentDialog != nullptr);
 	MapListPanel *mapList = d->parentDialog->mapListPanel();
 	d->lblMapWarning->setVisible(mapList->hasMaps() && !mapList->isMapOnList(mapName()));
 }

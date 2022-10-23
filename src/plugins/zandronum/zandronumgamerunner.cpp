@@ -21,25 +21,17 @@
 // Copyright (C) 2012 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
 #include "zandronumengineplugin.h"
-#include "zandronumgamerunner.h"
 #include "zandronumgameinfo.h"
+#include "zandronumgamerunner.h"
 #include "zandronumserver.h"
 
 #include <ini/inisection.h>
 #include <ini/inivariable.h>
 
 ZandronumGameClientRunner::ZandronumGameClientRunner(ServerPtr server)
-: GameClientRunner(server)
+	: GameClientRunner(server)
 {
 	setArgForConnectPassword("+cl_password");
 	setArgForInGamePassword("+cl_joinpassword");
 	setArgForOptionalWadLoading("-optfile");
-	set_addExtra(&ZandronumGameClientRunner::addExtra);
-}
-
-void ZandronumGameClientRunner::addExtra()
-{
-	IniSection& config = *ZandronumEnginePlugin::staticInstance()->data()->pConfig;
-	bool bAllowCountryDisplay = config["AllowServersToDisplayMyCountry"];
-	args() << "+cl_hidecountry" << QString::number(!bAllowCountryDisplay ? 1 : 0);
 }

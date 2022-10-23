@@ -66,26 +66,26 @@ public:
  * Specializes DPtr<T> for non-copyable DClass.
  */
 #define DPointeredNoCopy(cls)  \
-template<> \
-DPtr<cls>::DPtr() : QScopedPointer<PrivData<cls> >(new PrivData<cls>) {} \
-template<> \
-DPtr<cls>::~DPtr() {}
+	template<> \
+	DPtr<cls>::DPtr() : QScopedPointer<PrivData<cls> >(new PrivData<cls>) {} \
+	template<> \
+	DPtr<cls>::~DPtr() {}
 
 /**
  * Standard method for specializing DPtr<T>.
  */
 #define DPointered(cls) DPointeredNoCopy(cls) \
-template<> \
-DPtr<cls>::DPtr(const DPtr<cls> &other) : QScopedPointer<PrivData<cls> >(new PrivData<cls>) \
-{ \
-	*(this->data()) = *(other.data()); \
-} \
-template<> \
-const DPtr<cls> &DPtr<cls>::operator=(const DPtr<cls> &other) \
-{ \
-	if(this->data() != other.data()) \
+	template<> \
+	DPtr<cls>::DPtr(const DPtr<cls> &other) : QScopedPointer<PrivData<cls> >(new PrivData<cls>) \
+	{ \
 		*(this->data()) = *(other.data()); \
-	return *this; \
-}
+	} \
+	template<> \
+	const DPtr<cls> &DPtr<cls>::operator=(const DPtr<cls> &other) \
+	{ \
+		if (this->data() != other.data()) \
+			*(this->data()) = *(other.data()); \
+		return *this; \
+	}
 
 #endif

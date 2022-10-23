@@ -33,19 +33,25 @@ class IRCPrivAdapter : public IRCChatAdapter
 {
 	Q_OBJECT
 
-	public:
-		IRCPrivAdapter(IRCNetworkAdapter* pNetwork, const QString& recipient);
+public:
+	IRCPrivAdapter(IRCNetworkAdapter *pNetwork, const QString &recipient);
 
-		AdapterType adapterType() const { return PrivAdapter; }
+	AdapterType adapterType() const override
+	{
+		return PrivAdapter;
+	}
 
-		void userChangesNickname(const QString& oldNickname, const QString& newNickname);
-		void userJoins(const QString& nickname, const QString& fullSignature);
-		void userLeaves(const QString& nickname, const QString& farewellMessage, IRCQuitType quitType);
-		void userModeChanges(const QString& nickname,
-			const QList<char> &addedFlags, const QList<char> &removedFlags)
-		{
-			// This is ignored here.
-		}
+	void userChangesNickname(const QString &oldNickname, const QString &newNickname) override;
+	void userJoins(const QString &nickname, const QString &fullSignature) override;
+	void userLeaves(const QString &nickname, const QString &farewellMessage, IRCQuitType quitType) override;
+	void userModeChanges(const QString &nickname,
+		const QList<char> &addedFlags, const QList<char> &removedFlags) override
+	{
+		Q_UNUSED(nickname);
+		Q_UNUSED(addedFlags);
+		Q_UNUSED(removedFlags);
+		// This is ignored here.
+	}
 };
 
 #endif

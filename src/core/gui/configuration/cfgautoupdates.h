@@ -23,33 +23,38 @@
 #ifndef DOOMSEEKER_GUI_CONFIGURATION_CFGAUTOPUDATES_H
 #define DOOMSEEKER_GUI_CONFIGURATION_CFGAUTOPUDATES_H
 
-#include "gui/configuration/configpage.h"
 #include "dptr.h"
+#include "gui/configuration/configpage.h"
 #include <QIcon>
 
 class CFGAutoUpdates : public ConfigPage
 {
 	Q_OBJECT
 
-	public:
-		CFGAutoUpdates(QWidget* parent=NULL);
-		~CFGAutoUpdates();
+public:
+	CFGAutoUpdates(QWidget *parent = nullptr);
+	~CFGAutoUpdates() override;
 
-		QIcon icon() const { return QIcon(":/icons/doomseeker_plus.png"); }
-		QString name() const { return tr("Auto Updates"); }
+	QIcon icon() const override
+	{
+		return QIcon(":/icons/doomseeker_plus.png");
+	}
+	QString name() const override
+	{
+		return tr("Auto updates");
+	}
 
-		void readSettings();
+	void readSettings() override;
 
-	protected:
-		void saveSettings();
+protected:
+	void saveSettings() override;
 
-	private:
-		void initUpdateChannels();
+private:
+	void initUpdateChannels();
 
-		DPtr<CFGAutoUpdates> d;
-	private slots:
-		void onUpdateChannelChange(int index);
+	DPtr<CFGAutoUpdates> d;
+private slots:
+	void onUpdateChannelChange(int index);
 };
 
 #endif
-

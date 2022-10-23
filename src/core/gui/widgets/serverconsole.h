@@ -30,27 +30,29 @@
 class ServerConsole : public QWidget
 {
 	Q_OBJECT
+	Q_DISABLE_COPY(ServerConsole)
 
-	public:
-		ServerConsole(QWidget *parent=NULL, Qt::WindowFlags f=0);
-		~ServerConsole();
+public:
+	ServerConsole(QWidget *parent = nullptr, Qt::WindowFlags f = {});
+	~ServerConsole() override;
 
-		/**
-		 * @brief Sets keyboard focus to the underlying line edit widget.
-		 */
-		void setFocus();
+	/**
+	 * @brief Sets keyboard focus to the underlying line edit widget.
+	 */
+	void setFocus();
 
-	public slots:
-		void appendMessage(const QString &message);
+public slots:
+	void appendMessage(const QString &message);
 
-	signals:
-		void messageSent(const QString &message);
+signals:
+	void messageSent(const QString &message);
 
-	protected slots:
-		void forwardMessage();
+private:
+	DPtr<ServerConsole> d;
 
-	private:
-		DPtr<ServerConsole> d;
+private slots:
+	void flushBuffer();
+	void forwardMessage();
 };
 
 #endif // SERVERCONSOLE_H

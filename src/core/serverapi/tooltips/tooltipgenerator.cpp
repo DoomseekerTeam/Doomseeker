@@ -22,16 +22,16 @@
 //------------------------------------------------------------------------------
 #include "tooltipgenerator.h"
 
+#include "serverapi/server.h"
 #include "serverapi/tooltips/dmflagshtmlgenerator.h"
 #include "serverapi/tooltips/gameinfotip.h"
 #include "serverapi/tooltips/generalinfotip.h"
 #include "serverapi/tooltips/playertable.h"
-#include "serverapi/server.h"
 
 DClass<TooltipGenerator>
 {
-	public:
-		ServerCPtr server;
+public:
+	ServerCPtr server;
 };
 
 DPointered(TooltipGenerator)

@@ -22,37 +22,37 @@
 //------------------------------------------------------------------------------
 #include "chocolatedoomserver.h"
 
+#include "chocolatedoomengineplugin.h"
 #include "chocolatedoomgamehost.h"
 #include "chocolatedoomgameinfo.h"
 #include "chocolatedoomgamerunner.h"
-#include "chocolatedoomengineplugin.h"
 #include "global.h"
 #include "serverapi/playerslist.h"
 
-#define NET_PACKET_TYPE_QUERY			0,13
-#define NET_PACKET_TYPE_QUERY_RESPONSE	14
+#define NET_PACKET_TYPE_QUERY           0, 13
+#define NET_PACKET_TYPE_QUERY_RESPONSE  14
 
 ChocolateDoomServer::ChocolateDoomServer(const QHostAddress &address, unsigned short port)
-: Server(address, port), serverState(0), game(0), gameMission(0)
+	: Server(address, port), serverState(0), game(0), gameMission(0)
 {
 	set_createSendRequest(&ChocolateDoomServer::createSendRequest);
 	set_readRequest(&ChocolateDoomServer::readRequest);
 }
 
-GameClientRunner* ChocolateDoomServer::gameRunner()
+GameClientRunner *ChocolateDoomServer::gameRunner()
 {
 	return new ChocolateDoomGameClientRunner(
 		self().toStrongRef().staticCast<ChocolateDoomServer>());
 }
 
-EnginePlugin* ChocolateDoomServer::plugin() const
+EnginePlugin *ChocolateDoomServer::plugin() const
 {
 	return ChocolateDoomEnginePlugin::staticInstance();
 }
 
 Server::Response ChocolateDoomServer::readRequest(const QByteArray &data)
 {
-	static const char* playerNames[4] =
+	static const char *playerNames[4] =
 	{
 		"Green",
 		"Indigo",
@@ -60,25 +60,21 @@ Server::Response ChocolateDoomServer::readRequest(const QByteArray &data)
 		"Red"
 	};
 
-	const char* in = data.data();
+	const char *in = data.data();
 
 	// Check the response code
 	int response = READINT8(&in[1]);
-	if(response != NET_PACKET_TYPE_QUERY_RESPONSE)
-	{
+	if (response != NET_PACKET_TYPE_QUERY_RESPONSE)
 		return RESPONSE_BAD;
-	}
 
 	setGameVersion(QString(&in[2]));
-	int pos = 2 + gameVersion().length()+1;
+	int pos = 2 + gameVersion().length() + 1;
 
 	serverState = READINT8(&in[pos++]);
 	unsigned int numPlayers = READINT8(&in[pos++]);
 	clearPlayersList();
-	for(unsigned int i = 0;i < numPlayers;i++)
-	{
-		addPlayer(Player(playerNames[i < 4 ? i : 4], 0, 0, static_cast<Player::PlayerTeam> (Player::TEAM_NONE), false, false));
-	}
+	for (unsigned int i = 0; i < numPlayers; i++)
+		addPlayer(Player(playerNames[i < 4 ? i : 4], 0, 0, static_cast<Player::PlayerTeam>(Player::TEAM_NONE), false, false));
 	int clients = READINT8(&in[pos++]);
 	setMaxClients(clients);
 	setMaxPlayers(clients);
@@ -94,17 +90,13 @@ void ChocolateDoomServer::interpretIwad(int mission, int gameMode)
 {
 	using namespace ChocolateDoom;
 
-	switch(mission)
+	switch (mission)
 	{
 	case doom:
 		if (gameMode == shareware)
-		{
 			setIwad("doom1.wad");
-		}
 		else
-		{
 			setIwad("doom.wad");
-		}
 		break;
 	case doom2:
 		setIwad("doom2.wad");
@@ -123,26 +115,18 @@ void ChocolateDoomServer::interpretIwad(int mission, int gameMode)
 		break;
 	case heretic:
 		if (gameMode == shareware)
-		{
 			setIwad("heretic1.wad");
-		}
 		else
-		{
 			setIwad("heretic.wad");
-		}
 		break;
 	case hexen:
 		setIwad("hexen.wad");
 		break;
 	case strife:
 		if (gameMode == shareware)
-		{
 			setIwad("strife0.wad");
-		}
 		else
-		{
 			setIwad("strife1.wad");
-		}
 		break;
 	default:
 		setIwad("");

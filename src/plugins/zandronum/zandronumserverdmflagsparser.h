@@ -34,49 +34,50 @@ class ZandronumServer;
  */
 class ZandronumServerDmflagsParser
 {
-	public:
-		static ZandronumServerDmflagsParser *mkParser(ZandronumServer *server, QDataStream *in);
+public:
+	static ZandronumServerDmflagsParser *mkParser(ZandronumServer * server, QDataStream *in);
 
-		ZandronumServerDmflagsParser(ZandronumServer *server, QDataStream *in);
-		virtual ~ZandronumServerDmflagsParser() {};
+	ZandronumServerDmflagsParser(ZandronumServer *server, QDataStream *in);
+	virtual ~ZandronumServerDmflagsParser()
+	{}
 
-		virtual QList<DMFlagsSection> parse() = 0;
+	virtual QList<DMFlagsSection> parse() = 0;
 
-	protected:
-		QDataStream *inStream;
-		ZandronumServer *server;
+protected:
+	QDataStream *inStream;
+	ZandronumServer *server;
 
-		QList<DMFlagsSection> sequential32Parse(const QList<DMFlagsSection> &knownFlags);
+	QList<DMFlagsSection> sequential32Parse(const QList<DMFlagsSection> &knownFlags);
 };
 
 class ZandronumServerNullParser : public ZandronumServerDmflagsParser
 {
-	public:
-		ZandronumServerNullParser(ZandronumServer *server, QDataStream *in)
+public:
+	ZandronumServerNullParser(ZandronumServer *server, QDataStream *in)
 		: ZandronumServerDmflagsParser(server, in)
-		{}
+	{}
 
-		QList<DMFlagsSection> parse();
+	QList<DMFlagsSection> parse() override;
 };
 
 class ZandronumServer2DmflagsParser : public ZandronumServerDmflagsParser
 {
-	public:
-		ZandronumServer2DmflagsParser(ZandronumServer *server, QDataStream *in)
+public:
+	ZandronumServer2DmflagsParser(ZandronumServer *server, QDataStream *in)
 		: ZandronumServerDmflagsParser(server, in)
-		{}
+	{}
 
-		QList<DMFlagsSection> parse();
+	QList<DMFlagsSection> parse() override;
 };
 
 class ZandronumServer3DmflagsParser : public ZandronumServerDmflagsParser
 {
-	public:
-		ZandronumServer3DmflagsParser(ZandronumServer *server, QDataStream *in)
+public:
+	ZandronumServer3DmflagsParser(ZandronumServer *server, QDataStream *in)
 		: ZandronumServerDmflagsParser(server, in)
-		{}
+	{}
 
-		QList<DMFlagsSection> parse();
+	QList<DMFlagsSection> parse() override;
 };
 
 #endif

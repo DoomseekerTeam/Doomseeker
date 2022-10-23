@@ -23,48 +23,48 @@
 #ifndef __TOOLTIP_GENERATOR_H_
 #define __TOOLTIP_GENERATOR_H_
 
-#include "serverapi/serverptr.h"
 #include "dptr.h"
 #include "global.h"
-#include <QString>
+#include "serverapi/serverptr.h"
 #include <QObject>
+#include <QString>
 
 /**
  * @ingroup group_pluginapi
  */
 class MAIN_EXPORT TooltipGenerator : public QObject
 {
-	public:
-		TooltipGenerator(const ServerCPtr &server);
-		virtual ~TooltipGenerator();
+public:
+	TooltipGenerator(const ServerCPtr &server);
+	virtual ~TooltipGenerator() override;
 
-		/**
-		 * @brief DMFLAGS listing for the current server.
-		 */
-		virtual QString dmflagsHTML();
+	/**
+	 * @brief DMFLAGS listing for the current server.
+	 */
+	virtual QString dmflagsHTML();
 
-		/**
-		 * @brief General info about current game (fraglimit, team scores, etc.)
-		 */
-		virtual QString gameInfoTableHTML();
+	/**
+	 * @brief General info about current game (fraglimit, team scores, etc.)
+	 */
+	virtual QString gameInfoTableHTML();
 
-		/**
-		 * @brief General info about server, like server name, version,
-		 *        email, etc.
-		 */
-		virtual QString generalInfoHTML();
+	/**
+	 * @brief General info about server, like server name, version,
+	 *        email, etc.
+	 */
+	virtual QString generalInfoHTML();
 
-		/**
-		 * @brief Player table that is created when cursor
-		 *        hovers over players column.
-		 */
-		virtual QString playerTableHTML();
+	/**
+	 * @brief Player table that is created when cursor
+	 *        hovers over players column.
+	 */
+	virtual QString playerTableHTML();
 
-	protected:
-		ServerCPtr server() const;
+protected:
+	ServerCPtr server() const;
 
-	private:
-		DPtr<TooltipGenerator> d;
+private:
+	DPtr<TooltipGenerator> d;
 };
 
 #endif

@@ -17,14 +17,26 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Server Filter</string>
+   <string>Server filter</string>
   </property>
   <widget class="QWidget" name="dockWidgetContents">
    <layout class="QVBoxLayout" name="verticalLayout_2">
+    <property name="leftMargin">
+     <number>2</number>
+    </property>
+    <property name="topMargin">
+     <number>2</number>
+    </property>
+    <property name="rightMargin">
+     <number>2</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
     <item>
      <widget class="QLabel" name="label">
       <property name="text">
-       <string>Server Name:</string>
+       <string>Server name:</string>
       </property>
      </widget>
     </item>
@@ -81,8 +93,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>224</width>
-         <height>425</height>
+         <width>238</width>
+         <height>441</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -96,12 +108,12 @@
          <number>0</number>
         </property>
         <property name="bottomMargin">
-         <number>0</number>
+         <number>2</number>
         </property>
         <item>
          <widget class="QLabel" name="label_2">
           <property name="text">
-           <string>Max. Ping:</string>
+           <string>Max. ping:</string>
           </property>
          </widget>
         </item>
@@ -131,7 +143,7 @@
         <item>
          <widget class="QLineEdit" name="leWads">
           <property name="toolTip">
-           <string>Use ',' (a comma) to separate multiple wads.</string>
+           <string>Use ',' (a comma) to separate multiple WADs.</string>
           </property>
          </widget>
         </item>
@@ -189,6 +201,16 @@
            <string>Show empty servers</string>
           </property>
           <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="cbShowLockedServers">
+          <property name="text">
+           <string>Show password protected servers</string>
+          </property>
+          <property name="tristate">
            <bool>true</bool>
           </property>
          </widget>
@@ -265,6 +287,10 @@
   </customwidget>
  </customwidgets>
  <tabstops>
+  <tabstop>leServerName</tabstop>
+  <tabstop>cbGroupServersWithPlayersAtTop</tabstop>
+  <tabstop>cbFilteringEnabled</tabstop>
+  <tabstop>scrollArea</tabstop>
   <tabstop>spinMaxPing</tabstop>
   <tabstop>leWads</tabstop>
   <tabstop>leExcludeWads</tabstop>
@@ -272,9 +298,10 @@
   <tabstop>cboExcludeGameMode</tabstop>
   <tabstop>cbShowFull</tabstop>
   <tabstop>cbShowEmpty</tabstop>
+  <tabstop>cbShowLockedServers</tabstop>
   <tabstop>cbShowOnlyValid</tabstop>
+  <tabstop>cbShowTestingServers</tabstop>
   <tabstop>btnClear</tabstop>
-  <tabstop>scrollArea</tabstop>
  </tabstops>
  <resources>
   <include location="../../../media/resources.qrc"/>
@@ -287,8 +314,8 @@
    <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>100</x>
-     <y>488</y>
+     <x>99</x>
+     <y>513</y>
     </hint>
     <hint type="destinationlabel">
      <x>101</x>
@@ -304,7 +331,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>45</x>
-     <y>115</y>
+     <y>62</y>
     </hint>
     <hint type="destinationlabel">
      <x>38</x>
@@ -383,8 +410,8 @@
    <slot>emitUpdated()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>50</x>
-     <y>409</y>
+     <x>49</x>
+     <y>434</y>
     </hint>
     <hint type="destinationlabel">
      <x>138</x>
@@ -420,7 +447,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>99</x>
-     <y>115</y>
+     <y>62</y>
     </hint>
    </hints>
   </connection>
@@ -464,7 +491,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>164</x>
-     <y>70</y>
+     <y>117</y>
     </hint>
     <hint type="destinationlabel">
      <x>164</x>
@@ -480,7 +507,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>164</x>
-     <y>39</y>
+     <y>85</y>
     </hint>
     <hint type="destinationlabel">
      <x>164</x>
@@ -495,12 +522,28 @@
    <slot>emitUpdated()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>165</x>
-     <y>427</y>
+     <x>164</x>
+     <y>457</y>
     </hint>
     <hint type="destinationlabel">
      <x>243</x>
      <y>444</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbShowLockedServers</sender>
+   <signal>clicked()</signal>
+   <receiver>ServerFilterDock</receiver>
+   <slot>emitUpdated()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>120</x>
+     <y>403</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>120</x>
+     <y>282</y>
     </hint>
    </hints>
   </connection>

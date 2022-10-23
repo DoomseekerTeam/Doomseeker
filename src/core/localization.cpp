@@ -20,84 +20,127 @@
 //-----------------------------------------------------------------------------
 #include "localization.h"
 
+#include "configuration/doomseekerconfig.h"
+#include "datapaths.h"
+#include "log.h"
+#include "plugins/engineplugin.h"
+#include "plugins/pluginloader.h"
 #include <QApplication>
 #include <QDebug>
 #include <QDir>
 #include <QFile>
 #include <QLibraryInfo>
 #include <QMessageBox>
-#include <QTranslator>
 #include <QSet>
 #include <QStringList>
-#include "plugins/engineplugin.h"
-#include "plugins/pluginloader.h"
-#include "datapaths.h"
-#include "log.h"
+#include <QTranslator>
 
 const QString DEFINITION_FILE_PATTERN = "*.def";
 const QString TRANSLATIONS_LOCATION_SUBDIR = "translations";
 const int NUM_VALID_VERSION_TOKENS = 2;
 const int NUM_VALID_TOKENS = 3;
 
-QList<QTranslator*> Localization::currentlyLoadedTranslations;
+Localization *Localization::instance = nullptr;
 
 class Localization::LocalizationLoader
 {
-	public:
-		LocalizationLoader();
+public:
+	LocalizationLoader();
 
-		QList<LocalizationInfo> loadLocalizationsList(const QStringList& definitionsFileSearchDirs);
+	QList<LocalizationInfo> loadLocalizationsList(const QStringList &definitionsFileSearchDirs);
 
-	private:
-		QList<LocalizationInfo> localizations;
+private:
+	QList<LocalizationInfo> localizations;
 
-		void loadLocalizationsListFile(const QString& definitionsFilePath);
-		void loadLocalizationsListFile(QIODevice& io);
+	void loadLocalizationsListFile(const QString &definitionsFilePath);
+	void loadLocalizationsListFile(QIODevice &io);
 
-		/**
-		 * @brief Reads version information from definition file.
-		 *
-		 * Version information is always in the first line of the file.
-		 * Proper version number is greater than zero.
-		 */
-		int obtainVersion(QIODevice& io);
+	/**
+	 * @brief Reads version information from definition file.
+	 *
+	 * Version information is always in the first line of the file.
+	 * Proper version number is greater than zero.
+	 */
+	int obtainVersion(QIODevice &io);
 
-		void sort();
+	void sort();
 };
 
 bool localizationInfoLessThan(const LocalizationInfo &o1, const LocalizationInfo &o2)
 {
+	// Ensure the "system follow" fake locale is at the beginning of the list
+	if (o1.localeName == LocalizationInfo::SYSTEM_FOLLOW.localeName)
+		return true;
+	if (o2.localeName == LocalizationInfo::SYSTEM_FOLLOW.localeName)
+		return false;
+	// Sort other locales alphabetically
 	return o1.localeName.toLower() < o2.localeName.toLower();
 }
 
-QList<LocalizationInfo> Localization::loadLocalizationsList(const QStringList& definitionsFileSearchDirs)
+Localization::Localization()
 {
-	LocalizationLoader l;
-	return l.loadLocalizationsList(definitionsFileSearchDirs);
+	currentLocalization_ = LocalizationInfo::PROGRAM_NATIVE;
 }
 
-bool Localization::loadTranslation(const QString& localeName)
+LocalizationInfo Localization::coerceBestMatchingLocalization(const QString &localeName) const
 {
+	LocalizationInfo localization = LocalizationInfo::findBestMatch(localizations, localeName);
+	return localization.isValid() ? localization : LocalizationInfo::PROGRAM_NATIVE;
+}
+
+const LocalizationInfo &Localization::currentLocalization() const
+{
+	return currentLocalization_;
+}
+
+Localization *Localization::get()
+{
+	if (instance == nullptr)
+		instance = new Localization();
+	return instance;
+}
+
+bool Localization::isCurrentlyLoaded(const QString &localeName) const
+{
+	return localeName == currentLocalization_.localeName ||
+		localeName == gConfig.doomseeker.localization;
+}
+
+QList<LocalizationInfo> Localization::loadLocalizationsList(const QStringList &definitionsFileSearchDirs)
+{
+	LocalizationLoader l;
+	this->localizations = l.loadLocalizationsList(definitionsFileSearchDirs);
+	return this->localizations;
+}
+
+bool Localization::loadTranslation(const QString &localeName)
+{
+	QString localizationToFind = (localeName == LocalizationInfo::SYSTEM_FOLLOW.localeName) ?
+		QLocale::system().name() :
+		localeName;
+	LocalizationInfo localization = coerceBestMatchingLocalization(localizationToFind);
+	this->currentLocalization_ = localization;
+
 	// Out with the old.
 	qDeleteAll(currentlyLoadedTranslations);
 	currentlyLoadedTranslations.clear();
-	if (localeName == "en_EN")
+	if (localization == LocalizationInfo::PROGRAM_NATIVE)
 		return true;
 	// In with the new.
 	QStringList searchPaths = DataPaths::staticDataSearchDirs(
 		TRANSLATIONS_LOCATION_SUBDIR);
 	// Qt library translator.
-	installQtTranslations(localeName, searchPaths);
+	installQtTranslations(localization.localeName, searchPaths);
 
 	// Doomseeker translator.
-	bool installed = installTranslation(localeName, searchPaths);
+	bool installed = installTranslation(localization.localeName, searchPaths);
 
 	// Plugins translators.
-	foreach (const PluginLoader::Plugin *plugin, gPlugins->plugins())
+	for (const PluginLoader::Plugin *plugin : gPlugins->plugins())
 	{
 		QString name = plugin->info()->nameCanonical();
 		QTranslator *pluginTranslator = loadTranslationFile(
-			QString("%1_%2").arg(name, localeName),
+			QString("%1_%2").arg(name, localization.localeName),
 			searchPaths);
 		if (pluginTranslator)
 		{
@@ -118,19 +161,19 @@ void Localization::installQtTranslations(const QString &localeName, QStringList 
 	// it from system location. This behavior is valid for Linux.
 	searchPaths << QLibraryInfo::location(QLibraryInfo::TranslationsPath);
 
-#if (QT_VERSION < QT_VERSION_CHECK(5, 3, 0))
+	#if (QT_VERSION < QT_VERSION_CHECK(5, 3, 0))
 	// https://sourceforge.net/p/nootka/hg/ci/d00c13d9223b5bf74802aaec209ebc171efb27ce/tree/src/libs/core/tinitcorelib.cpp?diff=ce9e1fc25b8c23c9713c0cfa4c350d5ac2452fab
 	installTranslation("qt_" + localeName, searchPaths);
-#else
+	#else
 	installTranslation("qtbase_" + localeName, searchPaths);
 	installTranslation("qtmultimedia_" + localeName, searchPaths);
-#endif
+	#endif
 }
 
 bool Localization::installTranslation(const QString &translationName, const QStringList &searchPaths)
 {
-	QTranslator* translator = loadTranslationFile(translationName, searchPaths);
-	if (translator != NULL)
+	QTranslator *translator = loadTranslationFile(translationName, searchPaths);
+	if (translator != nullptr)
 	{
 		QCoreApplication::installTranslator(translator);
 		currentlyLoadedTranslations.append(translator);
@@ -143,11 +186,11 @@ bool Localization::installTranslation(const QString &translationName, const QStr
 	}
 }
 
-QTranslator* Localization::loadTranslationFile(const QString& translationName, const QStringList& searchPaths)
+QTranslator *Localization::loadTranslationFile(const QString &translationName, const QStringList &searchPaths)
 {
-	QTranslator* pTranslator = new QTranslator();
+	auto pTranslator = new QTranslator();
 	bool bLoaded = false;
-	foreach (const QString& dir, searchPaths)
+	for (const QString &dir : searchPaths)
 	{
 		if (pTranslator->load(translationName, dir))
 		{
@@ -159,19 +202,20 @@ QTranslator* Localization::loadTranslationFile(const QString& translationName, c
 	if (!bLoaded)
 	{
 		delete pTranslator;
-		pTranslator = NULL;
+		pTranslator = nullptr;
 	}
 	return pTranslator;
 }
 //////////////////////////////////////////////////////////////////////////////
 Localization::LocalizationLoader::LocalizationLoader()
 {
-	localizations << LocalizationInfo::DEFAULT;
+	localizations << LocalizationInfo::SYSTEM_FOLLOW;
+	localizations << LocalizationInfo::PROGRAM_NATIVE;
 }
 
-QList<LocalizationInfo> Localization::LocalizationLoader::loadLocalizationsList(const QStringList& definitionsFileSearchDirs)
+QList<LocalizationInfo> Localization::LocalizationLoader::loadLocalizationsList(const QStringList &definitionsFileSearchDirs)
 {
-	foreach (const QString& dirPath, definitionsFileSearchDirs)
+	for (const QString &dirPath : definitionsFileSearchDirs)
 	{
 		loadLocalizationsListFile(dirPath);
 	}
@@ -179,11 +223,11 @@ QList<LocalizationInfo> Localization::LocalizationLoader::loadLocalizationsList(
 	return localizations;
 }
 
-void Localization::LocalizationLoader::loadLocalizationsListFile(const QString& definitionsFilePath)
+void Localization::LocalizationLoader::loadLocalizationsListFile(const QString &definitionsFilePath)
 {
 	QDir dir(definitionsFilePath);
 	QStringList defFiles = dir.entryList(QStringList(DEFINITION_FILE_PATTERN), QDir::Files);
-	foreach (const QString& defFileName, defFiles)
+	for (const QString &defFileName : defFiles)
 	{
 		// No point in translating strings in this class because
 		// translation is not loaded yet.
@@ -202,7 +246,7 @@ void Localization::LocalizationLoader::loadLocalizationsListFile(const QString& 
 	}
 }
 
-void Localization::LocalizationLoader::loadLocalizationsListFile(QIODevice& io)
+void Localization::LocalizationLoader::loadLocalizationsListFile(QIODevice &io)
 {
 	int version = obtainVersion(io);
 	if (version <= 0)
@@ -211,7 +255,7 @@ void Localization::LocalizationLoader::loadLocalizationsListFile(QIODevice& io)
 		return;
 	}
 
-	QString line = io.readLine();
+	QString line = QString::fromUtf8(io.readLine());
 	while (!line.isEmpty())
 	{
 		line = line.trimmed();
@@ -235,11 +279,11 @@ void Localization::LocalizationLoader::loadLocalizationsListFile(QIODevice& io)
 				gLog << QString("Invalid localization definition: %1").arg(line);
 			}
 		}
-		line = io.readLine();
+		line = QString::fromUtf8(io.readLine());
 	}
 }
 
-int Localization::LocalizationLoader::obtainVersion(QIODevice& io)
+int Localization::LocalizationLoader::obtainVersion(QIODevice &io)
 {
 	QString line = io.readLine();
 	int version = -1;
@@ -263,5 +307,5 @@ int Localization::LocalizationLoader::obtainVersion(QIODevice& io)
 
 void Localization::LocalizationLoader::sort()
 {
-	qSort(localizations.begin(), localizations.end(), localizationInfoLessThan);
+	std::sort(localizations.begin(), localizations.end(), localizationInfoLessThan);
 }

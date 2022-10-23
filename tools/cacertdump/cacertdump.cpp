@@ -10,7 +10,7 @@ int main(int argc, char **argv)
 {
 	QTextStream out(stdout);
 	qDebug() << "Dumping " << QSslConfiguration::systemCaCertificates().size() << "certificates";
-	foreach (const QSslCertificate &cert, QSslConfiguration::systemCaCertificates())
+	for (const QSslCertificate &cert : QSslConfiguration::systemCaCertificates())
 	{
 		out << "BEGIN CERT" << endl;
 		out << cert.toText() << " " << cert.toPem();

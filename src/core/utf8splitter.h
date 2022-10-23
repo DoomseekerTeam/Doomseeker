@@ -32,8 +32,8 @@
  */
 class Utf8Splitter
 {
-	public:
-		QList<QByteArray> split(const QByteArray &in, int maxChunkLength);
+public:
+	QList<QByteArray> split(const QByteArray &in, int maxChunkLength);
 };
 
 #endif

@@ -22,12 +22,12 @@
 //------------------------------------------------------------------------------
 #include "odamexgamerunner.h"
 
-#include <datapaths.h>
 #include "odamexgameinfo.h"
 #include "odamexserver.h"
+#include <datapaths.h>
 
 OdamexGameClientRunner::OdamexGameClientRunner(QSharedPointer<OdamexServer> server)
-: GameClientRunner(server)
+	: GameClientRunner(server)
 {
 	this->server = server;
 	setArgForDemoRecord("-netrecord");
@@ -39,17 +39,17 @@ OdamexGameClientRunner::OdamexGameClientRunner(QSharedPointer<OdamexServer> serv
 void OdamexGameClientRunner::addConnectCommand()
 {
 	GameClientRunner::addConnectCommand_default();
-	if(server->isLocked())
+	if (server->isLocked())
 		args() << connectPassword();
 }
 
 void OdamexGameClientRunner::addExtra()
 {
-	const QStringList& dehPatches = server->dehs();
-	if(dehPatches.count() > 0)
+	const QStringList &dehPatches = server->dehs();
+	if (dehPatches.count() > 0)
 	{
 		args() << "-deh";
-		foreach(QString patch, dehPatches)
+		for (QString patch : dehPatches)
 		{
 			QString file = findWad(patch.toLower());
 			args() << file;
@@ -58,11 +58,11 @@ void OdamexGameClientRunner::addExtra()
 
 	if (isIwadFound())
 	{
-#ifdef Q_OS_WIN32
-		const char* const PATH_SEPARATOR = ";";
-#else
-		const char* const PATH_SEPARATOR = ":";
-#endif
+		#ifdef Q_OS_WIN32
+		const char *const PATH_SEPARATOR = ";";
+		#else
+		const char *const PATH_SEPARATOR = ":";
+		#endif
 		QString waddir;
 
 		// Waddir - Work around for an Odamex bug.
@@ -71,21 +71,19 @@ void OdamexGameClientRunner::addExtra()
 		args() << "-waddir";
 		QString iwad = server->iwad();
 		if (!wadTargetDirectory().isEmpty())
-		{
 			waddir = wadTargetDirectory() + PATH_SEPARATOR;
-		}
 		QString iwadPath = findWad(iwad.toLower());
 		if (!iwadPath.isEmpty())
 		{
 			waddir += iwadPath;
 			waddir.truncate(waddir.length() - iwad.length());
 		}
-		for (int i = 0;i < server->numWads();i++)
+		for (int i = 0; i < server->numWads(); i++)
 		{
 			QString wad = server->wad(i).name();
 			QString pwaddir = findWad(wad.toLower());
 			pwaddir.truncate(pwaddir.length() - wad.length());
-			if(!pwaddir.isEmpty())
+			if (!pwaddir.isEmpty())
 				waddir += PATH_SEPARATOR + pwaddir;
 		}
 		args() << waddir;

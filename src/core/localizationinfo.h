@@ -29,37 +29,42 @@
 
 class LocalizationInfo
 {
-	public:
-		/**
-		 * The default localization - English - is hardcoded into
-		 * the program and we don't need to have it in any .def file.
-		 */
-		static const LocalizationInfo DEFAULT;
-		static LocalizationInfo findBestMatch(const QList<LocalizationInfo> &candidates, const QString &localeName);
+public:
+	/**
+	 * Not a real localization, but a special value that tells the
+	 * program to try to always follow the current language of the OS.
+	 */
+	static const LocalizationInfo SYSTEM_FOLLOW;
+	/**
+	 * The default localization - English - is hardcoded into
+	 * the program and we don't need to have it in any .def file.
+	 */
+	static const LocalizationInfo PROGRAM_NATIVE;
+	static LocalizationInfo findBestMatch(const QList<LocalizationInfo> &candidates, const QString &localeName);
 
-		/**
-		 * @brief The same as code used for country flags in IP2C.
-		 */
-		QString countryCodeName;
-		/**
-		 * @brief Compliant with language_country standard. See
-		 *        QLocale::name()
-		 */
-		QString localeName;
-		/**
-		 * @brief Name that will be displayed to user.
-		 */
-		QString niceName;
+	/**
+	 * @brief The same as code used for country flags in IP2C.
+	 */
+	QString countryCodeName;
+	/**
+	 * @brief Compliant with language_country standard. See
+	 *        QLocale::name()
+	 */
+	QString localeName;
+	/**
+	 * @brief Name that will be displayed to user.
+	 */
+	QString niceName;
 
-		void fromString(const QString& str);
-		QString toString() const;
-		bool isValid() const;
+	void fromString(const QString &str);
+	QString toString() const;
+	bool isValid() const;
 
-		bool operator==(const LocalizationInfo& o2) const;
-		bool operator!=(const LocalizationInfo& o2) const
-		{
-			return !(*this == o2);
-		}
+	bool operator==(const LocalizationInfo &o2) const;
+	bool operator!=(const LocalizationInfo &o2) const
+	{
+		return !(*this == o2);
+	}
 };
 
 enum LocaleMatch

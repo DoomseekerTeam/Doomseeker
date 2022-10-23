@@ -41,6 +41,8 @@ public:
 	QStringList gameModes;
 	QStringList gameModesExcluded;
 
+	Doomseeker::ShowMode lockedServers;
+
 	/**
 	 *	@brief Maximum allowed ping.
 	 *
@@ -54,17 +56,15 @@ public:
 	Doomseeker::ShowMode testingServers;
 
 	ServerListFilterInfo();
-	ServerListFilterInfo(const ServerListFilterInfo& other)
+	ServerListFilterInfo(const ServerListFilterInfo &other)
 	{
 		copy(other);
 	}
 
-	ServerListFilterInfo& operator=(const ServerListFilterInfo& other)
+	ServerListFilterInfo &operator=(const ServerListFilterInfo &other)
 	{
 		if (this != &other)
-		{
 			copy(other);
-		}
 
 		return *this;
 	}
@@ -81,8 +81,8 @@ public:
 	QString toString() const;
 
 private:
-	void copy(const ServerListFilterInfo& other);
-	void copyTrimmed(QStringList& target, const QStringList& source) const;
+	void copy(const ServerListFilterInfo &other);
+	void copyTrimmed(QStringList &target, const QStringList &source) const;
 };
 
 #endif

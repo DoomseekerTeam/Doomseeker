@@ -33,19 +33,19 @@ class RconPasswordDialog : public QDialog
 {
 	Q_OBJECT
 
-	public:
-		RconPasswordDialog(QWidget *parent=NULL, bool connection=false);
-		~RconPasswordDialog();
+public:
+	RconPasswordDialog(QWidget *parent = nullptr, bool connection = false);
+	~RconPasswordDialog() override;
 
-		QString connectPassword() const;
-		const EnginePlugin *selectedEngine() const;
-		QString serverAddress() const;
+	QString connectPassword() const;
+	const EnginePlugin *selectedEngine() const;
+	QString serverAddress() const;
 
-	private:
-		DPtr<RconPasswordDialog> d;
+private:
+	DPtr<RconPasswordDialog> d;
 
-	private slots:
-		void setHidePassword(bool hide);
+private slots:
+	void setHidePassword(bool hide);
 };
 
 #endif

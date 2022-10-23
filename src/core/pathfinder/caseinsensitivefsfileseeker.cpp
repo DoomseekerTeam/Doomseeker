@@ -24,15 +24,32 @@
 
 #include "pathfinder/filesearchpath.h"
 #include "strings.hpp"
+
+#include <QDir>
 #include <QFileInfo>
 
-QString CaseInsensitiveFSFileSeeker::findFileInSpecifiedDirectory(const QString& fileName,
-	const QString& dirPath)
+CaseInsensitiveFSFileSeeker::CaseInsensitiveFSFileSeeker(QSharedPointer <QList<FileSearchPath> > paths) :
+	FileSeeker(paths)
 {
-	QFileInfo file(Strings::combinePaths(dirPath, fileName));
+}
+
+QString CaseInsensitiveFSFileSeeker::findFileInPath(const QString &fileName, FileSearchPath &path)
+{
+	QFileInfo file(Strings::combinePaths(path.path(), fileName));
 	if (file.exists() && file.isFile())
-	{
 		return file.absoluteFilePath();
+	else if (path.isRecursive())
+	{
+		QDir dir(path.path());
+		QStringList subDirs = dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
+		for (const QString &subDir : subDirs)
+		{
+			FileSearchPath subSearchPath(dir.filePath(subDir));
+			subSearchPath.setRecursive(true);
+			QString result = findFileInPath(fileName, subSearchPath);
+			if (!result.isNull())
+				return result;
+		}
 	}
 	return QString();
 }

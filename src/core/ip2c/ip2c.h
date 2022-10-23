@@ -24,150 +24,179 @@
 #ifndef __IP2C_H__
 #define __IP2C_H__
 
-#include "ip2c/entities/ip2ccountryinfo.h"
 #include "global.h"
+#include "ip2c/ip2ccountry.h"
+#include "ip2c/ip2crange.h"
 
 #include <QHash>
 #include <QHostAddress>
 #include <QList>
 #include <QMutex>
 #include <QPixmap>
-#include <QProgressBar>
-#include <QStatusBar>
 #include <QString>
-#include <QUrl>
+
+class Server;
 
 /**
- *	@brief IP to Country database handler.
+ * @brief IP to Country database handler.
  *
- *	IP2C class provides an interface for translating IP addresses into country
- *	names they are in. Additional methods allow to retrieve country's flag
- *	picture for given IP.
- *	@see IP2CParser
+ * IP2C class provides an interface for translating IP addresses into country
+ * names they are in. Additional methods allow to retrieve country's flag
+ * picture for given IP.
+ * @see IP2CParser
  */
 class IP2C : public QObject
 {
 	Q_OBJECT
 
-	public:
-		class IP2CData
-		{
-			public:
-				unsigned int ipStart;
-				unsigned int ipEnd;
-				QString country;
-				QString countryFullName;
+public:
+	/**
+	 * @brief Indicate how the IP2C resolution should occur.
+	 */
+	enum Lookup
+	{
+		/// Lookup the country by IP.
+		LOOKUP_IP,
+		/// The country info is known; use it directly.
+		LOOKUP_DIRECT,
+		/// Don't look-up the country; force an unknown country.
+		LOOKUP_DONT,
+	};
 
-				IP2CData()
-				{
-					ipStart = ipEnd = 0;
-				}
+	static IP2C *instance();
+	static void deinstantiate();
 
-				bool isCountryKnown() const;
+	/**
+	 * Interpret the country code or a special value to see if and how
+	 * the IP2C should be resolved.
+	 */
+	static Lookup howLookup(const QString &countryCode);
 
-				/**
-				 *	IP2CData class is valid when ipStart is different from
-				 *	ipEnd.
-				 */
-				bool isValid() const
-				{
-					return ipStart != ipEnd;
-				}
-		};
+	const QPixmap flagLan;
+	const QPixmap flagLocalhost;
+	const QPixmap flagUnknown;
 
-		static IP2C *instance();
-		static void deinstantiate();
+	const QPixmap &flag(const QString &countryCode);
+	bool hasData() const;
 
-		const QPixmap flagLan;
-		const QPixmap flagLocalhost;
-		const QPixmap flagUnknown;
+	bool isDataAccessLocked() const
+	{
+		return bDataAccessLocked;
+	}
 
-		/**
-		 *	@brief Adds new country entry to the database.
-		 *
-		 *	Makes sure the database is sorted in ascending order.
-		 */
-		void appendEntryToDatabase(const IP2CData& entry);
+	int numKnownEntries() const
+	{
+		return database.size();
+	}
 
-		const QPixmap& flag(const QString& countryShortName);
+	/**
+	 * Returns country information based on the ISO 3166-1 alpha-3 code.
+	 */
+	IP2CCountry countryInfo(const QString &countryCode);
 
-		bool isDataAccessLocked() const
-		{
-			return bDataAccessLocked;
-		}
+	/**
+	 * Returns country information based on given IP.
+	 */
+	IP2CCountry countryInfoForIPv4(unsigned int ipaddress);
+	IP2CCountry countryInfoForAddress(const QHostAddress &ipaddress)
+	{
+		return countryInfoForIPv4(ipaddress.toIPv4Address());
+	}
+	IP2CCountry countryInfoForServer(const Server &server);
 
-		/**
-		 *	Returns a reference to the structure describing the country.
-		 */
-		const IP2CData& lookupIP(unsigned int ipaddress);
-		const IP2CData& lookupIP(const QHostAddress &ipaddress) { return lookupIP(ipaddress.toIPv4Address()); }
+	void setDataAccessLockEnabled(bool b)
+	{
+		bDataAccessLocked = b;
+	}
 
-		int numKnownEntries() const { return database.size(); }
+	const QMap<QString, QString> &licenceNotice() const {return licences;}
+	const QString &urlDatabase() const {return databaseUrl;}
 
-		/**
-		 *	Returns country information based on given IP.
-		 */
-		IP2CCountryInfo obtainCountryInfo(unsigned int ipaddress);
-		IP2CCountryInfo obtainCountryInfo(const QHostAddress& ipaddress) { return obtainCountryInfo(ipaddress.toIPv4Address()); }
+	/**
+	 * @brief Sets the IP range database to the list specified.
+	 *
+	 * To avoid performance issues it is already assumed that the specified
+	 * list is sorted.
+	 */
+	void setRangesDatabase(const QList<IP2CRange> &sortedRanges)
+	{
+		this->database = sortedRanges;
+	}
 
-		void setDataAccessLockEnabled(bool b) { bDataAccessLocked = b; }
+	void setLicence(const QMap<QString, QString> &licences)
+	{
+		this->licences = licences;
+	}
 
-		/**
-		 *	@brief Sets database contents to the list specified.
-		 *
-		 *	To avoid performance issues it is already assumed that the specified
-		 *	list is sorted.
-		 */
-		void setDatabase(const QList<IP2CData>& sortedCountryData)
-		{
-			QMutexLocker dataAccessMutexLocker(&dataAccessMutex);
-			database = sortedCountryData;
-		}
+	void setUrl(const QString &url)
+	{
+		this->databaseUrl = url;
+	}
 
-	protected:
-		inline bool isLANAddress(unsigned ipv4Address)
-		{
-			const static unsigned LAN_1_BEGIN = QHostAddress("10.0.0.0").toIPv4Address();
-			const static unsigned LAN_1_END = QHostAddress("10.255.255.255").toIPv4Address();
-			const static unsigned LAN_2_BEGIN = QHostAddress("172.16.0.0").toIPv4Address();
-			const static unsigned LAN_2_END = QHostAddress("172.31.255.255").toIPv4Address();
-			const static unsigned LAN_3_BEGIN = QHostAddress("192.168.0.0").toIPv4Address();
-			const static unsigned LAN_3_END = QHostAddress("192.168.255.255").toIPv4Address();
+private:
+	static QMutex instanceMutex;
+	static IP2C *staticInstance;
 
-			return (
-					(ipv4Address >= LAN_1_BEGIN && ipv4Address <= LAN_1_END)
-				|| (ipv4Address >= LAN_2_BEGIN && ipv4Address <= LAN_2_END)
-				|| (ipv4Address >= LAN_3_BEGIN && ipv4Address <= LAN_3_END)
-					);
-		}
+	/**
+	 * @brief Performs only an informative role for the application.
+	 *
+	 * This might be set to true by either updater or parser. Application
+	 * should not read from the database when this is true because
+	 * data inside might still be invalid.
+	 */
+	bool bDataAccessLocked;
+	QList<IP2CRange> database;
+	QHash<QString, IP2CCountry> countries;
 
-		inline bool isLocalhostAddress(unsigned ipv4Address)
-		{
-			const static unsigned LOCALHOST_BEGIN = QHostAddress("127.0.0.0").toIPv4Address();
-			const static unsigned LOCALHOST_END = QHostAddress("127.255.255.255").toIPv4Address();
+	// Caches all flags. It's important to not touch the flags structure
+	// anymore after it's been created as the program will refer to the flags
+	// by pointer.
+	const QHash<QString, QPixmap> flags;
 
-			return (ipv4Address >= LOCALHOST_BEGIN && ipv4Address <= LOCALHOST_END);
-		}
+	const IP2CRange invalidRange;
 
-	private:
-		static QMutex instanceMutex;
-		static IP2C *staticInstance;
+	QSet<QString> unknownCountries;
+	QSet<QString> unknownFlags;
 
-		/**
-		 *	@brief Performs only an informative role for the application.
-		 *
-		 *	This might be set to true by either updater or parser. Application
-		 *	should not read from the database when this is true because
-		 *	data inside might still be invalid.
-		 */
-		bool bDataAccessLocked;
-		QMutex dataAccessMutex;
-		QList<IP2CData> database;
-		QHash<QString, QPixmap> flags;
-		const IP2CData invalidData;
+	QMap<QString, QString> licences;
+	QString databaseUrl;
 
-		IP2C();
-		~IP2C();
+	IP2C();
+	~IP2C() override;
+	Q_DISABLE_COPY(IP2C);
+
+	/**
+	 * Returns a reference to the structure describing the country.
+	 */
+	const IP2CRange &lookupIP(unsigned int ipaddress);
+	IP2CCountry unknownCountry() const;
+
+	void logUnknownCountry(const QString &countryCode);
+	void logUnknownFlag(const QString &countryCode);
+
+	inline bool isLANAddress(unsigned ipv4Address)
+	{
+		const static unsigned LAN_1_BEGIN = QHostAddress("10.0.0.0").toIPv4Address();
+		const static unsigned LAN_1_END = QHostAddress("10.255.255.255").toIPv4Address();
+		const static unsigned LAN_2_BEGIN = QHostAddress("172.16.0.0").toIPv4Address();
+		const static unsigned LAN_2_END = QHostAddress("172.31.255.255").toIPv4Address();
+		const static unsigned LAN_3_BEGIN = QHostAddress("192.168.0.0").toIPv4Address();
+		const static unsigned LAN_3_END = QHostAddress("192.168.255.255").toIPv4Address();
+
+		return
+			(ipv4Address >= LAN_1_BEGIN && ipv4Address <= LAN_1_END)
+			|| (ipv4Address >= LAN_2_BEGIN && ipv4Address <= LAN_2_END)
+			|| (ipv4Address >= LAN_3_BEGIN && ipv4Address <= LAN_3_END)
+		;
+	}
+
+	inline bool isLocalhostAddress(unsigned ipv4Address)
+	{
+		const static unsigned LOCALHOST_BEGIN = QHostAddress("127.0.0.0").toIPv4Address();
+		const static unsigned LOCALHOST_END = QHostAddress("127.255.255.255").toIPv4Address();
+
+		return ipv4Address >= LOCALHOST_BEGIN && ipv4Address <= LOCALHOST_END;
+	}
 };
 
 #endif /* __IP2C_H__ */

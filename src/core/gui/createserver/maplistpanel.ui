@@ -11,7 +11,16 @@
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <item>
@@ -28,8 +37,22 @@
      <property name="selectionMode">
       <enum>QAbstractItemView::ExtendedSelection</enum>
      </property>
+     <property name="verticalScrollMode">
+      <enum>QAbstractItemView::ScrollPerPixel</enum>
+     </property>
      <property name="movement">
       <enum>QListView::Free</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="btnAddMapsFromWads">
+     <property name="text">
+      <string>Add from loaded WADs</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../../../../media/resources.qrc">
+       <normaloff>:/icons/file.png</normaloff>:/icons/file.png</iconset>
      </property>
     </widget>
    </item>
@@ -122,9 +145,26 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>btnAddMapsFromWads</sender>
+   <signal>clicked()</signal>
+   <receiver>MapListPanel</receiver>
+   <slot>addMapsFromLoadedWads()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>199</x>
+     <y>187</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addMapFromEditBoxToList()</slot>
+  <slot>addMapsFromLoadedWads()</slot>
   <slot>removeSelectedFromList()</slot>
  </slots>
 </ui>

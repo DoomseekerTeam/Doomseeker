@@ -27,9 +27,9 @@
 #include <QDebug>
 
 IdgamesFile IdgamesFileMatcher::match(const WadDownloadInfo &wad,
-		const QList<IdgamesFile> &candidates)
+	const QList<IdgamesFile> &candidates)
 {
-	foreach (const IdgamesFile &candidate, candidates)
+	for (const IdgamesFile &candidate : candidates)
 	{
 		if (wad.archiveName("zip").compare(candidate.filename(), Qt::CaseInsensitive) == 0)
 		{

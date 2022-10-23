@@ -20,16 +20,16 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2009 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
-#include "gui/models/serverlistmodel.h"
-#include "gui/models/serverlistcolumn.h"
-#include "gui/models/serverlistrowhandler.h"
-#include "gui/helpers/playersdiagram.h"
-#include "gui/widgets/serverlistview.h"
-#include "gui/mainwindow.h"
-#include "gui/serverlist.h"
 #include "configuration/doomseekerconfig.h"
-#include "serverapi/server.h"
+#include "gui/helpers/playersdiagram.h"
+#include "gui/mainwindow.h"
+#include "gui/models/serverlistcolumn.h"
+#include "gui/models/serverlistmodel.h"
+#include "gui/models/serverlistrowhandler.h"
+#include "gui/serverlist.h"
+#include "gui/widgets/serverlistview.h"
 #include "log.h"
+#include "serverapi/server.h"
 #include <QItemDelegate>
 #include <QTime>
 
@@ -37,16 +37,16 @@ using namespace ServerListColumnId;
 
 //////////////////////////////////////////////////////////////
 
-ServerListModel::ServerListModel(ServerList* parent)
-: QStandardItemModel(parent),
-  parentHandler(parent)
+ServerListModel::ServerListModel(ServerList *parent)
+	: QStandardItemModel(parent),
+	parentHandler(parent)
 {
 	setSortRole(SLDT_SORT);
 }
 
 int ServerListModel::addServer(ServerPtr server)
 {
-	QList<QStandardItem*> columns = ServerListColumns::generateListOfCells();
+	QList<QStandardItem *> columns = ServerListColumns::generateListOfCells();
 	appendRow(columns);
 
 	// Country flag is set only once. Set it here and avoid setting it in
@@ -55,9 +55,7 @@ int ServerListModel::addServer(ServerPtr server)
 	QModelIndex index = indexFromItem(columns[0]);
 	ServerListRowHandler rowHandler(this, index.row(), server);
 	if (parentHandler->getMainWindow()->isEffectivelyActiveWindow())
-	{
 		rowHandler.setCountryFlag();
-	}
 
 	return rowHandler.updateServer();
 }
@@ -77,15 +75,13 @@ ServerPtr ServerListModel::findSameServer(const Server *server)
 
 int ServerListModel::findServerOnTheList(const Server *server)
 {
-	if (server != NULL)
+	if (server != nullptr)
 	{
 		for (int i = 0; i < rowCount(); ++i)
 		{
 			ServerCPtr serverOnList = serverFromList(i);
 			if (server == serverOnList)
-			{
 				return i;
-			}
 		}
 	}
 	return -1;
@@ -110,9 +106,7 @@ void ServerListModel::redrawAll()
 	PlayersDiagram::loadImages(gConfig.doomseeker.slotStyle);
 
 	for (int i = 0; i < rowCount(); ++i)
-	{
 		redraw(i);
-	}
 }
 
 QList<ServerPtr> ServerListModel::customServers() const
@@ -122,9 +116,7 @@ QList<ServerPtr> ServerListModel::customServers() const
 	{
 		ServerPtr server = serverFromList(i);
 		if (server->isCustom())
-		{
 			servers << server;
-		}
 	}
 	return servers;
 }
@@ -136,9 +128,7 @@ QList<ServerPtr> ServerListModel::nonSpecialServers() const
 	{
 		ServerPtr server = serverFromList(i);
 		if (!server->isCustom() && !server->isLan())
-		{
 			servers << server;
-		}
 	}
 	return servers;
 }
@@ -147,9 +137,7 @@ QList<ServerPtr> ServerListModel::servers() const
 {
 	QList<ServerPtr> servers;
 	for (int i = 0; i < rowCount(); ++i)
-	{
 		servers << serverFromList(i);
-	}
 	return servers;
 }
 
@@ -160,9 +148,7 @@ QList<ServerPtr> ServerListModel::serversForPlugin(const EnginePlugin *plugin) c
 	{
 		ServerPtr server = serverFromList(i);
 		if (server->plugin() == plugin)
-		{
 			servers << server;
-		}
 	}
 	return servers;
 }
@@ -171,9 +157,7 @@ void ServerListModel::removeServer(const ServerPtr &server)
 {
 	int index = findServerOnTheList(server.data());
 	if (index >= 0)
-	{
 		removeRow(index);
-	}
 }
 
 ServerPtr ServerListModel::serverFromList(int rowIndex) const
@@ -181,15 +165,15 @@ ServerPtr ServerListModel::serverFromList(int rowIndex) const
 	return ServerListRowHandler::serverFromList(this, rowIndex);
 }
 
-ServerPtr ServerListModel::serverFromList(const QModelIndex& index) const
+ServerPtr ServerListModel::serverFromList(const QModelIndex &index) const
 {
 	return ServerListRowHandler::serverFromList(this, index.row());
 }
 
 ServerListModel::ServerGroup ServerListModel::serverGroup(int row)
 {
-	QStandardItem* qstdItem = item(row, IDHiddenGroup);
-	return static_cast<ServerListModel::ServerGroup>(qstdItem->data(SLDT_SORT).toInt());
+	QStandardItem *qstdItem = item(row, COL_META);
+	return static_cast<ServerListModel::ServerGroup>(qstdItem->data(SLDT_SERVER_GROUP).toInt());
 }
 
 void ServerListModel::setRefreshing(ServerPtr server)
@@ -217,7 +201,7 @@ int ServerListModel::updateServer(int row, ServerPtr server)
 
 QVariant ServerListModel::columnSortData(int row, int column)
 {
-	QStandardItem* it = item(row, column);
+	QStandardItem *it = item(row, column);
 	return it->data(SLDT_SORT);
 }
 
@@ -225,10 +209,8 @@ void ServerListModel::updateFlag(int row, bool force)
 {
 	ServerPtr server = serverFromList(row);
 	ServerListRowHandler rowHandler(this, row, server);
-	QStandardItem* itm = item(row, IDServerName);
+	QStandardItem *itm = item(row, IDServerName);
 
 	if (force || itm->icon().isNull())
-	{
 		rowHandler.setCountryFlag();
-	}
 }

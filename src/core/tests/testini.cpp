@@ -20,15 +20,15 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2010 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
-#include "testini.h"
 #include "ini/ini.h"
 #include "ini/settingsproviderqt.h"
+#include "testini.h"
 #include <QByteArray>
 #include <QTemporaryFile>
 
 
 const QByteArray EXAMPLE_INI_FILE = \
-"\
+	"\
 \n\
 \n\
 [Section.SectionOne] \n\
@@ -50,7 +50,7 @@ TestIniFixture::TestIniFixture()
 ////////////////////////////////////////////////////////////////////////////////
 
 TestReadINI::TestReadINI()
-: TestUnitBase("Read INI")
+	: TestUnitBase("Read INI")
 {
 }
 

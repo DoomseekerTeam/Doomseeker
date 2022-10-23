@@ -23,10 +23,10 @@
 #ifndef __IRCNETWORKCONNECTIONINFO_H__
 #define __IRCNETWORKCONNECTIONINFO_H__
 
-#include <QHostAddress>
-#include <QString>
 #include "irc/entities/ircnetworkentity.h"
 #include "strings.hpp"
+#include <QHostAddress>
+#include <QString>
 
 /**
  *	@brief Struct containing information about client's connection to the
@@ -46,9 +46,9 @@ struct IRCNetworkConnectionInfo
 	IRCNetworkEntity networkEntity;
 
 	/**
-	* @brief Original nickname. This variable will always store the current
-	* nickname of the client.
-	*/
+	 * @brief Original nickname. This variable will always store the current
+	 * nickname of the client.
+	 */
 	QString nick;
 
 	/**
@@ -81,24 +81,16 @@ private:
 	void fillInMissingFields()
 	{
 		if (nick.trimmed().isEmpty())
-		{
 			nick = "Doomseeker_" + Strings::createRandomAlphaNumericString(4);
-		}
 
 		if (alternateNick.trimmed().isEmpty())
-		{
 			alternateNick = nick + "`";
-		}
 
 		if (realName.trimmed().isEmpty())
-		{
 			realName = nick;
-		}
 
 		if (userName.trimmed().isEmpty())
-		{
 			userName = nick;
-		}
 	}
 };
 

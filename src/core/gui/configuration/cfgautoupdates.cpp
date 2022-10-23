@@ -24,8 +24,8 @@
 #include "ui_cfgautoupdates.h"
 
 #include "configuration/doomseekerconfig.h"
-#include "updater/updatechannel.h"
 #include "log.h"
+#include "updater/updatechannel.h"
 #include <cassert>
 
 DClass<CFGAutoUpdates> : public Ui::CFGAutoUpdates
@@ -35,12 +35,12 @@ DClass<CFGAutoUpdates> : public Ui::CFGAutoUpdates
 DPointered(CFGAutoUpdates)
 
 CFGAutoUpdates::CFGAutoUpdates(QWidget *parent)
-: ConfigPage(parent)
+	: ConfigPage(parent)
 {
 	d->setupUi(this);
 	// Hide if not supported on target platform.
 	#ifndef WITH_AUTOUPDATES
-		d->programUpdateArea->hide();
+	d->programUpdateArea->hide();
 	#endif
 	layout()->setAlignment(Qt::AlignTop);
 }
@@ -52,7 +52,7 @@ CFGAutoUpdates::~CFGAutoUpdates()
 void CFGAutoUpdates::initUpdateChannels()
 {
 	QList<UpdateChannel> channels = UpdateChannel::allChannels();
-	foreach (const UpdateChannel& channel, channels)
+	for (const UpdateChannel &channel : channels)
 	{
 		d->cboUpdateChannel->addItem(channel.translatedName(),
 			channel.name());
@@ -73,16 +73,16 @@ void CFGAutoUpdates::readSettings()
 
 	switch (gConfig.autoUpdates.updateMode)
 	{
-		case DoomseekerConfig::AutoUpdates::UM_Disabled:
-			d->rbDisabled->setChecked(true);
-			break;
-		default:
-		case DoomseekerConfig::AutoUpdates::UM_NotifyOnly:
-			d->rbNotifyButDontInstall->setChecked(true);
-			break;
-		case DoomseekerConfig::AutoUpdates::UM_FullAuto:
-			d->rbInstallAutomatically->setChecked(true);
-			break;
+	case DoomseekerConfig::AutoUpdates::UM_Disabled:
+		d->rbDisabled->setChecked(true);
+		break;
+	default:
+	case DoomseekerConfig::AutoUpdates::UM_NotifyOnly:
+		d->rbNotifyButDontInstall->setChecked(true);
+		break;
+	case DoomseekerConfig::AutoUpdates::UM_FullAuto:
+		d->rbInstallAutomatically->setChecked(true);
+		break;
 	}
 	QString channelName = gConfig.autoUpdates.updateChannelName;
 	int channelIdx = d->cboUpdateChannel->findData(channelName);
@@ -92,28 +92,18 @@ void CFGAutoUpdates::readSettings()
 		channelIdx = d->cboUpdateChannel->findData(UpdateChannel::mkStable().name());
 	}
 	d->cboUpdateChannel->setCurrentIndex(channelIdx);
-	d->cbIp2cAutoUpdate->setChecked(gConfig.doomseeker.bIP2CountryAutoUpdate);
 }
 
 void CFGAutoUpdates::saveSettings()
 {
 	if (d->rbDisabled->isChecked())
-	{
 		gConfig.autoUpdates.updateMode = DoomseekerConfig::AutoUpdates::UM_Disabled;
-	}
 	else if (d->rbNotifyButDontInstall->isChecked())
-	{
 		gConfig.autoUpdates.updateMode = DoomseekerConfig::AutoUpdates::UM_NotifyOnly;
-	}
 	else if (d->rbInstallAutomatically->isChecked())
-	{
 		gConfig.autoUpdates.updateMode = DoomseekerConfig::AutoUpdates::UM_FullAuto;
-	}
 	else
-	{
 		assert(false && "CFGAutoUpdates::saveSettings() - No radio button is checked.");
-	}
 	gConfig.autoUpdates.updateChannelName = d->cboUpdateChannel->itemData(
 		d->cboUpdateChannel->currentIndex()).toString();
-	gConfig.doomseeker.bIP2CountryAutoUpdate = d->cbIp2cAutoUpdate->isChecked();
 }

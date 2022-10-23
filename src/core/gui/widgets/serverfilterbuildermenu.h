@@ -34,26 +34,26 @@ class ServerFilterBuilderMenu : public QMenu
 {
 	Q_OBJECT
 
-	public:
-		ServerFilterBuilderMenu(const Server& server, const ServerListFilterInfo& filter,
-			QWidget* parent = 0);
-		~ServerFilterBuilderMenu();
+public:
+	ServerFilterBuilderMenu(const Server &server, const ServerListFilterInfo &filter,
+		QWidget *parent = nullptr);
+	~ServerFilterBuilderMenu() override;
 
-		const ServerListFilterInfo& filter() const;
+	const ServerListFilterInfo &filter() const;
 
-	private:
-		DPtr<ServerFilterBuilderMenu> d;
+private:
+	DPtr<ServerFilterBuilderMenu> d;
 
-		QAction* addAction(QMenu* menu, const QString& text, const char* slot);
-		QAction* mkExcludeWadAction(QMenu* menu, const QString& wadName);
-		QAction* mkIncludeWadAction(QMenu* menu, const QString& wadName);
+	QAction *addAction(QMenu *menu, const QString &text, const char *slot);
+	QAction *mkExcludeWadAction(QMenu *menu, const QString &wadName);
+	QAction *mkIncludeWadAction(QMenu *menu, const QString &wadName);
 
-	private slots:
-		void applyGameModeExcludedFilter();
-		void applyGameModeFilter();
-		void applyPingFilter();
-		void excludeWadFromAction();
-		void includeWadFromAction();
+private slots:
+	void applyGameModeExcludedFilter();
+	void applyGameModeFilter();
+	void applyPingFilter();
+	void excludeWadFromAction();
+	void includeWadFromAction();
 };
 
 #endif

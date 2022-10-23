@@ -26,8 +26,8 @@
 #include "dptr.h"
 #include "global.h"
 #include "serverapi/polymorphism.h"
-#include <QObject>
 #include <QList>
+#include <QObject>
 
 class EnginePlugin;
 class ExeFilePath;
@@ -54,54 +54,54 @@ class MAIN_EXPORT GameExeFactory : public QObject
 {
 	Q_OBJECT
 
-	public:
-		GameExeFactory(EnginePlugin* plugin);
-		virtual ~GameExeFactory();
+public:
+	GameExeFactory(EnginePlugin *plugin);
+	virtual ~GameExeFactory() override;
 
-		/**
-		 * @brief @b [Virtual] Additional paths to any executable that matches
-		 * the bit mask.
-		 *
-		 * Return any paths to any additional executables that may match the
-		 * execType bitmask field. Executables should exist on the local
-		 * machine. These executables will be used by Doomseeker to present
-		 * users with additional choices, for example to pick a different
-		 * executable when creating a new game.
-		 *
-		 * Default implementation does nothing and returns an empty list.
-		 *
-		 * @param execType
-		 *     GameFile::ExecType bitmask field. Return only executables that
-		 *     match this bitmask. Match criteria are to be decided by the
-		 *     plugin.
-		 */
-		QList<ExeFilePath> additionalExecutables(int execType) const;
+	/**
+	 * @brief @b [Virtual] Additional paths to any executable that matches
+	 * the bit mask.
+	 *
+	 * Return any paths to any additional executables that may match the
+	 * execType bitmask field. Executables should exist on the local
+	 * machine. These executables will be used by Doomseeker to present
+	 * users with additional choices, for example to pick a different
+	 * executable when creating a new game.
+	 *
+	 * Default implementation does nothing and returns an empty list.
+	 *
+	 * @param execType
+	 *     GameFile::ExecType bitmask field. Return only executables that
+	 *     match this bitmask. Match criteria are to be decided by the
+	 *     plugin.
+	 */
+	QList<ExeFilePath> additionalExecutables(int execType) const;
 
-		/**
-		 * @brief @b [Virtual] List of all game files associated with this
-		 * game.
-		 *
-		 * This list is used to generate path configurators in plugin
-		 * configuration box.
-		 *
-		 * Read doc for GameFile.
-		 */
-		GameFileList gameFiles() const;
+	/**
+	 * @brief @b [Virtual] List of all game files associated with this
+	 * game.
+	 *
+	 * This list is used to generate path configurators in plugin
+	 * configuration box.
+	 *
+	 * Read doc for GameFile.
+	 */
+	GameFileList gameFiles() const;
 
-		/**
-		 * @brief Gets EnginePlugin associated with this object.
-		 */
-		EnginePlugin* plugin() const;
+	/**
+	 * @brief Gets EnginePlugin associated with this object.
+	 */
+	EnginePlugin *plugin() const;
 
-	protected:
-		POLYMORPHIC_SETTER_DECLARE_CONST(GameFileList, GameExeFactory, gameFiles, ());
-		GameFileList gameFiles_default() const;
+protected:
+	POLYMORPHIC_SETTER_DECLARE_CONST(GameFileList, GameExeFactory, gameFiles, ())
+	GameFileList gameFiles_default() const;
 
-		POLYMORPHIC_SETTER_DECLARE_CONST(QList<ExeFilePath>, GameExeFactory, additionalExecutables, (int));
-		QList<ExeFilePath> additionalExecutables_default(int execType) const;
+	POLYMORPHIC_SETTER_DECLARE_CONST(QList<ExeFilePath>, GameExeFactory, additionalExecutables, (int))
+	QList<ExeFilePath> additionalExecutables_default(int execType) const;
 
-	private:
-		DPtr<GameExeFactory> d;
+private:
+	DPtr<GameExeFactory> d;
 };
 
 #endif

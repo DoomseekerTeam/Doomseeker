@@ -23,9 +23,9 @@
 #ifndef id61C47D80_80D8_4824_974F9E00211D3FD1
 #define id61C47D80_80D8_4824_974F9E00211D3FD1
 
-#include <QObject>
-#include "serverapi/serverptr.h"
 #include "dptr.h"
+#include "serverapi/serverptr.h"
+#include <QObject>
 
 #define gWadseekerShow (WadseekerShow::instance())
 
@@ -35,16 +35,16 @@ class WadseekerShow : public QObject
 {
 	Q_OBJECT
 
-	public:
-		static WadseekerShow *instance();
+public:
+	static WadseekerShow *instance();
 
-		bool checkWadseekerValidity(QWidget *parent);
+	bool checkWadseekerValidity(QWidget *parent);
 
-	private:
-		static WadseekerShow *staticInstance;
-		DPtr<WadseekerShow> d;
+private:
+	static WadseekerShow *staticInstance;
+	DPtr<WadseekerShow> d;
 
-		WadseekerShow();
+	WadseekerShow();
 };
 
 #endif

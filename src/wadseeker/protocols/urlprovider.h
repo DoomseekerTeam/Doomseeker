@@ -45,116 +45,116 @@ class MirrorStorage;
  */
 class URLProvider
 {
-	public:
-		URLProvider();
-		~URLProvider();
+public:
+	URLProvider();
+	~URLProvider();
 
-		/**
-		 * @brief Adds mirror URL to the specified original URL.
-		 *
-		 * @b Note: If both URLs are not yet known, then a new
-		 * mirror set is created.
-		 */
-		void addMirror(const QUrl& originalUrl, const QUrl& mirrorUrl);
+	/**
+	 * @brief Adds mirror URL to the specified original URL.
+	 *
+	 * @b Note: If both URLs are not yet known, then a new
+	 * mirror set is created.
+	 */
+	void addMirror(const QUrl &originalUrl, const QUrl &mirrorUrl);
 
-		/**
-		 * @brief Adds all URLs on the list and treats them as mirrors
-		 *        to the same resource.
-		 */
-		void addMirrorUrls(const QList<QUrl>& urls);
+	/**
+	 * @brief Adds all URLs on the list and treats them as mirrors
+	 *        to the same resource.
+	 */
+	void addMirrorUrls(const QList<QUrl> &urls);
 
-		/**
-		 * @brief Adds a single URL to the list. No mirrors.
-		 */
-		void addUrl(const QUrl& url);
+	/**
+	 * @brief Adds a single URL to the list. No mirrors.
+	 */
+	void addUrl(const QUrl &url);
 
-		/**
-		 * @brief All URLs for which hasUrl() will return true.
-		 *
-		 * These URLs can be removed from available list by removeUrl()
-		 * or removeUrlAndMirrors() methods.
-		 */
-		QList<QUrl> allAvailableUrls() const;
+	/**
+	 * @brief All URLs for which hasUrl() will return true.
+	 *
+	 * These URLs can be removed from available list by removeUrl()
+	 * or removeUrlAndMirrors() methods.
+	 */
+	QList<QUrl> allAvailableUrls() const;
 
-		/**
-		 * @brief First URL on the prioritized list.
-		 *
-		 * URLs of the same priority appear on the list in the order in
-		 * which they were added.
-		 */
-		QUrl first() const;
+	/**
+	 * @brief First URL on the prioritized list.
+	 *
+	 * URLs of the same priority appear on the list in the order in
+	 * which they were added.
+	 */
+	QUrl first() const;
 
-		/**
-		 * @brief Checks if URL was known to the object during its entire
-		 *        lifetime.
-		 *
-		 * This URL might not appear anymore on the available URLs
-		 * list. Such URLs will return false on hasUrl().
-		 */
-		bool hasOrHadUrl(const QUrl& url) const;
+	/**
+	 * @brief Checks if URL was known to the object during its entire
+	 *        lifetime.
+	 *
+	 * This URL might not appear anymore on the available URLs
+	 * list. Such URLs will return false on hasUrl().
+	 */
+	bool hasOrHadUrl(const QUrl &url) const;
 
-		/**
-		 * @brief Checks if URL is on the available URLs list.
-		 */
-		bool hasUrl(const QUrl& url) const;
+	/**
+	 * @brief Checks if URL is on the available URLs list.
+	 */
+	bool hasUrl(const QUrl &url) const;
 
-		/**
-		 * @brief True if there are no available URLs.
-		 */
-		bool isEmpty() const;
+	/**
+	 * @brief True if there are no available URLs.
+	 */
+	bool isEmpty() const;
 
-		/**
-		 * @brief Number of currently available URLs.
-		 */
-		unsigned numUrls() const;
+	/**
+	 * @brief Number of currently available URLs.
+	 */
+	unsigned numUrls() const;
 
-		/**
-		 * @brief Same as addUrl()
-		 */
-		URLProvider& operator<<(const QUrl& url);
+	/**
+	 * @brief Same as addUrl()
+	 */
+	URLProvider &operator<<(const QUrl &url);
 
-		/**
-		 * @brief Removes single URL from the available URLs list.
-		 *
-		 * This will not make the object forget the URL. hasOrHad() for this
-		 * URL will still return true and re-adding the same URL will not be
-		 * possible.
-		 */
-		void removeUrl(const QUrl& url);
+	/**
+	 * @brief Removes single URL from the available URLs list.
+	 *
+	 * This will not make the object forget the URL. hasOrHad() for this
+	 * URL will still return true and re-adding the same URL will not be
+	 * possible.
+	 */
+	void removeUrl(const QUrl &url);
 
-		/**
-		 * @brief Removes URL and all its mirrors from the available URLs list.
-		 *
-		 * This will not make the object forget the URLs. hasOrHad() for these
-		 * URLs will still return true and re-adding the same URLs will not be
-		 * possible.
-		 */
-		void removeUrlAndMirrors(const QUrl& url);
+	/**
+	 * @brief Removes URL and all its mirrors from the available URLs list.
+	 *
+	 * This will not make the object forget the URLs. hasOrHad() for these
+	 * URLs will still return true and re-adding the same URLs will not be
+	 * possible.
+	 */
+	void removeUrlAndMirrors(const QUrl &url);
 
-		/**
-		 * @brief Returns the first URL from available URLs list and removes
-		 *        that URL from that list.
-		 */
-		QUrl takeFirst();
+	/**
+	 * @brief Returns the first URL from available URLs list and removes
+	 *        that URL from that list.
+	 */
+	QUrl takeFirst();
 
-	private:
-		enum
-		{
-			PRIORITY_ARCHIVES = 100,
-			PRIORITY_OTHER = 200
-		};
+private:
+	enum
+	{
+		PRIORITY_ARCHIVES = 100,
+		PRIORITY_OTHER = 200
+	};
 
-		// allUrlsPrioritized can't be a QMultiMap because QMultiMap provides
-		// its elements in a LIFO stack instead of a FIFO queue. This
-		// results in idgames providing last (worst) mirrors first,
-		// for example.
-		QMap<int, QList<QUrl> > allUrlsPrioritized;
-		QList<MirrorStorage*> mirrors;
+	// allUrlsPrioritized can't be a QMultiMap because QMultiMap provides
+	// its elements in a LIFO stack instead of a FIFO queue. This
+	// results in idgames providing last (worst) mirrors first,
+	// for example.
+	QMap<int, QList<QUrl> > allUrlsPrioritized;
+	QList<MirrorStorage *> mirrors;
 
-		QList<MirrorStorage*> mirrorsWithUrl(const QUrl& url);
+	QList<MirrorStorage *> mirrorsWithUrl(const QUrl &url);
 
-		void insertUrlPrioritized(const QUrl& url);
-		void removeAllUrls(const MirrorStorage* pMirror);
+	void insertUrlPrioritized(const QUrl &url);
+	void removeAllUrls(const MirrorStorage *pMirror);
 };
 
 #endif

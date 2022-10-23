@@ -22,7 +22,11 @@
 //------------------------------------------------------------------------------
 #include "ip2c.h"
 
+#include "configuration/doomseekerconfig.h"
+#include "serverapi/server.h"
+
 #include <QBuffer>
+#include <QDirIterator>
 #include <QFile>
 #include <QFileInfo>
 #include <QHash>
@@ -33,151 +37,199 @@
 #include "log.h"
 
 QMutex IP2C::instanceMutex;
-IP2C *IP2C::staticInstance = NULL;
+IP2C *IP2C::staticInstance = nullptr;
+
+static QHash<QString, QPixmap> cacheFlags()
+{
+	QHash<QString, QPixmap> flags;
+	QDirIterator it(":flags/country/");
+	while (it.hasNext())
+	{
+		QString resName = it.next();
+		QFileInfo resPath(resName);
+		flags[resPath.fileName()] = QPixmap(resName);
+	}
+	return flags;
+}
 
 IP2C *IP2C::instance()
 {
-	if (staticInstance == NULL)
+	if (staticInstance == nullptr)
 	{
 		QMutexLocker locker(&instanceMutex);
-		if (staticInstance == NULL)
-		{
+		if (staticInstance == nullptr)
 			staticInstance = new IP2C();
-		}
 	}
 	return staticInstance;
 }
 
 void IP2C::deinstantiate()
 {
-	if (staticInstance != NULL)
+	if (staticInstance != nullptr)
 	{
 		delete staticInstance;
-		staticInstance = NULL;
+		staticInstance = nullptr;
 	}
 }
 
 IP2C::IP2C()
-: flagLan(":flags/lan-small"), flagLocalhost(":flags/localhost-small"),
-  flagUnknown(":flags/unknown-small")
+	: flagLan(":flags/lan-small"), flagLocalhost(":flags/localhost-small"),
+	flagUnknown(":flags/unknown-small"), countries(IP2CCountry::all()),
+	flags(cacheFlags())
 {
+	for (auto it = countries.begin(); it != countries.end(); ++it)
+	{
+		const QString &code = it.key();
+		auto flagIt = flags.find(code);
+		if (flagIt != flags.end())
+			it->flag = &flagIt.value();
+	}
 }
 
 IP2C::~IP2C()
 {
 }
 
-void IP2C::appendEntryToDatabase(const IP2CData& entry)
+const QPixmap &IP2C::flag(const QString &countryCode)
 {
-	QMutexLocker dataAccessMutexLocker(&dataAccessMutex);
-
-	if (database.isEmpty() || entry.ipStart > database.back().ipStart)
+	auto it = flags.find(countryCode);
+	if (it != flags.end())
 	{
-		database << entry;
-	}
-	else if (entry.ipStart < database.first().ipStart)
-	{
-		database.insert(0, entry);
+		return *it;
 	}
 	else
 	{
-		QList<IP2CData>::iterator it;
-		for (it = database.begin(); it != database.end(); ++it)
-		{
-			if (entry.ipStart < it->ipStart)
-			{
-				database.insert(it, entry);
-				break;
-			}
-		}
-	}
-}
-
-const QPixmap &IP2C::flag(const QString& countryShortName)
-{
-	if (flags.contains(countryShortName))
-	{
-		return flags[countryShortName];
-	}
-
-	QString resName = ":flags/" + countryShortName;
-	QResource res(resName);
-
-	if (!res.isValid())
-	{
-		gLog << tr("No flag for country: %1").arg(countryShortName);
-		flags[countryShortName] = flagUnknown;
+		logUnknownFlag(countryCode);
 		return flagUnknown;
 	}
-
-	flags[countryShortName] = QPixmap(resName);
-	return flags[countryShortName];
 }
 
-const IP2C::IP2CData& IP2C::lookupIP(unsigned int ipaddress)
+bool IP2C::hasData() const
 {
-	QMutexLocker dataAccessMutexLocker(&dataAccessMutex);
+	return !database.empty();
+}
 
-	if(database.empty())
-	{
-		return invalidData;
-	}
+IP2C::Lookup IP2C::howLookup(const QString &countryCode)
+{
+	QString code = countryCode.toUpper().trimmed();
+	if (code.isEmpty() || code == "XIP")
+		return LOOKUP_IP;
+	else if (code == "XUN")
+		return LOOKUP_DONT;
+	else
+		return LOOKUP_DIRECT;
+}
 
-	unsigned int upper = database.size()-1;
+const IP2CRange &IP2C::lookupIP(unsigned int ipaddress)
+{
+	if (database.empty())
+		return invalidRange;
+
+	unsigned int upper = database.size() - 1;
 	unsigned int lower = 0;
-	unsigned int index = database.size()/2;
+	unsigned int index = database.size() / 2;
 	unsigned int lastIndex = 0xFFFFFFFF;
-	while(index != lastIndex) // Infinite loop protection.
+	while (index != lastIndex) // Infinite loop protection.
 	{
 		lastIndex = index;
 
-		if(ipaddress < database[index].ipStart)
+		if (ipaddress < database[index].ipStart)
 		{
 			upper = index;
-			index -= (index-lower)>>1; // If we're concerning ourselves with speed >>1 is the same as /2, but should be faster.
+			index -= (index - lower) >> 1; // If we're concerning ourselves with speed >>1 is the same as /2, but should be faster.
 			continue;
 		}
-		else if(ipaddress > database[index].ipEnd)
+		else if (ipaddress > database[index].ipEnd)
 		{
 			lower = index;
-			index += (upper-index)>>1;
+			index += (upper - index) >> 1;
 			continue;
 		}
 		return database[index];
 	}
 
-	return invalidData;
+	return invalidRange;
 }
 
-IP2CCountryInfo IP2C::obtainCountryInfo(unsigned int ipaddress)
+IP2CCountry IP2C::countryInfo(const QString &countryCode)
+{
+	auto it = countries.find(countryCode);
+	if (it != countries.end())
+	{
+		if (it->flag == nullptr)
+			logUnknownFlag(countryCode);
+		return *it;
+	}
+	else
+	{
+		logUnknownCountry(countryCode);
+		return unknownCountry();
+	}
+}
+
+IP2CCountry IP2C::countryInfoForIPv4(unsigned int ipaddress)
 {
 	if (isLocalhostAddress(ipaddress))
-	{
-		return IP2CCountryInfo(&flagLocalhost, tr("Localhost"));
-	}
+		return IP2CCountry(&flagLocalhost, tr("Localhost"));
 
 	if (isLANAddress(ipaddress))
-	{
-		return IP2CCountryInfo(&flagLan, tr("LAN"));
-	}
+		return IP2CCountry(&flagLan, tr("LAN"));
 
-	const IP2CData& data = lookupIP(ipaddress);
+	if (!hasData())
+		return IP2CCountry();
 
-	if (!data.isCountryKnown())
-	{
-		return IP2CCountryInfo(&flagUnknown, tr("Unknown"));
-	}
+	const IP2CRange &addressRange = lookupIP(ipaddress);
 
-	if (!data.isValid())
-	{
-		return IP2CCountryInfo();
-	}
+	if (!addressRange.isValid())
+		return IP2CCountry();
+	if (addressRange.country.isEmpty())
+		return unknownCountry();
 
-	const QPixmap* pFlag = &flag(data.country);
-	return IP2CCountryInfo(pFlag, data.countryFullName);
+	return countryInfo(addressRange.country);
 }
 
-bool IP2C::IP2CData::isCountryKnown() const
+IP2CCountry IP2C::countryInfoForServer(const Server &server)
 {
-	return !country.isEmpty() && country != "ZZZ";
+	if (gConfig.doomseeker.bHonorServerCountries)
+	{
+		const IP2C::Lookup lookup = howLookup(server.country());
+		if (lookup == IP2C::LOOKUP_DONT)
+		{
+			return unknownCountry();
+		}
+		else if (lookup == IP2C::LOOKUP_DIRECT && !isDataAccessLocked())
+		{
+			return countryInfo(server.country());
+		}
+	}
+
+	if (!isDataAccessLocked())
+	{
+		return countryInfoForAddress(server.address());
+	}
+
+	return IP2CCountry();
+}
+
+void IP2C::logUnknownCountry(const QString &countryCode)
+{
+	if (!unknownCountries.contains(countryCode))
+	{
+		unknownCountries.insert(countryCode);
+		gLog << tr("Unknown country: %1").arg(countryCode);
+	}
+}
+
+void IP2C::logUnknownFlag(const QString &countryCode)
+{
+	if (!unknownFlags.contains(countryCode))
+	{
+		unknownFlags.insert(countryCode);
+		gLog << tr("No flag for country: %1").arg(countryCode);
+	}
+}
+
+IP2CCountry IP2C::unknownCountry() const
+{
+	return IP2CCountry(&flagUnknown, tr("Unknown"));
 }

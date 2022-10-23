@@ -36,26 +36,26 @@ class IdgamesReply : public QObject
 
 	friend class IdgamesClient;
 
-	public:
-		~IdgamesReply();
+public:
+	~IdgamesReply() override;
 
-		void abort();
-		IdgamesResult result() const;
+	void abort();
+	IdgamesResult result() const;
 
-	signals:
-		void finished();
+signals:
+	void finished();
 
-	private:
-		class PrivData;
-		PrivData *d;
+private:
+	class PrivData;
+	PrivData *d;
 
-		IdgamesReply(const QNetworkRequest &request, QNetworkReply *reply);
-		void finish(const IdgamesResult &result);
-		void redirect(QUrl redirectUrl);
-		void setReply(QNetworkReply *reply);
+	IdgamesReply(const QNetworkRequest &request, QNetworkReply *reply);
+	void finish(const IdgamesResult &result);
+	void redirect(QUrl redirectUrl);
+	void setReply(QNetworkReply *reply);
 
-	private slots:
-		void onNetworkFinished();
+private slots:
+	void onNetworkFinished();
 };
 
 

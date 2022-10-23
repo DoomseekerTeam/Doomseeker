@@ -22,12 +22,12 @@
 //------------------------------------------------------------------------------
 #include "srb2gameclientrunner.h"
 
+#include "srb2server.h"
 #include <datapaths.h>
 #include <serverapi/serverstructs.h>
-#include "srb2server.h"
 
 Srb2GameClientRunner::Srb2GameClientRunner(QSharedPointer<Srb2Server> server)
-: GameClientRunner(server)
+	: GameClientRunner(server)
 {
 	this->server = server;
 	setArgForDemoRecord("-record");

@@ -38,12 +38,14 @@ UnTar::~UnTar()
 
 bool UnTar::extract(int file, const QString &where)
 {
-	stream->open(QIODevice::ReadOnly);
+	if (!stream->open(QIODevice::ReadOnly))
+		return false;
+
 	stream->seek(directory[file].offset);
 	QByteArray fileData = stream->read(directory[file].size);
 	stream->close();
 
-	if(fileData.size() == directory[file].size)
+	if (static_cast<unsigned>(fileData.size()) == directory[file].size)
 	{
 		QFile outputFile(where);
 		outputFile.open(QFile::WriteOnly);
@@ -56,7 +58,7 @@ bool UnTar::extract(int file, const QString &where)
 
 QString UnTar::fileNameFromIndex(int file)
 {
-	if(file >= directory.size())
+	if (file >= directory.size())
 		return QString();
 	return directory[file].filename;
 }
@@ -64,16 +66,18 @@ QString UnTar::fileNameFromIndex(int file)
 QStringList UnTar::files()
 {
 	QStringList files;
-	foreach(const TarFile &tarfile, directory)
+	for (const TarFile &tarfile : directory)
+	{
 		files << tarfile.filename;
+	}
 	return files;
 }
 
 int UnTar::findFileEntry(const QString &entryName)
 {
-	for(int i = 0;i < directory.count();i++)
+	for (int i = 0; i < directory.count(); i++)
 	{
-		if(directory[i].filename == entryName)
+		if (directory[i].filename == entryName)
 			return i;
 	}
 	return -1;
@@ -86,23 +90,28 @@ void UnTar::scanTarFile()
 	qint64 read;
 	unsigned int offset = 512;
 
-	stream->open(QIODevice::ReadOnly);
-	while(valid && (read = stream->read(buffer, 512)) > 0)
+	if (!stream->open(QIODevice::ReadOnly))
 	{
-		if(read < 512)
+		valid = false;
+		return;
+	}
+
+	while (valid && (read = stream->read(buffer, 512)) > 0)
+	{
+		if (read < 512)
 		{
 			valid = false;
 			break;
 		}
 
 		file.filename = QString::fromUtf8(buffer, qMin(static_cast<int>(strlen(buffer)), 100));
-		if(file.filename.isEmpty())
+		if (file.filename.isEmpty())
 			break;
 		file.size = QString(&buffer[124]).left(12).toUInt(&valid, 8);
 		file.offset = offset;
 		// Tar files are aligned along 512 blocks
-		offset += 512 + file.size + (file.size%512 != 0 ? 512-(file.size%512) : 0);
-		stream->seek(offset-512);
+		offset += 512 + file.size + (file.size % 512 != 0 ? 512 - (file.size % 512) : 0);
+		stream->seek(offset - 512);
 
 		directory.append(file);
 	}

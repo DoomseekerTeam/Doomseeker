@@ -22,13 +22,12 @@
 //------------------------------------------------------------------------------
 #include "zandronum3dmflags.h"
 
+#include "zandronumgamesettings.h"
 #include <QMutex>
 #include <serverapi/serverstructs.h>
-#include "zandronumgamesettings.h"
 
 namespace Zandronum3
 {
-
 static QList<DMFlagsSection> cachedFlags;
 static QMutex cacheMutex;
 
@@ -106,11 +105,15 @@ DMFlagsSection Dmflags::compatFlags()
 
 DMFlagsSection Dmflags::compatFlags2()
 {
+	using namespace ZandronumGameSettingsNames;
+
 	DMFlagsSection section("Compat. flags 2");
 	section << DMFlag("It is impossible to directly face cardinal direction", COMPATF2_BADANGLES,
 		tr("It is impossible to directly face cardinal direction"));
 	section << DMFlag("Use the same floor motion behavior as Doom", COMPATF2_FLOORMOVE,
 		tr("Use the same floor motion behavior as Doom"));
+	section << DMFlag(COMPAT_PUSH_WINDOW, COMPATF2_PUSHWINDOW,
+		tr("Trigger bump actions on pass-over linedefs"));
 	return section;
 }
 
@@ -148,6 +151,12 @@ DMFlagsSection Dmflags::zandronumCompatFlags()
 		tr("Use vanilla's autoaim tracer behavior"));
 	section << DMFlag(COMPAT_WEST_SPAWNS_ARE_SILENT, ZACOMPATF_SILENT_WEST_SPAWNS,
 		tr("West spawns are silent"));
+	section << DMFlag(COMPAT_SKULLTAG_JUMPING, ZACOMPATF_SKULLTAG_JUMPING,
+		tr("Jumping works as in Skulltag"));
+	section << DMFlag(COMPAT_RESET_GLOBALVARS_ON_MAPRESET, ZACOMPATF_RESET_GLOBALVARS_ON_MAPRESET,
+		tr("Reset the world/global ACS variables when resetting the map"));
+	section << DMFlag(COMPAT_NO_OBITUARIES, ZACOMPATF_NO_OBITUARIES,
+		tr("Don't show obituaries"));
 	section << DMFlag(COMPAT_LIMITED_MOVEMENT_IN_THE_AIR, ZACOMPATF_LIMITED_AIRMOVEMENT,
 		tr("Limited movement in the air"));
 	section << DMFlag(COMPAT_PLASMA_BUMP_BUG, ZACOMPATF_PLASMA_BUMP_BUG,
@@ -300,6 +309,8 @@ DMFlagsSection Dmflags::dmflags2()
 
 DMFlagsSection Dmflags::zandronumDmflags()
 {
+	using namespace ZandronumGameSettingsNames;
+
 	DMFlagsSection section("Zandronum Flags");
 	section << DMFlag("Clients can't identify targets", ZADF_NO_IDENTIFY_TARGET,
 		tr("Clients can't identify targets"));
@@ -318,8 +329,8 @@ DMFlagsSection Dmflags::zandronumDmflags()
 		tr("Keys are shared between players"));
 	section << DMFlag("Player teams are preserved between maps", ZADF_YES_KEEP_TEAMS,
 		tr("Player teams are preserved between maps"));
-	section << DMFlag("Force OpenGL defaults", ZADF_FORCE_GL_DEFAULTS,
-		tr("Force OpenGL defaults"));
+	section << DMFlag("Force renderer defaults", ZADF_FORCE_VIDEO_DEFAULTS,
+		tr("Force renderer defaults"));
 	section << DMFlag("No rocket jumping", ZADF_NO_ROCKET_JUMPING,
 		tr("No rocket jumping"));
 	section << DMFlag("Award damage instead of kills", ZADF_AWARD_DAMAGE_INSTEAD_KILLS,
@@ -339,6 +350,16 @@ DMFlagsSection Dmflags::zandronumDmflags()
 		tr("No map reset on death in survival"));
 	section << DMFlag("Dead players can keep inventory", ZADF_DEAD_PLAYERS_CAN_KEEP_INVENTORY,
 		tr("Dead players can keep inventory"));
+	section << DMFlag(NO_UNLAGGED_BFG_TRACERS, ZADF_NOUNLAGGED_BFG_TRACERS,
+		tr("No unlagged on BFG tracers"));
+	section << DMFlag(NO_DOOR_CLOSE, ZADF_NODOORCLOSE,
+		tr("No door closing"));
+	section << DMFlag(FORCE_SOFTWARE_PITCH_LIMITS, ZADF_FORCE_SOFTWARE_PITCH_LIMITS,
+		tr("Limit vertical look range to the limit of the software renderer"));
+	section << DMFlag(SHOOT_THROUGH_ALLIES, ZADF_SHOOT_THROUGH_ALLIES,
+		tr("Players can shoot through allies"));
+	section << DMFlag(DONT_PUSH_ALLIES, ZADF_DONT_PUSH_ALLIES,
+		tr("Players don't push allies when shooting them"));
 	return section;
 }
 
@@ -360,5 +381,4 @@ QList<DMFlagsSection> Dmflags::flags()
 	}
 	return cachedFlags;
 }
-
 }

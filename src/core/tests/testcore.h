@@ -27,52 +27,51 @@
 #include <QString>
 
 /**
- *	@brief Core for developer tests.
+ * @brief Core for developer tests.
  *
- *	<b>IMPORTANT NOTICE:</b>
- *	The whole "tests" package is designed for developer use only. It is @b NOT
- *	performed in enclosed environment and may cause damage to the application's
- *	setup if used inappropriately.
+ * <b>IMPORTANT NOTICE:</b>
+ * The whole "tests" package is designed for developer use only. It is @b NOT
+ * performed in enclosed environment and may cause damage to the application's
+ * setup if used inappropriately.
  *
- *	Tests package imitates the Java's JUnit behavior.
- *	The design is much simplier and the only supported outputs are the Log class
- *	(which prints to stdout) and stdout itself. The test results are simple
- *	boolean values: false if test failed at some point or true if succeeded.
+ * Tests package imitates the Java's JUnit behavior.
+ * The design is much simplier and the only supported outputs are the Log class
+ * (which prints to stdout) and stdout itself. The test results are simple
+ * boolean values: false if test failed at some point or true if succeeded.
  *
- *	TestBase root class provides a static instance of Log class: testLog.
- *	This instance should be used to display output.
+ * TestBase root class provides a static instance of Log class: testLog.
+ * This instance should be used to display output.
  *
- *	All tests should be executed through executeTest() method. This will print
- *	standard information before and after each test.
+ * All tests should be executed through executeTest() method. This will print
+ * standard information before and after each test.
  */
 class TestCore : public TestBase
 {
-	public:
-		TestCore();
+public:
+	TestCore();
 
-		/**
-		 *	@brief Clears success/fail counters.
-		 */
-		void clearCounters();
+	/**
+	 * @brief Clears success/fail counters.
+	 */
+	void clearCounters();
 
-		/**
-		 *	Provides a standard encapsulation for test execution.
-		 *
-		 *	@param test - An instance of TestUnitBase derivative class.
-		 *				  @b Important: this object will be deleted by this
-		 *				  method
-		 */
-		void executeTest(TestUnitBase* pTest);
+	/**
+	 * Provides a standard encapsulation for test execution.
+	 *
+	 * @param test - An instance of TestUnitBase derivative class.
+	 *     @b Important: this object will be deleted by this
+	 *     method
+	 */
+	void executeTest(TestUnitBase *pTest);
 
-		int numTests() const { return testsFailed + testsSucceeded; }
-		int numTestsFailed() const { return testsFailed; }
-		int numTestsSucceeded() const { return testsSucceeded; }
+	int numTests() const { return testsFailed + testsSucceeded; }
+	int numTestsFailed() const { return testsFailed; }
+	int numTestsSucceeded() const { return testsSucceeded; }
 
 
-	protected:
-		int testsFailed;
-		int testsSucceeded;
-
+protected:
+	int testsFailed;
+	int testsSucceeded;
 };
 
 #endif

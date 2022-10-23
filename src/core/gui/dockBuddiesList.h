@@ -24,14 +24,14 @@
 #ifndef __DOCKBUDDIESLIST_H__
 #define __DOCKBUDDIESLIST_H__
 
-#include "serverapi/buddyinfo.h"
-#include "serverapi/serverptr.h"
 #include "dptr.h"
+#include "serverapi/serverptr.h"
 
 #include <QDialog>
 #include <QDockWidget>
 
 class MasterManager;
+class Pattern;
 class QAbstractButton;
 class QModelIndex;
 
@@ -39,57 +39,59 @@ class DockBuddiesList : public QDockWidget
 {
 	Q_OBJECT
 
-	public:
-		enum ColumnId
-		{
-			BLCID_ID,
-			BLCID_BUDDY,
-			BLCID_LOCATION,
+public:
+	enum ColumnId
+	{
+		BLCID_ID,
+		BLCID_BUDDY,
+		BLCID_LOCATION,
 
-			HOW_MANY_BUDDIESLIST_COLUMNS
-		};
+		HOW_MANY_BUDDIESLIST_COLUMNS
+	};
 
-		DockBuddiesList(QWidget *parent=NULL);
-		~DockBuddiesList();
+	DockBuddiesList(QWidget *parent = nullptr);
+	~DockBuddiesList() override;
 
-		bool hasBuddy(const ServerPtr &server);
+	bool hasBuddy(const ServerPtr &server);
 
-	public slots:
-		void addBuddy();
-		void scan(const MasterManager *master=NULL);
+public slots:
+	void addBuddy();
+	void scan(const MasterManager *master = nullptr);
 
-	signals:
-		void joinServer(const ServerPtr &server);
-		void scanCompleted();
+signals:
+	void joinServer(const ServerPtr &server);
+	void scanCompleted();
 
-	protected slots:
-		void deleteBuddy();
-		void followBuddy(const QModelIndex &index);
-		void patternsListContextMenu(const QPoint &pos) const;
+protected slots:
+	void deleteBuddy();
+	void followBuddy(const QModelIndex &index);
+	void patternsListContextMenu(const QPoint &pos) const;
 
-	private:
-		DPtr<DockBuddiesList> d;
+private:
+	DPtr<DockBuddiesList> d;
 
-		const MasterManager *masterClient;
-		bool save;
+	const MasterManager *masterClient;
+	bool save;
 };
 
 class AddBuddyDlg : public QDialog
 {
 	Q_OBJECT
 
-	public:
-		AddBuddyDlg(QWidget *parent=NULL);
-		~AddBuddyDlg();
+public:
+	AddBuddyDlg(QWidget *parent = nullptr);
+	~AddBuddyDlg() override;
 
-		BuddyInfo::PatternType patternType() const;
-		QString pattern() const;
+	Pattern pattern() const;
 
-	protected slots:
-		void buttonBoxClicked(QAbstractButton *button);
+protected slots:
+	void buttonBoxClicked(QAbstractButton *button);
 
-	private:
-		DPtr<AddBuddyDlg> d;
+private:
+	DPtr<AddBuddyDlg> d;
+
+private slots:
+	void updateTip();
 };
 
 #endif /* __DOCKBUDDIESLIST_H__ */

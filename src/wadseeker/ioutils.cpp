@@ -22,7 +22,7 @@
 //------------------------------------------------------------------------------
 #include "ioutils.h"
 
-bool IOUtils::copy(QIODevice& src, QIODevice& dst, unsigned long long maxCount, unsigned bufferSize)
+bool IOUtils::copy(QIODevice &src, QIODevice &dst, unsigned long long maxCount, unsigned bufferSize)
 {
 	if (bufferSize > maxCount)
 	{

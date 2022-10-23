@@ -34,7 +34,7 @@ IRCResponseType::IRCResponseType(MsgType type)
 	d.numericType = toRfcNumber(type);
 }
 
-IRCResponseType::IRCResponseType(const QString& type)
+IRCResponseType::IRCResponseType(const QString &type)
 {
 	d.type = typeFromRfcString(type);
 
@@ -42,9 +42,7 @@ IRCResponseType::IRCResponseType(const QString& type)
 	bool bOk = false;
 	int numericType = type.toInt(&bOk);
 	if (!bOk)
-	{
 		numericType = -1;
-	}
 	d.numericType = numericType;
 }
 
@@ -65,12 +63,12 @@ IRCResponseType IRCResponseType::fromIntegerResponseValue(int responseType)
 	return newIRCResponseType;
 }
 
-bool IRCResponseType::operator==(const IRCResponseType& other) const
+bool IRCResponseType::operator==(const IRCResponseType &other) const
 {
 	return d.type == other.d.type;
 }
 
-bool IRCResponseType::operator!=(const IRCResponseType& other) const
+bool IRCResponseType::operator!=(const IRCResponseType &other) const
 {
 	return !((*this) == other);
 }
@@ -78,9 +76,7 @@ bool IRCResponseType::operator!=(const IRCResponseType& other) const
 int IRCResponseType::toRfcNumber(MsgType type)
 {
 	if (type == Invalid)
-	{
 		return -1;
-	}
 
 	QString str = toRfcString(type);
 
@@ -94,184 +90,182 @@ QString IRCResponseType::toRfcString(MsgType type)
 {
 	switch (type)
 	{
-		case HelloClient:
-			return "001";
+	case HelloClient:
+		return "001";
 
-		case RPLISupport:
-			return "005";
+	case RPLISupport:
+		return "005";
 
-		case RPLLUserClient:
-			return "251";
+	case RPLLUserClient:
+		return "251";
 
-		case RPLLUserOp:
-			return "252";
+	case RPLLUserOp:
+		return "252";
 
-		case RPLLUserUnknown:
-			return "253";
+	case RPLLUserUnknown:
+		return "253";
 
-		case RPLLUserChannels:
-			return "254";
+	case RPLLUserChannels:
+		return "254";
 
-		case RPLLUserMe:
-			return "255";
+	case RPLLUserMe:
+		return "255";
 
-		case RPLAway:
-			return "301";
+	case RPLAway:
+		return "301";
 
-		case RPLWhoIsRegnick:
-			return "307";
+	case RPLWhoIsRegnick:
+		return "307";
 
-		case RPLWhoIsUser:
-			return "311";
+	case RPLWhoIsUser:
+		return "311";
 
-		case RPLWhoIsServer:
-			return "312";
+	case RPLWhoIsServer:
+		return "312";
 
-		case RPLWhoIsOperator:
-			return "313";
+	case RPLWhoIsOperator:
+		return "313";
 
-		case RPLWhoIsIdle:
-			return "317";
+	case RPLWhoIsIdle:
+		return "317";
 
-		case RPLEndOfWhoIs:
-			return "318";
+	case RPLEndOfWhoIs:
+		return "318";
 
-		case RPLWhoIsChannels:
-			return "319";
+	case RPLWhoIsChannels:
+		return "319";
 
-		case RPLWhoIsSpecial:
-			return "320";
+	case RPLWhoIsSpecial:
+		return "320";
 
-		case RPLChannelUrl:
-			return "328";
+	case RPLChannelUrl:
+		return "328";
 
-		case RPLCreationTime:
-			return "329";
+	case RPLCreationTime:
+		return "329";
 
-		case RPLWhoIsAccount:
-			return "330";
+	case RPLWhoIsAccount:
+		return "330";
 
-		case RPLTopic:
-			return "332";
+	case RPLTopic:
+		return "332";
 
-		case RPLTopicWhoTime:
-			return "333";
+	case RPLTopicWhoTime:
+		return "333";
 
-		case RPLWhoIsBot:
-			return "335";
+	case RPLWhoIsBot:
+		return "335";
 
-		case RPLWhoIsActually:
-			return "338";
+	case RPLWhoIsActually:
+		return "338";
 
-		case RPLNamReply:
-			return "353";
+	case RPLNamReply:
+		return "353";
 
-		case RPLEndOfNames:
-			return "366";
+	case RPLEndOfNames:
+		return "366";
 
-		case RPLMOTD:
-			return "372";
+	case RPLMOTD:
+		return "372";
 
-		case RPLMOTDStart:
-			return "375";
+	case RPLMOTDStart:
+		return "375";
 
-		case RPLEndOfMOTD:
-			return "376";
+	case RPLEndOfMOTD:
+		return "376";
 
-		case RPLWhoIsHost:
-			return "378";
+	case RPLWhoIsHost:
+		return "378";
 
-		case RPLWhoIsModes:
-			return "379";
+	case RPLWhoIsModes:
+		return "379";
 
-		case ERRNoSuchNick:
-			return "401";
+	case ERRNoSuchNick:
+		return "401";
 
-		case ERRCannotSendToChan:
-			return "404";
+	case ERRCannotSendToChan:
+		return "404";
 
-		case ERRErroneousNickname:
-			return "432";
+	case ERRErroneousNickname:
+		return "432";
 
-		case ERRNicknameInUse:
-			return "433";
+	case ERRNicknameInUse:
+		return "433";
 
-		case ERRChannelIsFull:
-			return "471";
+	case ERRChannelIsFull:
+		return "471";
 
-		case ERRInviteOnlyChan:
-			return "473";
+	case ERRInviteOnlyChan:
+		return "473";
 
-		case ERRBannedFromChan:
-			return "474";
+	case ERRBannedFromChan:
+		return "474";
 
-		case ERRBadChannelKey:
-			return "475";
+	case ERRBadChannelKey:
+		return "475";
 
-		case ERRBadChannelMask:
-			return "476";
+	case ERRBadChannelMask:
+		return "476";
 
-		case ERRNoChanModes:
-			return "477";
+	case ERRNoChanModes:
+		return "477";
 
-		case ERRChanOpPrivIsNeeded:
-			return "482";
+	case ERRChanOpPrivIsNeeded:
+		return "482";
 
-		case RPLWhoIsSecure:
-			return "671";
+	case RPLWhoIsSecure:
+		return "671";
 
-		case Join:
-			return "JOIN";
+	case Join:
+		return "JOIN";
 
-		case Kick:
-			return "KICK";
+	case Kick:
+		return "KICK";
 
-		case Kill:
-			return "KILL";
+	case Kill:
+		return "KILL";
 
-		case Mode:
-			return "MODE";
+	case Mode:
+		return "MODE";
 
-		case Nick:
-			return "NICK";
+	case Nick:
+		return "NICK";
 
-		case Notice:
-			return "NOTICE";
+	case Notice:
+		return "NOTICE";
 
-		case Part:
-			return "PART";
+	case Part:
+		return "PART";
 
-		case Ping:
-			return "PING";
+	case Ping:
+		return "PING";
 
-		case PrivMsg:
-			return "PRIVMSG";
+	case PrivMsg:
+		return "PRIVMSG";
 
-		case Quit:
-			return "QUIT";
+	case Quit:
+		return "QUIT";
 
-		case Topic:
-			return "TOPIC";
+	case Topic:
+		return "TOPIC";
 
-		case Invalid:
-		default:
-			return QString();
+	case Invalid:
+	default:
+		return QString();
 	}
 }
 
-IRCResponseType::MsgType IRCResponseType::typeFromRfcString(const QString& typeRepresentation)
+IRCResponseType::MsgType IRCResponseType::typeFromRfcString(const QString &typeRepresentation)
 {
 	QString strTypeUpper = typeRepresentation.trimmed().toUpper();
 
 	// Compare passed string against all known types.
 	for (int i = 0; i < NUM_TYPES; ++i)
 	{
-		MsgType enumType = (MsgType) i;
+		auto enumType = (MsgType) i;
 		QString strCurrent = toRfcString(enumType);
 		if (strTypeUpper == strCurrent)
-		{
 			return enumType;
-		}
 	}
 
 	return Invalid;

@@ -23,18 +23,32 @@
 #include "configuration/doomseekerconfig.h"
 #include "gui/widgets/memorylineedit.h"
 #include "serverconsole.h"
-#include "ui_serverconsole.h"
 #include "strings.hpp"
+#include "ui_serverconsole.h"
 
-#include <QRegExp>
+#include <QRegularExpression>
+#include <QTimer>
+
+/**
+ * In certain conditions many small messages may arrive very rapidly in
+ * succession. Adding them to the display immediately as they come causes a
+ * performance hit. To mitigate that, buffer the messages that arrive and
+ * anticipate more messages to arrive in a short period of time. Only flush them
+ * and append them to the display box after the grace period expires.
+ *
+ * Fixes: #4026
+ */
+static const int BUFFER_FLUSH_GRACE_MSECS = 100;
 
 DClass<ServerConsole> : public Ui::ServerConsole
 {
 public:
 	MemoryLineEdit *consoleInput;
+	QString buffer;
+	QTimer bufferFlushTimer;
 };
 
-DPointered(ServerConsole)
+DPointeredNoCopy(ServerConsole)
 
 ServerConsole::ServerConsole(QWidget *parent, Qt::WindowFlags f) : QWidget(parent, f)
 {
@@ -43,43 +57,51 @@ ServerConsole::ServerConsole(QWidget *parent, Qt::WindowFlags f) : QWidget(paren
 	d->consoleInput = new MemoryLineEdit();
 	layout()->addWidget(d->consoleInput);
 
-	connect(d->consoleInput, SIGNAL(returnPressed()), this, SLOT(forwardMessage()));
+	connect(d->consoleInput, &QLineEdit::returnPressed,
+		this, &ServerConsole::forwardMessage);
+	connect(&d->bufferFlushTimer, &QTimer::timeout,
+		this, &ServerConsole::flushBuffer);
+	d->bufferFlushTimer.setSingleShot(true);
 }
 
-ServerConsole::~ServerConsole()
-{
-}
+ServerConsole::~ServerConsole() = default;
 
 void ServerConsole::appendMessage(const QString &message)
 {
-#if QT_VERSION >= 0x050000
 	QString appendMessage = QString(message).toHtmlEscaped();
-#else
-	QString appendMessage = Qt::escape(message);
-#endif
-	if(appendMessage.endsWith('\n')) // Remove the trailing new line since appendPlainText seems to add one automatically.
-		appendMessage.chop(1);
+	if (!appendMessage.endsWith('\n'))
+		appendMessage += '\n';
 	appendMessage.replace('\n', "<br>");
 
 	// Process colors
-	if(gConfig.doomseeker.bColorizeServerConsole)
+	if (gConfig.doomseeker.bColorizeServerConsole)
 		appendMessage = Strings::colorizeString(appendMessage);
 	else
 	{
-		static const QRegExp colorCode("\034(\\[[a-zA-Z0-9]*\\]|[a-v+\\-!*])");
+		static const QRegularExpression colorCode("\034(\\[[a-zA-Z0-9]*\\]|[a-v+\\-!*])");
 		appendMessage.remove(colorCode);
 	}
 
+	d->buffer += appendMessage;
+	if (!d->bufferFlushTimer.isActive())
+	{
+		d->bufferFlushTimer.start(BUFFER_FLUSH_GRACE_MSECS);
+	}
+}
+
+void ServerConsole::flushBuffer()
+{
 	// Emulate append since we need to force HTML on (append auto detects which fails if &lt; or < is not found).
 	d->consoleOutput->moveCursor(QTextCursor::End);
-	d->consoleOutput->insertHtml("<br>" + appendMessage);
+	d->consoleOutput->insertHtml(d->buffer);
 	d->consoleOutput->moveCursor(QTextCursor::End);
+	d->buffer.clear();
 }
 
 void ServerConsole::forwardMessage()
 {
 	QString msg = d->consoleInput->text();
-	if(msg[0] == ':')
+	if (msg[0] == ':')
 		msg.replace(0, 1, "say ");
 
 	emit messageSent(msg);

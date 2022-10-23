@@ -22,11 +22,11 @@
 //------------------------------------------------------------------------------
 #include "testbase.h"
 
-Log	TestBase::testLog;
+Log TestBase::testLog;
 
 ////////////////////////////////////////////////////////////////////////////////
 
-TestUnitBase::TestUnitBase(const QString& testName)
+TestUnitBase::TestUnitBase(const QString &testName)
 {
 	_testName = testName;
 }

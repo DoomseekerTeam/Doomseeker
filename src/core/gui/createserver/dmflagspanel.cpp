@@ -33,27 +33,27 @@
 class DMFlagsTabWidget
 {
 public:
-	QWidget* widget;
+	QWidget *widget;
 	DMFlagsSection section;
 
 	/**
 	 * Check boxes in the same order the flags are stored in the plugin.
 	 */
-	QList<QCheckBox*> checkBoxes;
+	QList<QCheckBox *> checkBoxes;
 };
 
 
 DClass<DMFlagsPanel> : public Ui::DMFlagsPanel
 {
 public:
-	QList<DMFlagsTabWidget*> dmFlagsTabs;
+	QList<DMFlagsTabWidget *> dmFlagsTabs;
 };
 
 DPointered(DMFlagsPanel)
 
 
 DMFlagsPanel::DMFlagsPanel(QWidget *parent)
-: QWidget(parent)
+	: QWidget(parent)
 {
 	d->setupUi(this);
 }
@@ -66,15 +66,13 @@ DMFlagsPanel::~DMFlagsPanel()
 QList<DMFlagsSection> DMFlagsPanel::dmFlags() const
 {
 	QList<DMFlagsSection> result;
-	foreach(const DMFlagsTabWidget* p, d->dmFlagsTabs)
+	for (const DMFlagsTabWidget *p : d->dmFlagsTabs)
 	{
 		DMFlagsSection sec = p->section.copyEmpty();
 		for (int i = 0; i < p->section.count(); ++i)
 		{
 			if (p->checkBoxes[i]->isChecked())
-			{
 				sec.add(p->section[i]);
-			}
 		}
 		result << sec;
 	}
@@ -89,44 +87,38 @@ bool DMFlagsPanel::initDMFlagsTabs(const EnginePlugin *engine)
 	{
 		QList<DMFlagsSection> dmFlagsSections = engine->dmFlags();
 		if (dmFlagsSections.empty())
-		{
 			return false; // Nothing to do
-		}
 
 		for (int i = 0; i < dmFlagsSections.count(); ++i)
 		{
-			DMFlagsTabWidget* dmftw = new DMFlagsTabWidget();
+			auto dmftw = new DMFlagsTabWidget();
 
-			QWidget* flagsTab = new QWidget(this);
+			QWidget *flagsTab = new QWidget(this);
 			dmftw->widget = flagsTab;
 			dmftw->section = dmFlagsSections[i];
 
-			QHBoxLayout* hLayout = new QHBoxLayout(flagsTab);
+			auto hLayout = new QHBoxLayout(flagsTab);
 
-			QVBoxLayout* layout = NULL;
+			QVBoxLayout *layout = nullptr;
 			for (int j = 0; j < dmFlagsSections[i].count(); ++j)
 			{
 				if ((j % 16) == 0)
 				{
-					if (layout != NULL)
-					{
+					if (layout != nullptr)
 						layout->addStretch();
-					}
 
 					layout = new QVBoxLayout();
 					hLayout->addLayout(layout);
 				}
 
-				QCheckBox* checkBox = new QCheckBox();
+				auto checkBox = new QCheckBox();
 				checkBox->setText(dmFlagsSections[i][j].name());
 				dmftw->checkBoxes << checkBox;
 				layout->addWidget(checkBox);
 			}
 
-			if (layout != NULL)
-			{
+			if (layout != nullptr)
 				layout->addStretch();
-			}
 
 			d->dmFlagsTabs << dmftw;
 			d->tabWidget->addTab(flagsTab, dmFlagsSections[i].name());
@@ -138,7 +130,7 @@ bool DMFlagsPanel::initDMFlagsTabs(const EnginePlugin *engine)
 
 void DMFlagsPanel::removeDMFlagsTabs()
 {
-	foreach (DMFlagsTabWidget* flags, d->dmFlagsTabs)
+	for (DMFlagsTabWidget *flags : d->dmFlagsTabs)
 	{
 		int index = d->tabWidget->indexOf(flags->widget);
 		d->tabWidget->removeTab(index);
@@ -157,7 +149,7 @@ void DMFlagsPanel::fillInParams(GameCreateParams &params)
 void DMFlagsPanel::loadConfig(Ini &config)
 {
 	IniSection dmflags = config.section("DMFlags");
-	foreach(DMFlagsTabWidget* p, d->dmFlagsTabs)
+	for (DMFlagsTabWidget *p : d->dmFlagsTabs)
 	{
 		const DMFlagsSection &section = p->section;
 		for (int i = 0; i < section.count(); ++i)
@@ -178,7 +170,7 @@ void DMFlagsPanel::saveConfig(Ini &config)
 {
 	config.deleteSection("DMFlags");
 	IniSection dmflags = config.section("DMFlags");
-	foreach(DMFlagsTabWidget* p, d->dmFlagsTabs)
+	for (DMFlagsTabWidget *p : d->dmFlagsTabs)
 	{
 		for (int i = 0; i < p->section.count(); ++i)
 		{

@@ -25,6 +25,13 @@
 SDK_10_4=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.4u.sdk
 SDK_10_9=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk
 
+declare IP2CFile="$(pwd)/IpToCountry.dat"
+if [[ ! -f "$IP2CFile" ]]
+then
+	echo 'Provide IpToCountry.dat in the current working directory.' >&2
+	exit 1
+fi
+
 if [ -z $QT5PATH ]
 then
 	echo "Building Qt4 version."
@@ -35,33 +42,20 @@ else
 fi
 
 # Get the version number
-version_info=`grep --only-matching -E '([0-9]+\.[0-9]+)|Beta|Alpha' ../src/core/versiondefs.h`
-version=""
-tag=""
-for i in $version_info
-do
-	if [ $i == "Beta" ]
-	then
-		tag="b"
-	elif [ $i == "Alpha" ]
-	then
-		tag="a"
-	else
-		if [ "$version" == "" ]
-		then
-			version=$i
-		fi
-	fi
-done
-if [ "$version" == "" ]
-then
-	version="0.0"
+version=$(
+	cmake -P /dev/stdin 2>&1 <<-'EOF'
+		include("../src/core/versiondefs.cmake")
+		message("${VERSION_STRING}")
+	EOF
+)
+if [[ -z $version ]]; then
+	echo 'ERROR: Failed to get version number.' >&2
+	exit 1
 fi
 
 NUM_CPU_CORES=`system_profiler SPHardwareDataType | awk '/Total Number of Cores/ {print $5};'`
 
 echo "Version: $version"
-echo "Tag: $tag"
 echo "Building with $NUM_CPU_CORES jobs!"
 echo
 
@@ -77,11 +71,11 @@ then
 	export MACOSX_DEPLOYMENT_TARGET=10.4
 	echo CC="${CC:-/usr/bin/gcc-4.0}" CXX="${CXX:-/usr/bin/g++-4.0}" cmake ../../.. -DFORCE_QT4=YES "$@" || exit
 	CC="${CC:-/usr/bin/gcc-4.0}" CXX="${CXX:-/usr/bin/g++-4.0}" cmake ../../.. -DFORCE_QT4=YES "$@" || exit
-	cmake ../../.. -DCMAKE_OSX_ARCHITECTURES="ppc;i386" -DCMAKE_OSX_DEPLOYMENT_TARGET=$MACOSX_DEPLOYMENT_TARGET -DCMAKE_OSX_SYSROOT=${SDK_10_4} -DCMAKE_BUILD_TYPE=Release -DFORCE_QT4=YES -DCMAKE_SKIP_RPATH=ON "$@" || exit
+	cmake ../../.. -DCMAKE_OSX_ARCHITECTURES="ppc;i386" -DCMAKE_OSX_DEPLOYMENT_TARGET=$MACOSX_DEPLOYMENT_TARGET -DCMAKE_OSX_SYSROOT=${SDK_10_4} -DCMAKE_BUILD_TYPE=Release -DFORCE_QT4=YES -DCMAKE_SKIP_RPATH=ON -DDOOMSEEKER_IP2C_DAT="$IP2CFile" "$@" || exit
 else
 	export MACOSX_DEPLOYMENT_TARGET=10.9
 	CMAKE_PREFIX_PATH=$QT5PATH cmake ../../.. "$@" || exit
-	CMAKE_PREFIX_PATH=$QT5PATH cmake ../../.. -DCMAKE_OSX_ARCHITECTURES="x86_64" -DCMAKE_OSX_DEPLOYMENT_TARGET=$MACOSX_DEPLOYMENT_TARGET -DCMAKE_OSX_SYSROOT=$SDK_10_9 -DCMAKE_BUILD_TYPE=Release "$@" || exit
+	CMAKE_PREFIX_PATH=$QT5PATH cmake ../../.. -DCMAKE_OSX_ARCHITECTURES="x86_64" -DCMAKE_OSX_DEPLOYMENT_TARGET=$MACOSX_DEPLOYMENT_TARGET -DCMAKE_OSX_SYSROOT=$SDK_10_9 -DCMAKE_BUILD_TYPE=Release -DDOOMSEEKER_IP2C_DAT="$IP2CFile" "$@" || exit
 fi
 make -j $NUM_CPU_CORES || exit
 ./doomseeker --version-json version.js
@@ -127,8 +121,8 @@ fi
 MODULES_COMMA=`echo $MODULES | sed 's/ /,/g'`
 
 cp {build/,Doomseeker.app/Contents/MacOS/}doomseeker
-cp {build/,Doomseeker.app/Contents/MacOS/}updater
-cp {build/,Doomseeker.app/Contents/Frameworks/}libwadseeker.dylib
+cp {build/,Doomseeker.app/Contents/Frameworks/}libwadseeker.1.dylib
+cp "$IP2CFile" Doomseeker.app/Contents/MacOS/
 for i in $MODULES
 do
 	cp -a ${QTPATH}$i.framework Doomseeker.app/Contents/Frameworks/
@@ -148,8 +142,14 @@ find Doomseeker.app/Contents -name '*.dSYM' | xargs rm -rf
 find Doomseeker.app/Contents/plugins -name '*_debug*' | xargs rm -rf
 cp -R {build/,Doomseeker.app/Contents/MacOS/}engines
 cp -R {build/,Doomseeker.app/Contents/MacOS/}translations
+cp {${QTPLPATH},Doomseeker.app/Contents/MacOS/}translations/qt_ca.qm
+cp {${QTPLPATH},Doomseeker.app/Contents/MacOS/}translations/qt_es.qm
 cp {${QTPLPATH},Doomseeker.app/Contents/MacOS/}translations/qt_pl.qm
+cp {${QTPLPATH},Doomseeker.app/Contents/MacOS/}translations/qtbase_ca.qm
+cp {${QTPLPATH},Doomseeker.app/Contents/MacOS/}translations/qtbase_es.qm
 cp {${QTPLPATH},Doomseeker.app/Contents/MacOS/}translations/qtbase_pl.qm
+cp {${QTPLPATH},Doomseeker.app/Contents/MacOS/}translations/qtmultimedia_ca.qm
+cp {${QTPLPATH},Doomseeker.app/Contents/MacOS/}translations/qtmultimedia_es.qm
 cp {${QTPLPATH},Doomseeker.app/Contents/MacOS/}translations/qtmultimedia_pl.qm
 cp {../../media/,Doomseeker.app/Contents/}Info.plist
 cp {../../media/,Doomseeker.app/Contents/Resources/}icon-osx.icns
@@ -182,12 +182,12 @@ do
 	done
 done
 
-RELINK_LIST="`ls Doomseeker.app/Contents/{MacOS/{doomseeker,engines/*.so},Frameworks/libwadseeker.dylib}` $QTPLUGINS_LIST"
+RELINK_LIST="`ls Doomseeker.app/Contents/{MacOS/{doomseeker,engines/*.so},Frameworks/libwadseeker.1.dylib}` $QTPLUGINS_LIST"
 for i in $RELINK_LIST
 do
-	if otool -L "$i" | awk '/libwadseeker.dylib/{if(!($0 ~ /\.app/)){print $1;found=1}}END{exit !found}' > /dev/null
+	if otool -L "$i" | awk '/libwadseeker.1.dylib/{if(!($0 ~ /\.app/)){print $1;found=1}}END{exit !found}' > /dev/null
 	then
-		install_name_tool -change $(otool -L "$i" | awk '/libwadseeker.dylib/{if(!($0 ~ /\.app/)){print $1;exit 0}}') @executable_path/../Frameworks/libwadseeker.dylib $i
+		install_name_tool -change $(otool -L "$i" | awk '/libwadseeker.1.dylib/{if(!($0 ~ /\.app/)){print $1;exit 0}}') @executable_path/../Frameworks/libwadseeker.1.dylib $i
 	fi
 done
 for i in $MODULES

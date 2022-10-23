@@ -23,26 +23,27 @@
 #ifndef id7CCF5C41_0664_487D_926B2383C451D847
 #define id7CCF5C41_0664_487D_926B2383C451D847
 
-#include <serverapi/gamehost.h>
 #include "zandronumgameinfo.h"
+#include <serverapi/gamehost.h>
 
 class ZandronumGameHost : public GameHost
 {
 	Q_OBJECT
 
-	public:
-		ZandronumGameHost();
+public:
+	ZandronumGameHost();
 
-	protected:
-		void addExtra();
+protected:
+	void addExtra() override;
 
-	private:
-		Q_DISABLE_COPY(ZandronumGameHost)
+private:
+	Q_DISABLE_COPY(ZandronumGameHost)
 
-		void addDMFlags();
+	void addDMFlags();
+	void addHostModeParams();
 
-		QString strArg(const QString &val);
-		ZandronumGameInfo::GameVersion gameVersion() const;
+	QString strArg(const QString &val);
+	ZandronumGameInfo::GameVersion gameVersion() const;
 };
 
 #endif // header

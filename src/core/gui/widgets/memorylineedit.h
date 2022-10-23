@@ -37,18 +37,18 @@ class MemoryLineEdit : public QLineEdit
 {
 	Q_OBJECT
 
-	public:
-		MemoryLineEdit(QWidget *parent=0);
+public:
+	MemoryLineEdit(QWidget *parent = nullptr);
 
-	protected:
-		void keyPressEvent(QKeyEvent *event);
+protected:
+	void keyPressEvent(QKeyEvent *event) override;
 
-	protected slots:
-		void storeCommand();
+protected slots:
+	void storeCommand();
 
-	private:
-		QList<QString> history;
-		QList<QString>::iterator position;
+private:
+	QList<QString> history;
+	QList<QString>::iterator position;
 };
 
 #endif

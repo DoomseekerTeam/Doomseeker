@@ -23,8 +23,8 @@
 #include "apprunner.h"
 
 #include "gui/standardserverconsole.h"
-#include "serverapi/message.h"
 #include "log.h"
+#include "serverapi/message.h"
 #include "strings.hpp"
 #include <QProcess>
 
@@ -33,26 +33,24 @@ bool CommandLineInfo::isValid() const
 	return !executable.filePath().isEmpty();
 }
 
-void AppRunner::cleanArguments(QStringList& args)
+void AppRunner::cleanArguments(QStringList &args)
 {
 	QStringList::iterator it;
 	for (it = args.begin(); it != args.end(); ++it)
 	{
 		if (it->contains(" "))
-		{
 			Strings::trim(*it, "\"");
-		}
 	}
 }
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_DARWIN
 QString AppRunner::findBundleBinary(const QFileInfo &file)
 {
 	// Scan the plist file for where the real binary is in a bundle.  We have
 	// to do this because some bundles (ZDaemon) don't like the --args method
 	// and I heard that only works on Mac OS X 10.6 anywyas.
 	QFile pLists(file.canonicalFilePath() + "/Contents/Info.plist");
-	if(!pLists.open(QIODevice::ReadOnly | QIODevice::Text))
+	if (!pLists.open(QIODevice::ReadOnly | QIODevice::Text))
 	{
 		gLog << tr("Could not read bundle plist. (%1)").arg(file.canonicalFilePath() + "/Contents/Info.plist");
 		return QString();
@@ -60,28 +58,27 @@ QString AppRunner::findBundleBinary(const QFileInfo &file)
 
 	char line[128];
 	bool keyFound = false;
-	while(pLists.readLine(line, 128) != -1)
+	while (pLists.readLine(line, 128) != -1)
 	{
-		if(!keyFound)
+		if (!keyFound)
 		{
-			if(QString(line).trimmed() == "<key>CFBundleExecutable</key>")
+			if (QString(line).trimmed() == "<key>CFBundleExecutable</key>")
 				keyFound = true;
 		}
 		else
 		{
 			QString binaryLine(line);
 			binaryLine = binaryLine.trimmed();
-			if(binaryLine.startsWith("<string>") && binaryLine.endsWith("</string>"))
-				return QString("/Contents/MacOS/") + binaryLine.mid(8, binaryLine.indexOf("</string>")-8);
+			if (binaryLine.startsWith("<string>") && binaryLine.endsWith("</string>"))
+				return QString("/Contents/MacOS/") + binaryLine.mid(8, binaryLine.indexOf("</string>") - 8);
 			keyFound = false;
 		}
-
 	}
 	return QString();
 }
 #endif
 
-Message AppRunner::runExecutable(const CommandLineInfo& cmdInfo)
+Message AppRunner::runExecutable(const CommandLineInfo &cmdInfo)
 {
 	gLog << tr("Starting (working dir %1): %2").arg(cmdInfo.applicationDir.absolutePath()).arg(cmdInfo.executable.absoluteFilePath());
 	QStringList args = cmdInfo.args;
@@ -89,11 +86,9 @@ Message AppRunner::runExecutable(const CommandLineInfo& cmdInfo)
 
 	int result;
 
-	#ifdef Q_OS_MAC
-	if( cmdInfo.executable.isBundle() )
-	{
+	#ifdef Q_OS_DARWIN
+	if ( cmdInfo.executable.isBundle())
 		result = QProcess::startDetached(cmdInfo.executable.absoluteFilePath() + AppRunner::findBundleBinary(cmdInfo.executable), args, cmdInfo.applicationDir.absolutePath());
-	}
 	else
 	#endif
 	{
@@ -104,7 +99,7 @@ Message AppRunner::runExecutable(const CommandLineInfo& cmdInfo)
 
 	if (!result)
 	{
-		QString error = tr("File: %1\ncannot be run").arg(cmdInfo.executable.absoluteFilePath());
+		QString error = tr("Cannot run file: %1").arg(cmdInfo.executable.absoluteFilePath());
 		gLog << error;
 		message = Message::customError(error);
 		return message;

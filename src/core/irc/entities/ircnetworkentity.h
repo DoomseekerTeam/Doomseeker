@@ -38,90 +38,90 @@ class QVariant;
  */
 class MAIN_EXPORT IRCNetworkEntity
 {
-	public:
-		static IRCNetworkEntity deserializeQVariant(const QVariant &var);
+public:
+	static IRCNetworkEntity deserializeQVariant(const QVariant &var);
 
-		IRCNetworkEntity();
-		virtual ~IRCNetworkEntity();
+	IRCNetworkEntity();
+	virtual ~IRCNetworkEntity();
 
-		/**
-		 * @brief Address of the server or network to connect to.
-		 */
-		const QString &address() const;
+	/**
+	 * @brief Address of the server or network to connect to.
+	 */
+	const QString &address() const;
 
-		/**
-		 * @brief List of channels to which a /join command will be issued
-		 * automatically when a connection with this network is established.
-		 */
-		const QStringList &autojoinChannels() const;
-		QStringList &autojoinChannels();
-		/**
-		 * @brief List of commands executed on network join.
-		 */
-		const QStringList &autojoinCommands() const;
-		QStringList &autojoinCommands();
+	/**
+	 * @brief List of channels to which a /join command will be issued
+	 * automatically when a connection with this network is established.
+	 */
+	const QStringList &autojoinChannels() const;
+	QStringList &autojoinChannels();
+	/**
+	 * @brief List of commands executed on network join.
+	 */
+	const QStringList &autojoinCommands() const;
+	QStringList &autojoinCommands();
 
-		/**
-		 * @brief A short, human-readable description for the network.
-		 * (Preferably a single word).
-		 *
-		 * Only limited set of characters is allowed in network description,
-		 * as this description is used to name the directory where
-		 * chat logs are being kept. These characters are letters, digits,
-		 * spaces, and also '_' and '-'. All other characters will be
-		 * automatically converted to '_' by setDescription().
-		 */
-		const QString &description() const;
+	/**
+	 * @brief A short, human-readable description for the network.
+	 * (Preferably a single word).
+	 *
+	 * Only limited set of characters is allowed in network description,
+	 * as this description is used to name the directory where
+	 * chat logs are being kept. These characters are letters, digits,
+	 * spaces, and also '_' and '-'. All other characters will be
+	 * automatically converted to '_' by setDescription().
+	 */
+	const QString &description() const;
 
-		const PatternList &ignoredUsers() const;
-		void setIgnoredUsers(const PatternList &val);
+	const PatternList &ignoredUsers() const;
+	void setIgnoredUsers(const PatternList &val);
 
-		/**
-		 * @brief Join this network when Doomseeker starts up.
-		 */
-		bool isAutojoinNetwork() const;
+	/**
+	 * @brief Join this network when Doomseeker starts up.
+	 */
+	bool isAutojoinNetwork() const;
 
-		bool isValid() const;
+	bool isValid() const;
 
-		const QString &nickservCommand() const;
-		const QString &nickservPassword() const;
+	const QString &nickservCommand() const;
+	const QString &nickservPassword() const;
 
-		/**
-		 * @brief Sorts by description.
-		 */
-		bool operator<(const IRCNetworkEntity& other) const;
+	/**
+	 * @brief Sorts by description.
+	 */
+	bool operator<(const IRCNetworkEntity &other) const;
 
-		/**
-		 * @brief Checks to see if this is the same server.
-		 */
-		bool operator==(const IRCNetworkEntity& other) const;
+	/**
+	 * @brief Checks to see if this is the same server.
+	 */
+	bool operator==(const IRCNetworkEntity &other) const;
 
-		/**
-		 * @brief Password for the server or network. Ignored if empty.
-		 */
-		const QString &password() const;
+	/**
+	 * @brief Password for the server or network. Ignored if empty.
+	 */
+	const QString &password() const;
 
-		/**
-		 * @brief Port of the server or network to connect to.
-		 *
-		 * Default value: 6667
-		 */
-		unsigned short port() const;
+	/**
+	 * @brief Port of the server or network to connect to.
+	 *
+	 * Default value: 6667
+	 */
+	unsigned short port() const;
 
-		QVariant serializeQVariant() const;
+	QVariant serializeQVariant() const;
 
-		void setAddress(const QString &v);
-		void setAutojoinChannels(const QStringList &v);
-		void setAutojoinCommands(const QStringList &v);
-		void setAutojoinNetwork(bool v);
-		void setDescription(const QString &v);
-		void setNickservCommand(const QString &v);
-		void setNickservPassword(const QString &v);
-		void setPassword(const QString &v);
-		void setPort(unsigned short v);
+	void setAddress(const QString &v);
+	void setAutojoinChannels(const QStringList &v);
+	void setAutojoinCommands(const QStringList &v);
+	void setAutojoinNetwork(bool v);
+	void setDescription(const QString &v);
+	void setNickservCommand(const QString &v);
+	void setNickservPassword(const QString &v);
+	void setPassword(const QString &v);
+	void setPort(unsigned short v);
 
-	private:
-		DPtr<IRCNetworkEntity> d;
+private:
+	DPtr<IRCNetworkEntity> d;
 };
 
 #endif

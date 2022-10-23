@@ -23,37 +23,37 @@
 #include "networkreplytimeouter.h"
 
 
-NetworkReplyTimeouter::NetworkReplyTimeouter(QNetworkReply* pReply)
+NetworkReplyTimeouter::NetworkReplyTimeouter(QNetworkReply *pReply)
 {
 	this->bIsProgressing = false;
 	this->pReply = pReply;
-	this->pConnectionTimeoutTimer = NULL;
-	this->pProgressTimeoutTimer = NULL;
+	this->pConnectionTimeoutTimer = nullptr;
+	this->pProgressTimeoutTimer = nullptr;
 	this->progressTimeout = 0;
 
 	this->connect(pReply,
-		SIGNAL( downloadProgress(qint64, qint64) ),
-		SLOT( progressRegistered(qint64, qint64) ));
+		SIGNAL(downloadProgress(qint64,qint64)),
+		SLOT(progressRegistered()));
 	this->connect(pReply,
-		SIGNAL( uploadProgress(qint64, qint64) ),
-		SLOT( progressRegistered(qint64, qint64) ));
+		SIGNAL(uploadProgress(qint64,qint64)),
+		SLOT(progressRegistered()));
 
 
 	// This little monster here allows us to emit custom generated
 	// signals from QNetworkReply!
 	pReply->connect(this,
-		SIGNAL( error(QNetworkReply::NetworkError) ),
-		SIGNAL( error(QNetworkReply::NetworkError) ));
+		SIGNAL(error(QNetworkReply::NetworkError)),
+		SIGNAL(error(QNetworkReply::NetworkError)));
 }
 
 NetworkReplyTimeouter::~NetworkReplyTimeouter()
 {
-	if (pConnectionTimeoutTimer != NULL)
+	if (pConnectionTimeoutTimer != nullptr)
 	{
 		delete pConnectionTimeoutTimer;
 	}
 
-	if (pProgressTimeoutTimer != NULL)
+	if (pProgressTimeoutTimer != nullptr)
 	{
 		delete pProgressTimeoutTimer;
 	}
@@ -65,7 +65,7 @@ void NetworkReplyTimeouter::finishedSlot()
 	stopTimerIfNotNull(pProgressTimeoutTimer);
 }
 
-void NetworkReplyTimeouter::progressRegistered(qint64 bytesSent, qint64 bytesTotal)
+void NetworkReplyTimeouter::progressRegistered()
 {
 	bIsProgressing = true;
 	stopTimerIfNotNull(pConnectionTimeoutTimer);
@@ -76,13 +76,13 @@ void NetworkReplyTimeouter::restartProgressTimeoutIfAllowed()
 {
 	if (progressTimeout != 0 && bIsProgressing)
 	{
-		if (pProgressTimeoutTimer == NULL)
+		if (pProgressTimeoutTimer == nullptr)
 		{
 			pProgressTimeoutTimer = new QTimer();
 			pProgressTimeoutTimer->setSingleShot(true);
 			this->connect(pProgressTimeoutTimer,
-				SIGNAL( timeout() ),
-				SLOT( timeout() ) );
+				SIGNAL(timeout()),
+				SLOT(timeout()));
 		}
 
 		pProgressTimeoutTimer->start(progressTimeout);
@@ -99,21 +99,21 @@ void NetworkReplyTimeouter::setProgressTimeout(unsigned timeoutMsecs)
 void NetworkReplyTimeouter::startConnectionTimeoutTimer(unsigned timeoutMsecs)
 {
 	bIsProgressing = true;
-	if (pConnectionTimeoutTimer == NULL)
+	if (pConnectionTimeoutTimer == nullptr)
 	{
 		pConnectionTimeoutTimer = new QTimer();
 		pConnectionTimeoutTimer->setSingleShot(true);
 		this->connect(pConnectionTimeoutTimer,
-			SIGNAL( timeout() ),
-			SLOT( timeout() ) );
+			SIGNAL(timeout()),
+			SLOT(timeout()));
 	}
 
 	pConnectionTimeoutTimer->start(timeoutMsecs);
 }
 
-void NetworkReplyTimeouter::stopTimerIfNotNull(QTimer* pTimer)
+void NetworkReplyTimeouter::stopTimerIfNotNull(QTimer *pTimer)
 {
-	if (pTimer != NULL)
+	if (pTimer != nullptr)
 	{
 		pTimer->stop();
 	}

@@ -23,8 +23,8 @@
 #ifndef __DEMOMANAGER_H__
 #define __DEMOMANAGER_H__
 
-#include "global.h"
 #include "dptr.h"
+#include "global.h"
 
 #include <QDialog>
 
@@ -38,22 +38,22 @@ class DemoManagerDlg : public QDialog
 {
 	Q_OBJECT
 
-	public:
-		DemoManagerDlg();
-		~DemoManagerDlg();
+public:
+	DemoManagerDlg();
+	~DemoManagerDlg() override;
 
-	private slots:
-		void deleteSelected();
-		void exportSelected();
-		void playSelected();
-		void performAction(QAbstractButton *button);
-		void updatePreview(const QModelIndex &index);
+private slots:
+	void deleteSelected();
+	void exportSelected();
+	void playSelected();
+	void performAction(QAbstractButton *button);
+	void updatePreview(const QModelIndex &index);
 
-	private:
-		void adjustDemoList();
-		bool doRemoveDemo(const QString &file);
+private:
+	void adjustDemoList();
+	bool doRemoveDemo(const QString &file);
 
-		DPtr<DemoManagerDlg> d;
+	DPtr<DemoManagerDlg> d;
 };
 
 #endif

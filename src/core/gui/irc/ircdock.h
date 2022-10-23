@@ -38,60 +38,58 @@ class IRCSounds;
  */
 class IRCDock : public QDockWidget
 {
-	Q_OBJECT;
+	Q_OBJECT
 
-	public:
-		IRCDock(QWidget* parent = NULL);
-		~IRCDock();
+public:
+	IRCDock(QWidget *parent = nullptr);
+	~IRCDock() override;
 
-		IRCDockTabContents* addIRCAdapter(IRCAdapterBase* pIRCAdapter);
+	IRCDockTabContents *addIRCAdapter(IRCAdapterBase *pIRCAdapter);
 
-		/**
-		 *	@brief Applies IRC appearance settings to all open tabs.
-		 */
-		void applyAppearanceSettings();
-		bool hasTabFocus(const IRCDockTabContents* pTab) const;
+	/**
+	 *	@brief Applies IRC appearance settings to all open tabs.
+	 */
+	void applyAppearanceSettings();
+	bool hasTabFocus(const IRCDockTabContents *pTab) const;
 
-		void performNetworkAutojoins();
+	void performNetworkAutojoins();
 
-		IRCSounds& sounds();
-		IRCDockTabContents *tabWithFocus();
+	IRCSounds &sounds();
+	IRCDockTabContents *tabWithFocus();
 
-	private:
-		DPtr<IRCDock> d;
+private:
+	DPtr<IRCDock> d;
 
-		IRCNetworkAdapter* networkWithUiFocus();
+	IRCNetworkAdapter *networkWithUiFocus();
 
-		/**
- 		* @brief Connects to new network.
- 		*
- 		* Opens new IRC network tab and starts the connection basing on the
- 		* passed IRCNetworkConnectionInfo.
- 		*
- 		* @param connectionInfo
- 		*      Defines connection parameters.
- 		* @param bFocusOnNewTab
- 		*      If <code>true</code> the new tab will gain focus when opened.
- 		*/
-		void connectToNewNetwork(const IRCNetworkConnectionInfo &connectionInfo, bool bFocusOnNewTab);
+	/**
+	 * @brief Connects to new network.
+	 *
+	 * Opens new IRC network tab and starts the connection basing on the
+	 * passed IRCNetworkConnectionInfo.
+	 *
+	 * @param connectionInfo
+	 *      Defines connection parameters.
+	 * @param bFocusOnNewTab
+	 *      If <code>true</code> the new tab will gain focus when opened.
+	 */
+	void connectToNewNetwork(const IRCNetworkConnectionInfo &connectionInfo, bool bFocusOnNewTab);
 
-		/**
-		 *	@brief This will prefix message with network name if message
-		 *	comes from a different network.
-		 */
-		QString prefixMessage(IRCAdapterBase* pTargetChatWindow, IRCAdapterBase* pMessageSender, const QString& message);
-		void setupToolbar();
+	/**
+	 *	@brief This will prefix message with network name if message
+	 *	comes from a different network.
+	 */
+	QString prefixMessage(IRCAdapterBase *pTargetChatWindow, IRCAdapterBase *pMessageSender, const QString &message);
+	void setupToolbar();
 
-	private slots:
-		void chatWindowCloseRequestSlot(IRCDockTabContents* pCaller);
-		void tabCloseRequestedSlot(int index);
-		void tabCurrentChanged(int index);
-		void tabFocusRequest(IRCDockTabContents* pCaller);
-		void titleChange(IRCDockTabContents* caller);
-		void titleChangeWithColorOfSenderIfNotFocused();
-		void toolBarAction(QAction* pAction);
-
-
+private slots:
+	void chatWindowCloseRequestSlot(IRCDockTabContents *pCaller);
+	void tabCloseRequestedSlot(int index);
+	void tabCurrentChanged(int index);
+	void tabFocusRequest(IRCDockTabContents *pCaller);
+	void titleChange(IRCDockTabContents *caller);
+	void titleChangeWithColorOfSenderIfNotFocused();
+	void toolBarAction(QAction *pAction);
 };
 
 #endif

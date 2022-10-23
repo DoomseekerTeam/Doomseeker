@@ -32,25 +32,25 @@ class ZandronumMasterClient : public MasterClient
 {
 	Q_OBJECT
 
-	public:
-		ZandronumMasterClient();
+public:
+	ZandronumMasterClient();
 
-		const EnginePlugin *plugin() const;
+	const EnginePlugin *plugin() const override;
 
-	public slots:
-		void refreshStarts();
+public slots:
+	void refreshStarts() override;
 
-	protected:
-		QByteArray createServerListRequest();
-		Response readMasterResponse(const QByteArray &data);
+protected:
+	QByteArray createServerListRequest() override;
+	Response readMasterResponse(const QByteArray &data) override;
 
-		/// This is used as a marker to determine if we have an accurate reading for numPackets.
-		bool readLastPacket;
-		int numPackets;
-		unsigned int packetsRead;
+	/// This is used as a marker to determine if we have an accurate reading for numPackets.
+	bool readLastPacket;
+	int numPackets;
+	unsigned int packetsRead;
 
-	private:
-		QString masterBanHelp() const;
+private:
+	QString masterBanHelp() const;
 };
 
 #endif

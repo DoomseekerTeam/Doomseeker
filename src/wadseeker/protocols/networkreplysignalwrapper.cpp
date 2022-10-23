@@ -24,23 +24,23 @@
 
 #include "protocols/networkreply.h"
 
-NetworkReplySignalWrapper::NetworkReplySignalWrapper(NetworkReply* pReply)
+NetworkReplySignalWrapper::NetworkReplySignalWrapper(NetworkReply *pReply)
 {
 	this->pReply = pReply;
 	QNetworkReply *qReply = pReply->reply;
 
-	this->connect(qReply, SIGNAL( downloadProgress(qint64, qint64) ),
-		SLOT( downloadProgressSlot(qint64, qint64) ));
-	this->connect(qReply, SIGNAL( error(QNetworkReply::NetworkError) ),
-		SLOT( errorSlot(QNetworkReply::NetworkError) ));
-	this->connect(qReply, SIGNAL( finished() ),
-		SLOT( finishedSlot() ));
-	this->connect(qReply, SIGNAL( metaDataChanged() ),
-		SLOT( metaDataChangedSlot() ));
-	this->connect(qReply, SIGNAL( sslErrors(const QList<QSslError>&) ),
-		SLOT( sslErrorsSlot(const QList<QSslError>&) ));
-	this->connect(qReply, SIGNAL( uploadProgress(qint64, qint64) ),
-		SLOT( uploadProgressSlot(qint64, qint64) ));
+	this->connect(qReply, SIGNAL(downloadProgress(qint64,qint64)),
+		SLOT(downloadProgressSlot(qint64,qint64)));
+	this->connect(qReply, SIGNAL(error(QNetworkReply::NetworkError)),
+		SLOT(errorSlot(QNetworkReply::NetworkError)));
+	this->connect(qReply, SIGNAL(finished()),
+		SLOT(finishedSlot()));
+	this->connect(qReply, SIGNAL(metaDataChanged()),
+		SLOT(metaDataChangedSlot()));
+	this->connect(qReply, SIGNAL(sslErrors(const QList<QSslError>&)),
+		SLOT(sslErrorsSlot(const QList<QSslError>&)));
+	this->connect(qReply, SIGNAL(uploadProgress(qint64,qint64)),
+		SLOT(uploadProgressSlot(qint64,qint64)));
 }
 
 void NetworkReplySignalWrapper::downloadProgressSlot(qint64 bytesReceived, qint64 bytesTotal)
@@ -63,7 +63,7 @@ void NetworkReplySignalWrapper::metaDataChangedSlot()
 	emit metaDataChanged(pReply);
 }
 
-void NetworkReplySignalWrapper::sslErrorsSlot(const QList<QSslError>& errors)
+void NetworkReplySignalWrapper::sslErrorsSlot(const QList<QSslError> &errors)
 {
 	emit sslErrors(pReply, errors);
 }

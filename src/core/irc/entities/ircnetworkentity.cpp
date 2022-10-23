@@ -28,17 +28,17 @@
 
 DClass<IRCNetworkEntity>
 {
-	public:
-		QString address;
-		QStringList autojoinChannels;
-		QStringList autojoinCommands;
-		bool bAutojoinNetwork;
-		QString description;
-		PatternList ignoredUsers;
-		QString nickservCommand;
-		QString nickservPassword;
-		QString password;
-		unsigned short port;
+public:
+	QString address;
+	QStringList autojoinChannels;
+	QStringList autojoinCommands;
+	bool bAutojoinNetwork;
+	QString description;
+	PatternList ignoredUsers;
+	QString nickservCommand;
+	QString nickservPassword;
+	QString password;
+	unsigned short port;
 };
 
 DPointered(IRCNetworkEntity)
@@ -81,7 +81,7 @@ QStringList &IRCNetworkEntity::autojoinCommands()
 
 bool IRCNetworkEntity::isAutojoinNetwork() const
 {
-	return d->bAutojoinNetwork;;
+	return d->bAutojoinNetwork;
 }
 
 bool IRCNetworkEntity::isValid() const
@@ -104,12 +104,12 @@ const QString &IRCNetworkEntity::nickservPassword() const
 	return d->nickservPassword;
 }
 
-bool IRCNetworkEntity::operator<(const IRCNetworkEntity& other) const
+bool IRCNetworkEntity::operator<(const IRCNetworkEntity &other) const
 {
 	return description().toLower().trimmed() < other.description().toLower().trimmed();
 }
 
-bool IRCNetworkEntity::operator==(const IRCNetworkEntity& other) const
+bool IRCNetworkEntity::operator==(const IRCNetworkEntity &other) const
 {
 	return address() == other.address() && port() == other.port();
 }

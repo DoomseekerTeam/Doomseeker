@@ -23,11 +23,14 @@
 //------------------------------------------------------------------------------
 #include "connectionhandler.h"
 
+#include "application.h"
+#include "apprunner.h"
+#include "configuration/doomseekerconfig.h"
+#include "gamedemo.h"
+#include "gui/configuration/doomseekerconfigurationdialog.h"
+#include "gui/mainwindow.h"
 #include "joincommandlinebuilder.h"
 #include "log.h"
-#include "strings.hpp"
-#include "configuration/doomseekerconfig.h"
-#include "gui/configuration/doomseekerconfigurationdialog.h"
 #include "plugins/engineplugin.h"
 #include "plugins/pluginloader.h"
 #include "refresher/canrefreshserver.h"
@@ -35,8 +38,7 @@
 #include "serverapi/gameclientrunner.h"
 #include "serverapi/message.h"
 #include "serverapi/server.h"
-#include "apprunner.h"
-#include "gamedemo.h"
+#include "strings.hpp"
 #include <QDesktopServices>
 #include <QMessageBox>
 #include <QTimer>
@@ -44,21 +46,21 @@
 
 DClass<ConnectionHandler>
 {
-	public:
-		/**
-		 * Ensures that the server will be refreshed before joining,
-		 * regardless of the user settings or heuristical necessity
-		 * of refreshing.
-		 */
-		bool forceRefresh;
-		ServerPtr server;
-		QWidget *parentWidget;
+public:
+	/**
+	 * Ensures that the server will be refreshed before joining,
+	 * regardless of the user settings or heuristical necessity
+	 * of refreshing.
+	 */
+	bool forceRefresh;
+	ServerPtr server;
+	QWidget *parentWidget;
 };
 
 DPointered(ConnectionHandler)
 
 ConnectionHandler::ConnectionHandler(ServerPtr server, QWidget *parentWidget)
-: QObject(parentWidget)
+	: QObject(parentWidget)
 {
 	d->forceRefresh = false;
 	d->server = server;
@@ -72,9 +74,9 @@ ConnectionHandler::~ConnectionHandler()
 void ConnectionHandler::checkResponse(const ServerPtr &server, int response)
 {
 	server->disconnect(this);
-	if(response != Server::RESPONSE_GOOD)
+	if (response != Server::RESPONSE_GOOD)
 	{
-		switch(response)
+		switch (response)
 		{
 		case Server::RESPONSE_TIMEOUT:
 			QMessageBox::critical(d->parentWidget, tr("Doomseeker - join server"),
@@ -101,23 +103,23 @@ ConnectionHandler *ConnectionHandler::connectByUrl(const QUrl &url)
 	gLog << QString("Attempting to connect to server: %1").arg(url.toString());
 
 	// Locate plugin by scheme
-	const EnginePlugin *handler = NULL;
+	const EnginePlugin *handler = nullptr;
 	// For compatibility with IDE's zds://.../<two character> scheme
 	bool zdsScheme = url.scheme().compare("zds", Qt::CaseInsensitive) == 0;
-	for(unsigned int i = 0;i < gPlugins->numPlugins();++i)
+	for (unsigned int i = 0; i < gPlugins->numPlugins(); ++i)
 	{
 		const EnginePlugin *plugin = gPlugins->plugin(i)->info();
-		if(plugin->data()->scheme.compare(url.scheme(), Qt::CaseInsensitive) == 0 ||
+		if (plugin->data()->scheme.compare(url.scheme(), Qt::CaseInsensitive) == 0 ||
 			(zdsScheme && plugin->data()->scheme.left(2).compare(url.path().mid(1), Qt::CaseInsensitive) == 0))
 		{
 			handler = plugin;
 			break;
 		}
 	}
-	if(handler == NULL)
+	if (handler == nullptr)
 	{
 		gLog << "Scheme not recognized starting normally.";
-		return NULL;
+		return nullptr;
 	}
 
 	unsigned short port = url.port(handler->data()->defaultServerPort);
@@ -128,7 +130,7 @@ ConnectionHandler *ConnectionHandler::connectByUrl(const QUrl &url)
 
 	// Create the server object
 	ServerPtr server = handler->server(QHostAddress(address), port);
-	ConnectionHandler *connectionHandler = new ConnectionHandler(server, NULL);
+	ConnectionHandler *connectionHandler = new ConnectionHandler(server, nullptr);
 	connectionHandler->d->forceRefresh = true;
 
 	return connectionHandler;
@@ -150,22 +152,16 @@ void ConnectionHandler::buildJoinCommandLine()
 
 void ConnectionHandler::onCommandLineBuildFinished()
 {
-	JoinCommandLineBuilder *builder = static_cast<JoinCommandLineBuilder*>(sender());
+	auto builder = static_cast<JoinCommandLineBuilder *>(sender());
 	CommandLineInfo builtCli = builder->builtCommandLine();
 	if (builtCli.isValid())
-	{
 		runCommandLine(builtCli);
-	}
 	else
 	{
 		if (!builder->error().isEmpty())
-		{
 			QMessageBox::critical(d->parentWidget, tr("Doomseeker - join game"), builder->error());
-		}
 		if (builder->isConfigurationError())
-		{
-			DoomseekerConfigurationDialog::openConfiguration(d->server->plugin());
-		}
+			DoomseekerConfigurationDialog::openConfiguration(gApp->mainWindow(), d->server->plugin());
 	}
 	builder->deleteLater();
 	finish(Server::RESPONSE_GOOD);
@@ -176,9 +172,9 @@ void ConnectionHandler::runCommandLine(const CommandLineInfo &cli)
 	Message message = AppRunner::runExecutable(cli);
 	if (message.isError())
 	{
-		gLog << tr("Error while launching executable for server \"%1\", game \"%2\": %3")
+		gLog << tr(R"(Error while launching game "%2" for server "%1": %3)")
 			.arg(d->server->name()).arg(d->server->engineName()).arg(message.contents());
-		QMessageBox::critical(d->parentWidget, tr("Doomseeker - launch executable"), message.contents());
+		QMessageBox::critical(d->parentWidget, tr("Doomseeker - launch game"), message.contents());
 	}
 }
 
@@ -189,14 +185,12 @@ void ConnectionHandler::refreshToJoin()
 	CanRefreshServer refreshCheck(d->server.data());
 	if (d->forceRefresh || (refreshCheck.shouldRefresh() && gConfig.doomseeker.bQueryBeforeLaunch))
 	{
-		this->connect(d->server.data(), SIGNAL(updated(ServerPtr, int)),
-			SLOT(checkResponse(ServerPtr, int)));
+		this->connect(d->server.data(), SIGNAL(updated(ServerPtr,int)),
+			SLOT(checkResponse(ServerPtr,int)));
 		gRefresher->registerServer(d->server.data());
 	}
 	else
-	{
 		checkResponse(d->server, Server::RESPONSE_GOOD);
-	}
 }
 
 void ConnectionHandler::run()
@@ -206,11 +200,11 @@ void ConnectionHandler::run()
 
 // -------------------------- URL Handler -------------------------------------
 
-PluginUrlHandler *PluginUrlHandler::instance = NULL;
+PluginUrlHandler *PluginUrlHandler::instance = nullptr;
 
 void PluginUrlHandler::registerAll()
 {
-	for(unsigned int i = 0;i < gPlugins->numPlugins();++i)
+	for (unsigned int i = 0; i < gPlugins->numPlugins(); ++i)
 		registerScheme(gPlugins->plugin(i)->info()->data()->scheme);
 
 	// IDE compatibility
@@ -219,7 +213,7 @@ void PluginUrlHandler::registerAll()
 
 void PluginUrlHandler::registerScheme(const QString &scheme)
 {
-	if(!instance)
+	if (!instance)
 		instance = new PluginUrlHandler();
 
 	QDesktopServices::setUrlHandler(scheme, instance, "handleUrl");
@@ -227,9 +221,9 @@ void PluginUrlHandler::registerScheme(const QString &scheme)
 
 void PluginUrlHandler::handleUrl(const QUrl &url)
 {
-	if(QMessageBox::question(NULL, tr("Connect to server"),
+	if (QMessageBox::question(nullptr, tr("Connect to server"),
 		tr("Do you want to connect to the server at %1?").arg(url.toString()),
-		QMessageBox::Yes|QMessageBox::No, QMessageBox::No) == QMessageBox::Yes)
+		QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes)
 	{
 		ConnectionHandler::connectByUrl(url);
 	}

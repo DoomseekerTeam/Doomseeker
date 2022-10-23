@@ -25,8 +25,8 @@
 #ifndef __CONNECTIONHANDLER_H__
 #define __CONNECTIONHANDLER_H__
 
-#include "serverapi/serverptr.h"
 #include "dptr.h"
+#include "serverapi/serverptr.h"
 #include <QObject>
 
 class CommandLineInfo;
@@ -43,43 +43,43 @@ class PluginUrlHandler : public QObject
 {
 	Q_OBJECT
 
-	public:
-		static void registerAll();
-		static void registerScheme(const QString &scheme);
+public:
+	static void registerAll();
+	static void registerScheme(const QString &scheme);
 
-	public slots:
-		void handleUrl(const QUrl &url);
+public slots:
+	void handleUrl(const QUrl &url);
 
-	private:
-		static PluginUrlHandler *instance;
+private:
+	static PluginUrlHandler *instance;
 };
 
 class ConnectionHandler : public QObject
 {
 	Q_OBJECT
 
-	public:
-		ConnectionHandler(ServerPtr server, QWidget *parentWidget=NULL);
-		~ConnectionHandler();
+public:
+	ConnectionHandler(ServerPtr server, QWidget *parentWidget = nullptr);
+	~ConnectionHandler() override;
 
-		void run();
+	void run();
 
-		static ConnectionHandler *connectByUrl(const QUrl &url);
+	static ConnectionHandler *connectByUrl(const QUrl &url);
 
-	signals:
-		void finished(int response);
+signals:
+	void finished(int response);
 
-	private:
-		DPtr<ConnectionHandler> d;
+private:
+	DPtr<ConnectionHandler> d;
 
-		void finish(int response);
-		void refreshToJoin();
-		void runCommandLine(const CommandLineInfo &cli);
+	void finish(int response);
+	void refreshToJoin();
+	void runCommandLine(const CommandLineInfo &cli);
 
-	private slots:
-		void buildJoinCommandLine();
-		void checkResponse(const ServerPtr &server, int response);
-		void onCommandLineBuildFinished();
+private slots:
+	void buildJoinCommandLine();
+	void checkResponse(const ServerPtr &server, int response);
+	void onCommandLineBuildFinished();
 };
 
 #endif

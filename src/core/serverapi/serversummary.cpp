@@ -32,7 +32,7 @@ ServerSummary::ServerSummary(const Server *server)
 	setName(server->name());
 }
 
-ServerSummary ServerSummary::deserializeQVariant(const QVariant& v)
+ServerSummary ServerSummary::deserializeQVariant(const QVariant &v)
 {
 	QVariantMap m = v.toMap();
 	ServerSummary o;
@@ -55,7 +55,7 @@ QVariant ServerSummary::serializeQVariant() const
 	return m;
 }
 
-float ServerSummary::similarity(const ServerSummary& other) const
+float ServerSummary::similarity(const ServerSummary &other) const
 {
 	if (!isValid() || !other.isValid())
 	{

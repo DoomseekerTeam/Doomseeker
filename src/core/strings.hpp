@@ -27,8 +27,19 @@
 
 #include "global.h"
 
+#include <QtContainerFwd>
+
 class QString;
-class QStringList;
+
+// Keep compatibility with older Qt releases while using identifiers Qt 6 requires
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+#include <QString>
+namespace Qt
+{
+	constexpr auto KeepEmptyParts = QString::KeepEmptyParts;
+	constexpr auto SkipEmptyParts = QString::SkipEmptyParts;
+}
+#endif
 
 // \c = '\034'
 #define ESCAPE_COLOR_CHAR	'\034'
@@ -118,6 +129,18 @@ class MAIN_EXPORT Strings
 		static QString formatTime(float seconds);
 
 		static bool isCharOnCharList(char c, const QString& charList);
+
+		/**
+		 * Replace the middle of the string with ellipsis if string is
+		 * longer than left+right.
+		 *
+		 * @param text The text to cut.
+		 * @param left How many characters left of the ellipsis.
+		 * @param right How many characters right of the ellipsis.
+		 * @return "Alice had a cat" -> "Alice...cat"
+		 */
+		static QString middleEllipsis(const QString &text, unsigned left, unsigned right,
+				const QString &ellipsis = "...");
 
 		/**
 		 *  @brief Creates a clean path.

@@ -23,9 +23,9 @@
 #ifndef DOOMSEEKER_COMMANDLINE_H
 #define DOOMSEEKER_COMMANDLINE_H
 
-#include <Qt>
 #include <QString>
 #include <QStringList>
+#include <Qt>
 
 /**
  * @brief Class used for manipulating command line as it should appear in
@@ -36,33 +36,32 @@
  */
 class CommandLine
 {
-	public:
-		/**
-		 * @brief Escapes all characters in all strings on the list.
-		 *
-		 * The passed list is modified directly. No elements are added or
-		 * removed but the existing elements may change.
-		 *
-		 * The function behaves differently depending on the OS the program
-		 * was compiled for.
-		 */
-		static void escapeArgs(QStringList& args);
+public:
+	/**
+	 * @brief Escapes all characters in all strings on the list.
+	 *
+	 * The passed list is modified directly. No elements are added or
+	 * removed but the existing elements may change.
+	 *
+	 * The function behaves differently depending on the OS the program
+	 * was compiled for.
+	 */
+	static void escapeArgs(QStringList &args);
 
-		/**
-		 * @brief Escapes all characters in the passed string.
-		 *
-		 * The string is modified directly.
-		 *
-		 * The function behaves differently depending on the OS the program
-		 * was compiled for.
-		 */
-		static void escapeArg(QString& arg);
+	/**
+	 * @brief Escapes all characters in the passed string.
+	 *
+	 * The string is modified directly.
+	 *
+	 * The function behaves differently depending on the OS the program
+	 * was compiled for.
+	 */
+	static void escapeArg(QString &arg);
 
-		/**
-		 * @brief Escapes the executable path and handles OS X bundles.
-		 */
-		static void escapeExecutable(QString& arg);
+	/**
+	 * @brief Escapes the executable path and handles OS X bundles.
+	 */
+	static void escapeExecutable(QString &arg);
 };
 
 #endif
-

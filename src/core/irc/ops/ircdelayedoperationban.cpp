@@ -23,8 +23,8 @@
 #include "ircdelayedoperationban.h"
 
 #include "irc/entities/ircuserprefix.h"
-#include "irc/ircresponseparser.h"
 #include "irc/ircnetworkadapter.h"
+#include "irc/ircresponseparser.h"
 
 DClass<IRCDelayedOperationBan>
 {
@@ -44,14 +44,14 @@ DPointered(IRCDelayedOperationBan)
 
 IRCDelayedOperationBan::IRCDelayedOperationBan(IRCNetworkAdapter *network,
 	const QString &channel, const QString &nickname, QObject *parent)
-: IRCDelayedOperation(parent)
+	: IRCDelayedOperation(parent)
 {
 	d->channel = channel;
 	d->nickname = nickname;
 	d->network = network;
 	this->connect(d->network->responseParser(),
-		SIGNAL(whoIsUser(QString, QString, QString, QString)),
-		SLOT(onWhoIsUser(QString, QString, QString, QString)));
+		SIGNAL(whoIsUser(QString,QString,QString,QString)),
+		SLOT(onWhoIsUser(QString,QString,QString)));
 }
 
 IRCDelayedOperationBan::~IRCDelayedOperationBan()
@@ -63,9 +63,11 @@ void IRCDelayedOperationBan::start()
 	d->network->sendMessage(QString("/whois %1").arg(d->cleanNickname()));
 }
 
-void IRCDelayedOperationBan::onWhoIsUser(const QString& nickname, const QString& user,
-	const QString& hostName, const QString& realName)
+void IRCDelayedOperationBan::onWhoIsUser(const QString &nickname, const QString &user,
+	const QString &hostName)
 {
+	Q_UNUSED(nickname);
+	Q_UNUSED(user);
 	QString banString = "*!*@" + hostName;
 	d->network->sendMessage(QString("/mode %1 +b %2").arg(d->channel, banString));
 	d->network->sendMessage(QString("/kick %1 %2 %3").arg(d->channel, d->nickname, d->reason));

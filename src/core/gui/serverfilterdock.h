@@ -35,42 +35,42 @@ class ServerFilterDock : public QDockWidget
 {
 	Q_OBJECT
 
-	public:
-		ServerFilterDock(QWidget* pParent = NULL);
-		~ServerFilterDock();
+public:
+	ServerFilterDock(QWidget *pParent = nullptr);
+	~ServerFilterDock() override;
 
-		void addGameModeToComboBox(const QString& gameMode);
+	void addGameModeToComboBox(const QString &gameMode);
 
-		/**
-		* @brief Creates and/or returns an instance of widget that is located
-		* in the MainWindow toolbar.
-		*/
-		QLineEdit *createQuickSearch();
+	/**
+	 * @brief Creates and/or returns an instance of widget that is located
+	 * in the MainWindow toolbar.
+	 */
+	QLineEdit *createQuickSearch();
 
-		ServerListFilterInfo filterInfo() const;
+	ServerListFilterInfo filterInfo() const;
 
-	public slots:
-		/**
-		 * @brief Sets widgets to new filter info.
-		 *
-		 * Emits filterUpdated() signal.
-		 */
-		void setFilterInfo(const ServerListFilterInfo& filterInfo);
+public slots:
+	/**
+	 * @brief Sets widgets to new filter info.
+	 *
+	 * Emits filterUpdated() signal.
+	 */
+	void setFilterInfo(const ServerListFilterInfo &filterInfo);
 
-	signals:
-		void filterUpdated(const ServerListFilterInfo& filterInfo);
-		void nonEmptyServerGroupingAtTopToggled(bool b);
+signals:
+	void filterUpdated(const ServerListFilterInfo &filterInfo);
+	void nonEmptyServerGroupingAtTopToggled(bool b);
 
-	private:
-		DPtr<ServerFilterDock> d;
+private:
+	DPtr<ServerFilterDock> d;
 
-		void addSortedNonDuplicate(QComboBox* comboBox, const QString& text);
+	void addSortedNonDuplicate(QComboBox *comboBox, const QString &text);
 
-	private slots:
-		void clear();
-		void emitUpdated();
-		void enableFilter();
-		void onServerGroupingChange();
+private slots:
+	void clear();
+	void emitUpdated();
+	void enableFilter();
+	void onServerGroupingChange();
 };
 
 #endif

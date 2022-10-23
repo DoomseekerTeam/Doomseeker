@@ -24,6 +24,7 @@
 #define idb76a672e_9f54_4dbc_a933_33ea083e8f11
 
 #include "dptr.h"
+#include "serverapi/gamecreateparams.h"
 
 #include <QWidget>
 
@@ -36,29 +37,31 @@ class Ini;
 
 class GeneralGameSetupPanel : public QWidget
 {
-Q_OBJECT
+	Q_OBJECT
 
 public:
 	GeneralGameSetupPanel(QWidget *parent);
-	~GeneralGameSetupPanel();
+	~GeneralGameSetupPanel() override;
 
 	GameMode currentGameMode() const;
 	EnginePlugin *currentPlugin() const;
 	void fillInParams(GameCreateParams &params);
 	void loadConfig(Ini &config, bool loadingPrevious);
 	QString mapName() const;
+	void reloadAppConfig();
 	void saveConfig(Ini &config);
 	void setupForEngine(EnginePlugin *engine);
-	void setupForRemoteGame();
+	void setupForHostMode(GameCreateParams::HostMode hostMode);
 	void setCreateServerDialog(CreateServerDialog *dialog);
 	void setIwadByName(const QString &iwad);
+	QStringList getAllWadPaths() const;
 
 signals:
 	void gameModeChanged(const GameMode &gameMode);
 	void pluginChanged(EnginePlugin *plugin);
 
 protected:
-	void showEvent(QShowEvent *event);
+	void showEvent(QShowEvent *event) override;
 
 private:
 	DPtr<GeneralGameSetupPanel> d;
@@ -68,6 +71,7 @@ private:
 	QString pathToExe();
 
 	bool setEngine(const QString &engineName);
+	void setupDifficulty(const EnginePlugin *engine);
 
 private slots:
 	void onGameModeChanged(int);

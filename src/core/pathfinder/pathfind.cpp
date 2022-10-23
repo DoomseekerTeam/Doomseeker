@@ -29,7 +29,7 @@
 
 QString PathFind::findExe(const PathFinder &pathFinder, const QString &name)
 {
-#if defined(Q_OS_WIN32)
+	#if defined(Q_OS_WIN32)
 	if (!name.endsWith(".exe"))
 	{
 		QString file = pathFinder.findFile(name + ".exe");
@@ -38,16 +38,15 @@ QString PathFind::findExe(const PathFinder &pathFinder, const QString &name)
 			return file;
 		}
 	}
-#endif
+	#endif
 	return pathFinder.findFile(name);
-
 }
 
 QString PathFind::findGameFile(const QStringList &knownPaths, const GameFile &gameFile)
 {
 	PathFinder pathFinder = PathFinder::genericPathFinder(gameFile.searchSuffixes());
 	QStringList knownDirs;
-	foreach (const QString &path, knownPaths)
+	for (const QString &path : knownPaths)
 	{
 		if (!path.trimmed().isEmpty())
 		{

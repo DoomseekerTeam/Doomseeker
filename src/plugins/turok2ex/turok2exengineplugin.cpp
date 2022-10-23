@@ -26,10 +26,10 @@
 #include "irc/entities/ircnetworkentity.h"
 #include "plugins/engineplugin.h"
 
+#include "turok2exengineplugin.h"
 #include "turok2exgamehost.h"
 #include "turok2exgameinfo.h"
 #include "turok2exmasterclient.h"
-#include "turok2exengineplugin.h"
 #include "turok2exserver.h"
 
 INSTALL_PLUGIN(Turok2ExEnginePlugin)
@@ -42,6 +42,7 @@ Turok2ExEnginePlugin::Turok2ExEnginePlugin()
 	init("Turok 2 Remaster", turok2ex_xpm,
 		EP_Author, "Night Dive Studios & The Doomseeker Team",
 		EP_Version, PLUGIN_VERSION,
+		EP_AboutProvider, new Turok2AboutProvider,
 
 		EP_DefaultMaster, "t2ms.nightdivestudios.com:20700",
 		EP_DefaultServerPort, 5029,
@@ -53,6 +54,7 @@ Turok2ExEnginePlugin::Turok2ExEnginePlugin()
 		EP_NoIwad,
 		EP_NoClientSlots,
 		EP_DifficultyProvider, new Turok2ExDifficultyProvider(),
+		EP_CanonicalName, "turok2ex",
 		EP_Done
 	);
 }
@@ -62,12 +64,12 @@ QList<GameMode> Turok2ExEnginePlugin::gameModes() const
 	return Turok2ExGameInfo::gameModes();
 }
 
-QList<GameCVar> Turok2ExEnginePlugin::limits(const GameMode& mode) const
+QList<GameCVar> Turok2ExEnginePlugin::limits(const GameMode &mode) const
 {
 	return Turok2ExGameInfo::limits(mode);
 }
 
-GameHost* Turok2ExEnginePlugin::gameHost()
+GameHost *Turok2ExEnginePlugin::gameHost()
 {
 	return new Turok2ExGameHost();
 }
@@ -76,4 +78,3 @@ ServerPtr Turok2ExEnginePlugin::mkServer(const QHostAddress &address, unsigned s
 {
 	return ServerPtr(new Turok2ExServer(address, port));
 }
-

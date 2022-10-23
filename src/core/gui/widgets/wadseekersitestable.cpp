@@ -27,17 +27,13 @@
 #include <QPushButton>
 #include <QUrl>
 
-WadseekerSitesTable::WadseekerSitesTable(QWidget* pParent)
-: TableWidgetMouseAware(pParent)
+WadseekerSitesTable::WadseekerSitesTable(QWidget *pParent)
+	: TableWidgetMouseAware(pParent)
 {
 	d.bAlreadyShownOnce = false;
-	this->connect(&d.urlAborter, SIGNAL(mapped(QString)),
-		SLOT(requestUrlAbort(QString)));
-	this->connect(&d.serviceAborter, SIGNAL(mapped(QString)),
-		SIGNAL(serviceAbortRequested(QString)));
 }
 
-void WadseekerSitesTable::addUrl(const QUrl& url)
+void WadseekerSitesTable::addUrl(const QUrl &url)
 {
 	// Add new row to table, but only if URL is not yet added.
 	if (findRow(url) < 0)
@@ -47,14 +43,17 @@ void WadseekerSitesTable::addUrl(const QUrl& url)
 		insertRow(rowCount());
 		int rowIndex = rowCount() - 1;
 
-		QProgressBar* pBar = new QProgressBar();
+		auto pBar = new QProgressBar();
 		pBar->setAlignment(Qt::AlignCenter);
 		pBar->setMinimum(0);
 		pBar->setMaximum(0);
 
-		QPushButton* abortButton = new QPushButton(tr("Abort"));
-		d.urlAborter.connect(abortButton, SIGNAL(clicked()), SLOT(map()));
-		d.urlAborter.setMapping(abortButton, url.toString());
+		QPushButton *abortButton = new QPushButton(tr("Abort"));
+
+		connect (abortButton, &QPushButton::clicked, [this, url]()
+		{
+			this->requestUrlAbort(url.toString());
+		});
 
 		setItem(rowIndex, IDX_URL_COLUMN, new QTableWidgetItem(url.toString()));
 		setCellWidget(rowIndex, IDX_PROGRESS_COLUMN, pBar);
@@ -68,9 +67,7 @@ int WadseekerSitesTable::findRow(const QString &text)
 {
 	QList<QTableWidgetItem *> list = findItems(text, Qt::MatchFixedString);
 	if (!list.isEmpty())
-	{
 		return list.first()->row();
-	}
 
 	return -1;
 }
@@ -81,13 +78,11 @@ int WadseekerSitesTable::findRow(const QUrl &url)
 }
 
 
-void WadseekerSitesTable::removeUrl(const QUrl& url)
+void WadseekerSitesTable::removeUrl(const QUrl &url)
 {
 	int row = findRow(url);
 	if (row >= 0)
-	{
 		removeRow(row);
-	}
 }
 
 void WadseekerSitesTable::addService(const QString &service)
@@ -99,14 +94,17 @@ void WadseekerSitesTable::addService(const QString &service)
 		insertRow(rowCount());
 		int rowIndex = rowCount() - 1;
 
-		QProgressBar* pBar = new QProgressBar();
+		auto pBar = new QProgressBar();
 		pBar->setAlignment(Qt::AlignCenter);
 		pBar->setMinimum(0);
 		pBar->setMaximum(0);
 
-		QPushButton* abortButton = new QPushButton(tr("Abort"));
-		d.serviceAborter.connect(abortButton, SIGNAL(clicked()), SLOT(map()));
-		d.serviceAborter.setMapping(abortButton, service);
+		QPushButton *abortButton = new QPushButton(tr("Abort"));
+
+		connect (abortButton, &QPushButton::clicked, [this, service]()
+		{
+			this->serviceAbortRequested(service);
+		});
 
 		setItem(rowIndex, IDX_URL_COLUMN, new QTableWidgetItem(service));
 		setCellWidget(rowIndex, IDX_PROGRESS_COLUMN, pBar);
@@ -120,9 +118,7 @@ void WadseekerSitesTable::removeService(const QString &service)
 {
 	int row = findRow(service);
 	if (row >= 0)
-	{
 		removeRow(row);
-	}
 }
 
 void WadseekerSitesTable::requestUrlAbort(const QString &urlAsString)
@@ -130,32 +126,29 @@ void WadseekerSitesTable::requestUrlAbort(const QString &urlAsString)
 	emit urlAbortRequested(urlAsString);
 }
 
-void WadseekerSitesTable::setUrlProgress(const QUrl& url, qint64 current, qint64 total)
+void WadseekerSitesTable::setUrlProgress(const QUrl &url, qint64 current, qint64 total)
 {
 	int row = findRow(url);
 
 	if (row >= 0)
 	{
-		QProgressBar* pBar = (QProgressBar*) this->cellWidget(row, IDX_PROGRESS_COLUMN);
+		auto pBar = (QProgressBar *) this->cellWidget(row, IDX_PROGRESS_COLUMN);
 		pBar->setMaximum(total);
 		pBar->setValue(current);
 	}
 }
 
-void WadseekerSitesTable::showEvent(QShowEvent* pEvent)
+void WadseekerSitesTable::showEvent(QShowEvent *pEvent)
 {
+	Q_UNUSED(pEvent);
 	if (!d.bAlreadyShownOnce)
 	{
 		// Events in this block must occur after the widget has been
 		// constructed, but only once.
-		QHeaderView* pHeader = horizontalHeader();
+		QHeaderView *pHeader = horizontalHeader();
 
 		// Setup resizing
-#if QT_VERSION >= 0x050000
 		pHeader->setSectionResizeMode(IDX_URL_COLUMN, QHeaderView::Stretch);
-#else
-		pHeader->setResizeMode(IDX_URL_COLUMN, QHeaderView::Stretch);
-#endif
 
 		pHeader->resizeSection(IDX_PROGRESS_COLUMN, 85);
 	}

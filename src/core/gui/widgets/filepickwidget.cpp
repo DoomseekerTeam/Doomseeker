@@ -22,11 +22,11 @@
 //------------------------------------------------------------------------------
 #include "filepickwidget.h"
 
-#include "serverapi/gamefile.h"
+#include "filefilter.h"
 #include "ini/inisection.h"
 #include "ini/inivariable.h"
 #include "pathfinder/pathfind.h"
-#include "filefilter.h"
+#include "serverapi/gamefile.h"
 #include "ui_filepickwidget.h"
 #include <QFileDialog>
 #include <QString>
@@ -41,7 +41,7 @@ public:
 DPointered(FilePickWidget)
 
 FilePickWidget::FilePickWidget(QWidget *parent)
-: QWidget(parent)
+	: QWidget(parent)
 {
 	d->setupUi(this);
 	d->changed = false;
@@ -69,11 +69,9 @@ void FilePickWidget::browsePath()
 
 void FilePickWidget::findPath()
 {
-	QFileInfo currentFile = path();
+	QFileInfo currentFile(path());
 	if (currentFile.isFile() && d->file.isSameFile(currentFile.fileName()))
-	{
 		return;
-	}
 	QString path = PathFind::findGameFile(d->neighbourStrategy->neighbours(), d->file);
 	if (!path.isEmpty())
 	{
@@ -81,9 +79,7 @@ void FilePickWidget::findPath()
 		emit pathChanged();
 	}
 	else
-	{
 		emit findFailed();
-	}
 }
 
 bool FilePickWidget::isEmpty() const
@@ -141,18 +137,14 @@ bool FilePickWidget::validate()
 {
 	QString error;
 
-	QFileInfo fileInfo = path();
+	QFileInfo fileInfo(path());
 	if (!path().isEmpty())
 	{
 		if (error.isEmpty() && !fileInfo.exists())
-		{
 			error = tr("File doesn't exist.");
-		}
 
 		if (error.isEmpty() && fileInfo.isDir() && !fileInfo.isBundle())
-		{
 			error = tr("This is a directory.");
-		}
 	}
 
 	d->lblWarning->setVisible(!error.isEmpty());

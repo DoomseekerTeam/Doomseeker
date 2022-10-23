@@ -37,55 +37,55 @@ class ServerPasswordSummary;
 
 class PasswordsCfg
 {
-	public:
-		static void initIni(const QString& path);
+public:
+	static void initIni(const QString &path);
 
-		PasswordsCfg();
-		~PasswordsCfg();
+	PasswordsCfg();
+	~PasswordsCfg();
 
-		bool isHidingPasswords() const;
-		bool isRememberingConnectPhrase() const;
-		int maxNumberOfServersPerPassword() const;
-		void removeServerPhrase(const QString& phrase);
-		/**
-		 * @brief Stores server phrase in persistence along its use case.
-		 *
-		 * @param phrase
-		 *     Phrase to store
-		 * @param server
-		 *     Server on which the password is being used.
-		 * @param type
-		 *     Password type, one of ServerPasswordType consts or custom.
-		 */
-		void saveServerPhrase(const QString& phrase, const Server* server,
-			const QString &type);
-		QList<ServerPassword> serverPasswords() const;
-		QStringList serverPhrases() const;
-		void setHidePasswords(bool val);
-		void setMaxNumberOfServersPerPassword(int val);
-		void setRememberConnectPhrase(bool val);
-		void setServerPasswords(const QList<ServerPassword>& val);
-		/**
-		 * @brief Suggests best password basing on several criteria.
-		 *
-		 * @param server
-		 *     Server for which a password shall be suggested.
-		 * @param type
-		 *     Password type, one of ServerPasswordType consts or custom.
-		 */
-		ServerPassword suggestPassword(const Server* server, const QString &type);
+	bool isHidingPasswords() const;
+	bool isRememberingConnectPhrase() const;
+	int maxNumberOfServersPerPassword() const;
+	void removeServerPhrase(const QString &phrase);
+	/**
+	 * @brief Stores server phrase in persistence along its use case.
+	 *
+	 * @param phrase
+	 *     Phrase to store
+	 * @param server
+	 *     Server on which the password is being used.
+	 * @param type
+	 *     Password type, one of ServerPasswordType consts or custom.
+	 */
+	void saveServerPhrase(const QString &phrase, const Server *server,
+		const QString &type);
+	QList<ServerPassword> serverPasswords() const;
+	QStringList serverPhrases() const;
+	void setHidePasswords(bool val);
+	void setMaxNumberOfServersPerPassword(int val);
+	void setRememberConnectPhrase(bool val);
+	void setServerPasswords(const QList<ServerPassword> &val);
+	/**
+	 * @brief Suggests best password basing on several criteria.
+	 *
+	 * @param server
+	 *     Server for which a password shall be suggested.
+	 * @param type
+	 *     Password type, one of ServerPasswordType consts or custom.
+	 */
+	ServerPassword suggestPassword(const Server *server, const QString &type);
 
-	private:
-		static bool serverDateDescending(ServerPasswordSummary& s1, ServerPasswordSummary& s2);
+private:
+	static bool serverDateDescending(ServerPasswordSummary &s1, ServerPasswordSummary &s2);
 
-		static Ini* ini;
-		static QSettings* settings;
+	static Ini *ini;
+	static QSettings *settings;
 
-		DPtr<PasswordsCfg> d;
+	DPtr<PasswordsCfg> d;
 
-		void cutServers(QList<ServerPassword>& passwords) const;
-		void cutStoredServers();
-		void storeServerPasswords(const QList<ServerPassword>& val);
+	void cutServers(QList<ServerPassword> &passwords) const;
+	void cutStoredServers();
+	void storeServerPasswords(const QList<ServerPassword> &val);
 };
 
 #endif

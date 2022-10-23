@@ -29,26 +29,24 @@ const QString Application::NAME = "doomseeker";
 
 DClass<Application>
 {
-	public:
-		MainWindow *mainWindow;
-		bool running;
+public:
+	MainWindow *mainWindow;
+	bool running;
 };
 
 DPointered(Application)
 
-Application *Application::staticInstance = NULL;
+Application *Application::staticInstance = nullptr;
 
 Application::Application(int &argc, char **argv)
-: QApplication(argc, argv)
+	: QApplication(argc, argv)
 {
-	d->mainWindow = NULL;
+	d->mainWindow = nullptr;
 	d->running = true;
 	setApplicationName(NAME);
 
-#if QT_VERSION >= 0x050000
 	// http://blog.qt.io/blog/2013/04/25/retina-display-support-for-mac-os-ios-and-x11/
 	setAttribute(Qt::AA_UseHighDpiPixmaps);
-#endif
 }
 
 
@@ -58,11 +56,11 @@ Application::~Application()
 
 void Application::deinit()
 {
-	if (staticInstance != NULL)
+	if (staticInstance != nullptr)
 	{
 		staticInstance->destroy();
 		delete staticInstance;
-		staticInstance = NULL;
+		staticInstance = nullptr;
 	}
 }
 
@@ -71,20 +69,25 @@ void Application::destroy()
 	d->running = false;
 }
 
+QIcon Application::icon()
+{
+	return QIcon(":/icon.png");
+}
+
 bool Application::isInit()
 {
-	return staticInstance != NULL;
+	return staticInstance != nullptr;
 }
 
 void Application::init(int &argc, char **argv)
 {
-	assert(staticInstance == NULL && "Cannot initialize Application twice!");
+	assert(staticInstance == nullptr && "Cannot initialize Application twice!");
 	staticInstance = new Application(argc, argv);
 }
 
 Application *Application::instance()
 {
-	assert(staticInstance != NULL);
+	assert(staticInstance != nullptr);
 	return staticInstance;
 }
 

@@ -33,11 +33,11 @@ class Ini;
 
 class MiscServerSetupPanel : public QWidget
 {
-Q_OBJECT
+	Q_OBJECT
 
 public:
 	MiscServerSetupPanel(QWidget *parent);
-	~MiscServerSetupPanel();
+	~MiscServerSetupPanel() override;
 
 	void fillInParams(GameCreateParams &params);
 	bool isAnythingAvailable() const;

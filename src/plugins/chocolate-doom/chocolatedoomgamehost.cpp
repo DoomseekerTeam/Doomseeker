@@ -28,24 +28,25 @@
 #include <serverapi/gamecreateparams.h>
 
 ChocolateDoomGameHost::ChocolateDoomGameHost()
-: GameHost(ChocolateDoomEnginePlugin::staticInstance())
+	: GameHost(ChocolateDoomEnginePlugin::staticInstance())
 {
 	setArgForServerLaunch("-server");
 }
 
 void ChocolateDoomGameHost::addExtra()
 {
-	args() << "-skill" << QString::number(params().skill() + 1); // from 1 to 5
+	if (params().skill() != Skill::UNDEFINED)
+		args() << "-skill" << QString::number(params().skill() + 1); // from 1 to 5
 
-	switch(params().gameMode().index())
+	switch (params().gameMode().index())
 	{
-		default: break;
-		case GameMode::SGM_Deathmatch:
-			args() << "-deathmatch";
-			break;
-		case ChocolateDoomGameInfo::MODE_ALTDEATH:
-			args() << "-altdeath";
-			break;
+	default: break;
+	case GameMode::SGM_Deathmatch:
+		args() << "-deathmatch";
+		break;
+	case ChocolateDoomGameInfo::MODE_ALTDEATH:
+		args() << "-altdeath";
+		break;
 	}
 	addWarp();
 }
@@ -57,8 +58,8 @@ void ChocolateDoomGameHost::addWarp()
 	// - -warp <episode> <mission> for episode based games (Doom, Heretic)
 	// - -warp <map> for streamlined games (Doom 2)
 	QString mapname = params().map().trimmed().toUpper();
-	if(mapname.length() == 5 && mapname.startsWith("MAP"))
+	if (mapname.length() == 5 && mapname.startsWith("MAP"))
 		args() << "-warp" << mapname.right(2);
-	else if(mapname.length() == 4 && mapname[0] == 'E' && mapname[2] == 'M')
+	else if (mapname.length() == 4 && mapname[0] == 'E' && mapname[2] == 'M')
 		args() << "-warp" << QString("%1").arg(mapname[1]) << QString("%1").arg(mapname[3]);
 }

@@ -23,21 +23,21 @@
 #ifndef DOOMSEEKER_PLUGIN_ZANDRONUMGAMERUNNER_H
 #define DOOMSEEKER_PLUGIN_ZANDRONUMGAMERUNNER_H
 
+#include "zandronumengineplugin.h"
 #include <serverapi/gameclientrunner.h>
 #include <serverapi/serverptr.h>
-#include "zandronumengineplugin.h"
 
 class ZandronumServer;
 
 class ZandronumGameClientRunner : public GameClientRunner
 {
-	public:
-		ZandronumGameClientRunner(ServerPtr server);
+public:
+	ZandronumGameClientRunner(ServerPtr server);
 
-		const EnginePlugin* plugin() const { return ZandronumEnginePlugin::staticInstance(); }
-
-	private:
-		void addExtra();
+	const EnginePlugin *plugin() const
+	{
+		return ZandronumEnginePlugin::staticInstance();
+	}
 };
 
 #endif

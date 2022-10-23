@@ -23,28 +23,37 @@
 #ifndef __WADSEEKERCONFIGAPPEARANCE_H__
 #define __WADSEEKERCONFIGAPPEARANCE_H__
 
-#include "gui/configuration/configpage.h"
 #include "dptr.h"
+#include "gui/configuration/configpage.h"
 #include <QIcon>
 
 class CFGWadseekerAppearance : public ConfigPage
 {
 	Q_OBJECT
 
-	public:
-		CFGWadseekerAppearance(QWidget* parent = NULL);
-		~CFGWadseekerAppearance();
+public:
+	CFGWadseekerAppearance(QWidget *parent = nullptr);
+	~CFGWadseekerAppearance() override;
 
-		QIcon icon() const { return QIcon(":/icons/color-fill.png"); }
-		QString name() const { return tr("Appearance"); }
-		void readSettings();
-		QString title() const { return tr("Wadseeker - Appearance"); }
+	QIcon icon() const override
+	{
+		return QIcon(":/icons/color-fill.png");
+	}
+	QString name() const override
+	{
+		return tr("Appearance");
+	}
+	void readSettings() override;
+	QString title() const override
+	{
+		return tr("Wadseeker - Appearance");
+	}
 
-	protected:
-		void saveSettings();
+protected:
+	void saveSettings() override;
 
-	private:
-		DPtr<CFGWadseekerAppearance> d;
+private:
+	DPtr<CFGWadseekerAppearance> d;
 };
 
 #endif
