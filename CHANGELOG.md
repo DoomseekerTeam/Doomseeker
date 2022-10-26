@@ -29,12 +29,15 @@ viewing. (#3952)
 - Wadseeker: added `sigil_shreds` and `sigil_shreds_compat` to the
 list of forbidden downloads.
 - Wadseeker: upgrade LZMA SDK to version 22.01. (#3934)
-- Q-Zandronum: adapt plugin to Q-Zandronum 1.3
+- Q-Zandronum: adapt plugin to Q-Zandronum 1.3.
 - Zandronum, Q-Zandronum: rely on Doomseeker's internal mechanism to
 calculate the ping to the game server rather than using the port's
 feature where the timestamp is sent back in the challenge reply
 packet. (#3992)
 - Zandronum: remove the defunct IRC server.
+
+### Deprecated
+- Plugin API: Server::numTotalSlots(). (#4038)
 
 ### Fixed
 - Use signed integers to display the dmflags in the server details. (#3944)
