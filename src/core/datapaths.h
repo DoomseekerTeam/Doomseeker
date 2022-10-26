@@ -283,13 +283,14 @@ public:
 	 *   the application's executable resides.
 	 * * `$` character followed by a letter or underscore followed optionally
 	 *   by a string of letters, digits or underscores is treated as an env.
-	 *   variable and resolution using such variable is attempted. If there's
+	 *   variable and a resolution using such variable is attempted. If there's
 	 *   no matching env. variable, the placeholder resolves to an empty string.
 	 *   Regex: `$[a-zA-Z_][a-zA-Z0-9_]*`.
 	 * * `~` character at the beginning, followed by a directory delimiter
-	 *   or end of the string is replaced with user's home directory.
-	 *   The `~user` pattern is not allowed and will be treated as
-	 *   a "~user" literal.
+	 *   or end of the string is replaced with current user's home directory.
+	 *   The `~someone` pattern will resolve to the home directory of "someone"
+	 *   but only on a UNIX system. On MS Windows, the `~` pattern is resolved
+	 *   but `~someone` is not.
 	 *
 	 * While Windows platform quotes the env. variables with `%`, DataPaths
 	 * doesn't follow this pattern and uses the `$` prefix universally for

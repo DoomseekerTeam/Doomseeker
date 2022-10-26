@@ -28,6 +28,11 @@
 #include <QDir>
 #include <QProcessEnvironment>
 
+#ifdef Q_OS_UNIX
+#include <sys/types.h>
+#include <pwd.h>
+#endif
+
 TestDataPathsAppDataDirectoryAccess::TestDataPathsAppDataDirectoryAccess(bool bPortable)
 	: TestUnitBase("Data Paths - App Data directory access")
 {
@@ -160,6 +165,71 @@ bool TestDataPathsResolveTemplated::executeTest()
 		return false;
 	}
 
+#ifdef Q_OS_UNIX
+	// Home of someone else
+	const struct passwd *pwent = getpwnam("root");
+	if (pwent == nullptr)
+	{
+		testLog << "Unable to retrieve home dir for root";
+		return false;
+	}
+	const QString rootHome = pwent->pw_dir;
+	if (dataPaths.resolveTemplated("~root") != rootHome)
+	{
+		testLog << QString("Home resolution of root failed: %1 != %2")
+			.arg(dataPaths.resolveTemplated("~root"), rootHome);
+		return false;
+	}
+	if (dataPaths.resolveTemplated("~root/") != rootHome + "/")
+	{
+		testLog << QString("Home resolution of root/ failed: %1 != %2")
+			.arg(dataPaths.resolveTemplated("~root/"), rootHome + "/");
+		return false;
+	}
+	if (dataPaths.resolveTemplated("~root/extra/more") != rootHome + "/extra/more")
+	{
+		testLog << QString("Home resolution of root/extra failed: %1 != %2")
+			.arg(dataPaths.resolveTemplated("~root/extra/more"), rootHome + "/extra/more");
+		return false;
+	}
+
+	// Home of user who doesn't exist
+	QString noUser = "~noUser";
+	while (getpwnam(noUser.toLatin1().constData()) != nullptr)
+	{
+		noUser += "1";
+	}
+	if (dataPaths.resolveTemplated(noUser) != noUser)
+	{
+		testLog << QString("Home resolution of user who doesn't exist failed: %1 != %2")
+			.arg(dataPaths.resolveTemplated(noUser), noUser);
+		return false;
+	}
+	noUser += "/";
+	if (dataPaths.resolveTemplated(noUser) != noUser)
+	{
+		testLog << QString("Home resolution of user who doesn't exist with / failed: %1 != %2")
+			.arg(dataPaths.resolveTemplated(noUser), noUser);
+		return false;
+	}
+	noUser += "extra";
+	if (dataPaths.resolveTemplated(noUser) != noUser)
+	{
+		testLog << QString("Home resolution of user who doesn't exist with /extra failed: %1 != %2")
+			.arg(dataPaths.resolveTemplated(noUser), noUser);
+		return false;
+	}
+#endif
+#ifdef Q_OS_WIN
+	const QString noUser = "~guest\\stuff";
+	if (dataPaths.resolveTemplated(noUser) != noUser)
+	{
+		testLog << QString("Home resolution of a named user failed: %1 != %2")
+			.arg(dataPaths.resolveTemplated(noUser), noUser);
+		return false;
+	}
+#endif
+
 	// Complex resolution
 	qputenv("G00dV4r", "/data/is/mine");
 	qputenv("an0ther", "ok");
@@ -172,6 +242,15 @@ bool TestDataPathsResolveTemplated::executeTest()
 				.arg(dataPaths.resolveTemplated(templated), expected);
 			return false;
 		}
+	}
+
+	// Variable which name starts with PROGDIR
+	qputenv("PROGDIRECTORY", "some/folder");
+	if (dataPaths.resolveTemplated("$PROGDIRECTORY/logs") != "some/folder/logs")
+	{
+		testLog << QString("$PROGDIRECTORY resolution failure: %1 != %2")
+			.arg(dataPaths.resolveTemplated("$PROGDIRECTORY/logs"), "some/folder/logs");
+		return false;
 	}
 
 	return true;

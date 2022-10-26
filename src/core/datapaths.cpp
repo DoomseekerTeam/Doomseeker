@@ -56,6 +56,11 @@ extern Q_CORE_EXPORT int qt_ntfs_permission_lookup;
 int qt_ntfs_permission_lookup;
 #endif
 
+#ifdef Q_OS_UNIX
+#include <sys/types.h>
+#include <pwd.h>
+#endif
+
 static QList<DataPaths::DirErrno> uniqueErrnosByDir(const QList<DataPaths::DirErrno> &errnos)
 {
 	QSet<QString> uniqueDirs;
@@ -394,22 +399,40 @@ QString DataPaths::resolveTemplated(const QString &templatedPath) const
 {
 	QString resolved = templatedPath;
 
-	// $PROGDIR is a special placeholder that always resolves to the directory
-	// where executable is stored, even if an env. var with the same name exists.
-	resolved.replace("$PROGDIR", QCoreApplication::applicationDirPath());
-
 	// Match ~ to home dir.
-	QStringList homePatterns;
-	homePatterns << "^~[/\\\\]" << "^~$";
-	QStringList homeReplaces;
-	homeReplaces << "~/" << "~";
-	for (int idx = 0; idx < homePatterns.size(); ++idx)
+	if (resolved.startsWith("~"))
 	{
-		QRegExp regex(homePatterns[idx]);
-		if (resolved.contains(regex))
+#ifdef Q_OS_WIN
+		const QRegExp separatorRegex(R"([/\\])");
+#else
+		const QRegExp separatorRegex("/");
+#endif
+		int separatorIdx = separatorRegex.indexIn(resolved);
+
+		QString username = resolved.mid(1, separatorIdx - 1);
+		QString home;
+		if (username.isEmpty())
 		{
-			QString replacer = homeReplaces[idx].replace("~", QDir::homePath());
-			resolved = resolved.replace(regex, replacer);
+			home = QDir::homePath();
+		}
+		else
+		{
+			home = QString("~%1").arg(username);
+#ifdef Q_OS_UNIX
+			const struct passwd *pwent = getpwnam(username.toLatin1().constData());
+			if (pwent != nullptr)
+			{
+				home = pwent->pw_dir;
+			}
+#endif
+		}
+		if (separatorIdx > 0)
+		{
+			resolved = home + resolved.mid(separatorIdx);
+		}
+		else
+		{
+			resolved = home;
 		}
 	}
 
@@ -423,7 +446,14 @@ QString DataPaths::resolveTemplated(const QString &templatedPath) const
 			break;
 		QString name = envVarRegex.cap(1);
 		QString varValue = "";
-		if (QProcessEnvironment::systemEnvironment().contains(name))
+
+		// $PROGDIR is a special placeholder that always resolves to the directory
+		// where executable is stored, even if an env. var with the same name exists.
+		if (name == "PROGDIR")
+		{
+			varValue = QCoreApplication::applicationDirPath();
+		}
+		else if (QProcessEnvironment::systemEnvironment().contains(name))
 		{
 			varValue = qgetenv(name.toUtf8());
 		}
