@@ -418,7 +418,6 @@ void WadseekerInterface::setupIdgames()
 {
 	wadseeker.setIdgamesEnabled(gConfig.wadseeker.bSearchInIdgames);
 	wadseeker.setIdgamesUrl(gConfig.wadseeker.idgamesURL);
-	wadseeker.setWadArchiveEnabled(gConfig.wadseeker.bSearchInWadArchive);
 }
 
 void WadseekerInterface::showEvent(QShowEvent *event)

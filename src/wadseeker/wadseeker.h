@@ -250,8 +250,12 @@ public:
 	void setTargetDirectory(const QString &dir);
 
 	/**
-	 * @brief If set to true, Wadseeker will contact
-	 * http://www.wad-archive.com to look for download URLs.
+	 * @brief If set to true, Wadseeker would contact
+	 * http://www.wad-archive.com to look for download URLs,
+	 * but the site is dead.
+	 *
+	 * @deprecated Wad Archive was shut down in October 2022.
+	 * This doesn't do anything anymore.
 	 */
 	void setWadArchiveEnabled(bool enabled);
 
@@ -401,7 +405,7 @@ signals:
 	 * @brief Notifies that Wadseeker started querying a
 	 * customized service.
 	 *
-	 * Customized services are: WadArchive, idgames.
+	 * Customized services can be: idgames.
 	 *
 	 * @param name
 	 *     Unique name of the service. Can be used to abort
@@ -458,13 +462,10 @@ private:
 
 	void setupIdgamesClients(const QList<WadDownloadInfo> &wadDownloadInfoList);
 	void setupSitesUrls();
-	void setupWadArchiveClient(const QList<WadDownloadInfo> &wadDownloadInfos);
 
 	void startNextIdgamesClient();
 	void startIdgames();
 	void stopIdgames();
-	void startWadArchiveClient();
-	void stopWadArchiveClient();
 
 private slots:
 	void cleanUpIfAllFinished();
@@ -472,7 +473,6 @@ private slots:
 	void fileMirrorLinksFound(const QString &filename, const QList<QUrl> &urls);
 	void idgamesClientFinished(Idgames *pEmitter);
 	void reportBadUrl(const QUrl &url);
-	void wadArchiveFinished();
 	void wadRetrieverDownloadFinished(WadDownloadInfo wadDownloadInfo);
 	void wadRetrieverDownloadProgress(WadDownloadInfo wadDownloadInfo, qint64 current, qint64 total);
 	void wadRetrieverDownloadStarted(WadDownloadInfo wadDownloadInfo, const QUrl &url);

@@ -127,7 +127,6 @@ set(WADSEEKER_FILES
 	protocols/idgames/idgamesfilematcher.cpp
 	protocols/idgames/idgamesreply.cpp
 	protocols/idgames/idgamesresult.cpp
-	protocols/wadarchive/wadarchiveclient.cpp
 	protocols/http.cpp
 	protocols/networkreply.cpp
 	protocols/networkreplysignalwrapper.cpp
@@ -168,7 +167,6 @@ set(HEADER_FILES
 	protocols/idgames/idgamesfilematcher.h
 	protocols/idgames/idgamesreply.h
 	protocols/idgames/idgamesresult.h
-	protocols/wadarchive/wadarchiveclient.h
 	protocols/http.h
 	protocols/networkreply.h
 	protocols/networkreplysignalwrapper.h

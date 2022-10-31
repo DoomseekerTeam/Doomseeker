@@ -37,6 +37,7 @@ packet. (#3992)
 - Zandronum: remove the defunct IRC server.
 
 ### Deprecated
+- Wadseeker: Wadseeker::setWadArchiveEnabled(). (#4048)
 - Plugin API: Server::numTotalSlots(). (#4038)
 
 ### Fixed
@@ -60,6 +61,9 @@ servers, which resulted in the dmflags being displayed incorrectly
 in the server details and the game's beta builds from being
 installed. (#4020, #4024)
 - Zandronum: update the game icon to Zandronum 3.1's.
+
+### Removed
+- Wadseeker: Removed Wad Archive support due to the site shutdown. (#4048)
 
 ## [1.3.3] - 2022-01-18
 ### Added

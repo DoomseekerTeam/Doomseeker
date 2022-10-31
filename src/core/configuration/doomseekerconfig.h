@@ -189,7 +189,6 @@ public:
 
 		bool bAlwaysUseDefaultSites;
 		bool bSearchInIdgames;
-		bool bSearchInWadArchive;
 		QString colorMessageCriticalError;
 		QString colorMessageError;
 		QString colorMessageNotice;

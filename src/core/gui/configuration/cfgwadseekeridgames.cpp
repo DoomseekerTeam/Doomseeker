@@ -57,13 +57,11 @@ void CFGWadseekerIdgames::btnIdgamesURLDefaultClicked()
 void CFGWadseekerIdgames::readSettings()
 {
 	d->cbUseIdgames->setChecked(gConfig.wadseeker.bSearchInIdgames);
-	d->cbUseWadArchive->setChecked(gConfig.wadseeker.bSearchInWadArchive);
 	d->leIdgamesURL->setText(gConfig.wadseeker.idgamesURL);
 }
 
 void CFGWadseekerIdgames::saveSettings()
 {
 	gConfig.wadseeker.bSearchInIdgames = d->cbUseIdgames->isChecked();
-	gConfig.wadseeker.bSearchInWadArchive = d->cbUseWadArchive->isChecked();
 	gConfig.wadseeker.idgamesURL = d->leIdgamesURL->text();
 }
