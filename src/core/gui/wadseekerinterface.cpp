@@ -25,6 +25,7 @@
 
 #include "application.h"
 #include "configuration/doomseekerconfig.h"
+#include "datapaths.h"
 #include "gui/commongui.h"
 #include "gui/helpers/taskbarbutton.h"
 #include "gui/helpers/taskbarprogress.h"
@@ -482,7 +483,7 @@ void WadseekerInterface::startSeeking(const QList<PWad> &seekedFilesList)
 
 	setupIdgames();
 
-	wadseeker.setTargetDirectory(gConfig.wadseeker.targetDirectory);
+	wadseeker.setTargetDirectory(gDefaultDataPaths->resolveTemplated(gConfig.wadseeker.targetDirectory));
 	wadseeker.setCustomSites(customSites);
 	wadseeker.setMaximumConcurrentSeeks(gConfig.wadseeker.maxConcurrentSiteDownloads);
 	wadseeker.setMaximumConcurrentDownloads(gConfig.wadseeker.maxConcurrentWadDownloads);

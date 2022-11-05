@@ -22,6 +22,8 @@
 //------------------------------------------------------------------------------
 #include "filesearchpath.h"
 
+#include "datapaths.h"
+
 #include <QStringList>
 
 FileSearchPath::FileSearchPath()
@@ -73,6 +75,23 @@ QList<FileSearchPath> FileSearchPath::fromVariantList(const QVariantList &collec
 bool FileSearchPath::isValid() const
 {
 	return path_.isNull();
+}
+
+FileSearchPath FileSearchPath::resolveTemplated(DataPaths &resolver,
+	const FileSearchPath &path)
+{
+	FileSearchPath resolved = path;
+	resolved.path_ = resolver.resolveTemplated(resolved.path_);
+	return resolved;
+}
+
+QList<FileSearchPath> FileSearchPath::resolveTemplated(DataPaths &resolver,
+	const QList<FileSearchPath> &paths)
+{
+	QList<FileSearchPath> resolved;
+	for (const FileSearchPath &path : paths)
+		resolved << resolveTemplated(resolver, path);
+	return resolved;
 }
 
 QVariant FileSearchPath::toVariant() const

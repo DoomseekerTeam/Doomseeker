@@ -27,6 +27,8 @@
 #include <QString>
 #include <QVariant>
 
+class DataPaths;
+
 class FileSearchPath
 {
 public:
@@ -34,6 +36,10 @@ public:
 	static FileSearchPath fromVariant(const QVariant &var);
 	static QList<FileSearchPath> fromVariantList(const QVariantList &collection);
 	static QVariantList toVariantList(const QList<FileSearchPath> &collection);
+	static FileSearchPath resolveTemplated(DataPaths &resolver,
+		const FileSearchPath &path);
+	static QList<FileSearchPath> resolveTemplated(DataPaths &resolver,
+		const QList<FileSearchPath> &paths);
 
 	FileSearchPath();
 	FileSearchPath(const QString &path);

@@ -24,6 +24,7 @@
 
 #include "application.h"
 #include "configuration/doomseekerconfig.h"
+#include "datapaths.h"
 #include "gui/mainwindow.h"
 #include "gui/wadseekerinterface.h"
 #include "serverapi/server.h"
@@ -53,7 +54,7 @@ bool WadseekerShow::checkWadseekerValidity(QWidget *parent)
 		return false;
 	}
 
-	QString targetDirPath = gConfig.wadseeker.targetDirectory;
+	QString targetDirPath = gDefaultDataPaths->resolveTemplated(gConfig.wadseeker.targetDirectory);
 	QDir targetDir(targetDirPath);
 	QFileInfo targetDirFileInfo(targetDirPath);
 

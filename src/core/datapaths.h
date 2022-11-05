@@ -91,6 +91,7 @@ public:
 	};
 
 	static const QString CHATLOGS_DIR_NAME;
+	static const QString PROGRAM_DIR_TEMPLATE;
 	static const QString TRANSLATIONS_DIR_NAME;
 	static const QString UPDATE_PACKAGES_DIR_NAME;
 	static const QString UPDATE_PACKAGE_FILENAME_PREFIX;
@@ -300,6 +301,13 @@ public:
 	 * The returned path is not normalized.
 	 */
 	QString resolveTemplated(const QString &templatedPath) const;
+
+	/**
+	 * @brief Convenience method, calls resolveTemplated() for each element.
+	 *
+	 * @return List transformed by resolveTemplated().
+	 */
+	QStringList resolveTemplated(const QStringList &templatedPaths) const;
 
 
 	/**

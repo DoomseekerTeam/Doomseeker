@@ -25,6 +25,7 @@
 #include "apprunner.h"
 #include "commandlinetokenizer.h"
 #include "configuration/doomseekerconfig.h"
+#include "datapaths.h"
 #include "gui/checkwadsdlg.h"
 #include "ini/inisection.h"
 #include "ini/inivariable.h"
@@ -645,5 +646,6 @@ void GameClientRunner::setupPathFinder()
 
 QString GameClientRunner::wadTargetDirectory() const
 {
-	return DoomseekerConfig::config().wadseeker.targetDirectory;
+	return gDefaultDataPaths->resolveTemplated(
+		DoomseekerConfig::config().wadseeker.targetDirectory);
 }

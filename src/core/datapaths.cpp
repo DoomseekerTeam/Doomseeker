@@ -115,6 +115,7 @@ static const QString DEMOS_DIR_NAME = "demos";
 
 const QString DataPaths::CHATLOGS_DIR_NAME = "chatlogs";
 const QString PrivData<DataPaths>::PLUGINS_DIR_NAME = "plugins";
+const QString DataPaths::PROGRAM_DIR_TEMPLATE = "$PROGDIR";
 const QString DataPaths::TRANSLATIONS_DIR_NAME = "translations";
 const QString DataPaths::UPDATE_PACKAGES_DIR_NAME = "updates";
 const QString DataPaths::UPDATE_PACKAGE_FILENAME_PREFIX = "doomseeker-update-pkg-";
@@ -265,12 +266,19 @@ QStringList DataPaths::defaultWadPaths() const
 	QStringList filePaths;
 	filePaths << programsDataDirectoryPath();
 
-	// The directory which contains the Doomseeker executable may be a good
-	// default choice, but on unix systems the bin directory is not worth
-	// searching.  Similarly for Mac application bundle.
-	const QString progBinDirName = QDir(workingDirectory()).dirName();
-	if (progBinDirName != "bin" && progBinDirName != "MacOS")
-		filePaths << workingDirectory();
+	if (d->bIsPortableModeOn)
+	{
+		filePaths << PROGRAM_DIR_TEMPLATE;
+	}
+	else
+	{
+		// The directory which contains the Doomseeker executable may be a good
+		// default choice, but on unix systems the bin directory is not worth
+		// searching.  Similarly for Mac application bundle.
+		const QString progBinDirName = QDir(workingDirectory()).dirName();
+		if (progBinDirName != "bin" && progBinDirName != "MacOS")
+			filePaths << workingDirectory();
+	}
 
 	return filePaths;
 }
@@ -461,6 +469,14 @@ QString DataPaths::resolveTemplated(const QString &templatedPath) const
 		offset = varIdx + varValue.length();
 	}
 	return resolved;
+}
+
+QStringList DataPaths::resolveTemplated(const QStringList &templatedPaths) const
+{
+	QStringList transformed;
+	for (const QString &path : templatedPaths)
+		transformed << resolveTemplated(path);
+	return transformed;
 }
 
 void DataPaths::setWorkingDirectory(const QString &workingDirectory)

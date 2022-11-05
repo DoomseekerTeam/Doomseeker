@@ -106,7 +106,9 @@ DPointered(PathFinder)
 PathFinder::PathFinder()
 {
 	d->searchPaths.reset(new QList<FileSearchPath>());
-	d->searchPaths->append(gConfig.combinedWadseekPaths());
+	d->searchPaths->append(
+		FileSearchPath::resolveTemplated(*gDefaultDataPaths,
+			gConfig.combinedWadseekPaths()));
 	removeUnneededPaths();
 }
 

@@ -23,6 +23,7 @@
 #include "freedoomdialog.h"
 
 #include "configuration/doomseekerconfig.h"
+#include "datapaths.h"
 #include "gui/commongui.h"
 #include "fileutils.h"
 #include "pathfinder/filesearchpath.h"
@@ -86,7 +87,8 @@ void FreedoomDialog::accept()
 	}
 	resetProgressBar();
 	showStatus(tr("Downloading & installing ..."));
-	d->targetDir = d->cboInstallPath->currentText();
+	d->targetDir = gDefaultDataPaths->resolveTemplated(
+		d->cboInstallPath->currentText());
 	d->modInstall->install(d->targetDir, modSet);
 }
 
@@ -238,7 +240,7 @@ void FreedoomDialog::setupInstallPaths()
 	// issues with it and QCompleter until at least Qt 5.12 (i.e. QTBUG-38014).
 	// We'll conservatively use QFileSystemModel on Qt 6 only.
 	auto model = new QFileSystemModel(completer);
-	model->setRootPath(gConfig.wadseeker.targetDirectory);
+	model->setRootPath(gDefaultDataPaths->resolveTemplated(gConfig.wadseeker.targetDirectory));
 	completer->setModel(model);
 #else
 	completer->setModel(new QDirModel(completer));

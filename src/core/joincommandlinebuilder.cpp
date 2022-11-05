@@ -138,7 +138,7 @@ bool JoinCommandLineBuilder::checkServerStatus()
 bool JoinCommandLineBuilder::checkWadseekerValidity(QWidget *parent)
 {
 	Q_UNUSED(parent);
-	QString targetDirPath = gConfig.wadseeker.targetDirectory;
+	QString targetDirPath = gDefaultDataPaths->resolveTemplated(gConfig.wadseeker.targetDirectory);
 	QDir targetDir(targetDirPath);
 	QFileInfo targetDirFileInfo(targetDirPath);
 

@@ -571,8 +571,12 @@ void DoomseekerConfig::DoomseekerCfg::setWadAliases(const QList<FileAlias> &val)
 
 void DoomseekerConfig::DoomseekerCfg::enableFreedoomInstallation(const QString &dir)
 {
-	if (!FileUtils::containsPath(wadPathsOnly(), dir))
+	if (!FileUtils::containsPath(
+			gDefaultDataPaths->resolveTemplated(wadPathsOnly()),
+			gDefaultDataPaths->resolveTemplated(dir)))
+	{
 		wadPaths.prepend(dir);
+	}
 	QList<FileAlias> aliases = wadAliases();
 	aliases << FileAlias::freeDoom1Aliases();
 	aliases << FileAlias::freeDoom2Aliases();
