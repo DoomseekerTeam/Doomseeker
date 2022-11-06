@@ -24,6 +24,7 @@
 
 #include "../wadseeker/zip/unarchive.h"
 #include "application.h"
+#include "datapaths.h"
 #include "plugins/engineplugin.h"
 #include "serverapi/message.h"
 #include "version.h"
@@ -107,7 +108,8 @@ Message ZandronumClientExeFile::install(QWidget *parent)
 {
 	if (askToInstallTestingVersion(parent))
 	{
-		QString path = config()["TestingPath"];
+		const QString path = gDefaultDataPaths->resolveTemplated(
+			config()["TestingPath"].valueString());
 		if (path.isEmpty())
 		{
 			return Message::customError(tr("No testing directory specified for Zandronum"));
@@ -129,7 +131,7 @@ Message ZandronumClientExeFile::install(QWidget *parent)
 		// Now copy all .ini's. On Linux .ini's are kept in ~/.zandronum so this will
 		// do nothing, but on Windows this should work like magic.
 		Message message;
-		QDir baseBinaryDir(workingDirectory(message));
+		QDir baseBinaryDir(gDefaultDataPaths->resolveTemplated(workingDirectory(message)));
 		QStringList nameFilters;
 		nameFilters << "*.ini";
 		QStringList iniFiles = baseBinaryDir.entryList(nameFilters, QDir::Files);
@@ -156,7 +158,8 @@ bool ZandronumClientExeFile::askToInstallTestingVersion(QWidget *parent) const
 {
 	QString question;
 	QMessageBox::Icon icon = QMessageBox::NoIcon;
-	if (d->isNonEmptyDir(testingVersionInstallPath()))
+	const QString installPath = gDefaultDataPaths->resolveTemplated(testingVersionInstallPath());
+	if (d->isNonEmptyDir(installPath))
 	{
 		question = tr("<p>Installation of testing binaries for version %1 "
 			"can potentially <b>overwrite</b> your files.</p>"
@@ -164,7 +167,7 @@ bool ZandronumClientExeFile::askToInstallTestingVersion(QWidget *parent) const
 			"<p>Do you want Doomseeker to extract Zandronum files, potentially "
 			"<b>overwriting existing ones</b>, and to copy all your configuration "
 			"files from your base directory?</p>").arg(
-			testingVersion(), testingVersionInstallPath());
+			testingVersion(), installPath);
 		icon = QMessageBox::Warning;
 	}
 	else
@@ -173,7 +176,7 @@ bool ZandronumClientExeFile::askToInstallTestingVersion(QWidget *parent) const
 			"Game will be installed to:\n%2\n\n"
 			"Do you want Doomseeker to install that version and copy all "
 			"your configuration files from your base directory?").arg(
-			testingVersion(), testingVersionInstallPath());
+			testingVersion(), installPath);
 		icon = QMessageBox::Question;
 	}
 	QMessageBox box(icon, tr("Doomseeker - install Zandronum testing version"), question,
@@ -207,7 +210,7 @@ QString ZandronumClientExeFile::pathToExe(Message &message)
 			return QString();
 		}
 
-		QString path = testingVersionInstallPath();
+		const QString path = gDefaultDataPaths->resolveTemplated(testingVersionInstallPath());
 
 		QFileInfo fi(path);
 		if (!fi.exists() || d->isEmptyDir(path))
@@ -265,8 +268,8 @@ QString ZandronumClientExeFile::workingDirectory(Message &message)
 	Q_UNUSED(message);
 	IniSection &config = *ZandronumEnginePlugin::staticInstance()->data()->pConfig;
 
-	QFileInfo fi((QString)config["BinaryPath"]);
-	return fi.absolutePath();
+	QFileInfo fi(gDefaultDataPaths->resolveTemplated(config["BinaryPath"].valueString()));
+	return fi.path();
 }
 
 bool ZandronumClientExeFile::downloadTestingBinaries(const QDir &destination, QWidget *parent)

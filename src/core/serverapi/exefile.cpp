@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 #include "exefile.h"
 
+#include "datapaths.h"
 #include "configuration/doomseekerconfig.h"
 #include "ini/inisection.h"
 #include "ini/inivariable.h"
@@ -80,7 +81,7 @@ QString ExeFile::pathToExe(Message &message)
 		return QString();
 	}
 
-	QFileInfo fi(path);
+	QFileInfo fi(gDefaultDataPaths->resolveTemplated(path));
 
 	if (!fi.exists() || (fi.isDir() && !fi.isBundle()))
 	{
@@ -119,7 +120,7 @@ void ExeFile::setProgramName(const QString &name)
 QString ExeFile::workingDirectory(Message &message)
 {
 	QFileInfo fi(pathToExe(message));
-	return fi.absolutePath();
+	return fi.path();
 }
 
 ///////////////////////////////////////////////////////////////////////////

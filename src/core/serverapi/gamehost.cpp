@@ -25,6 +25,7 @@
 #include "apprunner.h"
 #include "commandlinetokenizer.h"
 #include "configuration/doomseekerconfig.h"
+#include "datapaths.h"
 #include "gamedemo.h"
 #include "ini/inisection.h"
 #include "ini/inivariable.h"
@@ -429,14 +430,14 @@ void GameHost::setMessage(const Message &message)
 
 void GameHost::setupGamePaths()
 {
-	QFileInfo fileInfo(params().executablePath());
+	QFileInfo fileInfo(gDefaultDataPaths->resolveTemplated(params().executablePath()));
 	if (!fileInfo.isFile() && !fileInfo.isBundle())
 	{
 		QString error = tr("%1\ndoesn't exist or is not a file.").arg(fileInfo.filePath());
 		setMessage(Message::customError(error));
 		return;
 	}
-	d->currentCmdLine->executable = QFileInfo(params().executablePath());
+	d->currentCmdLine->executable = fileInfo;
 	d->currentCmdLine->applicationDir = fileInfo.dir();
 }
 

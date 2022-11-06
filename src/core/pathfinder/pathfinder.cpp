@@ -83,7 +83,7 @@ public:
 
 	QString resolveDir(const QString &dir)
 	{
-		QFileInfo fileInfo(dir);
+		QFileInfo fileInfo(gDefaultDataPaths->resolveTemplated(dir));
 		if (fileInfo.isSymLink())
 			fileInfo = QFileInfo(fileInfo.symLinkTarget());
 

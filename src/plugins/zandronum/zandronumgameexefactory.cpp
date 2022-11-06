@@ -23,11 +23,14 @@
 #include "zandronumgameexefactory.h"
 
 #include "zandronumbinaries.h"
+
+#include <datapaths.h>
 #include <ini/inisection.h>
 #include <plugins/engineplugin.h>
-#include <QDir>
 #include <serverapi/exefile.h>
 #include <serverapi/gamefile.h>
+
+#include <QDir>
 
 DClass<ZandronumGameExeFactory>
 {
@@ -51,7 +54,7 @@ QList<ExeFilePath> ZandronumGameExeFactory::additionalExecutables(int execType) 
 	IniSection *cfg = plugin()->data()->pConfig;
 	if (cfg != nullptr)
 	{
-		QDir directory(cfg->value("TestingPath").toString());
+		QDir directory(gDefaultDataPaths->resolveTemplated(cfg->value("TestingPath").toString()));
 		QStringList subdirs = directory.entryList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name | QDir::Reversed);
 		for (const QString &subdirName : subdirs)
 		{

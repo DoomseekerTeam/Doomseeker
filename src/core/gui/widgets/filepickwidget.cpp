@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 #include "filepickwidget.h"
 
+#include "datapaths.h"
 #include "filefilter.h"
 #include "ini/inisection.h"
 #include "ini/inivariable.h"
@@ -137,7 +138,7 @@ bool FilePickWidget::validate()
 {
 	QString error;
 
-	QFileInfo fileInfo(path());
+	QFileInfo fileInfo(gDefaultDataPaths->resolveTemplated(path()));
 	if (!path().isEmpty())
 	{
 		if (error.isEmpty() && !fileInfo.exists())

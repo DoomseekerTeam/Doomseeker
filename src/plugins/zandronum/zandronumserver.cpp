@@ -24,6 +24,7 @@
 #include "zandronumserver.h"
 
 #include "datastreamoperatorwrapper.h"
+#include "datapaths.h"
 #include "global.h"
 #include "huffman/huffman.h"
 #include "log.h"
@@ -775,8 +776,9 @@ PathFinder ZandronumServer::wadPathFinder()
 			// thus we receive a proper path that we can add to
 			// PathFinder.
 			QFileInfo fileInfo(exePath);
-			QString dirPath = Strings::combinePaths(fileInfo.absolutePath(),
-				fileInfo.completeBaseName());
+			QString dirPath = gDefaultDataPaths->resolveTemplated(
+				Strings::combinePaths(fileInfo.path(),
+					fileInfo.completeBaseName()));
 			pathFinder.addPrioritySearchDir(dirPath);
 		}
 	}

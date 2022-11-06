@@ -270,7 +270,8 @@ void DemoManagerDlg::playSelected()
 
 	// Get executable path for pathfinder.
 	Message binMessage;
-	QString binPath = GameExeRetriever(*plugin->gameExe()).pathToOfflineExe(binMessage);
+	const QString binPath = gDefaultDataPaths->resolveTemplated(
+		GameExeRetriever(*plugin->gameExe()).pathToOfflineExe(binMessage));
 
 	// Locate all the files needed to play the demo
 	PathFinder pf;

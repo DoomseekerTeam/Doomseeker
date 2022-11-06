@@ -25,6 +25,8 @@
 #include "chocolatedoomgameexefactory.h"
 #include "chocolatedoomgameinfo.h"
 #include "chocolatedoomserver.h"
+
+#include <datapaths.h>
 #include <gui/createserver/iwadandwadspickerdialog.h>
 #include <ini/inisection.h>
 #include <serverapi/createserverdialogapi.h>
@@ -100,7 +102,7 @@ void ChocolateDoomGameClientRunner::joinPopulatedServer()
 	dialog->setIwadByName(server->iwad());
 	if (dialog->exec() == QDialog::Accepted)
 	{
-		overwriteExecutable = dialog->executable();
+		overwriteExecutable = gDefaultDataPaths->resolveTemplated(dialog->executable());
 		args() << "-iwad" << dialog->iwadPath();
 		for (const QString &file : dialog->filePaths())
 		{

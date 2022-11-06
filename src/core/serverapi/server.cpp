@@ -24,6 +24,7 @@
 
 #include "configuration/doomseekerconfig.h"
 #include "configuration/queryspeed.h"
+#include "datapaths.h"
 #include "log.h"
 #include "pathfinder/pathfinder.h"
 #include "pathfinder/wadpathfinder.h"
@@ -803,7 +804,8 @@ PathFinder Server::wadPathFinder()
 	{
 		GameExeRetriever exeRetriever(*plugin()->gameExe());
 		Message msg;
-		pathFinder.addPrioritySearchDir(exeRetriever.pathToOfflineExe(msg));
+		pathFinder.addPrioritySearchDir(
+			gDefaultDataPaths->resolveTemplated(exeRetriever.pathToOfflineExe(msg)));
 	}
 	#endif
 	if (isTestingServer())

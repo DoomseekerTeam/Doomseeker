@@ -23,6 +23,7 @@
 #include "gameexecutablepicker.h"
 
 #include "configuration/doomseekerconfig.h"
+#include "datapaths.h"
 #include "filefilter.h"
 #include "gui/commongui.h"
 #include "ini/ini.h"
@@ -121,7 +122,7 @@ void GameExecutablePicker::setExecutableToDefault()
 
 	for (const GameFile &candidate : execs.asQList())
 	{
-		QString path = cfg->value(candidate.configName()).toString();
+		const QString path = cfg->value(candidate.configName()).toString();
 		if (!path.isEmpty())
 		{
 			d->executableInput->setCurrentText(path);
@@ -173,7 +174,7 @@ void GameExecutablePicker::reloadExecutables()
 	}
 	for (const ExeFilePath &exe : d->plugin->gameExe()->additionalExecutables(d->allowedExecs))
 	{
-		QFileInfo fileInfo(exe.path());
+		QFileInfo fileInfo(gDefaultDataPaths->resolveTemplated(exe.path()));
 		if (fileInfo.isFile())
 			add(exe.path());
 	}
