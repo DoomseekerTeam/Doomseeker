@@ -144,8 +144,6 @@ public:
 
 	ZandronumqServer(const QHostAddress &address, unsigned short port);
 
-	ExeFile *clientExe() override;
-
 	GameHost *gameHost();
 	GameClientRunner *gameRunner() override;
 

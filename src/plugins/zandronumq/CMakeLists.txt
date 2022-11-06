@@ -36,7 +36,6 @@ set(ZANDRONUMQ_FILES
 	enginezandronumqconfigbox.cpp
 	huffmanqt.cpp
 	huffmanudpsocket.cpp
-	zandronumqbinaries.cpp
 	zandronumqbroadcast.cpp
 	zandronumq1dmflags.cpp
 	zandronumqengineplugin.cpp
@@ -64,7 +63,6 @@ set(HEADER_FILES
 	enginezandronumqconfigbox.h
 	huffmanqt.h
 	huffmanudpsocket.h
-	zandronumqbinaries.h
 	zandronumqbroadcast.h
 	zandronumq1dmflags.h
 	zandronumqengineplugin.h
