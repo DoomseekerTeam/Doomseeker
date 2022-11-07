@@ -12,6 +12,11 @@ and this project does not adhere to
 ### Added
 - Upgrade the IpToCountry.dat file format to version 3.
 - A tri-state filter for password-protected servers. (#4008)
+- Wadseeker: add a bunch of websites to the WAD search list: (#4053)
+    - https://doomshack.org/wadlist.php
+    - https://wads.firestick.games/
+    - https://euroboros.net/zandronum/wads/
+    - https://static.dudoomers.com/wads/
 
 ### Changed
 - Refresh the servers in a randomized order rather than the order
