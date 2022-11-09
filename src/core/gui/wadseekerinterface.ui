@@ -63,6 +63,9 @@
      </item>
      <item>
       <widget class="WadseekerWadsTable" name="twWads">
+       <property name="contextMenuPolicy">
+        <enum>Qt::CustomContextMenu</enum>
+       </property>
        <property name="selectionMode">
         <enum>QAbstractItemView::ExtendedSelection</enum>
        </property>

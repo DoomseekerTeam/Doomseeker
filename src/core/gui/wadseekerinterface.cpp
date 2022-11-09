@@ -196,8 +196,8 @@ void WadseekerInterface::construct()
 	connectWadseekerObject();
 
 	// Connect tables.
-	this->connect(d->twWads, SIGNAL(rightMouseClick(const QModelIndex&,const QPoint&)),
-		SLOT(wadsTableRightClicked(const QModelIndex&,const QPoint&)));
+	connect(d->twWads, &QWidget::customContextMenuRequested,
+		this, &WadseekerInterface::showWadsTableContextMenu);
 
 	bAutomatic = false;
 	bFirstShown = false;
@@ -535,9 +535,10 @@ QList<PWad> WadseekerInterface::unsuccessfulWads() const
 	return allWads;
 }
 
-void WadseekerInterface::wadsTableRightClicked(const QModelIndex &index, const QPoint &cursorPosition)
+void WadseekerInterface::showWadsTableContextMenu(const QPoint &position)
 {
-	WadseekerWadsTable::ContextMenu *menu = d->twWads->contextMenu(index, cursorPosition);
+	const QModelIndex index = d->twWads->indexAt(position);
+	WadseekerWadsTable::ContextMenu *menu = d->twWads->contextMenu(index, position);
 
 	// Disable actions depending on Wadseeker's state.
 	QString fileName = d->twWads->fileNameAtRow(index.row());
