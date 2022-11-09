@@ -92,7 +92,7 @@ public slots:
 	void setGroupServersWithPlayersAtTop(bool b);
 
 	void tableMiddleClicked();
-	void tableRightClicked(const QModelIndex &index, const QPoint &cursorPosition);
+	void showContextMenu(const QPoint &position);
 	void updateCountryFlags();
 
 signals:

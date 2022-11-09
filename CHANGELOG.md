@@ -53,6 +53,8 @@ small messages arrive. (#4026)
 server list on program start if disabled. (#3772)
 - Wrong amount of free server slots was reported if server allowed more
 players to join the game than clients to connect to the server. (#4038)
+- Bring up the context menu for the server list when the keyboard
+menu key is pressed. (#3671)
 - Wadseeker: custom (server-provided) template URLs with the %WADNAME%
 placeholder wouldn't get the higher priority status that the plain
 custom URLs normally enjoy. (#3996)
