@@ -4403,7 +4403,7 @@ nie istnieje lub nie jest plikiem.</translation>
     <message>
         <location filename="../gui/ip2cupdatebox.ui" line="20"/>
         <source>Doomseeker - Update IP2C</source>
-        <translation>Doomeeker - Aktualizuj IP2C</translation>
+        <translation>Doomseeker - Aktualizuj IP2C</translation>
     </message>
     <message>
         <location filename="../gui/ip2cupdatebox.ui" line="26"/>
@@ -4421,7 +4421,7 @@ nie istnieje lub nie jest plikiem.</translation>
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Please note that IP2C update is performed in the background. Doomseeker will notify you of download progress through a progress bar and log messages.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;The IP2C update is performed in the background. Doomseeker will notify you of download progress through a progress bar and log messages.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }

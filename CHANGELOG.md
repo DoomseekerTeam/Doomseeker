@@ -31,6 +31,8 @@ redirect the IP2C licensing info to a Doomseeker's webpage instead of
 displaying anything that was hardcoded at the time when Doomseeker was
 compiled and could potentially not be accurate anymore at the time of
 viewing. (#3952)
+- Hide the IP2C update actions in the IP2C updater dialog box if the
+updater determines that the local DB is the same as the remote one. (#3731)
 - Wadseeker: added `sigil_shreds` and `sigil_shreds_compat` to the
 list of forbidden downloads.
 - Wadseeker: upgrade LZMA SDK to version 22.01. (#3934)

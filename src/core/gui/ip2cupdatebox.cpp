@@ -51,6 +51,10 @@ IP2CUpdateBox::IP2CUpdateBox(QWidget *parent)
 	d->ip2cUpdater = new IP2CUpdater(this);
 	this->connect(d->ip2cUpdater, SIGNAL(updateNeeded(int)), SLOT(updateInfo(int)));
 
+	d->updateInfoPanel->hide();
+	d->btnUpdate->hide();
+	this->adjustSize();
+
 	start();
 }
 
@@ -92,6 +96,7 @@ void IP2CUpdateBox::start()
 
 void IP2CUpdateBox::updateInfo(int status)
 {
+	bool canUpdate = true;
 	d->progressBar->hide();
 	switch (status)
 	{
@@ -102,6 +107,7 @@ void IP2CUpdateBox::updateInfo(int status)
 	case IP2CUpdater::UpToDate:
 		d->lblStatusIcon->setPixmap(QPixmap(":/icons/edit-redo.png"));
 		d->lblDatabaseStatus->setText(tr("Database is up-to-date."));
+		canUpdate = false;
 		break;
 	case IP2CUpdater::UpdateCheckError:
 		d->lblStatusIcon->setPixmap(QPixmap(":/icons/x.png"));
@@ -112,4 +118,7 @@ void IP2CUpdateBox::updateInfo(int status)
 		d->lblDatabaseStatus->setText(tr("Unhandled update check status."));
 		break;
 	}
+	d->updateInfoPanel->setVisible(canUpdate);
+	d->btnUpdate->setVisible(canUpdate);
+	d->btnCancel->setText(canUpdate ? tr("Cancel") : tr("Close"));
 }
