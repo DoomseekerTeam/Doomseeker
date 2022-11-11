@@ -101,7 +101,7 @@ void IP2CUpdateBox::updateInfo(int status)
 	{
 	case IP2CUpdater::UpdateNeeded:
 		d->lblStatusIcon->setPixmap(QPixmap(":/icons/edit-redo-red.png"));
-		d->lblDatabaseStatus->setText(tr("Update required."));
+		d->lblDatabaseStatus->setText(tr("Update available."));
 		break;
 	case IP2CUpdater::UpToDate:
 		d->lblStatusIcon->setPixmap(QPixmap(":/icons/edit-redo.png"));
@@ -110,7 +110,7 @@ void IP2CUpdateBox::updateInfo(int status)
 		break;
 	case IP2CUpdater::UpdateCheckError:
 		d->lblStatusIcon->setPixmap(QPixmap(":/icons/x.png"));
-		d->lblDatabaseStatus->setText(tr("Database status check failed. See log for details."));
+		d->lblDatabaseStatus->setText(tr("Database status check failed. See the log for details."));
 		break;
 	default:
 		d->lblStatusIcon->setPixmap(QPixmap(":/icons/x.png"));
