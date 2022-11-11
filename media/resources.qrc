@@ -78,6 +78,7 @@
 	<file alias="flags/country/COL">flags/COL.png</file> <!-- Colombia -->
 	<file alias="flags/country/CRI">flags/CRI.png</file> <!-- Costa Rica -->
 	<file alias="flags/country/CS" >flags/CS.png</file>  <!-- Serbia and Montenegro -->
+	<file alias="flags/country/CYP">flags/CYP.png</file> <!-- Cyprus -->
 	<file alias="flags/country/CZE">flags/CZE.png</file> <!-- Czech Republic -->
 	<file alias="flags/country/DEU">flags/DEU.png</file> <!-- Germany -->
 	<file alias="flags/country/DNK">flags/DNK.png</file> <!-- Denmark -->

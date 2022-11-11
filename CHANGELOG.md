@@ -17,6 +17,7 @@ and this project does not adhere to
     - https://wads.firestick.games/
     - https://euroboros.net/zandronum/wads/
     - https://static.dudoomers.com/wads/
+- Cyprus country flag.
 
 ### Changed
 - Refresh the servers in a randomized order rather than the order
