@@ -55,6 +55,8 @@ public:
 	static const int IDX_ETA_COLUMN = 4;
 	static const int IDX_SIZE_COLUMN = 5;
 
+	static const int PROGRESS_COLUMN_WIDTH = 85;
+
 	WadseekerWadsTable(QWidget *pParent = nullptr);
 	~WadseekerWadsTable() override;
 

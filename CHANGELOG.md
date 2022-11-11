@@ -58,6 +58,7 @@ server list on program start if disabled. (#3772)
 players to join the game than clients to connect to the server. (#4038)
 - Bring up the context menu for the server list and for Wadseeker's WADs
 table when the keyboard menu key is pressed. (#3671)
+- Fix the layouting issues with progress bars in Wadseeker's dialog box. (#3707)
 - Wadseeker: custom (server-provided) template URLs with the %WADNAME%
 placeholder wouldn't get the higher priority status that the plain
 custom URLs normally enjoy. (#3996)
