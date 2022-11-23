@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 #include "ircsounds.h"
 
+#include "datapaths.h"
 #include "irc/configuration/ircconfig.h"
 
 #include <QFileInfo>
@@ -46,7 +47,7 @@ void IRCSounds::loadFromConfig()
 
 QSoundEffect *IRCSounds::loadIfExists(const QString &path)
 {
-	QFileInfo fileInfo(path);
+	QFileInfo fileInfo(gDefaultDataPaths->resolveTemplated(path));
 	if (fileInfo.isFile())
 	{
 		auto sfx = new QSoundEffect();
