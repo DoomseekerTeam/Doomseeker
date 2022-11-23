@@ -88,7 +88,7 @@ int ChatLogsCfg::oldLogsRemovalDaysThreshold() const
 
 void ChatLogsCfg::setOldLogsRemovalDaysThreshold(int val)
 {
-	setValue("OldlogsRemovalDaysThreshold", val);
+	setValue("OldLogsRemovalDaysThreshold", val);
 }
 
 void ChatLogsCfg::setValue(const QString &key, const QVariant &value)
