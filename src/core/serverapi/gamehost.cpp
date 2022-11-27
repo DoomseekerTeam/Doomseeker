@@ -25,7 +25,6 @@
 #include "apprunner.h"
 #include "commandlinetokenizer.h"
 #include "configuration/doomseekerconfig.h"
-#include "datapaths.h"
 #include "gamedemo.h"
 #include "ini/inisection.h"
 #include "ini/inivariable.h"
@@ -33,6 +32,7 @@
 #include "serverapi/gamecreateparams.h"
 #include "serverapi/message.h"
 #include "serverapi/serverstructs.h"
+#include "templatedpathresolver.h"
 #include <cassert>
 #include <QFileInfo>
 #include <QStringList>
@@ -110,7 +110,7 @@ void GameHost::addDemoPlaybackIfApplicable()
 	if (params().hostMode() == GameCreateParams::Demo)
 	{
 		args() << argForDemoPlayback();
-		args() << gDefaultDataPaths->resolveTemplated(params().demoPath());
+		args() << gDoomseekerTemplatedPathResolver().resolve(params().demoPath());
 	}
 }
 
@@ -120,7 +120,7 @@ void GameHost::addDemoRecordIfApplicable()
 		&& params().demoRecord() != GameDemo::NoDemo)
 	{
 		args() << argForDemoRecord();
-		args() << gDefaultDataPaths->resolveTemplated(params().demoPath());
+		args() << gDoomseekerTemplatedPathResolver().resolve(params().demoPath());
 	}
 }
 
@@ -150,7 +150,7 @@ void GameHost::addIwad_default()
 		return;
 	}
 
-	QFileInfo fi(gDefaultDataPaths->resolveTemplated(iwadPath));
+	QFileInfo fi(gDoomseekerTemplatedPathResolver().resolve(iwadPath));
 
 	if (!fi.isFile())
 	{
@@ -158,7 +158,7 @@ void GameHost::addIwad_default()
 		setMessage(Message::customError(error));
 	}
 
-	args() << argForIwadLoading() << gDefaultDataPaths->resolveTemplated(iwadPath);
+	args() << argForIwadLoading() << gDoomseekerTemplatedPathResolver().resolve(iwadPath);
 }
 
 void GameHost::addPwads_default()
@@ -167,7 +167,7 @@ void GameHost::addPwads_default()
 	for (int i = 0; i < params().pwadsPaths().size(); ++i)
 	{
 		const QString &pwad = params().pwadsPaths()[i];
-		args() << fileLoadingPrefix(i) << gDefaultDataPaths->resolveTemplated(pwad);
+		args() << fileLoadingPrefix(i) << gDoomseekerTemplatedPathResolver().resolve(pwad);
 	}
 }
 
@@ -186,7 +186,7 @@ void GameHost::addPwads_prefixOnce()
 		args() << prefix;
 		for (const QString &file : groups[prefix])
 		{
-			args() << gDefaultDataPaths->resolveTemplated(file);
+			args() << gDoomseekerTemplatedPathResolver().resolve(file);
 		}
 	}
 }
@@ -430,7 +430,7 @@ void GameHost::setMessage(const Message &message)
 
 void GameHost::setupGamePaths()
 {
-	QFileInfo fileInfo(gDefaultDataPaths->resolveTemplated(params().executablePath()));
+	QFileInfo fileInfo(gDoomseekerTemplatedPathResolver().resolve(params().executablePath()));
 	if (!fileInfo.isFile() && !fileInfo.isBundle())
 	{
 		QString error = tr("%1\ndoesn't exist or is not a file.").arg(fileInfo.filePath());
@@ -445,7 +445,7 @@ bool GameHost::verifyPwadPaths()
 {
 	for (const QString &pwad : params().pwadsPaths())
 	{
-		QFileInfo fi(gDefaultDataPaths->resolveTemplated(pwad));
+		QFileInfo fi(gDoomseekerTemplatedPathResolver().resolve(pwad));
 		if (!fi.isFile())
 		{
 			QString error = tr("PWAD path error:\n\"%1\" doesn't exist or is a directory!").arg(pwad);

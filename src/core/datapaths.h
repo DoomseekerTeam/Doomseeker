@@ -275,42 +275,6 @@ public:
 	bool isPortableModeOn() const;
 
 	/**
-	 * @brief Resolution mechanism for paths that can contain dynamically
-	 * resolvable placeholders.
-	 *
-	 * Allowed placeholders are:
-	 *
-	 * * `$PROGDIR` (capitals important) resolves to the directory where
-	 *   the application's executable resides.
-	 * * `$` character followed by a letter or underscore followed optionally
-	 *   by a string of letters, digits or underscores is treated as an env.
-	 *   variable and a resolution using such variable is attempted. If there's
-	 *   no matching env. variable, the placeholder resolves to an empty string.
-	 *   Regex: `$[a-zA-Z_][a-zA-Z0-9_]*`.
-	 * * `~` character at the beginning, followed by a directory delimiter
-	 *   or end of the string is replaced with current user's home directory.
-	 *   The `~someone` pattern will resolve to the home directory of "someone"
-	 *   but only on a UNIX system. On MS Windows, the `~` pattern is resolved
-	 *   but `~someone` is not.
-	 *
-	 * While Windows platform quotes the env. variables with `%`, DataPaths
-	 * doesn't follow this pattern and uses the `$` prefix universally for
-	 * all platforms.
-	 *
-	 * @return Path with all placeholders resolved as best as possible.
-	 * The returned path is not normalized.
-	 */
-	QString resolveTemplated(const QString &templatedPath) const;
-
-	/**
-	 * @brief Convenience method, calls resolveTemplated() for each element.
-	 *
-	 * @return List transformed by resolveTemplated().
-	 */
-	QStringList resolveTemplated(const QStringList &templatedPaths) const;
-
-
-	/**
 	 * @brief Changes the location returned by workingDirectory.
 	 *
 	 * No longer used internally. Previously this was used to logically set

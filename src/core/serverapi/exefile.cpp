@@ -22,12 +22,12 @@
 //------------------------------------------------------------------------------
 #include "exefile.h"
 
-#include "datapaths.h"
 #include "configuration/doomseekerconfig.h"
 #include "ini/inisection.h"
 #include "ini/inivariable.h"
 #include "message.h"
 #include "plugins/engineplugin.h"
+#include "templatedpathresolver.h"
 
 #include <QFileInfo>
 #include <QString>
@@ -81,7 +81,7 @@ QString ExeFile::pathToExe(Message &message)
 		return QString();
 	}
 
-	QFileInfo fi(gDefaultDataPaths->resolveTemplated(path));
+	QFileInfo fi(gDoomseekerTemplatedPathResolver().resolve(path));
 
 	if (!fi.exists() || (fi.isDir() && !fi.isBundle()))
 	{

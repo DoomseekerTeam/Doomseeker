@@ -278,6 +278,7 @@ set(HEADER_FILES
 	socketsignalsadapter.h
 	speedcalculator.h
 	strings.hpp
+	templatedpathresolver.h
 	tests/testbase.h
 	tests/testcore.h
 	tests/testdatapaths.h
@@ -287,6 +288,7 @@ set(HEADER_FILES
 	tests/testplayer.h
 	tests/testruns.h
 	tests/teststrings.h
+	tests/testtemplatedpathresolver.h
 	tests/testutf8splitter.h
 	updater/autoupdater.h
 	updater/updatechannel.h
@@ -509,6 +511,7 @@ set(SOURCE_FILES
 	serverapi/tooltips/tooltipgenerator.cpp
 	speedcalculator.cpp
 	strings.cpp
+	templatedpathresolver.cpp
 	tests/testbase.cpp
 	tests/testcore.cpp
 	tests/testdatapaths.cpp
@@ -518,6 +521,7 @@ set(SOURCE_FILES
 	tests/testplayer.cpp
 	tests/testruns.cpp
 	tests/teststrings.cpp
+	tests/testtemplatedpathresolver.cpp
 	tests/testutf8splitter.cpp
 	updater/autoupdater.cpp
 	updater/updatechannel.cpp

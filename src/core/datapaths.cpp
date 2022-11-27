@@ -56,11 +56,6 @@ extern Q_CORE_EXPORT int qt_ntfs_permission_lookup;
 int qt_ntfs_permission_lookup;
 #endif
 
-#ifdef Q_OS_UNIX
-#include <sys/types.h>
-#include <pwd.h>
-#endif
-
 static QList<DataPaths::DirErrno> uniqueErrnosByDir(const QList<DataPaths::DirErrno> &errnos)
 {
 	QSet<QString> uniqueDirs;
@@ -401,82 +396,6 @@ QString DataPaths::programFilesDirectory(MachineType machineType)
 QString DataPaths::programsDataDirectoryPath() const
 {
 	return d->configDirectory.absolutePath();
-}
-
-QString DataPaths::resolveTemplated(const QString &templatedPath) const
-{
-	QString resolved = templatedPath;
-
-	// Match ~ to home dir.
-	if (resolved.startsWith("~"))
-	{
-#ifdef Q_OS_WIN
-		const QRegExp separatorRegex(R"([/\\])");
-#else
-		const QRegExp separatorRegex("/");
-#endif
-		int separatorIdx = separatorRegex.indexIn(resolved);
-
-		QString username = resolved.mid(1, separatorIdx - 1);
-		QString home;
-		if (username.isEmpty())
-		{
-			home = QDir::homePath();
-		}
-		else
-		{
-			home = QString("~%1").arg(username);
-#ifdef Q_OS_UNIX
-			const struct passwd *pwent = getpwnam(username.toLatin1().constData());
-			if (pwent != nullptr)
-			{
-				home = pwent->pw_dir;
-			}
-#endif
-		}
-		if (separatorIdx > 0)
-		{
-			resolved = home + resolved.mid(separatorIdx);
-		}
-		else
-		{
-			resolved = home;
-		}
-	}
-
-	// Match arbitrary env. vars.
-	QRegExp envVarRegex("\\$([a-zA-Z_][a-zA-Z0-9_]*)");
-	int offset = 0;
-	while (true)
-	{
-		int varIdx = envVarRegex.indexIn(resolved, offset);
-		if (varIdx < 0)
-			break;
-		QString name = envVarRegex.cap(1);
-		QString varValue = "";
-
-		// $PROGDIR is a special placeholder that always resolves to the directory
-		// where executable is stored, even if an env. var with the same name exists.
-		if (name == "PROGDIR")
-		{
-			varValue = QCoreApplication::applicationDirPath();
-		}
-		else if (QProcessEnvironment::systemEnvironment().contains(name))
-		{
-			varValue = qgetenv(name.toUtf8());
-		}
-		resolved = resolved.left(varIdx) + varValue + resolved.mid(varIdx + envVarRegex.matchedLength());
-		offset = varIdx + varValue.length();
-	}
-	return resolved;
-}
-
-QStringList DataPaths::resolveTemplated(const QStringList &templatedPaths) const
-{
-	QStringList transformed;
-	for (const QString &path : templatedPaths)
-		transformed << resolveTemplated(path);
-	return transformed;
 }
 
 void DataPaths::setWorkingDirectory(const QString &workingDirectory)

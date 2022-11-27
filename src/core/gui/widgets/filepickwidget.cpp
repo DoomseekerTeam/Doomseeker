@@ -22,12 +22,12 @@
 //------------------------------------------------------------------------------
 #include "filepickwidget.h"
 
-#include "datapaths.h"
 #include "filefilter.h"
 #include "ini/inisection.h"
 #include "ini/inivariable.h"
 #include "pathfinder/pathfind.h"
 #include "serverapi/gamefile.h"
+#include "templatedpathresolver.h"
 #include "ui_filepickwidget.h"
 #include <QFileDialog>
 #include <QString>
@@ -70,7 +70,7 @@ void FilePickWidget::browsePath()
 
 void FilePickWidget::findPath()
 {
-	QFileInfo currentFile(gDefaultDataPaths->resolveTemplated(path()));
+	QFileInfo currentFile(gDoomseekerTemplatedPathResolver().resolve(path()));
 	if (currentFile.isFile() && d->file.isSameFile(currentFile.fileName()))
 		return;
 	QString path = PathFind::findGameFile(d->neighbourStrategy->neighbours(), d->file);
@@ -138,7 +138,7 @@ bool FilePickWidget::validate()
 {
 	QString error;
 
-	QFileInfo fileInfo(gDefaultDataPaths->resolveTemplated(path()));
+	QFileInfo fileInfo(gDoomseekerTemplatedPathResolver().resolve(path()));
 	if (!path().isEmpty())
 	{
 		if (error.isEmpty() && !fileInfo.exists())

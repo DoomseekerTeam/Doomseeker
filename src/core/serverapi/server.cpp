@@ -805,7 +805,7 @@ PathFinder Server::wadPathFinder()
 		GameExeRetriever exeRetriever(*plugin()->gameExe());
 		Message msg;
 		pathFinder.addPrioritySearchDir(
-			gDefaultDataPaths->resolveTemplated(exeRetriever.pathToOfflineExe(msg)));
+			gDoomseekerTemplatedPathResolver().resolve(exeRetriever.pathToOfflineExe(msg)));
 	}
 	#endif
 	if (isTestingServer())

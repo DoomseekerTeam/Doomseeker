@@ -24,11 +24,11 @@
 
 #include "zandronumbinaries.h"
 
-#include <datapaths.h>
 #include <ini/inisection.h>
 #include <plugins/engineplugin.h>
 #include <serverapi/exefile.h>
 #include <serverapi/gamefile.h>
+#include <templatedpathresolver.h>
 
 #include <QDir>
 
@@ -54,7 +54,7 @@ QList<ExeFilePath> ZandronumGameExeFactory::additionalExecutables(int execType) 
 	IniSection *cfg = plugin()->data()->pConfig;
 	if (cfg != nullptr)
 	{
-		QDir directory(gDefaultDataPaths->resolveTemplated(cfg->value("TestingPath").toString()));
+		QDir directory(gDoomseekerTemplatedPathResolver().resolve(cfg->value("TestingPath").toString()));
 		QStringList subdirs = directory.entryList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name | QDir::Reversed);
 		for (const QString &subdirName : subdirs)
 		{

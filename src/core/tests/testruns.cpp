@@ -27,6 +27,7 @@
 #include "tests/testmodreader.h"
 #include "tests/testplayer.h"
 #include "tests/teststrings.h"
+#include "tests/testtemplatedpathresolver.h"
 #include "tests/testutf8splitter.h"
 
 TestCore *TestRuns::pTestCore = nullptr;
@@ -40,9 +41,6 @@ void TestRuns::callTests()
 	pTestCore->executeTest(new TestDataPathsAppDataDirectoryWrite(false));
 	pTestCore->executeTest(new TestDataPathsAppDataDirectoryWrite(true));
 
-	pTestCore->executeTest(new TestDataPathsResolveTemplated(false));
-	pTestCore->executeTest(new TestDataPathsResolveTemplated(true));
-
 	// INI
 	// Note: All of these tests may fail if TestReadINI fails.
 	pTestCore->executeTest(new TestReadINI());
@@ -54,6 +52,8 @@ void TestRuns::callTests()
 	pTestCore->executeTest(new TestIRCISupportPrefix());
 	pTestCore->executeTest(new TestIRCISupportNoPrefix());
 
+	// Templated Path Resolver
+	pTestCore->executeTest(new TestTemplatedPathResolver());
 
 	// WadReader.
 	pTestCore->executeTest(new TestModReader());

@@ -22,9 +22,9 @@
 //------------------------------------------------------------------------------
 #include "chatlogs.h"
 
-#include "datapaths.h"
 #include "irc/configuration/chatlogscfg.h"
 #include "irc/entities/ircnetworkentity.h"
+#include "templatedpathresolver.h"
 #include <QDir>
 #include <QMessageBox>
 
@@ -33,7 +33,7 @@ DClass<ChatLogs>
 public:
 	QString rootPath() const
 	{
-		return gDefaultDataPaths->resolveTemplated(ChatLogsCfg().chatLogsRootDir());
+		return gDoomseekerTemplatedPathResolver().resolve(ChatLogsCfg().chatLogsRootDir());
 	}
 };
 

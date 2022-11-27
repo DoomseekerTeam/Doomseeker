@@ -23,7 +23,7 @@
 #include "cfgfilepaths.h"
 #include "configuration/doomseekerconfig.h"
 #include "pathfinder/filesearchpath.h"
-#include "datapaths.h"
+#include "templatedpathresolver.h"
 #include "ui_cfgfilepaths.h"
 #include <QFileDialog>
 
@@ -170,7 +170,7 @@ ConfigPage::Validation CFGFilePaths::validate()
 	{
 		QTableWidgetItem *itemPath = d->tblFilePaths->item(i, COL_PATH);
 
-		QString validationError = validatePath(gDefaultDataPaths->resolveTemplated(itemPath->text()));
+		QString validationError = validatePath(gDoomseekerTemplatedPathResolver().resolve(itemPath->text()));
 		bool valid = validationError.isEmpty();
 		allPathsValid = allPathsValid && valid;
 

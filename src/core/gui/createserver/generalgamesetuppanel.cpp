@@ -24,7 +24,6 @@
 #include "ui_generalgamesetuppanel.h"
 
 #include "configuration/doomseekerconfig.h"
-#include "datapaths.h"
 #include "filefilter.h"
 #include "gui/createserver/maplistpanel.h"
 #include "gui/createserverdialog.h"
@@ -34,6 +33,7 @@
 #include "serverapi/gamecreateparams.h"
 #include "serverapi/gameexefactory.h"
 #include "serverapi/gamefile.h"
+#include "templatedpathresolver.h"
 #include <cassert>
 #include <QFileDialog>
 #include <QFileInfo>
@@ -95,10 +95,10 @@ QStringList GeneralGameSetupPanel::getAllWadPaths() const
 
 void GeneralGameSetupPanel::fillInParams(GameCreateParams &params)
 {
-	params.setExecutablePath(gDefaultDataPaths->resolveTemplated(pathToExe()));
-	params.setIwadPath(gDefaultDataPaths->resolveTemplated(d->iwadPicker->currentIwad()));
-	params.setLoggingPath(gDefaultDataPaths->resolveTemplated(d->logDirectoryPicker->validatedCurrentPath()));
-	params.setPwadsPaths(gDefaultDataPaths->resolveTemplated(d->wadsPicker->filePaths()));
+	params.setExecutablePath(gDoomseekerTemplatedPathResolver().resolve(pathToExe()));
+	params.setIwadPath(gDoomseekerTemplatedPathResolver().resolve(d->iwadPicker->currentIwad()));
+	params.setLoggingPath(gDoomseekerTemplatedPathResolver().resolve(d->logDirectoryPicker->validatedCurrentPath()));
+	params.setPwadsPaths(gDoomseekerTemplatedPathResolver().resolve(d->wadsPicker->filePaths()));
 	params.setPwadsOptional(d->wadsPicker->fileOptional());
 	params.setBroadcastToLan(d->cbBroadcastToLAN->isChecked());
 	params.setBroadcastToMaster(d->cbBroadcastToMaster->isChecked());

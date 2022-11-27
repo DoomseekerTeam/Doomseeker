@@ -23,7 +23,6 @@
 #include "gameexecutablepicker.h"
 
 #include "configuration/doomseekerconfig.h"
-#include "datapaths.h"
 #include "filefilter.h"
 #include "gui/commongui.h"
 #include "ini/ini.h"
@@ -31,6 +30,7 @@
 #include "serverapi/exefile.h"
 #include "serverapi/gameexefactory.h"
 #include "serverapi/gamefile.h"
+#include "templatedpathresolver.h"
 #include "ui_gameexecutablepicker.h"
 #include <QFileDialog>
 
@@ -174,7 +174,7 @@ void GameExecutablePicker::reloadExecutables()
 	}
 	for (const ExeFilePath &exe : d->plugin->gameExe()->additionalExecutables(d->allowedExecs))
 	{
-		QFileInfo fileInfo(gDefaultDataPaths->resolveTemplated(exe.path()));
+		QFileInfo fileInfo(gDoomseekerTemplatedPathResolver().resolve(exe.path()));
 		if (fileInfo.isFile())
 			add(exe.path());
 	}

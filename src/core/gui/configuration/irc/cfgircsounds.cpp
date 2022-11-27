@@ -6,8 +6,8 @@
 #include "cfgircsounds.h"
 #include "ui_cfgircsounds.h"
 
-#include "datapaths.h"
 #include "irc/configuration/ircconfig.h"
+#include "templatedpathresolver.h"
 #include <QFileInfo>
 #include <QFileDialog>
 #include <QSoundEffect>
@@ -72,7 +72,7 @@ void CFGIRCSounds::playPrivateMessage()
 
 void CFGIRCSounds::playSound(const QString &path) const
 {
-	QFileInfo file(gDefaultDataPaths->resolveTemplated(path));
+	QFileInfo file(gDoomseekerTemplatedPathResolver().resolve(path));
 	if (file.exists())
 	{
 		d->sfx->setSource(QUrl::fromLocalFile(file.absoluteFilePath()));
@@ -128,7 +128,7 @@ ConfigPage::Validation CFGIRCSounds::validate()
 
 QString CFGIRCSounds::validateFilePath(QString path) const
 {
-	path = gDefaultDataPaths->resolveTemplated(path);
+	path = gDoomseekerTemplatedPathResolver().resolve(path);
 	if (path.trimmed().isEmpty())
 		return tr("No path specified.");
 

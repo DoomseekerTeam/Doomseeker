@@ -24,7 +24,6 @@
 
 #include "../wadseeker/zip/unarchive.h"
 #include "application.h"
-#include "datapaths.h"
 #include "plugins/engineplugin.h"
 #include "serverapi/message.h"
 #include "version.h"
@@ -34,6 +33,8 @@
 
 #include <ini/inisection.h>
 #include <ini/inivariable.h>
+#include <templatedpathresolver.h>
+
 #include <QBuffer>
 #include <QDir>
 #include <QFileInfo>
@@ -108,7 +109,7 @@ Message ZandronumClientExeFile::install(QWidget *parent)
 {
 	if (askToInstallTestingVersion(parent))
 	{
-		const QString path = gDefaultDataPaths->resolveTemplated(
+		const QString path = gDoomseekerTemplatedPathResolver().resolve(
 			config()["TestingPath"].valueString());
 		if (path.isEmpty())
 		{
@@ -131,7 +132,7 @@ Message ZandronumClientExeFile::install(QWidget *parent)
 		// Now copy all .ini's. On Linux .ini's are kept in ~/.zandronum so this will
 		// do nothing, but on Windows this should work like magic.
 		Message message;
-		QDir baseBinaryDir(gDefaultDataPaths->resolveTemplated(workingDirectory(message)));
+		QDir baseBinaryDir(gDoomseekerTemplatedPathResolver().resolve(workingDirectory(message)));
 		QStringList nameFilters;
 		nameFilters << "*.ini";
 		QStringList iniFiles = baseBinaryDir.entryList(nameFilters, QDir::Files);
@@ -158,7 +159,7 @@ bool ZandronumClientExeFile::askToInstallTestingVersion(QWidget *parent) const
 {
 	QString question;
 	QMessageBox::Icon icon = QMessageBox::NoIcon;
-	const QString installPath = gDefaultDataPaths->resolveTemplated(testingVersionInstallPath());
+	const QString installPath = gDoomseekerTemplatedPathResolver().resolve(testingVersionInstallPath());
 	if (d->isNonEmptyDir(installPath))
 	{
 		question = tr("<p>Installation of testing binaries for version %1 "
@@ -210,7 +211,7 @@ QString ZandronumClientExeFile::pathToExe(Message &message)
 			return QString();
 		}
 
-		const QString path = gDefaultDataPaths->resolveTemplated(testingVersionInstallPath());
+		const QString path = gDoomseekerTemplatedPathResolver().resolve(testingVersionInstallPath());
 
 		QFileInfo fi(path);
 		if (!fi.exists() || d->isEmptyDir(path))
@@ -268,7 +269,7 @@ QString ZandronumClientExeFile::workingDirectory(Message &message)
 	Q_UNUSED(message);
 	IniSection &config = *ZandronumEnginePlugin::staticInstance()->data()->pConfig;
 
-	QFileInfo fi(gDefaultDataPaths->resolveTemplated(config["BinaryPath"].valueString()));
+	QFileInfo fi(gDoomseekerTemplatedPathResolver().resolve(config["BinaryPath"].valueString()));
 	return fi.path();
 }
 

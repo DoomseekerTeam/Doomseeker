@@ -24,8 +24,8 @@
 #include "ui_cfgwadseekergeneral.h"
 
 #include "configuration/doomseekerconfig.h"
-#include "datapaths.h"
 #include "pathfinder/filesearchpath.h"
+#include "templatedpathresolver.h"
 #include <QCompleter>
 #include <QDebug>
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
@@ -84,7 +84,7 @@ void CFGWadseekerGeneral::activateCompleter()
 		// QTBUG-38014). We'll conservatively use QFileSystemModel on Qt 6 only.
 		auto completer = new QCompleter(this);
 		auto model = new QFileSystemModel(completer);
-		model->setRootPath(gDefaultDataPaths->resolveTemplated(d->targetDirectory()));
+		model->setRootPath(gDoomseekerTemplatedPathResolver().resolve(d->targetDirectory()));
 		completer->setModel(model);
 		d->cbTargetDirectory->setCompleter(completer);
 #else
@@ -126,7 +126,7 @@ ConfigPage::Validation CFGWadseekerGeneral::validate()
 {
 	QString error;
 
-	QFileInfo targetDirectory(gDefaultDataPaths->resolveTemplated(d->targetDirectory()));
+	QFileInfo targetDirectory(gDoomseekerTemplatedPathResolver().resolve(d->targetDirectory()));
 	if (error.isEmpty() && d->targetDirectory().isEmpty())
 		error = tr("No path specified.");
 

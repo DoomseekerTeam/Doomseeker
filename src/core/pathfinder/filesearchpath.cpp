@@ -22,7 +22,7 @@
 //------------------------------------------------------------------------------
 #include "filesearchpath.h"
 
-#include "datapaths.h"
+#include "templatedpathresolver.h"
 
 #include <QStringList>
 
@@ -77,15 +77,15 @@ bool FileSearchPath::isValid() const
 	return path_.isNull();
 }
 
-FileSearchPath FileSearchPath::resolveTemplated(DataPaths &resolver,
+FileSearchPath FileSearchPath::resolveTemplated(TemplatedPathResolver &resolver,
 	const FileSearchPath &path)
 {
 	FileSearchPath resolved = path;
-	resolved.path_ = resolver.resolveTemplated(resolved.path_);
+	resolved.path_ = resolver.resolve(resolved.path_);
 	return resolved;
 }
 
-QList<FileSearchPath> FileSearchPath::resolveTemplated(DataPaths &resolver,
+QList<FileSearchPath> FileSearchPath::resolveTemplated(TemplatedPathResolver &resolver,
 	const QList<FileSearchPath> &paths)
 {
 	QList<FileSearchPath> resolved;

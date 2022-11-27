@@ -25,7 +25,6 @@
 #include "apprunner.h"
 #include "commandlinetokenizer.h"
 #include "configuration/doomseekerconfig.h"
-#include "datapaths.h"
 #include "gui/checkwadsdlg.h"
 #include "ini/inisection.h"
 #include "ini/inivariable.h"
@@ -37,6 +36,7 @@
 #include "serverapi/gameexeretriever.h"
 #include "serverapi/message.h"
 #include "serverapi/server.h"
+#include "templatedpathresolver.h"
 #include <QDir>
 #include <QScopedPointer>
 #include <QStringList>
@@ -621,12 +621,12 @@ void GameClientRunner::setArgForDemoRecord(const QString &arg)
 
 void GameClientRunner::setExecutable(const QString &path)
 {
-	d->cli->executable = QFileInfo(gDefaultDataPaths->resolveTemplated(path));
+	d->cli->executable = QFileInfo(gDoomseekerTemplatedPathResolver().resolve(path));
 }
 
 void GameClientRunner::setWorkingDir(const QString &path)
 {
-	d->cli->applicationDir.setPath(gDefaultDataPaths->resolveTemplated(path));
+	d->cli->applicationDir.setPath(gDoomseekerTemplatedPathResolver().resolve(path));
 }
 
 JoinError GameClientRunner::joinError() const
@@ -646,6 +646,6 @@ void GameClientRunner::setupPathFinder()
 
 QString GameClientRunner::wadTargetDirectory() const
 {
-	return gDefaultDataPaths->resolveTemplated(
+	return gDoomseekerTemplatedPathResolver().resolve(
 		DoomseekerConfig::config().wadseeker.targetDirectory);
 }

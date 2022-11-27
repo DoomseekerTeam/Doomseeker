@@ -35,6 +35,7 @@
 #include "pathfinder/filealias.h"
 #include "pathfinder/filesearchpath.h"
 #include "plugins/engineplugin.h"
+#include "templatedpathresolver.h"
 #include "scanner.h"
 #include "strings.hpp"
 #include "updater/updatechannel.h"
@@ -572,8 +573,8 @@ void DoomseekerConfig::DoomseekerCfg::setWadAliases(const QList<FileAlias> &val)
 void DoomseekerConfig::DoomseekerCfg::enableFreedoomInstallation(const QString &dir)
 {
 	if (!FileUtils::containsPath(
-			gDefaultDataPaths->resolveTemplated(wadPathsOnly()),
-			gDefaultDataPaths->resolveTemplated(dir)))
+			gDoomseekerTemplatedPathResolver().resolve(wadPathsOnly()),
+			gDoomseekerTemplatedPathResolver().resolve(dir)))
 	{
 		wadPaths.prepend(dir);
 	}
