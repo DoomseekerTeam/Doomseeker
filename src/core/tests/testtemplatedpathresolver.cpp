@@ -47,7 +47,8 @@ bool TestTemplatedPathResolver::executeTest()
 	resolver.setUserHomeEnabled(true);
 
 	// PROGDIR
-	qputenv("PROGDIR", "this env. var should be ignored");
+	const QString PROGDIR_VALUE = "this env. var should be ignored";
+	qputenv("PROGDIR", PROGDIR_VALUE.toUtf8());
 	QString exeLocation = QCoreApplication::applicationDirPath();
 	if (resolver.resolve("$PROGDIR") != exeLocation)
 	{
@@ -157,6 +158,90 @@ bool TestTemplatedPathResolver::executeTest()
 	{
 		testLog << QString("$PROGDIRECTORY resolution failure: %1 != %2")
 			.arg(resolver.resolve("$PROGDIRECTORY/logs"), "some/folder/logs");
+		return false;
+	}
+
+	// Now meddle a bit with the settings.
+
+	// Env vars disabled.
+	resolver.setEnvVarsEnabled(false);
+	qputenv("PROGDIRECTORY", "some/folder");
+	if (resolver.resolve("$PROGDIRECTORY/logs") != "$PROGDIRECTORY/logs")
+	{
+		testLog << QString("Env disabled - $PROGDIRECTORY should not be resolved: %1 != %2")
+			.arg(resolver.resolve("$PROGDIRECTORY/logs"), "$PROGDIRECTORY/logs");
+		return false;
+	}
+	if (resolver.resolve("$PROGDIR") != exeLocation)
+	{
+		testLog << QString("Env disabled - $PROGDIR should still be resolved: %1 != %2")
+			.arg(resolver.resolve("$PROGDIR"), exeLocation);
+		return false;
+	}
+
+	// Progdir disabled.
+	resolver.setEnvVarsEnabled(true);
+	resolver.setProgdirEnabled(false);
+	qputenv("PROGDIRECTORY", "some/folder");
+	if (resolver.resolve("$PROGDIRECTORY/logs") != "some/folder/logs")
+	{
+		testLog << QString("$PROGDIR disabled - $PROGDIRECTORY should still be resolved: %1 != %2")
+			.arg(resolver.resolve("$PROGDIRECTORY/logs"), "some/folder/logs");
+		return false;
+	}
+	if (resolver.resolve("$PROGDIR") != PROGDIR_VALUE)
+	{
+		testLog << QString("$PROGDIR disabled - $PROGDIR should still be resolved: %1 != %2")
+			.arg(resolver.resolve("$PROGDIR"), PROGDIR_VALUE);
+		return false;
+	}
+
+	// Both env and progdir disabled.
+	resolver.setEnvVarsEnabled(false);
+	resolver.setProgdirEnabled(false);
+
+	qputenv("PROGDIRECTORY", "some/folder");
+	if (resolver.resolve("$PROGDIRECTORY/logs") != "$PROGDIRECTORY/logs")
+	{
+		testLog << QString("$PROGDIR and env disabled - $PROGDIRECTORY should not be resolved: %1 != %2")
+			.arg(resolver.resolve("$PROGDIRECTORY/logs"), "$PROGDIRECTORY/logs");
+		return false;
+	}
+	if (resolver.resolve("$PROGDIR") != "$PROGDIR")
+	{
+		testLog << QString("$PROGDIR and env disabled - $PROGDIR should not be resolved: %1 != %2")
+			.arg(resolver.resolve("$PROGDIR"), "$PROGDIR");
+		return false;
+	}
+
+	// User home disabled.
+	resolver.setEnvVarsEnabled(true);
+	resolver.setProgdirEnabled(true);
+	resolver.setUserHomeEnabled(false);
+	if (resolver.resolve("~") != "~")
+	{
+		testLog << QString("Home resolution disabled - ~ failed: %1 != %2")
+			.arg(resolver.resolve("~"), "~");
+		return false;
+	}
+
+	if (resolver.resolve("~root") != "~root")
+	{
+		testLog << QString("Home resolution disabled - ~root failed: %1 != %2")
+			.arg(resolver.resolve("~root"), "~root");
+		return false;
+	}
+
+	// All disabled.
+	resolver.setEnvVarsEnabled(false);
+	resolver.setProgdirEnabled(false);
+	resolver.setUserHomeEnabled(false);
+
+	qputenv("PROGDIRECTORY", "some/folder");
+	if (resolver.resolve("~/$PROGDIR/$PROGDIRECTORY/log.txt") != "~/$PROGDIR/$PROGDIRECTORY/log.txt")
+	{
+		testLog << QString("All disabled failed: %1 != %2")
+			.arg(resolver.resolve("~/$PROGDIR/$PROGDIRECTORY/log.txt"), "~/$PROGDIR/$PROGDIRECTORY/log.txt");
 		return false;
 	}
 
