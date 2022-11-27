@@ -103,9 +103,10 @@ void ChocolateDoomGameClientRunner::joinPopulatedServer()
 	if (dialog->exec() == QDialog::Accepted)
 	{
 		overwriteExecutable = gDefaultDataPaths->resolveTemplated(dialog->executable());
-		args() << "-iwad" << dialog->iwadPath();
-		for (const QString &file : dialog->filePaths())
+		args() << "-iwad" << gDefaultDataPaths->resolveTemplated(dialog->iwadPath());
+		for (QString file : dialog->filePaths())
 		{
+			file = gDefaultDataPaths->resolveTemplated(file);
 			if (file.toLower().endsWith(".deh"))
 				args() << "-deh" << file;
 			else

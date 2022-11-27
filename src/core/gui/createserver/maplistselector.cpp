@@ -23,6 +23,7 @@
 #include "maplistselector.h"
 
 #include "commongui.h"
+#include "datapaths.h"
 #include "modreader.h"
 
 #include <QFileInfo>
@@ -91,7 +92,7 @@ void MapListSelector::performCheckStep()
 		setIfFinishedStateIsEnabled(true);
 		return;
 	}
-	QString path = d->paths.takeFirst();
+	QString path = gDefaultDataPaths->resolveTemplated(d->paths.takeFirst());
 	QSharedPointer<ModReader> modReader = ModReader::create(path);
 	if (!modReader.isNull() && modReader->load())
 	{

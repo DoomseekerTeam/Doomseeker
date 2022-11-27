@@ -621,12 +621,12 @@ void GameClientRunner::setArgForDemoRecord(const QString &arg)
 
 void GameClientRunner::setExecutable(const QString &path)
 {
-	d->cli->executable = QFileInfo(path);
+	d->cli->executable = QFileInfo(gDefaultDataPaths->resolveTemplated(path));
 }
 
 void GameClientRunner::setWorkingDir(const QString &path)
 {
-	d->cli->applicationDir.setPath(path);
+	d->cli->applicationDir.setPath(gDefaultDataPaths->resolveTemplated(path));
 }
 
 JoinError GameClientRunner::joinError() const

@@ -23,6 +23,7 @@
 #include "cfgchatlogspage.h"
 #include "ui_cfgchatlogspage.h"
 
+#include "datapaths.h"
 #include "irc/configuration/chatlogscfg.h"
 #include <QDesktopServices>
 #include <QFileDialog>
@@ -54,7 +55,8 @@ CfgChatLogsPage::~CfgChatLogsPage()
 void CfgChatLogsPage::browseStorageDirectory()
 {
 	QString path = QFileDialog::getExistingDirectory(this,
-		tr("Browse chat logs storage directory"), d->leDir->text());
+		tr("Browse chat logs storage directory"),
+		gDefaultDataPaths->resolveTemplated(d->leDir->text()));
 	if (!path.isEmpty())
 	{
 		d->leDir->setText(path);
@@ -87,7 +89,7 @@ bool CfgChatLogsPage::checkDir(const QString &directory)
 
 void CfgChatLogsPage::exploreStorageDirectory()
 {
-	QString path = d->leDir->text().trimmed();
+	QString path = gDefaultDataPaths->resolveTemplated(d->leDir->text().trimmed());
 	if (checkDir(path))
 	{
 		QDesktopServices::openUrl(QString("file:///%1").arg(
@@ -117,7 +119,8 @@ void CfgChatLogsPage::saveSettings()
 
 ConfigPage::Validation CfgChatLogsPage::validate()
 {
-	QString error = validateChatLogsPath(QFileInfo(d->leDir->text().trimmed()));
+	QString error = validateChatLogsPath(QFileInfo(
+		gDefaultDataPaths->resolveTemplated(d->leDir->text().trimmed())));
 	d->lblDirWarning->setToolTip(error);
 	d->lblDirWarning->setVisible(!error.isEmpty());
 	return error.isEmpty() ? VALIDATION_OK : VALIDATION_ERROR;

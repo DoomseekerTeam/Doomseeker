@@ -110,7 +110,7 @@ void GameHost::addDemoPlaybackIfApplicable()
 	if (params().hostMode() == GameCreateParams::Demo)
 	{
 		args() << argForDemoPlayback();
-		args() << params().demoPath();
+		args() << gDefaultDataPaths->resolveTemplated(params().demoPath());
 	}
 }
 
@@ -120,7 +120,7 @@ void GameHost::addDemoRecordIfApplicable()
 		&& params().demoRecord() != GameDemo::NoDemo)
 	{
 		args() << argForDemoRecord();
-		args() << params().demoPath();
+		args() << gDefaultDataPaths->resolveTemplated(params().demoPath());
 	}
 }
 
@@ -150,7 +150,7 @@ void GameHost::addIwad_default()
 		return;
 	}
 
-	QFileInfo fi(iwadPath);
+	QFileInfo fi(gDefaultDataPaths->resolveTemplated(iwadPath));
 
 	if (!fi.isFile())
 	{
@@ -158,7 +158,7 @@ void GameHost::addIwad_default()
 		setMessage(Message::customError(error));
 	}
 
-	args() << argForIwadLoading() << iwadPath;
+	args() << argForIwadLoading() << gDefaultDataPaths->resolveTemplated(iwadPath);
 }
 
 void GameHost::addPwads_default()
@@ -167,7 +167,7 @@ void GameHost::addPwads_default()
 	for (int i = 0; i < params().pwadsPaths().size(); ++i)
 	{
 		const QString &pwad = params().pwadsPaths()[i];
-		args() << fileLoadingPrefix(i) << pwad;
+		args() << fileLoadingPrefix(i) << gDefaultDataPaths->resolveTemplated(pwad);
 	}
 }
 
@@ -186,7 +186,7 @@ void GameHost::addPwads_prefixOnce()
 		args() << prefix;
 		for (const QString &file : groups[prefix])
 		{
-			args() << file;
+			args() << gDefaultDataPaths->resolveTemplated(file);
 		}
 	}
 }
@@ -445,7 +445,7 @@ bool GameHost::verifyPwadPaths()
 {
 	for (const QString &pwad : params().pwadsPaths())
 	{
-		QFileInfo fi(pwad);
+		QFileInfo fi(gDefaultDataPaths->resolveTemplated(pwad));
 		if (!fi.isFile())
 		{
 			QString error = tr("PWAD path error:\n\"%1\" doesn't exist or is a directory!").arg(pwad);

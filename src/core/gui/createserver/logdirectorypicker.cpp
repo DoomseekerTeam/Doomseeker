@@ -24,6 +24,7 @@
 #include "ui_logdirectorypicker.h"
 
 #include "configuration/doomseekerconfig.h"
+#include "datapaths.h"
 
 #include <QDir>
 #include <QFileDialog>
@@ -68,7 +69,8 @@ void LogDirectoryPicker::textEdited()
 void LogDirectoryPicker::browse()
 {
 	QString strPath = QFileDialog::getExistingDirectory(this,
-		tr("Doomseeker - select Log path"), d->dialogDir);
+		tr("Doomseeker - select Log path"),
+		gDefaultDataPaths->resolveTemplated(d->dialogDir));
 	if (!strPath.isEmpty())
 		setPathAndUpdate(QDir(strPath).absolutePath());
 }
@@ -77,7 +79,7 @@ void LogDirectoryPicker::updateLoggingStatus(const QString &path)
 {
 	if (!path.isEmpty())
 	{
-		bool exists = QDir(path).exists();
+		bool exists = QDir(gDefaultDataPaths->resolveTemplated(path)).exists();
 		d->pathNotFound->setVisible(!exists);
 		d->cbLoggingEnabled->setEnabled(exists);
 		if (!exists)
@@ -117,8 +119,8 @@ const QString &LogDirectoryPicker::currentPath() const
 
 const QString LogDirectoryPicker::validatedCurrentPath() const
 {
-	if (!d->loggingEnabled || !QDir(d->dialogDir).exists())
+	if (!d->loggingEnabled || !QDir(gDefaultDataPaths->resolveTemplated(d->dialogDir)).exists())
 		return QString();
 	else
-		return QDir(d->dialogDir).absolutePath();
+		return d->dialogDir;
 }

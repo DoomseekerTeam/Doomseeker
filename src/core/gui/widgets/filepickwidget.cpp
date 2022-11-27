@@ -70,7 +70,7 @@ void FilePickWidget::browsePath()
 
 void FilePickWidget::findPath()
 {
-	QFileInfo currentFile(path());
+	QFileInfo currentFile(gDefaultDataPaths->resolveTemplated(path()));
 	if (currentFile.isFile() && d->file.isSameFile(currentFile.fileName()))
 		return;
 	QString path = PathFind::findGameFile(d->neighbourStrategy->neighbours(), d->file);
