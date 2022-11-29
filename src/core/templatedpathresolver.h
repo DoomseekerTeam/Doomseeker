@@ -29,6 +29,21 @@
 #include <QString>
 #include <QStringList>
 
+#ifdef Q_OS_UNIX
+/**
+ * @ingroup group_pluginapi
+ * @brief Does the TemplatedPathResolver support `~username` resolution?
+ *
+ * If defined, the TemplatedPathResolver is capable of resolving
+ * home directories of other users when `~username` template is used,
+ * where `username` is any name of any user in the system.
+ *
+ * This symbol is dependant on the target OS. MS Windows doesn't support
+ * this feature.
+ */
+#define DOOMSEEKER_TEMPLATED_PATH_RESOLVER_TILDEUSER
+#endif
+
 /**
  * @ingroup group_pluginapi
  * @brief Resolver for paths that contain placeholders.

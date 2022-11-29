@@ -55,14 +55,16 @@ protected:
 
 	void saveSettings() override;
 
-protected slots:
-	void btnAddWadPath_Click();
-	void btnRemoveWadPath_Click();
-
 private:
 	DPtr<CFGFilePaths> d;
 
+	void reject_();
 	QString validatePath(const QString &path) const;
+
+private slots:
+	void btnAddWadPath_Click();
+	void btnRemoveWadPath_Click();
+	void cbResolveTemplatedPathsPlaceholders_Toggled(bool state);
 };
 
 #endif

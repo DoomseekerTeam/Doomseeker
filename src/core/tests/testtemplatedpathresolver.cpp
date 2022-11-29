@@ -73,7 +73,7 @@ bool TestTemplatedPathResolver::executeTest()
 		return false;
 	}
 
-#ifdef Q_OS_UNIX
+#ifdef DOOMSEEKER_TEMPLATED_PATH_RESOLVER_TILDEUSER
 	// Home of someone else
 	const struct passwd *pwent = getpwnam("root");
 	if (pwent == nullptr)
@@ -127,9 +127,8 @@ bool TestTemplatedPathResolver::executeTest()
 			.arg(resolver.resolve(noUser), noUser);
 		return false;
 	}
-#endif
-#ifdef Q_OS_WIN
-	const QString noUser = "~guest\\stuff";
+#else
+	const QString noUser = "~guest/stuff";
 	if (resolver.resolve(noUser) != noUser)
 	{
 		testLog << QString("Home resolution of a named user failed: %1 != %2")

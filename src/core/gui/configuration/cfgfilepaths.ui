@@ -131,6 +131,13 @@
      </property>
     </widget>
    </item>
+   <item>
+    <widget class="QCheckBox" name="cbResolveTemplatedPathsPlaceholders">
+     <property name="text">
+      <string>Resolve $PLACEHOLDERS in paths</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <customwidgets>

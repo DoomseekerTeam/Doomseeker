@@ -22,6 +22,8 @@
 //------------------------------------------------------------------------------
 #include "templatedpathresolver.h"
 
+#include "configuration/doomseekerconfig.h"
+
 #include <QCoreApplication>
 #include <QDir>
 #include <QProcessEnvironment>
@@ -77,7 +79,7 @@ QString TemplatedPathResolver::resolve(const QString &templatedPath) const
 		else
 		{
 			home = QString("~%1").arg(username);
-#ifdef Q_OS_UNIX
+#ifdef DOOMSEEKER_TEMPLATED_PATH_RESOLVER_TILDEUSER
 			const struct passwd *pwent = getpwnam(username.toLatin1().constData());
 			if (pwent != nullptr)
 			{
@@ -169,9 +171,8 @@ void TemplatedPathResolver::setUserHomeEnabled(bool enabled)
 TemplatedPathResolver gDoomseekerTemplatedPathResolver()
 {
 	TemplatedPathResolver resolver;
-	// TODO actually use the config here!
-	resolver.setEnvVarsEnabled(true);
-	resolver.setProgdirEnabled(true);
+	resolver.setEnvVarsEnabled(gConfig.doomseeker.bResolveTemplatedPathsPlaceholders);
+	resolver.setProgdirEnabled(gConfig.doomseeker.bResolveTemplatedPathsPlaceholders);
 	resolver.setUserHomeEnabled(true);
 	return resolver;
 }
