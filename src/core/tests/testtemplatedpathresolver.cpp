@@ -61,7 +61,17 @@ bool TestTemplatedPathResolver::executeTest()
 	if (resolver.resolve("$PROGDIR/logs") != Strings::combinePaths(exeLocation, "logs"))
 	{
 		testLog << QString("suffixed $PROGDIR resolution failure: %1 != %2")
-			.arg(resolver.resolve("$PROGDIR/logs"), exeLocation + "logs");
+			.arg(resolver.resolve("$PROGDIR/logs"), Strings::combinePaths(exeLocation, "logs"));
+		return false;
+	}
+
+	// Do resolve PROGDIR in the middle of the path, even if it's wrong
+	if (resolver.resolve("/home/alice/$PROGDIR/logs") != "/home/alice/"
+		+ Strings::combinePaths(exeLocation, "logs"))
+	{
+		testLog << QString("$PROGDIR in the middle of the path failure: %1 != %2")
+			.arg(resolver.resolve("/home/alice/$PROGDIR/logs"),
+				"/home/alice/" + Strings::combinePaths(exeLocation, "logs"));
 		return false;
 	}
 
