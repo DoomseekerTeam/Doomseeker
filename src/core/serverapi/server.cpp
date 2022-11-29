@@ -24,7 +24,6 @@
 
 #include "configuration/doomseekerconfig.h"
 #include "configuration/queryspeed.h"
-#include "datapaths.h"
 #include "log.h"
 #include "pathfinder/pathfinder.h"
 #include "pathfinder/wadpathfinder.h"
@@ -36,6 +35,7 @@
 #include "serverapi/playerslist.h"
 #include "serverapi/tooltips/tooltipgenerator.h"
 #include "strings.hpp"
+#include "templatedpathresolver.h"
 #include <cassert>
 #include <QElapsedTimer>
 #include <QUdpSocket>
