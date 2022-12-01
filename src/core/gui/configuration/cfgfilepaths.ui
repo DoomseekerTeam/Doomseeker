@@ -87,6 +87,13 @@
       </spacer>
      </item>
      <item>
+      <widget class="QPushButton" name="btnBrowseWadPath">
+       <property name="text">
+        <string>Browse</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="btnAddWadPath">
        <property name="text">
         <string>Add</string>

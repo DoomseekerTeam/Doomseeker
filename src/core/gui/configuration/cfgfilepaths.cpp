@@ -25,7 +25,9 @@
 #include "pathfinder/filesearchpath.h"
 #include "templatedpathresolver.h"
 #include "ui_cfgfilepaths.h"
+#include <QApplication>
 #include <QFileDialog>
+#include <QStyle>
 
 static const int COL_PATH = 0;
 static const int COL_RECURSE = 1;
@@ -94,8 +96,10 @@ CFGFilePaths::CFGFilePaths(QWidget *parent)
 		"The <b>~</b> placeholders are always resolved regardless."));
 
 	d->cbResolveTemplatedPathsPlaceholders->setToolTip(templatedPathsToolTip);
+	d->btnBrowseWadPath->setIcon(QApplication::style()->standardIcon(QStyle::SP_DirOpenIcon));
 
 	connect(d->btnAddWadPath, SIGNAL(clicked()), this, SLOT(btnAddWadPath_Click()));
+	connect(d->btnBrowseWadPath, &QPushButton::clicked, this, &CFGFilePaths::btnBrowseWadPath_Click);
 	connect(d->btnRemoveWadPath, SIGNAL(clicked()), this, SLOT(btnRemoveWadPath_Click()));
 	this->connect(d->tblFilePaths->itemDelegate(),
 		SIGNAL(closeEditor(QWidget*,QAbstractItemDelegate::EndEditHint)),
@@ -113,28 +117,34 @@ CFGFilePaths::~CFGFilePaths()
 
 void CFGFilePaths::addPath(const FileSearchPath &fileSearchPath)
 {
-	if (fileSearchPath.isValid())
-		return;
+	if (fileSearchPath.isValid() && !isPathAlreadyDefined(fileSearchPath.path()))
+		addPathToTable(fileSearchPath);
+}
 
-	if (!isPathAlreadyDefined(fileSearchPath.path()))
-	{
-		d->tblFilePaths->setSortingEnabled(false);
-		int newRow = d->tblFilePaths->rowCount();
-		d->tblFilePaths->insertRow(newRow);
-		auto path = new QTableWidgetItem(fileSearchPath.path());
-		path->setData(Qt::ToolTipRole, fileSearchPath.path());
-		auto recurse = new QTableWidgetItem();
-		recurse->setCheckState(fileSearchPath.isRecursive() ? Qt::Checked : Qt::Unchecked);
-		recurse->setData(Qt::TextAlignmentRole, Qt::AlignCenter);
+void CFGFilePaths::addPathToTable(const FileSearchPath &fileSearchPath)
+{
+	d->tblFilePaths->setSortingEnabled(false);
+	int newRow = d->tblFilePaths->rowCount();
+	d->tblFilePaths->insertRow(newRow);
+	auto path = new QTableWidgetItem(fileSearchPath.path());
+	path->setData(Qt::ToolTipRole, fileSearchPath.path());
+	auto recurse = new QTableWidgetItem();
+	recurse->setCheckState(fileSearchPath.isRecursive() ? Qt::Checked : Qt::Unchecked);
+	recurse->setData(Qt::TextAlignmentRole, Qt::AlignCenter);
 
-		d->tblFilePaths->setItem(newRow, COL_PATH, path);
-		d->tblFilePaths->setItem(newRow, COL_RECURSE, recurse);
-		d->tblFilePaths->resizeRowsToContents();
-		d->tblFilePaths->setSortingEnabled(true);
-	}
+	d->tblFilePaths->setItem(newRow, COL_PATH, path);
+	d->tblFilePaths->setItem(newRow, COL_RECURSE, recurse);
+	d->tblFilePaths->resizeRowsToContents();
+	d->tblFilePaths->setSortingEnabled(true);
 }
 
 void CFGFilePaths::btnAddWadPath_Click()
+{
+	addPathToTable(QString());
+	emit validationRequested();
+}
+
+void CFGFilePaths::btnBrowseWadPath_Click()
 {
 	QString strDir = QFileDialog::getExistingDirectory(this, tr("Doomseeker - Add game mod path"));
 	addPath(strDir);
@@ -165,7 +175,7 @@ QIcon CFGFilePaths::icon() const
 	return QApplication::style()->standardIcon(QStyle::SP_DirOpenIcon);
 }
 
-bool CFGFilePaths::isPathAlreadyDefined(const QString &path)
+bool CFGFilePaths::isPathAlreadyDefined(const QString &path) const
 {
 	Qt::CaseSensitivity caseSensitivity;
 
@@ -177,7 +187,7 @@ bool CFGFilePaths::isPathAlreadyDefined(const QString &path)
 
 	for (int i = 0; i < d->tblFilePaths->rowCount(); ++i)
 	{
-		QTableWidgetItem *item = d->tblFilePaths->item(i, COL_PATH);
+		const QTableWidgetItem *item = d->tblFilePaths->item(i, COL_PATH);
 		QString dir = item->text();
 
 		if (dir.compare(path, caseSensitivity) == 0)

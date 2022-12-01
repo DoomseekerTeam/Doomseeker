@@ -74,7 +74,7 @@ QList<FileSearchPath> FileSearchPath::fromVariantList(const QVariantList &collec
 
 bool FileSearchPath::isValid() const
 {
-	return path_.isNull();
+	return !path_.isNull();
 }
 
 FileSearchPath FileSearchPath::resolveTemplated(TemplatedPathResolver &resolver,

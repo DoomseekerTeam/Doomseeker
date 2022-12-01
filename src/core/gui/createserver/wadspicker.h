@@ -41,7 +41,9 @@ public:
 	void setFilePaths(const QStringList &paths, const QList<bool> &optionals);
 
 private slots:
+	void addEmptyPath();
 	void addWadPath(const QString &wadPath, bool required = true);
+	void addPathToTable(const QString &path, bool required);
 	void browseAndAdd();
 	void removeAll();
 	void removeSelected();

@@ -26,8 +26,10 @@
 #include "configuration/doomseekerconfig.h"
 #include "gui/commongui.h"
 #include "templatedpathresolver.h"
+#include <QApplication>
 #include <QFileDialog>
 #include <QStandardItemModel>
+#include <QStyle>
 
 DClass<WadsPicker> : public Ui::WadsPicker
 {
@@ -40,10 +42,16 @@ WadsPicker::WadsPicker(QWidget *parent)
 	Q_UNUSED(parent);
 	d->setupUi(this);
 	d->lstAdditionalFiles->setModel(new QStandardItemModel(this));
+	d->btnBrowsePwad->setIcon(QApplication::style()->standardIcon(QStyle::SP_DirOpenIcon));
 }
 
 WadsPicker::~WadsPicker()
 {
+}
+
+void WadsPicker::addEmptyPath()
+{
+	addPathToTable(QString(), true);
 }
 
 void WadsPicker::addWadPath(const QString &wadPath, bool required)
@@ -72,15 +80,20 @@ void WadsPicker::addWadPath(const QString &wadPath, bool required)
 		if (existing.compare(wadPath, cs) == 0)
 			return;
 	}
+	addPathToTable(wadPath, required);
+}
 
-	auto it = new QStandardItem(wadPath);
+void WadsPicker::addPathToTable(const QString &path, bool required)
+{
+	auto it = new QStandardItem(path);
 
 	it->setDragEnabled(true);
 	it->setDropEnabled(false);
-	it->setToolTip(wadPath);
+	it->setToolTip(path);
 	it->setCheckable(true);
 	it->setCheckState(required ? Qt::Checked : Qt::Unchecked);
 
+	auto model = static_cast<QStandardItemModel *>(d->lstAdditionalFiles->model());
 	model->appendRow(it);
 }
 
