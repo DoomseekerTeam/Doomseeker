@@ -25,6 +25,7 @@
 
 #include "configuration/doomseekerconfig.h"
 #include "gui/commongui.h"
+#include "templatedpathresolver.h"
 #include <QFileDialog>
 #include <QStandardItemModel>
 
@@ -49,7 +50,7 @@ void WadsPicker::addWadPath(const QString &wadPath, bool required)
 {
 	if (wadPath.isEmpty())
 		return;
-	QFileInfo fileInfo(wadPath);
+	QFileInfo fileInfo(gDoomseekerTemplatedPathResolver().resolve(wadPath));
 	if (!fileInfo.isFile())
 		return;
 
@@ -59,7 +60,7 @@ void WadsPicker::addWadPath(const QString &wadPath, bool required)
 	for (int i = 0; i < model->rowCount(); ++i)
 	{
 		QStandardItem *item = model->item(i);
-		QString dir = item->text();
+		QString existing = item->text();
 		Qt::CaseSensitivity cs;
 
 		#ifdef Q_OS_WIN32
@@ -68,7 +69,7 @@ void WadsPicker::addWadPath(const QString &wadPath, bool required)
 		cs = Qt::CaseSensitive;
 		#endif
 
-		if (dir.compare(wadPath, cs) == 0)
+		if (existing.compare(wadPath, cs) == 0)
 			return;
 	}
 
