@@ -34,6 +34,7 @@
 #include "zandronumgamerunner.h"
 #include "zandronumrconprotocol.h"
 #include "zandronumserverdmflagsparser.h"
+#include <templatedpathresolver.h>
 #include <serverapi/message.h>
 #include <serverapi/playerslist.h>
 #include <strings.hpp>
@@ -775,8 +776,9 @@ PathFinder ZandronumServer::wadPathFinder()
 			// thus we receive a proper path that we can add to
 			// PathFinder.
 			QFileInfo fileInfo(exePath);
-			QString dirPath = Strings::combinePaths(fileInfo.absolutePath(),
-				fileInfo.completeBaseName());
+			QString dirPath = gDoomseekerTemplatedPathResolver().resolve(
+				Strings::combinePaths(fileInfo.path(),
+					fileInfo.completeBaseName()));
 			pathFinder.addPrioritySearchDir(dirPath);
 		}
 	}

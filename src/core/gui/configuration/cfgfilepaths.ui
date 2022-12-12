@@ -87,6 +87,13 @@
       </spacer>
      </item>
      <item>
+      <widget class="QPushButton" name="btnBrowseWadPath">
+       <property name="text">
+        <string>Browse</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="btnAddWadPath">
        <property name="text">
         <string>Add</string>
@@ -128,6 +135,13 @@
      </property>
      <property name="text">
       <string>Check the integrity of local WADs</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="cbResolveTemplatedPathsPlaceholders">
+     <property name="text">
+      <string>Resolve $PLACEHOLDERS in paths</string>
      </property>
     </widget>
    </item>

@@ -24,6 +24,15 @@
 #include "strings.hpp"
 #include "testdatapaths.h"
 
+#include <QCoreApplication>
+#include <QDir>
+#include <QProcessEnvironment>
+
+#ifdef Q_OS_UNIX
+#include <sys/types.h>
+#include <pwd.h>
+#endif
+
 TestDataPathsAppDataDirectoryAccess::TestDataPathsAppDataDirectoryAccess(bool bPortable)
 	: TestUnitBase("Data Paths - App Data directory access")
 {

@@ -28,6 +28,7 @@
 #include "log.h"
 #include "pathfinder/filesearchpath.h"
 #include "strings.hpp"
+#include "templatedpathresolver.h"
 
 #include <cstdlib>
 #include <QDir>
@@ -83,7 +84,7 @@ public:
 
 	QString resolveDir(const QString &dir)
 	{
-		QFileInfo fileInfo(dir);
+		QFileInfo fileInfo(gDoomseekerTemplatedPathResolver().resolve(dir));
 		if (fileInfo.isSymLink())
 			fileInfo = QFileInfo(fileInfo.symLinkTarget());
 
@@ -106,7 +107,10 @@ DPointered(PathFinder)
 PathFinder::PathFinder()
 {
 	d->searchPaths.reset(new QList<FileSearchPath>());
-	d->searchPaths->append(gConfig.combinedWadseekPaths());
+	auto resolver = gDoomseekerTemplatedPathResolver();
+	d->searchPaths->append(
+		FileSearchPath::resolveTemplated(resolver,
+			gConfig.combinedWadseekPaths()));
 	removeUnneededPaths();
 }
 

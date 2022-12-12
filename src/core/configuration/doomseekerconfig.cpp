@@ -35,6 +35,7 @@
 #include "pathfinder/filealias.h"
 #include "pathfinder/filesearchpath.h"
 #include "plugins/engineplugin.h"
+#include "templatedpathresolver.h"
 #include "scanner.h"
 #include "strings.hpp"
 #include "updater/updatechannel.h"
@@ -284,6 +285,7 @@ DoomseekerConfig::DoomseekerCfg::DoomseekerCfg()
 	this->bRecordDemo = false;
 	this->bTellMeWhereAreTheWADsWhenIHoverCursorOverWADSColumn = true;
 	this->bCheckTheIntegrityOfWads = true;
+	this->bResolveTemplatedPathsPlaceholders = false;
 	this->bUseTrayIcon = false;
 	this->bMarkServersWithBuddies = true;
 	this->buddyServersColor = "#5ecf75";
@@ -350,6 +352,7 @@ void DoomseekerConfig::DoomseekerCfg::init(IniSection &section)
 	section.createSetting("RecordDemo", this->bRecordDemo);
 	section.createSetting("TellMeWhereAreTheWADsWhenIHoverCursorOverWADSColumn", this->bTellMeWhereAreTheWADsWhenIHoverCursorOverWADSColumn);
 	section.createSetting("CheckTheIntegrityOfWads", this->bCheckTheIntegrityOfWads);
+	section.createSetting("ResolveTemplatedPathsPlaceholders", bResolveTemplatedPathsPlaceholders);
 	section.createSetting("UseTrayIcon", this->bUseTrayIcon);
 	section.createSetting("MarkServersWithBuddies", this->bMarkServersWithBuddies);
 	section.createSetting("BuddyServersColor", this->buddyServersColor);
@@ -393,6 +396,7 @@ void DoomseekerConfig::DoomseekerCfg::load(IniSection &section)
 	this->bRecordDemo = section["RecordDemo"];
 	this->bTellMeWhereAreTheWADsWhenIHoverCursorOverWADSColumn = section["TellMeWhereAreTheWADsWhenIHoverCursorOverWADSColumn"];
 	this->bCheckTheIntegrityOfWads = section["CheckTheIntegrityOfWads"];
+	this->bResolveTemplatedPathsPlaceholders = section["ResolveTemplatedPathsPlaceholders"];
 	this->bUseTrayIcon = section["UseTrayIcon"];
 	this->bMarkServersWithBuddies = section["MarkServersWithBuddies"];
 	this->buddyServersColor = (const QString &)section["BuddyServersColor"];
@@ -491,6 +495,7 @@ void DoomseekerConfig::DoomseekerCfg::save(IniSection &section)
 	section["RecordDemo"] = this->bRecordDemo;
 	section["TellMeWhereAreTheWADsWhenIHoverCursorOverWADSColumn"] = this->bTellMeWhereAreTheWADsWhenIHoverCursorOverWADSColumn;
 	section["CheckTheIntegrityOfWads"] = this->bCheckTheIntegrityOfWads;
+	section["ResolveTemplatedPathsPlaceholders"] = this->bResolveTemplatedPathsPlaceholders;
 	section["UseTrayIcon"] = this->bUseTrayIcon;
 	section["MarkServersWithBuddies"] = this->bMarkServersWithBuddies;
 	section["BuddyServersColor"] = this->buddyServersColor;
@@ -571,8 +576,12 @@ void DoomseekerConfig::DoomseekerCfg::setWadAliases(const QList<FileAlias> &val)
 
 void DoomseekerConfig::DoomseekerCfg::enableFreedoomInstallation(const QString &dir)
 {
-	if (!FileUtils::containsPath(wadPathsOnly(), dir))
+	if (!FileUtils::containsPath(
+			gDoomseekerTemplatedPathResolver().resolve(wadPathsOnly()),
+			gDoomseekerTemplatedPathResolver().resolve(dir)))
+	{
 		wadPaths.prepend(dir);
+	}
 	QList<FileAlias> aliases = wadAliases();
 	aliases << FileAlias::freeDoom1Aliases();
 	aliases << FileAlias::freeDoom2Aliases();

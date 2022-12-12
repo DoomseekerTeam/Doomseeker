@@ -25,7 +25,6 @@
 #include "application.h"
 #include "apprunner.h"
 #include "configuration/doomseekerconfig.h"
-#include "datapaths.h"
 #include "gamedemo.h"
 #include "gui/passworddlg.h"
 #include "gui/wadseekerinterface.h"
@@ -37,6 +36,7 @@
 #include "serverapi/gameclientrunner.h"
 #include "serverapi/message.h"
 #include "serverapi/server.h"
+#include "templatedpathresolver.h"
 
 #include <cassert>
 #include <QDialogButtonBox>
@@ -138,7 +138,7 @@ bool JoinCommandLineBuilder::checkServerStatus()
 bool JoinCommandLineBuilder::checkWadseekerValidity(QWidget *parent)
 {
 	Q_UNUSED(parent);
-	QString targetDirPath = gConfig.wadseeker.targetDirectory;
+	QString targetDirPath = gDoomseekerTemplatedPathResolver().resolve(gConfig.wadseeker.targetDirectory);
 	QDir targetDir(targetDirPath);
 	QFileInfo targetDirFileInfo(targetDirPath);
 

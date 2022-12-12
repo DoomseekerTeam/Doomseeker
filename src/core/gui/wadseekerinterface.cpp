@@ -32,6 +32,7 @@
 #include "serverapi/server.h"
 #include "serverapi/serverstructs.h"
 #include "strings.hpp"
+#include "templatedpathresolver.h"
 #include "wadseeker/entities/checksum.h"
 #include "wadseeker/entities/modfile.h"
 #include "wadseeker/entities/modset.h"
@@ -481,7 +482,7 @@ void WadseekerInterface::startSeeking(const QList<PWad> &seekedFilesList)
 
 	setupIdgames();
 
-	wadseeker.setTargetDirectory(gConfig.wadseeker.targetDirectory);
+	wadseeker.setTargetDirectory(gDoomseekerTemplatedPathResolver().resolve(gConfig.wadseeker.targetDirectory));
 	wadseeker.setCustomSites(customSites);
 	wadseeker.setMaximumConcurrentSeeks(gConfig.wadseeker.maxConcurrentSiteDownloads);
 	wadseeker.setMaximumConcurrentDownloads(gConfig.wadseeker.maxConcurrentWadDownloads);

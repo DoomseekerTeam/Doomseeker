@@ -24,6 +24,7 @@
 
 #include "commongui.h"
 #include "modreader.h"
+#include "templatedpathresolver.h"
 
 #include <QFileInfo>
 #include <QMenu>
@@ -91,7 +92,7 @@ void MapListSelector::performCheckStep()
 		setIfFinishedStateIsEnabled(true);
 		return;
 	}
-	QString path = d->paths.takeFirst();
+	QString path = gDoomseekerTemplatedPathResolver().resolve(d->paths.takeFirst());
 	QSharedPointer<ModReader> modReader = ModReader::create(path);
 	if (!modReader.isNull() && modReader->load())
 	{

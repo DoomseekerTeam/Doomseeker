@@ -77,6 +77,7 @@ public:
 		bool bRecordDemo;
 		bool bTellMeWhereAreTheWADsWhenIHoverCursorOverWADSColumn;
 		bool bCheckTheIntegrityOfWads;
+		bool bResolveTemplatedPathsPlaceholders;
 		PatternList buddies;
 		bool bUseTrayIcon;
 		QString buddyServersColor;

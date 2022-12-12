@@ -490,7 +490,7 @@ PathFinder Srb2Server::wadPathFinder()
 	if (!exePath.isNull())
 	{
 		QFileInfo fileInfo(exePath);
-		QString dirPath = Strings::combinePaths(fileInfo.absolutePath(), "DOWNLOAD");
+		QString dirPath = Strings::combinePaths(fileInfo.path(), "DOWNLOAD");
 		pathFinder.addSearchDir(dirPath);
 	}
 	return pathFinder;

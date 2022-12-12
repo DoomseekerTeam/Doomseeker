@@ -4,9 +4,10 @@
 // Copyright (C) 2011 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
 #include "cfgircsounds.h"
-#include "irc/configuration/ircconfig.h"
 #include "ui_cfgircsounds.h"
 
+#include "irc/configuration/ircconfig.h"
+#include "templatedpathresolver.h"
 #include <QFileInfo>
 #include <QFileDialog>
 #include <QSoundEffect>
@@ -71,7 +72,7 @@ void CFGIRCSounds::playPrivateMessage()
 
 void CFGIRCSounds::playSound(const QString &path) const
 {
-	QFileInfo file(path);
+	QFileInfo file(gDoomseekerTemplatedPathResolver().resolve(path));
 	if (file.exists())
 	{
 		d->sfx->setSource(QUrl::fromLocalFile(file.absoluteFilePath()));
@@ -125,8 +126,9 @@ ConfigPage::Validation CFGIRCSounds::validate()
 	return !error ? VALIDATION_OK : VALIDATION_ERROR;
 }
 
-QString CFGIRCSounds::validateFilePath(const QString &path) const
+QString CFGIRCSounds::validateFilePath(QString path) const
 {
+	path = gDoomseekerTemplatedPathResolver().resolve(path);
 	if (path.trimmed().isEmpty())
 		return tr("No path specified.");
 

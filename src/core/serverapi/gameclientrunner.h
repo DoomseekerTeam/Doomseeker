@@ -438,6 +438,8 @@ protected:
 	 * @brief Directory where Doomseeker stores downloaded WADs.
 	 *
 	 * This can be useful for games that support in-game downloads.
+	 *
+	 * @return A template-resolved path.
 	 */
 	QString wadTargetDirectory() const;
 

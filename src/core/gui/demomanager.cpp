@@ -20,9 +20,9 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2011 Braden "Blzut3" Obrzut <admin@maniacsvault.net>
 //------------------------------------------------------------------------------
+#include "demomanager.h"
 
 #include "datapaths.h"
-#include "demomanager.h"
 #include "gui/commongui.h"
 #include "ini/ini.h"
 #include "ini/settingsproviderqt.h"
@@ -35,6 +35,7 @@
 #include "serverapi/gamehost.h"
 #include "serverapi/message.h"
 #include "serverapi/server.h"
+#include "templatedpathresolver.h"
 #include "ui_demomanager.h"
 
 #include <QDir>
@@ -270,7 +271,8 @@ void DemoManagerDlg::playSelected()
 
 	// Get executable path for pathfinder.
 	Message binMessage;
-	QString binPath = GameExeRetriever(*plugin->gameExe()).pathToOfflineExe(binMessage);
+	const QString binPath = gDoomseekerTemplatedPathResolver().resolve(
+		GameExeRetriever(*plugin->gameExe()).pathToOfflineExe(binMessage));
 
 	// Locate all the files needed to play the demo
 	PathFinder pf;

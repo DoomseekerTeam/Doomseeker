@@ -35,6 +35,7 @@
 #include "serverapi/playerslist.h"
 #include "serverapi/tooltips/tooltipgenerator.h"
 #include "strings.hpp"
+#include "templatedpathresolver.h"
 #include <cassert>
 #include <QElapsedTimer>
 #include <QUdpSocket>
@@ -803,7 +804,8 @@ PathFinder Server::wadPathFinder()
 	{
 		GameExeRetriever exeRetriever(*plugin()->gameExe());
 		Message msg;
-		pathFinder.addPrioritySearchDir(exeRetriever.pathToOfflineExe(msg));
+		pathFinder.addPrioritySearchDir(
+			gDoomseekerTemplatedPathResolver().resolve(exeRetriever.pathToOfflineExe(msg)));
 	}
 	#endif
 	if (isTestingServer())

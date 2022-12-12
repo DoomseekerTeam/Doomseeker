@@ -11,7 +11,16 @@
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <item>
@@ -54,6 +63,13 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnBrowsePwad">
+       <property name="text">
+        <string>Browse</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="btnAddPwad">
@@ -133,7 +149,7 @@
    <sender>btnAddPwad</sender>
    <signal>clicked()</signal>
    <receiver>WadsPicker</receiver>
-   <slot>browseAndAdd()</slot>
+   <slot>addEmptyPath()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>262</x>
@@ -177,11 +193,28 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>btnBrowsePwad</sender>
+   <signal>clicked()</signal>
+   <receiver>WadsPicker</receiver>
+   <slot>browseAndAdd()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>199</x>
+     <y>286</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>removeAll()</slot>
   <slot>removeSelected()</slot>
   <slot>browseAndAdd()</slot>
   <slot>addWadPath(QString)</slot>
+  <slot>addEmptyPath()</slot>
  </slots>
 </ui>

@@ -27,6 +27,7 @@
 #include "tests/testmodreader.h"
 #include "tests/testplayer.h"
 #include "tests/teststrings.h"
+#include "tests/testtemplatedpathresolver.h"
 #include "tests/testutf8splitter.h"
 
 TestCore *TestRuns::pTestCore = nullptr;
@@ -51,6 +52,8 @@ void TestRuns::callTests()
 	pTestCore->executeTest(new TestIRCISupportPrefix());
 	pTestCore->executeTest(new TestIRCISupportNoPrefix());
 
+	// Templated Path Resolver
+	pTestCore->executeTest(new TestTemplatedPathResolver());
 
 	// WadReader.
 	pTestCore->executeTest(new TestModReader());

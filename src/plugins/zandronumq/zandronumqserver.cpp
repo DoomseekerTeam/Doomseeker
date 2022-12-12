@@ -27,7 +27,6 @@
 #include "global.h"
 #include "huffman/huffman.h"
 #include "log.h"
-#include "zandronumqbinaries.h"
 #include "zandronumqengineplugin.h"
 #include "zandronumqgamehost.h"
 #include "zandronumqgameinfo.h"
@@ -117,11 +116,6 @@ ZandronumqServer::ZandronumqServer(const QHostAddress &address, unsigned short p
 	set_readRequest(&ZandronumqServer::readRequest);
 
 	connect(this, SIGNAL(updated(ServerPtr,int)), this, SLOT(updatedSlot(ServerPtr,int)));
-}
-
-ExeFile *ZandronumqServer::clientExe()
-{
-	return new ZandronumqClientExeFile(self().toStrongRef().staticCast<ZandronumqServer>());
 }
 
 GameClientRunner *ZandronumqServer::gameRunner()
