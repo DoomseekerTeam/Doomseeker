@@ -283,6 +283,8 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 			f->cbMonstersMustBeKilledToExit);
 		m.insert(Dmflags::DF2_KILLBOSSMONST,
 			f->cbKillBossMonsters);
+		m.insert(Dmflags::DF2_NOCOUNTENDMONST,
+			f->cbDontCountEndlevelMonsters);
 		// - Player death
 		m.insert(Dmflags::DF2_SAME_SPAWN_SPOT,
 			f->cbRespawnWhereDied);

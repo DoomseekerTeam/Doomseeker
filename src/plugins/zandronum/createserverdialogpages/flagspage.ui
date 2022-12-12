@@ -872,6 +872,13 @@ p, li { white-space: pre-wrap; }
                 </property>
                </widget>
               </item>
+              <item>
+               <widget class="QCheckBox" name="cbDontCountEndlevelMonsters">
+                <property name="text">
+                 <string>Don't count monsters in the &quot;end level&quot; sector towards kills</string>
+                </property>
+               </widget>
+              </item>
              </layout>
             </widget>
            </item>
@@ -2237,6 +2244,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>spinMonsterKillPercentage</tabstop>
   <tabstop>spinMonstersDamageFactor</tabstop>
   <tabstop>cbKillBossMonsters</tabstop>
+  <tabstop>cbDontCountEndlevelMonsters</tabstop>
   <tabstop>cbSurvivalNoMapResetOnDeath</tabstop>
   <tabstop>cbDeadPlayersCanKeepInventory</tabstop>
   <tabstop>cbScoreDamageNotKills</tabstop>
@@ -4872,6 +4880,22 @@ p, li { white-space: pre-wrap; }
     <hint type="destinationlabel">
      <x>451</x>
      <y>278</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbDontCountEndlevelMonsters</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>68</x>
+     <y>312</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>322</y>
     </hint>
    </hints>
   </connection>

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>519</width>
-    <height>332</height>
+    <height>340</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -111,10 +111,111 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="correctionMode">
+           <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
+          </property>
           <property name="minimum">
            <number>1</number>
           </property>
+          <property name="maximum">
+           <number>999</number>
+          </property>
          </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="labelVoteCooldown">
+          <property name="text">
+           <string>Vote cooldown:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QSpinBox" name="spinVoteCooldown">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>60</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string>&lt;p&gt;Cooldown for the same type of vote is the double of this value. Setting this to 0 disables it.&lt;/p&gt;</string>
+            </property>
+            <property name="correctionMode">
+             <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
+            </property>
+            <property name="maximum">
+             <number>9999</number>
+            </property>
+            <property name="value">
+             <number>5</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="labelVoteCooldownHint">
+            <property name="text">
+             <string>min.</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="labelVoteConnectWait">
+          <property name="text">
+           <string>Time before client can vote after connecting:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QSpinBox" name="spinVoteConnectWait">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>60</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="correctionMode">
+             <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
+            </property>
+            <property name="maximum">
+             <number>9999</number>
+            </property>
+            <property name="value">
+             <number>0</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="labelVoteConnectWaitHint">
+            <property name="text">
+             <string>sec.</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>
@@ -278,6 +379,8 @@
   <tabstop>rbNoOneCanVote</tabstop>
   <tabstop>rbSpectatorsCantVote</tabstop>
   <tabstop>spinMinimumNumberOfPlayersRequiredToCallAVote</tabstop>
+  <tabstop>spinVoteCooldown</tabstop>
+  <tabstop>spinVoteConnectWait</tabstop>
   <tabstop>cbKickVote</tabstop>
   <tabstop>cbFragLimitVote</tabstop>
   <tabstop>cbChangeMapVote</tabstop>

@@ -18,6 +18,8 @@ and this project does not adhere to
     - https://euroboros.net/zandronum/wads/
     - https://static.dudoomers.com/wads/
 - Cyprus country flag.
+- Zandronum, Q-Zandronum: add "Don't count monsters in the 'end level' sector
+towards kills" checkbox to the Create Game box. (#4055)
 
 ### Changed
 - Refresh the servers in a randomized order rather than the order
@@ -71,6 +73,12 @@ correctly on the list. (#3624)
 servers, which resulted in the dmflags being displayed incorrectly
 in the server details and the game's beta builds from being
 installed. (#4020, #4024)
+- Zandronum: fix the game setup page (#4055):
+    - "Keep teams after a map change" flag wasn't toggling its
+      corresponding zadmflag.
+    - Add proper voting flags and hide the obsolete for Zandronum 3.0.
+    - Auto-correct the spin boxes in the flags page to the nearest
+      allowed value instead of snapping to the previous one.
 - Zandronum: update the game icon to Zandronum 3.1's.
 
 ### Removed

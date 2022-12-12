@@ -239,8 +239,6 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 			f->cbServerPicksTeams);
 		m.insert(Dmflags::DF2_NO_TEAM_SWITCH,
 			f->cbPlayersCantSwitchTeams);
-		m.insert(Dmflags::ZADF_YES_KEEP_TEAMS,
-			f->cbKeepTeamsAfterAMapChange);
 		m.insert(Dmflags::DF2_NO_AUTOMAP_ALLIES,
 			f->cbHideAlliesOnTheAutomap);
 		m.insert(Dmflags::DF2_DISALLOW_SPYING,
@@ -337,6 +335,10 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 		// Cooperative
 		m.insert(Dmflags::ZADF_SHARE_KEYS,
 			f->cbShareKeys);
+
+		// Teams
+		m.insert(Dmflags::ZADF_YES_KEEP_TEAMS,
+			f->cbKeepTeamsAfterAMapChange);
 	}
 
 	// LMSAllowedWeapons

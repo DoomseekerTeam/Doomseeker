@@ -203,7 +203,7 @@ void FlagsPage::fillInGameCreateParams(GameCreateParams &gameCreateParams)
 	if (!country().isEmpty())
 		params << "+sv_country" << country();
 
-	params << votingPage->generateGameRunParameters();
+	params << votingPage->generateGameRunParameters(gameVersion());
 
 	gameCreateParams.setOption("GameVersion", gameVersion());
 	gameCreateParams.customParameters() << params;
@@ -395,6 +395,7 @@ void FlagsPage::setGameVersion(ZandronumGameInfo::GameVersion version)
 	}
 	d->flagsController->setVisible(true);
 	d->flagsController->convertWidgetsToNumerical();
+	votingPage->setGameVersion(version);
 }
 
 ZandronumGameInfo::GameVersion FlagsPage::gameVersion() const

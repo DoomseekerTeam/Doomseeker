@@ -7,14 +7,23 @@
     <x>0</x>
     <y>0</y>
     <width>519</width>
-    <height>306</height>
+    <height>346</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <item>
@@ -27,7 +36,16 @@
    <item>
     <widget class="QWidget" name="mainPanel" native="true">
      <layout class="QVBoxLayout" name="verticalLayout_2">
-      <property name="margin">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
        <number>0</number>
       </property>
       <item>
@@ -93,10 +111,105 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="minimum">
            <number>1</number>
           </property>
          </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="labelVoteCooldown">
+          <property name="text">
+           <string>Vote cooldown:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QSpinBox" name="spinVoteCooldown">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>60</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string>&lt;p&gt;Cooldown for the same type of vote is the double of this value. Setting this to 0 disables it.&lt;/p&gt;</string>
+            </property>
+            <property name="correctionMode">
+             <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
+            </property>
+            <property name="maximum">
+             <number>9999</number>
+            </property>
+            <property name="value">
+             <number>5</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="labelVoteCooldownHint">
+            <property name="text">
+             <string>min.</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="labelVoteConnectWait">
+          <property name="text">
+           <string>Time before client can vote after connecting:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QSpinBox" name="spinVoteConnectWait">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>60</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="correctionMode">
+             <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
+            </property>
+            <property name="maximum">
+             <number>9999</number>
+            </property>
+            <property name="value">
+             <number>0</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="labelVoteConnectWaitHint">
+            <property name="text">
+             <string>sec.</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>
@@ -209,16 +322,6 @@
         </layout>
        </widget>
       </item>
-      <item>
-       <widget class="QCheckBox" name="cbVoteFloodingProtectionEnabled">
-        <property name="text">
-         <string>Vote flooding protection enabled</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
      </layout>
     </widget>
    </item>
@@ -242,14 +345,19 @@
   <tabstop>rbNoOneCanVote</tabstop>
   <tabstop>rbSpectatorsCantVote</tabstop>
   <tabstop>spinMinimumNumberOfPlayersRequiredToCallAVote</tabstop>
+  <tabstop>spinVoteCooldown</tabstop>
+  <tabstop>spinVoteConnectWait</tabstop>
   <tabstop>cbKickVote</tabstop>
   <tabstop>cbFragLimitVote</tabstop>
   <tabstop>cbChangeMapVote</tabstop>
   <tabstop>cbDuelLimitVote</tabstop>
   <tabstop>cbMapVote</tabstop>
   <tabstop>cbPointLimitVote</tabstop>
-  <tabstop>cbTimeLimitVote</tabstop>
+  <tabstop>cbNextMapVote</tabstop>
   <tabstop>cbWinLimitVote</tabstop>
+  <tabstop>cbTimeLimitVote</tabstop>
+  <tabstop>cbForceSpectatorVote</tabstop>
+  <tabstop>cbUseThisPage</tabstop>
  </tabstops>
  <resources/>
  <connections>

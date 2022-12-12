@@ -180,6 +180,7 @@ void FlagsId::assign()
 	f->cbDontCheckAmmoWhenSwitchingWeapons->setProperty("flagname", DONT_CHECK_AMMO_WHEN_SWITCHING_WEAPONS);
 	f->cbMonstersMustBeKilledToExit->setProperty("flagname", MONSTERS_MUST_BE_KILLED_TO_EXIT);
 	f->cbKillBossMonsters->setProperty("flagname", KILL_BOSS_MONSTERS);
+	f->cbDontCountEndlevelMonsters->setProperty("flagname", NO_COUNT_END_MONST);
 	f->cbRespawnWhereDied->setProperty("flagname", RESPAWN_WHERE_DIED);
 	f->cbRespawnWithAShotgun->setProperty("flagname", RESPAWN_WITH_ASHOTGUN);
 	f->cbDropWeaponOnDeath->setProperty("flagname", DROP_WEAPON_ON_DEATH);

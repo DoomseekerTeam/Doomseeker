@@ -21,6 +21,7 @@
 // Copyright (C) 2014 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
 #include "votingsetupwidget.h"
+#include "zandronumgameinfo.h"
 
 #include <ini/ini.h>
 #include <ini/inisection.h>
@@ -32,11 +33,11 @@ VotingSetupWidget::VotingSetupWidget(QWidget *parent)
 	mainPanel->setEnabled(false);
 }
 
-QStringList VotingSetupWidget::generateGameRunParameters()
+QStringList VotingSetupWidget::generateGameRunParameters(ZandronumGameInfo::GameVersion version)
 {
 	if (cbUseThisPage->isChecked())
 	{
-		return gameParametersList();
+		return gameParametersList(version);
 	}
 	else
 	{
@@ -44,11 +45,16 @@ QStringList VotingSetupWidget::generateGameRunParameters()
 	}
 }
 
-QStringList VotingSetupWidget::gameParametersList() const
+QStringList VotingSetupWidget::gameParametersList(ZandronumGameInfo::GameVersion version) const
 {
 	QStringList params;
 
-	params << "+sv_limitnumvotes" << (cbVoteFloodingProtectionEnabled->isChecked() ? "1" : "0");
+	if (version == ZandronumGameInfo::GV_Zandronum2) {
+		params << "+sv_limitnumvotes" << (cbVoteFloodingProtectionEnabled->isChecked() ? "1" : "0");
+	} else if (version == ZandronumGameInfo::GV_Zandronum3) {
+		params << "+sv_votecooldown" << QString::number(spinVoteCooldown->value());
+		params << "+sv_voteconnectwait" << QString::number(spinVoteConnectWait->value());
+	}
 	params << "+sv_minvoters" << QString::number(spinMinimumNumberOfPlayersRequiredToCallAVote->value());
 	params << "+sv_nocallvote" << QString::number(static_cast<int>(whoCanVote()));
 
@@ -76,6 +82,8 @@ bool VotingSetupWidget::loadConfig(Ini &ini)
 
 	setWhoCanVote(static_cast<WhoCanVote>(section.value("WhoCanVote").toInt()));
 	spinMinimumNumberOfPlayersRequiredToCallAVote->setValue(section.value("MinimumPlayersRequiredToVote", 1).toInt());
+	spinVoteCooldown->setValue(section.value("VoteCooldown", 5).toInt());
+	spinVoteConnectWait->setValue(section.value("VoteConnectWait", 0).toInt());
 	cbVoteFloodingProtectionEnabled->setChecked(section.value("VoteFloodingProtection", true).toBool());
 
 	cbKickVote->setChecked(section.value("KickVote", true).toBool());
@@ -102,6 +110,8 @@ bool VotingSetupWidget::saveConfig(Ini &ini)
 
 	section["WhoCanVote"] = whoCanVote();
 	section["MinimumPlayersRequiredToVote"] = spinMinimumNumberOfPlayersRequiredToCallAVote->value();
+	section["VoteCooldown"] = spinVoteCooldown->value();
+	section["VoteConnectWait"] = spinVoteConnectWait->value();
 	section["VoteFloodingProtection"] = cbVoteFloodingProtectionEnabled->isChecked();
 
 	section["KickVote"] = cbKickVote->isChecked();
@@ -118,6 +128,23 @@ bool VotingSetupWidget::saveConfig(Ini &ini)
 	section["NextSecretVote"] = cbNextSecretVote->isChecked();
 
 	return true;
+}
+
+void VotingSetupWidget::setGameVersion(ZandronumGameInfo::GameVersion version)
+{
+	QWidget *v2Widgets[] = {
+		cbVoteFloodingProtectionEnabled,
+	};
+	QWidget *v3Widgets[] = {
+		labelVoteCooldown, spinVoteCooldown, labelVoteCooldownHint,
+		labelVoteConnectWait, spinVoteConnectWait, labelVoteConnectWaitHint,
+	};
+	for (QWidget *widget : v2Widgets) {
+		widget->setVisible(version == ZandronumGameInfo::GV_Zandronum2);
+	}
+	for (QWidget *widget : v3Widgets) {
+		widget->setVisible(version == ZandronumGameInfo::GV_Zandronum3);
+	}
 }
 
 void VotingSetupWidget::setWhoCanVote(WhoCanVote who)
