@@ -36,6 +36,9 @@ compiled and could potentially not be accurate anymore at the time of
 viewing. (#3952)
 - Hide the IP2C update actions in the IP2C updater dialog box if the
 updater determines that the local DB is the same as the remote one. (#3731)
+- When user attempts to join a game without having the game configured,
+the error box will now have the "Configure game" button instead of just opening
+the config box indiscriminately. (#4019)
 - Wadseeker: added `sigil_shreds` and `sigil_shreds_compat` to the
 list of forbidden downloads.
 - Wadseeker: upgrade LZMA SDK to version 22.01. (#3934)

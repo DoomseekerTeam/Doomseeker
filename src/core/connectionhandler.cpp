@@ -28,6 +28,7 @@
 #include "configuration/doomseekerconfig.h"
 #include "gamedemo.h"
 #include "gui/configuration/doomseekerconfigurationdialog.h"
+#include "gui/configuration/gameconfigerrorbox.h"
 #include "gui/mainwindow.h"
 #include "joincommandlinebuilder.h"
 #include "log.h"
@@ -155,13 +156,14 @@ void ConnectionHandler::onCommandLineBuildFinished()
 	auto builder = static_cast<JoinCommandLineBuilder *>(sender());
 	CommandLineInfo builtCli = builder->builtCommandLine();
 	if (builtCli.isValid())
-		runCommandLine(builtCli);
-	else
 	{
-		if (!builder->error().isEmpty())
-			QMessageBox::critical(d->parentWidget, tr("Doomseeker - join game"), builder->error());
-		if (builder->isConfigurationError())
-			DoomseekerConfigurationDialog::openConfiguration(gApp->mainWindow(), d->server->plugin());
+		runCommandLine(builtCli);
+	}
+	else if (!builder->error().isEmpty())
+	{
+		GameConfigErrorBox::show(d->server->plugin(),
+			tr("Doomseeker - join game"), builder->error(),
+			builder->isConfigurationError());
 	}
 	builder->deleteLater();
 	finish(Server::RESPONSE_GOOD);

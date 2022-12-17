@@ -99,6 +99,7 @@ set(HEADER_FILES
 	gui/configuration/configurationdialog.h
 	gui/configuration/doomseekerconfigurationdialog.h
 	gui/configuration/engineconfigpage.h
+	gui/configuration/gameconfigerrorbox.h
 	gui/configuration/irc/cfgchatlogspage.h
 	gui/configuration/irc/cfgircappearance.h
 	gui/configuration/irc/cfgircdefinenetworkdialog.h
@@ -341,6 +342,7 @@ set(SOURCE_FILES
 	gui/configuration/configurationdialog.cpp
 	gui/configuration/doomseekerconfigurationdialog.cpp
 	gui/configuration/engineconfigpage.cpp
+	gui/configuration/gameconfigerrorbox.cpp
 	gui/configuration/irc/cfgchatlogspage.cpp
 	gui/configuration/irc/cfgircappearance.cpp
 	gui/configuration/irc/cfgircdefinenetworkdialog.cpp

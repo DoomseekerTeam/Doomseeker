@@ -24,6 +24,7 @@
 #include "apprunner.h"
 #include "commandline.h"
 #include "configuration/doomseekerconfig.h"
+#include "configuration/gameconfigerrorbox.h"
 #include "configuration/queryspeed.h"
 #include "connectionhandler.h"
 #include "customservers.h"
@@ -1462,8 +1463,10 @@ void MainWindow::showServerJoinCommandLineOnBuilderFinished()
 	{
 		if (!builder->error().isEmpty())
 		{
-			QMessageBox::critical(this, tr("Doomseeker - show join command line"),
-				tr("The command line cannot be built:\n%1").arg(builder->error()));
+			GameConfigErrorBox::show(builder->server()->plugin(),
+				tr("Doomseeker - show join command line"),
+				tr("The command line cannot be built:\n%1").arg(builder->error()),
+				true, this);
 		}
 	}
 	builder->deleteLater();
