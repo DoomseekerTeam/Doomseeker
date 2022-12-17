@@ -3063,8 +3063,8 @@ Ejecutable: %3</translation>
     </message>
     <message>
         <location filename="../serverapi/gameclientrunner.cpp" line="495"/>
-        <source>Game can be installed by Doomseeker</source>
-        <translation>El juego puede ser instalado por Doomseeker</translation>
+        <source>The game can be installed by Doomseeker.</source>
+        <translation>El juego puede ser instalado por Doomseeker.</translation>
     </message>
     <message>
         <location filename="../serverapi/gameclientrunner.cpp" line="501"/>
@@ -6160,7 +6160,7 @@ Una de las ubicaciones adecuadas para los complementos es el directorio &quot;en
     </message>
     <message>
         <location filename="../gui/mainwindow.cpp" line="1465"/>
-        <source>The command line cannot be built:
+        <source>Failed to build the command line:
 %1</source>
         <translation>La línea de comandos no se puede construir:
 %1</translation>

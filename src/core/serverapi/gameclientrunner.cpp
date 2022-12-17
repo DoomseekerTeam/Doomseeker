@@ -213,17 +213,16 @@ void GameClientRunner::addGamePaths_default()
 	if (paths.workingDir.isEmpty())
 	{
 		d->joinError.setType(JoinError::ConfigurationError);
-		d->joinError.setError(tr("Path to working directory for game \"%1\" is empty.\n\n"
-			"Make sure the configuration for the client executable is set properly.")
+		d->joinError.setError(tr("Cannot determine the working directory for \"%1\". "
+			"Check the game configuration.")
 				.arg(pluginName()));
 		return;
 	}
 	else if (!applicationDir.exists())
 	{
 		d->joinError.setType(JoinError::ConfigurationError);
-		d->joinError.setError(tr("%1\n\nThis directory cannot be used as working "
-			"directory for game: %2\n\nExecutable: %3")
-				.arg(paths.workingDir, pluginName(), paths.clientExe));
+		d->joinError.setError(tr("This path cannot be used as the working directory for %1:\n%2.")
+			.arg(pluginName(), paths.workingDir));
 		return;
 	}
 
@@ -493,18 +492,20 @@ GameClientRunner::GamePaths GameClientRunner::gamePaths()
 			}
 			else
 			{
-				d->joinError.setError(tr("Game can be installed by Doomseeker"));
+				d->joinError.setError(tr("The game can be installed by Doomseeker."));
 			}
 		}
 		else
 		{
 			d->joinError.setType(JoinError::ConfigurationError);
-			QString error = tr("Game %1 cannot be found.").arg(pluginName());
 			if (!msg.isIgnore())
 			{
-				error += "\n\n" + msg.contents();
+				d->joinError.setError(msg.contents());
 			}
-			d->joinError.setError(error);
+			else
+			{
+				d->joinError.setError(tr("Couldn't find game %1."));
+			}
 		}
 		return GamePaths();
 	}

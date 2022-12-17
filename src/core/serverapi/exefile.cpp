@@ -76,19 +76,27 @@ QString ExeFile::pathToExe(Message &message)
 	QString error = "";
 	if (path.trimmed().isEmpty())
 	{
-		error = tr("No %1 executable configured for %2").arg(exeTypeName()).arg(programName());
+		error = tr("The %1 file is not set for %2.").arg(exeTypeName()).arg(programName());
 		message = Message::customError(error);
 		return QString();
 	}
 
 	QFileInfo fi(gDoomseekerTemplatedPathResolver().resolve(path));
-
-	if (!fi.exists() || (fi.isDir() && !fi.isBundle()))
+	if (!fi.exists())
 	{
-		// Remember: if the file doesn't exist
-		// canonicalFilePath() will return an empty string!
-		error = tr("The executable path for %1 %2:\n%3\nis a directory or doesn't exist.")
-			.arg(programName()).arg(exeTypeName())
+		error = tr("The %1 file for %2 doesn't exist:\n%3")
+			.arg(exeTypeName())
+			.arg(programName())
+			.arg(fi.absoluteFilePath());
+		message = Message::customError(error);
+		return QString();
+	}
+
+	if (fi.isDir() && !fi.isBundle())
+	{
+		error = tr("The path to %1 file for %2 is a directory:\n%3")
+			.arg(exeTypeName())
+			.arg(programName())
 			.arg(fi.absoluteFilePath());
 		message = Message::customError(error);
 		return QString();

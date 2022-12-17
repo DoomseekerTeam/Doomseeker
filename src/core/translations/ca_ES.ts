@@ -2902,8 +2902,8 @@ Executable: %3</translation>
     </message>
     <message>
         <location filename="../serverapi/gameclientrunner.cpp" line="495"/>
-        <source>Game can be installed by Doomseeker</source>
-        <translation>El joc pot ser instal·lat per Doomseeker</translation>
+        <source>The game can be installed by Doomseeker.</source>
+        <translation>El joc pot ser instal·lat per Doomseeker.</translation>
     </message>
     <message>
         <location filename="../serverapi/gameclientrunner.cpp" line="501"/>
@@ -5978,7 +5978,7 @@ Per solucionar aquest problema, podria descarregar Doomseeker novament des del l
     </message>
     <message>
         <location filename="../gui/mainwindow.cpp" line="1465"/>
-        <source>The command line cannot be built:
+        <source>Failed to build the command line:
 %1</source>
         <translation>La línia d&apos;ordres no es pot construir:
 %1</translation>

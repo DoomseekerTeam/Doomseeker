@@ -1465,7 +1465,7 @@ void MainWindow::showServerJoinCommandLineOnBuilderFinished()
 		{
 			GameConfigErrorBox::show(builder->server()->plugin(),
 				tr("Doomseeker - show join command line"),
-				tr("The command line cannot be built:\n%1").arg(builder->error()),
+				tr("Failed to build the command line:\n%1").arg(builder->error()),
 				true, this);
 		}
 	}

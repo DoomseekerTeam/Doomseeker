@@ -38,7 +38,8 @@ viewing. (#3952)
 updater determines that the local DB is the same as the remote one. (#3731)
 - When user attempts to join a game without having the game configured,
 the error box will now have the "Configure game" button instead of just opening
-the config box indiscriminately. (#4019)
+the config box indiscriminately. Also make the related error messages sound
+less robotic. (#4019)
 - Wadseeker: added `sigil_shreds` and `sigil_shreds_compat` to the
 list of forbidden downloads.
 - Wadseeker: upgrade LZMA SDK to version 22.01. (#3934)
