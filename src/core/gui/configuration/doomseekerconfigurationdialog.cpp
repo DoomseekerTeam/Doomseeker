@@ -207,6 +207,9 @@ void DoomseekerConfigurationDialog::showPluginConfiguration(const EnginePlugin *
 		auto engineConfig = (EngineConfigPage *)pointer;
 
 		if (engineConfig->plugin() == plugin)
+		{
 			showConfigPage(engineConfig);
+			break;
+		}
 	}
 }

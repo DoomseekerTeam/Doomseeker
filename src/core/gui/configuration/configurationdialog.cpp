@@ -341,6 +341,15 @@ void ConfigurationDialog::showConfigPage(ConfigPage *page)
 		d->mainPanel->layout()->addWidget(page);
 		d->mainPanel->setTitle(page->title());
 		page->show();
+
+		auto *selectionModel = d->tvOptionsList->selectionModel();
+		QModelIndex index = findPageModelIndex(page);
+		if (index.isValid() && index != selectionModel->currentIndex())
+		{
+			selectionModel->blockSignals(true);
+			selectionModel->setCurrentIndex(index, QItemSelectionModel::ClearAndSelect);
+			selectionModel->blockSignals(false);
+		}
 	}
 }
 
