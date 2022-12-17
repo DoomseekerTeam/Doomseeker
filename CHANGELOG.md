@@ -69,6 +69,8 @@ table when the keyboard menu key is pressed. (#3671)
 to show the config page for that plugin, showing a blank page instead. (#4019)
 - Create game box: display a proper error message if the game executable
 path is empty. (#3839)
+- Create game box, server page: fix the spacing of the form when various
+inputs are hidden.
 - Wadseeker: custom (server-provided) template URLs with the %WADNAME%
 placeholder wouldn't get the higher priority status that the plain
 custom URLs normally enjoy. (#3996)

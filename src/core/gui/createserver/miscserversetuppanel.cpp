@@ -89,37 +89,47 @@ void MiscServerSetupPanel::saveConfig(Ini &config)
 void MiscServerSetupPanel::setupForEngine(const EnginePlugin *engine)
 {
 	d->anythingAvailable = false;
-	bool visible = false;
 
-	visible = engine->data()->allowsConnectPassword;
-	d->labelConnectPassword->setVisible(visible);
-	d->leConnectPassword->setVisible(visible);
-	d->anythingAvailable = visible || d->anythingAvailable;
+	struct FormItem
+	{
+		bool visible;
+		QWidget *label;
+		QWidget *widget;
+	};
 
-	visible = engine->data()->allowsEmail;
-	d->labelEmail->setVisible(visible);
-	d->leEmail->setVisible(visible);
-	d->anythingAvailable = visible || d->anythingAvailable;
+	// The order in this struct if the order of appearance.
+	const FormItem items[] =
+	{
+		{ engine->data()->allowsURL, d->labelURL, d->leURL },
+		{ engine->data()->allowsEmail, d->labelEmail, d->leEmail },
+		{ engine->data()->allowsConnectPassword, d->labelConnectPassword, d->leConnectPassword },
+		{ engine->data()->allowsJoinPassword, d->labelJoinPassword, d->leJoinPassword },
+		{ engine->data()->allowsRConPassword, d->labelRConPassword, d->leRConPassword },
+		{ engine->data()->allowsConnectPassword
+		  || engine->data()->allowsJoinPassword
+		  || engine->data()->allowsRConPassword, nullptr, d->cbHidePasswords },
+	};
 
-	visible = engine->data()->allowsJoinPassword;
-	d->labelJoinPassword->setVisible(visible);
-	d->leJoinPassword->setVisible(visible);
-	d->anythingAvailable = visible || d->anythingAvailable;
+	// Clear all widgets in the form.
+	while (d->formLayout->count() > 0)
+		d->formLayout->takeAt(0);
 
-	visible = engine->data()->allowsMOTD;
-	d->labelMOTD->setVisible(visible);
-	d->pteMOTD->setVisible(visible);
-	d->anythingAvailable = visible || d->anythingAvailable;
+	// Now re-add only those widgets that are meant to be visible.
+	for (const FormItem &item : items)
+	{
+		if (item.label)
+			item.label->setVisible(item.visible);
+		if (item.widget)
+			item.widget->setVisible(item.visible);
+		if (item.visible)
+			d->formLayout->addRow(item.label, item.widget);
+		d->anythingAvailable = item.visible || d->anythingAvailable;
+	}
 
-	visible = engine->data()->allowsRConPassword;
-	d->labelRConPassword->setVisible(visible);
-	d->leRConPassword->setVisible(visible);
-	d->anythingAvailable = visible || d->anythingAvailable;
-
-	visible = engine->data()->allowsURL;
-	d->labelURL->setVisible(visible);
-	d->leURL->setVisible(visible);
-	d->anythingAvailable = visible || d->anythingAvailable;
+	const bool motd = engine->data()->allowsMOTD;
+	d->labelMOTD->setVisible(motd);
+	d->pteMOTD->setVisible(motd);
+	d->anythingAvailable = motd || d->anythingAvailable;
 }
 
 void MiscServerSetupPanel::setHidePasswords(bool hide)
