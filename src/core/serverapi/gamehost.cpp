@@ -430,10 +430,18 @@ void GameHost::setMessage(const Message &message)
 
 void GameHost::setupGamePaths()
 {
-	QFileInfo fileInfo(gDoomseekerTemplatedPathResolver().resolve(params().executablePath()));
+	const QString &exePath = params().executablePath();
+	if (exePath.trimmed().isEmpty())
+	{
+		setMessage(Message::customError(tr("The game executable is not set.")));
+		return;
+	}
+
+	QFileInfo fileInfo(gDoomseekerTemplatedPathResolver().resolve(exePath));
 	if (!fileInfo.isFile() && !fileInfo.isBundle())
 	{
-		QString error = tr("%1\ndoesn't exist or is not a file.").arg(fileInfo.filePath());
+		QString error = tr("The executable\n%1\ndoesn't exist or is not a file.")
+			.arg(fileInfo.filePath());
 		setMessage(Message::customError(error));
 		return;
 	}
