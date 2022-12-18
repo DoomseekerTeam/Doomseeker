@@ -86,6 +86,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="btnSaveCustomParameters">
+       <property name="toolTip">
+        <string>Add these parameters to the saved list.</string>
+       </property>
        <property name="icon">
         <iconset resource="../../../../media/resources.qrc">
          <normaloff>:/icons/diskette.png</normaloff>:/icons/diskette.png</iconset>
@@ -94,6 +97,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="btnDeleteCustomParameters">
+       <property name="toolTip">
+        <string>Remove these parameters from the saved list.</string>
+       </property>
        <property name="icon">
         <iconset resource="../../../../media/resources.qrc">
          <normaloff>:/icons/x.png</normaloff>:/icons/x.png</iconset>
@@ -131,6 +137,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="btnMasterServerDefault">
+          <property name="toolTip">
+           <string>Restore the master server address to default.</string>
+          </property>
           <property name="text">
            <string>Default</string>
           </property>
