@@ -206,6 +206,11 @@ void EngineConfigPage::removeCurrentCustomParametersFromStorage()
 	updateCustomParametersSaveState();
 }
 
+void EngineConfigPage::resetMasterServerToDefault()
+{
+	d->leMasterserverAddress->setText(d->plugin->defaultMasterAddress());
+}
+
 void EngineConfigPage::removeStoredCustomParametersFromConfig(const QString &parameters)
 {
 	QStringList storedParameters = d->readStoredCustomParameters();

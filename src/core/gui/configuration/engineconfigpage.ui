@@ -125,7 +125,22 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="leMasterserverAddress"/>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLineEdit" name="leMasterserverAddress"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnMasterServerDefault">
+          <property name="text">
+           <string>Default</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../../../media/resources.qrc">
+            <normaloff>:/icon.png</normaloff>:/icon.png</iconset>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>
@@ -155,6 +170,13 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>cboCustomParameters</tabstop>
+  <tabstop>btnSaveCustomParameters</tabstop>
+  <tabstop>btnDeleteCustomParameters</tabstop>
+  <tabstop>leMasterserverAddress</tabstop>
+  <tabstop>btnMasterServerDefault</tabstop>
+ </tabstops>
  <resources>
   <include location="../../../../media/resources.qrc"/>
  </resources>
@@ -207,10 +229,27 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>btnMasterServerDefault</sender>
+   <signal>clicked()</signal>
+   <receiver>EngineConfigPage</receiver>
+   <slot>resetMasterServerToDefault()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>330</x>
+     <y>89</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>186</x>
+     <y>245</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>saveCustomParameters()</slot>
   <slot>removeCurrentCustomParametersFromStorage()</slot>
   <slot>updateCustomParametersSaveState()</slot>
+  <slot>resetMasterServerToDefault()</slot>
  </slots>
 </ui>

@@ -94,6 +94,7 @@ private:
 private slots:
 	void autoFindNeighbouringPaths();
 	void removeCurrentCustomParametersFromStorage();
+	void resetMasterServerToDefault();
 	void saveCustomParameters();
 	void showFindFailError();
 	void updateCustomParametersSaveState();

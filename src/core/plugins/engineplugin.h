@@ -399,10 +399,17 @@ public:
 	{
 		return d;
 	}
+
+	/**
+	 * Gets the default address of the master server.
+	 */
+	QString defaultMasterAddress() const;
+
 	const QPixmap &icon() const
 	{
 		return *d->icon;
 	}
+
 	void setConfig(IniSection &cfg);
 
 	/**

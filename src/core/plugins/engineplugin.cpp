@@ -97,6 +97,11 @@ ConfigPage *EnginePlugin::configuration(QWidget *parent)
 	return new EngineConfigPage(this, *d->pConfig, parent);
 }
 
+QString EnginePlugin::defaultMasterAddress() const
+{
+	return d->defaultMaster;
+}
+
 QList<DMFlagsSection> EnginePlugin::dmFlags() const
 {
 	return QList<DMFlagsSection>();
