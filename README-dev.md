@@ -1,6 +1,6 @@
 # `README` file for developers
 
-    Copyright (C) 2019 Juuso "Linda" Lapinlampi
+    Copyright (C) 2019, 2022 Linda Lapinlampi
 
     Copying and distribution of this file, with or without modification,
     are permitted in any medium without royalty provided the copyright
@@ -33,8 +33,8 @@ then trying to fix it is possibly the easiest way to get involved.
 ----
 
 A list of known issues and software defects is maintained on [Zandronum issue
-tracker](https://zandronum.com/tracker/). Those pesky Doomguys keep making a
-mess!
+tracker](https://zandronum.com/tracker/search.php?project_id=2). Those pesky
+Doomguys keep making a mess!
 
 You are welcomed to register and contribute to issues `;-)` on our issue
 tracker, but we do also recognize not every old school autistic hacker probable
@@ -135,8 +135,8 @@ change](https://confluence.atlassian.com/bitbucket/create-a-pull-request-to-merg
 ### Issue tracker
 
 Contributions are accepted for merging from issue attachments on [Zandronum
-issue tracker](https://zandronum.com/tracker/). This requires an account on the
-issue tracker.
+issue tracker](https://zandronum.com/tracker/search.php?project_id=2). This
+requires an account on the issue tracker.
 
 Use git [format-patch](https://git-scm.com/docs/git-format-patch) to create
 patches which include contributor's name and email address. Attach the patches
