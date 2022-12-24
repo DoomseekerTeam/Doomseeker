@@ -182,6 +182,7 @@ QByteArray Turok2ExServer::createSendRequest()
 QByteArray Turok2ExServer::encryptPacket(QByteArray &message, uint32_t key)
 {
 	QByteArray challenge;
+	challenge.resize(message.length() + 4);
 
 	uint32_t crc = kexCRC::Mem32(message.data(), message.length(), 0);
 	challenge[0] = (crc >> 24) & 0xFF;

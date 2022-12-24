@@ -81,6 +81,8 @@ inputs are hidden.
 - Wadseeker: custom (server-provided) template URLs with the %WADNAME%
 placeholder wouldn't get the higher priority status that the plain
 custom URLs normally enjoy. (#3996)
+- Turok 2 Ex: fix writing beyond the size of the buffer when encrypting the
+challenge packets. This used to work in Qt previously but is now deprecated.
 - Zandronum, Q-Zandronum: servers that emitted empty PWAD names in their
 challenge reply would appear as errored because the plugins failed to
 parse the subsequent MD5 checksum hashes for these PWADs. The plugins
