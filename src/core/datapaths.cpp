@@ -105,7 +105,9 @@ DPointered(DataPaths)
 
 DataPaths *DataPaths::staticDefaultInstance = nullptr;
 
-static const QString LEGACY_APPDATA_DIR_NAME = ".doomseeker";
+static const QString CACHE_DIR_NAME = ".cache";
+static const QString CONFIG_DIR_NAME = ".doomseeker";
+static const QString DATA_DIR_NAME = ".static";
 static const QString DEMOS_DIR_NAME = "demos";
 
 const QString DataPaths::CHATLOGS_DIR_NAME = "chatlogs";
@@ -125,9 +127,7 @@ DataPaths::DataPaths(bool bPortableModeOn)
 
 	if (bPortableModeOn)
 	{
-		d->cacheDirectory.setPath(systemAppDataDirectory(".cache"));
-		d->configDirectory.setPath(systemAppDataDirectory(LEGACY_APPDATA_DIR_NAME));
-		d->dataDirectory.setPath(systemAppDataDirectory(".static"));
+		setBaseDir(QDir(QCoreApplication::applicationDirPath()));
 	}
 	else
 	{
@@ -143,10 +143,6 @@ DataPaths::DataPaths(bool bPortableModeOn)
 		#endif
 		d->dataDirectory.setPath(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation));
 	}
-
-	gLog << QString("Cache directory: %1").arg(d->cacheDirectory.absolutePath());
-	gLog << QString("Config directory: %1").arg(d->configDirectory.absolutePath());
-	gLog << QString("Data directory: %1").arg(d->dataDirectory.absolutePath());
 }
 
 DataPaths::~DataPaths()
@@ -396,6 +392,13 @@ QString DataPaths::programFilesDirectory(MachineType machineType)
 QString DataPaths::programsDataDirectoryPath() const
 {
 	return d->configDirectory.absolutePath();
+}
+
+void DataPaths::setBaseDir(const QDir &baseDir)
+{
+	d->cacheDirectory.setPath(baseDir.filePath(CACHE_DIR_NAME));
+	d->configDirectory.setPath(baseDir.filePath(CONFIG_DIR_NAME));
+	d->dataDirectory.setPath(baseDir.filePath(DATA_DIR_NAME));
 }
 
 void DataPaths::setWorkingDirectory(const QString &workingDirectory)

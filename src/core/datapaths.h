@@ -163,7 +163,8 @@ public:
 	 * suffix.
 	 *
 	 * If portable mode is on this will be the program directory with
-	 * cache dir name appended to it.
+	 * cache dir name appended to it. Since Doomseeker 1.4 depends also
+	 * on setBaseDir().
 	 */
 	QString cacheLocationPath() const;
 
@@ -215,7 +216,8 @@ public:
 	 * the local file system. If portable mode is on this returns path
 	 * to program directory with "/.static" appended. If portable mode
 	 * is off this returns path to QDesktopServices::DataLocation with
-	 * "/QCoreApplication::applicationName()" appended.
+	 * "/QCoreApplication::applicationName()" appended. Since Doomseeker 1.4
+	 * depends also on setBaseDir().
 	 *
 	 * @param subpath
 	 *     If specified then this path is appended to the returned path.
@@ -243,10 +245,12 @@ public:
 	 * suffix unique for each plugin. The suffix is partially derived from
 	 * EnginePlugin::nameCanonical() and ensured to remain constant as long
 	 * as EnginePlugin::nameCanonical() doesn't change for given plugin. It
-	 * also takes portable mode into consideration. However, it's not
-	 * ensured that the directory will exist.
+	 * also takes portable mode into consideration. Since Doomseeker 1.4 it also
+	 * depends on setBaseDir().
 	 *
-	 * This method is to be used from plugins.
+	 * It's not ensured that the directory will exist.
+	 *
+	 * This method is to be used from the plugins.
 	 *
 	 * @param plugin
 	 *     Plugin must pass reference to its implementation of EnginePlugin.
@@ -262,17 +266,26 @@ public:
 	QStringList pluginSearchLocationPaths() const;
 
 	/**
-	 * @brief Path to directory where this concrete application should
-	 * store its data.
+	 * @brief Path to directory where Doomseeker should store its roaming data.
 	 *
-	 * Depending on model (portable or not) and operating system this might
-	 * point to a number of different directories. However the root dir
-	 * is determined by calling the systemAppDataDirectory() method and
-	 * appending string returned by programDirName() getter.
+	 * Depending on the mode (portable or not) and the operating system
+	 * this can point to a different directory. Since Doomseeker 1.4 it also
+	 * depends on setBaseDir().
 	 */
 	QString programsDataDirectoryPath() const;
 
 	bool isPortableModeOn() const;
+
+	/**
+	 * @internal
+	 * @brief Set the base path for all the other storage directories.
+	 *
+	 * @see cacheLocationPath()
+	 * @see localDataLocationPath()
+	 * @see pluginLocalDataLocationPath()
+	 * @see programsDataDirectoryPath()
+	 */
+	void setBaseDir(const QDir &baseDir);
 
 	/**
 	 * @brief Changes the location returned by workingDirectory.

@@ -26,6 +26,11 @@ QString CmdArgsHelp::argsHelp()
 {
 	QString help = "";
 	help += tr(
+		"--basedir <directory>\n"
+		"    Changes the default storage directory to the specified\n"
+		"    one (also in --portable mode). Doomseeker stores all of its\n"
+		"    settings, cache and managed files in this directory.\n");
+	help += tr(
 		"--connect <protocol://ip[:port]>\n"
 		"    Attempts to connect to the specified server.\n");
 	help += tr(
@@ -44,10 +49,11 @@ QString CmdArgsHelp::argsHelp()
 		"    Launch the rcon client for the specified ip.\n");
 	help += tr(
 		"--portable\n"
-		"    Starts application in portable mode.\n"
-		"    In portable mode Doomseeker saves all configuration files\n"
-		"    to the directory where its executable resides.\n"
-		"    Normally, configuration is saved to user's home directory.\n");
+		"    Starts application in a portable mode.\n"
+		"    In the portable mode Doomseeker saves all the configuration\n"
+		"    files to the directory where its executable resides.\n"
+		"    Normally, configuration is saved to user's home directory.\n"
+		"    See also: --basedir.\n");
 	help += tr(
 		"--version-json [file|-]\n"
 		"    Prints version info on Doomseeker and all\n"

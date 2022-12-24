@@ -422,6 +422,13 @@ void Main::initCaCerts()
 bool Main::initDataDirectories()
 {
 	DataPaths::initDefault(bPortableMode);
+	if (!baseDir.isEmpty())
+		gDefaultDataPaths->setBaseDir(baseDir);
+
+	gLog << QString("Cache directory: %1").arg(gDefaultDataPaths->cacheLocationPath());
+	gLog << QString("Config directory: %1").arg(gDefaultDataPaths->programsDataDirectoryPath());
+	gLog << QString("Data directory: %1").arg(gDefaultDataPaths->localDataLocationPath());
+
 	DoomseekerFilePaths::pDataPaths = gDefaultDataPaths;
 	QList<DataPaths::DirErrno> failedDirsErrno = gDefaultDataPaths->createDirectories();
 	if (!failedDirsErrno.isEmpty())
@@ -580,7 +587,19 @@ bool Main::interpretCommandLineParameters()
 	{
 		const char *arg = arguments[i];
 
-		if (strcmp(arg, "--connect") == 0)
+		if (strcmp(arg, "--basedir") == 0)
+		{
+			if (i + 1 < argumentsCount)
+			{
+				++i;
+				baseDir = arguments[i];
+			}
+			else
+			{
+				failure = CmdArgsHelp::missingArgs(1, arg);
+			}
+		}
+		else if (strcmp(arg, "--connect") == 0)
 		{
 			if (i + 1 < argumentsCount)
 			{

@@ -115,6 +115,7 @@ private:
 
 	char **arguments;
 	int argumentsCount;
+	QString baseDir;
 	bool bIsFirstRun;
 	bool bTestMode;
 	bool bVersionDump;

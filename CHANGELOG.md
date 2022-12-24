@@ -13,6 +13,9 @@ and this project does not adhere to
 - Upgrade the IpToCountry.dat file format to version 3.
 - A tri-state filter for password-protected servers. (#4008)
 - A button to reset the game's master server back to default. (#3756)
+- New command line argument `--basedir` that changes the base directory
+  where Doomseeker stores all of its managed files: settings, cache, managed
+  data. (#3452)
 - Wadseeker: add a bunch of websites to the WAD search list: (#4053)
     - https://doomshack.org/wadlist.php
     - https://wads.firestick.games/
