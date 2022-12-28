@@ -7586,7 +7586,7 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
     </message>
     <message>
         <location filename="../updater/updateinstaller.cpp" line="125"/>
-        <source>Unable to read update script.</source>
+        <source>Unable to read the update script.</source>
         <translation>No se puede leer el script de la actualización.</translation>
     </message>
     <message>
@@ -7596,7 +7596,7 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
     </message>
     <message>
         <location filename="../updater/updateinstaller.cpp" line="129"/>
-        <source>Unable to determine path of updater.</source>
+        <source>Unable to determine the path of the updater.</source>
         <translation>No se puede determinar la ruta del actualizador.</translation>
     </message>
     <message>

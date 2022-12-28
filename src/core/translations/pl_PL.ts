@@ -7058,7 +7058,7 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
     </message>
     <message>
         <location filename="../updater/updateinstaller.cpp" line="125"/>
-        <source>Unable to read update script.</source>
+        <source>Unable to read the update script.</source>
         <translation>Nie można przeczytać skryptu aktualizacyjnego.</translation>
     </message>
     <message>
@@ -7068,7 +7068,7 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
     </message>
     <message>
         <location filename="../updater/updateinstaller.cpp" line="129"/>
-        <source>Unable to determine path of updater.</source>
+        <source>Unable to determine the path of the updater.</source>
         <translation>Nie można wykryć ścieżki do aktualizatora.</translation>
     </message>
     <message>

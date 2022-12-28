@@ -7336,7 +7336,7 @@ Humans + Bots) / Servidors actualitzats%</translation>
     </message>
     <message>
         <location filename="../updater/updateinstaller.cpp" line="125"/>
-        <source>Unable to read update script.</source>
+        <source>Unable to read the update script.</source>
         <translation>No es pot llegir l&apos;script de l&apos;actualització.</translation>
     </message>
     <message>
@@ -7346,7 +7346,7 @@ Humans + Bots) / Servidors actualitzats%</translation>
     </message>
     <message>
         <location filename="../updater/updateinstaller.cpp" line="129"/>
-        <source>Unable to determine path of updater.</source>
+        <source>Unable to determine the path of the updater.</source>
         <translation>No es pot determinar la ruta de l&apos;actualitzador.</translation>
     </message>
     <message>

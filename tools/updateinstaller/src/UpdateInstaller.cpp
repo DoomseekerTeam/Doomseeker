@@ -102,7 +102,7 @@ void UpdateInstaller::run() throw ()
 {
 	if (!m_script || !m_script->isValid())
 	{
-		reportError("Unable to read update script");
+		reportError("Unable to read the update script");
 		restartMainApp(UEC_UnableToReadUpdateScript);
 		return;
 	}
@@ -121,7 +121,7 @@ void UpdateInstaller::run() throw ()
 	catch (const FileUtils::IOException&)
 	{
 		LOG(Error,"error reading process path with mode " + intToStr(m_mode));
-		reportError("Unable to determine path of updater");
+		reportError("Unable to determine the path of the updater");
 		restartMainApp(UEC_NoInstallationDirectorySpecified);
 		return;
 	}

@@ -122,11 +122,11 @@ QString UpdateInstaller::processErrorCodeToStr(ProcessErrorCode code)
 	case PEC_Ok:
 		return tr("Ok");
 	case PEC_UnableToReadUpdateScript:
-		return tr("Unable to read update script.");
+		return tr("Unable to read the update script.");
 	case PEC_NoInstallationDirectorySpecified:
 		return tr("No installation directory specified.");
 	case PEC_UnableToDeterminePathOfUpdater:
-		return tr("Unable to determine path of updater.");
+		return tr("Unable to determine the path of the updater.");
 	case PEC_GeneralFailure:
 		return tr("General failure.");
 	default:
