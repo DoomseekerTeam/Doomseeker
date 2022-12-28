@@ -25,11 +25,40 @@
 #include "datapaths.h"
 #include "ini/ini.h"
 #include "ini/settingsproviderqt.h"
+#include "ntfsperm.h"
 #include "plugins/engineplugin.h"
 #include "serverapi/serverstructs.h"
 #include <cassert>
 #include <QDateTime>
 #include <QDir>
+#include <QFileInfo>
+#include <QMessageBox>
+
+class GameDemoTr : public QObject
+{
+	Q_OBJECT;
+
+public:
+	static QString title()
+	{
+		return tr("Doomseeker - Record Demo");
+	}
+
+	static QString pathDoesntExist(const QString &path)
+	{
+		return tr("The demo storage directory doesn't exist "
+			"and cannot be created!\n\n%1").arg(path);
+	}
+
+	static QString pathMissingPermissions(const QString &path)
+	{
+		return tr("The demo storage directory exists but "
+			"lacks the necessary permissions!\n\n%1").arg(path);
+	}
+
+private:
+	GameDemoTr() = delete;
+};
 
 GameDemo::GameDemo()
 {
@@ -39,6 +68,35 @@ GameDemo::GameDemo()
 GameDemo::GameDemo(Control control)
 {
 	d.control = control;
+}
+
+bool GameDemo::ensureStorageExists(QWidget *parent)
+{
+	auto popup = [parent](const QString &message) -> bool
+	{
+		return QMessageBox::Ignore ==
+			QMessageBox::warning(parent, GameDemoTr::title(), message,
+				QMessageBox::Abort | QMessageBox::Ignore);
+	};
+
+	QDir demoDir(gDefaultDataPaths->demosDirectoryPath());
+	if (!demoDir.mkpath("."))
+	{
+		return popup(GameDemoTr::pathDoesntExist(demoDir.path()));
+	}
+
+	QFileInfo demoDirInfo(demoDir.path());
+	++qt_ntfs_permission_lookup;
+	bool permissions = demoDirInfo.isReadable()
+		&& demoDirInfo.isWritable()
+		&& demoDirInfo.isExecutable();
+	--qt_ntfs_permission_lookup;
+	if (!permissions)
+	{
+		return popup(GameDemoTr::pathMissingPermissions(demoDir.path()));
+	}
+
+	return true;
 }
 
 QString GameDemo::mkDemoFullPath(Control control, const EnginePlugin &plugin)
@@ -106,3 +164,5 @@ GameDemo::operator GameDemo::Control() const
 {
 	return d.control;
 }
+
+#include "gamedemo.moc"

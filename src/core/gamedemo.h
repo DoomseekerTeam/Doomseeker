@@ -27,6 +27,7 @@
 
 #include <QList>
 #include <QString>
+#include <QWidget>
 
 class EnginePlugin;
 class PWad;
@@ -44,6 +45,7 @@ public:
 	GameDemo();
 	GameDemo(Control control);
 
+	static bool ensureStorageExists(QWidget *parent);
 	static QString mkDemoFullPath(Control control, const EnginePlugin &plugin);
 	static void saveDemoMetaData(const QString &demoName, const EnginePlugin &plugin,
 		const QString &iwad, const QList<PWad> &pwads);

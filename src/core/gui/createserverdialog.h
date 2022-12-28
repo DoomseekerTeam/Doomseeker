@@ -96,7 +96,7 @@ private:
 	 * @return false if fail.
 	 */
 	bool createHostInfo(GameCreateParams &params, bool offline, CommandLinePurpose purpose);
-	void createHostInfoDemoRecord(GameCreateParams &params, bool offline, CommandLinePurpose purpose);
+	bool createHostInfoDemoRecord(GameCreateParams &params, bool offline, CommandLinePurpose purpose);
 
 	GameMode currentGameMode() const;
 

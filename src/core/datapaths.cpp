@@ -26,6 +26,7 @@
 #include "doomseekerfilepaths.h"
 #include "fileutils.h"
 #include "log.h"
+#include "ntfsperm.h"
 #include "plugins/engineplugin.h"
 #include "strings.hpp"
 
@@ -43,17 +44,6 @@
 // Sanity check for INSTALL_PREFIX and INSTALL_LIBDIR
 #if !defined(INSTALL_PREFIX) || !defined(INSTALL_LIBDIR)
 #error Build system should provide definition for INSTALL_PREFIX and INSTALL_LIBDIR
-#endif
-
-// On NTFS file systems, ownership and permissions checking is disabled by
-// default for performance reasons. The following int toggles it by
-// incrementation and decrementation of its value.
-// See: http://doc.qt.io/qt-5/qfileinfo.html#ntfs-permissions
-#ifdef Q_OS_WIN32
-extern Q_CORE_EXPORT int qt_ntfs_permission_lookup;
-#else
-// We'll need to declare an int with the same name to compile successfully in other platforms.
-int qt_ntfs_permission_lookup;
 #endif
 
 static QList<DataPaths::DirErrno> uniqueErrnosByDir(const QList<DataPaths::DirErrno> &errnos)
