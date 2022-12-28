@@ -22,10 +22,36 @@
 //------------------------------------------------------------------------------
 #include "fileutils.h"
 
+#include "ntfsperm.h"
 #include "log.h"
 #include <QCryptographicHash>
 #include <QDirIterator>
 #include <QFileInfo>
+
+class FileUtilsTr : public QObject
+{
+	Q_OBJECT
+
+public:
+	static QString cannotCreateDirectory()
+	{
+		return tr("cannot create directory");
+	}
+
+	static QString parentPathIsNotADirectory(const QString &path)
+	{
+		return tr("the parent path is not a directory: %1").arg(path);
+	}
+
+	static QString lackOfParentDirectoryPermissions(const QString &to)
+	{
+		return tr("lack of necessary permissions to the parent directory: %1")
+			.arg(to);
+	}
+
+private:
+	FileUtilsTr() = delete;
+};
 
 QByteArray FileUtils::md5(const QString &path)
 {
@@ -76,6 +102,53 @@ bool FileUtils::containsPath(const QStringList &candidates, const QString &path)
 	return false;
 }
 
+DirErrno FileUtils::mkpath(const QDir &dir)
+{
+	// We need to reset errno to prevent false positives
+	errno = 0;
+	if (!dir.mkpath("."))
+	{
+		int errnoval = errno;
+		if (errnoval != 0)
+		{
+			return DirErrno(dir.path(), errnoval, strerror(errnoval));
+		}
+		else
+		{
+			// Try to decipher if we have permissions.
+			// First we must find the bottom-most directory that does actually exist.
+			QString pathToBottomMostExisting = FileUtils::cdUpUntilExists(dir.path());
+			// If we've found a bottom-most directory that exists, we can check its permissions.
+			if (!pathToBottomMostExisting.isEmpty())
+			{
+				QFileInfo parentDir(pathToBottomMostExisting);
+				if (parentDir.exists() && !parentDir.isDir())
+				{
+					return DirErrno(dir.path(), DirErrno::CUSTOM_ERROR,
+						FileUtilsTr::parentPathIsNotADirectory(parentDir.filePath()));
+				}
+
+				// BLOCK - keep this to absolute minimum
+				++qt_ntfs_permission_lookup;
+				bool permissions = parentDir.isReadable()
+					&& parentDir.isWritable()
+					&& parentDir.isExecutable();
+				--qt_ntfs_permission_lookup;
+				// END OF BLOCK
+				if (!permissions)
+				{
+					return DirErrno(dir.path(), DirErrno::CUSTOM_ERROR,
+						FileUtilsTr::lackOfParentDirectoryPermissions(parentDir.filePath()));
+				}
+			}
+			// Just give up trying to deduce a correct error.
+			return DirErrno(dir.path(), DirErrno::CUSTOM_ERROR,
+				FileUtilsTr::cannotCreateDirectory());
+		}
+	}
+	return DirErrno();
+}
+
 bool FileUtils::rmAllFiles(const QString &dirPath,
 	const QStringList &nameFilters)
 {
@@ -93,3 +166,5 @@ bool FileUtils::rmAllFiles(const QString &dirPath,
 	}
 	return bAllSuccess;
 }
+
+#include "fileutils.moc"

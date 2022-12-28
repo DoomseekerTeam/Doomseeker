@@ -26,7 +26,6 @@
 #include "doomseekerfilepaths.h"
 #include "fileutils.h"
 #include "log.h"
-#include "ntfsperm.h"
 #include "plugins/engineplugin.h"
 #include "strings.hpp"
 
@@ -46,11 +45,11 @@
 #error Build system should provide definition for INSTALL_PREFIX and INSTALL_LIBDIR
 #endif
 
-static QList<DataPaths::DirErrno> uniqueErrnosByDir(const QList<DataPaths::DirErrno> &errnos)
+static QList<DirErrno> uniqueErrnosByDir(const QList<DirErrno> &errnos)
 {
 	QSet<QString> uniqueDirs;
-	QList<DataPaths::DirErrno> uniqueErrnos;
-	for (const DataPaths::DirErrno &dirErrno : errnos)
+	QList<DirErrno> uniqueErrnos;
+	for (const DirErrno &dirErrno : errnos)
 	{
 		if (!uniqueDirs.contains(dirErrno.directory.path()))
 		{
@@ -155,13 +154,13 @@ QStringList DataPaths::canWrite() const
 	return failedList;
 }
 
-QList<DataPaths::DirErrno> DataPaths::createDirectories()
+QList<DirErrno> DataPaths::createDirectories()
 {
 	QList<DirErrno> failedDirs;
 	const QDir appDataDir(systemAppDataDirectory());
 
 	// No need to bother with migrating plugin master caches
-	DirErrno cacheDirError = tryCreateDirectory(d->cacheDirectory, ".");
+	DirErrno cacheDirError = FileUtils::mkpath(d->cacheDirectory);
 	if (cacheDirError.isError())
 		failedDirs << cacheDirError;
 
@@ -171,7 +170,7 @@ QList<DataPaths::DirErrno> DataPaths::createDirectories()
 	// It is necessary to ask about the .ini file.
 	if (!d->configDirectory.exists(DoomseekerFilePaths::INI_FILENAME))
 	{
-		DirErrno configDirError = tryCreateDirectory(d->configDirectory, ".");
+		DirErrno configDirError = FileUtils::mkpath(d->configDirectory);
 		if (configDirError.isError())
 			failedDirs << configDirError;
 
@@ -202,7 +201,7 @@ QList<DataPaths::DirErrno> DataPaths::createDirectories()
 		#else
 		const QString legacyPrefDirectory = ".doomseeker";
 		#endif
-		DirErrno dataDirError = tryCreateDirectory(d->dataDirectory, ".");
+		DirErrno dataDirError = FileUtils::mkpath(d->dataDirectory);
 		if (dataDirError.isError())
 			failedDirs << dataDirError;
 		else if (appDataDir.exists(legacyPrefDirectory))
@@ -229,7 +228,7 @@ QList<DataPaths::DirErrno> DataPaths::createDirectories()
 		}
 	}
 
-	DirErrno demosDirError = tryCreateDirectory(d->dataDirectory, DEMOS_DIR_NAME);
+	DirErrno demosDirError = FileUtils::mkpath(d->dataDirectory.filePath(DEMOS_DIR_NAME));
 	if (demosDirError.isError())
 		failedDirs << demosDirError;
 
@@ -448,55 +447,6 @@ QString DataPaths::systemAppDataDirectory(QString append) const
 	dir += QDir::separator() + append;
 
 	return QDir(dir).absolutePath();
-}
-
-DataPaths::DirErrno DataPaths::tryCreateDirectory(const QDir &rootDir, const QString &dirToCreate) const
-{
-	QString fullDirPath = Strings::combinePaths(rootDir.path(), dirToCreate);
-
-	// We need to reset errno to prevent false positives
-	errno = 0;
-	if (!rootDir.mkpath(dirToCreate))
-	{
-		int errnoval = errno;
-		if (errnoval != 0)
-			return DirErrno(fullDirPath, errnoval, strerror(errnoval));
-		else
-		{
-			// Try to decipher if we have permissions.
-			// First we must find the bottom-most directory that does actually exist.
-			QString pathToBottomMostExisting = FileUtils::cdUpUntilExists(
-				Strings::combinePaths(rootDir.path(), dirToCreate));
-			// If we've found a bottom-most directory that exists, we can check its permissions.
-			if (!pathToBottomMostExisting.isEmpty())
-			{
-				QFileInfo parentDir(pathToBottomMostExisting);
-				if (parentDir.exists() && !parentDir.isDir())
-				{
-					return DirErrno(fullDirPath, DirErrno::CUSTOM_ERROR,
-						QObject::tr("parent node is not a directory: %1")
-							.arg(parentDir.filePath()));
-				}
-
-				// BLOCK - keep this to absolute mininum
-				++qt_ntfs_permission_lookup;
-				bool permissions = parentDir.isReadable()
-					&& parentDir.isWritable()
-					&& parentDir.isExecutable();
-				--qt_ntfs_permission_lookup;
-				// END OF BLOCK
-				if (!permissions)
-				{
-					return DirErrno(fullDirPath, DirErrno::CUSTOM_ERROR,
-						QObject::tr("lack of necessary permissions to the parent directory: %1")
-							.arg(parentDir.filePath()));
-				}
-			}
-			// Just give up trying to deduce a correct error.
-			return DirErrno(fullDirPath, DirErrno::CUSTOM_ERROR, QObject::tr("cannot create directory"));
-		}
-	}
-	return DirErrno();
 }
 
 bool DataPaths::validateAppDataDirectory()

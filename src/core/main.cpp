@@ -45,6 +45,7 @@
 #include "connectionhandler.h"
 #include "datapaths.h"
 #include "doomseekerfilepaths.h"
+#include "fileutils.h"
 #include "gui/createserverdialog.h"
 #include "gui/mainwindow.h"
 #include "gui/remoteconsole.h"
@@ -429,13 +430,13 @@ bool Main::initDataDirectories()
 	gLog << QString("Data directory: %1").arg(gDefaultDataPaths->localDataLocationPath());
 
 	DoomseekerFilePaths::pDataPaths = gDefaultDataPaths;
-	QList<DataPaths::DirErrno> failedDirsErrno = gDefaultDataPaths->createDirectories();
+	QList<DirErrno> failedDirsErrno = gDefaultDataPaths->createDirectories();
 	if (!failedDirsErrno.isEmpty())
 	{
 		// Inform the user which directories failed and QUIT.
 		// We give an accurate error message of what is going wrong, thanks to errno.
 		QString errorMessage = tr("Doomseeker will not run because some directories cannot be used properly.\n");
-		for (const DataPaths::DirErrno &failedDirErrno : failedDirsErrno)
+		for (const DirErrno &failedDirErrno : failedDirsErrno)
 		{
 			errorMessage += "\n[" + QString::number(failedDirErrno.errnoNum) + "] ";
 			errorMessage += failedDirErrno.directory.absolutePath() + ": ";
