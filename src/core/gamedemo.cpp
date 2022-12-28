@@ -23,6 +23,7 @@
 #include "gamedemo.h"
 
 #include "datapaths.h"
+#include "fileutils.h"
 #include "ini/ini.h"
 #include "ini/settingsproviderqt.h"
 #include "ntfsperm.h"
@@ -44,10 +45,15 @@ public:
 		return tr("Doomseeker - Record Demo");
 	}
 
-	static QString pathDoesntExist(const QString &path)
+	static QString pathDoesntExist(const QString &path, const QString &details)
 	{
+		QString detailsMsg;
+		if (!details.isEmpty())
+		{
+			detailsMsg = QString("\n") + tr("Error: %1").arg(details);
+		}
 		return tr("The demo storage directory doesn't exist "
-			"and cannot be created!\n\n%1").arg(path);
+			"and cannot be created!%1\n\n%2").arg(detailsMsg).arg(path);
 	}
 
 	static QString pathMissingPermissions(const QString &path)
@@ -80,9 +86,10 @@ bool GameDemo::ensureStorageExists(QWidget *parent)
 	};
 
 	QDir demoDir(gDefaultDataPaths->demosDirectoryPath());
-	if (!demoDir.mkpath("."))
+	DirErrno mkResult = FileUtils::mkpath(demoDir);
+	if (mkResult.isError())
 	{
-		return popup(GameDemoTr::pathDoesntExist(demoDir.path()));
+		return popup(GameDemoTr::pathDoesntExist(demoDir.path(), mkResult.errnoString));
 	}
 
 	QFileInfo demoDirInfo(demoDir.path());
