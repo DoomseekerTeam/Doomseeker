@@ -226,6 +226,7 @@ set(HEADER_FILES
 	log.h
 	main.h
 	modreader.h
+	ntfsperm.h
 	pathfinder/caseinsensitivefsfileseeker.h
 	pathfinder/casesensitivefsfileseeker.h
 	pathfinder/filealias.h
