@@ -27,6 +27,14 @@ class ResponderCfg
 {
 public:
 	/**
+	 * @brief Every this many responses the master server will respond
+	 * with a banned status.
+	 *
+	 * Setting this to 0 will disable this.
+	 */
+	static unsigned masterBannedEvery();
+
+	/**
 	 * @brief UDP port on which the master server will be hosted.
 	 *
 	 * If you change this, it's probable that you will also have
