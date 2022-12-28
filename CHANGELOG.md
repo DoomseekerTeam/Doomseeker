@@ -78,6 +78,8 @@ path is empty. (#3839)
 - Create game box, server page: fix the spacing of the form when various
 inputs are hidden.
 - Fix imprecise issue tracker hyperlinks in the documentation. (#4063)
+- Pass all the original command line arguments from the auto-updater
+back to Doomseeker after the update is installed.
 - Auto-updater will now create a log file in Doomseeker's current local
 data directory, as intended.
 - Wadseeker: custom (server-provided) template URLs with the %WADNAME%

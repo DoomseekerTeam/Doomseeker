@@ -49,7 +49,6 @@ public:
 	 * Default: false.
 	 */
 	static bool bInstallUpdatesAndRestart;
-	static QString argDataDir;
 
 	Main(int argc, char *argv[]);
 	~Main() override;

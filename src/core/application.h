@@ -93,6 +93,16 @@ public:
 	 */
 	QWidget *mainWindowAsQWidget() const;
 
+	/**
+	 * @brief The unmodified list of arguments Doomseeker was
+	 * launched with.
+	 *
+	 * This list includes the arguments that can be "consumed" by Qt.
+	 *
+	 * This method was introduced in Doomseeker 1.4.
+	 */
+	const QStringList &originalArgs() const;
+
 	void setMainWindow(MainWindow *mainWindow);
 	/**
 	 * @brief Makes isRunning() return false.

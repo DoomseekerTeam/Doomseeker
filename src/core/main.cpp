@@ -70,7 +70,6 @@
 #include <unistd.h>
 #endif
 
-QString Main::argDataDir;
 bool Main::bInstallUpdatesAndRestart = false;
 
 
@@ -622,7 +621,6 @@ bool Main::interpretCommandLineParameters()
 			{
 				++i;
 				dataDirectories.prepend(arguments[i]);
-				argDataDir = arguments[i];
 			}
 			else
 			{

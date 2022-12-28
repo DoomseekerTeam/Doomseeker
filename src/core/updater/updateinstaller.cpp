@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 #include "updateinstaller.h"
 
+#include "application.h"
 #include "configuration/doomseekerconfig.h"
 #include "datapaths.h"
 #include "log.h"
@@ -102,15 +103,18 @@ QString UpdateInstaller::errorCodeToStr(ErrorCode code)
 
 QString UpdateInstaller::getPercentEncodedCurrentProcessArgs()
 {
+	const QStringList &originalArgs = gApp->originalArgs();
 	QStringList argsEncoded;
-	if (gDefaultDataPaths->isPortableModeOn())
+	for (int i = 1; i < originalArgs.size(); ++i)
 	{
-		argsEncoded << QUrl::toPercentEncoding("--portable");
-	}
-	if (!Main::argDataDir.isEmpty())
-	{
-		argsEncoded << QUrl::toPercentEncoding("--datadir");
-		argsEncoded << QUrl::toPercentEncoding(Main::argDataDir);
+		const QString &arg = originalArgs[i];
+		// Skip this one because it is produced by the updater.
+		if (arg == "--update-failed")
+		{
+			i++; // also skip its value
+			continue;
+		}
+		argsEncoded << QUrl::toPercentEncoding(arg);
 	}
 	return argsEncoded.join(" ");
 }

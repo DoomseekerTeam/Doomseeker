@@ -107,22 +107,25 @@ std::list<std::string> UpdaterOptions::parseArgs(const std::string& args)
 	// Spaces in this string separate arguments.
 	// Arguments themselves are URL encoded.
 	std::list<std::string> argsList;
-	unsigned idx = 0;
-	while (idx < args.length())
+	std::string::size_type idx = 0;
+	while (idx < args.length() && idx != std::string::npos)
 	{
-		int posSpace = args.find(" ", idx);
-		std::string subString = args.substr(idx, posSpace);
-		argsList.push_back(uriDecode(subString));
+		const std::string::size_type posSpace = args.find(" ", idx);
+		std::string::size_type count = std::string::npos;
+		if (posSpace != std::string::npos)
+		{
+			count = posSpace - idx;
+		}
+		const std::string subString = args.substr(idx, count);
+		if (!subString.empty())
+		{
+			argsList.push_back(uriDecode(subString));
+		}
 		idx = posSpace;
-		if (idx != string::npos)
+		if (idx != std::string::npos)
 		{
 			++idx;
 		}
-	}
-	for (std::list<std::string>::iterator it = argsList.begin();
-		it != argsList.end(); ++it)
-	{
-		std::cout << *it << std::endl;
 	}
 	return argsList;
 }

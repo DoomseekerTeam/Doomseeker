@@ -32,6 +32,7 @@ DClass<Application>
 public:
 	MainWindow *mainWindow;
 	bool running;
+	QStringList originalArgs;
 };
 
 DPointered(Application)
@@ -82,7 +83,13 @@ bool Application::isInit()
 void Application::init(int &argc, char **argv)
 {
 	assert(staticInstance == nullptr && "Cannot initialize Application twice!");
+	// The argv must captured before it's passed to Application because
+	// Application calls Qt where the argc and argv may be modified.
+	QStringList args;
+	for (int i = 0; i < argc; ++i)
+		args << argv[i];
 	staticInstance = new Application(argc, argv);
+	staticInstance->d->originalArgs = args;
 }
 
 Application *Application::instance()
@@ -109,6 +116,11 @@ QWidget *Application::mainWindowAsQWidget() const
 void Application::setMainWindow(MainWindow *mainWindow)
 {
 	d->mainWindow = mainWindow;
+}
+
+const QStringList &Application::originalArgs() const
+{
+	return d->originalArgs;
 }
 
 void Application::stopRunning()
