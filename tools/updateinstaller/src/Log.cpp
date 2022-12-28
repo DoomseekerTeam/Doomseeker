@@ -22,11 +22,13 @@ Log::~Log()
 {
 }
 
-void Log::open(const std::string& path)
+bool Log::open(const std::string& path)
 {
 	m_mutex.lock();
 	m_output.open(path.c_str(),std::ios_base::out | std::ios_base::app);
+	const bool ok = m_output.is_open();
 	m_mutex.unlock();
+	return ok;
 }
 
 void Log::writeToStream(std::ostream& stream, Type type, const char* text)

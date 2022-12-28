@@ -18,7 +18,7 @@ class Log
 		Log();
 		~Log();
 
-		void open(const std::string& path);
+		bool open(const std::string& path);
 
 		/** Write @p text to the log.  This method is thread-safe. */
 		void write(Type type, const std::string& text);

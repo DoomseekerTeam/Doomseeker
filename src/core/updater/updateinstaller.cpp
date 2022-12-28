@@ -188,6 +188,7 @@ bool UpdateInstaller::startUpdaterProcess(const QString &packagesDir,
 	#endif
 	args << "--package-dir" << packagesDir;
 	args << "--script" << scriptFilePath;
+	args << "--log" << QDir::toNativeSeparators(AutoUpdater::updaterLogPath());
 	args << "--exec" << QDir::toNativeSeparators(programFileInfo.absoluteFilePath());
 	QString currentProcessArgs = getPercentEncodedCurrentProcessArgs();
 	if (!currentProcessArgs.isEmpty())

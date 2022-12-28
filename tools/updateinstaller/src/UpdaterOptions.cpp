@@ -201,6 +201,7 @@ void UpdaterOptions::parse(int argc, char** argv)
 	parser.setOption("script");
 	parser.setOption("wait");
 	parser.setOption("mode");
+	parser.setOption("log");
 	parser.setOption("args");
 	parser.setOption("exec");
 	parser.setFlag("version");
@@ -235,6 +236,10 @@ void UpdaterOptions::parse(int argc, char** argv)
 	if (parser.getValue("wait"))
 	{
 		waitPid = static_cast<PLATFORM_PID>(atoll(parser.getValue("wait")));
+	}
+	if (parser.getValue("log"))
+	{
+		logFile = parser.getValue("log");
 	}
 
 	showVersion = parser.getFlag("version");
