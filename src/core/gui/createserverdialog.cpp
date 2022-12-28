@@ -173,7 +173,8 @@ void CreateServerDialog::changeToOfflineMode()
 	applyModeToUi();
 }
 
-bool CreateServerDialog::commandLineArguments(QString &executable, QStringList &args, bool offline)
+bool CreateServerDialog::commandLineArguments(QString &executable, QStringList &args,
+	bool offline, CommandLinePurpose purpose)
 {
 	const QString errorCapt = tr("Doomseeker - create game");
 	if (d->currentEngine == nullptr)
@@ -183,7 +184,7 @@ bool CreateServerDialog::commandLineArguments(QString &executable, QStringList &
 	}
 
 	GameCreateParams gameParams;
-	if (createHostInfo(gameParams, offline))
+	if (createHostInfo(gameParams, offline, purpose))
 	{
 		CommandLineInfo cli;
 		QString error;
@@ -208,7 +209,7 @@ bool CreateServerDialog::commandLineArguments(QString &executable, QStringList &
 	return false;
 }
 
-bool CreateServerDialog::createHostInfo(GameCreateParams &params, bool offline)
+bool CreateServerDialog::createHostInfo(GameCreateParams &params, bool offline, CommandLinePurpose purpose)
 {
 	params.setHostMode(d->hostMode);
 	d->generalSetupPanel->fillInParams(params);
@@ -221,16 +222,18 @@ bool CreateServerDialog::createHostInfo(GameCreateParams &params, bool offline)
 	d->serverPanel->fillInParams(params);
 	d->rulesPanel->fillInParams(params);
 
-	createHostInfoDemoRecord(params, offline);
+	createHostInfoDemoRecord(params, offline, purpose);
 	return true;
 }
 
-void CreateServerDialog::createHostInfoDemoRecord(GameCreateParams &params, bool offline)
+void CreateServerDialog::createHostInfoDemoRecord(GameCreateParams &params, bool offline, CommandLinePurpose purpose)
 {
 	if (gConfig.doomseeker.bRecordDemo && offline)
 	{
-		params.setDemoPath(GameDemo::mkDemoFullPath(GameDemo::Managed, *d->currentEngine));
-		params.setDemoRecord(GameDemo::Managed);
+		const GameDemo::Control demoMode = purpose == CommandLinePurpose::Run
+			? GameDemo::Managed : GameDemo::Unmanaged;
+		params.setDemoPath(GameDemo::mkDemoFullPath(demoMode, *d->currentEngine));
+		params.setDemoRecord(demoMode);
 	}
 }
 
@@ -381,7 +384,7 @@ void CreateServerDialog::runGame(bool offline)
 	}
 
 	GameCreateParams gameParams;
-	if (createHostInfo(gameParams, offline))
+	if (createHostInfo(gameParams, offline, CommandLinePurpose::Run))
 	{
 		QString error;
 
@@ -473,7 +476,7 @@ void CreateServerDialog::showCommandLine(bool offline)
 {
 	QString executable;
 	QStringList args;
-	if (commandLineArguments(executable, args, offline))
+	if (commandLineArguments(executable, args, offline, CommandLinePurpose::Show))
 	{
 		// Lines below directly modify the passed values.
 		CommandLine::escapeExecutable(executable);

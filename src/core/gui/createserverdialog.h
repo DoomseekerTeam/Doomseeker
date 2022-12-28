@@ -43,10 +43,16 @@ class CreateServerDialog : public QDialog
 	Q_OBJECT
 
 public:
+	enum class CommandLinePurpose
+	{
+		Show, Run
+	};
+
 	CreateServerDialog(GameCreateParams::HostMode hostMode, QWidget *parent = nullptr);
 	virtual ~CreateServerDialog();
 
-	bool commandLineArguments(QString &executable, QStringList &args, bool offline);
+	bool commandLineArguments(QString &executable, QStringList &args,
+		bool offline, CommandLinePurpose purpose);
 	void makeRemoteGameSetupDialog(EnginePlugin *plugin);
 	MapListPanel *mapListPanel();
 	QString mapName() const;
@@ -89,8 +95,8 @@ private:
 	 * parameters obtain new information after this method is called.
 	 * @return false if fail.
 	 */
-	bool createHostInfo(GameCreateParams &params, bool offline);
-	void createHostInfoDemoRecord(GameCreateParams &params, bool offline);
+	bool createHostInfo(GameCreateParams &params, bool offline, CommandLinePurpose purpose);
+	void createHostInfoDemoRecord(GameCreateParams &params, bool offline, CommandLinePurpose purpose);
 
 	GameMode currentGameMode() const;
 

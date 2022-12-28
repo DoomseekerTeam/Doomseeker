@@ -82,6 +82,9 @@ inputs are hidden.
 back to Doomseeker after the update is installed.
 - Auto-updater will now create a log file in Doomseeker's current local
 data directory, as intended.
+- When showing the command line for offline play, the demo record
+command should use the unmanaged (relative) demo path, not the path
+to Doomseeker's managed data storage.
 - Wadseeker: custom (server-provided) template URLs with the %WADNAME%
 placeholder wouldn't get the higher priority status that the plain
 custom URLs normally enjoy. (#3996)
