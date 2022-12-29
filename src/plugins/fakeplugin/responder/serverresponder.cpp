@@ -30,7 +30,9 @@ class ServerResponder::PrivData
 {
 public:
 	QList<AwaitingClient> awaitingClients;
-	int responseFailChance;
+	unsigned banChance;
+	unsigned responseFailChance;
+	unsigned tooSoonChance;
 	QUdpSocket *socket;
 };
 ///////////////////////////////////////////////////////////////////////////////
@@ -77,7 +79,7 @@ void ServerResponder::readPendingDatagram()
 	QByteArray packet = QByteArray(buffer, MAGIC_SIZE);
 	if (packet == "FAKF")
 	{
-		if (shouldRespond())
+		if (!roll(d->responseFailChance))
 		{
 			d->awaitingClients.append(AwaitingClient(address, port));
 			int msec = 10 + qrand() % 300;
@@ -89,9 +91,24 @@ void ServerResponder::readPendingDatagram()
 void ServerResponder::respond()
 {
 	AwaitingClient client = d->awaitingClients.takeFirst();
-	QByteArray response = QByteArray("FAKF");
-	response += QString::number(port()).toUtf8();
+	QByteArray response = QByteArray("FAKF;");
+	response += QString("%1;").arg(port()).toUtf8();
+	QString status = "OK";
+	if (roll(d->banChance))
+	{
+		status = "BAN";
+	}
+	else if (roll(d->tooSoonChance))
+	{
+		status = "WAIT";
+	}
+	response += status.toUtf8();
 	d->socket->writeDatagram(response, client.address, client.port);
+}
+
+void ServerResponder::setBanChance(unsigned chance)
+{
+	d->banChance = chance;
 }
 
 void ServerResponder::setResponseFailChance(unsigned chance)
@@ -99,10 +116,15 @@ void ServerResponder::setResponseFailChance(unsigned chance)
 	d->responseFailChance = chance;
 }
 
-bool ServerResponder::shouldRespond() const
+void ServerResponder::setTooSoonChance(unsigned chance)
 {
-	if (d->responseFailChance == 0)
-		return true;
-	int roll = qrand() % MAX_CHANCE + 1;
-	return roll > d->responseFailChance;
+	d->tooSoonChance = chance;
+}
+
+bool ServerResponder::roll(unsigned chance) const
+{
+	if (chance == 0)
+		return false;
+	const unsigned rolled = qrand() % MAX_CHANCE + 1;
+	return rolled <= chance;
 }

@@ -48,6 +48,20 @@ Server::Response PluginServer::readRequest(const QByteArray &data)
 	if (data.left(4) != "FAKF")
 		return RESPONSE_BAD;
 
+	QList<QByteArray> tokens = data.split(';');
+	if (data.size() < 3)
+		return RESPONSE_BAD;
+
+	const QByteArray &status = tokens[2];
+
 	this->setName(QString("Fake Server %1").arg(this->port()));
-	return RESPONSE_GOOD;
+
+	if (status == "OK")
+		return RESPONSE_GOOD;
+	else if (status == "BAN")
+		return RESPONSE_BANNED;
+	else if (status == "WAIT")
+		return RESPONSE_WAIT;
+	else
+		return RESPONSE_BAD;
 }

@@ -192,6 +192,20 @@ void MasterResponder::startServerResponders()
 		bindServer(server, port);
 		++port;
 	}
+	for (int i = 0; i < ResponderCfg::numBannedServers(); ++i)
+	{
+		ServerResponder *server = new ServerResponder();
+		server->setBanChance(ServerResponder::MAX_CHANCE);
+		bindServer(server, port);
+		++port;
+	}
+	for (int i = 0; i < ResponderCfg::numTooSoonServers(); ++i)
+	{
+		ServerResponder *server = new ServerResponder();
+		server->setTooSoonChance(ServerResponder::MAX_CHANCE);
+		bindServer(server, port);
+		++port;
+	}
 	for (int i = 0; i < ResponderCfg::numNotRespondingServers(); ++i)
 	{
 		ServerResponder *server = new ServerResponder();

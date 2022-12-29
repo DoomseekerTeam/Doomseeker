@@ -64,11 +64,17 @@ public:
 	 */
 	static unsigned short serverPortBase();
 	/**
+	 * @brief Number of servers that the user was banned from.
+	 */
+	static unsigned short numBannedServers();
+	/**
 	 * @brief Number of servers that will never respond.
-	 *
-	 * Same rules apply as with numValidServers().
 	 */
 	static unsigned short numNotRespondingServers();
+	/**
+	 * @brief Number of servers that will always respond with "refreshed too soon".
+	 */
+	static unsigned short numTooSoonServers();
 	/**
 	 * @brief Number of fake game servers.
 	 *

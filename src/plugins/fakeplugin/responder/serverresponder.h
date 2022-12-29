@@ -43,6 +43,16 @@ public:
 	unsigned short port() const;
 
 	/**
+	 * @brief Set chance for this server to respond with a "you're banned" reply.
+	 *
+	 * @param chance
+	 *     A value between 0 and MAX_CHANCE, inclusive.
+	 *     A value of zero means no chance.
+	 *     max value means always.
+	 */
+	void setBanChance(unsigned chance);
+
+	/**
 	 * @brief Set chance for this server to not respond to a query.
 	 *
 	 * @param chance
@@ -52,12 +62,22 @@ public:
 	 */
 	void setResponseFailChance(unsigned chance);
 
+	/**
+	 * @brief Set chance for this server to respond with a "too soon" reply.
+	 *
+	 * @param chance
+	 *     A value between 0 and MAX_CHANCE, inclusive.
+	 *     A value of zero means no chance.
+	 *     max value means always.
+	 */
+	void setTooSoonChance(unsigned chance);
+
 private:
 	class PrivData;
 
 	PrivData *d;
 
-	bool shouldRespond() const;
+	bool roll(unsigned chance) const;
 
 private slots:
 	void readPendingDatagrams();
