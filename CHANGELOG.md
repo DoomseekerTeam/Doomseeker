@@ -91,6 +91,8 @@ data directory, as intended.
 - When showing the command line for offline play, the demo record
 command should use the unmanaged (relative) demo path, not the path
 to Doomseeker's managed data storage.
+- Prevent horizontal scrollbar in the server filter panel by enforcing
+a minimal width.
 - Wadseeker: custom (server-provided) template URLs with the %WADNAME%
 placeholder wouldn't get the higher priority status that the plain
 custom URLs normally enjoy. (#3996)

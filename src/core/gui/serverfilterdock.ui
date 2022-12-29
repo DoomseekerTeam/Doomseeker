@@ -82,6 +82,18 @@
     </item>
     <item>
      <widget class="QScrollArea" name="scrollArea">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>220</width>
+        <height>0</height>
+       </size>
+      </property>
       <property name="frameShape">
        <enum>QFrame::NoFrame</enum>
       </property>
@@ -93,8 +105,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>238</width>
-         <height>441</height>
+         <width>220</width>
+         <height>467</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
