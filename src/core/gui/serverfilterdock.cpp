@@ -136,6 +136,9 @@ ServerListFilterInfo ServerFilterDock::filterInfo() const
 	filterInfo.bShowEmpty = d->cbShowEmpty->isChecked();
 	filterInfo.bShowFull = d->cbShowFull->isChecked();
 	filterInfo.bShowOnlyValid = d->cbShowOnlyValid->isChecked();
+	filterInfo.bShowBannedServers = d->cbShowBannedServers->isChecked();
+	filterInfo.bShowTooSoonServers = d->cbShowTooSoonServers->isChecked();
+	filterInfo.bShowNotRespondingServers = d->cbShowNotRespondingServers->isChecked();
 	filterInfo.gameModes = d->cboGameMode->selectedItemTexts();
 	filterInfo.gameModesExcluded = d->cboExcludeGameMode->selectedItemTexts();
 	filterInfo.lockedServers = Doomseeker::checkboxTristateToShowMode(d->cbShowLockedServers->checkState());
@@ -162,6 +165,9 @@ void ServerFilterDock::setFilterInfo(const ServerListFilterInfo &filterInfo)
 	d->cbShowEmpty->setChecked(filterInfo.bShowEmpty);
 	d->cbShowFull->setChecked(filterInfo.bShowFull);
 	d->cbShowOnlyValid->setChecked(filterInfo.bShowOnlyValid);
+	d->cbShowBannedServers->setChecked(filterInfo.bShowBannedServers);
+	d->cbShowTooSoonServers->setChecked(filterInfo.bShowTooSoonServers);
+	d->cbShowNotRespondingServers->setChecked(filterInfo.bShowNotRespondingServers);
 
 	for (const QString &gameMode : filterInfo.gameModes)
 	{

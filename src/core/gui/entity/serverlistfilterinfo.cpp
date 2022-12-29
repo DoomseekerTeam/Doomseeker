@@ -28,6 +28,9 @@ ServerListFilterInfo::ServerListFilterInfo()
 	bShowEmpty = true;
 	bShowFull = true;
 	bShowOnlyValid = false;
+	bShowBannedServers = true;
+	bShowTooSoonServers = true;
+	bShowNotRespondingServers = true;
 	lockedServers = Doomseeker::Indifferent;
 	maxPing = 0;
 	testingServers = Doomseeker::Indifferent;
@@ -39,6 +42,9 @@ void ServerListFilterInfo::copy(const ServerListFilterInfo &other)
 	bShowEmpty = other.bShowEmpty;
 	bShowFull = other.bShowFull;
 	bShowOnlyValid = other.bShowOnlyValid;
+	bShowBannedServers = other.bShowBannedServers;
+	bShowTooSoonServers = other.bShowTooSoonServers;
+	bShowNotRespondingServers = other.bShowNotRespondingServers;
 	gameModes = other.gameModes;
 	gameModesExcluded = other.gameModesExcluded;
 	lockedServers = other.lockedServers;
@@ -72,7 +78,15 @@ bool ServerListFilterInfo::isFilteringAnything() const
 	if (!bShowEmpty || !bShowFull)
 		return true;
 
-	if (bShowOnlyValid || maxPing > 0)
+	if (bShowOnlyValid
+		|| !bShowBannedServers
+		|| !bShowTooSoonServers
+		|| !bShowNotRespondingServers)
+	{
+		return true;
+	}
+
+	if (maxPing > 0)
 		return true;
 
 	if (!gameModes.isEmpty()
@@ -100,6 +114,10 @@ QString ServerListFilterInfo::toString() const
 	ret += QString("bShowEmpty: ") + (bShowEmpty ? "Yes" : "No") + "\n";
 	ret += QString("bShowFull: ") + (bShowFull ? "Yes" : "No") + "\n";
 	ret += QString("bShowOnlyValid: ") + (bShowOnlyValid ? "Yes" : "No") + "\n";
+	ret += QString("bShowBannedServers: ") + (bShowBannedServers ? "Yes" : "No") + "\n";
+	ret += QString("bShowTooSoonServers: ") + (bShowTooSoonServers ? "Yes" : "No") + "\n";
+	ret += QString("bShowNotRespondingServers: ") + (bShowNotRespondingServers ? "Yes" : "No") + "\n";
+
 	ret += QString("GameModes: ") + gameModes.join(",") + "\n";
 	ret += QString("GameModes Excluded: ") + gameModesExcluded.join(",") + "\n";
 	ret += QString("LockedServers: %1\n").arg(lockedServers);

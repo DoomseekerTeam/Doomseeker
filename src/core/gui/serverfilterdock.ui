@@ -223,6 +223,63 @@
          </widget>
         </item>
         <item>
+         <widget class="QWidget" name="validServersGranularArea" native="true">
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <property name="leftMargin">
+            <number>20</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QCheckBox" name="cbShowBannedServers">
+             <property name="toolTip">
+              <string>Show the servers you were banned from.</string>
+             </property>
+             <property name="text">
+              <string>Show banned servers</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbShowTooSoonServers">
+             <property name="toolTip">
+              <string>Show the &quot;Refreshed too soon&quot; servers.</string>
+             </property>
+             <property name="text">
+              <string>Show &quot;too soon&quot; servers</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbShowNotRespondingServers">
+             <property name="toolTip">
+              <string>&lt;p&gt;Show the servers that didn't respond at all or returned a bad response.&lt;/p&gt;</string>
+             </property>
+             <property name="text">
+              <string>Show not responding servers</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
          <widget class="QCheckBox" name="cbShowTestingServers">
           <property name="text">
            <string>Show testing servers</string>
@@ -286,23 +343,6 @@
    </slots>
   </customwidget>
  </customwidgets>
- <tabstops>
-  <tabstop>leServerName</tabstop>
-  <tabstop>cbGroupServersWithPlayersAtTop</tabstop>
-  <tabstop>cbFilteringEnabled</tabstop>
-  <tabstop>scrollArea</tabstop>
-  <tabstop>spinMaxPing</tabstop>
-  <tabstop>leWads</tabstop>
-  <tabstop>leExcludeWads</tabstop>
-  <tabstop>cboGameMode</tabstop>
-  <tabstop>cboExcludeGameMode</tabstop>
-  <tabstop>cbShowFull</tabstop>
-  <tabstop>cbShowEmpty</tabstop>
-  <tabstop>cbShowLockedServers</tabstop>
-  <tabstop>cbShowOnlyValid</tabstop>
-  <tabstop>cbShowTestingServers</tabstop>
-  <tabstop>btnClear</tabstop>
- </tabstops>
  <resources>
   <include location="../../../media/resources.qrc"/>
  </resources>
@@ -544,6 +584,70 @@
     <hint type="destinationlabel">
      <x>120</x>
      <y>282</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbShowBannedServers</sender>
+   <signal>clicked()</signal>
+   <receiver>ServerFilterDock</receiver>
+   <slot>emitUpdated()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>235</x>
+     <y>626</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>334</x>
+     <y>630</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbShowTooSoonServers</sender>
+   <signal>clicked()</signal>
+   <receiver>ServerFilterDock</receiver>
+   <slot>emitUpdated()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>235</x>
+     <y>651</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>336</x>
+     <y>662</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbShowNotRespondingServers</sender>
+   <signal>clicked()</signal>
+   <receiver>ServerFilterDock</receiver>
+   <slot>emitUpdated()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>259</x>
+     <y>679</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>334</x>
+     <y>690</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbShowOnlyValid</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>validServersGranularArea</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>226</x>
+     <y>594</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>16</x>
+     <y>657</y>
     </hint>
    </hints>
   </connection>

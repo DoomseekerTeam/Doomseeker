@@ -38,6 +38,9 @@ public:
 	bool bShowEmpty;
 	bool bShowFull;
 	bool bShowOnlyValid;
+	bool bShowBannedServers;
+	bool bShowTooSoonServers;
+	bool bShowNotRespondingServers;
 	QStringList gameModes;
 	QStringList gameModesExcluded;
 

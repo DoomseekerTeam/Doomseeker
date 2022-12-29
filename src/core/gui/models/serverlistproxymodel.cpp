@@ -180,6 +180,22 @@ bool ServerListProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &so
 	{
 		if (d->filterInfo.bShowOnlyValid)
 			return false;
+		if ((s->lastResponse() == Server::RESPONSE_BAD
+			|| s->lastResponse() == Server::RESPONSE_TIMEOUT)
+			&& !d->filterInfo.bShowNotRespondingServers)
+		{
+			return false;
+		}
+		if (s->lastResponse() == Server::RESPONSE_WAIT
+			&& !d->filterInfo.bShowTooSoonServers)
+		{
+			return false;
+		}
+		if (s->lastResponse() == Server::RESPONSE_BANNED
+			&& !d->filterInfo.bShowBannedServers)
+		{
+			return false;
+		}
 	}
 	else
 	{

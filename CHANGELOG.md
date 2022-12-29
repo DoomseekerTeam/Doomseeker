@@ -18,6 +18,8 @@ where Doomseeker stores all of its managed files: settings, cache, managed
 data. (#3452)
 - Check if the demo storage directory exists and is writable when demo recording
 is enabled. If there's something wrong, warn the user. (#3501)
+- Granular filters for banned, "refreshed too soon" and not responding
+game servers. (#4002)
 - Wadseeker: add a bunch of websites to the WAD search list: (#4053)
     - https://doomshack.org/wadlist.php
     - https://wads.firestick.games/

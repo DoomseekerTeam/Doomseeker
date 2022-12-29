@@ -644,6 +644,9 @@ void DoomseekerConfig::ServerFilter::init(IniSection &section)
 	section.createSetting("bShowEmpty", true);
 	section.createSetting("bShowFull", true);
 	section.createSetting("bShowOnlyValid", false);
+	section.createSetting("bShowBannedServers", true);
+	section.createSetting("bShowTooSoonServers", true);
+	section.createSetting("bShowNotRespondingServers", true);
 	section.createSetting("GameModes", QStringList());
 	section.createSetting("GameModesExcluded", QStringList());
 	section.createSetting("MaxPing", 0);
@@ -660,6 +663,9 @@ void DoomseekerConfig::ServerFilter::load(IniSection &section)
 	info.bShowEmpty = section["bShowEmpty"];
 	info.bShowFull = section["bShowFull"];
 	info.bShowOnlyValid = section["bShowOnlyValid"];
+	info.bShowBannedServers = section["bShowBannedServers"];
+	info.bShowTooSoonServers = section["bShowTooSoonServers"];
+	info.bShowNotRespondingServers = section["bShowNotRespondingServers"];
 	info.gameModes = section["GameModes"].value().toStringList();
 	info.gameModesExcluded = section["GameModesExcluded"].value().toStringList();
 	info.lockedServers = static_cast<Doomseeker::ShowMode>(section.value("LockedServers").toInt());
@@ -676,6 +682,9 @@ void DoomseekerConfig::ServerFilter::save(IniSection &section)
 	section["bShowEmpty"] = info.bShowEmpty;
 	section["bShowFull"] = info.bShowFull;
 	section["bShowOnlyValid"] = info.bShowOnlyValid;
+	section["bShowBannedServers"] = info.bShowBannedServers;
+	section["bShowTooSoonServers"] = info.bShowTooSoonServers;
+	section["bShowNotRespondingServers"] = info.bShowNotRespondingServers;
 	section["GameModes"].setValue(info.gameModes);
 	section["GameModesExcluded"].setValue(info.gameModesExcluded);
 	section["LockedServers"] = info.lockedServers;
