@@ -6996,7 +6996,7 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
     <name>StaticMessages</name>
     <message>
         <location filename="../serverapi/message.cpp" line="30"/>
-        <source>You have been banned from master server.</source>
+        <source>You have been banned from the master server.</source>
         <translation>Zostałeś zbanowany z master serwera.</translation>
     </message>
 </context>

@@ -7274,7 +7274,7 @@ Humans + Bots) / Servidors actualitzats%</translation>
     <name>StaticMessages</name>
     <message>
         <location filename="../serverapi/message.cpp" line="30"/>
-        <source>You have been banned from master server.</source>
+        <source>You have been banned from the master server.</source>
         <translation>Vostè ha estat banejat del servidor master.</translation>
     </message>
 </context>

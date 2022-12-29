@@ -7524,7 +7524,7 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
     <name>StaticMessages</name>
     <message>
         <location filename="../serverapi/message.cpp" line="30"/>
-        <source>You have been banned from master server.</source>
+        <source>You have been banned from the master server.</source>
         <translation>Usted ha sido baneado del servidor master.</translation>
     </message>
 </context>

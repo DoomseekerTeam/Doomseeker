@@ -197,6 +197,8 @@ public:
 
 	TaskbarProgress *taskbarProgress;
 	TaskbarButton *taskbarButton;
+
+	QList<QSharedPointer<ImportantMessagesWidget::Handler>> masterMessages;
 };
 
 DPointeredNoCopy(MainWindow)
@@ -314,6 +316,10 @@ MainWindow::~MainWindow()
 	// Window geometry settings
 	gConfig.doomseeker.mainWindowGeometry = saveGeometry();
 	gConfig.doomseeker.mainWindowState = saveState().toBase64();
+
+	for (auto handler : d->masterMessages)
+		handler->remove();
+	d->masterMessages.clear();
 
 	if (d->updateChannelOnUpdateStart != nullptr)
 		delete d->updateChannelOnUpdateStart;
@@ -737,6 +743,9 @@ void MainWindow::getServers()
 				"Check your Query menu or \"engines/\" directory.");
 	}
 
+	for (auto handler : d->masterMessages)
+		handler->remove();
+	d->masterMessages.clear();
 	d->masterManager->clearServers();
 	for (int i = 0; i < d->masterManager->numMasters(); ++i)
 	{
@@ -1007,7 +1016,7 @@ void MainWindow::masterManagerMessagesImportant(MasterClient *pSender, const Mes
 	QString strFullMessage = tr("%1: %2")
 		.arg(pSender->plugin()->data()->name)
 		.arg(objMessage.contents());
-	d->importantMessagesWidget->addMessage(strFullMessage, objMessage.timestamp());
+	d->masterMessages << d->importantMessagesWidget->addMessage(strFullMessage, objMessage.timestamp());
 }
 
 void MainWindow::menuBuddies()

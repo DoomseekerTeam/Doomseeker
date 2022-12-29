@@ -25,7 +25,9 @@
 #include "ui_importantmessageswidget.h"
 #include <QDateTime>
 #include <QLabel>
+#include <QPointer>
 #include <QVBoxLayout>
+#include <functional>
 
 DClass<ImportantMessagesWidget> : public Ui::ImportantMessagesWidget
 {
@@ -41,6 +43,29 @@ public:
 
 		QLabel *pLabel;
 		QDateTime timeCreated;
+	};
+
+	class Handler final : public ::ImportantMessagesWidget::Handler
+	{
+	public:
+		Handler(QPointer<::ImportantMessagesWidget> container, QPointer<QLabel> label,
+			std::function<void(QLabel *label)> remover)
+			: container(container), label(label), remover(remover)
+		{
+		}
+
+		void remove() override
+		{
+			if (container != nullptr && label != nullptr)
+			{
+				remover(label.data());
+			}
+		}
+
+	private:
+		QPointer<::ImportantMessagesWidget> container;
+		QPointer<QLabel> label;
+		std::function<void(QLabel *label)> remover;
 	};
 
 	static const unsigned DEFAULT_MAX_MESSAGES = 0;
@@ -65,12 +90,14 @@ ImportantMessagesWidget::~ImportantMessagesWidget()
 {
 }
 
-void ImportantMessagesWidget::addMessage(const QString &message)
+QSharedPointer<ImportantMessagesWidget::Handler> ImportantMessagesWidget::addMessage(
+	const QString &message)
 {
-	addMessage(message, QDateTime());
+	return addMessage(message, QDateTime());
 }
 
-void ImportantMessagesWidget::addMessage(const QString &message, const QDateTime &dateTime)
+QSharedPointer<ImportantMessagesWidget::Handler> ImportantMessagesWidget::addMessage(
+	const QString &message, const QDateTime &dateTime)
 {
 	QString strTimestamp = "";
 	if (dateTime.isValid())
@@ -85,6 +112,10 @@ void ImportantMessagesWidget::addMessage(const QString &message, const QDateTime
 	pNewLabel->setCursor(Qt::IBeamCursor);
 	pNewLabel->setWordWrap(true);
 
+	auto handler = QSharedPointer<PrivData<ImportantMessagesWidget>::Handler>::create(
+		QPointer<ImportantMessagesWidget>(this), QPointer<QLabel>(pNewLabel),
+		[this](QLabel *label){ remove(label); });
+
 	d->labelWidgets << PrivData<ImportantMessagesWidget>::MessageLabel(pNewLabel);
 	d->messageLayout->addWidget(pNewLabel);
 
@@ -93,14 +124,16 @@ void ImportantMessagesWidget::addMessage(const QString &message, const QDateTime
 
 	// Do not forget co clear oldest widgets if necessary.
 	dropOldWidgetsIfBeyondLimit();
+	return handler;
 }
 
-void ImportantMessagesWidget::addMessage(const QString &message, unsigned timestamp)
+QSharedPointer<ImportantMessagesWidget::Handler> ImportantMessagesWidget::addMessage(
+	const QString &message, unsigned timestamp)
 {
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-	addMessage(message, QDateTime::fromSecsSinceEpoch(timestamp));
+	return addMessage(message, QDateTime::fromSecsSinceEpoch(timestamp));
 #else
-	addMessage(message, QDateTime::fromTime_t(timestamp));
+	return addMessage(message, QDateTime::fromTime_t(timestamp));
 #endif
 }
 
@@ -145,13 +178,28 @@ void ImportantMessagesWidget::removeOneOldest()
 {
 	if (!d->labelWidgets.isEmpty())
 	{
-		delete d->labelWidgets.takeFirst().pLabel;
+		remove(d->labelWidgets.first().pLabel);
+	}
+}
 
-		if (d->labelWidgets.isEmpty())
+void ImportantMessagesWidget::remove(QLabel *label)
+{
+	if (label != nullptr)
+	{
+		for (auto it = d->labelWidgets.begin(); it != d->labelWidgets.end(); ++it)
 		{
-			// Auto-hide when there is nothing to show.
-			hide();
+			if (it->pLabel == label)
+			{
+				delete it->pLabel;
+				d->labelWidgets.erase(it);
+				break;
+			}
 		}
+	}
+	if (d->labelWidgets.isEmpty())
+	{
+		// Auto-hide when there is nothing to show.
+		hide();
 	}
 }
 
