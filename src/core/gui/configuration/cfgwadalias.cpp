@@ -26,6 +26,7 @@
 #include "configuration/doomseekerconfig.h"
 #include "gui/commongui.h"
 #include "pathfinder/filealias.h"
+#include <QStyle>
 #include <QTimer>
 
 DClass<CFGWadAlias> : public Ui::CFGWadAlias

@@ -31,6 +31,7 @@
 #include "ui_filepickwidget.h"
 #include <QFileDialog>
 #include <QString>
+#include <QStyle>
 
 DClass<FilePickWidget> : public Ui::FilePickWidget
 {
@@ -48,6 +49,7 @@ FilePickWidget::FilePickWidget(QWidget *parent)
 	d->changed = false;
 	d->neighbourStrategy = QSharedPointer<NeighbourStrategy>(new NeighbourStrategy);
 	d->lblWarning->hide();
+	d->btnBrowse->setIcon(style()->standardIcon(QStyle::SP_DirOpenIcon));
 	this->connect(d->lePath, SIGNAL(editingFinished()), SLOT(emitPathChangedIfChanged()));
 	this->connect(d->lePath, SIGNAL(textEdited(QString)), SLOT(trackEdit()));
 }

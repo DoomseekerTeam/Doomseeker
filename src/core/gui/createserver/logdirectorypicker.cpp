@@ -28,6 +28,7 @@
 
 #include <QDir>
 #include <QFileDialog>
+#include <QStyle>
 
 DClass<LogDirectoryPicker> : public Ui::LogDirectoryPicker
 {
@@ -42,6 +43,8 @@ LogDirectoryPicker::LogDirectoryPicker(QWidget *parent)
 	: QWidget(parent)
 {
 	d->setupUi(this);
+
+	d->btnBrowse->setIcon(style()->standardIcon(QStyle::SP_DirOpenIcon));
 
 	d->loggingEnabled = gConfig.doomseeker.bLogCreatedServer;
 	d->dialogDir = gConfig.doomseeker.previousCreateServerLogDir;

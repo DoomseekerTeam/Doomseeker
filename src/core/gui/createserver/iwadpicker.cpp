@@ -29,6 +29,7 @@
 #include "strings.hpp"
 #include <QFileDialog>
 #include <QFileInfo>
+#include <QStyle>
 
 DClass<IwadPicker> : public Ui::IwadPicker
 {
@@ -40,6 +41,7 @@ IwadPicker::IwadPicker(QWidget *parent)
 	: QWidget(parent)
 {
 	d->setupUi(this);
+	d->btnBrowse->setIcon(style()->standardIcon(QStyle::SP_DirOpenIcon));
 	loadIwads();
 }
 

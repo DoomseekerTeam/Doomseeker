@@ -29,6 +29,7 @@
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QMessageBox>
+#include <QStyle>
 #include <QUrl>
 
 DClass<CfgChatLogsPage> : public Ui::CfgChatLogsPage
@@ -43,6 +44,7 @@ CfgChatLogsPage::CfgChatLogsPage(QWidget *parent)
 {
 	d->setupUi(this);
 	d->lblDirWarning->hide();
+	d->btnBrowseDir->setIcon(style()->standardIcon(QStyle::SP_DirOpenIcon));
 
 	this->connect(d->leDir, SIGNAL(editingFinished()),
 		SIGNAL(validationRequested()));

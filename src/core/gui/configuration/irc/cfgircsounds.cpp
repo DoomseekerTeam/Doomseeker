@@ -11,6 +11,7 @@
 #include <QFileInfo>
 #include <QFileDialog>
 #include <QSoundEffect>
+#include <QStyle>
 
 DClass<CFGIRCSounds> : public Ui::CFGIRCSounds
 {
@@ -28,6 +29,8 @@ CFGIRCSounds::CFGIRCSounds(QWidget *parent)
 	d->setupUi(this);
 	d->lblNicknameUsedWarning->hide();
 	d->lblPrivateMessageWarning->hide();
+	d->btnBrowseNicknameUsed->setIcon(style()->standardIcon(QStyle::SP_DirOpenIcon));
+	d->btnBrowsePrivateMessage->setIcon(style()->standardIcon(QStyle::SP_DirOpenIcon));
 
 	this->connect(d->cbNicknameUsed, SIGNAL(toggled(bool)),
 		SIGNAL(validationRequested()));

@@ -33,6 +33,7 @@
 #include <QLayout>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QStyle>
 
 EngineZandronumConfigBox::EngineZandronumConfigBox(EnginePlugin *plugin, IniSection &cfg, QWidget *parent)
 	: EngineConfigPage(plugin, cfg, parent)
@@ -48,7 +49,9 @@ EngineZandronumConfigBox::EngineZandronumConfigBox(EnginePlugin *plugin, IniSect
 	QWidget *releasePathLayout = new QWidget();
 	releasePathLayout->setLayout(new QHBoxLayout());
 	leTestingPath = new QLineEdit();
-	btnBrowseTestingPath = new QPushButton("...");
+	btnBrowseTestingPath = new QPushButton();
+	btnBrowseTestingPath->setToolTip(tr("Browse"));
+	btnBrowseTestingPath->setIcon(style()->standardIcon(QStyle::SP_DirOpenIcon));
 	releasePathLayout->layout()->addWidget(leTestingPath);
 	releasePathLayout->layout()->addWidget(btnBrowseTestingPath);
 	groupTesting->layout()->addWidget(releasePathLayout);

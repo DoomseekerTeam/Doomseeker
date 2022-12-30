@@ -33,6 +33,7 @@
 #include "templatedpathresolver.h"
 #include "ui_gameexecutablepicker.h"
 #include <QFileDialog>
+#include <QStyle>
 
 DClass<GameExecutablePicker> : public Ui::GameExecutablePicker
 {
@@ -48,6 +49,8 @@ GameExecutablePicker::GameExecutablePicker(QWidget *parent)
 	d->setupUi(this);
 	d->allowedExecs = 0;
 	d->plugin = nullptr;
+
+	d->btnBrowse->setIcon(style()->standardIcon(QStyle::SP_DirOpenIcon));
 
 	showWarning("");
 }
