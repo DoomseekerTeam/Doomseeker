@@ -52,8 +52,23 @@ less robotic. (#4019)
 predictably, have tooltip descriptions. (#3754, #3755)
 - The master server messages (about the user being banned) will be
 automatically cleared when the user starts a full server refresh. (#3584)
-- Doomseeker maintainers info in the about dialog labeled as such and the
-email links made clickable with the `mailto:` prefix. (#4069, #4070)
+- Doomseeker maintainers info in the about dialog is now labeled as such
+and the email links are clickable with the `mailto:` prefix. (#4069, #4070)
+- Correction of various inconsistencies in the UI (#3676):
+    - Use the standard dialog box buttons anywhere the custom "Close",
+      "Cancel" and etc. buttons were. This will also ensure that these
+      buttons are in-line with the current OS theme.
+    - Use natural capitalization for buttons.
+    - All "Browse directory" buttons will now have the directory icon
+      and an apt tooltip and the title where appropriate. No more mixing
+      between "..." and "Browse".
+    - The "Default" buttons will have the Doomseeker 'D' icon.
+    - The "Clear" buttons will now use the "edit-clear" Freedesktop
+      icon, defaulting to a broom icon if "edit-clear" isn't available;
+      they don't use the same red X that the "Remove" buttons use.
+    - Toggle the visibility of the server passwords in the config
+      with a checkbox as in other places, not with a button.
+    - "Delete" text changed to "Remove" for consistency.
 - Wadseeker: added `sigil_shreds` and `sigil_shreds_compat` to the
 list of forbidden downloads.
 - Wadseeker: upgrade LZMA SDK to version 22.01. (#3934)
