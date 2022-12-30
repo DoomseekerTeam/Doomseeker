@@ -70,6 +70,8 @@ and the email links are clickable with the `mailto:` prefix. (#4069, #4070)
       with a checkbox as in other places, not with a button.
     - Make the "Add defaults"/Add/Remove layout the same in both cases.
     - "Delete" text changed to "Remove" for consistency.
+    - Program arguments help box's title will now include the name
+      of the program. Also add the terminal icon to its main menu action.
 - Wadseeker: added `sigil_shreds` and `sigil_shreds_compat` to the
 list of forbidden downloads.
 - Wadseeker: upgrade LZMA SDK to version 22.01. (#3934)

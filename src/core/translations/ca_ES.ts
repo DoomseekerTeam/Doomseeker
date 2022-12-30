@@ -6614,8 +6614,8 @@ Si no té aquest arxiu, i pertany a un joc comercial, necessita comprar el joc a
     <name>ProgramArgsHelpDialog</name>
     <message>
         <location filename="../gui/programargshelpdialog.ui" line="14"/>
-        <source>Program arguments</source>
-        <translation>Arguments del programa</translation>
+        <source>Doomseeker - Program arguments</source>
+        <translation>Doomseeker - Arguments del programa</translation>
     </message>
     <message>
         <location filename="../gui/programargshelpdialog.ui" line="20"/>

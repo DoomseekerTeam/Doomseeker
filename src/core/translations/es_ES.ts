@@ -6853,8 +6853,8 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
     <name>ProgramArgsHelpDialog</name>
     <message>
         <location filename="../gui/programargshelpdialog.ui" line="14"/>
-        <source>Program arguments</source>
-        <translation>Argumentos del programa</translation>
+        <source>Doomseeker - Program arguments</source>
+        <translation>Doomseeker - Argumentos del programa</translation>
     </message>
     <message>
         <location filename="../gui/programargshelpdialog.ui" line="20"/>

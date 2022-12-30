@@ -6349,8 +6349,8 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
     <name>ProgramArgsHelpDialog</name>
     <message>
         <location filename="../gui/programargshelpdialog.ui" line="14"/>
-        <source>Program arguments</source>
-        <translation>Argumenty programu</translation>
+        <source>Doomseeker - Program arguments</source>
+        <translation>Doomseeker - Argumenty programu</translation>
     </message>
     <message>
         <location filename="../gui/programargshelpdialog.ui" line="20"/>
