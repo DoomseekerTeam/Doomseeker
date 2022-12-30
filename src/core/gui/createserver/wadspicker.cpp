@@ -42,7 +42,7 @@ WadsPicker::WadsPicker(QWidget *parent)
 	Q_UNUSED(parent);
 	d->setupUi(this);
 	d->lstAdditionalFiles->setModel(new QStandardItemModel(this));
-	d->btnBrowsePwad->setIcon(QApplication::style()->standardIcon(QStyle::SP_DirOpenIcon));
+	d->btnBrowsePwad->setIcon(style()->standardIcon(QStyle::SP_DirOpenIcon));
 }
 
 WadsPicker::~WadsPicker()

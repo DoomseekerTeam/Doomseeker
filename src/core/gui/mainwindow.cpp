@@ -1351,7 +1351,7 @@ void MainWindow::setDisplayUpdateInstallerError(int errorCode)
 
 void MainWindow::setupIcons()
 {
-	QStyle &style = *QApplication::style();
+	QStyle &style = *this->style();
 
 	// File menu.
 	d->menuActionQuit->setIcon(style.standardIcon(QStyle::SP_TitleBarCloseButton));

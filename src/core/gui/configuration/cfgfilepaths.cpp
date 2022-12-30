@@ -96,7 +96,7 @@ CFGFilePaths::CFGFilePaths(QWidget *parent)
 		"The <b>~</b> placeholders are always resolved regardless."));
 
 	d->cbResolveTemplatedPathsPlaceholders->setToolTip(templatedPathsToolTip);
-	d->btnBrowseWadPath->setIcon(QApplication::style()->standardIcon(QStyle::SP_DirOpenIcon));
+	d->btnBrowseWadPath->setIcon(style()->standardIcon(QStyle::SP_DirOpenIcon));
 
 	connect(d->btnAddWadPath, SIGNAL(clicked()), this, SLOT(btnAddWadPath_Click()));
 	connect(d->btnBrowseWadPath, &QPushButton::clicked, this, &CFGFilePaths::btnBrowseWadPath_Click);
@@ -172,7 +172,7 @@ void CFGFilePaths::cbResolveTemplatedPathsPlaceholders_Toggled(bool state)
 
 QIcon CFGFilePaths::icon() const
 {
-	return QApplication::style()->standardIcon(QStyle::SP_DirOpenIcon);
+	return style()->standardIcon(QStyle::SP_DirOpenIcon);
 }
 
 bool CFGFilePaths::isPathAlreadyDefined(const QString &path) const
