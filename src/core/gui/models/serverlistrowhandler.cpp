@@ -366,6 +366,8 @@ void ServerListRowHandler::setWait()
 ServerPtr ServerListRowHandler::serverFromList(const ServerListModel *parentModel, int rowIndex)
 {
 	QStandardItem *pItem = parentModel->item(rowIndex, COL_META);
+	if (pItem == nullptr)
+		return ServerPtr();
 	QVariant pointer = pItem->data(ServerListModel::SLDT_POINTER_TO_SERVER_STRUCTURE);
 	if (!pointer.isValid())
 		return ServerPtr();

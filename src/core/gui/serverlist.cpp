@@ -518,6 +518,9 @@ void ServerList::showContextMenu(const QPoint &position)
 	const QModelIndex index = table->indexAt(position);
 	ServerPtr server = serverFromIndex(index);
 
+	if (server == nullptr)
+		return;
+
 	ServerListContextMenu *contextMenu = new ServerListContextMenu(server,
 		proxyModel->filterInfo(), index, selectedServers(), this);
 	this->connect(contextMenu, SIGNAL(aboutToHide()), SLOT(contextMenuAboutToHide()));
