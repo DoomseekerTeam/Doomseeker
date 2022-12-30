@@ -57,6 +57,10 @@
      <property name="text">
       <string>Default</string>
      </property>
+     <property name="icon">
+      <iconset resource="../../../../media/resources.qrc">
+       <normaloff>:/icons/doomseeker.png</normaloff>:/icons/doomseeker.png</iconset>
+     </property>
     </widget>
    </item>
    <item>
