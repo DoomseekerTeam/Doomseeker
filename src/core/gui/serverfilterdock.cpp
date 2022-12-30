@@ -25,6 +25,7 @@
 
 #include "configuration/doomseekerconfig.h"
 #include "gui/entity/serverlistfilterinfo.h"
+#include "gui/icons.h"
 #include "strings.hpp"
 
 #include <QAction>
@@ -57,6 +58,7 @@ ServerFilterDock::ServerFilterDock(QWidget *pParent)
 	d->bDisableUpdate = false;
 	d->cbGroupServersWithPlayersAtTop->setChecked(gConfig.doomseeker.bGroupServersWithPlayersAtTheTopOfTheList);
 
+	d->btnClear->setIcon(Icons::clear());
 	toggleViewAction()->setIcon(QIcon(":/icons/filter.png"));
 
 	toggleViewAction()->setText(ServerFilterDock::tr("Server &filter"));

@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 
 #include "clipboard.h"
+#include "gui/icons.h"
 #include "log.h"
 #include "logdock.h"
 #include "ui_logdock.h"
@@ -39,6 +40,7 @@ LogDock::LogDock(QWidget *parent) : QDockWidget(parent)
 	d->setupUi(this);
 	this->toggleViewAction()->setIcon(QIcon(":/icons/log.png"));
 
+	d->btnClear->setIcon(Icons::clear());
 	connect(d->btnClear, SIGNAL(clicked()), this, SLOT(clearContent()));
 	connect(d->btnCopy, SIGNAL(clicked()), this, SLOT(btnCopyClicked()));
 }

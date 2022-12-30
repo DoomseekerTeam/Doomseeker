@@ -23,6 +23,7 @@
 #include "importantmessageswidget.h"
 
 #include "ui_importantmessageswidget.h"
+#include "gui/icons.h"
 #include <QDateTime>
 #include <QLabel>
 #include <QPointer>
@@ -82,6 +83,7 @@ ImportantMessagesWidget::ImportantMessagesWidget(QWidget *pParent)
 {
 	d->maxMessages = PrivData<ImportantMessagesWidget>::DEFAULT_MAX_MESSAGES;
 	d->setupUi(this);
+	d->btnClear->setIcon(Icons::clear());
 
 	this->hide();
 }

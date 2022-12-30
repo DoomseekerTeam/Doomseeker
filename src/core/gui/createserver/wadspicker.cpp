@@ -25,6 +25,7 @@
 
 #include "configuration/doomseekerconfig.h"
 #include "gui/commongui.h"
+#include "gui/icons.h"
 #include "templatedpathresolver.h"
 #include <QApplication>
 #include <QFileDialog>
@@ -43,6 +44,7 @@ WadsPicker::WadsPicker(QWidget *parent)
 	d->setupUi(this);
 	d->lstAdditionalFiles->setModel(new QStandardItemModel(this));
 	d->btnBrowsePwad->setIcon(style()->standardIcon(QStyle::SP_DirOpenIcon));
+	d->btnClearPwadList->setIcon(Icons::clear());
 }
 
 WadsPicker::~WadsPicker()

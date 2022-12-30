@@ -124,6 +124,7 @@ icons/preferences-system-4.png
 	license: CC BY 3.0
 	license link: https://creativecommons.org/licenses/by/3.0/
 
+icons/broom.png
 icons/information-frame.png
 icons/shield.png (alt. link: http://www.iconarchive.com/show/fugue-icons-by-yusuke-kamiyamane/tick-shield-icon.html)
 

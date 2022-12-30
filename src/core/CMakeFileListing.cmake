@@ -131,6 +131,7 @@ set(HEADER_FILES
 	gui/helpers/playersdiagram.h
 	gui/helpers/taskbarbutton.h
 	gui/helpers/taskbarprogress.h
+	gui/icons.h
 	gui/ip2cupdatebox.h
 	gui/irc/ircdock.h
 	gui/irc/ircdocktabcontents.h
@@ -375,6 +376,7 @@ set(SOURCE_FILES
 	gui/helpers/playersdiagram.cpp
 	gui/helpers/taskbarbutton.cpp
 	gui/helpers/taskbarprogress.cpp
+	gui/icons.cpp
 	gui/ip2cupdatebox.cpp
 	gui/irc/ircdock.cpp
 	gui/irc/ircdocktabcontents.cpp
