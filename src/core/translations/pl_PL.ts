@@ -2295,7 +2295,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/demomanager.ui" line="85"/>
-        <source>Delete</source>
+        <source>Remove</source>
         <translation>Usuń</translation>
     </message>
     <message>
@@ -2315,23 +2315,23 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/demomanager.cpp" line="188"/>
-        <source>Delete demo?</source>
-        <translation>Skasować demo?</translation>
+        <source>Remove demo?</source>
+        <translation>Usunąć demo?</translation>
     </message>
     <message>
         <location filename="../gui/demomanager.cpp" line="189"/>
-        <source>Are you sure you want to delete the selected demo?</source>
-        <translation>Czy jesteś pewien, że chcesz skasować wybrane demo?</translation>
+        <source>Are you sure you want to remove the selected demo?</source>
+        <translation>Czy jesteś pewien, że chcesz usunąć wybrane demo?</translation>
     </message>
     <message>
         <location filename="../gui/demomanager.cpp" line="175"/>
-        <source>Unable to delete</source>
-        <translation>Bład kasowania</translation>
+        <source>Unable to remove</source>
+        <translation>Błąd usuwania</translation>
     </message>
     <message>
         <location filename="../gui/demomanager.cpp" line="175"/>
-        <source>Could not delete the selected demo.</source>
-        <translation>Nie można skasować wybranego dema.</translation>
+        <source>Could not remove the selected demo.</source>
+        <translation>Nie można usunąć wybranego dema.</translation>
     </message>
     <message>
         <location filename="../gui/demomanager.cpp" line="264"/>
@@ -2393,12 +2393,12 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/dockBuddiesList.cpp" line="136"/>
-        <source>Delete Buddy</source>
+        <source>Remove Buddy</source>
         <translation>Usuń znajomego</translation>
     </message>
     <message>
         <location filename="../gui/dockBuddiesList.cpp" line="136"/>
-        <source>Are you sure you want to delete this pattern?</source>
+        <source>Are you sure you want to remove this pattern?</source>
         <translation>Czy jesteś pewien, że chcesz usunąć ten wzorzec?</translation>
     </message>
     <message>
@@ -2410,7 +2410,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/dockBuddiesList.ui" line="124"/>
         <location filename="../gui/dockBuddiesList.cpp" line="194"/>
-        <source>Delete</source>
+        <source>Remove</source>
         <translation>Usuń</translation>
     </message>
     <message>
@@ -4815,8 +4815,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/irc/ircignoresmanager.ui" line="30"/>
-        <source>Delete selected</source>
-        <translation>Skasuj zaznaczone</translation>
+        <source>Remove selected</source>
+        <translation>Usuń zaznaczone</translation>
     </message>
 </context>
 <context>

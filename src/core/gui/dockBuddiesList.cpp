@@ -133,7 +133,7 @@ void DockBuddiesList::deleteBuddy()
 	if (d->patternsList->selectionModel()->selectedIndexes().size() <= 0)
 		return;
 
-	if (QMessageBox::warning(this, tr("Delete Buddy"), tr("Are you sure you want to delete this pattern?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes)
+	if (QMessageBox::warning(this, tr("Remove Buddy"), tr("Are you sure you want to remove this pattern?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes)
 		!= QMessageBox::Yes)
 		return;
 
@@ -191,7 +191,7 @@ void DockBuddiesList::patternsListContextMenu(const QPoint &pos) const
 	// if anything is selected allow the user to delete them.
 	if (selection.size() > 0)
 	{
-		QAction *deleteAction = context.addAction(tr("Delete"));
+		QAction *deleteAction = context.addAction(tr("Remove"));
 		connect(deleteAction, SIGNAL(triggered()), this, SLOT(deleteBuddy()));
 	}
 

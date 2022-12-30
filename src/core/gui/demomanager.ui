@@ -82,7 +82,7 @@
      <item>
       <widget class="QPushButton" name="btnDelete">
        <property name="text">
-        <string>Delete</string>
+        <string>Remove</string>
        </property>
        <property name="icon">
         <iconset resource="../../../media/resources.qrc">
