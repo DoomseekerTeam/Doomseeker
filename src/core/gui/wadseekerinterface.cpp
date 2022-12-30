@@ -38,6 +38,7 @@
 #include "wadseeker/entities/modset.h"
 
 #include <QMessageBox>
+#include <QPushButton>
 
 const int WadseekerInterface::UPDATE_INTERVAL_MS = 500;
 WadseekerInterface *WadseekerInterface::currentInstance = nullptr;
@@ -45,6 +46,9 @@ WadseekerInterface *WadseekerInterface::currentInstance = nullptr;
 DClass<WadseekerInterface> : public Ui::WadseekerInterface
 {
 public:
+	QPushButton *btnAbort;
+	QPushButton *btnClose;
+
 	bool bCompletedSuccessfully;
 	bool preventGame;
 	TaskbarButton *taskbarButton;
@@ -180,6 +184,8 @@ void WadseekerInterface::construct()
 	CommonGUI::setupDialog(*this);
 	d->preventGame = false;
 	d->bCompletedSuccessfully = false;
+	d->btnAbort = d->buttonBox->button(QDialogButtonBox::Abort);
+	d->btnClose = d->buttonBox->button(QDialogButtonBox::Close);
 
 	d->taskbarButton = new TaskbarButton(this);
 
@@ -379,7 +385,8 @@ void WadseekerInterface::seekStarted(const ModSet &filenames)
 
 void WadseekerInterface::setStateDownloading()
 {
-	d->btnClose->setText(tr("Abort"));
+	d->btnAbort->show();
+	d->btnClose->hide();
 	d->btnDownload->setEnabled(false);
 	d->taskbarProgress->show();
 	state = Downloading;
@@ -387,7 +394,8 @@ void WadseekerInterface::setStateDownloading()
 
 void WadseekerInterface::setStateWaiting()
 {
-	d->btnClose->setText(tr("Close"));
+	d->btnAbort->hide();
+	d->btnClose->show();
 	d->btnDownload->setEnabled(true);
 	d->taskbarProgress->hide();
 	state = Waiting;

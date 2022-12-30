@@ -29,10 +29,14 @@
 #include "ip2c/ip2cupdater.h"
 #include <QDateTime>
 #include <QFileInfo>
+#include <QPushButton>
 
 DClass<IP2CUpdateBox> : public Ui::IP2CUpdateBox
 {
 public:
+	QPushButton *btnCancel;
+	QPushButton *btnClose;
+	QPushButton *btnUpdate;
 	IP2CUpdater *ip2cUpdater;
 };
 
@@ -43,9 +47,10 @@ IP2CUpdateBox::IP2CUpdateBox(QWidget *parent)
 {
 	d->setupUi(this);
 	CommonGUI::setupDialog(*this);
-
-	connect(d->btnUpdate, SIGNAL(clicked()), this, SLOT(accept()));
-	connect(d->btnCancel, SIGNAL(clicked()), this, SLOT(reject()));
+	d->btnUpdate = d->buttonBox->button(QDialogButtonBox::Ok);
+	d->btnCancel = d->buttonBox->button(QDialogButtonBox::Cancel);
+	d->btnClose = d->buttonBox->button(QDialogButtonBox::Close);
+	d->btnClose->hide();
 
 	d->ip2cUpdater = new IP2CUpdater(this);
 	this->connect(d->ip2cUpdater, SIGNAL(updateNeeded(int)), SLOT(updateInfo(int)));
@@ -120,5 +125,7 @@ void IP2CUpdateBox::updateInfo(int status)
 	d->updateInfoPanel->setVisible(canUpdate);
 	d->btnUpdate->setVisible(canUpdate);
 	d->btnUpdate->setText(tr("Update"));
-	d->btnCancel->setText(canUpdate ? tr("Cancel") : tr("Close"));
+	d->btnCancel->setVisible(canUpdate);
+	d->btnClose->setVisible(!canUpdate);
+	(canUpdate ? d->btnUpdate : d->btnClose)->setFocus();
 }

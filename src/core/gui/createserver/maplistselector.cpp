@@ -139,6 +139,8 @@ void MapListSelector::setMapsOfCheckableList(const QList<MapEntry> &list)
 void MapListSelector::setIfFinishedStateIsEnabled(const bool &state)
 {
 	d->btnAdd->setEnabled(state);
+	if (state)
+		d->btnAdd->setFocus();
 	d->checkAll->setEnabled(state);
 	d->descriptionSelect->setVisible(state);
 	d->listMapsWidget->setVisible(state);

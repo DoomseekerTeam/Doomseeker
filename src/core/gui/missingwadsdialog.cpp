@@ -30,6 +30,7 @@
 #include "serverapi/serverstructs.h"
 #include "ui_missingwadsdialog.h"
 #include <QListWidgetItem>
+#include <QPushButton>
 #include <wadseeker/entities/modfile.h>
 #include <wadseeker/freedoom.h>
 #include <wadseeker/wadseeker.h>
@@ -37,6 +38,9 @@
 DClass<MissingWadsDialog> : public Ui::MissingWadsDialog
 {
 public:
+	QPushButton *btnInstall;
+	QPushButton *btnIgnore;
+
 	::MissingWadsDialog::MissingWadsProceed decision;
 	QList<PWad> missingWads;
 	QList<PWad> incompatibleWads;
@@ -49,10 +53,19 @@ MissingWadsDialog::MissingWadsDialog(const QList<PWad> &missingWads, const QList
 {
 	d->setupUi(this);
 	CommonGUI::setupDialog(*this);
+	d->btnInstall = d->buttonBox->button(QDialogButtonBox::Yes);
+	d->btnIgnore = d->buttonBox->button(QDialogButtonBox::Ignore);
 	d->decision = Cancel;
 	d->missingWads = missingWads;
 	d->incompatibleWads = incompatibleWads;
 	d->plugin = plugin;
+
+	d->btnInstall->setText(tr("Install"));
+	connect(d->btnInstall, &QAbstractButton::clicked,
+		this, &MissingWadsDialog::installMissingFiles);
+	connect(d->btnIgnore, &QAbstractButton::clicked,
+		this, &MissingWadsDialog::ignoreMissingFiles);
+
 	setup();
 	adjustSize();
 }

@@ -182,9 +182,15 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btnClose">
-       <property name="text">
-        <string>Close</string>
+      <widget class="QDialogButtonBox" name="buttonBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Abort|QDialogButtonBox::Close</set>
        </property>
       </widget>
      </item>
@@ -212,22 +218,6 @@
   <include location="../../../media/resources.qrc"/>
  </resources>
  <connections>
-  <connection>
-   <sender>btnClose</sender>
-   <signal>clicked()</signal>
-   <receiver>WadseekerInterface</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>758</x>
-     <y>573</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>796</x>
-     <y>597</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>btnDownload</sender>
    <signal>clicked()</signal>
@@ -289,6 +279,22 @@
     <hint type="destinationlabel">
      <x>800</x>
      <y>176</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>WadseekerInterface</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>752</x>
+     <y>577</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
     </hint>
    </hints>
   </connection>
