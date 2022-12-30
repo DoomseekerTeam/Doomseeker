@@ -2990,7 +2990,7 @@ Executable: %3</translation>
     </message>
     <message>
         <location filename="../gui/createserver/gameexecutablepicker.ui" line="83"/>
-        <source>This map isn&apos;t present on map list. Game may misbehave.</source>
+        <source>This map isn&apos;t present on the map list. The game may misbehave.</source>
         <translation>Aquest mapa no està present a la llista de mapes. El joc pot comportar-se de manera estranya.</translation>
     </message>
 </context>
@@ -3179,7 +3179,7 @@ doesn&apos;t exist or is not a file.</source>
     </message>
     <message>
         <location filename="../gui/createserver/generalgamesetuppanel.ui" line="243"/>
-        <source>This map isn&apos;t present on map list. Game may misbehave.</source>
+        <source>This map isn&apos;t present on the map list. The game may misbehave.</source>
         <translation>Aquest mapa no està present a la llista de mapes. El joc pot comportar-se de forma estranya.</translation>
     </message>
     <message>
@@ -6271,7 +6271,7 @@ Les actualitzacions restants s&apos;han descartat.</translation>
     <name>MapListPanel</name>
     <message>
         <location filename="../gui/createserver/maplistpanel.cpp" line="57"/>
-        <source>Current map isn&apos;t present on map list. Game may misbehave.</source>
+        <source>The current map isn&apos;t present on the map list. The game may misbehave.</source>
         <translation>El mapa actual no està present a la llista de mapes. El joc pot comportar-se de forma estranya.</translation>
     </message>
     <message>

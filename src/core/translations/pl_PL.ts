@@ -2788,7 +2788,7 @@ Plik wykonywalny: %3</translation>
     </message>
     <message>
         <location filename="../gui/createserver/gameexecutablepicker.ui" line="83"/>
-        <source>This map isn&apos;t present on map list. Game may misbehave.</source>
+        <source>This map isn&apos;t present on the map list. The game may misbehave.</source>
         <translation>Tej mapy nie ma na liście map. Gra może zachować się dziwnie.</translation>
     </message>
 </context>
@@ -2962,7 +2962,7 @@ nie istnieje lub nie jest plikiem.</translation>
     </message>
     <message>
         <location filename="../gui/createserver/generalgamesetuppanel.ui" line="243"/>
-        <source>This map isn&apos;t present on map list. Game may misbehave.</source>
+        <source>This map isn&apos;t present on the map list. The game may misbehave.</source>
         <translation>Tej mapy nie ma na liście map. Gra może zachować się dziwnie.</translation>
     </message>
     <message>
@@ -6042,7 +6042,7 @@ Pozostałe aktualizacje zostały porzucone.</translation>
     </message>
     <message>
         <location filename="../gui/createserver/maplistpanel.cpp" line="57"/>
-        <source>Current map isn&apos;t present on map list. Game may misbehave.</source>
+        <source>The current map isn&apos;t present on the map list. The game may misbehave.</source>
         <translation>Obecnej mapy nie ma na liście map. Gra może zachować się dziwnie.</translation>
     </message>
 </context>
