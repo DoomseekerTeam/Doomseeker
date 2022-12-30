@@ -68,6 +68,7 @@ and the email links are clickable with the `mailto:` prefix. (#4069, #4070)
       they don't use the same red X that the "Remove" buttons use.
     - Toggle the visibility of the server passwords in the config
       with a checkbox as in other places, not with a button.
+    - Make the "Add defaults"/Add/Remove layout the same in both cases.
     - "Delete" text changed to "Remove" for consistency.
 - Wadseeker: added `sigil_shreds` and `sigil_shreds_compat` to the
 list of forbidden downloads.
