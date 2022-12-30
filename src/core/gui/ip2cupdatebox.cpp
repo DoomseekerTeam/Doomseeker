@@ -86,9 +86,9 @@ void IP2CUpdateBox::start()
 	else
 	{
 		d->lblFileIcon->setPixmap(QPixmap(":/icons/edit-redo-red.png"));
-		d->lblDatabaseStatus->setText(tr("IP2C database file was not found. "
-			"Use the update button if you want to download the newest database."));
-		d->btnUpdate->setText(tr("DOWNLOAD!"));
+		d->lblDatabaseStatus->setText(tr("The IP2C database file was not found. "
+			"Use the \"Download\" button if you want to download the newest database."));
+		d->btnUpdate->setText(tr("Download"));
 		d->progressBar->hide();
 	}
 }
@@ -119,6 +119,6 @@ void IP2CUpdateBox::updateInfo(int status)
 	}
 	d->updateInfoPanel->setVisible(canUpdate);
 	d->btnUpdate->setVisible(canUpdate);
-	d->btnUpdate->setText(tr("UPDATE!"));
+	d->btnUpdate->setText(tr("Update"));
 	d->btnCancel->setText(canUpdate ? tr("Cancel") : tr("Close"));
 }

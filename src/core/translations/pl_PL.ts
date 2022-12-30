@@ -4430,8 +4430,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/ip2cupdatebox.ui" line="196"/>
-        <source>UPDATE!</source>
-        <translation>AKTUALIZUJ!</translation>
+        <source>Update</source>
+        <translation>Aktualizuj</translation>
     </message>
     <message>
         <location filename="../gui/ip2cupdatebox.ui" line="203"/>
@@ -4460,8 +4460,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/ip2cupdatebox.cpp" line="86"/>
-        <source>IP2C database file was not found. Use the update button if you want to download the newest database.</source>
-        <translation>Baza IP2C nie została odnaleziona. Użyj przycisku aktualizuj w celu pobrania najnowszej bazy.</translation>
+    <source>The IP2C database file was not found. Use the &quot;Download&quot; button if you want to download the newest database.</source>
+    <translation>Baza IP2C nie została odnaleziona. Użyj przycisku &quot;Pobierz&quot; w celu pobrania najnowszej bazy.</translation>
     </message>
     <message>
         <location filename="../gui/ip2cupdatebox.cpp" line="98"/>

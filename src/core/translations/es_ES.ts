@@ -4888,8 +4888,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/ip2cupdatebox.ui" line="196"/>
-        <source>UPDATE!</source>
-        <translation>¡ACTUALIZACIÓN!</translation>
+        <source>Update</source>
+        <translation>Actualización</translation>
     </message>
     <message>
         <location filename="../gui/ip2cupdatebox.ui" line="203"/>
