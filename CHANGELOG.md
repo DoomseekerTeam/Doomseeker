@@ -52,6 +52,8 @@ less robotic. (#4019)
 predictably, have tooltip descriptions. (#3754, #3755)
 - The master server messages (about the user being banned) will be
 automatically cleared when the user starts a full server refresh. (#3584)
+- Doomseeker maintainers info in the about dialog labeled as such and the
+email links made clickable with the `mailto:` prefix. (#4069, #4070)
 - Wadseeker: added `sigil_shreds` and `sigil_shreds_compat` to the
 list of forbidden downloads.
 - Wadseeker: upgrade LZMA SDK to version 22.01. (#3934)
