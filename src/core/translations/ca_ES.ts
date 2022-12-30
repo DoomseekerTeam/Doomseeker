@@ -1492,8 +1492,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/configuration/cfgquery.ui" line="235"/>
-        <source>Very Aggressive</source>
-        <translation>Molt Agressiu</translation>
+        <source>Very aggressive</source>
+        <translation>Molt agressiu</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgquery.ui" line="244"/>
@@ -1548,7 +1548,7 @@ Aquests valors també es poden modificar a mà.</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgserverpasswords.ui" line="74"/>
-        <source>Remove Selected Passwords</source>
+        <source>Remove selected passwords</source>
         <translation>Esborrar contrasenyes seleccionades</translation>
     </message>
     <message>
@@ -1568,7 +1568,7 @@ Aquests valors també es poden modificar a mà.</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgserverpasswords.ui" line="139"/>
-        <source>Remove Selected Servers</source>
+        <source>Remove selected servers</source>
         <translation>Esborrar servidors seleccionats</translation>
     </message>
     <message>
@@ -1658,7 +1658,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/configuration/cfgwadalias.ui" line="86"/>
-        <source>Add Defaults</source>
+        <source>Add defaults</source>
         <translation>Afegir predefinits</translation>
     </message>
     <message>
@@ -1875,7 +1875,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/configuration/cfgwadseekersites.ui" line="57"/>
-        <source>Add Defaults</source>
+        <source>Add defaults</source>
         <translation>Afegir predefinits</translation>
     </message>
     <message>
@@ -7547,7 +7547,7 @@ Humans + Bots) / Servidors actualitzats%</translation>
     </message>
     <message>
         <location filename="../gui/wadseekerinterface.ui" line="156"/>
-        <source>Start Game</source>
+        <source>Start game</source>
         <translation>Començar joc</translation>
     </message>
     <message>

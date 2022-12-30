@@ -5,7 +5,7 @@
     <name>EngineZandronumConfigBox</name>
     <message>
         <location filename="../enginezandronumconfigbox.cpp" line="42"/>
-        <source>Testing Releases</source>
+        <source>Testing releases</source>
         <translation>Versiones de prueba</translation>
     </message>
     <message>

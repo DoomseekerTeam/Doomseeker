@@ -83,7 +83,7 @@
      <item>
       <widget class="QPushButton" name="btnAddDefaults">
        <property name="text">
-        <string>Add Defaults</string>
+        <string>Add defaults</string>
        </property>
        <property name="icon">
         <iconset resource="../../../../media/resources.qrc">

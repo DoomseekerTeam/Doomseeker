@@ -54,7 +54,7 @@
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adds sites hardcoded within the Wadseeker library to the list. No URL that is currently on the list will be removed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="text">
-        <string>Add Defaults</string>
+        <string>Add defaults</string>
        </property>
        <property name="icon">
         <iconset resource="../../../../media/resources.qrc">

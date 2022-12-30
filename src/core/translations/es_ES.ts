@@ -1552,8 +1552,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/configuration/cfgquery.ui" line="235"/>
-        <source>Very Aggressive</source>
-        <translation>Muy Agresivo</translation>
+        <source>Very aggressive</source>
+        <translation>Muy agresivo</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgquery.ui" line="244"/>
@@ -1608,7 +1608,7 @@ Estos valores también se pueden modificar a mano.</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgserverpasswords.ui" line="74"/>
-        <source>Remove Selected Passwords</source>
+        <source>Remove selected passwords</source>
         <translation>Borrar contraseñas seleccionadas</translation>
     </message>
     <message>
@@ -1628,7 +1628,7 @@ Estos valores también se pueden modificar a mano.</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgserverpasswords.ui" line="139"/>
-        <source>Remove Selected Servers</source>
+        <source>Remove selected servers</source>
         <translation>Borrar servidores seleccionados</translation>
     </message>
     <message>
@@ -1718,7 +1718,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/configuration/cfgwadalias.ui" line="86"/>
-        <source>Add Defaults</source>
+        <source>Add defaults</source>
         <translation>Agregar predefinidos</translation>
     </message>
     <message>
@@ -1943,7 +1943,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/configuration/cfgwadseekersites.ui" line="57"/>
-        <source>Add Defaults</source>
+        <source>Add defaults</source>
         <translation>Agregar predefinidos</translation>
     </message>
     <message>
@@ -7797,7 +7797,7 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
     </message>
     <message>
         <location filename="../gui/wadseekerinterface.ui" line="156"/>
-        <source>Start Game</source>
+        <source>Start game</source>
         <translation>Empezar juego</translation>
     </message>
     <message>

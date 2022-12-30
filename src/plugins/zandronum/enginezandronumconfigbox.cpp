@@ -40,7 +40,7 @@ EngineZandronumConfigBox::EngineZandronumConfigBox(EnginePlugin *plugin, IniSect
 {
 	// Create the testing box, we might as well do this in code.
 	groupTesting = new QGroupBox();
-	groupTesting->setTitle(tr("Testing Releases"));
+	groupTesting->setTitle(tr("Testing releases"));
 	groupTesting->setCheckable(true);
 	groupTesting->setLayout(new QVBoxLayout());
 	groupTesting->layout()->addWidget(new QLabel(tr("Directory for testing releases:")));

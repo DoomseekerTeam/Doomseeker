@@ -156,7 +156,7 @@
      <item>
       <widget class="QPushButton" name="btnStartGame">
        <property name="text">
-        <string>Start Game</string>
+        <string>Start game</string>
        </property>
        <property name="icon">
         <iconset resource="../../../media/resources.qrc">
