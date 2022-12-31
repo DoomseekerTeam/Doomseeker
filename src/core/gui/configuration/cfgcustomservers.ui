@@ -113,7 +113,7 @@
           <string>Change the game on the selected servers.</string>
          </property>
          <property name="text">
-          <string>Set Game</string>
+          <string>Set game</string>
          </property>
         </widget>
        </item>

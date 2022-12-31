@@ -758,8 +758,8 @@ https://dev.maxmind.com/geoip/geoip2/geolite2/</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgcustomservers.ui" line="116"/>
-        <source>Set Game</source>
-        <translation>Ustaw Grę</translation>
+        <source>Set game</source>
+        <translation>Ustaw grę</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgcustomservers.h" line="50"/>

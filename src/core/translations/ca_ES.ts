@@ -824,7 +824,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/configuration/cfgcustomservers.ui" line="116"/>
-        <source>Set Game</source>
+        <source>Set game</source>
         <translation>Establir joc</translation>
     </message>
     <message>
