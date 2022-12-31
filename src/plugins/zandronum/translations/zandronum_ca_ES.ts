@@ -633,7 +633,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../createserverdialogpages/flagspage.ui" line="1205"/>
-        <source>Weapons &amp;&amp; Ammo</source>
+        <source>Weapons &amp;&amp; ammo</source>
         <translation>Armes i munició</translation>
     </message>
     <message>

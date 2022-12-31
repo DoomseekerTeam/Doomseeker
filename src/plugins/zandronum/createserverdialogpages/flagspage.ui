@@ -1209,7 +1209,7 @@ p, li { white-space: pre-wrap; }
            <item>
             <widget class="QGroupBox" name="groupBox_12">
              <property name="title">
-              <string>Weapons &amp;&amp; Ammo</string>
+              <string>Weapons &amp;&amp; ammo</string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_16">
               <item>
