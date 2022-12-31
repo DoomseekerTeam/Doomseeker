@@ -6758,8 +6758,8 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
     </message>
     <message>
         <location filename="../gui/serverfilterdock.ui" line="229"/>
-        <source>Clear</source>
-        <translation>Wyczyść</translation>
+        <source>Reset filter</source>
+        <translation>Zresetuj filtr</translation>
     </message>
 </context>
 <context>
