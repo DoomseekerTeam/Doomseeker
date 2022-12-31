@@ -2947,8 +2947,8 @@ nie istnieje lub nie jest plikiem.</translation>
     </message>
     <message>
         <location filename="../gui/createserver/generalgamesetuppanel.ui" line="182"/>
-        <source>Allow the game to choose port.</source>
-        <translation>Pozwól grze wybrać port.</translation>
+        <source>Allow the game to choose port</source>
+        <translation>Pozwól grze wybrać port</translation>
     </message>
     <message>
         <location filename="../gui/createserver/generalgamesetuppanel.ui" line="192"/>
@@ -3002,7 +3002,7 @@ nie istnieje lub nie jest plikiem.</translation>
     </message>
     <message>
         <location filename="../gui/createserver/generalgamesetuppanel.ui" line="334"/>
-        <source>Broadcast to Master</source>
+        <source>Broadcast to master</source>
         <translation>Opublikuj na masterze</translation>
     </message>
 </context>
@@ -5979,12 +5979,12 @@ Pozostałe aktualizacje zostały porzucone.</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.ui" line="177"/>
-        <source>Restart &amp;&amp; Install Now</source>
+        <source>Restart &amp;&amp; Install now</source>
         <translation>Zrestartuj i zainstaluj teraz</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.ui" line="196"/>
-        <source>Restart &amp;&amp; Install Later</source>
+        <source>Restart &amp;&amp; Install later</source>
         <translation>Zrestartuj i zainstaluj później</translation>
     </message>
     <message>

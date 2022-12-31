@@ -179,7 +179,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>Allow the game to choose port.</string>
+           <string>Allow the game to choose port</string>
           </property>
          </widget>
         </item>
@@ -331,7 +331,7 @@
       <item>
        <widget class="QCheckBox" name="cbBroadcastToMaster">
         <property name="text">
-         <string>Broadcast to Master</string>
+         <string>Broadcast to master</string>
         </property>
         <property name="checked">
          <bool>true</bool>

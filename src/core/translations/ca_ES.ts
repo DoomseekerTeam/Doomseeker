@@ -3366,8 +3366,8 @@ doesn&apos;t exist or is not a file.</source>
     </message>
     <message>
         <location filename="../gui/createserver/generalgamesetuppanel.ui" line="182"/>
-        <source>Allow the game to choose port.</source>
-        <translation>Permetre que el joc triï el port.</translation>
+        <source>Allow the game to choose port</source>
+        <translation>Permetre que el joc triï el port</translation>
     </message>
     <message>
         <location filename="../gui/createserver/generalgamesetuppanel.ui" line="192"/>
@@ -3410,8 +3410,8 @@ doesn&apos;t exist or is not a file.</source>
     </message>
     <message>
         <location filename="../gui/createserver/generalgamesetuppanel.ui" line="334"/>
-        <source>Broadcast to Master</source>
-        <translation>Emetre a Master</translation>
+        <source>Broadcast to master</source>
+        <translation>Emetre a master</translation>
     </message>
     <message>
         <location filename="../gui/createserver/generalgamesetuppanel.ui" line="359"/>
@@ -6495,12 +6495,12 @@ Les actualitzacions restants s&apos;han descartat.</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.ui" line="204"/>
-        <source>Restart &amp;&amp; Install Now</source>
+        <source>Restart &amp;&amp; Install now</source>
         <translation>Reiniciar i Instal·lar ara</translation>
     </message>
     <message>
         <location filename="../gui/mainwindow.ui" line="223"/>
-        <source>Restart &amp;&amp; Install Later</source>
+        <source>Restart &amp;&amp; Install later</source>
         <translation>Reiniciar i Instal·lar més tard</translation>
     </message>
     <message>

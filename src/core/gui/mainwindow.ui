@@ -201,7 +201,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Restart &amp;&amp; Install Now</string>
+          <string>Restart &amp;&amp; Install now</string>
          </property>
         </widget>
        </item>
@@ -220,7 +220,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Restart &amp;&amp; Install Later</string>
+          <string>Restart &amp;&amp; Install later</string>
          </property>
         </widget>
        </item>

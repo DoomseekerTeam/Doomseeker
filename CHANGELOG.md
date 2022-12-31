@@ -60,7 +60,7 @@ and the email links are clickable with the `mailto:` prefix. (#4069, #4070)
     - Use the standard dialog box buttons anywhere the custom "Close",
       "Cancel" and etc. buttons were. This will also ensure that these
       buttons are in-line with the current OS theme.
-    - Use natural capitalization for buttons.
+    - Use natural capitalization for buttons, etc.
     - All "Browse directory" buttons will now have the directory icon
       and an apt tooltip and the title where appropriate. No more mixing
       between "..." and "Browse".
@@ -72,8 +72,11 @@ and the email links are clickable with the `mailto:` prefix. (#4069, #4070)
       with a checkbox as in other places, not with a button.
     - Make the "Add defaults"/Add/Remove layout the same in both cases.
     - "Delete" text changed to "Remove" for consistency.
-    - Program arguments help box's title will now include the name
+    - The program arguments help box's title will now include the name
       of the program. Also add the terminal icon to its main menu action.
+    - The labeled "extra settings" in the create game box will end with
+      colons (#4074).
+- The "Clear" button in the server filter renamed to "Reset filter". (#4078)
 - Wadseeker: added `sigil_shreds` and `sigil_shreds_compat` to the
 list of forbidden downloads.
 - Wadseeker: upgrade LZMA SDK to version 22.01. (#3934)

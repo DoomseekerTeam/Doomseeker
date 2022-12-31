@@ -280,7 +280,7 @@ void GameRulesPanel::setupCVarWidgets(const EnginePlugin *engine, const GameMode
 		if (cvarUi->edit->externalLabel())
 		{
 			cvarUi->label.reset(new QLabel(this));
-			cvarUi->label->setText(cvar.name());
+			cvarUi->label->setText(tr("%1:").arg(cvar.name()));
 		}
 
 		d->extraSettingsLayout->addRow(cvarUi->label.get(), cvarUi->edit.get());
