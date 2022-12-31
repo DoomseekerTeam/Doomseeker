@@ -22,6 +22,8 @@ data. (#3452)
 is enabled. If there's something wrong, warn the user. (#3501)
 - Granular filters for banned, "refreshed too soon" and not responding
 game servers. (#4002)
+- The additional files list in the create game box now responds to plus
+(add empty), minus and delete (both remove selected) keys on the keyboard.
 - Wadseeker: add a bunch of websites to the WAD search list: (#4053)
     - https://doomshack.org/wadlist.php
     - https://wads.firestick.games/
@@ -77,6 +79,9 @@ and the email links are clickable with the `mailto:` prefix. (#4069, #4070)
     - The labeled "extra settings" in the create game box will end with
       colons (#4074).
 - The "Clear" button in the server filter renamed to "Reset filter". (#4078)
+- The additional files picker in the create game box reorganized to reclaim
+some vertical space and make it more clear that the buttons next to it
+belong to it. (#4072)
 - Wadseeker: added `sigil_shreds` and `sigil_shreds_compat` to the
 list of forbidden downloads.
 - Wadseeker: upgrade LZMA SDK to version 22.01. (#3934)

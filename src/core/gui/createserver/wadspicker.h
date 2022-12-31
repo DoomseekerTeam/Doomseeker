@@ -40,6 +40,9 @@ public:
 	QStringList filePaths() const;
 	void setFilePaths(const QStringList &paths, const QList<bool> &optionals);
 
+protected:
+	bool eventFilter(QObject *obj, QEvent *event) override;
+
 private slots:
 	void addEmptyPath();
 	void addWadPath(const QString &wadPath, bool required = true);

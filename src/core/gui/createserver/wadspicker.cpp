@@ -28,6 +28,7 @@
 #include "gui/icons.h"
 #include "templatedpathresolver.h"
 #include <QApplication>
+#include <QKeyEvent>
 #include <QFileDialog>
 #include <QStandardItemModel>
 #include <QStyle>
@@ -43,7 +44,14 @@ WadsPicker::WadsPicker(QWidget *parent)
 	Q_UNUSED(parent);
 	d->setupUi(this);
 	d->lstAdditionalFiles->setModel(new QStandardItemModel(this));
+	d->lstAdditionalFiles->installEventFilter(this);
+
+	d->btnBrowsePwad->setStyleSheet("Text-align:left");
 	d->btnBrowsePwad->setIcon(style()->standardIcon(QStyle::SP_DirOpenIcon));
+	d->btnAddPwad->setStyleSheet("Text-align:left");
+	d->btnRemovePwad->setStyleSheet("Text-align:left");
+
+	d->btnClearPwadList->setStyleSheet("Text-align:left");
 	d->btnClearPwadList->setIcon(Icons::clear());
 }
 
@@ -117,6 +125,31 @@ void WadsPicker::browseAndAdd()
 			addWadPath(strFile);
 		}
 	}
+}
+
+bool WadsPicker::eventFilter(QObject *obj, QEvent *event)
+{
+	if (obj == d->lstAdditionalFiles)
+	{
+		if (event->type() == QEvent::KeyPress)
+		{
+			QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+			switch (keyEvent->key())
+			{
+			case Qt::Key_Delete:
+			case Qt::Key_Minus:
+				removeSelected();
+				return true;
+			case Qt::Key_Plus:
+				addEmptyPath();
+				return true;
+			default:
+				// no-op
+				break;
+			}
+		}
+	}
+	return false;
 }
 
 QList<bool> WadsPicker::fileOptional() const
