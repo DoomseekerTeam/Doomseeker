@@ -40,22 +40,22 @@ class EnginePlugin;
  * @brief Represents directories used by Doomseeker to store data.
  *
  * Doomseeker data is stored in three general directories: the 'configuration
- * storage' dir, the 'local data storage' dir (using Windows nomenclature:
- * Roaming & Local, respectively), and the 'My Documents' dir.
- * If portable mode is *disabled* (the default),
- * these directories are created in according to the current Operating System
- * standards or according to historical behavior of older Doomseeker
- * versions. Also if portable mode is disabled then, depending on the platform
- * and its configuration, some of those directories might be on a Network File
- * System. For portable model both directories are created where Doomseeker's
- * executable resides.
+ * storage' dir, the 'local data storage' dir and the 'cache' dir. Doomseeker
+ * makes this logical distinction, but, depending on the OS and user's
+ * preference, all these directories may be in the same location. These three
+ * directories are the 'managed data' directories. For the 'unmanaged' data,
+ * DataPaths provides a convenient way of obtaining a path to user's storage
+ * location (the 'Documents' directory).
  *
- * What are the exact names of those directories and where they're physically
+ * If the portable mode is *disabled* (the default) and the user didn't change
+ * their base with setBaseDir(), these directories are created in accordance to
+ * the current Operating System standards. In the portable mode, all directories
+ * are created where Doomseeker's executable resides.
+ *
+ * What are the exact names of these directories and where they're physically
  * located should be inconsequential. The contract here is that it's ensured
- * that those directories are writable, however the paths may change between
- * Doomseeker versions. To preserve specific directory, it's preferable to store
- * its path in a configuration setting and allow user to modify it. The rule
- * of thumb for picking directory type is this:
+ * that these directories are in places that are normally writable for the
+ * current OS user, and that the program data can be stored there.
  *
  * - programsDataDirectoryPath() is the "Roaming" directory. It should be used to
  *   store relatively small amount of data - like config files.
@@ -65,17 +65,15 @@ class EnginePlugin;
  *   Doomseeker (like demos).
  * - documentsLocationPath() is the "My Documents" directory with
  *   "doomseeker" appended to it. Store here files that should also be normally
- *   accessible to the user through directory navigation. On Windows platform
- *   it has also a benefit of additional hard drive space as it is very easy
- *   to move "My Documents" dir to a different partition or drive.
+ *   accessible to user through directory navigation. On the Windows platform
+ *   it also has the benefit of additional hard drive space as it is very easy
+ *   to move the "My Documents" dir to a different partition or drive.
  *
- * @note
- * You might've noticed that Doomseeker itself doesn't always follow these rules
- * of thumb. This unfortunate behavior is the result of insufficient knowledge
- * at the time when this was first developed on how to properly design system
- * like these and how to utilize Qt framework, which already has convenient
- * functions that help to solve this problem. This behavior might change in
- * future versions of Doomseeker.
+ * The base path for the 'managed data' directories can be changed in bulk with
+ * setBaseDir(). This overrides the OS default paths for
+ * programsDataDirectoryPath(), cacheDataLocationPath()
+ * localDataLocationPath() and pluginLocalDataLocationPath(). The 'unmanaged'
+ * paths are unaffected.
  *
  * Plugins, to store their "Local" data, can use pluginLocalDataLocationPath()
  * method to obtain the path where this data can be stored. To store "Documents"
@@ -98,19 +96,19 @@ public:
 	static const QString UPDATE_PACKAGE_FILENAME_PREFIX;
 
 	/**
-	 * @b Retrieves correct path to "Program Files" directory.
+	 * @b Retrieves the correct path to the "Program Files" directory.
 	 * Windows only.
 	 *
-	 * This exploits environmental variables such as %PROGRAMFILES%,
-	 * %PROGRAMFILES(X86)% and ProgramW6432. This method is used to
+	 * This exploits environmental variables such as `PROGRAMFILES`,
+	 * `PROGRAMFILES(X86)` and `ProgramW6432`. This method is used to
 	 * determine the correct path to the "Program Files" directory on
-	 * Windows (XP and above). Since on *nix systems there is no equivalent
-	 * it will return an empty string.
+	 * Windows (XP and above). On *nix systems there is no equivalent,
+	 * so it will return an empty string.
 	 */
 	static QString programFilesDirectory(MachineType machineType);
 
 	/**
-	 * @brief Paths to directories where program should search for its
+	 * @brief Paths to directories where the program should search for its
 	 *        static data.
 	 *
 	 * By static data we understand read only files which come preinstalled
@@ -138,21 +136,24 @@ public:
 	 * @brief Path to the cache directory with Doomseeker's own subpath
 	 * suffix.
 	 *
-	 * If portable mode is on this will be the program directory with
-	 * cache dir name appended to it. Since Doomseeker 1.4 depends also
-	 * on setBaseDir().
+	 * If the portable mode is on this will be the program directory with
+	 * the cache dir's name appended to it. Since Doomseeker 1.4 this depends
+	 * also on setBaseDir().
 	 */
 	QString cacheLocationPath() const;
 
 	/**
+	 * @internal
 	 * @brief Checks if all directories can be written to.
 	 *
+	 * @deprecated As of Doomseeker 1.4; unused.
 	 * @return List of directories for which the test FAILED.
 	 */
 	QStringList canWrite() const;
 
 	/**
-	 * @brief Creates necessary directories for application run.
+	 * @internal
+	 * @brief Creates the necessary directories for the application to run.
 	 *
 	 * If directories exist nothing happens.
 	 *
@@ -170,14 +171,17 @@ public:
 	 */
 	QStringList defaultWadPaths() const;
 
+	/**
+	 * @brief The 'managed' directory for demo recordings.
+	 */
 	QString demosDirectoryPath() const;
 
 	/**
 	 * @brief Path to the "My Documents" directory with Doomseeker's
 	 * own subpath suffix.
 	 *
-	 * If portable mode is on this will be the program directory with
-	 * "storage" appended to it.
+	 * If the portable mode is on this will be the program's directory with
+	 * `storage` appended to it.
 	 *
 	 * @param subpath
 	 *     Additional subpath in the "My Documents/Doomseeker" subpath.
@@ -185,15 +189,16 @@ public:
 	QString documentsLocationPath(const QString &subpath = QString()) const;
 
 	/**
-	 * @brief Path to the directory where large data should be
+	 * @brief Path to the directory where large 'managed' data should be
 	 *        saved.
 	 *
-	 * This path is supposed to hold data which should be stored only
-	 * the local file system. If portable mode is on this returns path
-	 * to program directory with "/.static" appended. If portable mode
-	 * is off this returns path to QDesktopServices::DataLocation with
-	 * "/QCoreApplication::applicationName()" appended. Since Doomseeker 1.4
-	 * depends also on setBaseDir().
+	 * This path is supposed to hold data stored only on the local file system
+	 * (ie. not roaming). If the portable mode is on, this returns the path to
+	 * the program's directory with `.static` appended. If the portable mode is
+	 * off this returns path to `QDesktopServices::DataLocation` with
+	 * QCoreApplication::applicationName() appended.
+	 *
+	 * Since Doomseeker 1.4 this depends also on setBaseDir().
 	 *
 	 * @param subpath
 	 *     If specified then this path is appended to the returned path.
@@ -201,7 +206,7 @@ public:
 	QString localDataLocationPath(const QString &subpath = QString()) const;
 
 	/**
-	 * @brief Place where EnginePlugin can store its "My Documents" content.
+	 * @brief Place where an EnginePlugin can store its "My Documents" content.
 	 *
 	 * This path is a directory path created by documentsDataLocationPath()
 	 * with suffix unique for each plugin. The suffix is derived in the same
@@ -210,31 +215,34 @@ public:
 	 * This method is to be used by plugins.
 	 *
 	 * @param plugin
-	 *     Plugin must pass reference to its implementation of EnginePlugin.
+	 *     The plugin must pass a reference to its implementation
+	 *     of EnginePlugin.
 	 */
 	QString pluginDocumentsLocationPath(const EnginePlugin &plugin) const;
 
 	/**
-	 * @brief Place where EnginePlugin can store its local files.
+	 * @brief Place where an EnginePlugin can store its local 'managed' files.
 	 *
 	 * This path is a directory path created by localDataLocationPath() with
 	 * suffix unique for each plugin. The suffix is partially derived from
 	 * EnginePlugin::nameCanonical() and ensured to remain constant as long
 	 * as EnginePlugin::nameCanonical() doesn't change for given plugin. It
-	 * also takes portable mode into consideration. Since Doomseeker 1.4 it also
-	 * depends on setBaseDir().
+	 * also takes the portable mode into consideration. Since Doomseeker 1.4
+	 * it also depends on setBaseDir().
 	 *
 	 * It's not ensured that the directory will exist.
 	 *
 	 * This method is to be used from the plugins.
 	 *
 	 * @param plugin
-	 *     Plugin must pass reference to its implementation of EnginePlugin.
+	 *     The plugin must pass a reference to its implementation
+	 *     of EnginePlugin.
 	 */
 	QString pluginLocalDataLocationPath(const EnginePlugin &plugin) const;
 
 	/**
-	 * @brief Ordered locations were plugin libraries could be loaded from.
+	 * @internal
+	 * @brief Ordered locations where plugin libraries could be loaded from.
 	 *
 	 * Provides an ordered list of locations where PluginLoader will attempt
 	 * to load EnginePlugins from.
@@ -254,7 +262,7 @@ public:
 
 	/**
 	 * @internal
-	 * @brief Set the base path for all the other storage directories.
+	 * @brief Set the base path for all the other 'managed' storage directories.
 	 *
 	 * @see cacheLocationPath()
 	 * @see localDataLocationPath()
@@ -273,9 +281,10 @@ public:
 	void setWorkingDirectory(const QString &workingDirectory);
 
 	/**
+	 * @internal
 	 * @brief Gets path to the root directory for data storage.
 	 *
-	 * If portable mode is ON this points to the application's directory.
+	 * If the portable mode is ON this points to the application's directory.
 	 * Otherwise:
 	 *
 	 * For Windows this is determined based on %APPDATA% environment

@@ -82,6 +82,7 @@ and the email links are clickable with the `mailto:` prefix. (#4069, #4070)
 - The additional files picker in the create game box reorganized to reclaim
 some vertical space and make it more clear that the buttons next to it
 belong to it. (#4072)
+- Plugin API: rewrite the documentation for `DataPaths`.
 - Wadseeker: added `sigil_shreds` and `sigil_shreds_compat` to the
 list of forbidden downloads.
 - Wadseeker: upgrade LZMA SDK to version 22.01. (#3934)
@@ -93,8 +94,10 @@ packet. (#3992)
 - Zandronum: remove the defunct IRC server.
 
 ### Deprecated
-- Wadseeker: Wadseeker::setWadArchiveEnabled(). (#4048)
-- Plugin API: Server::numTotalSlots(). (#4038)
+- Wadseeker: `Wadseeker::setWadArchiveEnabled()` (#4048)
+- Plugin API:
+    - `DataPaths::canWrite()`
+    - `Server::numTotalSlots()` (#4038)
 
 ### Fixed
 - Use signed integers to display the dmflags in the server details. (#3944)
