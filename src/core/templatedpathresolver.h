@@ -73,6 +73,8 @@
 class MAIN_EXPORT TemplatedPathResolver
 {
 public:
+	static const QString PROGDIR_TEMPLATE;
+
 	TemplatedPathResolver();
 	virtual ~TemplatedPathResolver();
 

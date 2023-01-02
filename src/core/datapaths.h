@@ -90,7 +90,6 @@ public:
 	};
 
 	static const QString CHATLOGS_DIR_NAME;
-	static const QString PROGRAM_DIR_TEMPLATE;
 	static const QString TRANSLATIONS_DIR_NAME;
 	static const QString UPDATE_PACKAGES_DIR_NAME;
 	static const QString UPDATE_PACKAGE_FILENAME_PREFIX;

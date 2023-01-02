@@ -35,6 +35,8 @@
 #include <pwd.h>
 #endif
 
+const QString TemplatedPathResolver::PROGDIR_TEMPLATE = "$PROGDIR";
+
 DClass<TemplatedPathResolver>
 {
 public:
@@ -110,7 +112,7 @@ QString TemplatedPathResolver::resolve(const QString &templatedPath) const
 
 		// $PROGDIR is a special placeholder that always resolves to the directory
 		// where executable is stored, even if an env. var with the same name exists.
-		if (d->progdirEnabled && name == "PROGDIR")
+		if (d->progdirEnabled && name == PROGDIR_TEMPLATE.mid(1))
 		{
 			varValue = QCoreApplication::applicationDirPath();
 		}

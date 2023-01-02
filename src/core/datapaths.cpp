@@ -133,7 +133,6 @@ static const QString DEMOS_DIR_NAME = "demos";
 
 const QString DataPaths::CHATLOGS_DIR_NAME = "chatlogs";
 const QString PrivData<DataPaths>::PLUGINS_DIR_NAME = "plugins";
-const QString DataPaths::PROGRAM_DIR_TEMPLATE = "$PROGDIR";
 const QString DataPaths::TRANSLATIONS_DIR_NAME = "translations";
 const QString DataPaths::UPDATE_PACKAGES_DIR_NAME = "updates";
 const QString DataPaths::UPDATE_PACKAGE_FILENAME_PREFIX = "doomseeker-update-pkg-";
@@ -218,7 +217,7 @@ QStringList DataPaths::defaultWadPaths() const
 
 	if (d->bIsPortableModeOn)
 	{
-		filePaths << PROGRAM_DIR_TEMPLATE;
+		filePaths << QCoreApplication::applicationDirPath();
 	}
 	else
 	{
