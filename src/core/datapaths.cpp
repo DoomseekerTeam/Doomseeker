@@ -85,6 +85,9 @@ public:
 	QDir configDirectory;
 	QDir dataDirectory;
 
+	QDir defaultConfigDirectory;
+	QDir defaultDataDirectory;
+
 	QString workingDirectory;
 
 	bool bIsPortableModeOn;
@@ -132,6 +135,9 @@ DataPaths::DataPaths(bool bPortableModeOn)
 		#endif
 		d->dataDirectory.setPath(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation));
 	}
+
+	d->defaultDataDirectory = d->dataDirectory;
+	d->defaultConfigDirectory = d->configDirectory;
 }
 
 DataPaths::~DataPaths()
@@ -175,7 +181,7 @@ QList<DirErrno> DataPaths::createDirectories()
 			failedDirs << configDirError;
 
 		#if !defined(Q_OS_DARWIN)
-		else if (appDataDir.exists(".doomseeker"))
+		else if (appDataDir.exists(".doomseeker") && d->configDirectory == d->defaultConfigDirectory)
 		{
 			// Migrate config from old versions of Doomseeker (pre 1.2)
 			const QDir oldConfigDir(appDataDir.absolutePath() + QDir::separator() + ".doomseeker");
@@ -204,7 +210,7 @@ QList<DirErrno> DataPaths::createDirectories()
 		DirErrno dataDirError = FileUtils::mkpath(d->dataDirectory);
 		if (dataDirError.isError())
 			failedDirs << dataDirError;
-		else if (appDataDir.exists(legacyPrefDirectory))
+		else if (appDataDir.exists(legacyPrefDirectory) && d->dataDirectory == d->defaultDataDirectory)
 		{
 			// Migrate data from old versions of Doomseeker (specifically demos) (pre 1.2)
 			const QDir oldConfigDir(appDataDir.absolutePath() + QDir::separator() + legacyPrefDirectory);
