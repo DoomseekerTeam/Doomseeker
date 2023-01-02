@@ -85,9 +85,41 @@ public:
 	QDir configDirectory;
 	QDir dataDirectory;
 
-	QString workingDirectory;
-
 	bool bIsPortableModeOn;
+
+	QString legacyAppDataBaseDir() const
+	{
+		if (bIsPortableModeOn)
+		{
+			return QCoreApplication::applicationDirPath();
+		}
+
+		// For non-portable model this continues here:
+		QString dir;
+
+#ifdef Q_OS_WIN32
+		// Let's open new block to prevent variable "bleeding".
+		{
+			QString envVar = QProcessEnvironment::systemEnvironment().value("APPDATA");
+			if (validateDir(envVar))
+				dir = envVar;
+		}
+#endif
+
+		if (dir.isEmpty())
+		{
+			dir = QDir::homePath();
+			if (!validateDir(dir))
+				return QString();
+		}
+		return dir;
+	}
+
+	bool validateDir(const QString &path) const
+	{
+		QFileInfo fileInfo(path);
+		return !path.isEmpty() && fileInfo.exists() && fileInfo.isDir();
+	}
 };
 
 DPointered(DataPaths)
@@ -109,10 +141,6 @@ const QString DataPaths::UPDATE_PACKAGE_FILENAME_PREFIX = "doomseeker-update-pkg
 DataPaths::DataPaths(bool bPortableModeOn)
 {
 	d->bIsPortableModeOn = bPortableModeOn;
-
-	// Logically this would be "./" but our only use of this class as of
-	// Doomseeker 1.1 would use setWorkingDirectory to applicationDirPath()
-	d->workingDirectory = QCoreApplication::applicationDirPath();
 
 	if (bPortableModeOn)
 	{
@@ -148,7 +176,7 @@ QStringList DataPaths::canWrite() const
 	QStringList failedList;
 
 	QString dataDirectory = programsDataDirectoryPath();
-	if (!validateDir(dataDirectory))
+	if (!d->validateDir(dataDirectory))
 		failedList.append(dataDirectory);
 
 	return failedList;
@@ -197,9 +225,10 @@ QStringList DataPaths::defaultWadPaths() const
 		// The directory which contains the Doomseeker executable may be a good
 		// default choice, but on unix systems the bin directory is not worth
 		// searching.  Similarly for Mac application bundle.
-		const QString progBinDirName = QDir(workingDirectory()).dirName();
+		const QDir appDir(QCoreApplication::applicationDirPath());
+		const QString progBinDirName = appDir.dirName();
 		if (progBinDirName != "bin" && progBinDirName != "MacOS")
-			filePaths << workingDirectory();
+			filePaths << appDir.path();
 	}
 
 	return filePaths;
@@ -219,8 +248,11 @@ QString DataPaths::documentsLocationPath(const QString &subpath) const
 		rootPath = Strings::combinePaths(rootPath, QCoreApplication::applicationName());
 	}
 	else
-		rootPath = systemAppDataDirectory("storage");
-	return Strings::combinePaths(rootPath, subpath);
+	{
+		rootPath = QCoreApplication::applicationDirPath();
+		rootPath = Strings::combinePaths(rootPath, "storage");
+	}
+	return QDir(rootPath).filePath(subpath);
 }
 
 QString DataPaths::env(const QString &key)
@@ -260,7 +292,7 @@ QString DataPaths::pluginDocumentsLocationPath(const EnginePlugin &plugin) const
 QStringList DataPaths::pluginSearchLocationPaths() const
 {
 	QStringList paths;
-	paths.append(workingDirectory());
+	paths.append(QCoreApplication::applicationDirPath());
 	paths.append("./");
 
 	#if !defined(Q_OS_DARWIN) && !defined(Q_OS_WIN32)
@@ -268,7 +300,7 @@ QStringList DataPaths::pluginSearchLocationPaths() const
 	// running an installed binary, then we should only load plugins from the
 	// expected location.  Otherwise use it only as a last resort.
 	const QString installDir = INSTALL_PREFIX "/" INSTALL_LIBDIR "/doomseeker/";
-	if (workingDirectory() == INSTALL_PREFIX "/bin")
+	if (QCoreApplication::applicationDirPath() == INSTALL_PREFIX "/bin")
 		paths = QStringList(installDir);
 	else
 		paths.append(installDir);
@@ -334,7 +366,7 @@ void DataPaths::setBaseDir(const QDir &baseDir)
 
 void DataPaths::setWorkingDirectory(const QString &workingDirectory)
 {
-	d->workingDirectory = workingDirectory;
+	// no-op; this method is deprecated
 }
 
 QStringList DataPaths::staticDataSearchDirs(const QString &subdir)
@@ -357,43 +389,12 @@ QStringList DataPaths::staticDataSearchDirs(const QString &subdir)
 
 QString DataPaths::systemAppDataDirectory(QString append) const
 {
-	Strings::triml(append, "/\\");
-
-	if (isPortableModeOn())
-	{
-		QString path = d->workingDirectory + "/" + append;
-		return QDir(path).absolutePath();
-	}
-
-	// For non-portable model this continues here:
-	QString dir;
-
-	#ifdef Q_OS_WIN32
-	// Let's open new block to prevent variable "bleeding".
-	{
-		QString envVar = env("APPDATA");
-		if (validateDir(envVar))
-			dir = envVar;
-	}
-	#endif
-
-	if (dir.isEmpty())
-	{
-		dir = QDir::homePath();
-		if (!validateDir(dir))
-			return QString();
-	}
-
-	Strings::trimr(dir, "/\\");
-
-	dir += QDir::separator() + append;
-
-	return QDir(dir).absolutePath();
+	return QDir(d->legacyAppDataBaseDir()).filePath(append);
 }
 
 bool DataPaths::validateAppDataDirectory()
 {
-	return validateDir(systemAppDataDirectory());
+	return true;
 }
 
 bool DataPaths::validateDir(const QString &path)
@@ -409,5 +410,7 @@ bool DataPaths::validateDir(const QString &path)
 
 const QString &DataPaths::workingDirectory() const
 {
-	return d->workingDirectory;
+	// Need to use a static variable because the method returns a reference.
+	static QString dirPath = QCoreApplication::applicationDirPath();
+	return dirPath;
 }

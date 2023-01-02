@@ -272,11 +272,14 @@ public:
 	void setBaseDir(const QDir &baseDir);
 
 	/**
+	 * @internal
 	 * @brief Changes the location returned by workingDirectory.
 	 *
 	 * No longer used internally. Previously this was used to logically set
 	 * the "working directory" to the location of the application binary.
 	 * This makes the name of the functions something of a misnomer.
+	 *
+	 * @deprecated As of Doomseeker 1.4 this does nothing.
 	 */
 	void setWorkingDirectory(const QString &workingDirectory);
 
@@ -292,7 +295,8 @@ public:
 	 *
 	 * On other systems QDir::home() is used directly.
 	 *
-	 * @deprecated Use more specific functions. Internal use only.
+	 * @deprecated Use more specific functions. It is completely unused
+	 * as of Doomseeker 1.4.
 	 *
 	 * @param append - this string will be appended to the returned path.
 	 *
@@ -302,8 +306,12 @@ public:
 	QString systemAppDataDirectory(QString append = QString()) const;
 
 	/**
+	 * @internal
 	 * @brief Checks if the root directory for Doomseeker data storage
 	 * is accessible.
+	 *
+	 * @deprecated As of Doomseeker 1.4 this does nothing and always returns
+	 * true.
 	 */
 	bool validateAppDataDirectory();
 
@@ -312,7 +320,10 @@ public:
 	 *
 	 * Despite the name of the function, for historical reasons, this
 	 * actually returns the binary's location as determined by
-	 * QCoreApplication::applicationDataPath.
+	 * QCoreApplication::applicationDirPath().
+	 *
+	 * @deprecated As of Doomseeker 1.4. Just use
+	 * QCoreApplication::applicationDirPath() directly.
 	 */
 	const QString &workingDirectory() const;
 

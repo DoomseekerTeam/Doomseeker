@@ -450,7 +450,7 @@ bool Main::initDataDirectories()
 	// I think this directory should take priority, if user, for example,
 	// wants to update the ip2country file.
 	dataDirectories << gDefaultDataPaths->localDataLocationPath();
-	dataDirectories << gDefaultDataPaths->workingDirectory();
+	dataDirectories << QCoreApplication::applicationDirPath();
 
 	// Continue with standard dirs:
 	dataDirectories << "./";

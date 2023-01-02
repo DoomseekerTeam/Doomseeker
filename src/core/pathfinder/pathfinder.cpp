@@ -31,6 +31,7 @@
 #include "templatedpathresolver.h"
 
 #include <cstdlib>
+#include <QCoreApplication>
 #include <QDir>
 #include <QFileInfo>
 #include <QScopedPointer>
@@ -131,14 +132,14 @@ PathFinder PathFinder::genericPathFinder(const QStringList &suffixes)
 	QStringList paths;
 	#if defined(Q_OS_WIN32)
 	paths << "." << ".."
-		<< gDefaultDataPaths->workingDirectory()
-		<< gDefaultDataPaths->workingDirectory() + "/.."
+		<< QCoreApplication::applicationDirPath()
+		<< QDir(QCoreApplication::applicationDirPath()).filePath("..")
 		<< DataPaths::programFilesDirectory(DataPaths::x64)
 		<< DataPaths::programFilesDirectory(DataPaths::x86);
 	#else
 	paths << "/usr/bin" << "/usr/local/bin" << "/usr/share/bin"
 		<< "/usr/games/" << "/usr/local/games/"
-		<< "/usr/share/games/" << gDefaultDataPaths->workingDirectory() << ".";
+		<< "/usr/share/games/" << QCoreApplication::applicationDirPath() << ".";
 	#endif
 	QStringList pathsCopy(paths);
 	for (const QString &path : pathsCopy)

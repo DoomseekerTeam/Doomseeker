@@ -96,7 +96,8 @@ packet. (#3992)
 ### Deprecated
 - Wadseeker: `Wadseeker::setWadArchiveEnabled()` (#4048)
 - Plugin API:
-    - `DataPaths::canWrite()`
+    - `DataPaths::canWrite()`, `DataPaths::setWorkingDirectory()`,
+      `DataPaths::workingDirectory()`, `DataPaths::validateAppDataDirectory()`.
     - `Server::numTotalSlots()` (#4038)
 
 ### Fixed
