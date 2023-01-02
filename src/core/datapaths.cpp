@@ -85,9 +85,6 @@ public:
 	QDir configDirectory;
 	QDir dataDirectory;
 
-	QDir defaultConfigDirectory;
-	QDir defaultDataDirectory;
-
 	QString workingDirectory;
 
 	bool bIsPortableModeOn;
@@ -135,9 +132,6 @@ DataPaths::DataPaths(bool bPortableModeOn)
 		#endif
 		d->dataDirectory.setPath(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation));
 	}
-
-	d->defaultDataDirectory = d->dataDirectory;
-	d->defaultConfigDirectory = d->configDirectory;
 }
 
 DataPaths::~DataPaths()
@@ -163,76 +157,18 @@ QStringList DataPaths::canWrite() const
 QList<DirErrno> DataPaths::createDirectories()
 {
 	QList<DirErrno> failedDirs;
-	const QDir appDataDir(systemAppDataDirectory());
 
-	// No need to bother with migrating plugin master caches
 	DirErrno cacheDirError = FileUtils::mkpath(d->cacheDirectory);
 	if (cacheDirError.isError())
 		failedDirs << cacheDirError;
 
-	// The existential question here is needed for migration purposes,
-	// but on Windows the >=1.2 configDirectory can already exist because
-	// Doomseeker <1.2 already stored IRC chat logs there.
-	// It is necessary to ask about the .ini file.
-	if (!d->configDirectory.exists(DoomseekerFilePaths::INI_FILENAME))
-	{
-		DirErrno configDirError = FileUtils::mkpath(d->configDirectory);
-		if (configDirError.isError())
-			failedDirs << configDirError;
+	DirErrno configDirError = FileUtils::mkpath(d->configDirectory);
+	if (configDirError.isError())
+		failedDirs << configDirError;
 
-		#if !defined(Q_OS_DARWIN)
-		else if (appDataDir.exists(".doomseeker") && d->configDirectory == d->defaultConfigDirectory)
-		{
-			// Migrate config from old versions of Doomseeker (pre 1.2)
-			const QDir oldConfigDir(appDataDir.absolutePath() + QDir::separator() + ".doomseeker");
-			gLog << QString("Migrating configuration data from '%1'\n\tto '%2'.")
-				.arg(oldConfigDir.absolutePath())
-				.arg(d->configDirectory.absolutePath());
-
-			for (QFileInfo fileinfo : oldConfigDir.entryInfoList(QStringList("*.ini"), QDir::Files))
-			{
-				QFile(fileinfo.absoluteFilePath()).copy(d->configDirectory.absoluteFilePath(fileinfo.fileName()));
-			}
-		}
-		#endif
-	}
-
-	// In >=1.2 and on Windows platform, dataDirectory can be the same
-	// as configDirectory. To do the migration properly, we need to
-	// ask about existence of a subdirectory inside the data directory.
-	if (!d->dataDirectory.exists(DEMOS_DIR_NAME))
-	{
-		#ifdef Q_OS_DARWIN
-		const QString legacyPrefDirectory = "Library/Preferences/Doomseeker";
-		#else
-		const QString legacyPrefDirectory = ".doomseeker";
-		#endif
-		DirErrno dataDirError = FileUtils::mkpath(d->dataDirectory);
-		if (dataDirError.isError())
-			failedDirs << dataDirError;
-		else if (appDataDir.exists(legacyPrefDirectory) && d->dataDirectory == d->defaultDataDirectory)
-		{
-			// Migrate data from old versions of Doomseeker (specifically demos) (pre 1.2)
-			const QDir oldConfigDir(appDataDir.absolutePath() + QDir::separator() + legacyPrefDirectory);
-			gLog << QString("Migrating user data from '%1'\n\tto '%2'.")
-				.arg(oldConfigDir.absolutePath())
-				.arg(d->dataDirectory.absolutePath());
-
-			for (QFileInfo fileinfo : oldConfigDir.entryInfoList(QDir::Dirs))
-			{
-				const QString origPath = fileinfo.absoluteFilePath();
-				QFile file(origPath);
-				if (file.rename(d->dataDirectory.absoluteFilePath(fileinfo.fileName())))
-				{
-					// On Windows this will create an useless .lnk shortcut
-					// without the .lnk extension, so don't bother.
-					#if !defined(Q_OS_WIN32)
-					file.link(origPath);
-					#endif
-				}
-			}
-		}
-	}
+	DirErrno dataDirError = FileUtils::mkpath(d->dataDirectory);
+	if (dataDirError.isError())
+		failedDirs << dataDirError;
 
 	DirErrno demosDirError = FileUtils::mkpath(d->dataDirectory.filePath(DEMOS_DIR_NAME));
 	if (demosDirError.isError())

@@ -147,6 +147,7 @@ installed. (#4020, #4024)
 - Zandronum: update the game icon to Zandronum 3.1's.
 
 ### Removed
+- Config migration from Doomseeker 1.1. (#4081)
 - Wadseeker: Removed Wad Archive support due to the site shutdown. (#4048)
 
 ## [1.3.3] - 2022-01-18
