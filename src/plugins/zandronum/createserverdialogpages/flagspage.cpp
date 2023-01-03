@@ -468,7 +468,7 @@ QString FlagsPage::country() const
 	{
 		const QString typedIn = cbServerCountry->currentText().trimmed();
 		// Case-insensitive find.
-		int idx = cbServerCountry->findText(typedIn, 0);
+		int idx = cbServerCountry->findText(typedIn, Qt::MatchFixedString);
 		// If the text matches another text, case-insensitively, that
 		// already is in the box, then return the text that's already
 		// there.
@@ -493,7 +493,7 @@ void FlagsPage::setCountry(const QString &country)
 	if (idx < 0)
 	{
 		// Case-insensitive find.
-		idx = cbServerCountry->findText(country, 0);
+		idx = cbServerCountry->findText(country, Qt::MatchFixedString);
 	}
 	if (idx >= 0)
 	{
