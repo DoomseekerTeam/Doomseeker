@@ -91,6 +91,7 @@ and the email links are clickable with the `mailto:` prefix. (#4069, #4070)
 some vertical space and make it more clear that the buttons next to it
 belong to it. (#4072)
 - Hide the passwords by default!
+- UI improvements to the server passwords config box.
 - Plugin API: rewrite the documentation for `DataPaths`.
 - Wadseeker: make the "managed data" directory (Local) the default for
 WAD downloads.
