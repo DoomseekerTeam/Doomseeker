@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>417</width>
-    <height>297</height>
+    <height>389</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -212,11 +212,25 @@
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QLineEdit" name="lePassword">
-       <property name="echoMode">
-        <enum>QLineEdit::Password</enum>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QLineEdit" name="lePassword">
+         <property name="echoMode">
+          <enum>QLineEdit::Password</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="cbHidePassword">
+         <property name="text">
+          <string>Hide</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
@@ -256,8 +270,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>254</x>
+     <y>382</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -272,8 +286,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
+     <x>322</x>
+     <y>382</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
@@ -288,8 +302,8 @@
    <slot>editCurrentNetwork()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>321</x>
-     <y>123</y>
+     <x>377</x>
+     <y>208</y>
     </hint>
     <hint type="destinationlabel">
      <x>352</x>
@@ -304,8 +318,8 @@
    <slot>createNewNetwork()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>239</x>
-     <y>115</y>
+     <x>346</x>
+     <y>208</y>
     </hint>
     <hint type="destinationlabel">
      <x>354</x>
@@ -320,12 +334,28 @@
    <slot>removeCurrentNetwork()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>391</x>
-     <y>111</y>
+     <x>408</x>
+     <y>208</y>
     </hint>
     <hint type="destinationlabel">
      <x>208</x>
      <y>148</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbHidePassword</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>IRCNetworkSelectionBox</receiver>
+   <slot>setHidePassword(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>366</x>
+     <y>317</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>366</x>
+     <y>336</y>
     </hint>
    </hints>
   </connection>
@@ -334,5 +364,6 @@
   <slot>editCurrentNetwork()</slot>
   <slot>createNewNetwork()</slot>
   <slot>removeCurrentNetwork()</slot>
+  <slot>setHidePassword(bool)</slot>
  </slots>
 </ui>

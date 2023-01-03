@@ -67,7 +67,8 @@ private:
 	bool validateDescription();
 
 private slots:
-	void buttonClicked(QAbstractButton *button);
+	void setHideServerPassword(bool hide);
+	void setHideNickservPassword(bool hide);
 };
 
 #endif

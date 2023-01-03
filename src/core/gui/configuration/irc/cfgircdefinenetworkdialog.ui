@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>395</width>
-    <height>349</height>
+    <width>494</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -95,11 +95,25 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="leServerPassword">
-         <property name="echoMode">
-          <enum>QLineEdit::Password</enum>
-         </property>
-        </widget>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLineEdit" name="leServerPassword">
+           <property name="echoMode">
+            <enum>QLineEdit::Password</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="cbHideServerPassword">
+           <property name="text">
+            <string>Hide</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
         <spacer name="verticalSpacer_3">
@@ -129,11 +143,25 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="leNickservPassword">
-         <property name="echoMode">
-          <enum>QLineEdit::Password</enum>
-         </property>
-        </widget>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QLineEdit" name="leNickservPassword">
+           <property name="echoMode">
+            <enum>QLineEdit::Password</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="cbHideNickservPassword">
+           <property name="text">
+            <string>Hide</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
         <widget class="QLabel" name="label_6">
@@ -295,5 +323,74 @@ p, li { white-space: pre-wrap; }
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>CFGIRCDefineNetworkDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>246</x>
+     <y>373</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>246</x>
+     <y>198</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>CFGIRCDefineNetworkDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>246</x>
+     <y>373</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>246</x>
+     <y>198</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbHideNickservPassword</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>CFGIRCDefineNetworkDialog</receiver>
+   <slot>setHideNickservPassword(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>429</x>
+     <y>88</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>246</x>
+     <y>198</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbHideServerPassword</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>CFGIRCDefineNetworkDialog</receiver>
+   <slot>setHideServerPassword(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>447</x>
+     <y>286</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>246</x>
+     <y>198</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>setHideNickservPassword(bool)</slot>
+  <slot>setHideServerPassword(bool)</slot>
+ </slots>
 </ui>

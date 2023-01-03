@@ -24,6 +24,7 @@
 
 #include "ui_passworddlg.h"
 
+#include "configuration/doomseekerconfig.h"
 #include "configuration/passwordscfg.h"
 #include "configuration/serverpassword.h"
 #include "gui/commongui.h"
@@ -91,11 +92,7 @@ QString PasswordDlg::inGamePassword() const
 void PasswordDlg::loadConfiguration()
 {
 	PasswordsCfg cfg;
-	if (cfg.isHidingPasswords())
-	{
-		d->cboConnectPassword->lineEdit()->setEchoMode(QLineEdit::Password);
-		d->cboIngamePassword->lineEdit()->setEchoMode(QLineEdit::Password);
-	}
+	setHidePasswords(cfg.isHidingPasswords());
 	d->remember->setChecked(cfg.isRememberingConnectPhrase());
 	setPasswords(cfg.serverPhrases());
 	setCurrentConnectPassword(cfg.suggestPassword(
@@ -151,6 +148,15 @@ void PasswordDlg::setCurrentConnectPassword(const QString &password)
 void PasswordDlg::setCurrentIngamePassword(const QString &password)
 {
 	d->cboIngamePassEx->setCurrentOrAddNewAndSelect(password);
+}
+
+void PasswordDlg::setHidePasswords(bool hide)
+{
+	d->cbHidePasswords->blockSignals(true);
+	d->cbHidePasswords->setChecked(hide);
+	d->cbHidePasswords->blockSignals(false);
+	d->cboConnectPassword->lineEdit()->setEchoMode(hide ? QLineEdit::Password : QLineEdit::Normal);
+	d->cboIngamePassword->lineEdit()->setEchoMode(hide ? QLineEdit::Password : QLineEdit::Normal);
 }
 
 void PasswordDlg::setPasswords(const QStringList &passwords)

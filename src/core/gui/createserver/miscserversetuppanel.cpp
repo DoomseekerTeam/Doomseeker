@@ -23,7 +23,7 @@
 #include "miscserversetuppanel.h"
 #include "ui_miscserversetuppanel.h"
 
-#include "configuration/doomseekerconfig.h"
+#include "configuration/passwordscfg.h"
 #include "ini/ini.h"
 #include "plugins/engineplugin.h"
 #include "serverapi/gamecreateparams.h"
@@ -42,7 +42,8 @@ MiscServerSetupPanel::MiscServerSetupPanel(QWidget *parent)
 	d->setupUi(this);
 	d->anythingAvailable = false;
 
-	d->cbHidePasswords->setChecked(gConfig.doomseeker.bHidePasswords);
+	PasswordsCfg passCfg;
+	setHidePasswords(passCfg.isHidingPasswords());
 }
 
 MiscServerSetupPanel::~MiscServerSetupPanel()
@@ -134,6 +135,9 @@ void MiscServerSetupPanel::setupForEngine(const EnginePlugin *engine)
 
 void MiscServerSetupPanel::setHidePasswords(bool hide)
 {
+	d->cbHidePasswords->blockSignals(true);
+	d->cbHidePasswords->setChecked(hide);
+	d->cbHidePasswords->blockSignals(false);
 	QLineEdit::EchoMode echoMode = hide ? QLineEdit::Password : QLineEdit::Normal;
 	d->leConnectPassword->setEchoMode(echoMode);
 	d->leJoinPassword->setEchoMode(echoMode);

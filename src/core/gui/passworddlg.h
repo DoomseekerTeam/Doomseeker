@@ -58,6 +58,7 @@ private:
 private slots:
 	void removeCurrentConnectPassword();
 	void removeCurrentIngamePassword();
+	void setHidePasswords(bool hide);
 };
 
 #endif /* __PASSWORDDIALOG_H__ */

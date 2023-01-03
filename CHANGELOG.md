@@ -25,6 +25,7 @@ game servers. (#4002)
 - The additional files list in the create game box now responds to plus
 (add empty), minus and delete (both remove selected) keys on the keyboard.
 - Demo manager now openable with the F3 keyboard shortcut.
+- Hide/reveal password checkboxes to all password inputs.
 - Wadseeker: add a bunch of websites to the WAD search list: (#4053)
     - https://doomshack.org/wadlist.php
     - https://wads.firestick.games/

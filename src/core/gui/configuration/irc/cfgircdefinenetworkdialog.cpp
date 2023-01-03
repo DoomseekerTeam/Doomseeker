@@ -23,6 +23,7 @@
 #include "cfgircdefinenetworkdialog.h"
 #include "ui_cfgircdefinenetworkdialog.h"
 
+#include "configuration/passwordscfg.h"
 #include "irc/chatnetworknamer.h"
 #include "irc/configuration/chatnetworkscfg.h"
 #include "irc/entities/ircnetworkentity.h"
@@ -97,20 +98,13 @@ QStringList CFGIRCDefineNetworkDialog::autojoinCommands() const
 	return d->teAutojoinCommands->toPlainText().split("\n");
 }
 
-void CFGIRCDefineNetworkDialog::buttonClicked(QAbstractButton *button)
-{
-	auto pButton = (QPushButton *)button;
-	if (pButton == d->buttonBox->button(QDialogButtonBox::Ok))
-		this->accept();
-	else
-		this->reject();
-}
-
 void CFGIRCDefineNetworkDialog::construct()
 {
 	d->setupUi(this);
 
-	connect(d->buttonBox, SIGNAL(clicked(QAbstractButton*)), SLOT(buttonClicked(QAbstractButton*)));
+	PasswordsCfg passCfg;
+	setHideNickservPassword(passCfg.isHidingPasswords());
+	setHideServerPassword(passCfg.isHidingPasswords());
 }
 
 QStringList CFGIRCDefineNetworkDialog::formatOffenders(const QStringList &offenders) const
@@ -198,6 +192,22 @@ QStringList CFGIRCDefineNetworkDialog::validateAutojoinCommands() const
 void CFGIRCDefineNetworkDialog::setExistingNetworks(const QList<IRCNetworkEntity> &networks)
 {
 	d->existingNetworks = networks;
+}
+
+void CFGIRCDefineNetworkDialog::setHideNickservPassword(bool hide)
+{
+	d->cbHideNickservPassword->blockSignals(true);
+	d->cbHideNickservPassword->setChecked(hide);
+	d->cbHideNickservPassword->blockSignals(false);
+	d->leNickservPassword->setEchoMode(hide ? QLineEdit::Password : QLineEdit::Normal);
+}
+
+void CFGIRCDefineNetworkDialog::setHideServerPassword(bool hide)
+{
+	d->cbHideServerPassword->blockSignals(true);
+	d->cbHideServerPassword->setChecked(hide);
+	d->cbHideServerPassword->blockSignals(false);
+	d->leServerPassword->setEchoMode(hide ? QLineEdit::Password : QLineEdit::Normal);
 }
 
 bool CFGIRCDefineNetworkDialog::validateDescription()
