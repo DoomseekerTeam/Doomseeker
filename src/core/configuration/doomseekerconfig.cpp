@@ -272,7 +272,7 @@ DoomseekerConfig::DoomseekerCfg::DoomseekerCfg()
 	this->bCloseToTrayIcon = false;
 	this->bColorizeServerConsole = true;
 	this->bDrawGridInServerTable = false;
-	this->bHidePasswords = false;
+	this->bHidePasswords = true;
 	this->bHonorServerCountries = true;
 	this->bGroupServersWithPlayersAtTheTopOfTheList = true;
 	this->bIP2CountryAutoUpdate = true;
