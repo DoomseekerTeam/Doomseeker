@@ -7697,7 +7697,7 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
     </message>
     <message>
         <location filename="../gui/widgets/serverlistcontextmenu.cpp" line="155"/>
-        <source>Remote Console</source>
+        <source>Remote console</source>
         <translation>Consola remota</translation>
     </message>
     <message>

@@ -7454,7 +7454,7 @@ Si no té aquest arxiu, i pertany a un joc comercial, necessita comprar el joc a
     </message>
     <message>
         <location filename="../gui/widgets/serverlistcontextmenu.cpp" line="155"/>
-        <source>Remote Console</source>
+        <source>Remote console</source>
         <translation>Consola remota</translation>
     </message>
     <message>

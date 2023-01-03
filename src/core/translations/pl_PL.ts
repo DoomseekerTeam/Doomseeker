@@ -6882,7 +6882,7 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
     </message>
     <message>
         <location filename="../gui/widgets/serverlistcontextmenu.cpp" line="155"/>
-        <source>Remote Console</source>
+        <source>Remote console</source>
         <translation>Konsola zdalna</translation>
     </message>
     <message>
