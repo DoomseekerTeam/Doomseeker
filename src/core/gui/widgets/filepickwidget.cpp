@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 #include "filepickwidget.h"
 
+#include "datapaths.h"
 #include "filefilter.h"
 #include "ini/inisection.h"
 #include "ini/inivariable.h"
@@ -65,7 +66,7 @@ void FilePickWidget::browsePath()
 		d->lePath->text(), FileFilter::executableFilesFilter());
 	if (!filepath.isEmpty())
 	{
-		d->lePath->setText(filepath);
+		d->lePath->setText(gDefaultDataPaths->portablizePath(filepath));
 		emit pathChanged();
 	}
 }
@@ -78,7 +79,7 @@ void FilePickWidget::findPath()
 	QString path = PathFind::findGameFile(d->neighbourStrategy->neighbours(), d->file);
 	if (!path.isEmpty())
 	{
-		d->lePath->setText(path);
+		d->lePath->setText(gDefaultDataPaths->portablizePath(path));
 		emit pathChanged();
 	}
 	else

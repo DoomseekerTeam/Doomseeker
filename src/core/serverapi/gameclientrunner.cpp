@@ -38,6 +38,7 @@
 #include "serverapi/server.h"
 #include "templatedpathresolver.h"
 #include <QDir>
+#include <QFileInfo>
 #include <QScopedPointer>
 #include <QStringList>
 
@@ -249,7 +250,7 @@ void GameClientRunner::addExtra_default()
 
 void GameClientRunner::addIwad_default()
 {
-	args() << argForIwadLoading() << iwadPath();
+	args() << argForIwadLoading() << QFileInfo(iwadPath()).absoluteFilePath();
 }
 
 void GameClientRunner::addWads()
@@ -320,7 +321,7 @@ void GameClientRunner::addModFiles_default(const QStringList &files)
 {
 	for (const QString &file : files)
 	{
-		args() << fileLoadingPrefix(file) << file;
+		args() << fileLoadingPrefix(file) << QFileInfo(file).absoluteFilePath();
 	}
 }
 

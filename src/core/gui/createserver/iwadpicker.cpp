@@ -24,6 +24,7 @@
 #include "ui_iwadpicker.h"
 
 #include "configuration/doomseekerconfig.h"
+#include "datapaths.h"
 #include "pathfinder/pathfinder.h"
 #include "pathfinder/wadpathfinder.h"
 #include "strings.hpp"
@@ -70,14 +71,14 @@ void IwadPicker::addIwad(const QString &path)
 void IwadPicker::browse()
 {
 	QString dialogDir = gConfig.doomseeker.previousCreateServerWadDir;
-	QString strFile = QFileDialog::getOpenFileName(this, tr("Doomseeker - select IWAD"), dialogDir);
+	QString path = QFileDialog::getOpenFileName(this, tr("Doomseeker - select IWAD"), dialogDir);
 
-	if (!strFile.isEmpty())
+	if (!path.isEmpty())
 	{
-		QFileInfo fi(strFile);
-		gConfig.doomseeker.previousCreateServerWadDir = fi.absolutePath();
+		path = gDefaultDataPaths->portablizePath(path);
+		gConfig.doomseeker.previousCreateServerWadDir = path;
 
-		addIwad(strFile);
+		addIwad(path);
 	}
 }
 
@@ -103,7 +104,7 @@ void IwadPicker::loadIwads()
 		wadPathFinder.setAllowAliases(false);
 		QString path = wadPathFinder.find(iwads[i]).path();
 		if (!path.isEmpty())
-			d->cboIwad->addItem(path);
+			d->cboIwad->addItem(gDefaultDataPaths->portablizePath(path));
 	}
 	if (!currentSelection.isEmpty())
 	{
@@ -131,7 +132,7 @@ void IwadPicker::setIwadByName(const QString &iwad)
 	QString path = pathFinder.findFile(iwad);
 	if (!path.isEmpty())
 	{
-		d->cboIwad->addItem(path);
+		d->cboIwad->addItem(gDefaultDataPaths->portablizePath(path));
 		d->cboIwad->setCurrentIndex(d->cboIwad->count() - 1);
 	}
 }

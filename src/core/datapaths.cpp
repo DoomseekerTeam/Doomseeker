@@ -87,6 +87,11 @@ public:
 
 	bool bIsPortableModeOn;
 
+	QDir portableRoot() const
+	{
+		return QDir::current();
+	}
+
 	QString legacyAppDataBaseDir() const
 	{
 		if (bIsPortableModeOn)
@@ -143,7 +148,7 @@ DataPaths::DataPaths(bool bPortableModeOn)
 
 	if (bPortableModeOn)
 	{
-		setBaseDir(QDir(QCoreApplication::applicationDirPath()));
+		setBaseDir(QDir("."));
 	}
 	else
 	{
@@ -167,7 +172,7 @@ DataPaths::~DataPaths()
 
 QString DataPaths::cacheLocationPath() const
 {
-	return d->cacheDirectory.absolutePath();
+	return d->cacheDirectory.path();
 }
 
 QStringList DataPaths::canWrite() const
@@ -213,14 +218,19 @@ DataPaths *DataPaths::defaultInstance()
 QStringList DataPaths::defaultWadPaths() const
 {
 	QStringList filePaths;
-	filePaths << programsDataDirectoryPath();
 
 	if (d->bIsPortableModeOn)
 	{
-		filePaths << QCoreApplication::applicationDirPath();
+		filePaths << localDataLocationPath();
+		filePaths << programsDataDirectoryPath();
+		filePaths << ".";
+		for (int i = 0; i < filePaths.size(); ++i)
+			filePaths[i] = portablizePath(filePaths[i]);
 	}
 	else
 	{
+		filePaths << localDataLocationPath();
+		filePaths << programsDataDirectoryPath();
 		// The directory which contains the Doomseeker executable may be a good
 		// default choice, but on unix systems the bin directory is not worth
 		// searching.  Similarly for Mac application bundle.
@@ -235,7 +245,7 @@ QStringList DataPaths::defaultWadPaths() const
 
 QString DataPaths::demosDirectoryPath() const
 {
-	return d->dataDirectory.absoluteFilePath(DEMOS_DIR_NAME);
+	return d->dataDirectory.filePath(DEMOS_DIR_NAME);
 }
 
 QString DataPaths::documentsLocationPath(const QString &subpath) const
@@ -273,7 +283,7 @@ bool DataPaths::isPortableModeOn() const
 
 QString DataPaths::localDataLocationPath(const QString &subpath) const
 {
-	return Strings::combinePaths(d->dataDirectory.absolutePath(), subpath);
+	return Strings::combinePaths(d->dataDirectory.path(), subpath);
 }
 
 QString DataPaths::pluginLocalDataLocationPath(const EnginePlugin &plugin) const
@@ -307,6 +317,19 @@ QStringList DataPaths::pluginSearchLocationPaths() const
 
 	paths = uniquePaths(paths);
 	return Strings::combineManyPaths(paths, "engines/");
+}
+
+QString DataPaths::portablizePath(const QString &path) const
+{
+	if (isPortableModeOn())
+	{
+		QFileInfo pathInfo(path);
+		if (pathInfo.isAbsolute())
+		{
+			return d->portableRoot().relativeFilePath(path);
+		}
+	}
+	return path;
 }
 
 QString DataPaths::programFilesDirectory(MachineType machineType)
@@ -353,7 +376,7 @@ QString DataPaths::programFilesDirectory(MachineType machineType)
 
 QString DataPaths::programsDataDirectoryPath() const
 {
-	return d->configDirectory.absolutePath();
+	return d->configDirectory.path();
 }
 
 void DataPaths::setBaseDir(const QDir &baseDir)

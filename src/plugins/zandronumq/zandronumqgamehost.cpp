@@ -27,6 +27,8 @@
 #include "zandronumqserver.h"
 #include <serverapi/gamecreateparams.h>
 
+#include <QFileInfo>
+
 ZandronumqGameHost::ZandronumqGameHost()
 	: GameHost(ZandronumqEnginePlugin::staticInstance())
 {
@@ -64,7 +66,7 @@ void ZandronumqGameHost::addExtra()
 	if (!params().loggingPath().isEmpty())
 	{
 		// Q-Zandronum suffixes a date plus a ".log" extension. We'll add a prefix.
-		args() << "+logfile" << params().loggingPath() + "/Q-Zandronum";
+		args() << "+logfile" << QFileInfo(params().loggingPath()).absoluteFilePath() + "/Q-Zandronum";
 	}
 
 	QString gameModeStr;

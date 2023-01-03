@@ -421,6 +421,16 @@ void Main::initCaCerts()
 
 bool Main::initDataDirectories()
 {
+	if (bPortableMode)
+	{
+		gLog << tr("Running in the portable mode. Forcing current directory to: %1")
+			.arg(QCoreApplication::applicationDirPath());
+		if (!QDir::setCurrent(QCoreApplication::applicationDirPath()))
+		{
+			gLog << tr("Forcing the current directory failed! Path detection may misbehave.");
+		}
+	}
+
 	DataPaths::initDefault(bPortableMode);
 	if (!baseDir.isEmpty())
 		gDefaultDataPaths->setBaseDir(baseDir);

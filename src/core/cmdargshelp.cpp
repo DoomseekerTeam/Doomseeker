@@ -24,6 +24,11 @@
 
 QString CmdArgsHelp::argsHelp()
 {
+#ifdef Q_OS_WIN
+	const QString mountedWhere = tr("being assigned a different letter");
+#else
+	const QString mountedWhere = tr("being mounted on a different path");
+#endif
 	QString help = "";
 	help += tr(
 		"--basedir <directory>\n"
@@ -49,11 +54,15 @@ QString CmdArgsHelp::argsHelp()
 		"    Launch the rcon client for the specified ip.\n");
 	help += tr(
 		"--portable\n"
-		"    Starts application in a portable mode.\n"
-		"    In the portable mode Doomseeker saves all the configuration\n"
-		"    files to the directory where its executable resides.\n"
-		"    Normally, configuration is saved to user's home directory.\n"
-		"    See also: --basedir.\n");
+		"    Starts the application in the portable mode:\n"
+		"    - Doomseeker saves all the configuration files to the directory\n"
+		"      where its executable resides. Normally, configuration is saved to\n"
+		"      user's home directory. This directory can be changed with --basedir.\n"
+		"    - The current working directory is forced to the directory where\n"
+		"      Doomseeker's executable resides.\n"
+		"    - Doomseeker will save in the configuration all paths as relative\n"
+		"      in anticipation that they may change between the runs, for ex.\n"
+		"      due to the portable device %1.\n").arg(mountedWhere);
 	help += tr(
 		"--version-json [file|-]\n"
 		"    Prints version info on Doomseeker and all\n"

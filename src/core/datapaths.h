@@ -57,6 +57,12 @@ class EnginePlugin;
  * that these directories are in places that are normally writable for the
  * current OS user, and that the program data can be stored there.
  *
+ * Furthermore, *enabling* the portable mode forces Doomseeker's working
+ * directory to the directory where Doomseeker's executable is located. This
+ * directory becomes the "portable root directory". All paths that are stored in
+ * the configuration should be stored as relative to that directory if
+ * possible. Use the portablizePath() method to do that.
+ *
  * - programsDataDirectoryPath() is the "Roaming" directory. It should be used to
  *   store relatively small amount of data - like config files.
  * - cacheDataLocationPath() is used to store larger, non-critical data.
@@ -256,6 +262,17 @@ public:
 	 * depends on setBaseDir().
 	 */
 	QString programsDataDirectoryPath() const;
+
+	/**
+	 * @brief Try to create a relative path suitable for the portable mode.
+	 *
+	 * 1. If Doomseeker is not running in the portable mode, do nothing.
+	 * 2. If the path is already relative, do nothing.
+	 * 3. If the path is absolute, try to see if it can be reached by a
+	 *    relative path from portable's root directory and convert it
+	 *    to a relative path; if not, leave it as absolute.
+	 */
+	QString portablizePath(const QString &path) const;
 
 	bool isPortableModeOn() const;
 

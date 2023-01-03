@@ -21,7 +21,9 @@
 // Copyright (C) 2009 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
 #include "cfgfilepaths.h"
+
 #include "configuration/doomseekerconfig.h"
+#include "datapaths.h"
 #include "pathfinder/filesearchpath.h"
 #include "templatedpathresolver.h"
 #include "ui_cfgfilepaths.h"
@@ -147,7 +149,7 @@ void CFGFilePaths::btnAddWadPath_Click()
 void CFGFilePaths::btnBrowseWadPath_Click()
 {
 	QString strDir = QFileDialog::getExistingDirectory(this, tr("Doomseeker - Add game mod path"));
-	addPath(strDir);
+	addPath(gDefaultDataPaths->portablizePath(strDir));
 	emit validationRequested();
 }
 

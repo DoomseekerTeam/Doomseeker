@@ -21,6 +21,7 @@
 // Copyright (C) 2011 Braden "Blzut3" Obrzut <admin@maniacsvault.net>
 //------------------------------------------------------------------------------
 
+#include "datapaths.h"
 #include "gui/configuration/engineconfigpage.h"
 #include "ini/ini.h"
 #include "irc/entities/ircnetworkentity.h"
@@ -328,7 +329,7 @@ void EnginePlugin::findGameFiles(IniSection &ini)
 		if (!ini.hasSetting(file.configName()))
 		{
 			QString path = PathFind::findGameFile(collectKnownPaths(ini), file);
-			ini[file.configName()] = path;
+			ini[file.configName()] = gDefaultDataPaths->portablizePath(path);
 		}
 	}
 }

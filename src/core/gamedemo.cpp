@@ -27,6 +27,7 @@
 #include "ini/ini.h"
 #include "ini/settingsproviderqt.h"
 #include "ntfsperm.h"
+#include "templatedpathresolver.h"
 #include "plugins/engineplugin.h"
 #include "serverapi/serverstructs.h"
 #include <cassert>
@@ -111,7 +112,9 @@ QString GameDemo::mkDemoFullPath(Control control, const EnginePlugin &plugin)
 	switch (control)
 	{
 	case Managed:
-		return gDefaultDataPaths->demosDirectoryPath() + QDir::separator() + mkDemoName(plugin);
+		return QFileInfo(gDoomseekerTemplatedPathResolver().resolve(
+			gDefaultDataPaths->demosDirectoryPath()) + QDir::separator()
+			+ mkDemoName(plugin)).absoluteFilePath();
 	case Unmanaged:
 		return mkDemoName(plugin);
 	case NoDemo:

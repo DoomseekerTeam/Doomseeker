@@ -20,11 +20,13 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2012 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
-
 #include "enginezandronumconfigbox.h"
-#include "ini/ini.h"
-#include "plugins/engineplugin.h"
+
 #include "zandronumengineplugin.h"
+
+#include <datapaths.h>
+#include <ini/ini.h>
+#include <plugins/engineplugin.h>
 
 #include <QCheckBox>
 #include <QFileDialog>
@@ -63,7 +65,7 @@ void EngineZandronumConfigBox::btnBrowseTestingPathClicked()
 {
 	QString strDirpath = QFileDialog::getExistingDirectory(this, tr("Doomseeker - choose Zandronum testing directory"));
 	if (!strDirpath.isEmpty())
-		leTestingPath->setText(strDirpath);
+		leTestingPath->setText(gDefaultDataPaths->portablizePath(strDirpath));
 }
 
 void EngineZandronumConfigBox::readSettings()

@@ -34,6 +34,12 @@ game servers. (#4002)
 towards kills" checkbox to the Create Game box. (#4055)
 
 ### Changed
+- The portable mode adjusted to truly support carrying Doomseeker on
+a portable device. The configurable paths will be saved and stored in
+the configuration as relative to the location of Doomseeker's executable.
+If both the games and Doomseeker get placed on the same portable drive, it
+should no longer matter under which letter/path the portable device appears
+in the system. (#3354)
 - Refresh the servers in a randomized order rather than the order
 in which they were provided by the plugin (ergo: by the master
 server, ergo: sorted by IP). This should be more fair, as the previous

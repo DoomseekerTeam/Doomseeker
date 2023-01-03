@@ -27,6 +27,7 @@
 #include "odamexgamemode.h"
 #include <climits>
 #include <QDateTime>
+#include <QFileInfo>
 #include <serverapi/gamecreateparams.h>
 #include <serverapi/serverstructs.h>
 
@@ -44,7 +45,7 @@ void OdamexGameHost::addExtra()
 
 	if (!params().loggingPath().isEmpty())
 	{
-		args() << "+logfile" << params().loggingPath() + "/Odamex__" +
+		args() << "+logfile" << QFileInfo(params().loggingPath()).absoluteFilePath() + "/Odamex__" +
 			QDateTime::currentDateTime().toString("yyyy_MM_dd-HH_mm_ss") + ".log";
 	}
 

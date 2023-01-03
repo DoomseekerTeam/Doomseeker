@@ -23,6 +23,7 @@
 #include "cfgchatlogspage.h"
 #include "ui_cfgchatlogspage.h"
 
+#include "datapaths.h"
 #include "irc/configuration/chatlogscfg.h"
 #include "templatedpathresolver.h"
 #include <QDesktopServices>
@@ -56,9 +57,9 @@ CfgChatLogsPage::~CfgChatLogsPage()
 
 void CfgChatLogsPage::browseStorageDirectory()
 {
-	QString path = QFileDialog::getExistingDirectory(this,
+	QString path = gDefaultDataPaths->portablizePath(QFileDialog::getExistingDirectory(this,
 		tr("Browse chat logs storage directory"),
-		gDoomseekerTemplatedPathResolver().resolve(d->leDir->text()));
+		gDoomseekerTemplatedPathResolver().resolve(d->leDir->text())));
 	if (!path.isEmpty())
 	{
 		d->leDir->setText(path);
@@ -94,8 +95,9 @@ void CfgChatLogsPage::exploreStorageDirectory()
 	QString path = gDoomseekerTemplatedPathResolver().resolve(d->leDir->text().trimmed());
 	if (checkDir(path))
 	{
+		QDir dir(path);
 		QDesktopServices::openUrl(QString("file:///%1").arg(
-			QDir::toNativeSeparators(path)));
+			QDir::toNativeSeparators(dir.absolutePath())));
 	}
 }
 

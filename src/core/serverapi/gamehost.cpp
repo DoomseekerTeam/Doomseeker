@@ -158,7 +158,7 @@ void GameHost::addIwad_default()
 		setMessage(Message::customError(error));
 	}
 
-	args() << argForIwadLoading() << gDoomseekerTemplatedPathResolver().resolve(iwadPath);
+	args() << argForIwadLoading() << fi.absoluteFilePath();
 }
 
 void GameHost::addPwads_default()
@@ -167,7 +167,8 @@ void GameHost::addPwads_default()
 	for (int i = 0; i < params().pwadsPaths().size(); ++i)
 	{
 		const QString &pwad = params().pwadsPaths()[i];
-		args() << fileLoadingPrefix(i) << gDoomseekerTemplatedPathResolver().resolve(pwad);
+		QFileInfo fileInfo(gDoomseekerTemplatedPathResolver().resolve(pwad));
+		args() << fileLoadingPrefix(i) << fileInfo.absoluteFilePath();
 	}
 }
 
@@ -186,7 +187,8 @@ void GameHost::addPwads_prefixOnce()
 		args() << prefix;
 		for (const QString &file : groups[prefix])
 		{
-			args() << gDoomseekerTemplatedPathResolver().resolve(file);
+			QFileInfo fileInfo(gDoomseekerTemplatedPathResolver().resolve(file));
+			args() << fileInfo.absoluteFilePath();
 		}
 	}
 }

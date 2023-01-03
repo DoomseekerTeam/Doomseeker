@@ -307,8 +307,8 @@ void DemoManagerDlg::playSelected()
 
 	// Play the demo
 	GameCreateParams params;
-	params.setDemoPath(gDefaultDataPaths->demosDirectoryPath()
-		+ QDir::separator() + d->selectedDemo->filename);
+	params.setDemoPath(QFileInfo(gDefaultDataPaths->demosDirectoryPath()
+		+ QDir::separator() + d->selectedDemo->filename).absoluteFilePath());
 	params.setIwadPath(wadPaths[0]);
 	params.setPwadsPaths(wadPaths.mid(1) + optionalWadPaths);
 	params.setHostMode(GameCreateParams::Demo);

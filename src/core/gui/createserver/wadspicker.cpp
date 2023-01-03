@@ -24,6 +24,7 @@
 #include "wadspicker.h"
 
 #include "configuration/doomseekerconfig.h"
+#include "datapaths.h"
 #include "gui/commongui.h"
 #include "gui/icons.h"
 #include "templatedpathresolver.h"
@@ -122,7 +123,7 @@ void WadsPicker::browseAndAdd()
 
 		for (const QString &strFile : filesNames)
 		{
-			addWadPath(strFile);
+			addWadPath(gDefaultDataPaths->portablizePath(strFile));
 		}
 	}
 }

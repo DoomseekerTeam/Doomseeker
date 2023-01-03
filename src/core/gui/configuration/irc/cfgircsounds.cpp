@@ -6,6 +6,7 @@
 #include "cfgircsounds.h"
 #include "ui_cfgircsounds.h"
 
+#include "datapaths.h"
 #include "irc/configuration/ircconfig.h"
 #include "templatedpathresolver.h"
 #include <QFileInfo>
@@ -103,7 +104,7 @@ void CFGIRCSounds::saveSettings()
 
 void CFGIRCSounds::setPath(QLineEdit *pLineEdit, const QString &path)
 {
-	QString trimmedPath = path.trimmed();
+	QString trimmedPath = gDefaultDataPaths->portablizePath(path.trimmed());
 	if (!trimmedPath.isEmpty())
 		pLineEdit->setText(trimmedPath);
 	emit validationRequested();

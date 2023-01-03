@@ -24,6 +24,7 @@
 #include "ui_logdirectorypicker.h"
 
 #include "configuration/doomseekerconfig.h"
+#include "datapaths.h"
 #include "templatedpathresolver.h"
 
 #include <QDir>
@@ -75,7 +76,7 @@ void LogDirectoryPicker::browse()
 		tr("Doomseeker - select Log path"),
 		gDoomseekerTemplatedPathResolver().resolve(d->dialogDir));
 	if (!strPath.isEmpty())
-		setPathAndUpdate(QDir(strPath).absolutePath());
+		setPathAndUpdate(gDefaultDataPaths->portablizePath(strPath));
 }
 
 void LogDirectoryPicker::updateLoggingStatus(const QString &path)
