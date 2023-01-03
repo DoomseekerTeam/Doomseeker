@@ -83,6 +83,8 @@ and the email links are clickable with the `mailto:` prefix. (#4069, #4070)
 some vertical space and make it more clear that the buttons next to it
 belong to it. (#4072)
 - Plugin API: rewrite the documentation for `DataPaths`.
+- Wadseeker: make the "managed data" directory (Local) the default for
+WAD downloads.
 - Wadseeker: added `sigil_shreds` and `sigil_shreds_compat` to the
 list of forbidden downloads.
 - Wadseeker: upgrade LZMA SDK to version 22.01. (#3934)

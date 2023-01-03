@@ -708,7 +708,7 @@ DoomseekerConfig::WadseekerCfg::WadseekerCfg()
 	this->idgamesURL = Wadseeker::defaultIdgamesUrl();
 	this->maxConcurrentSiteDownloads = 3;
 	this->maxConcurrentWadDownloads = 2;
-	this->targetDirectory = gDefaultDataPaths->programsDataDirectoryPath();
+	this->targetDirectory = gDefaultDataPaths->localDataLocationPath();
 
 	// Search URLs remains uninitialized here. It will be initialized
 	// by init() and then load() since Doomseeker always calls these
