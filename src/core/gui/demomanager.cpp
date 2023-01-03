@@ -250,6 +250,12 @@ void DemoManagerDlg::exportSelected()
 	}
 }
 
+void DemoManagerDlg::itemDoubleClicked(const QModelIndex &index)
+{
+	if (d->selectedDemo != nullptr)
+		playSelected();
+}
+
 void DemoManagerDlg::playSelected()
 {
 	if (d->selectedDemo == nullptr)

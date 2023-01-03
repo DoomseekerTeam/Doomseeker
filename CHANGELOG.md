@@ -24,6 +24,7 @@ is enabled. If there's something wrong, warn the user. (#3501)
 game servers. (#4002)
 - The additional files list in the create game box now responds to plus
 (add empty), minus and delete (both remove selected) keys on the keyboard.
+- Demo manager now openable with the F3 keyboard shortcut.
 - Wadseeker: add a bunch of websites to the WAD search list: (#4053)
     - https://doomshack.org/wadlist.php
     - https://wads.firestick.games/
@@ -47,6 +48,7 @@ method favored servers that were in the lower IP ranges.
 - Updated Flag of Ukraine colors to DSTU 4512:2006. Previously, Doomseeker was
 displaying the flag of Post-Soviet Ukraine, a design with lighter blue color
 shade, from 1991-1992. (#3983)
+- DemoManager: demo playback can now be started with a double-click or enter.
 - In case if Doomseeker uses the old version 2 file format for IP2C,
 redirect the IP2C licensing info to a Doomseeker's webpage instead of
 displaying anything that was hardcoded at the time when Doomseeker was

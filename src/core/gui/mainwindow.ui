@@ -496,6 +496,9 @@
    <property name="text">
     <string>&amp;Demo manager</string>
    </property>
+   <property name="shortcut">
+    <string>F3</string>
+   </property>
   </action>
   <action name="menuActionCheckForUpdates">
    <property name="icon">

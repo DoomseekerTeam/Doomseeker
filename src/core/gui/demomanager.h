@@ -45,6 +45,7 @@ public:
 private slots:
 	void deleteSelected();
 	void exportSelected();
+	void itemDoubleClicked(const QModelIndex &index);
 	void playSelected();
 	void performAction(QAbstractButton *button);
 	void updatePreview(const QModelIndex &index);
