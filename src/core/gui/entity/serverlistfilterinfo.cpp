@@ -34,6 +34,7 @@ ServerListFilterInfo::ServerListFilterInfo()
 	lockedServers = Doomseeker::Indifferent;
 	maxPing = 0;
 	testingServers = Doomseeker::Indifferent;
+	bPopulatedServersOnTop = true;
 }
 
 void ServerListFilterInfo::copy(const ServerListFilterInfo &other)
@@ -52,6 +53,7 @@ void ServerListFilterInfo::copy(const ServerListFilterInfo &other)
 	maxPing = other.maxPing;
 	serverName = other.serverName.trimmed();
 	testingServers = other.testingServers;
+	bPopulatedServersOnTop = other.bPopulatedServersOnTop;
 
 	copyTrimmed(this->wads, other.wads);
 	copyTrimmed(this->wadsExcluded, other.wadsExcluded);
@@ -124,7 +126,8 @@ bool ServerListFilterInfo::isFilteringEquivalent(const ServerListFilterInfo &oth
 		serverName == other.serverName &&
 		wads == other.wads &&
 		wadsExcluded == other.wadsExcluded &&
-		testingServers == other.testingServers
+		testingServers == other.testingServers &&
+		bPopulatedServersOnTop == other.bPopulatedServersOnTop
 		;
 }
 
@@ -150,6 +153,7 @@ ServerListFilterInfo ServerListFilterInfo::deserialize(const QVariant &variant)
 	obj.testingServers = static_cast<Doomseeker::ShowMode>(in["TestingServers"].toInt());
 	obj.wads = in["WADs"].toStringList();
 	obj.wadsExcluded = in["WADsExcluded"].toStringList();
+	obj.bPopulatedServersOnTop = in["bPopulatedServersOnTop"].toBool();
 	return obj;
 }
 
@@ -172,6 +176,7 @@ QVariant ServerListFilterInfo::serialize() const
 	out["TestingServers"] = this->testingServers;
 	out["WADs"].setValue(this->wads);
 	out["WADsExcluded"].setValue(this->wadsExcluded);
+	out["bPopulatedServersOnTop"] = this->bPopulatedServersOnTop;
 	return out;
 }
 
@@ -196,6 +201,7 @@ QString ServerListFilterInfo::toString() const
 	ret += QString("Testing servers: %1\n").arg(testingServers);
 	ret += QString("WADs: ") + wads.join(",") + "\n";
 	ret += QString("WADs Excluded: ") + wadsExcluded.join(",") + "\n";
+	ret += QString("bPopulatedServersOnTop: ") + (bPopulatedServersOnTop ? "Yes" : "No") + "\n";
 
 	return ret;
 }

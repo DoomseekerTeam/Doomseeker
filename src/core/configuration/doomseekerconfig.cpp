@@ -274,7 +274,6 @@ DoomseekerConfig::DoomseekerCfg::DoomseekerCfg()
 	this->bDrawGridInServerTable = false;
 	this->bHidePasswords = true;
 	this->bHonorServerCountries = true;
-	this->bGroupServersWithPlayersAtTheTopOfTheList = true;
 	this->bIP2CountryAutoUpdate = true;
 	this->bLogCreatedServer = false;
 	this->bLookupHosts = true;
@@ -342,7 +341,6 @@ void DoomseekerConfig::DoomseekerCfg::init(IniSection &section)
 	section.createSetting("DrawGridInServerTable", this->bDrawGridInServerTable);
 	section.createSetting("HidePasswords", this->bHidePasswords);
 	section.createSetting("HonorServerCountries", this->bHonorServerCountries);
-	section.createSetting("GroupServersWithPlayersAtTheTopOfTheList", this->bGroupServersWithPlayersAtTheTopOfTheList);
 	section.createSetting("IP2CAutoUpdate", this->bIP2CountryAutoUpdate);
 	section.createSetting("LogCreatedServers", this->bLogCreatedServer);
 	section.createSetting("LookupHosts", this->bLookupHosts);
@@ -385,7 +383,6 @@ void DoomseekerConfig::DoomseekerCfg::load(IniSection &section)
 	this->bDrawGridInServerTable = section["DrawGridInServerTable"];
 	this->bHidePasswords = section["HidePasswords"];
 	this->bHonorServerCountries = section["HonorServerCountries"];
-	this->bGroupServersWithPlayersAtTheTopOfTheList = section["GroupServersWithPlayersAtTheTopOfTheList"];
 	this->bIP2CountryAutoUpdate = section["IP2CAutoUpdate"];
 	this->bLogCreatedServer = section["LogCreatedServers"];
 	this->bLookupHosts = section["LookupHosts"];
@@ -484,7 +481,6 @@ void DoomseekerConfig::DoomseekerCfg::save(IniSection &section)
 	section["DrawGridInServerTable"] = this->bDrawGridInServerTable;
 	section["HidePasswords"] = this->bHidePasswords;
 	section["HonorServerCountries"] = this->bHonorServerCountries;
-	section["GroupServersWithPlayersAtTheTopOfTheList"] = this->bGroupServersWithPlayersAtTheTopOfTheList;
 	section["IP2CAutoUpdate"] = this->bIP2CountryAutoUpdate;
 	section["LogCreatedServers"] = this->bLogCreatedServer;
 	section["LookupHosts"] = this->bLookupHosts;
@@ -655,6 +651,7 @@ void DoomseekerConfig::ServerFilter::init(IniSection &section)
 	section.createSetting("TestingServers", Doomseeker::Indifferent);
 	section.createSetting("WADs", QStringList());
 	section.createSetting("WADsExcluded", QStringList());
+	section.createSetting("bPopulatedServersOnTop", true);
 }
 
 void DoomseekerConfig::ServerFilter::load(IniSection &section)
@@ -674,6 +671,7 @@ void DoomseekerConfig::ServerFilter::load(IniSection &section)
 	info.testingServers = static_cast<Doomseeker::ShowMode>(section.value("TestingServers").toInt());
 	info.wads = section["WADs"].value().toStringList();
 	info.wadsExcluded = section["WADsExcluded"].value().toStringList();
+	info.bPopulatedServersOnTop = section["bPopulatedServersOnTop"];
 	currentPreset = static_cast<const QString &>(section["CurrentPreset"]);
 	presets = section["Presets"].value().toMap();
 }
@@ -695,6 +693,7 @@ void DoomseekerConfig::ServerFilter::save(IniSection &section)
 	section["TestingServers"] = info.testingServers;
 	section["WADs"].setValue(info.wads);
 	section["WADsExcluded"].setValue(info.wadsExcluded);
+	section["bPopulatedServersOnTop"] = info.bPopulatedServersOnTop;
 	section["CurrentPreset"] = currentPreset;
 	section["Presets"].setValue(presets);
 }

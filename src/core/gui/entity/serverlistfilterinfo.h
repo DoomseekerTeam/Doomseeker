@@ -60,6 +60,9 @@ public:
 	QStringList wadsExcluded;
 	Doomseeker::ShowMode testingServers;
 
+	/// This is not a filter but a grouping option.
+	bool bPopulatedServersOnTop;
+
 	ServerListFilterInfo();
 	ServerListFilterInfo(const ServerListFilterInfo &other)
 	{

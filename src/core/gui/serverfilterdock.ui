@@ -604,22 +604,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>cbGroupServersWithPlayersAtTop</sender>
-   <signal>clicked()</signal>
-   <receiver>ServerFilterDock</receiver>
-   <slot>onServerGroupingChange()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>166</x>
-     <y>163</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>164</x>
-     <y>282</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>cbShowTestingServers</sender>
    <signal>clicked()</signal>
    <receiver>ServerFilterDock</receiver>
@@ -784,7 +768,6 @@
   <slot>emitUpdated()</slot>
   <slot>clear()</slot>
   <slot>emitUpdated(QString)</slot>
-  <slot>onServerGroupingChange()</slot>
   <slot>enableFilter()</slot>
   <slot>saveFilterAsPreset()</slot>
   <slot>removeFilterPreset()</slot>

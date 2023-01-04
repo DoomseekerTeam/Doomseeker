@@ -60,7 +60,6 @@ public slots:
 
 signals:
 	void filterUpdated(const ServerListFilterInfo &filterInfo);
-	void nonEmptyServerGroupingAtTopToggled(bool b);
 
 private:
 	DPtr<ServerFilterDock> d;
@@ -75,7 +74,6 @@ private slots:
 	void clear();
 	void emitUpdated();
 	void enableFilter();
-	void onServerGroupingChange();
 
 	void removeFilterPreset();
 	void saveFilterAsPreset();

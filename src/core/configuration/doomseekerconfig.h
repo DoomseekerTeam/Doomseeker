@@ -65,7 +65,6 @@ public:
 		bool bDrawGridInServerTable;
 		bool bHidePasswords;
 		bool bHonorServerCountries;
-		bool bGroupServersWithPlayersAtTheTopOfTheList;
 		bool bIP2CountryAutoUpdate;
 		bool bLogCreatedServer;
 		bool bLookupHosts;

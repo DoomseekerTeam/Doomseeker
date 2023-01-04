@@ -365,7 +365,6 @@ void ServerList::prepareServerTable()
 
 	connectTableModelProxySlots();
 	proxyModel->setAdditionalSortColumns(gConfig.doomseeker.additionalSortColumns());
-	proxyModel->setGroupServersWithPlayersAtTop(gConfig.doomseeker.bGroupServersWithPlayersAtTheTopOfTheList);
 }
 
 void ServerList::redraw()
@@ -490,11 +489,6 @@ void ServerList::setCountryFlagsIfNotPresent()
 {
 	const bool FORCE = true;
 	updateCountryFlags(!FORCE);
-}
-
-void ServerList::setGroupServersWithPlayersAtTop(bool b)
-{
-	proxyModel->setGroupServersWithPlayersAtTop(b);
 }
 
 void ServerList::sortAdditionally(const QModelIndex &modelIndex, Qt::SortOrder order)

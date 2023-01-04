@@ -547,8 +547,6 @@ void MainWindow::connectEntities()
 	connect(d->menuActionWadseeker, SIGNAL(triggered()), this, SLOT(menuWadSeeker()));
 	connect(d->serverFilterDock, SIGNAL(filterUpdated(const ServerListFilterInfo&)),
 		this, SLOT(updateServerFilter(const ServerListFilterInfo&)));
-	connect(d->serverFilterDock, SIGNAL(nonEmptyServerGroupingAtTopToggled(bool)),
-		d->serverList, SLOT(setGroupServersWithPlayersAtTop(bool)));
 	connect(d->serverList, SIGNAL(serverFilterModified(ServerListFilterInfo)),
 		d->serverFilterDock, SLOT(setFilterInfo(ServerListFilterInfo)));
 	connect(d->serverList, SIGNAL(serverDoubleClicked(ServerPtr)), this, SLOT(runGame(ServerPtr)));

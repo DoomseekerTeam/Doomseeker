@@ -89,7 +89,6 @@ public slots:
 	 * present yet.
 	 */
 	void setCountryFlagsIfNotPresent();
-	void setGroupServersWithPlayersAtTop(bool b);
 
 	void tableMiddleClicked();
 	void showContextMenu(const QPoint &position);

@@ -128,7 +128,6 @@ ServerFilterDock::ServerFilterDock(QWidget *pParent)
 	d->setupUi(this);
 	d->leQuickSearch = nullptr;
 	d->bDisableUpdate = false;
-	d->cbGroupServersWithPlayersAtTop->setChecked(gConfig.doomseeker.bGroupServersWithPlayersAtTheTopOfTheList);
 
 	d->btnClear->setIcon(Icons::clear());
 	toggleViewAction()->setIcon(QIcon(":/icons/filter.png"));
@@ -225,6 +224,7 @@ ServerListFilterInfo ServerFilterDock::filterInfo() const
 	ServerListFilterInfo filterInfo;
 
 	filterInfo.bEnabled = d->cbFilteringEnabled->isChecked();
+	filterInfo.bPopulatedServersOnTop = d->cbGroupServersWithPlayersAtTop->isChecked();
 	filterInfo.bShowEmpty = d->cbShowEmpty->isChecked();
 	filterInfo.bShowFull = d->cbShowFull->isChecked();
 	filterInfo.bShowOnlyValid = d->cbShowOnlyValid->isChecked();
@@ -241,12 +241,6 @@ ServerListFilterInfo ServerFilterDock::filterInfo() const
 	filterInfo.wadsExcluded = d->leExcludeWads->text().trimmed().split(",", Qt::SkipEmptyParts);
 
 	return filterInfo;
-}
-
-void ServerFilterDock::onServerGroupingChange()
-{
-	gConfig.doomseeker.bGroupServersWithPlayersAtTheTopOfTheList = d->cbGroupServersWithPlayersAtTop->isChecked();
-	emit nonEmptyServerGroupingAtTopToggled(d->cbGroupServersWithPlayersAtTop->isChecked());
 }
 
 int ServerFilterDock::addPreset(const ServerListFilterInfo &preset)
@@ -291,6 +285,7 @@ void ServerFilterDock::setFilterInfo(const ServerListFilterInfo &filterInfo)
 	d->bDisableUpdate = true;
 
 	d->cbFilteringEnabled->setChecked(filterInfo.bEnabled);
+	d->cbGroupServersWithPlayersAtTop->setChecked(filterInfo.bPopulatedServersOnTop);
 	d->cbShowEmpty->setChecked(filterInfo.bShowEmpty);
 	d->cbShowFull->setChecked(filterInfo.bShowFull);
 	d->cbShowOnlyValid->setChecked(filterInfo.bShowOnlyValid);
