@@ -27,7 +27,8 @@ endmacro()
 # Permit redistribution of our source code without plugins which may violate
 # certain distribution polices (particularly in regards to use of trademarks).
 macro(add_opt_subdirectory PLUGIN_NAME)
-	if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${PLUGIN_NAME}")
+	option(BUILD_PLUGIN_${PLUGIN_NAME} "Enable ${PLUGIN_NAME} plugin" ON)
+	if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${PLUGIN_NAME}" AND BUILD_PLUGIN_${PLUGIN_NAME})
 		add_subdirectory(${PLUGIN_NAME})
 	endif()
 endmacro()
