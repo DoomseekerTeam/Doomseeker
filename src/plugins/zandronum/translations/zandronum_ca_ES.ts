@@ -4,17 +4,22 @@
 <context>
     <name>EngineZandronumConfigBox</name>
     <message>
-        <location filename="../enginezandronumconfigbox.cpp" line="42"/>
+        <location filename="../enginezandronumconfigbox.cpp" line="45"/>
         <source>Testing releases</source>
         <translation>Versions de prova</translation>
     </message>
     <message>
-        <location filename="../enginezandronumconfigbox.cpp" line="45"/>
+        <location filename="../enginezandronumconfigbox.cpp" line="48"/>
         <source>Directory for testing releases:</source>
         <translation>Directori per a les versions de prova:</translation>
     </message>
     <message>
-        <location filename="../enginezandronumconfigbox.cpp" line="61"/>
+        <location filename="../enginezandronumconfigbox.cpp" line="55"/>
+        <source>Browse</source>
+        <translation>Buscar</translation>
+    </message>
+    <message>
+        <location filename="../enginezandronumconfigbox.cpp" line="66"/>
         <source>Doomseeker - choose Zandronum testing directory</source>
         <translation>Doomseeker - triï el directori de proves de Zandronum</translation>
     </message>
@@ -221,7 +226,7 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">Aplicar lmsspectatorsettings en tots els modes de joc.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1397"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1404"/>
         <source>Always apply LMS spectator settings</source>
         <translation>Sempre aplica la configuració d&apos;espectador LMS</translation>
     </message>
@@ -500,47 +505,47 @@ p, li { white-space: pre-wrap; }
         <translation>Mata a tots els monstres generats per un cub de &quot;boss&quot; quan el &quot;boss&quot; mor</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="939"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="946"/>
         <source>On player death...</source>
         <translation>Quant el jugador mor...</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="945"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="952"/>
         <source>respawn where died</source>
         <translation>reaparèixer on ha mort</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="952"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="959"/>
         <source>lose all inventory</source>
         <translation>perdre tot l&apos;inventari</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="959"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="966"/>
         <source>lose armor</source>
         <translation>perdre armadura</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="966"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="973"/>
         <source>lose keys</source>
         <translation>perdre claus</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="973"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="980"/>
         <source>lose powerups</source>
         <translation>perdre potenciadors</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="980"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="987"/>
         <source>lose weapons</source>
         <translation>perdre armes</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="987"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="994"/>
         <source>lose all ammo</source>
         <translation>perdre tota la munició</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="994"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1001"/>
         <source>lose half ammo</source>
         <translation>perdre la meitat de la munició</translation>
     </message>
@@ -549,7 +554,7 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Afecta les maneres de joc on &amp;quot;max. vides&amp;quot; pot ser usat. Si s&apos;estableix, els jugadors que es converteixin en espectadors morts (es quedin sense vida) seguiran mantenint l&apos;inventari d&apos;acord amb &amp;quot;Perdre *&amp;quot; indicadors amunt. Si no s&apos;estableix, els jugadors que perdin totes les vides perdran sempre l&apos;inventari complet.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="902"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="909"/>
         <source>Players who lose all lives can keep inventory</source>
         <translation>Els jugadors que perdin totes les vides poden conservar l&apos;inventari</translation>
     </message>
@@ -558,7 +563,7 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">Compartir claus entre jugadors</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="887"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="894"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Players will be respawned with full lives but the map will not be reset. Inventory will be preserved in accordance to &amp;quot;Lose inventory&amp;quot; flags. Players will be able to continue from the point where they died.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Els jugadors seran reapareguts amb vides completes però el mapa no es reiniciarà. L&apos;inventari es conservarà d&apos;acord amb els indicadors de &amp;quot;Perdre inventari&amp;quot;. Els jugadors podran continuar des del punt on van morir.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -572,245 +577,245 @@ p, li { white-space: pre-wrap; }
         <translation>Cooperatiu</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1028"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1035"/>
         <source>When players die, they...</source>
         <translation>Quan els jugadors moren, ells...</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1048"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1055"/>
         <source>respawn automatically</source>
         <translation>reaparèixer automàticament</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1041"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1048"/>
         <source>drop their weapon</source>
         <translation>deixar anar l&apos;arma</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1062"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1069"/>
         <source>respawn farthest away from others</source>
         <translation>reaparèixer el més lluny possible dels altres</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1069"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1076"/>
         <source>lose a frag</source>
         <translation>perdre un frag</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1034"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1041"/>
         <source>respawn with a shotgun</source>
         <translation>reaparèixer amb una escopeta</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1055"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1062"/>
         <source>don&apos;t get respawn protection</source>
         <translation>no obtenir protecció de reaparició</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1147"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1154"/>
         <source>When someone exits the level...</source>
         <translation>Quan algú surt del nivell ...</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1153"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1160"/>
         <source>continue to the next map</source>
         <translation>continuar al següent mapa</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1163"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1170"/>
         <source>restart the current level</source>
         <translation>reiniciar el nivell actual</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1170"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1177"/>
         <source>kill the player</source>
         <translation>mata al jugador</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1193"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1200"/>
         <source>Keep frags after map change</source>
         <translation>Mantenir frags després del canvi de mapa</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1205"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1212"/>
         <source>Weapons &amp;&amp; ammo</source>
         <translation>Armes i munició</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1211"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1218"/>
         <source>Weapons stay after pickup</source>
         <translation>Les armes romanen després de recollir-les</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1218"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1225"/>
         <source>Double ammo</source>
         <translation>Doble munició</translation>
     </message>
     <message>
         <location filename="../createserverdialogpages/flagspage.ui" line="765"/>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1228"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1235"/>
         <source>Don&apos;t spawn...</source>
         <translation>No fer aparèixer...</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1234"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1241"/>
         <source>health</source>
         <translation>salut</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1241"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1248"/>
         <source>armor</source>
         <translation>armadura</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1248"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1255"/>
         <source>runes</source>
         <translation>runes</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1022"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1029"/>
         <source>Deathmatch</source>
         <translation>Combat a mort</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1284"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1291"/>
         <source>Weapons</source>
         <translation>Armes</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1290"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1297"/>
         <source>Chainsaw</source>
         <translation>Serra mecànica</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1297"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1304"/>
         <source>Pistol</source>
         <translation>Pistola</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1304"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1311"/>
         <source>Shotgun</source>
         <translation>Escopeta</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1311"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1318"/>
         <source>Super shotgun</source>
         <translation>Súper escopeta</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1318"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1325"/>
         <source>Chaingun</source>
         <translation>Metralladora</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1325"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1332"/>
         <source>Minigun</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1332"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1339"/>
         <source>Rocket launcher</source>
         <translation>Llançacoets</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1339"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1346"/>
         <source>Grenade launcher</source>
         <translation>Llançagranades</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1346"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1353"/>
         <source>Plasma rifle</source>
         <translation>Rifle de plasma</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1353"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1360"/>
         <source>Railgun</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1451"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1458"/>
         <source>lmsallowedweapons:</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1418"/>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1441"/>
-        <location filename="../createserverdialogpages/flagspage.ui" line="2085"/>
-        <location filename="../createserverdialogpages/flagspage.ui" line="2095"/>
-        <location filename="../createserverdialogpages/flagspage.ui" line="2105"/>
-        <location filename="../createserverdialogpages/flagspage.ui" line="2136"/>
-        <location filename="../createserverdialogpages/flagspage.ui" line="2153"/>
-        <location filename="../createserverdialogpages/flagspage.ui" line="2163"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1425"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1448"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="2092"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="2102"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="2112"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="2143"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="2160"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="2170"/>
         <source>0</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1428"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1435"/>
         <source>lmsspectatorsettings:</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1365"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1372"/>
         <source>Spectators can...</source>
         <translation>Els espectadors poden...</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1371"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1378"/>
         <source>talk to active players</source>
         <translation>parlar amb jugadors actius</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1378"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1385"/>
         <source>view the game</source>
         <translation>veure el joc</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1276"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1283"/>
         <source>LMS</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1504"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1511"/>
         <source>Enable buggier wall clipping so players can wallrun.</source>
         <translation>Habilitar un atravessament de paret pitjor perquè els jugadors puguin fer wallrun.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1507"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1514"/>
         <source>Enable wall running</source>
         <translation>Activa wall running</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1514"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1521"/>
         <source>Pickups are only heard locally.</source>
         <translation>Les recollides d&apos;objectes només s&apos;escolten localment.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1517"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1524"/>
         <source>Don&apos;t let others hear pickups</source>
         <translation>No deixis que altres sentin la recollida d&apos;objectes</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1524"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1531"/>
         <source>Allow instant respawn</source>
         <translation>Permetre reaparició instantània</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1531"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1538"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disable stealth monsters, since doom2.exe didn&apos;t have them.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Note: this handles ZDoom&apos;s invisible monsters.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;THIS DOESN&apos;T AFFECT THE PARTIAL INVISIBILITY SPHERE IN ANY WAY. See &amp;quot;Monsters see semi-invisible players&amp;quot; for that.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Deshabilita els monstres silenciosos, ja que doom2.exe no els tenia.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Nota: això fa anar els monstres invisibles de ZDoom.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;AIXÒ NO AFECTA L&apos;ESFERA DE INVISIBILITAT PARCIAL DE QUALSEVOL FORMA. Veure &amp;quot;Els monstres veuen jugadors semiinvisibles&amp;quot; per això.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1534"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1541"/>
         <source>Disable stealth monsters</source>
         <translation>Deshabilitar monstres silenciosos</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1541"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1548"/>
         <source>Limit actors to one sound at a time.</source>
         <translation>Limitar els actors a un so alhora.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1544"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1551"/>
         <source>Allow silent BFG trick</source>
         <translation>Permetre el truc de l&apos;BFG silenciós</translation>
     </message>
@@ -819,172 +824,172 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">Els clients usen el comportament original de Doom en recollir d&apos;armes.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1554"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1561"/>
         <source>Original weapon switch</source>
         <translation>Canvi d&apos;armes original</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1561"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1568"/>
         <source>Limited movement in the air</source>
         <translation>Moviment limitat en l&apos;aire</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1568"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1575"/>
         <source>This affects the partial invisibility sphere.</source>
         <translation>Això afecta l&apos;esfera d&apos;invisibilitat parcial.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1571"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1578"/>
         <source>Monsters see semi-invisible players</source>
         <translation>Els monstres veuen els jugadors semi-invisibles</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1578"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1585"/>
         <source>Allow the map01 &quot;plasma bump&quot; bug.</source>
         <translation>Permetre error &quot;plasma bump&quot; al map01.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1581"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1588"/>
         <source>Plasma bump bug</source>
         <translation>Error plasma bump</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1588"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1595"/>
         <source>Any boss death activates map specials</source>
         <translation>Qualsevol mort de &quot;Boss&quot; activa especials del mapa</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1595"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1602"/>
         <source>Friction/pushers/pullers affect Monsters</source>
         <translation>Fricció/empentes/estrebades afecten els monstres</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1602"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1609"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Crushed monsters are turned into gibs, rather than replaced by gibs.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Els monstres aixafats esdevenen vísceres, en lloc de ser reemplaçats per aquestes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1605"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1612"/>
         <source>Crusher gibs by morphing, not replacement</source>
         <translation>Aixafar transforma en vísceres, en lloc de reemplaçar per aquestes</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1612"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1619"/>
         <source>Block monster lines ignore friendly monsters</source>
         <translation>Les línies de bloqueig de monstres ignoren els monstres amistosos</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1619"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1626"/>
         <source>Find neighboring light level like Doom</source>
         <translation>Trobar el nivell de llum proper com en Doom</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1630"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1637"/>
         <source>Use doom2.exe&apos;s original intermission screens/music.</source>
         <translation>Utilitza la pantalla/música originals de l&apos;intermedi de missió de doom2.exe.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1633"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1640"/>
         <source>Use old intermission screens/music</source>
         <translation>Utilitza pantalla/música d&apos;intermedi de missió antigues</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1640"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1647"/>
         <source>Scrolling sectors are additive like in Boom.</source>
         <translation>Els sectors de desplaçament són additius com en Boom.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1643"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1650"/>
         <source>Scrolling sectors are additive</source>
         <translation>Els sectors de desplaçament són additius</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1650"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1657"/>
         <source>Sector sounds use original method for sound origin.</source>
         <translation>Els sons del sector usen el mètode original per a l&apos;origen del so.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1653"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1660"/>
         <source>Sector sounds use original method</source>
         <translation>Els sons del sector fan servir el mètode original</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1660"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1667"/>
         <source>Monsters cannot move when hanging over a dropoff.</source>
         <translation>Els monstres no es poden moure quan estan sobre un abisme.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1663"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1670"/>
         <source>No monsters dropoff move</source>
         <translation>Sense monstres moure en abisme</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1677"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1684"/>
         <source>Instantly moving floors are not silent.</source>
         <translation>Els pisos que es mouen a l&apos;instant no són silenciosos.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1680"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1687"/>
         <source>Instantly moving floors aren&apos;t silent</source>
         <translation>Els pisos que es mouen a l&apos;instant no són silenciosos</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1687"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1694"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Clients send ucmd.buttons as &amp;quot;long&amp;quot; instead of as &amp;quot;byte&amp;quot; in CLIENTCOMMANDS_ClientMove. So far this is only necessary if the ACS function GetPlayerInput is used in a server side script to check for buttons bigger than BT_ZOOM. Otherwise this information is completely useless for the server and the additional net traffic to send it should be avoided.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Els clients envien ucmd.buttons com &amp;quot;long&amp;quot; en lloc de com &amp;quot;byte&amp;quot; en CLIENTCOMMANDS_ClientMove. Fins ara, això només és necessari si la funció ACS GetPlayerInput s&apos;utilitza en un script del costat del servidor per buscar botons més grans que BT_ZOOM. Altrament, aquesta informació és completament inútil per al servidor i s&apos;ha d&apos;evitar el tràfic de xarxa addicional per a enviar-lo.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1690"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1697"/>
         <source>Clients send full button info</source>
         <translation>Els clients envien tota la informació sobre els botons</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1697"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1704"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use Doom&apos;s random table instead of ZDoom&apos;s random number generator. Affects weapon damage among other things.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Utilitza la taula aleatòria de Doom en lloc del generador de nombres aleatoris de ZDoom. Afecta el dany de les armes entre altres coses.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1700"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1707"/>
         <source>Old random number generator</source>
         <translation>Antic generador de nombres aleatoris</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1670"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1677"/>
         <source>Monsters can&apos;t be pushed off cliffs</source>
         <translation>Els monstres no poden ser empesos a abismes</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1710"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1717"/>
         <source>Old damage radius (infinite height)</source>
         <translation>Ràdio de dany antic (alçada infinita)</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1717"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1724"/>
         <source>Minotaur&apos;s floor flame explodes immediately when feet are clipped</source>
         <translation>El foc del sòl del minotaure explota immediatament quan els peus el travessen</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1724"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1731"/>
         <source>Original velocity calc. for A_Mushroom in Dehacked</source>
         <translation>Càlcul de velocitat original per A_Mushroom a Dehacked</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1731"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1738"/>
         <source>Sprite sort order inverted for sprites of equal distance</source>
         <translation>Ordre de Sprites invertit per sprites en la mateixa distància</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1738"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1745"/>
         <source>Hitscans use original blockmap and hit check code</source>
         <translation>Els Hitscans usen el mapa de blocs original i el codi de verificació d&apos;impacte</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1745"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1752"/>
         <source>Draw polyobjects the old fashioned way</source>
         <translation>Dibuixar poliobjectes com als bons (i antics) temps</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1494"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1501"/>
         <source>Compatibility</source>
         <translation>Compatibilitat</translation>
     </message>
@@ -1088,17 +1093,22 @@ p, li { white-space: pre-wrap; }
         <translation>Qualsevol actor de multijugador en cooperatiu</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="881"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="878"/>
+        <source>Don&apos;t count monsters in the &quot;end level&quot; sector towards kills</source>
+        <translation>No comptis com a baixes els monstres al sector &quot;end level&quot;</translation>
+    </message>
+    <message>
+        <location filename="../createserverdialogpages/flagspage.ui" line="888"/>
         <source>Survival</source>
         <translation>Supervivència</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="890"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="897"/>
         <source>No map reset when all players die</source>
         <translation>No es restableix el mapa quan tots els jugadors moren</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="897"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="904"/>
         <source>&lt;p&gt;If set, players who lose all lives and become dead spectators will still keep inventory in accordance to the &amp;quot;Lose inventory&amp;quot; flags. When they will finally be able to play again, all their items will be returned to them.&lt;/p&gt;
 
 &lt;p&gt;If unset, players who lose all lives will always lose their entire inventory, regardless of the &amp;quot;Lose inventory&amp;quot; flags.&lt;/p&gt;</source>
@@ -1107,322 +1117,322 @@ p, li { white-space: pre-wrap; }
 &lt;p&gt;Si no, no se&apos;ls retornarà res, independentment de &amp;quot;Perdre inventari&amp;quot;.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="916"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="923"/>
         <source>Players...</source>
         <translation>Jugadors...</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="922"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="929"/>
         <source>score damage, not kills</source>
         <translation>Puntua el mal, no els assassinats</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="929"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="936"/>
         <source>share keys</source>
         <translation>Compartir claus</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1091"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1098"/>
         <source>sec.</source>
         <translation>seg.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1107"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1114"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;How long a player must wait after dying before they can respawn. This doesn&apos;t apply to players who are spawn telefragged.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Quant de temps ha d&apos;esperar un jugador abans de reaparèixer. No s&apos;aplica a jugadors que són telegrafiats.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1132"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1139"/>
         <source>can respawn only after:</source>
         <translation>Pot reaparèixer després de:</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1388"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1395"/>
         <source>LMS flags</source>
         <translation>flags LMS</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1394"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1401"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Apply lmsspectatorsettings in all game modes, not only in LMS.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aplicar lmsspectatorsettings a tots els jocs, no només LMS.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1551"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1558"/>
         <source>When a weapon is picked up, the weapon switch behaves like in vanilla Doom.</source>
         <translation>Quan una arma s&apos;agafa, es fa el canvi d&apos;armes del Doom vanilla.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1707"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1714"/>
         <source>&lt;p&gt;Shooting a rocket against a wall will damage the actors near this wall even if they are far below or above the explosion.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Disparar un coet a una paret farà mal a tots els actors que estan a prop, independentment de l&apos;altura.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1780"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1787"/>
         <source>&lt;p&gt;This allows for decorations to be pass-through for projectiles as they were originally in Doom.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Això permet que les decoracions es puguin travessar pels projectils, com al Doom original.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1783"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1790"/>
         <source>Use original missile clipping height</source>
         <translation>Utilitzar l&apos;alçada original d&apos;atravessament dels míssils</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1790"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1797"/>
         <source>Use sector based sound target code</source>
         <translation>Utilitza codi de so objectiu basat en sectors</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1797"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1804"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Doom&apos;s hitscan tracing code ignores all lines with both sides in the same sector. ZDoom&apos;s does not. This option reverts to the original but less precise behavior. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;El codi d&apos;escaneig d&apos;impactes de Doom ignora totes les línies amb banda i banda en el mateix sector. ZDoom no. Aquesta opció reverteix al comportament original però és menys precís. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1800"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1807"/>
         <source>Trace ignore lines w/ same sector on both sides</source>
         <translation>El traç ignora les línies amb el mateix sector a banda i banda</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1807"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1814"/>
         <source>Limit deh.MaxHealth to health bonus</source>
         <translation>Limitar deh.MaxHealth a la bonificació de salut</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1814"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1821"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The scrolling floor specials in Heretic and Hexen move the player much faster than the actual texture scrolling speed. Enable this option to restore this effect. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Els desplaçaments especials del sòl en Heretic i Hexen mouen al jugador molt més ràpid que la velocitat de desplaçament de la textura real. Habilita aquesta opció per restaurar aquest efecte.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1817"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1824"/>
         <source>Raven&apos;s scrollers use original speed</source>
         <translation>Els scrollers de Raven fan servir la seva velocitat original</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1824"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1831"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add NOGRAVITY to actors named InvulnerabilitySphere, Soulsphere, Megasphere and BlurSphere when spawned by the map.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Afegiu NOGRAVITY als actors anomenats InvulnerabilitySphere, Soulsphere, Megasphere i BlurSphere quan apareixen pel mapa.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1827"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1834"/>
         <source>Add NOGRAVITY flag to spheres</source>
         <translation>Afegir l&apos;indicador NOGRAVITY a les esferes</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1834"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1841"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When a player leaves the game, don&apos;t stop any scripts of that player that are still running.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Quan un jugador abandona el joc, no aturar cap script que aquest jugador encara estigui executant.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1837"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1844"/>
         <source>Don&apos;t stop player scripts on disconnect</source>
         <translation>No aturar els scripts dels jugadors al desconnectar</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1844"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1851"/>
         <source>&lt;p&gt;If this is enabled, explosions cause a strong horizontal thrust like in old ZDoom versions.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Si això està habilitat, les explosions causen una forta empenta horitzontal com en versions antigues de ZDoom.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1847"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1854"/>
         <source>Old ZDoom horizontal thrust</source>
         <translation>Empenta horitzontal de l&apos;antic ZDoom</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1854"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1861"/>
         <source>&lt;p&gt;If this is enabled, non-SOLID things like flags fall through bridges (as they used to do in old ZDoom versions).&lt;/p&gt;</source>
         <translation>&lt;p&gt;Si això està habilitat, elements no SÒLIDS com banderes cauen a través de ponts (com solien fer en versions antigues de ZDoom).&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1857"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1864"/>
         <source>Old ZDoom bridge drops</source>
         <translation>Caigudes de pont de l&apos;antic ZDoom</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1864"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1871"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Uses old ZDoom jump physics, it&apos;s a minor bug in the gravity code that causes gravity application in the wrong place.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Fes servir l&apos;antiga física de salt ZDoom, és un error menor en el codi de gravetat que causa l&apos;aplicació de la gravetat en el lloc equivocat.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1867"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1874"/>
         <source>ZDoom 1.23B33 jump physics</source>
         <translation>Físiques de salt de ZDoom 1.23B33</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1874"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1881"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;p&gt;Zandronum uses more tracers to fill in the gaps, this reverts it to vanilla&apos;s 3 tracer behavior&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;p&gt;Zandronum fa servir més traçadors per omplir els buits, això ho reverteix al comportament original de 3 traçadors&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1877"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1884"/>
         <source>Use vanilla autoaim tracer behavior</source>
         <translation>Utilitza el comportament del traçador d&apos;autoapuntat original</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1884"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1891"/>
         <source>Ignore compositing when drawing masked midtextures</source>
         <translation>Ignorar la composició mentre es dibuixa textures mitjanes emmascarades</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1891"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1898"/>
         <source>It is impossible to face directly NSEW</source>
         <translation>És impossible mirar directament a l&apos;adreça cardinal</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1898"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1905"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;World and global-scope ACS variables/arrays will be reset upon resetting the map like in survival.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;les variables ACS World i scope-global es reiniciaràn amb el mapa, com en mode supervivència.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1901"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1908"/>
         <source>Reset global/world ACS vars on map reset</source>
         <translation>Reinicia les variables ACS global/world amb el reinici de mapa</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1912"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1919"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use Doom&apos;s shortest texture find behavior. This is requied by some WADs in MAP07.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Utilitza el comportament de recerca de textura més curta de Doom. Això és requerit per alguns WADs a MAP07.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1915"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1922"/>
         <source>Find shortest textures like Doom</source>
         <translation>Troba les textures més curtes com en Doom</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1922"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1929"/>
         <source>Limit pain elementals to 20 lost souls</source>
         <translation>Limitar els elementals de dolor a 20 ànimes perdudes</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1929"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1936"/>
         <source>Spawned item drops on the floor</source>
         <translation>L&apos;element generat cau a terra</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1936"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1943"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Treat ACS scripts with the SCRIPTF_Net flag to be client side, i.e. executed on the clients, but not on the server.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Tractar els scripts ACS amb l&apos;indicador SCRIPTF_Net perquè s&apos;executin en el costat del client, és a dir, executats en els clients, però no al servidor.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1939"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1946"/>
         <source>NET scripts are clientside</source>
         <translation>Els scripts NET són del costat del client</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1946"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1953"/>
         <source>&lt;p&gt;Like in vanilla Doom.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Com el Doom vanilla.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1949"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1956"/>
         <source>Actors are infinitely tall</source>
         <translation>Els actors són infinitament alts</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1956"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1963"/>
         <source>Don&apos;t fix loop index for stair building.</source>
         <translation>No arreglar l&apos;índex del bucle per construir escales.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1959"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1966"/>
         <source>Use buggier stair building</source>
         <translation>Utilitza un constructor d&apos;escales amb més errors</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1966"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1973"/>
         <source>Disable Boom door light effect</source>
         <translation>Deshabilitar l&apos;efecte de llum de porta BOOM</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1973"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1980"/>
         <source>All special lines can drop use lines</source>
         <translation>Totes les línies especials poden deixar anar línies d&apos;ús</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1980"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1987"/>
         <source>Original sound curve</source>
         <translation>Corba de so original</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1987"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1994"/>
         <source>Disallow weapon change until fully drawn or hidden</source>
         <translation>No permetre el canvi d&apos;arma fins que estigui completament dibuixat o ocult</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1994"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="2001"/>
         <source>West spawns are silent</source>
         <translation>Les aparicions &quot;West&quot; són silencioses</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="2001"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="2008"/>
         <source>Use the same floor motion behavior as Doom</source>
         <translation>Utilitza el comportament de moviment del pis com a Doom</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1770"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1777"/>
         <source>Compatibility 2</source>
         <translation>Compatibilitat 2</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="2008"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="2015"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the jumping behavior known from Skulltag.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Usar el comportament de salt de Skulltag.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="2011"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="2018"/>
         <source>Skulltag jumping</source>
         <translation>Salt Skulltag</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="2018"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="2025"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Prevent obituary messages from being printed to the console when a player dies.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Evitar que els missatges d&apos;obituari s&apos;imprimeixin a la consola quan un jugador mor.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="2021"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="2028"/>
         <source>Don&apos;t display player obituaries</source>
         <translation>No mostrar obituaris</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="2028"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="2035"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disable the window check in CheckForPushSpecial(). For maps that expect non-blocking push lines to activate when you are standing on them and run into a completely different line. Some maps may need this to enable climbing up ladders.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Desactiveu la comprovació de la finestra a CheckForPushSpecial(). Per als mapes que esperen que s&apos;activin línies d&apos;empenta sense bloqueig quan us trobeu sobre d&apos;elles i correu a una línia completament diferent. És possible que alguns mapes ho necessitin per poder pujar per escales.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="2031"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="2038"/>
         <source>Non-blocking lines can be pushed</source>
         <translation>Les línies sense bloqueig es poden empènyer</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="2056"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="2063"/>
         <source>Voting</source>
         <translation>Votacions</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="2078"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="2085"/>
         <source>zandronum dmflags</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="2071"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="2078"/>
         <source>dmflags</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="2129"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="2136"/>
         <source>dmflags2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="2122"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="2129"/>
         <source>zandronum compatflags</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="2115"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="2122"/>
         <source>compatflags</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="2146"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="2153"/>
         <source>compatflags2</source>
         <translation></translation>
     </message>
@@ -1462,12 +1472,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>TestingProgressDialog</name>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="456"/>
+        <location filename="../zandronumbinaries.cpp" line="460"/>
         <source>Downloading testing binaries...</source>
         <translation>Descarregant arxius binaris de prova ...</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="456"/>
+        <location filename="../zandronumbinaries.cpp" line="460"/>
         <source>Cancel</source>
         <translation>Cancel·lar</translation>
     </message>
@@ -1510,72 +1520,97 @@ p, li { white-space: pre-wrap; }
         <translation>Nombre mínim de jugadors necessaris per a sol·licitar una votació:</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="124"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="134"/>
+        <source>Vote cooldown:</source>
+        <translation>Temps entre vots:</translation>
+    </message>
+    <message>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="155"/>
+        <source>&lt;p&gt;Cooldown for the same type of vote is the double of this value. Setting this to 0 disables it.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;El temps és el doble per a vots del mateix tipus. Posar-ho a 0 ho desactiva.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="171"/>
+        <source>min.</source>
+        <translation>min.</translation>
+    </message>
+    <message>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="180"/>
+        <source>Time before client can vote after connecting:</source>
+        <translation>Temps abans no un nou client pugui votar:</translation>
+    </message>
+    <message>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="214"/>
+        <source>sec.</source>
+        <translation>seg.</translation>
+    </message>
+    <message>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="225"/>
         <source>Allow specific votes</source>
         <translation>Permetre vots específics</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="130"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="231"/>
         <source>duellimit</source>
         <translation>límit de duel</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="140"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="241"/>
         <source>pointlimit</source>
         <translation>límit de punts</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="150"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="251"/>
         <source>timelimit</source>
         <translation>límit de temps</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="160"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="261"/>
         <source>winlimit</source>
         <translation>límit de victòries</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="170"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="271"/>
         <source>changemap</source>
         <translation>Canviar mapa</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="180"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="281"/>
         <source>kick</source>
         <translation>expulsar</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="190"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="291"/>
         <source>map</source>
         <translation>mapa</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="200"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="301"/>
         <source>fraglimit</source>
         <translation>límit de frags</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="210"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="311"/>
         <source>force players to spectate</source>
         <translation>obligar els jugadors al mode espectador</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="220"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="321"/>
         <source>flags</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="227"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="328"/>
         <source>next map</source>
         <translation>Mapa següent</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="237"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="338"/>
         <source>next secret</source>
         <translation>Secret següent</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="250"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="351"/>
         <source>Vote flooding protection enabled</source>
         <translation>Protecció contra inundacions de vots habilitada</translation>
     </message>
@@ -2938,48 +2973,48 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ZandronumClientExeFile</name>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="92"/>
+        <location filename="../zandronumbinaries.cpp" line="94"/>
         <source>client</source>
         <translation>client</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="113"/>
+        <location filename="../zandronumbinaries.cpp" line="116"/>
         <source>No testing directory specified for Zandronum</source>
         <translation>No s&apos;ha especificat cap directori de proves per Zandronum</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="119"/>
+        <location filename="../zandronumbinaries.cpp" line="122"/>
         <source>Unable to create directory:
 %1</source>
         <translation>No es pot crear directori:
 %1</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="123"/>
+        <location filename="../zandronumbinaries.cpp" line="126"/>
         <source>Unable to create directory:
 %1/%2</source>
         <translation>No es pot crear directori:
 %1/%2</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="146"/>
+        <location filename="../zandronumbinaries.cpp" line="149"/>
         <source>Doomseeker</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="147"/>
+        <location filename="../zandronumbinaries.cpp" line="150"/>
         <source>Please install now version &quot;%1&quot; into:
 %2</source>
         <translation>Instal·li ara la versió &quot;%1&quot; a:
 %2</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="161"/>
+        <location filename="../zandronumbinaries.cpp" line="165"/>
         <source>&lt;p&gt;Installation of testing binaries for version %1 can potentially &lt;b&gt;overwrite&lt;/b&gt; your files.&lt;/p&gt;&lt;p&gt;Game will be installed to:&lt;br&gt;%2&lt;/p&gt;&lt;p&gt;Do you want Doomseeker to extract Zandronum files, potentially &lt;b&gt;overwriting existing ones&lt;/b&gt;, and to copy all your configuration files from your base directory?&lt;/p&gt;</source>
         <translation>&lt;p&gt;La instal·lació dels binaris de prova per a la versió%1 pot potencialment &lt;b&gt;reescriure&lt;/b&gt; els teus arxius.&lt;/p&gt;&lt;p&gt;El joc s&apos;instal·larà a:&lt;br&gt;%2&lt;/p&gt;&lt;p&gt;Vols que Doomseeker extregui els arxius de Zandronum, potencialment &lt;b&gt;reescrivint els arxius ja existents&lt;/b&gt;, i copiar tots els arxius de configuració del teu directori base?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="172"/>
+        <location filename="../zandronumbinaries.cpp" line="176"/>
         <source>Zandronum testing version %1 can be installed.
 
 Game will be installed to:
@@ -2994,17 +3029,17 @@ El joc pot instal·lar-se a:
 Vols que Doomseeker instal aquesta versió i copieu tots els teus arxius de configuració del teu directori base?</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="179"/>
+        <location filename="../zandronumbinaries.cpp" line="183"/>
         <source>Doomseeker - install Zandronum testing version</source>
         <translation>Doomseeker - instal·lar la versió de prova de Zandronum</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="205"/>
+        <location filename="../zandronumbinaries.cpp" line="209"/>
         <source>No testing directory configured for Zandronum</source>
         <translation>No s&apos;ha configurat cap directori de proves per Zandronum</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="215"/>
+        <location filename="../zandronumbinaries.cpp" line="219"/>
         <source>%1
 doesn&apos;t exist.
 You need to install new testing binaries.</source>
@@ -3013,7 +3048,7 @@ No existeix.
 Ha d&apos;instal·lar els nous executables de prova.</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="222"/>
+        <location filename="../zandronumbinaries.cpp" line="226"/>
         <source>%1
 exists but is NOT a directory.
 Cannot proceed.</source>
@@ -3022,7 +3057,7 @@ existeix però NO és un directori.
 No es pot procedir.</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="231"/>
+        <location filename="../zandronumbinaries.cpp" line="235"/>
         <source>%1
 exists but doesn&apos;t contain a Zandronum executable.
 
@@ -3043,17 +3078,17 @@ existeix, però no conté l&apos;executable de Zandronum.
 Doomseeker pot instal lar el joc allà igualment si ho desitja.</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="302"/>
+        <location filename="../zandronumbinaries.cpp" line="306"/>
         <source>Downloading Zandronum testing binary from URL: %1</source>
         <translation>Descarregant l&apos;arxiu binari de prova de Zandronum des de la URL: %1</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="307"/>
+        <location filename="../zandronumbinaries.cpp" line="311"/>
         <source>Doomseeker - download failed</source>
         <translation>Doomseeker - descàrrega fallida</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="308"/>
+        <location filename="../zandronumbinaries.cpp" line="312"/>
         <source>Failed to download testing binary.
 
 %1</source>
@@ -3062,46 +3097,46 @@ Doomseeker pot instal lar el joc allà igualment si ho desitja.</translation>
 %1</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="332"/>
+        <location filename="../zandronumbinaries.cpp" line="336"/>
         <source>Unpacking file: %1</source>
         <translation>Desempaquetant arxiu: %1</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="344"/>
+        <location filename="../zandronumbinaries.cpp" line="348"/>
         <source>Doomseeker - unpack failed</source>
         <translation>Doomseeker - error en desempaquetar</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="345"/>
+        <location filename="../zandronumbinaries.cpp" line="349"/>
         <source>Failed to unpack: %1</source>
         <translation>Error al desempaquetar: %1</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="372"/>
+        <location filename="../zandronumbinaries.cpp" line="376"/>
         <source>%1
  should be a script file but is a directory!</source>
         <translation>%1
  hauria de ser un script, però és un directori!</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="381"/>
+        <location filename="../zandronumbinaries.cpp" line="385"/>
         <source>You don&apos;t have permissions to execute file: %1
 </source>
         <translation>No tens permisos per executar l&apos;arxiu: %1
 </translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="428"/>
+        <location filename="../zandronumbinaries.cpp" line="432"/>
         <source>Couldn&apos;t open batch file &quot;%1&quot; for writing</source>
         <translation>No s&apos;ha pogut obrir l&apos;script &quot;%1&quot; per escriure</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="435"/>
+        <location filename="../zandronumbinaries.cpp" line="439"/>
         <source>Error while writing batch file &quot;%1&quot;</source>
         <translation>Error en escriure l&apos;script &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="445"/>
+        <location filename="../zandronumbinaries.cpp" line="449"/>
         <source>Cannot set permissions for file:
 %1</source>
         <translation>No es poden definir els permisos per a l&apos;arxiu:
@@ -3204,9 +3239,13 @@ Doomseeker pot instal lar el joc allà igualment si ho desitja.</translation>
 <context>
     <name>ZandronumMasterClient</name>
     <message>
-        <location filename="../zandronummasterclient.cpp" line="70"/>
         <source>You may contact Zandronum staff about this through IRC: &lt;b&gt;irc.zandronum.com #zandronum&lt;/b&gt; or on the forum: &lt;a href=&quot;https://zandronum.com/forum&quot;&gt;https://zandronum.com/forum.&lt;/a&gt;</source>
-        <translation>Pot posar-se en contacte amb el personal de Zandronum a través d&apos;IRC: &lt;b&gt;irc.zandronum.com #zandronum&lt;/b&gt; o al fòrum: &lt;a href=&quot;https://zandronum.com/forum&quot;&gt;https://zandronum.com/forum.&lt;/a&gt;</translation>
+        <translation type="vanished">Pot posar-se en contacte amb el personal de Zandronum a través d&apos;IRC: &lt;b&gt;irc.zandronum.com #zandronum&lt;/b&gt; o al fòrum: &lt;a href=&quot;https://zandronum.com/forum&quot;&gt;https://zandronum.com/forum.&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <location filename="../zandronummasterclient.cpp" line="70"/>
+        <source>You can contact Zandronum staff about this on Discord or on the forum: &lt;a href=&quot;https://zandronum.com/forum&quot;&gt;https://zandronum.com/forum&lt;/a&gt;.</source>
+        <translation>Pot posar-se en contacte amb el personal de Zandronum a través de Discord o al fòrum: &lt;a href=&quot;https://zandronum.com/forum&quot;&gt;https://zandronum.com/forum&lt;/a&gt;.</translation>
     </message>
 </context>
 <context>
@@ -3278,22 +3317,22 @@ Doomseeker pot instal lar el joc allà igualment si ho desitja.</translation>
 <context>
     <name>ZandronumServer</name>
     <message>
-        <location filename="../zandronumserver.cpp" line="111"/>
+        <location filename="../zandronumserver.cpp" line="112"/>
         <source>Blue</source>
         <translation>Blau</translation>
     </message>
     <message>
-        <location filename="../zandronumserver.cpp" line="112"/>
+        <location filename="../zandronumserver.cpp" line="113"/>
         <source>Red</source>
         <translation>Vermell</translation>
     </message>
     <message>
-        <location filename="../zandronumserver.cpp" line="113"/>
+        <location filename="../zandronumserver.cpp" line="114"/>
         <source>Green</source>
         <translation>Verd</translation>
     </message>
     <message>
-        <location filename="../zandronumserver.cpp" line="114"/>
+        <location filename="../zandronumserver.cpp" line="115"/>
         <source>Gold</source>
         <translation>Or</translation>
     </message>
