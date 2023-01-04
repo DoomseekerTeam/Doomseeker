@@ -177,6 +177,8 @@ public:
 		static const QString SECTION_NAME;
 
 		ServerListFilterInfo info;
+		QString currentPreset;
+		QVariantMap presets;
 
 		void init(IniSection &section);
 		void load(IniSection &section);

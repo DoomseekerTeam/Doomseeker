@@ -38,6 +38,7 @@ ServerListFilterInfo::ServerListFilterInfo()
 
 void ServerListFilterInfo::copy(const ServerListFilterInfo &other)
 {
+	name = other.name;
 	bEnabled = other.bEnabled;
 	bShowEmpty = other.bShowEmpty;
 	bShowFull = other.bShowFull;
@@ -106,10 +107,79 @@ bool ServerListFilterInfo::isFilteringAnything() const
 	return false;
 }
 
+bool ServerListFilterInfo::isFilteringEquivalent(const ServerListFilterInfo &other) const
+{
+	return
+		bEnabled == other.bEnabled &&
+		bShowEmpty == other.bShowEmpty &&
+		bShowFull == other.bShowFull &&
+		bShowOnlyValid == other.bShowOnlyValid &&
+		bShowBannedServers == other.bShowBannedServers &&
+		bShowTooSoonServers == other.bShowTooSoonServers &&
+		bShowNotRespondingServers == other.bShowNotRespondingServers &&
+		gameModes == other.gameModes &&
+		gameModesExcluded == other.gameModesExcluded &&
+		lockedServers == other.lockedServers &&
+		maxPing == other.maxPing &&
+		serverName == other.serverName &&
+		wads == other.wads &&
+		wadsExcluded == other.wadsExcluded &&
+		testingServers == other.testingServers
+		;
+}
+
+
+ServerListFilterInfo ServerListFilterInfo::deserialize(const QVariant &variant)
+{
+	ServerListFilterInfo obj;
+
+	QVariantMap in = variant.toMap();
+	obj.name = in["name"].toString();
+	obj.bEnabled = in["bEnabled"].toBool();
+	obj.bShowEmpty = in["bShowEmpty"].toBool();
+	obj.bShowFull = in["bShowFull"].toBool();
+	obj.bShowOnlyValid = in["bShowOnlyValid"].toBool();
+	obj.bShowBannedServers = in["bShowBannedServers"].toBool();
+	obj.bShowTooSoonServers = in["bShowTooSoonServers"].toBool();
+	obj.bShowNotRespondingServers = in["bShowNotRespondingServers"].toBool();
+	obj.gameModes = in["GameModes"].toStringList();
+	obj.gameModesExcluded = in["GameModesExcluded"].toStringList();
+	obj.lockedServers = static_cast<Doomseeker::ShowMode>(in["LockedServers"].toInt());
+	obj.maxPing = in["MaxPing"].toUInt();
+	obj.serverName = in["ServerName"].toString();
+	obj.testingServers = static_cast<Doomseeker::ShowMode>(in["TestingServers"].toInt());
+	obj.wads = in["WADs"].toStringList();
+	obj.wadsExcluded = in["WADsExcluded"].toStringList();
+	return obj;
+}
+
+QVariant ServerListFilterInfo::serialize() const
+{
+	QVariantMap out;
+	out["name"] = this->name;
+	out["bEnabled"] = this->bEnabled;
+	out["bShowEmpty"] = this->bShowEmpty;
+	out["bShowFull"] = this->bShowFull;
+	out["bShowOnlyValid"] = this->bShowOnlyValid;
+	out["bShowBannedServers"] = this->bShowBannedServers;
+	out["bShowTooSoonServers"] = this->bShowTooSoonServers;
+	out["bShowNotRespondingServers"] = this->bShowNotRespondingServers;
+	out["GameModes"] = this->gameModes;
+	out["GameModesExcluded"] = this->gameModesExcluded;
+	out["LockedServers"] = this->lockedServers;
+	out["MaxPing"] = this->maxPing;
+	out["ServerName"] = this->serverName;
+	out["TestingServers"] = this->testingServers;
+	out["WADs"].setValue(this->wads);
+	out["WADsExcluded"].setValue(this->wadsExcluded);
+	return out;
+}
+
 QString ServerListFilterInfo::toString() const
 {
 	QString ret = "";
 
+	ret += QString("name: %1\n").arg(name);
 	ret += QString("bEnabled: ") + (bEnabled ? "Yes" : "No") + "\n";
 	ret += QString("bShowEmpty: ") + (bShowEmpty ? "Yes" : "No") + "\n";
 	ret += QString("bShowFull: ") + (bShowFull ? "Yes" : "No") + "\n";

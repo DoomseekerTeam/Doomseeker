@@ -670,10 +670,12 @@ void DoomseekerConfig::ServerFilter::load(IniSection &section)
 	info.gameModesExcluded = section["GameModesExcluded"].value().toStringList();
 	info.lockedServers = static_cast<Doomseeker::ShowMode>(section.value("LockedServers").toInt());
 	info.maxPing = section["MaxPing"];
-	info.serverName = (const QString &)section["ServerName"];
+	info.serverName = static_cast<const QString &>(section["ServerName"]);
 	info.testingServers = static_cast<Doomseeker::ShowMode>(section.value("TestingServers").toInt());
 	info.wads = section["WADs"].value().toStringList();
 	info.wadsExcluded = section["WADsExcluded"].value().toStringList();
+	currentPreset = static_cast<const QString &>(section["CurrentPreset"]);
+	presets = section["Presets"].value().toMap();
 }
 
 void DoomseekerConfig::ServerFilter::save(IniSection &section)
@@ -693,6 +695,8 @@ void DoomseekerConfig::ServerFilter::save(IniSection &section)
 	section["TestingServers"] = info.testingServers;
 	section["WADs"].setValue(info.wads);
 	section["WADsExcluded"].setValue(info.wadsExcluded);
+	section["CurrentPreset"] = currentPreset;
+	section["Presets"].setValue(presets);
 }
 //////////////////////////////////////////////////////////////////////////////
 const QString DoomseekerConfig::WadseekerCfg::SECTION_NAME = "Wadseeker";

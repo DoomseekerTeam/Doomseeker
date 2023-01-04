@@ -34,6 +34,7 @@ class QComboBox;
 class ServerFilterDock : public QDockWidget
 {
 	Q_OBJECT
+	Q_DISABLE_COPY(ServerFilterDock)
 
 public:
 	ServerFilterDock(QWidget *pParent = nullptr);
@@ -64,6 +65,10 @@ signals:
 private:
 	DPtr<ServerFilterDock> d;
 
+	/// Return index at which the preset was added.
+	int addPreset(const ServerListFilterInfo &preset);
+	void setCustomPreset(const ServerListFilterInfo &preset);
+
 	void addSortedNonDuplicate(QComboBox *comboBox, const QString &text);
 
 private slots:
@@ -71,6 +76,11 @@ private slots:
 	void emitUpdated();
 	void enableFilter();
 	void onServerGroupingChange();
+
+	void removeFilterPreset();
+	void saveFilterAsPreset();
+	void selectFilterPreset(int index);
+	void loadSettings();
 };
 
 #endif

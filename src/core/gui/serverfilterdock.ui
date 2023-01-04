@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>264</width>
+    <width>284</width>
     <height>624</height>
    </rect>
   </property>
@@ -18,8 +18,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>264</width>
-    <height>193</height>
+    <width>284</width>
+    <height>307</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -39,6 +39,56 @@
     <property name="bottomMargin">
      <number>0</number>
     </property>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QComboBox" name="cboServerFilterPresets">
+        <property name="duplicatesEnabled">
+         <bool>true</bool>
+        </property>
+        <item>
+         <property name="text">
+          <string>[custom]</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnSavePreset">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>Save the current server filter as a preset</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../../../media/resources.qrc">
+          <normaloff>:/icons/diskette.png</normaloff>:/icons/diskette.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnRemovePreset">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>Remove the server filter preset</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../../../media/resources.qrc">
+          <normaloff>:/icons/x.png</normaloff>:/icons/x.png</iconset>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
     <item>
      <widget class="QLabel" name="label">
       <property name="text">
@@ -111,8 +161,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>260</width>
-         <height>500</height>
+         <width>255</width>
+         <height>640</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -369,7 +419,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>99</x>
-     <y>513</y>
+     <y>805</y>
     </hint>
     <hint type="destinationlabel">
      <x>101</x>
@@ -384,8 +434,8 @@
    <slot>emitUpdated()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>45</x>
-     <y>62</y>
+     <x>47</x>
+     <y>133</y>
     </hint>
     <hint type="destinationlabel">
      <x>38</x>
@@ -401,7 +451,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>97</x>
-     <y>160</y>
+     <y>268</y>
     </hint>
     <hint type="destinationlabel">
      <x>61</x>
@@ -417,7 +467,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>121</x>
-     <y>205</y>
+     <y>334</y>
     </hint>
     <hint type="destinationlabel">
      <x>72</x>
@@ -433,7 +483,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>71</x>
-     <y>363</y>
+     <y>539</y>
     </hint>
     <hint type="destinationlabel">
      <x>159</x>
@@ -449,7 +499,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>45</x>
-     <y>386</y>
+     <y>569</y>
     </hint>
     <hint type="destinationlabel">
      <x>133</x>
@@ -465,7 +515,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>49</x>
-     <y>434</y>
+     <y>629</y>
     </hint>
     <hint type="destinationlabel">
      <x>138</x>
@@ -481,7 +531,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>56</x>
-     <y>295</y>
+     <y>466</y>
     </hint>
     <hint type="destinationlabel">
      <x>99</x>
@@ -500,8 +550,8 @@
      <y>210</y>
     </hint>
     <hint type="destinationlabel">
-     <x>99</x>
-     <y>62</y>
+     <x>101</x>
+     <y>133</y>
     </hint>
    </hints>
   </connection>
@@ -513,7 +563,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>99</x>
-     <y>250</y>
+     <y>400</y>
     </hint>
     <hint type="destinationlabel">
      <x>101</x>
@@ -529,7 +579,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>99</x>
-     <y>340</y>
+     <y>515</y>
     </hint>
     <hint type="destinationlabel">
      <x>101</x>
@@ -544,8 +594,8 @@
    <slot>emitUpdated()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>164</x>
-     <y>117</y>
+     <x>166</x>
+     <y>202</y>
     </hint>
     <hint type="destinationlabel">
      <x>164</x>
@@ -560,8 +610,8 @@
    <slot>onServerGroupingChange()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>164</x>
-     <y>85</y>
+     <x>166</x>
+     <y>163</y>
     </hint>
     <hint type="destinationlabel">
      <x>164</x>
@@ -577,7 +627,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>164</x>
-     <y>457</y>
+     <y>749</y>
     </hint>
     <hint type="destinationlabel">
      <x>243</x>
@@ -593,7 +643,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>120</x>
-     <y>403</y>
+     <y>599</y>
     </hint>
     <hint type="destinationlabel">
      <x>120</x>
@@ -608,8 +658,8 @@
    <slot>emitUpdated()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>235</x>
-     <y>626</y>
+     <x>255</x>
+     <y>682</y>
     </hint>
     <hint type="destinationlabel">
      <x>334</x>
@@ -624,8 +674,8 @@
    <slot>emitUpdated()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>235</x>
-     <y>651</y>
+     <x>255</x>
+     <y>712</y>
     </hint>
     <hint type="destinationlabel">
      <x>336</x>
@@ -640,8 +690,8 @@
    <slot>emitUpdated()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>259</x>
-     <y>679</y>
+     <x>258</x>
+     <y>742</y>
     </hint>
     <hint type="destinationlabel">
      <x>334</x>
@@ -657,11 +707,75 @@
    <hints>
     <hint type="sourcelabel">
      <x>226</x>
-     <y>594</y>
+     <y>652</y>
     </hint>
     <hint type="destinationlabel">
      <x>16</x>
-     <y>657</y>
+     <y>742</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnSavePreset</sender>
+   <signal>clicked()</signal>
+   <receiver>ServerFilterDock</receiver>
+   <slot>saveFilterAsPreset()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>226</x>
+     <y>49</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>141</x>
+     <y>311</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnRemovePreset</sender>
+   <signal>clicked()</signal>
+   <receiver>ServerFilterDock</receiver>
+   <slot>removeFilterPreset()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>263</x>
+     <y>49</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>141</x>
+     <y>311</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbGroupServersWithPlayersAtTop</sender>
+   <signal>clicked()</signal>
+   <receiver>ServerFilterDock</receiver>
+   <slot>emitUpdated()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>141</x>
+     <y>151</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>141</x>
+     <y>311</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cboServerFilterPresets</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>ServerFilterDock</receiver>
+   <slot>selectFilterPreset(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>111</x>
+     <y>44</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>122</x>
+     <y>71</y>
     </hint>
    </hints>
   </connection>
@@ -672,5 +786,8 @@
   <slot>emitUpdated(QString)</slot>
   <slot>onServerGroupingChange()</slot>
   <slot>enableFilter()</slot>
+  <slot>saveFilterAsPreset()</slot>
+  <slot>removeFilterPreset()</slot>
+  <slot>selectFilterPreset(int)</slot>
  </slots>
 </ui>

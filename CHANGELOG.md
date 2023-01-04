@@ -13,6 +13,7 @@ and this project does not adhere to
 - Upgrade the IpToCountry.dat file format to version 3. The license text
 with translations and the database's homepage URL are now embedded into
 the database itself.
+- Server filters can now be saved as presets. (#4079)
 - A tri-state filter for password-protected servers. (#4008)
 - A button to reset the game's master server back to default. (#3756)
 - New command line argument `--basedir` that changes the base directory

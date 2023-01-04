@@ -25,6 +25,7 @@
 
 #include <QString>
 #include <QStringList>
+#include <QVariant>
 
 #include "gui/entity/showmode.h"
 
@@ -34,6 +35,7 @@
 class ServerListFilterInfo
 {
 public:
+	QString name;
 	bool bEnabled;
 	bool bShowEmpty;
 	bool bShowFull;
@@ -80,6 +82,17 @@ public:
 	 * server.
 	 */
 	bool isFilteringAnything() const;
+
+	/**
+	 * @brief Check if the two filters are equivalent in their filterings.
+	 *
+	 * The equivalent filter results in the same filtering, but can have
+	 * a different name.
+	 */
+	bool isFilteringEquivalent(const ServerListFilterInfo &other) const;
+
+	static ServerListFilterInfo deserialize(const QVariant &variant);
+	QVariant serialize() const;
 
 	QString toString() const;
 

@@ -1185,9 +1185,6 @@ void MainWindow::onAutoUpdaterOverallProgress(int current, int total,
 
 void MainWindow::postInitAppStartup()
 {
-	// Load server filter from config.
-	d->serverFilterDock->setFilterInfo(gConfig.serverFilter.info);
-
 	fixIconsDpi();
 
 	// Check query on statup
