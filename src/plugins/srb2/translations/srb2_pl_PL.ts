@@ -4,7 +4,7 @@
 <context>
     <name>Srb2AboutProvider</name>
     <message>
-        <location filename="../srb2gameinfo.cpp" line="152"/>
+        <location filename="../srb2gameinfo.cpp" line="147"/>
         <source>This plugin is distributed under the terms of the LGPL v2.1 or later.
 
 </source>
@@ -76,7 +76,7 @@
         <translation>Gracze przenikają i można ich podnosić</translation>
     </message>
     <message>
-        <location filename="../srb2gameinfo.cpp" line="139"/>
+        <location filename="../srb2gameinfo.cpp" line="134"/>
         <source>Force server character (skin)</source>
         <translation>Wymuś postać na serwerze (skórkę)</translation>
     </message>
@@ -141,52 +141,52 @@
         <translation>Czas na ukrycie się</translation>
     </message>
     <message>
-        <location filename="../srb2gameinfo.cpp" line="129"/>
+        <location filename="../srb2gameinfo.cpp" line="127"/>
         <source>Team difference autobalance</source>
         <translation>Różnica drużyn do autobalansu</translation>
     </message>
     <message>
-        <location filename="../srb2gameinfo.cpp" line="131"/>
+        <location filename="../srb2gameinfo.cpp" line="128"/>
         <source>Point limit</source>
         <translation>Limit punktów</translation>
     </message>
     <message>
-        <location filename="../srb2gameinfo.cpp" line="132"/>
+        <location filename="../srb2gameinfo.cpp" line="129"/>
         <source>Time limit</source>
         <translation>Limit czasu</translation>
     </message>
     <message>
-        <location filename="../srb2gameinfo.cpp" line="137"/>
+        <location filename="../srb2gameinfo.cpp" line="133"/>
         <source>Flag auto-return time</source>
         <translation>Czas do auto-zwrotu flagi</translation>
     </message>
     <message>
-        <location filename="../srb2gameinfo.cpp" line="140"/>
+        <location filename="../srb2gameinfo.cpp" line="135"/>
         <source>Respawn item time</source>
         <translation>Czas odradzania przedmiotów</translation>
     </message>
     <message>
-        <location filename="../srb2gameinfo.cpp" line="141"/>
+        <location filename="../srb2gameinfo.cpp" line="136"/>
         <source>Intermission time</source>
         <translation>Czas pomiędzy misjami</translation>
     </message>
     <message>
-        <location filename="../srb2gameinfo.cpp" line="142"/>
+        <location filename="../srb2gameinfo.cpp" line="137"/>
         <source>Max ping</source>
         <translation>Max ping</translation>
     </message>
     <message>
-        <location filename="../srb2gameinfo.cpp" line="143"/>
+        <location filename="../srb2gameinfo.cpp" line="138"/>
         <source>Max upload size in kB</source>
         <translation>Max rozmiar uploadu w kB</translation>
     </message>
     <message>
-        <location filename="../srb2gameinfo.cpp" line="144"/>
+        <location filename="../srb2gameinfo.cpp" line="139"/>
         <source>Tics until client timeout</source>
         <translation>Ilość ticów do timeoutu klienta</translation>
     </message>
     <message>
-        <location filename="../srb2gameinfo.cpp" line="145"/>
+        <location filename="../srb2gameinfo.cpp" line="140"/>
         <source>Resynch attempts before kicking clients</source>
         <translation>Ilość prób resynchronizacji przed wykopaniem klientów</translation>
     </message>
