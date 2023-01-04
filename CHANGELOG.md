@@ -152,6 +152,8 @@ placeholder wouldn't get the higher priority status that the plain
 custom URLs normally enjoy. (#3996)
 - Turok 2 Ex: fix writing beyond the size of the buffer when encrypting the
 challenge packets. This used to work in Qt previously but is now deprecated.
+- Q-Zandronum: set the canonical name of the plugin to `zandronumq`, which
+fixes the loading of the translation files.
 - Zandronum, Q-Zandronum: servers that emitted empty PWAD names in their
 challenge reply would appear as errored because the plugins failed to
 parse the subsequent MD5 checksum hashes for these PWADs. The plugins
