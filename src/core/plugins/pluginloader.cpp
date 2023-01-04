@@ -44,7 +44,8 @@ public:
 
 	static bool isForbiddenPlugin(QString file)
 	{
-		return QFileInfo(file).fileName().toLower().contains("vavoom");
+		const QString name = QFileInfo(file).fileName().toLower();
+		return name.contains("srb2") || name.contains("vavoom");
 	}
 };
 

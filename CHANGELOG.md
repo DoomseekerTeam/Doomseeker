@@ -170,6 +170,7 @@ installed. (#4020, #4024)
 ### Removed
 - Config migration from Doomseeker 1.1. (#4081)
 - Wadseeker: Removed Wad Archive support due to the site shutdown. (#4048)
+- SRB2: plugin deprecated, discontinued and removed from Doomseeker. (#3958)
 
 ## [1.3.3] - 2022-01-18
 ### Added
