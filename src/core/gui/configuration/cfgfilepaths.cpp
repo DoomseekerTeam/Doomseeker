@@ -66,31 +66,31 @@ CFGFilePaths::CFGFilePaths(QWidget *parent)
 	header->setSectionResizeMode(COL_PATH, QHeaderView::Stretch);
 	header->setSectionResizeMode(COL_RECURSE, QHeaderView::ResizeToContents);
 
-	QString templatedPathsToolTip = QString("<p>%1</p>").arg(tr(
+	QString templatedPathsToolTip = QString("<p>%1</p>").arg(CFGFilePaths::tr(
 		"Doomseeker supports special characters in user-configurable "
 		"paths. This affects all paths everywhere, not only the file "
 		"paths configured on this page. The placeholders are:"));
 	templatedPathsToolTip += "<ul>";
 
-	templatedPathsToolTip += QString("<li>%1</li>").arg(
-		tr("<b>~</b> - if at the beginning of the path, resolved to "
-			"the home directory of the current user"));
+	templatedPathsToolTip += QString("<li>%1</li>").arg(CFGFilePaths::tr(
+		"<b>~</b> - if at the beginning of the path, resolved to "
+		"the home directory of the current user"));
 #ifdef DOOMSEEKER_TEMPLATED_PATH_RESOLVER_TILDEUSER
-	templatedPathsToolTip += QString("<li>%1</li>").arg(
-		tr("<b>~<i>user</i></b> - if at the beginning of the path, resolved to "
-			"the home directory of the specified <i>user</i>"));
+	templatedPathsToolTip += QString("<li>%1</li>").arg(CFGFilePaths::tr(
+		"<b>~<i>user</i></b> - if at the beginning of the path, resolved to "
+		"the home directory of the specified <i>user</i>"));
 #endif
-	templatedPathsToolTip += QString("<li>%1</li>").arg(
-		tr("<b>$PROGDIR</b> - resolved to the directory where Doomseeker's "
-			"executable is located; this may create invalid paths if "
-			"used in the middle of the path"));
-	templatedPathsToolTip += QString("<li>%1</li>").arg(
-		tr("<b>$<i>NAME</i></b> - any <i>NAME</i> is resolved to the environment "
-			"variable of the same <i>NAME</i>, or to empty if the environment "
-			"variable is absent"));
+	templatedPathsToolTip += QString("<li>%1</li>").arg(CFGFilePaths::tr(
+		"<b>$PROGDIR</b> - resolved to the directory where Doomseeker's "
+		"executable is located; this may create invalid paths if "
+		"used in the middle of the path"));
+	templatedPathsToolTip += QString("<li>%1</li>").arg(CFGFilePaths::tr(
+		"<b>$<i>NAME</i></b> - any <i>NAME</i> is resolved to the environment "
+		"variable of the same <i>NAME</i>, or to empty if the environment "
+		"variable is absent"));
 	templatedPathsToolTip += "</ul>";
 
-	templatedPathsToolTip += QString("<p>%1</p>").arg(tr(
+	templatedPathsToolTip += QString("<p>%1</p>").arg(CFGFilePaths::tr(
 		"This option controls whether the <b>$PROGDIR</b> "
 		"and <b>$<i>NAME</i></b> will be resolved or ignored. "
 		"If this option is <b>checked</b>, both are resolved as explained. "

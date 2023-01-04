@@ -72,7 +72,7 @@ FreedoomDialog::FreedoomDialog(QWidget *parent)
 	d->btnInstall = d->buttonBox->button(QDialogButtonBox::Yes);
 	d->btnInstall->setDefault(true);
 	d->btnInstall->setEnabled(false);
-	d->btnInstall->setText(tr("Install"));
+	d->btnInstall->setText(FreedoomDialog::tr("Install"));
 	connect(d->btnInstall, &QAbstractButton::clicked,
 		this, &QDialog::accept);
 	d->btnRetry = d->buttonBox->button(QDialogButtonBox::Retry);

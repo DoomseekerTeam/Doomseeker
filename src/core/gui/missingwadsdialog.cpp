@@ -60,7 +60,7 @@ MissingWadsDialog::MissingWadsDialog(const QList<PWad> &missingWads, const QList
 	d->incompatibleWads = incompatibleWads;
 	d->plugin = plugin;
 
-	d->btnInstall->setText(tr("Install"));
+	d->btnInstall->setText(MissingWadsDialog::tr("Install"));
 	connect(d->btnInstall, &QAbstractButton::clicked,
 		this, &MissingWadsDialog::installMissingFiles);
 	connect(d->btnIgnore, &QAbstractButton::clicked,
