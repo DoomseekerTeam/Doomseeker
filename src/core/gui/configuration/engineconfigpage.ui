@@ -138,7 +138,7 @@
         <item>
          <widget class="QPushButton" name="btnMasterServerDefault">
           <property name="toolTip">
-           <string>Restore the master server address to default.</string>
+           <string>Restore the master server address to the default.</string>
           </property>
           <property name="text">
            <string>Default</string>

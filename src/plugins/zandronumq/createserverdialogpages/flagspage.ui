@@ -1759,7 +1759,7 @@ p, li { white-space: pre-wrap; }
            <item>
             <widget class="QCheckBox" name="cbCompatPredictFunctions">
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When this option is ON, many Decorate and ACS functions will execute on clients without before receiving a command from the server. This can lead to smoother multiplayer, but can breaks mods that don't support it..&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When this option is ON, many Decorate and ACS functions will execute on clients without before receiving a command from the server. This can lead to smoother multiplayer, but can breaks mods that don't support it.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="text">
               <string>Enable predicting Decorate and ACS functions on clients</string>

@@ -47,7 +47,7 @@
      <item>
       <widget class="QPushButton" name="btnBrowsePwad">
        <property name="toolTip">
-        <string>Browse for a file</string>
+        <string>Browse for a file.</string>
        </property>
        <property name="text">
         <string>Browse</string>
@@ -63,7 +63,7 @@
         </size>
        </property>
        <property name="toolTip">
-        <string>Add an empty path to the list</string>
+        <string>Add an empty path to the list.</string>
        </property>
        <property name="text">
         <string>Add</string>
@@ -83,7 +83,7 @@
         </size>
        </property>
        <property name="toolTip">
-        <string>Remove the selected files from the list</string>
+        <string>Remove the selected files from the list.</string>
        </property>
        <property name="text">
         <string>Remove</string>
@@ -110,7 +110,7 @@
      <item>
       <widget class="QPushButton" name="btnClearPwadList">
        <property name="toolTip">
-        <string>Remove all files from the list</string>
+        <string>Remove all files from the list.</string>
        </property>
        <property name="text">
         <string>Clear</string>

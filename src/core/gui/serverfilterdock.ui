@@ -62,7 +62,7 @@
          </sizepolicy>
         </property>
         <property name="toolTip">
-         <string>Save the current server filter as a preset</string>
+         <string>Save the current server filter as a preset.</string>
         </property>
         <property name="icon">
          <iconset resource="../../../media/resources.qrc">
@@ -79,7 +79,7 @@
          </sizepolicy>
         </property>
         <property name="toolTip">
-         <string>Remove the server filter preset</string>
+         <string>Remove the server filter preset.</string>
         </property>
         <property name="icon">
          <iconset resource="../../../media/resources.qrc">

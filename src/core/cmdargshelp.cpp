@@ -74,8 +74,8 @@ QString CmdArgsHelp::argsHelp()
 		"    - The current working directory is forced to the directory where\n"
 		"      Doomseeker's executable resides.\n"
 		"    - Doomseeker will save in the configuration all paths as relative\n"
-		"      in anticipation that they may change between the runs, for ex.\n"
-		"      due to the portable device %1.\n").arg(mountedWhere);
+		"      in anticipation that the absolute paths may change between the runs,\n"
+		"      for ex. due to the portable device %1.\n").arg(mountedWhere);
 	help += tr(
 		"--version-json [file|-]\n"
 		"    Prints version info on Doomseeker and all\n"
