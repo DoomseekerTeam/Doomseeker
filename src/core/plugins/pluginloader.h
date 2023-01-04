@@ -25,6 +25,7 @@
 #define __PLUGINLOADER_H__
 
 #include <QList>
+#include <QMap>
 #include <QString>
 
 #include "dptr.h"
@@ -85,8 +86,16 @@ public:
 	 * loading process stops and skips all further directories.
 	 *
 	 * This behavior may need to be revised and changed in the future.
+	 *
+	 * @param directories
+	 *     The list of directories from which to load the plugins.
+	 * @param pluginsEnabled
+	 *     Force these plugins to be either enabled or disabled, disregarding
+	 *     the default approach. The plugin names should be specified without
+	 *     the 'lib' prefix or the filename extension.
 	 */
-	static void init(const QStringList &directories);
+	static void init(const QStringList &directories,
+		const QMap<QString, bool> &pluginsEnabled);
 	/**
 	 * @brief Accesses instance of the class after init().
 	 *
@@ -156,10 +165,8 @@ private:
 
 	static PluginLoader *staticInstance;
 
-	/**
-	 * @brief Gathers information about plugins in a particular directory.
-	 */
-	PluginLoader(unsigned int type, const QStringList &directories);
+	PluginLoader(unsigned int type, const QStringList &directories,
+		const QMap<QString, bool> &pluginsEnabled);
 
 	bool filesInDir();
 };

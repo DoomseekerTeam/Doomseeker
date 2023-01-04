@@ -26,8 +26,10 @@ QString CmdArgsHelp::argsHelp()
 {
 #ifdef Q_OS_WIN
 	const QString mountedWhere = tr("being assigned a different letter");
+	const QString dylibExtension = ".dll";
 #else
 	const QString mountedWhere = tr("being mounted on a different path");
+	const QString dylibExtension = ".so";
 #endif
 	QString help = "";
 	help += tr(
@@ -46,6 +48,17 @@ QString CmdArgsHelp::argsHelp()
 		"    Sets an explicit search location for\n"
 		"    IP2C data along with plugins.\n"
 		"    Can be specified multiple times.\n");
+	help += tr("--disable-plugin <plugin>\n"
+		"    Ban a <plugin> from loading even if it is normally loaded.\n"
+		"    Specify the plugin name without the 'lib' prefix or the file\n"
+		"    extension, for ex. 'vavoom', not 'libvavoom%1'.\n"
+		).arg(dylibExtension);
+	help += tr(
+		"--enable-plugin <plugin>\n"
+		"    Load a <plugin> even if it is normally disabled/banned.\n"
+		"    Specify the plugin name without the 'lib' prefix or the file\n"
+		"    extension, for ex. 'vavoom', not 'libvavoom%1'.\n"
+		).arg(dylibExtension);
 	help += tr(
 		"--help\n"
 		"    Prints this list of command line arguments.\n");

@@ -26,6 +26,7 @@
 
 #include <QApplication>
 #include <QObject>
+#include <QMap>
 #include <QStringList>
 #include <QUrl>
 
@@ -129,6 +130,7 @@ private:
 	int updateFailedCode;
 	QUrl connectUrl;
 	bool bPortableMode;
+	QMap<QString, bool> pluginsEnabled;
 
 private slots:
 	void runCreateGame();

@@ -167,7 +167,8 @@ int Main::run()
 
 	initCaCerts();
 
-	PluginLoader::init(gDefaultDataPaths->pluginSearchLocationPaths());
+	PluginLoader::init(gDefaultDataPaths->pluginSearchLocationPaths(),
+		pluginsEnabled);
 	if (bVersionDump)
 	{
 		return runVersionDump();
@@ -632,6 +633,30 @@ bool Main::interpretCommandLineParameters()
 			{
 				++i;
 				dataDirectories.prepend(arguments[i]);
+			}
+			else
+			{
+				failure = CmdArgsHelp::missingArgs(1, arg);
+			}
+		}
+		else if (strcmp(arg, "--disable-plugin") == 0)
+		{
+			if (i + 1 < argumentsCount)
+			{
+				++i;
+				pluginsEnabled[QString(arguments[i]).toLower()] = false;
+			}
+			else
+			{
+				failure = CmdArgsHelp::missingArgs(1, arg);
+			}
+		}
+		else if (strcmp(arg, "--enable-plugin") == 0)
+		{
+			if (i + 1 < argumentsCount)
+			{
+				++i;
+				pluginsEnabled[QString(arguments[i]).toLower()] = true;
 			}
 			else
 			{

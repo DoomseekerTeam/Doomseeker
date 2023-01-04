@@ -19,6 +19,8 @@ the database itself.
 - New command line argument `--basedir` that changes the base directory
 where Doomseeker stores all of its managed files: settings, cache, managed
 data. (#3452)
+- New command line arguments `--enable-plugin` and `--disable-plugin` for
+users who wish to force allow or force deny loading of a plugin.
 - Check if the demo storage directory exists and is writable when demo recording
 is enabled. If there's something wrong, warn the user. (#3501)
 - Granular filters for banned, "refreshed too soon" and not responding
