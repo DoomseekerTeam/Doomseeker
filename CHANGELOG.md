@@ -150,6 +150,9 @@ time configuration. (#4080)
 - Wadseeker: custom (server-provided) template URLs with the %WADNAME%
 placeholder wouldn't get the higher priority status that the plain
 custom URLs normally enjoy. (#3996)
+- Windows: updater.exe will use `_splitpath()` instead of `_splitpath_s()`,
+allowing it to run again in Windows XP where the MSVCRT doesn't have the
+`_s` variant of the function.
 - Turok 2 Ex: fix writing beyond the size of the buffer when encrypting the
 challenge packets. This used to work in Qt previously but is now deprecated.
 - Q-Zandronum: set the canonical name of the plugin to `zandronumq`, which
