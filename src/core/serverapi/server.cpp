@@ -447,8 +447,8 @@ int Server::numFreeClientSlots() const
 
 int Server::numFreeJoinSlots() const
 {
-	int returnValue = static_cast<int>(qMin(d->maxPlayers, d->maxClients))
-		- static_cast<int>(d->players.numClients());
+	int totalSlots = static_cast<int>(qMin(d->maxPlayers, d->maxClients));
+	int returnValue = totalSlots - d->players.numPlayersInGame();
 	return (returnValue < 0) ? 0 : returnValue;
 }
 

@@ -68,6 +68,8 @@ less robotic. (#4019)
 predictably, have tooltip descriptions. (#3754, #3755)
 - The master server messages (about the user being banned) will be
 automatically cleared when the user starts a full server refresh. (#3584)
+- Don't count the spectators as joined players when showing how many players
+can still join a game. (#4038)
 - Doomseeker maintainers info in the about dialog is now labeled as such
 and the email links are clickable with the `mailto:` prefix. (#4069, #4070)
 - Correction of various inconsistencies in the UI (#3676):
