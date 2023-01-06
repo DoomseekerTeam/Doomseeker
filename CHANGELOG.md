@@ -104,6 +104,11 @@ WAD downloads.
 - Wadseeker: added `sigil_shreds` and `sigil_shreds_compat` to the
 list of forbidden downloads.
 - Wadseeker: upgrade LZMA SDK to version 22.01. (#3934)
+- Odamex, Zandronum, Q-Zandronum: untie the max. clients and max. players
+settings when creating a server. Previously if max. clients was lower than
+max. players, max. clients was increased to the max. players value. Now
+Doomseeker won't make that correction anymore and just pass both numbers
+to the games as-is. (#4038)
 - Q-Zandronum: adapt plugin to Q-Zandronum 1.3.
 - Zandronum, Q-Zandronum: rely on Doomseeker's internal mechanism to
 calculate the ping to the game server rather than using the port's

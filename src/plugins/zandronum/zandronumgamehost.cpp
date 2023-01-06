@@ -143,7 +143,7 @@ void ZandronumGameHost::addHostModeParams()
 
 	args() << "+sv_broadcast" << QString::number(static_cast<int>(params().isBroadcastToLan()));
 	args() << "+sv_updatemaster" << QString::number(static_cast<int>(params().isBroadcastToMaster()));
-	args() << "+sv_maxclients" << QString::number(params().maxTotalClientSlots());
+	args() << "+sv_maxclients" << QString::number(params().maxClients());
 	args() << "+sv_maxplayers" << QString::number(params().maxPlayers());
 
 	if (params().upnp())

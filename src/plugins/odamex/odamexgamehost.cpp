@@ -84,7 +84,7 @@ void OdamexGameHost::addHostModeParams()
 	args() << "+rcon_password" << "\"" + params().rconPassword() + "\"";
 	args() << "+sv_email" << "\"" + params().email() + "\"";
 	args() << "+sv_hostname" << "\"" + params().name() + "\"";
-	args() << "+sv_maxclients" << QString::number(params().maxTotalClientSlots());
+	args() << "+sv_maxclients" << QString::number(params().maxClients());
 	args() << "+sv_maxplayers" << QString::number(params().maxPlayers());
 	args() << "+sv_website" << "\"" + params().url() + "\"";
 
