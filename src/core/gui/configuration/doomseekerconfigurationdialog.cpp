@@ -42,8 +42,11 @@
 #include "plugins/pluginloader.h"
 #include "qtmetapointer.h"
 #include "updater/updatechannel.h"
+#include <QPointer>
 #include <QStandardItem>
 #include <QTreeView>
+
+QPointer<DoomseekerConfigurationDialog> DoomseekerConfigurationDialog::instance;
 
 DoomseekerConfigurationDialog::DoomseekerConfigurationDialog(QWidget *parent)
 	: ConfigurationDialog(parent)
@@ -135,19 +138,21 @@ void DoomseekerConfigurationDialog::initOptionsList()
 
 bool DoomseekerConfigurationDialog::isOpen()
 {
-	if (gApp->mainWindow() == nullptr)
-		return false;
-	for (QObject *obj : gApp->mainWindow()->children())
-	{
-		if (qobject_cast<DoomseekerConfigurationDialog *>(obj) != nullptr)
-			return true;
-	}
-	return false;
+	return instance != nullptr;
 }
 
 void DoomseekerConfigurationDialog::openConfiguration(QWidget *parent, const EnginePlugin *openPlugin)
 {
+	if (instance != nullptr)
+	{
+		instance->activateWindow();
+		if (openPlugin)
+			instance->showPluginConfiguration(openPlugin);
+		return;
+	}
+
 	DoomseekerConfigurationDialog configDialog(parent);
+	instance = &configDialog;
 
 	MainWindow *mainWindow = gApp->mainWindow();
 	if (mainWindow != nullptr)

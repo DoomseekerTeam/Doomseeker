@@ -208,7 +208,10 @@ void MissingWadsDialog::ignoreMissingFiles()
 
 void MissingWadsDialog::installFreedoom()
 {
-	QTimer::singleShot(0, gApp->mainWindow(), SLOT(showInstallFreedoomDialog()));
+	if (gApp->mainWindow() != nullptr)
+	{
+		QTimer::singleShot(0, gApp->mainWindow(), SLOT(showInstallFreedoomDialog()));
+	}
 	accept();
 }
 

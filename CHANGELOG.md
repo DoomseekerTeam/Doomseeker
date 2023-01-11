@@ -153,6 +153,11 @@ a minimal width.
 - The `true` values in the config sometimes interpreted as `false`, leading
 to Zandronum's testing builds disabling themselves if user canceled the first
 time configuration. (#4080)
+- Sometimes the main window of the program was expected to exist even though the
+opposite could be the case, in which case the program would try to use the
+absent main window anyway and crash. One such case was if the configuration box
+was opened from the Create Game box after the main window was closed. Fixed that
+by adding some guards that check if the main window is gone. (#4087)
 - Wadseeker hyperlink in the about dialog made accessible with keyboard. (#4071)
 - Wadseeker: custom (server-provided) template URLs with the %WADNAME%
 placeholder wouldn't get the higher priority status that the plain

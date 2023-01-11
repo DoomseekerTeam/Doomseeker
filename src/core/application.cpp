@@ -23,6 +23,7 @@
 #include "application.h"
 
 #include "gui/mainwindow.h"
+#include <QPointer>
 #include <cassert>
 
 const QString Application::NAME = "doomseeker";
@@ -30,7 +31,7 @@ const QString Application::NAME = "doomseeker";
 DClass<Application>
 {
 public:
-	MainWindow *mainWindow;
+	QPointer<MainWindow> mainWindow;
 	bool running;
 	QStringList originalArgs;
 };
@@ -105,12 +106,12 @@ bool Application::isRunning() const
 
 MainWindow *Application::mainWindow() const
 {
-	return d->mainWindow;
+	return d->mainWindow.data();
 }
 
 QWidget *Application::mainWindowAsQWidget() const
 {
-	return d->mainWindow;
+	return d->mainWindow.data();
 }
 
 void Application::setMainWindow(MainWindow *mainWindow)

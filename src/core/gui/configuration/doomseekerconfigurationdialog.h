@@ -27,13 +27,11 @@
 
 class EnginePlugin;
 
-class DoomseekerConfigurationDialog : public ConfigurationDialog
+class DoomseekerConfigurationDialog final : public ConfigurationDialog
 {
 	Q_OBJECT
 
 public:
-	DoomseekerConfigurationDialog(QWidget *parent = nullptr);
-
 	QStandardItem *addConfigPage(QStandardItem *rootItem, ConfigPage *configPage, int position = -1) override;
 	bool addEngineConfiguration(ConfigPage *configPage);
 	bool customServersChanged() const
@@ -58,11 +56,15 @@ signals:
 	void appearanceChanged();
 
 private:
+	static QPointer<DoomseekerConfigurationDialog> instance;
+
 	bool bAppearanceChanged;
 	bool bRestartNeeded;
 	bool bCustomServersChanged;
 	ConfigPage *customServersCfgBox;
 	QStandardItem *enginesRoot;
+
+	DoomseekerConfigurationDialog(QWidget *parent = nullptr);
 
 	void appendFilePathsConfigurationBoxes();
 	void appendWadseekerConfigurationBoxes();

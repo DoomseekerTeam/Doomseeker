@@ -50,6 +50,8 @@ void GameConfigErrorBox::show(EnginePlugin *game, const QString &title,
 	msgBox.exec();
 	if (btnConfigure != nullptr && msgBox.clickedButton() == btnConfigure)
 	{
-		DoomseekerConfigurationDialog::openConfiguration(gApp->mainWindow(), game);
+		DoomseekerConfigurationDialog::openConfiguration(
+			parent != nullptr ? parent : gApp->mainWindow(),
+			game);
 	}
 }
