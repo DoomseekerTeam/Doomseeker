@@ -90,10 +90,10 @@ and the email links are clickable with the `mailto:` prefix. (#4069, #4070)
     - "Delete" text changed to "Remove" for consistency.
     - The program arguments help box's title will now include the name
       of the program. Also add the terminal icon to its main menu action.
-    - The labeled "extra settings" in the create game box will end with
+    - The labeled "extra settings" in the Create Game box will end with
       colons (#4074).
 - The "Clear" button in the server filter renamed to "Reset filter". (#4078)
-- The additional files picker in the create game box reorganized to reclaim
+- The additional files picker in the Create Game box reorganized to reclaim
 some vertical space and make it more clear that the buttons next to it
 belong to it. (#4072)
 - Hide the passwords by default!
@@ -136,9 +136,9 @@ table when the keyboard menu key is pressed. (#3671)
 - Fix the layouting issues with progress bars in Wadseeker's dialog box. (#3707)
 - When Doomseeker opened a config box for a specific plugin, it failed
 to show the config page for that plugin, showing a blank page instead. (#4019)
-- Create game box: display a proper error message if the game executable
+- Create Game box: display a proper error message if the game executable
 path is empty. (#3839)
-- Create game box, server page: fix the spacing of the form when various
+- Create Game box, server page: fix the spacing of the form when various
 inputs are hidden.
 - Fix imprecise issue tracker hyperlinks in the documentation. (#4063)
 - Pass all the original command line arguments from the auto-updater
