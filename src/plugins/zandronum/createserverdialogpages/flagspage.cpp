@@ -156,7 +156,7 @@ void FlagsPage::fillInGameCreateParams(GameCreateParams &gameCreateParams)
 	flags << std::make_pair("dmflags2", leDmflags2->text());
 	flags << std::make_pair("zadmflags", leZandronumDmflags->text());
 	flags << std::make_pair("compatflags", leCompatflags->text());
-	if (leCompatflags2->isEnabled() && leCompatflags2->isVisible())
+	if (gameVersion() == ZandronumGameInfo::GV_Zandronum3)
 		flags << std::make_pair("compatflags2", leCompatflags2->text());
 	flags << std::make_pair("zacompatflags", leZandronumCompatflags->text());
 	flags << std::make_pair("lmsallowedweapons", leLMSAllowedWeapons->text());

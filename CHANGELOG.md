@@ -169,6 +169,8 @@ challenge reply would appear as errored because the plugins failed to
 parse the subsequent MD5 checksum hashes for these PWADs. The plugins
 will now sanitize such empty PWADs so that such servers can appear
 correctly on the list. (#3624)
+- Zandronum, Q-Zandronum: `+compatflags2` not set from the Create Game
+box if the (Q-)Zandronum tab was not selected. (#4088)
 - Zandronum: fix a failure to parse the version of the game for the
 servers, which resulted in the dmflags being displayed incorrectly
 in the server details and the game's beta builds from being
