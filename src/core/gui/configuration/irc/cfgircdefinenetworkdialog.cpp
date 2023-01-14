@@ -24,6 +24,7 @@
 #include "ui_cfgircdefinenetworkdialog.h"
 
 #include "configuration/passwordscfg.h"
+#include "gui/commongui.h"
 #include "irc/chatnetworknamer.h"
 #include "irc/configuration/chatnetworkscfg.h"
 #include "irc/entities/ircnetworkentity.h"
@@ -101,6 +102,7 @@ QStringList CFGIRCDefineNetworkDialog::autojoinCommands() const
 void CFGIRCDefineNetworkDialog::construct()
 {
 	d->setupUi(this);
+	CommonGUI::setupDialog(*this);
 
 	PasswordsCfg passCfg;
 	setHideNickservPassword(passCfg.isHidingPasswords());
