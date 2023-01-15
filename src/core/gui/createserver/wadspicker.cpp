@@ -47,12 +47,7 @@ WadsPicker::WadsPicker(QWidget *parent)
 	d->lstAdditionalFiles->setModel(new QStandardItemModel(this));
 	d->lstAdditionalFiles->installEventFilter(this);
 
-	d->btnBrowsePwad->setStyleSheet("Text-align:left");
 	d->btnBrowsePwad->setIcon(style()->standardIcon(QStyle::SP_DirOpenIcon));
-	d->btnAddPwad->setStyleSheet("Text-align:left");
-	d->btnRemovePwad->setStyleSheet("Text-align:left");
-
-	d->btnClearPwadList->setStyleSheet("Text-align:left");
 	d->btnClearPwadList->setIcon(Icons::clear());
 }
 
