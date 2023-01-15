@@ -3066,21 +3066,21 @@ es un directorio o no existe.</translation>
     </message>
     <message>
         <location filename="../serverapi/exefile.cpp" line="79"/>
-        <source>The %1 file is not set for %2.</source>
-        <translation>El archivo %1 para %2 no está especificado.</translation>
+        <source>The %1 executable is not set for %2.</source>
+        <translation>El ejecutable %1 para %2 no está especificado.</translation>
     </message>
     <message>
         <location filename="../serverapi/exefile.cpp" line="87"/>
-        <source>The %1 file for %2 doesn&apos;t exist:
+        <source>The %1 executable for %2 doesn&apos;t exist:
 %3</source>
-        <translation>El archivo %1 para %2 no existe:
+        <translation>El ejecutable %1 para %2 no existe:
 %3</translation>
     </message>
     <message>
         <location filename="../serverapi/exefile.cpp" line="97"/>
-        <source>The path to %1 file for %2 is a directory:
+        <source>The path to %1 executable for %2 is a directory:
 %3</source>
-        <translation>La ruta a %1 para %2 es un directorio:
+        <translation>La ruta al ejecutable %1 para %2 es un directorio:
 %3</translation>
     </message>
 </context>

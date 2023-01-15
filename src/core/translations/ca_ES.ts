@@ -2909,21 +2909,21 @@ is a directory or doesn&apos;t exist.</source>
     </message>
     <message>
         <location filename="../serverapi/exefile.cpp" line="79"/>
-        <source>The %1 file is not set for %2.</source>
-        <translation>El fitxer %1 per a %2 no està especificat.</translation>
+        <source>The %1 executable is not set for %2.</source>
+        <translation>El programa %1 per a %2 no està especificat.</translation>
     </message>
     <message>
         <location filename="../serverapi/exefile.cpp" line="87"/>
-        <source>The %1 file for %2 doesn&apos;t exist:
+        <source>The %1 executable for %2 doesn&apos;t exist:
 %3</source>
-        <translation>El fitxer %1 per a %2 no existeix:
+        <translation>El programa %1 per a %2 no existeix:
 %3</translation>
     </message>
     <message>
         <location filename="../serverapi/exefile.cpp" line="97"/>
-        <source>The path to %1 file for %2 is a directory:
+        <source>The path to %1 executable for %2 is a directory:
 %3</source>
-        <translation>La ruta a %1 per a %2 és un directori:
+        <translation>La ruta al programa %1 per a %2 és un directori:
 %3</translation>
     </message>
 </context>

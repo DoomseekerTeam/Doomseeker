@@ -2688,21 +2688,21 @@ jest katalogiem lub nie istnieje.</translation>
     </message>
     <message>
         <location filename="../serverapi/exefile.cpp" line="79"/>
-        <source>The %1 file is not set for %2.</source>
-        <translation>Plik typu %1 nie został skonfigurowany dla %2.</translation>
+        <source>The %1 executable is not set for %2.</source>
+        <translation>Plik wykonywalny typu %1 nie został skonfigurowany dla %2.</translation>
     </message>
     <message>
         <location filename="../serverapi/exefile.cpp" line="87"/>
-        <source>The %1 file for %2 doesn&apos;t exist:
+        <source>The %1 executable for %2 doesn&apos;t exist:
 %3</source>
-        <translation>Plik typu %1 dla %2 nie istnieje:
+        <translation>Plik wykonywalny typu %1 dla %2 nie istnieje:
 %3</translation>
     </message>
     <message>
         <location filename="../serverapi/exefile.cpp" line="97"/>
-        <source>The path to %1 file for %2 is a directory:
+        <source>The path to %1 executable for %2 is a directory:
 %3</source>
-        <translation>Ścieżka do pliku typu %1 dla %2 prowadzi do katalogu:
+        <translation>Ścieżka do pliku wykonywalnego typu %1 dla %2 prowadzi do katalogu:
 %3</translation>
     </message>
 </context>
