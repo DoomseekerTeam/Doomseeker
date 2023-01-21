@@ -8,7 +8,7 @@ This file follows the format of
 and this project does not adhere to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [unreleased]
+## [1.4] - 2023-01-21
 ### Added
 - Upgrade the IpToCountry.dat file format to version 3. The license text
 with translations and the database's homepage URL are now embedded into
@@ -788,6 +788,7 @@ without any warranty.
 
 
 [unreleased]: https://bitbucket.org/Doomseeker/doomseeker/commits/all
+[1.4]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.4
 [1.3.3]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.3.3
 [1.3.2]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.3.2
 [1.3.1]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.3.1
