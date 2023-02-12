@@ -8,6 +8,10 @@ This file follows the format of
 and this project does not adhere to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+### Changed
+- Wadseeker: allfearthesentinel is now a .com domain, not a .net. (#4099)
+
 ## [1.4] - 2023-01-21
 ### Added
 - Upgrade the IpToCountry.dat file format to version 3. The license text

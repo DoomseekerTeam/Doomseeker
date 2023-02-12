@@ -40,7 +40,7 @@
 const QString Wadseeker::defaultSites[] =
 {
 	QString("https://doom.dogsoft.net/getwad.php?search=%WADNAME%"),
-	QString("https://static.allfearthesentinel.net/wads/"),
+	QString("https://static.allfearthesentinel.com/wads/"),
 	// 2022-11-06 - doomshack.org re-added after contacting doomkid on
 	// Doomworld via PM
 	QString("https://doomshack.org/wadlist.php"),
