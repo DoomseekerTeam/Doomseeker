@@ -9,6 +9,9 @@ and this project does not adhere to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [unreleased]
+### Added
+- Tooltips to the buttons in the file paths config page.
+
 ### Changed
 - Wadseeker: allfearthesentinel is now a .com domain, not a .net. (#4099)
 
