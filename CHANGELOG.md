@@ -14,6 +14,8 @@ and this project does not adhere to
 
 ### Changed
 - Wadseeker: allfearthesentinel is now a .com domain, not a .net. (#4099)
+- Zandronum: correct the appearance of the testing binary download
+progress dialog - fix the title and remove the `?` button.
 
 ## [1.4] - 2023-01-21
 ### Added

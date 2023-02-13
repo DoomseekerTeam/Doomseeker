@@ -466,6 +466,8 @@ TestingProgressDialog::TestingProgressDialog(const QUrl &url, QWidget *parent)
 	setAutoClose(false);
 	setAutoReset(false);
 	setMinimumDuration(0);
+	setWindowFlags(windowFlags() & (~Qt::WindowContextHelpButtonHint));
+	setWindowTitle(tr("Doomseeker"));
 }
 
 void TestingProgressDialog::abort()
