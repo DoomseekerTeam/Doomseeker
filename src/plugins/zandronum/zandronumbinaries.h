@@ -56,17 +56,15 @@ public:
 protected:
 	bool downloadTestingBinaries(const QDir &destination, QWidget *parent);
 	/**
-	 * Creates Unix .sh file or Windows .bat file to
-	 * launch client for parent server. Returns true if the file
+	 * Creates a Unix .sh or Windows .bat file to launch the
+	 * client for the parent server. Returns true if the file
 	 * already exists.
-	 * @param versionDir - convenience parameter. This is the directory
-	 *     where testing package was unpacked. This path was
-	 *     already created in clientBinary() method so let's reuse it.
-	 * @param [out] fullPathToFile - path to created script file
+	 * @param versionDir - the directory where the testing package was unpacked
+	 * @param [out] launcherPath - path to the created launcher script
 	 * @param [out] error - error if return == false
 	 * @return false if fail
 	 */
-	bool spawnTestingBatchFile(const QString &versionDir, QString &fullPathToFile, Message &message);
+	bool spawnTestingBatchFile(const QString &versionDir, QString &launcherPath, Message &message);
 
 private:
 	class PrivData;

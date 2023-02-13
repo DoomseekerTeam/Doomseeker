@@ -17,6 +17,13 @@ and this project does not adhere to
 - Zandronum: correct the appearance of the testing binary download
 progress dialog - fix the title and remove the `?` button.
 
+### Fixed
+- Zandronum: the changes in 1.4.0 to the portable paths have broken the
+generation of the launcher scripts for the testing binaries. Fix that. (#4101)
+- Zandronum/Linux: the testing binaries come bundled with dynamic
+libraries. `LD_LIBRARY_PATH` needs to be set to the testing binary
+directory or else those libs won't be found.
+
 ## [1.4] - 2023-01-21
 ### Added
 - Upgrade the IpToCountry.dat file format to version 3. The license text

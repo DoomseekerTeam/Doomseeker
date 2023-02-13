@@ -260,7 +260,7 @@ QString ZandronumClientExeFile::testingVersion() const
 QString ZandronumClientExeFile::testingVersionInstallPath() const
 {
 	IniSection &config = *ZandronumEnginePlugin::staticInstance()->data()->pConfig;
-	QString path =  config["TestingPath"];
+	QString path = config["TestingPath"];
 	return Strings::combinePaths(path, testingVersion());
 }
 
@@ -363,17 +363,16 @@ QString ZandronumClientExeFile::scriptFileExtension()
 	return SCRIPT_FILE_EXTENSION;
 }
 
-bool ZandronumClientExeFile::spawnTestingBatchFile(const QString &versionDir, QString &fullPathToFile, Message &message)
+bool ZandronumClientExeFile::spawnTestingBatchFile(const QString &versionDir, QString &launcherPath, Message &message)
 {
-	QString binaryPath = versionDir + '/' + ZANDRONUM_BINARY_NAME;
 	// This will create an actual path to file, because there is no '/' at the end
 	// of scriptFilepath.
-	fullPathToFile = versionDir + SCRIPT_FILE_EXTENSION;
-	QFileInfo fi(fullPathToFile);
-	QFile file(fullPathToFile);
+	launcherPath = versionDir + SCRIPT_FILE_EXTENSION;
+	QFileInfo fi(launcherPath);
+	QFile file(launcherPath);
 	if (fi.isDir())
 	{
-		QString error = tr("%1\n should be a script file but is a directory!").arg(fullPathToFile);
+		QString error = tr("%1\n should be a script file but is a directory!").arg(launcherPath);
 		message = Message::customError(error);
 		return false;
 	}
@@ -382,61 +381,55 @@ bool ZandronumClientExeFile::spawnTestingBatchFile(const QString &versionDir, QS
 	{
 		if ((file.permissions() & QFile::ExeUser) == 0)
 		{
-			QString error = tr("You don't have permissions to execute file: %1\n").arg(fullPathToFile);
+			QString error = tr("You don't have permissions to execute file: %1\n").arg(launcherPath);
 			message = Message::customError(error);
 			return false;
 		}
 		return true;
 	}
 
+	const QDir scriptDir = fi.path();
+
 	QString content;
 	#ifdef Q_OS_WIN32
-	// Create Windows batch file
-	// Extract drive letter:
-	QString driveLetter;
-	QString workDir = workingDirectory(message);
-	for (int i = 0; i < workDir.length(); ++i)
-	{
-		if (workDir[i] == ':')
-		{
-			driveLetter = workDir.left(i);
-		}
-	}
+	// Create a Windows batch file
+	const QDir mainGameDir = workingDirectory(message);
+	const QString scriptWorkingDirPath = scriptDir.relativeFilePath(mainGameDir.absolutePath());
+	const QString scriptExePath = mainGameDir.relativeFilePath(
+		QFileInfo(versionDir + '/' + ZANDRONUM_BINARY_NAME).absoluteFilePath());
 
-	if (!driveLetter.isEmpty())
-	{
-		content += driveLetter + ":\r\n";
-	}
-
-	QString cdDir = workingDirectory(message).replace('/', '\\');
-	QString exePath = binaryPath.replace('/', '\\');
-
-	content += "cd \"" + cdDir + "\"\r\n";
-	content += "\"" + exePath + "\" %*"; // %* deals with all the parameters
+	content += "cd /D %~dp0\r\n";
+	content += "cd /D \"" + QDir::toNativeSeparators(scriptWorkingDirPath) + "\"\r\n";
+	// %* deals with all the parameters
+	content += "\"" + QDir::toNativeSeparators(scriptExePath) + "\" %*\r\n";
 	#else
-	QString cdDir = workingDirectory(message);
+	// Create a Unix script file
+	const QString scriptWorkingDirPath = scriptDir.relativeFilePath(QFileInfo(versionDir).absoluteFilePath());
 
-	// Create Unix script file
-	content  = "#!/bin/sh\n";
-	content += "cd \"" + cdDir + "\" \n";
+	content  = "#!/bin/sh -e\n";
+	content += "cd \"$(dirname \"$0\")\"\n";
+	content += "cd \"" + QDir::toNativeSeparators(scriptWorkingDirPath) + "\"\n";
 	content += "export LANG=C\n";
+	content += "export LD_LIBRARY_PATH=.:$LD_LIBRARY_PATH\n";
+
+	content += QString("\"./") + ZANDRONUM_BINARY_NAME;
 	#ifdef Q_OS_DARWIN
-	content += "\"" + binaryPath + ZANDRONUM_APP_BUNDLE_BIN "\" \"$@\"\n";
-	#else
-	content += "\"" + binaryPath + "\" \"$@\"\n"; // "$@" deals with all the parameters
+	content += ZANDRONUM_APP_BUNDLE_BIN;
 	#endif
+	// "$@" deals with all the parameters
+	content += "\" \"$@\"\n";
 	#endif
 
 	if (!file.open(QIODevice::WriteOnly))
 	{
-		QString error = tr("Couldn't open batch file \"%1\" for writing").arg(fullPathToFile);
+		QString error = tr("Couldn't open batch file \"%1\" for writing").arg(launcherPath);
 		message = Message::customError(error);
 		return false;
 	}
 
 	if (file.write(content.toUtf8()) < 0)
 	{
-		QString error = tr("Error while writing batch file \"%1\"").arg(fullPathToFile);
+		QString error = tr("Error while writing batch file \"%1\"").arg(launcherPath);
 		message = Message::customError(error);
 		file.close();
 		return false;
@@ -446,7 +439,7 @@ bool ZandronumClientExeFile::spawnTestingBatchFile(const QString &versionDir, QS
 
 	if (!file.setPermissions(file.permissions() | QFile::ExeUser))
 	{
-		QString error = tr("Cannot set permissions for file:\n%1").arg(fullPathToFile);
+		QString error = tr("Cannot set permissions for file:\n%1").arg(launcherPath);
 		message = Message::customError(error);
 		return false;
 	}
