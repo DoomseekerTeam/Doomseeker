@@ -18,6 +18,8 @@ and this project does not adhere to
 progress dialog - fix the title and remove the `?` button.
 
 ### Fixed
+- Updater: fix failure to update in `--portable` mode by passing the absolute
+paths to the updater.exe. (#4105)
 - Zandronum: the changes in 1.4.0 to the portable paths have broken the
 generation of the launcher scripts for the testing binaries. Fix that. (#4101)
 - Zandronum/Linux: the testing binaries come bundled with dynamic
