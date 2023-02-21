@@ -44,9 +44,7 @@ on run
 			make new alias file to POSIX file "/Applications" at "image" with properties {name:"Applications"}
 
 			set position of item "Doomseeker.app" to {75, 150}
-			set label index of item "Doomseeker.app" to 7
 			set position of item "Applications" to {425, 150}
-			set label index of item "Applications" to 7
 			close
 		end tell
 	end tell

@@ -37,7 +37,6 @@ osascript makemacdmg.applescript
 hdiutil detach ./image
 hdiutil convert $IMAGENAME -format UDBZ -o tmp$IMAGENAME
 mv {tmp,}$IMAGENAME
-hdiutil internet-enable -yes $IMAGENAME
 
 rm -r image
 
