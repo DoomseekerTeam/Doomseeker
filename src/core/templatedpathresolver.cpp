@@ -66,11 +66,11 @@ QString TemplatedPathResolver::resolve(const QString &templatedPath) const
 	if (d->userHomeEnabled && resolved.startsWith("~"))
 	{
 #ifdef Q_OS_WIN
-		const QRegExp separatorRegex(R"([/\\])");
+		const QRegularExpression separatorRegex(R"([/\\])");
 #else
-		const QRegExp separatorRegex("/");
+		const QRegularExpression separatorRegex("/");
 #endif
-		int separatorIdx = separatorRegex.indexIn(resolved);
+		int separatorIdx = resolved.indexOf(separatorRegex);
 
 		QString username = resolved.mid(1, separatorIdx - 1);
 		QString home;
@@ -100,14 +100,15 @@ QString TemplatedPathResolver::resolve(const QString &templatedPath) const
 	}
 
 	// Match arbitrary env. vars.
-	QRegExp envVarRegex("\\$([a-zA-Z_][a-zA-Z0-9_]*)");
+	QRegularExpression envVarRegex("\\$([a-zA-Z_][a-zA-Z0-9_]*)");
 	int offset = 0;
 	while (d->progdirEnabled || d->envVarsEnabled)
 	{
-		int varIdx = envVarRegex.indexIn(resolved, offset);
+		QRegularExpressionMatch match;
+		int varIdx = resolved.indexOf(envVarRegex, offset, &match);
 		if (varIdx < 0)
 			break;
-		QString name = envVarRegex.cap(1);
+		QString name = match.captured(1);
 		QString varValue = "";
 
 		// $PROGDIR is a special placeholder that always resolves to the directory
@@ -124,7 +125,7 @@ QString TemplatedPathResolver::resolve(const QString &templatedPath) const
 		{
 			varValue = QString("$%1").arg(name);
 		}
-		resolved = resolved.left(varIdx) + varValue + resolved.mid(varIdx + envVarRegex.matchedLength());
+		resolved = resolved.left(varIdx) + varValue + resolved.mid(varIdx + match.capturedLength());
 		offset = varIdx + varValue.length();
 	}
 	return resolved;

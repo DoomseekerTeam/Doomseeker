@@ -24,6 +24,8 @@
 
 #include "ip2ccountry.h"
 
+#include <QHash>
+
 const QStringList &countryCodes()
 {
 	static QStringList codes;

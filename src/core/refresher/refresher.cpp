@@ -38,6 +38,9 @@
 #include <QMutex>
 #include <QMutexLocker>
 #include <QPointer>
+#if QT_VERSION >= 0x060000
+#include <QRandomGenerator>
+#endif
 #include <QRunnable>
 #include <QSet>
 #include <QThread>
@@ -94,6 +97,11 @@ public:
 	{
 		while (!unchallengedServers.isEmpty())
 		{
+			// Temporary fix #4083 to keep Qt 6 compiling
+			#if QT_VERSION >= 0x060000
+			#define qrand() QRandomGenerator::global()->generate()
+			#endif
+
 			// Take a random server so that they aren't favored by the order
 			// in which they were presented by the plugin.
 			quint32 index = static_cast<quint32>(qrand()) % unchallengedServers.size();
