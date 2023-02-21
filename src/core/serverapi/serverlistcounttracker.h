@@ -26,6 +26,8 @@
 #include "dptr.h"
 #include "serverapi/serverptr.h"
 
+#include <QObject>
+
 class EnginePlugin;
 
 struct ServerListCount

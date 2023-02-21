@@ -24,6 +24,7 @@
 #define id86d749c6_00f5_4612_ade3_caf9613c33dd
 
 #include "serverapi/serverptr.h"
+#include <QObject>
 #include <QString>
 
 class PWad;
