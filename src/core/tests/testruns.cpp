@@ -21,6 +21,7 @@
 // Copyright (C) 2010 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
 #include "testruns.h"
+#include "tests/testfilesearchpath.h"
 #include "tests/testini.h"
 #include "tests/testircisupportparser.h"
 #include "tests/testmodreader.h"
@@ -43,6 +44,10 @@ void TestRuns::callTests()
 
 	pTestCore->executeTest(new TestIRCISupportPrefix());
 	pTestCore->executeTest(new TestIRCISupportNoPrefix());
+
+	// FileSearchPath
+	pTestCore->executeTest(new TestFileSearchPathContains);
+	pTestCore->executeTest(new TestFileSearchPathMerge);
 
 	// Templated Path Resolver
 	pTestCore->executeTest(new TestTemplatedPathResolver());

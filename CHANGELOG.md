@@ -18,6 +18,7 @@ and this project does not adhere to
 progress dialog - fix the title and remove the `?` button.
 
 ### Fixed
+- A file search path sibling to a recursive path would be ignored. (#4106)
 - Updater: fix failure to update in `--portable` mode by passing the absolute
 paths to the updater.exe. (#4105)
 - Zandronum: the changes in 1.4.0 to the portable paths have broken the

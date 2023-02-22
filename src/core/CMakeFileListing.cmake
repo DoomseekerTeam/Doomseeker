@@ -284,6 +284,7 @@ set(HEADER_FILES
 	templatedpathresolver.h
 	tests/testbase.h
 	tests/testcore.h
+	tests/testfilesearchpath.h
 	tests/testini.h
 	tests/testircisupportparser.h
 	tests/testmodreader.h
@@ -518,6 +519,7 @@ set(SOURCE_FILES
 	templatedpathresolver.cpp
 	tests/testbase.cpp
 	tests/testcore.cpp
+	tests/testfilesearchpath.cpp
 	tests/testini.cpp
 	tests/testircisupportparser.cpp
 	tests/testmodreader.cpp
