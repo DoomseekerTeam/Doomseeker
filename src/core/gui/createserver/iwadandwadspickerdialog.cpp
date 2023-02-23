@@ -74,7 +74,12 @@ void IwadAndWadsPickerDialog::browseExecutable()
 
 QStringList IwadAndWadsPickerDialog::filePaths() const
 {
-	return d->wadsPicker->filePaths();
+	QStringList paths;
+	for (const PickedGameFile &file : d->wadsPicker->files())
+	{
+		paths << file.path;
+	}
+	return paths;
 }
 
 QString IwadAndWadsPickerDialog::iwadPath() const

@@ -941,8 +941,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/configuration/cfgfilepaths.ui" line="99"/>
-        <source>Add</source>
-        <translation>Afegir</translation>
+        <source>Add empty</source>
+        <translation>Afegir vuit</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgfilepaths.ui" line="110"/>
@@ -7929,8 +7929,8 @@ Humans + Bots) / Servidors actualitzats%</translation>
     </message>
     <message>
         <location filename="../gui/createserver/wadspicker.ui" line="69"/>
-        <source>Add</source>
-        <translation>Afegir</translation>
+        <source>Add empty</source>
+        <translation>Afegir vuit</translation>
     </message>
     <message>
         <location filename="../gui/createserver/wadspicker.ui" line="86"/>

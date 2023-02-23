@@ -89,7 +89,11 @@ GeneralGameSetupPanel::~GeneralGameSetupPanel()
 QStringList GeneralGameSetupPanel::getAllWadPaths() const
 {
 	QStringList paths;
-	paths << d->iwadPicker->currentIwad() << d->wadsPicker->filePaths();
+	paths << d->iwadPicker->currentIwad();
+	for (const PickedGameFile &file : d->wadsPicker->files())
+	{
+		paths << file.path;
+	}
 	return paths;
 }
 
@@ -98,8 +102,15 @@ void GeneralGameSetupPanel::fillInParams(GameCreateParams &params)
 	params.setExecutablePath(gDoomseekerTemplatedPathResolver().resolve(pathToExe()));
 	params.setIwadPath(gDoomseekerTemplatedPathResolver().resolve(d->iwadPicker->currentIwad()));
 	params.setLoggingPath(gDoomseekerTemplatedPathResolver().resolve(d->logDirectoryPicker->validatedCurrentPath()));
-	params.setPwadsPaths(gDoomseekerTemplatedPathResolver().resolve(d->wadsPicker->filePaths()));
-	params.setPwadsOptional(d->wadsPicker->fileOptional());
+	QStringList filePaths;
+	QList<bool> optionalFiles;
+	for (const PickedGameFile &file : d->wadsPicker->files())
+	{
+		filePaths << file.path;
+		optionalFiles << file.optional;
+	}
+	params.setPwadsPaths(gDoomseekerTemplatedPathResolver().resolve(filePaths));
+	params.setPwadsOptional(optionalFiles);
 	params.setBroadcastToLan(d->cbBroadcastToLAN->isChecked());
 	params.setBroadcastToMaster(d->cbBroadcastToMaster->isChecked());
 	params.setMap(d->leMap->text());
@@ -172,12 +183,20 @@ void GeneralGameSetupPanel::loadConfig(Ini &config, bool loadingPrevious)
 	d->logDirectoryPicker->setLoggingEnabled(general["logEnabled"]);
 	d->logDirectoryPicker->setPathAndUpdate(general["logDir"]);
 
-	QList<bool> optionalWads;
-	for (QString value : general["pwadsOptional"].valueString().split(";"))
+	QList<PickedGameFile> files;
+	QStringList filesPaths = general["pwads"].valueString().split(";");
+	QList<QString> optionalFilesTokens = general["pwadsOptional"].valueString().split(";");
+	for (int i = 0; i < filesPaths.length(); ++i)
 	{
-		optionalWads << (value != "0");
+		PickedGameFile file;
+		file.path = filesPaths[i];
+		if (i < optionalFilesTokens.length())
+		{
+			file.optional = (optionalFilesTokens[i] != "0");
+		}
+		files << file;
 	}
-	d->wadsPicker->setFilePaths(general["pwads"].valueString().split(";"), optionalWads);
+	d->wadsPicker->setFiles(files);
 
 	d->cbBroadcastToLAN->setChecked(general["broadcastToLAN"]);
 	d->cbBroadcastToMaster->setChecked(general["broadcastToMaster"]);
@@ -204,14 +223,16 @@ void GeneralGameSetupPanel::saveConfig(Ini &config)
 	general["difficulty"] = d->cboDifficulty->itemData(d->cboDifficulty->currentIndex()).toInt();
 	general["iwad"] = d->iwadPicker->currentIwad();
 
-	general["pwads"] = d->wadsPicker->filePaths().join(";");
-	QList<bool> optionalWads = d->wadsPicker->fileOptional();
-	QStringList optionalList;
-	for (bool optional : optionalWads)
+	QList<PickedGameFile> files = d->wadsPicker->files();
+	QStringList filePaths;
+	QStringList optionalFiles;
+	for (const auto &file : files)
 	{
-		optionalList << (optional ? "1" : "0");
+		filePaths << file.path;
+		optionalFiles << (file.optional ? "1" : "0");
 	}
-	general["pwadsOptional"] = optionalList.join(";");
+	general["pwads"] = filePaths.join(";");
+	general["pwadsOptional"] = optionalFiles.join(";");
 
 	general["broadcastToLAN"] = d->cbBroadcastToLAN->isChecked();
 	general["broadcastToMaster"] = d->cbBroadcastToMaster->isChecked();

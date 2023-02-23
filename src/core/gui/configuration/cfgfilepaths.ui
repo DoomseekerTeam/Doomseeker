@@ -102,7 +102,7 @@
         <string>Add an empty path to the list.</string>
        </property>
        <property name="text">
-        <string>Add</string>
+        <string>Add empty</string>
        </property>
        <property name="icon">
         <iconset resource="../../../../media/resources.qrc">

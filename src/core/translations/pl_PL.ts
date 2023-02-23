@@ -864,8 +864,8 @@ https://dev.maxmind.com/geoip/geoip2/geolite2/</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgfilepaths.ui" line="99"/>
-        <source>Add</source>
-        <translation>Dodaj</translation>
+        <source>Add empty</source>
+        <translation>Dodaj pustą</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgfilepaths.ui" line="110"/>
@@ -7616,8 +7616,8 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
     </message>
     <message>
         <location filename="../gui/createserver/wadspicker.ui" line="69"/>
-        <source>Add</source>
-        <translation>Dodaj</translation>
+        <source>Add empty</source>
+        <translation>Dodaj pustą</translation>
     </message>
     <message>
         <source>Browse for a file</source>

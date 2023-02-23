@@ -1002,8 +1002,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/configuration/cfgfilepaths.ui" line="99"/>
-        <source>Add</source>
-        <translation>Añadir</translation>
+        <source>Add empty</source>
+        <translation>Añadir vacío</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgfilepaths.ui" line="110"/>
@@ -8171,8 +8171,8 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
     </message>
     <message>
         <location filename="../gui/createserver/wadspicker.ui" line="69"/>
-        <source>Add</source>
-        <translation>Añadir</translation>
+        <source>Add empty</source>
+        <translation>Añadir vacío</translation>
     </message>
     <message>
         <location filename="../gui/createserver/wadspicker.ui" line="86"/>
