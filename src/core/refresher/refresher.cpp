@@ -258,12 +258,6 @@ void Refresher::masterFinishedRefreshing()
 	emit finishedQueryingMaster(pMaster);
 }
 
-void Refresher::purgeNullServers()
-{
-	d->refreshingServers.removeAll(ServerRefreshTime(nullptr));
-	d->unchallengedServers.removeAll(nullptr);
-}
-
 void Refresher::quit()
 {
 	d->bKeepRunning = false;
@@ -295,7 +289,6 @@ void Refresher::registerMaster(MasterClient *pMaster)
 bool Refresher::registerServer(Server *server)
 {
 	bool hadAnyServers = d->hasAnyServers();
-	purgeNullServers();
 	if (!d->isServerRegistered(server))
 	{
 		CanRefreshServer refreshChecker(server);
@@ -366,7 +359,6 @@ void Refresher::sendServerQueries()
 		return;
 	}
 
-	purgeNullServers();
 	if (d->hasAnyServers())
 	{
 		startNewServerRefresh();
@@ -412,23 +404,29 @@ void Refresher::startNewServerRefresh()
 
 void Refresher::resendCurrentServerRefreshesIfTimeout()
 {
-	for (int i = 0; i < d->refreshingServers.size(); ++i)
+	for (auto it = d->refreshingServers.begin(); it != d->refreshingServers.end();)
 	{
-		ServerRefreshTime &refreshOp = d->refreshingServers[i];
+		ServerRefreshTime &refreshOp = *it;
+		QPointer<Server> server = refreshOp.server;
+		if (server.isNull())
+		{
+			it = d->refreshingServers.erase(it);
+			continue;
+		}
+
 		if (refreshOp.time.elapsed() > d->delayBetweenResends)
 		{
-			if (refreshOp.server->sendRefreshQuery(d->socket(refreshOp.server)))
+			if (server->sendRefreshQuery(d->socket(server)))
 			{
 				refreshOp.time.start();
 			}
 			else
 			{
-				d->refreshingServers.removeOne(refreshOp);
-				// The collection on which we iterate just got shortened
-				// so let's back up by one step.
-				--i;
+				it = d->refreshingServers.erase(it);
+				continue;
 			}
 		}
+		++it;
 	}
 }
 

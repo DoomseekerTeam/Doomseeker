@@ -87,7 +87,6 @@ void MasterManager::masterListUpdated()
 		registerNewServer(pServer);
 	}
 
-	emit listUpdatedForMaster(master);
 	mastersBeingRefreshed.remove(master);
 	if (mastersBeingRefreshed.isEmpty())
 	{

@@ -110,8 +110,6 @@ private:
 	bool isAnythingToRefresh() const;
 	Server *findRefreshingServer(const QHostAddress &address, unsigned short port);
 
-	void purgeNullServers();
-
 	void readPendingDatagram();
 
 	void startNewServerRefresh();
