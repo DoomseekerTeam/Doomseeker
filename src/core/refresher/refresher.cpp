@@ -244,18 +244,15 @@ bool Refresher::isAnythingToRefresh() const
 void Refresher::masterFinishedRefreshing()
 {
 	auto pMaster = static_cast<MasterClient *>(sender());
-	const QList<ServerPtr> &servers = pMaster->servers();
-	for (ServerPtr pServer : servers)
-	{
-		registerServer(pServer);
-	}
-
 	unregisterMaster(pMaster);
 
-	if (servers.size() == 0 && !isAnythingToRefresh())
-	{
-		concludeRefresh();
-	}
+	QTimer::singleShot(0, this, [this]()
+		{
+			if (!isAnythingToRefresh())
+			{
+				concludeRefresh();
+			}
+		});
 
 	emit finishedQueryingMaster(pMaster);
 }

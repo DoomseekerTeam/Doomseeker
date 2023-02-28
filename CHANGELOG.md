@@ -18,6 +18,8 @@ and this project does not adhere to
 progress dialog - fix the title and remove the `?` button.
 
 ### Fixed
+- Avoid refreshing the same game server twice in a quick succession if
+the server is both pinned and returned from the master server. (#4093)
 - A file search path sibling to a recursive path would be ignored. (#4106)
 - Rename "Add" buttons that would add empty path elements to lists to
 "Add empty". (#4102)

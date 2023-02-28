@@ -387,14 +387,18 @@ void ServerList::registerServer(ServerPtr server)
 	{
 		serverOnList->setCustom(server->isCustom() || serverOnList->isCustom());
 		model->redraw(serverOnList.data());
-		return;
+		gRefresher->registerServer(serverOnList);
 	}
-	this->connect(server.data(), SIGNAL(updated(ServerPtr,int)),
-		SLOT(onServerUpdated(ServerPtr)));
-	this->connect(server.data(), SIGNAL(begunRefreshing(ServerPtr)),
-		SLOT(onServerBegunRefreshing(ServerPtr)));
-	model->addServer(server);
-	emit serverRegistered(server);
+	else
+	{
+		this->connect(server.data(), SIGNAL(updated(ServerPtr,int)),
+			SLOT(onServerUpdated(ServerPtr)));
+		this->connect(server.data(), SIGNAL(begunRefreshing(ServerPtr)),
+			SLOT(onServerBegunRefreshing(ServerPtr)));
+		model->addServer(server);
+		emit serverRegistered(server);
+		gRefresher->registerServer(server);
+	}
 }
 
 void ServerList::removeServer(const ServerPtr &server)
