@@ -66,7 +66,7 @@ void BroadcastManager::registerServer(ServerPtr server, bool needsRefresh)
 	}
 	if (needsRefresh)
 	{
-		gRefresher->registerServer(server.data());
+		gRefresher->registerServer(server);
 	}
 }
 

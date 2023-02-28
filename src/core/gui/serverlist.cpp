@@ -376,7 +376,7 @@ void ServerList::refreshSelected()
 {
 	for (const ServerPtr &server : selectedServers())
 	{
-		gRefresher->registerServer(server.data());
+		gRefresher->registerServer(server);
 	}
 }
 

@@ -1253,7 +1253,7 @@ void MainWindow::refreshCustomServers()
 	for (const ServerPtr &server : d->serverList->servers())
 	{
 		if (server->isCustom())
-			gRefresher->registerServer(server.data());
+			gRefresher->registerServer(server);
 	}
 }
 
@@ -1261,7 +1261,7 @@ void MainWindow::refreshServersOnList()
 {
 	for (const ServerPtr &server : d->serverList->servers())
 	{
-		gRefresher->registerServer(server.data());
+		gRefresher->registerServer(server);
 	}
 }
 

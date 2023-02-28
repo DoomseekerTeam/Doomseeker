@@ -189,7 +189,7 @@ void ConnectionHandler::refreshToJoin()
 	{
 		this->connect(d->server.data(), SIGNAL(updated(ServerPtr,int)),
 			SLOT(checkResponse(ServerPtr,int)));
-		gRefresher->registerServer(d->server.data());
+		gRefresher->registerServer(d->server);
 	}
 	else
 		checkResponse(d->server, Server::RESPONSE_GOOD);
