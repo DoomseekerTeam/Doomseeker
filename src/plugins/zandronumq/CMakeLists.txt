@@ -21,7 +21,7 @@
 #------------------------------------------------------------------------------
 
 set(PLUGIN_NAME zandronumq)
-set(PLUGIN_VERSION 15)
+set(PLUGIN_VERSION 16)
 include(../PluginHeader.cmake)
 
 set(ZANDRONUMQ_FILES

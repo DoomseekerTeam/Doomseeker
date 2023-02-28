@@ -670,20 +670,22 @@ void ZandronumServer::resetPwadsList(const QList<PWad> &wads)
 
 QByteArray ZandronumServer::createSendRequest()
 {
-	// Prepare launcher challenge.
 	unsigned int standard_query = SQF_STANDARDQUERY;
 	unsigned int extended_query = SQF2_STANDARDQUERY;
-	const unsigned char challenge[18] = {
+#define CHALLENGE_SIZE 16
+#define ENCODED_CHALLENGE_BUFFER_SIZE (CHALLENGE_SIZE*2)
+	const unsigned char challenge[CHALLENGE_SIZE] = {
 		SERVER_CHALLENGE,
 		WRITEINT32_DIRECT(unsigned char, standard_query),
 		WRITEINT32_DIRECT(unsigned char, millisecondTime()),
 		WRITEINT32_DIRECT(unsigned char, extended_query)
 	};
-	char challengeOut[16];
-	int out = 16;
-	HUFFMAN_Encode(challenge, reinterpret_cast<unsigned char *>(challengeOut), 12, &out);
-	QByteArray data(challengeOut, out);
-	return data;
+	char challengeOut[ENCODED_CHALLENGE_BUFFER_SIZE];
+	int out = ENCODED_CHALLENGE_BUFFER_SIZE;
+	HUFFMAN_Encode(challenge, reinterpret_cast<unsigned char *>(challengeOut), CHALLENGE_SIZE, &out);
+	return QByteArray(challengeOut, out);
+#undef CHALLENGE_SIZE
+#undef ENCODED_CHALLENGE_BUFFER_SIZE
 }
 
 QRgb ZandronumServer::teamColor(unsigned team) const
