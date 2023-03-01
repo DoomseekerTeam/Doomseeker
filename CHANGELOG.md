@@ -13,6 +13,8 @@ and this project does not adhere to
 - Tooltips to the buttons in the file paths config page.
 
 ### Changed
+- Rename "Add" buttons that would add empty path elements to lists to
+"Add empty". (#4102)
 - Wadseeker: allfearthesentinel is now a .com domain, not a .net. (#4099)
 - Zandronum: correct the appearance of the testing binary download
 progress dialog - fix the title and remove the `?` button.
@@ -20,10 +22,10 @@ progress dialog - fix the title and remove the `?` button.
 ### Fixed
 - Avoid refreshing the same game server twice in a quick succession if
 the server is both pinned and returned from the master server. (#4093)
-- A file search path sibling to a recursive path would be ignored. (#4106)
-- Rename "Add" buttons that would add empty path elements to lists to
-"Add empty". (#4102)
-- The create game box will ignore empty paths to additional files. (#4102)
+- Siblings to a recursive file search path would be ignored if their basename
+would begin with the basename of the recursive path. (#4106)
+- The create game box will ignore the empty paths to additional files, thus it
+will avoid showing error boxes saying that an empty path doesn't exist. (#4102)
 - Updater: fix failure to update in `--portable` mode by passing the absolute
 paths to the updater.exe. (#4105)
 - Q-Zandronum, Zandronum: servers were queried with only a partially prepared
