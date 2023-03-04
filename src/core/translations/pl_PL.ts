@@ -859,16 +859,31 @@ https://dev.maxmind.com/geoip/geoip2/geolite2/</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgfilepaths.ui" line="92"/>
+        <source>Browse for a file path.</source>
+        <translation>Przeglądaj ścieżkę do plików.</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="95"/>
         <source>Browse</source>
         <translation>Przeglądaj</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgfilepaths.ui" line="99"/>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="102"/>
+        <source>Add an empty path to the list.</source>
+        <translation>Dodaj pustą ścieżkę do listy.</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="105"/>
         <source>Add empty</source>
         <translation>Dodaj pustą</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgfilepaths.ui" line="110"/>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="116"/>
+        <source>Remove the selected paths from the list.</source>
+        <translation>Usuń zaznaczone ścieżki z listy.</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="119"/>
         <source>Remove</source>
         <translation>Usuń</translation>
     </message>

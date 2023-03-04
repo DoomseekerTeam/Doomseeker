@@ -1476,14 +1476,19 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>TestingProgressDialog</name>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="460"/>
+        <location filename="../zandronumbinaries.cpp" line="453"/>
         <source>Downloading testing binaries...</source>
         <translation>Descargando archivos binarios de prueba ...</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="460"/>
+        <location filename="../zandronumbinaries.cpp" line="453"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
+    </message>
+    <message>
+        <location filename="../zandronumbinaries.cpp" line="463"/>
+        <source>Doomseeker</source>
+        <translation>Doomseeker</translation>
     </message>
 </context>
 <context>
