@@ -25,11 +25,11 @@
 # to update this file before making a new tag or a new release.
 
 # Info used by version.cpp
-set(VERSION_STRING "1.4.0")
+set(VERSION_STRING "1.4.1")
 
 # Info used by windows.rc
-set(FILEVERSION_DEF "1,4,0,HG_REVISION_NUMBER")
-set(PRODUCTVERSION_DEF "1,4,0,HG_REVISION_NUMBER")
-set(FILEVERSION_STR_DEF "1.4.0.0")
-set(PRODUCTVERSION_STR_DEF "1.4.0.0")
+set(FILEVERSION_DEF "1,4,1,HG_REVISION_NUMBER")
+set(PRODUCTVERSION_DEF "1,4,1,HG_REVISION_NUMBER")
+set(FILEVERSION_STR_DEF "1.4.1.0")
+set(PRODUCTVERSION_STR_DEF "1.4.1.0")
 set(LEGALCOPYRIGHT_DEF "The Doomseeker Team 2009 - 2023")

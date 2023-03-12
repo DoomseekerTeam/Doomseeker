@@ -8,7 +8,7 @@ This file follows the format of
 and this project does not adhere to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [unreleased]
+## [1.4.1] - 2023-03-12
 ### Added
 - Tooltips to the buttons in the file paths config page.
 
@@ -817,6 +817,7 @@ without any warranty.
 
 
 [unreleased]: https://bitbucket.org/Doomseeker/doomseeker/commits/all
+[1.4.1]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.4.1
 [1.4]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.4
 [1.3.3]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.3.3
 [1.3.2]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.3.2
