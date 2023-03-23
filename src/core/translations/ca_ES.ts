@@ -936,33 +936,48 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/configuration/cfgfilepaths.ui" line="92"/>
+        <source>Browse for a file path.</source>
+        <translation>Buscar una ruta de fitxer.</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="95"/>
         <source>Browse</source>
         <translation>Cercar</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgfilepaths.ui" line="99"/>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="102"/>
+        <source>Add an empty path to the list.</source>
+        <translation>Afegir una ruta buida a la llista.</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="105"/>
         <source>Add empty</source>
         <translation>Afegir vuit</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgfilepaths.ui" line="110"/>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="116"/>
+        <source>Remove the selected paths from the list.</source>
+        <translation>Eliminar las rutes seleccionades de la llista.</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="119"/>
         <source>Remove</source>
         <translation>Suprimir</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgfilepaths.ui" line="123"/>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="132"/>
         <source>&lt;p&gt;If selected Doomseeker will attempt to find the files used on a particular server when the mouse cursor is hovered over the WADs and IWAD columns. This requires a hard drive access to search in all the directories specified above each time a new tooltip is generated. If it takes too long to create such tooltip, you may try disabling this option.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Si se selecciona, Doomseeker intentarà buscar els arxius que usa aquest servidor quan el teu cursor estigui a sobre de la columna de WADs i IWAD. Això requereix buscar en els directoris que has especificat cada cop que es genera una finestra. Si això pren molt temps, prova de desactivar aquesta opció.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgfilepaths.ui" line="133"/>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="142"/>
         <source>&lt;p&gt;If selected Doomseeker will attempt to check the integrity of the local WADs, compared to the ones used on a particular server. This requires a hard drive access to read the entirety of the WADs. If it takes too long to join servers, you may want to disable this feature.&lt;/p&gt;
 &lt;p&gt;This setting is used when joining a server and when clicking the &amp;quot;Find missing WADs&amp;quot; button in the context menu.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Si se selecciona, Doomseeker intentarà comprovar la integritat dels WADs locals, en comparació amb les utilitzades en un servidor concret. Això requereix accés al disc dur per llegir la totalitat dels WADs. Si això requereix massa temps per a connectar-se als servidors, és possible que vulgueu desactivar aquesta funció.&lt;/p&gt;
 &lt;p&gt;Aquest paràmetre s’utilitza quan s’uneix a un servidor i quan feu clic al botó &amp;quot;Troba els WADs faltants&amp;quot; al menú contextual del ratolí.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgfilepaths.ui" line="144"/>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="153"/>
         <source>Resolve $PLACEHOLDERS in paths</source>
         <translation>Evaluar $MARCADORS en les rutes</translation>
     </message>
@@ -981,7 +996,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Això també s&apos;aplica a la columna IWAD.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgfilepaths.ui" line="126"/>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="135"/>
         <source>Tell me where are my WADs located</source>
         <translation>Digues-me on es troben els meus WADs</translation>
     </message>
@@ -1001,7 +1016,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt;&quot;&gt;Aquest paràmetre s’utilitza quan s’uneix a un servidor i quan feu clic al botó &amp;quot;Troba els WADs faltants&amp;quot; al menú contextual del ratolí.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgfilepaths.ui" line="137"/>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="146"/>
         <source>Check the integrity of local WADs</source>
         <translation>Comprovar la integritat dels WADs locals</translation>
     </message>
@@ -1138,7 +1153,7 @@ p, li { white-space: pre-wrap; }
 </translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="81"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="82"/>
         <source>These commands have violated the IRC maximum byte number limit (%1):
 
 </source>
@@ -1147,7 +1162,7 @@ p, li { white-space: pre-wrap; }
 </translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="83"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="84"/>
         <source>
 
 If saved, the script may not run properly.
@@ -1160,7 +1175,7 @@ Si es guarda, l&apos;script pot no executar-se correctament.
 Voleu desar el script de totes maneres?</translation>
     </message>
     <message numerus="yes">
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="88"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="89"/>
         <source>
 
 ... and %n more ...</source>
@@ -1174,34 +1189,34 @@ Voleu desar el script de totes maneres?</translation>
         </translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="91"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="92"/>
         <source>Doomseeker - IRC Commands Problem</source>
         <translation>Doomseeker - Problema Ordres IRC</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="115"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="117"/>
         <source>	%1 (...)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="217"/>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="223"/>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="232"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="219"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="225"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="234"/>
         <source>Invalid IRC network description</source>
         <translation>Descripció de la xarxa IRC no vàlida</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="218"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="220"/>
         <source>Network description cannot be empty.</source>
         <translation>La descripció de xarxa no pot estar buida.</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="224"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="226"/>
         <source>There already is a network with such description.</source>
         <translation>Ja hi ha una xarxa amb tal descripció.</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="229"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="231"/>
         <source>Network description is invalid.
 
 Only letters, digits, spaces and &quot;%1&quot; are allowed.</source>
@@ -2812,17 +2827,17 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DoomseekerConfigurationDialog</name>
     <message>
-        <location filename="../gui/configuration/doomseekerconfigurationdialog.cpp" line="108"/>
+        <location filename="../gui/configuration/doomseekerconfigurationdialog.cpp" line="111"/>
         <source>Settings saved!</source>
         <translation>Configuració guardada!</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/doomseekerconfigurationdialog.cpp" line="110"/>
+        <location filename="../gui/configuration/doomseekerconfigurationdialog.cpp" line="113"/>
         <source>Settings save failed!</source>
         <translation>Guardat fallit de la configuració!</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/doomseekerconfigurationdialog.cpp" line="115"/>
+        <location filename="../gui/configuration/doomseekerconfigurationdialog.cpp" line="118"/>
         <source>Games</source>
         <translation>Jocs</translation>
     </message>
@@ -3432,18 +3447,18 @@ doesn&apos;t exist or is not a file.</source>
 <context>
     <name>GeneralGameSetupPanel</name>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="238"/>
-        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="267"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="259"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="288"/>
         <source>&lt; NONE &gt;</source>
         <translation>&lt; RES &gt;</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="377"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="398"/>
         <source>Doomseeker - load server config</source>
         <translation>Doomseeker - carregar la configuració del servidor</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="378"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="399"/>
         <source>Plugin for engine &quot;%1&quot; is not present!</source>
         <translation>El complement per al motor &quot;%1&quot; no està present!</translation>
     </message>
@@ -3608,1227 +3623,1227 @@ doesn&apos;t exist or is not a file.</source>
 <context>
     <name>IP2CCountryTr</name>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="56"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="57"/>
         <source>Aruba</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="57"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="58"/>
         <source>Afghanistan</source>
         <translation>Afganistan</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="58"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="59"/>
         <source>Angola</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="59"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="60"/>
         <source>Anguilla</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="60"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="61"/>
         <source>Albania</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="61"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="62"/>
         <source>Andorra</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="62"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="63"/>
         <source>Netherlands Antilles</source>
         <translation>Antilles Holandeses</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="63"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="64"/>
         <source>United Arab Emirates</source>
         <translation>Emirats Àrabs Units</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="64"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="65"/>
         <source>Argentina</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="65"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="66"/>
         <source>Armenia</source>
         <translation>Armènia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="66"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="67"/>
         <source>American Samoa</source>
         <translation>Samoa Americana</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="67"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="68"/>
         <source>Antarctica</source>
         <translation>Antàrtida</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="68"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="69"/>
         <source>French Southern Territories</source>
         <translation>Territoris Francesos del Sud</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="69"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="70"/>
         <source>Antigua and Barbuda</source>
         <translation>Antiga i Barbuda</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="70"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="71"/>
         <source>Australia</source>
         <translation>Austràlia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="71"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="72"/>
         <source>Austria</source>
         <translation>Àustria</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="72"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="73"/>
         <source>Azerbaijan</source>
         <translation>Azerbaidjan</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="73"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="74"/>
         <source>Burundi</source>
         <translation>Burundi</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="74"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="75"/>
         <source>Belgium</source>
         <translation>Bèlgica</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="75"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="76"/>
         <source>Benin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="76"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="77"/>
         <source>Burkina Faso</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="77"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="78"/>
         <source>Bangladesh</source>
         <translation>Bangla Desh</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="78"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="79"/>
         <source>Bulgaria</source>
         <translation>Bulgària</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="79"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="80"/>
         <source>Bahrain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="80"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="81"/>
         <source>Bahamas</source>
         <translation>Bahames</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="81"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="82"/>
         <source>Bosnia and Herzegovina</source>
         <translation>Bòsnia i Hercegovina</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="82"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="83"/>
         <source>Belarus</source>
         <translation>Bielorússia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="83"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="84"/>
         <source>Belize</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="84"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="85"/>
         <source>Bermuda</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="85"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="86"/>
         <source>Bolivia</source>
         <translation>Bolívia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="86"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="87"/>
         <source>Brazil</source>
         <translation>Brasil</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="87"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="88"/>
         <source>Barbados</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="88"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="89"/>
         <source>Brunei</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="89"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="90"/>
         <source>Bhutan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="90"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="91"/>
         <source>Bouvet Island</source>
         <translation>Illa Bouvet</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="91"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="92"/>
         <source>Botswana</source>
         <translation>Botswana</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="92"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="93"/>
         <source>Central African Republic</source>
         <translation>República Centreafricana</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="93"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="94"/>
         <source>Canada</source>
         <translation>Canadà</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="94"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="95"/>
         <source>Cocos (Keeling) Islands</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="95"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="96"/>
         <source>Switzerland</source>
         <translation>Suïssa</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="96"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="97"/>
         <source>Chile</source>
         <translation>Chile</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="97"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="98"/>
         <source>China</source>
         <translation>Xina</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="98"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="99"/>
         <source>Ivory Coast</source>
         <translation>Costa d&apos;Ivori</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="99"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="100"/>
         <source>Cameroon</source>
         <translation>Camerun</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="100"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="101"/>
         <source>Congo, the Democratic Republic of the</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="101"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="102"/>
         <source>Congo</source>
         <translation>Congo</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="102"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="103"/>
         <source>Cook Islands</source>
         <translation>Illes Cook</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="103"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="104"/>
         <source>Colombia</source>
         <translation>Colòmbia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="104"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="105"/>
         <source>Comoros</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="105"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="106"/>
         <source>Cape Verde</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="106"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="107"/>
         <source>Costa Rica</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="107"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="108"/>
         <source>Cuba</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="108"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="109"/>
         <source>Christmas Island</source>
         <translation>Illa de Nadal</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="109"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="110"/>
         <source>Cayman Islands</source>
         <translation>Illes Caiman</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="110"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="111"/>
         <source>Cyprus</source>
         <translation>Xipre</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="111"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="112"/>
         <source>Czech Republic</source>
         <translation>República Txeca</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="112"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="113"/>
         <source>Germany</source>
         <translation>Alemanya</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="113"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="114"/>
         <source>Djibouti</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="114"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="115"/>
         <source>Dominica</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="115"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="116"/>
         <source>Denmark</source>
         <translation>Dinamarca</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="116"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="117"/>
         <source>Dominican Republic</source>
         <translation>República Dominicana</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="117"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="118"/>
         <source>Algeria</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="118"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="119"/>
         <source>Ecuador</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="119"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="120"/>
         <source>Egypt</source>
         <translation>Egipte</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="120"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="121"/>
         <source>Eritrea</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="121"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="122"/>
         <source>Western Sahara</source>
         <translation>Sàhara Occidental</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="122"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="123"/>
         <source>Spain</source>
         <translation>Espanya</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="123"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="124"/>
         <source>Estonia</source>
         <translation>Estònia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="124"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="125"/>
         <source>Ethiopia</source>
         <translation>Etiòpia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="125"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="126"/>
         <source>European Union</source>
         <translation>Unió Europea</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="126"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="127"/>
         <source>Finland</source>
         <translation>Finlàndia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="127"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="128"/>
         <source>Fiji</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="128"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="129"/>
         <source>Falkland Islands (Malvinas)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="129"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="130"/>
         <source>France</source>
         <translation>França</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="130"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="131"/>
         <source>Faroe Islands</source>
         <translation>Illes Faroe</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="131"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="132"/>
         <source>Micronesia, Federated States of</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="132"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="133"/>
         <source>Gabon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="133"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="134"/>
         <source>United Kingdom</source>
         <translation>Regne Unit</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="134"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="135"/>
         <source>Georgia</source>
         <translation>Geòrgia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="135"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="136"/>
         <source>Guernsey</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="136"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="137"/>
         <source>Ghana</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="137"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="138"/>
         <source>Gibraltar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="138"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="139"/>
         <source>Guinea</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="139"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="140"/>
         <source>Guadeloupe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="140"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="141"/>
         <source>Gambia</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="141"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="142"/>
         <source>Guinea-Bissau</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="142"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="143"/>
         <source>Equatorial Guinea</source>
         <translation>Guinea Equatorial</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="143"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="144"/>
         <source>Greece</source>
         <translation>Grècia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="144"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="145"/>
         <source>Grenada</source>
         <translation>Granada</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="145"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="146"/>
         <source>Greenland</source>
         <translation>Groenlàndia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="146"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="147"/>
         <source>Guatemala</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="147"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="148"/>
         <source>French Guiana</source>
         <translation>Guaiana Francesa</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="148"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="149"/>
         <source>Guam</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="149"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="150"/>
         <source>Guyana</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="150"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="151"/>
         <source>Hong Kong</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="151"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="152"/>
         <source>Heard Island and McDonald Islands</source>
         <translation>Illa Heard i illes McDonald</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="152"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="153"/>
         <source>Honduras</source>
         <translation>Hondures</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="153"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="154"/>
         <source>Croatia</source>
         <translation>Croàcia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="154"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="155"/>
         <source>Haiti</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="155"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="156"/>
         <source>Hungary</source>
         <translation>Hongria</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="156"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="157"/>
         <source>Indonesia</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="157"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="158"/>
         <source>Isle of Man</source>
         <translation>illa de l&apos;home</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="158"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="159"/>
         <source>India</source>
         <translation>Índia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="159"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="160"/>
         <source>British Indian Ocean Territory</source>
         <translation>Territori Britànic de l&apos;Oceà Índic</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="160"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="161"/>
         <source>Ireland</source>
         <translation>Irlanda</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="161"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="162"/>
         <source>Iran, Islamic Republic of</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="162"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="163"/>
         <source>Iraq</source>
         <translation>Iraq</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="163"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="164"/>
         <source>Iceland</source>
         <translation>Islàndia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="164"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="165"/>
         <source>Israel</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="165"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="166"/>
         <source>Italy</source>
         <translation>Itàlia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="166"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="167"/>
         <source>Jamaica</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="167"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="168"/>
         <source>Jersey</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="168"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="169"/>
         <source>Jordan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="169"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="170"/>
         <source>Japan</source>
         <translation>Japó</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="170"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="171"/>
         <source>Kazakhstan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="171"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="172"/>
         <source>Kenya</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="172"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="173"/>
         <source>Kyrgyzstan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="173"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="174"/>
         <source>Cambodia</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="174"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="175"/>
         <source>Kiribati</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="175"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="176"/>
         <source>Saint Kitts and Nevis</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="176"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="177"/>
         <source>South Korea</source>
         <translation>Corea del Sud</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="177"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="178"/>
         <source>Kuwait</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="178"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="179"/>
         <source>Lao People&apos;s Democratic Republic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="179"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="180"/>
         <source>Lebanon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="180"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="181"/>
         <source>Liberia</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="181"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="182"/>
         <source>Libya</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="182"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="183"/>
         <source>Saint Lucia</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="183"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="184"/>
         <source>Liechtenstein</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="184"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="185"/>
         <source>Sri Lanka</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="185"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="186"/>
         <source>Lesotho</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="186"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="187"/>
         <source>Lithuania</source>
         <translation>Lituània</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="187"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="188"/>
         <source>Luxembourg</source>
         <translation>Luxemburg</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="188"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="189"/>
         <source>Latvia</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="189"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="190"/>
         <source>Macao</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="190"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="191"/>
         <source>Morocco</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="191"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="192"/>
         <source>Monaco</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="192"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="193"/>
         <source>Moldova, Republic of</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="193"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="194"/>
         <source>Madagascar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="194"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="195"/>
         <source>Maldives</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="195"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="196"/>
         <source>Mexico</source>
         <translation>Mèxic</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="196"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="197"/>
         <source>Marshall Islands</source>
         <translation>Illes Marshall</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="197"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="198"/>
         <source>Macedonia, the former Yugoslav Republic of</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="198"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="199"/>
         <source>Mali</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="199"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="200"/>
         <source>Malta</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="200"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="201"/>
         <source>Myanmar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="201"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="202"/>
         <source>Montenegro</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="202"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="203"/>
         <source>Mongolia</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="203"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="204"/>
         <source>Northern Mariana Islands</source>
         <translation>Illes Mariannes del Nord</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="204"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="205"/>
         <source>Mozambique</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="205"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="206"/>
         <source>Mauritania</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="206"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="207"/>
         <source>Montserrat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="207"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="208"/>
         <source>Martinique</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="208"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="209"/>
         <source>Mauritius</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="209"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="210"/>
         <source>Malawi</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="210"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="211"/>
         <source>Malaysia</source>
         <translation>Malàisia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="211"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="212"/>
         <source>Mayotte</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="212"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="213"/>
         <source>Namibia</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="213"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="214"/>
         <source>New Caledonia</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="214"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="215"/>
         <source>Niger</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="215"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="216"/>
         <source>Norfolk Island</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="216"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="217"/>
         <source>Nigeria</source>
         <translation>Nigèria</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="217"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="218"/>
         <source>Nicaragua</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="218"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="219"/>
         <source>Niue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="219"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="220"/>
         <source>Netherlands</source>
         <translation>Països Baixos</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="220"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="221"/>
         <source>Norway</source>
         <translation>Noruega</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="221"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="222"/>
         <source>Nepal</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="222"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="223"/>
         <source>Nauru</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="223"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="224"/>
         <source>New Zealand</source>
         <translation>Nova Zelanda</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="224"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="225"/>
         <source>Oman</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="225"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="226"/>
         <source>Pakistan</source>
         <translation>Pakistan</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="226"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="227"/>
         <source>Panama</source>
         <translation>Panamà</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="227"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="228"/>
         <source>Pitcairn</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="228"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="229"/>
         <source>Peru</source>
         <translation>Perú</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="229"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="230"/>
         <source>Philippines</source>
         <translation>Filipines</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="230"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="231"/>
         <source>Palau</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="231"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="232"/>
         <source>Papua New Guinea</source>
         <translation>Papua Nova Guinea</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="232"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="233"/>
         <source>Poland</source>
         <translation>Polònia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="233"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="234"/>
         <source>Puerto Rico</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="234"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="235"/>
         <source>Korea, Democratic People&apos;s Republic of</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="235"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="236"/>
         <source>Portugal</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="236"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="237"/>
         <source>Paraguay</source>
         <translation>Paraguai</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="237"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="238"/>
         <source>Palestinian Territory, Occupied</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="238"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="239"/>
         <source>French Polynesia</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="239"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="240"/>
         <source>Qatar</source>
         <translation>Qatar</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="240"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="241"/>
         <source>Réunion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="241"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="242"/>
         <source>Romania</source>
         <translation>Romania</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="242"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="243"/>
         <source>Russian Federation</source>
         <translation>Rússia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="243"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="244"/>
         <source>Rwanda</source>
         <translation>Ruanda</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="244"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="245"/>
         <source>Saudi Arabia</source>
         <translation>Aràbia Saudita</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="245"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="246"/>
         <source>Sudan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="246"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="247"/>
         <source>Senegal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="247"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="248"/>
         <source>Singapore</source>
         <translation>Singapur</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="248"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="249"/>
         <source>South Georgia and the South Sandwich Islands</source>
         <translation>Geòrgia del Sud i les illes Sandwich del Sud</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="249"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="250"/>
         <source>Saint Helena, Ascension and Tristan da Cunha</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="250"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="251"/>
         <source>Svalbard and Jan Mayen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="251"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="252"/>
         <source>Solomon Islands</source>
         <translation>Illes Salomó</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="252"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="253"/>
         <source>Sierra Leone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="253"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="254"/>
         <source>El Salvador</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="254"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="255"/>
         <source>San Marino</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="255"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="256"/>
         <source>Somalia</source>
         <translation>Somàlia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="256"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="257"/>
         <source>Saint Pierre and Miquelon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="257"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="258"/>
         <source>Serbia</source>
         <translation>Sèrbia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="258"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="259"/>
         <source>South Sudan</source>
         <translation>Sudan del Sud</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="259"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="260"/>
         <source>Sao Tome and Principe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="260"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="261"/>
         <source>Suriname</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="261"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="262"/>
         <source>Slovakia</source>
         <translation>Eslovàquia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="262"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="263"/>
         <source>Slovenia</source>
         <translation>Eslovènia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="263"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="264"/>
         <source>Sweden</source>
         <translation>Suècia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="264"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="265"/>
         <source>Swaziland</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="265"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="266"/>
         <source>Seychelles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="266"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="267"/>
         <source>Syrian Arab Republic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="267"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="268"/>
         <source>Turks and Caicos Islands</source>
         <translation>Illes Turks i Caicos</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="268"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="269"/>
         <source>Chad</source>
         <translation>Txad</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="269"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="270"/>
         <source>Togo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="270"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="271"/>
         <source>Thailand</source>
         <translation>Tailàndia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="271"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="272"/>
         <source>Tajikistan</source>
         <translation>Tadjikistan</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="272"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="273"/>
         <source>Tokelau</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="273"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="274"/>
         <source>Turkmenistan</source>
         <translation>Turkmenistan</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="274"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="275"/>
         <source>Timor-Leste</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="275"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="276"/>
         <source>Tonga</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="276"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="277"/>
         <source>Trinidad and Tobago</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="277"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="278"/>
         <source>Tunisia</source>
         <translation>Tunísia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="278"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="279"/>
         <source>Turkey</source>
         <translation>Turquia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="279"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="280"/>
         <source>Tuvalu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="280"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="281"/>
         <source>Taiwan</source>
         <translation>Taiwan</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="281"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="282"/>
         <source>Tanzania, United Republic of</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="282"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="283"/>
         <source>Uganda</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="283"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="284"/>
         <source>Ukraine</source>
         <translation>Ucraïna</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="284"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="285"/>
         <source>United States Minor Outlying Islands</source>
         <translation>Illes menors perifèriques dels Estats Units</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="285"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="286"/>
         <source>Uruguay</source>
         <translation>Uruguai</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="286"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="287"/>
         <source>United States</source>
         <translation>Estats Units</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="287"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="288"/>
         <source>Uzbekistan</source>
         <translation>Uzbekistan</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="288"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="289"/>
         <source>Holy See (Vatican City State)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="289"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="290"/>
         <source>Saint Vincent and the Grenadines</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="290"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="291"/>
         <source>Venezuela</source>
         <translation>Veneçuela</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="291"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="292"/>
         <source>Virgin Islands, British</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="292"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="293"/>
         <source>Virgin Islands, U.S.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="293"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="294"/>
         <source>Vietnam</source>
         <translation>Vietnam</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="294"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="295"/>
         <source>Vanuatu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="295"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="296"/>
         <source>Wallis and Futuna</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="296"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="297"/>
         <source>Samoa</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="297"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="298"/>
         <source>Yemen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="298"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="299"/>
         <source>South Africa</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="299"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="300"/>
         <source>Zambia</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="300"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="301"/>
         <source>Zimbabwe</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7675,32 +7690,32 @@ Si no té aquest arxiu, i pertany a un joc comercial, necessita comprar el joc a
 <context>
     <name>ServerListRowHandler</name>
     <message>
-        <location filename="../gui/models/serverlistrowhandler.cpp" line="268"/>
+        <location filename="../gui/models/serverlistrowhandler.cpp" line="269"/>
         <source>&lt;ERROR&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../gui/models/serverlistrowhandler.cpp" line="280"/>
+        <location filename="../gui/models/serverlistrowhandler.cpp" line="281"/>
         <source>You are banned from this server!</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../gui/models/serverlistrowhandler.cpp" line="339"/>
+        <location filename="../gui/models/serverlistrowhandler.cpp" line="340"/>
         <source>&lt;REFRESHING&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../gui/models/serverlistrowhandler.cpp" line="349"/>
+        <location filename="../gui/models/serverlistrowhandler.cpp" line="350"/>
         <source>&lt;NO RESPONSE&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../gui/models/serverlistrowhandler.cpp" line="361"/>
+        <location filename="../gui/models/serverlistrowhandler.cpp" line="362"/>
         <source>&lt;Refreshed too soon, wait a while and try again&gt;</source>
         <translation>&lt;Refrescat massa de pressa, esperi un moment i intenti-ho de nou&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/models/serverlistrowhandler.cpp" line="415"/>
+        <location filename="../gui/models/serverlistrowhandler.cpp" line="416"/>
         <source>Unknown server response (%1): %2:%3</source>
         <translation></translation>
     </message>
@@ -7903,7 +7918,7 @@ Humans + Bots) / Servidors actualitzats%</translation>
 <context>
     <name>WadsPicker</name>
     <message>
-        <location filename="../gui/createserver/wadspicker.cpp" line="115"/>
+        <location filename="../gui/createserver/wadspicker.cpp" line="110"/>
         <source>Doomseeker - Add file(s)</source>
         <translation>Doomseeker - Afegir arxiu(s)</translation>
     </message>
