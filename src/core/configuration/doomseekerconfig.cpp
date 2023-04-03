@@ -24,6 +24,7 @@
 
 #include "configuration/queryspeed.h"
 #include "datapaths.h"
+#include "doomseeker_copts.h"
 #include "fileutils.h"
 #include "gui/models/serverlistproxymodel.h"
 #include "ini/ini.h"
@@ -274,7 +275,7 @@ DoomseekerConfig::DoomseekerCfg::DoomseekerCfg()
 	this->bDrawGridInServerTable = false;
 	this->bHidePasswords = true;
 	this->bHonorServerCountries = true;
-	this->bIP2CountryAutoUpdate = true;
+	this->bIP2CountryAutoUpdate = (DOOMSEEKER_IP2C_AUTOUPDATE_DEFAULT ? true : false);
 	this->bLogCreatedServer = false;
 	this->bLookupHosts = true;
 	this->bQueryAutoRefreshDontIfActive = true;
