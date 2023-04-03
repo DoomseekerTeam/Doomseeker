@@ -161,8 +161,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>255</width>
-         <height>640</height>
+         <width>266</width>
+         <height>616</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -250,6 +250,20 @@
          <widget class="MultiComboBox" name="cboExcludeGameMode">
           <property name="toolTip">
            <string>Selected game modes won't appear on the server list.</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_7">
+          <property name="text">
+           <string>Addresses:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="leAddresses">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Only servers that match these addresses will be displayed. Multiple addresses can be separated by commas (&lt;span style=&quot; font-weight:600;&quot;&gt;,&lt;/span&gt;). Subnets are supported by using the &lt;span style=&quot; font-weight:600;&quot;&gt;ADDR/N&lt;/span&gt; format where &lt;span style=&quot; font-weight:600;&quot;&gt;N&lt;/span&gt; can be a subnet mask or a numerical value for the subnet mask. For IPv4 the subnet can also be specified by omitting the octets. &lt;span style=&quot; font-weight:600;&quot;&gt;192.168.0&lt;/span&gt;, &lt;span style=&quot; font-weight:600;&quot;&gt;192.168.0.0/24&lt;/span&gt; and &lt;span style=&quot; font-weight:600;&quot;&gt;192.168.0.0/255.255.255.0&lt;/span&gt; are all the same.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
@@ -418,8 +432,8 @@
    <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>99</x>
-     <y>805</y>
+     <x>98</x>
+     <y>782</y>
     </hint>
     <hint type="destinationlabel">
      <x>101</x>
@@ -435,7 +449,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>47</x>
-     <y>133</y>
+     <y>101</y>
     </hint>
     <hint type="destinationlabel">
      <x>38</x>
@@ -450,8 +464,8 @@
    <slot>emitUpdated()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>97</x>
-     <y>268</y>
+     <x>96</x>
+     <y>223</y>
     </hint>
     <hint type="destinationlabel">
      <x>61</x>
@@ -466,8 +480,8 @@
    <slot>emitUpdated()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>121</x>
-     <y>334</y>
+     <x>120</x>
+     <y>277</y>
     </hint>
     <hint type="destinationlabel">
      <x>72</x>
@@ -482,8 +496,8 @@
    <slot>emitUpdated()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>71</x>
-     <y>539</y>
+     <x>70</x>
+     <y>522</y>
     </hint>
     <hint type="destinationlabel">
      <x>159</x>
@@ -498,8 +512,8 @@
    <slot>emitUpdated()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>45</x>
-     <y>569</y>
+     <x>44</x>
+     <y>551</y>
     </hint>
     <hint type="destinationlabel">
      <x>133</x>
@@ -514,8 +528,8 @@
    <slot>emitUpdated()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>49</x>
-     <y>629</y>
+     <x>48</x>
+     <y>609</y>
     </hint>
     <hint type="destinationlabel">
      <x>138</x>
@@ -530,8 +544,8 @@
    <slot>emitUpdated()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>56</x>
-     <y>466</y>
+     <x>55</x>
+     <y>385</y>
     </hint>
     <hint type="destinationlabel">
      <x>99</x>
@@ -551,7 +565,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>101</x>
-     <y>133</y>
+     <y>101</y>
     </hint>
    </hints>
   </connection>
@@ -562,8 +576,8 @@
    <slot>emitUpdated()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>99</x>
-     <y>400</y>
+     <x>98</x>
+     <y>331</y>
     </hint>
     <hint type="destinationlabel">
      <x>101</x>
@@ -578,8 +592,8 @@
    <slot>emitUpdated()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>99</x>
-     <y>515</y>
+     <x>98</x>
+     <y>439</y>
     </hint>
     <hint type="destinationlabel">
      <x>101</x>
@@ -595,7 +609,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>166</x>
-     <y>202</y>
+     <y>168</y>
     </hint>
     <hint type="destinationlabel">
      <x>164</x>
@@ -610,8 +624,8 @@
    <slot>emitUpdated()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>164</x>
-     <y>749</y>
+     <x>163</x>
+     <y>725</y>
     </hint>
     <hint type="destinationlabel">
      <x>243</x>
@@ -626,8 +640,8 @@
    <slot>emitUpdated()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>120</x>
-     <y>599</y>
+     <x>119</x>
+     <y>580</y>
     </hint>
     <hint type="destinationlabel">
      <x>120</x>
@@ -642,8 +656,8 @@
    <slot>emitUpdated()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>255</x>
-     <y>682</y>
+     <x>267</x>
+     <y>638</y>
     </hint>
     <hint type="destinationlabel">
      <x>334</x>
@@ -658,8 +672,8 @@
    <slot>emitUpdated()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>255</x>
-     <y>712</y>
+     <x>267</x>
+     <y>667</y>
     </hint>
     <hint type="destinationlabel">
      <x>336</x>
@@ -674,8 +688,8 @@
    <slot>emitUpdated()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>258</x>
-     <y>742</y>
+     <x>267</x>
+     <y>696</y>
     </hint>
     <hint type="destinationlabel">
      <x>334</x>
@@ -690,12 +704,12 @@
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>226</x>
-     <y>652</y>
+     <x>225</x>
+     <y>609</y>
     </hint>
     <hint type="destinationlabel">
-     <x>16</x>
-     <y>742</y>
+     <x>15</x>
+     <y>696</y>
     </hint>
    </hints>
   </connection>
@@ -706,8 +720,8 @@
    <slot>saveFilterAsPreset()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>226</x>
-     <y>49</y>
+     <x>246</x>
+     <y>45</y>
     </hint>
     <hint type="destinationlabel">
      <x>141</x>
@@ -722,8 +736,8 @@
    <slot>removeFilterPreset()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>263</x>
-     <y>49</y>
+     <x>280</x>
+     <y>45</y>
     </hint>
     <hint type="destinationlabel">
      <x>141</x>
@@ -739,7 +753,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>141</x>
-     <y>151</y>
+     <y>130</y>
     </hint>
     <hint type="destinationlabel">
      <x>141</x>
@@ -760,6 +774,22 @@
     <hint type="destinationlabel">
      <x>122</x>
      <y>71</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>leAddresses</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>ServerFilterDock</receiver>
+   <slot>emitUpdated()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>134</x>
+     <y>481</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>141</x>
+     <y>311</y>
     </hint>
    </hints>
   </connection>

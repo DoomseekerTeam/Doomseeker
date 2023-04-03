@@ -174,6 +174,9 @@ bool ServerListProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &so
 	if (!d->filterInfo.bEnabled)
 		return true;
 
+	if (!d->filterInfo.addresses.matches(s->address()))
+		return false;
+
 	if (!s->isKnown())
 	{
 		if (d->filterInfo.bShowOnlyValid)

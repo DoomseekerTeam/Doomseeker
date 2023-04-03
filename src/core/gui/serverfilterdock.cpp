@@ -25,6 +25,7 @@
 
 #include "configuration/doomseekerconfig.h"
 #include "gui/commongui.h"
+#include "gui/entity/addressfilter.h"
 #include "gui/entity/serverlistfilterinfo.h"
 #include "gui/icons.h"
 #include "strings.hpp"
@@ -117,6 +118,21 @@ public:
 	QString currentPresetName() const
 	{
 		return presetNameAtIndex(cboServerFilterPresets->currentIndex());
+	}
+
+	AddressFilter parseSubnets(const QString &subnets) const
+	{
+		QStringList tokens = subnets.split(",");
+		AddressFilter result;
+		for (const QString &token : tokens)
+		{
+			QPair<QHostAddress, int> subnet = QHostAddress::parseSubnet(token.trimmed());
+			if (!subnet.first.isNull())
+			{
+				result << subnet;
+			}
+		}
+		return result;
 	}
 };
 
@@ -231,6 +247,7 @@ ServerListFilterInfo ServerFilterDock::filterInfo() const
 	filterInfo.bShowBannedServers = d->cbShowBannedServers->isChecked();
 	filterInfo.bShowTooSoonServers = d->cbShowTooSoonServers->isChecked();
 	filterInfo.bShowNotRespondingServers = d->cbShowNotRespondingServers->isChecked();
+	filterInfo.addresses = d->parseSubnets(d->leAddresses->text());
 	filterInfo.gameModes = d->cboGameMode->selectedItemTexts();
 	filterInfo.gameModesExcluded = d->cboExcludeGameMode->selectedItemTexts();
 	filterInfo.lockedServers = Doomseeker::checkboxTristateToShowMode(d->cbShowLockedServers->checkState());
@@ -292,6 +309,8 @@ void ServerFilterDock::setFilterInfo(const ServerListFilterInfo &filterInfo)
 	d->cbShowBannedServers->setChecked(filterInfo.bShowBannedServers);
 	d->cbShowTooSoonServers->setChecked(filterInfo.bShowTooSoonServers);
 	d->cbShowNotRespondingServers->setChecked(filterInfo.bShowNotRespondingServers);
+
+	d->leAddresses->setText(filterInfo.addresses.toString());
 
 	for (const QString &gameMode : filterInfo.gameModes)
 	{

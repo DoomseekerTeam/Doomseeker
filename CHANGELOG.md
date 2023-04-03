@@ -10,6 +10,7 @@ and this project does not adhere to
 
 ## [unreleased]
 ### Added
+- Server filtering by the IP address. (#4117)
 - A compilation option to make the IP2C auto-updates disabled by default:
 `DOOMSEEKER_IP2C_AUTOUPDATE_DEFAULT`. (#3732)
 

@@ -123,6 +123,7 @@ set(HEADER_FILES
 	gui/createserverdialog.h
 	gui/demomanager.h
 	gui/dockBuddiesList.h
+	gui/entity/addressfilter.h
 	gui/entity/serverlistfilterinfo.h
 	gui/entity/showmode.h
 	gui/freedoomdialog.h
@@ -368,6 +369,7 @@ set(SOURCE_FILES
 	gui/createserverdialog.cpp
 	gui/demomanager.cpp
 	gui/dockBuddiesList.cpp
+	gui/entity/addressfilter.cpp
 	gui/entity/serverlistfilterinfo.cpp
 	gui/entity/showmode.cpp
 	gui/freedoomdialog.cpp

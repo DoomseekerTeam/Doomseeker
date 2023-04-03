@@ -23,10 +23,12 @@
 #ifndef __SERVERLISTFILTERINFO_H__
 #define __SERVERLISTFILTERINFO_H__
 
+#include <QHostAddress>
 #include <QString>
 #include <QStringList>
 #include <QVariant>
 
+#include "gui/entity/addressfilter.h"
 #include "gui/entity/showmode.h"
 
 /**
@@ -43,6 +45,8 @@ public:
 	bool bShowBannedServers;
 	bool bShowTooSoonServers;
 	bool bShowNotRespondingServers;
+
+	AddressFilter addresses;
 	QStringList gameModes;
 	QStringList gameModesExcluded;
 

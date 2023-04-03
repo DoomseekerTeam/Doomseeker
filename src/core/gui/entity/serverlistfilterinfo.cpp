@@ -47,6 +47,7 @@ void ServerListFilterInfo::copy(const ServerListFilterInfo &other)
 	bShowBannedServers = other.bShowBannedServers;
 	bShowTooSoonServers = other.bShowTooSoonServers;
 	bShowNotRespondingServers = other.bShowNotRespondingServers;
+	addresses = other.addresses;
 	gameModes = other.gameModes;
 	gameModesExcluded = other.gameModesExcluded;
 	lockedServers = other.lockedServers;
@@ -95,7 +96,8 @@ bool ServerListFilterInfo::isFilteringAnything() const
 	if (!gameModes.isEmpty()
 		|| !gameModesExcluded.isEmpty()
 		|| !wads.isEmpty()
-		|| !wadsExcluded.isEmpty())
+		|| !wadsExcluded.isEmpty()
+		|| !addresses.isEmpty())
 	{
 		return true;
 	}
@@ -119,6 +121,7 @@ bool ServerListFilterInfo::isFilteringEquivalent(const ServerListFilterInfo &oth
 		bShowBannedServers == other.bShowBannedServers &&
 		bShowTooSoonServers == other.bShowTooSoonServers &&
 		bShowNotRespondingServers == other.bShowNotRespondingServers &&
+		addresses == other.addresses &&
 		gameModes == other.gameModes &&
 		gameModesExcluded == other.gameModesExcluded &&
 		lockedServers == other.lockedServers &&
@@ -145,6 +148,7 @@ ServerListFilterInfo ServerListFilterInfo::deserialize(const QVariant &variant)
 	obj.bShowBannedServers = in["bShowBannedServers"].toBool();
 	obj.bShowTooSoonServers = in["bShowTooSoonServers"].toBool();
 	obj.bShowNotRespondingServers = in["bShowNotRespondingServers"].toBool();
+	obj.addresses = AddressFilter::deserialize(in["Addresses"]);
 	obj.gameModes = in["GameModes"].toStringList();
 	obj.gameModesExcluded = in["GameModesExcluded"].toStringList();
 	obj.lockedServers = static_cast<Doomseeker::ShowMode>(in["LockedServers"].toInt());
@@ -168,6 +172,7 @@ QVariant ServerListFilterInfo::serialize() const
 	out["bShowBannedServers"] = this->bShowBannedServers;
 	out["bShowTooSoonServers"] = this->bShowTooSoonServers;
 	out["bShowNotRespondingServers"] = this->bShowNotRespondingServers;
+	out["Addresses"] = this->addresses.serialize();
 	out["GameModes"] = this->gameModes;
 	out["GameModesExcluded"] = this->gameModesExcluded;
 	out["LockedServers"] = this->lockedServers;
@@ -193,6 +198,7 @@ QString ServerListFilterInfo::toString() const
 	ret += QString("bShowTooSoonServers: ") + (bShowTooSoonServers ? "Yes" : "No") + "\n";
 	ret += QString("bShowNotRespondingServers: ") + (bShowNotRespondingServers ? "Yes" : "No") + "\n";
 
+	ret += QString("Addresses: %1\n").arg(addresses.toString());
 	ret += QString("GameModes: ") + gameModes.join(",") + "\n";
 	ret += QString("GameModes Excluded: ") + gameModesExcluded.join(",") + "\n";
 	ret += QString("LockedServers: %1\n").arg(lockedServers);

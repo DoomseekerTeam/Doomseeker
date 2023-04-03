@@ -664,6 +664,7 @@ void DoomseekerConfig::ServerFilter::load(IniSection &section)
 	info.bShowBannedServers = section["bShowBannedServers"];
 	info.bShowTooSoonServers = section["bShowTooSoonServers"];
 	info.bShowNotRespondingServers = section["bShowNotRespondingServers"];
+	info.addresses = AddressFilter::deserialize(section["Addresses"].value());
 	info.gameModes = section["GameModes"].value().toStringList();
 	info.gameModesExcluded = section["GameModesExcluded"].value().toStringList();
 	info.lockedServers = static_cast<Doomseeker::ShowMode>(section.value("LockedServers").toInt());
@@ -686,6 +687,7 @@ void DoomseekerConfig::ServerFilter::save(IniSection &section)
 	section["bShowBannedServers"] = info.bShowBannedServers;
 	section["bShowTooSoonServers"] = info.bShowTooSoonServers;
 	section["bShowNotRespondingServers"] = info.bShowNotRespondingServers;
+	section["Addresses"].setValue(info.addresses.serialize());
 	section["GameModes"].setValue(info.gameModes);
 	section["GameModesExcluded"].setValue(info.gameModesExcluded);
 	section["LockedServers"] = info.lockedServers;
