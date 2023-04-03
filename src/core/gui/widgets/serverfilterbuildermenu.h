@@ -49,6 +49,7 @@ private:
 	QAction *mkIncludeWadAction(QMenu *menu, const QString &wadName);
 
 private slots:
+	void applyAddressFilter();
 	void applyGameModeExcludedFilter();
 	void applyGameModeFilter();
 	void applyPingFilter();

@@ -22,6 +22,11 @@
 //------------------------------------------------------------------------------
 #include "addressfilter.h"
 
+bool AddressFilter::contains(const QPair<QHostAddress, int> &subnet) const
+{
+	return subnets.contains(subnet);
+}
+
 bool AddressFilter::isEmpty() const
 {
 	return subnets.isEmpty();

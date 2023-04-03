@@ -32,6 +32,7 @@ public:
 	static AddressFilter deserialize(const QVariant &variant);
 	QVariant serialize() const;
 
+	bool contains(const QPair<QHostAddress, int> &subnet) const;
 	bool isEmpty() const;
 
 	/**
