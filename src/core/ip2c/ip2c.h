@@ -109,6 +109,9 @@ public:
 		bDataAccessLocked = b;
 	}
 
+	const QMap<QString, QString> &licenceNotice() const {return licences;}
+	const QString &urlDatabase() const {return databaseUrl;}
+
 	/**
 	 * @brief Sets the IP range database to the list specified.
 	 *
@@ -118,6 +121,16 @@ public:
 	void setRangesDatabase(const QList<IP2CRange> &sortedRanges)
 	{
 		this->database = sortedRanges;
+	}
+
+	void setLicence(const QMap<QString, QString> &licences)
+	{
+		this->licences = licences;
+	}
+
+	void setUrl(const QString &url)
+	{
+		this->databaseUrl = url;
 	}
 
 private:
@@ -144,6 +157,9 @@ private:
 
 	QSet<QString> unknownCountries;
 	QSet<QString> unknownFlags;
+
+	QMap<QString, QString> licences;
+	QString databaseUrl;
 
 	IP2C();
 	~IP2C() override;

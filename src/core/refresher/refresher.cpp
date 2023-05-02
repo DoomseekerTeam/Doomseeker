@@ -94,7 +94,10 @@ public:
 	{
 		while (!unchallengedServers.isEmpty())
 		{
-			QPointer<Server> server = unchallengedServers.takeFirst();
+			// Take a random server so that they aren't favored by the order
+			// in which they were presented by the plugin.
+			quint32 index = static_cast<quint32>(qrand()) % unchallengedServers.size();
+			QPointer<Server> server = unchallengedServers.takeAt(index);
 			if (!server.isNull())
 			{
 				return server;

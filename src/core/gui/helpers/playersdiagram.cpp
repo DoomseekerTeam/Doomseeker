@@ -107,10 +107,10 @@ QImage PlayersDiagram::colorizePlayer(QImage image, const QColor &color)
 void PlayersDiagram::draw()
 {
 	// Don't bother trying to draw an empty image.
-	if (server->numTotalSlots() == 0)
+	if (server->maxClients() == 0)
 		return;
 
-	diagram = QPixmap(server->numTotalSlots() * playerImage.width(), playerImage.height());
+	diagram = QPixmap(server->maxClients() * playerImage.width(), playerImage.height());
 	diagram.fill(Qt::transparent);
 
 	slotSize = playerImage.width();

@@ -138,6 +138,7 @@ ServerListFilterInfo ServerFilterDock::filterInfo() const
 	filterInfo.bShowOnlyValid = d->cbShowOnlyValid->isChecked();
 	filterInfo.gameModes = d->cboGameMode->selectedItemTexts();
 	filterInfo.gameModesExcluded = d->cboExcludeGameMode->selectedItemTexts();
+	filterInfo.lockedServers = Doomseeker::checkboxTristateToShowMode(d->cbShowLockedServers->checkState());
 	filterInfo.maxPing = d->spinMaxPing->value();
 	filterInfo.testingServers = Doomseeker::checkboxTristateToShowMode(d->cbShowTestingServers->checkState());
 	filterInfo.serverName = d->leServerName->text();
@@ -182,6 +183,8 @@ void ServerFilterDock::setFilterInfo(const ServerListFilterInfo &filterInfo)
 	d->leWads->setText(filterInfo.wads.join(",").trimmed());
 	d->leExcludeWads->setText(filterInfo.wadsExcluded.join(",").trimmed());
 
+	d->cbShowLockedServers->setCheckState(Doomseeker::showModeToCheckboxState(
+		filterInfo.lockedServers));
 	d->cbShowTestingServers->setCheckState(Doomseeker::showModeToCheckboxState(
 		filterInfo.testingServers));
 

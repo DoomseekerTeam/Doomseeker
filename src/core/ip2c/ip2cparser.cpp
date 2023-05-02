@@ -23,168 +23,35 @@
 #include "ip2cparser.h"
 
 #include "datastreamoperatorwrapper.h"
+#include "ip2c/ip2cparser_v2.h"
+#include "ip2c/ip2cparser_v3.h"
+
 #include "global.h"
-#include "log.h"
-#include <QBuffer>
-#include <QElapsedTimer>
-#include <QFile>
-#include <QMap>
-#include <QMutexLocker>
 
-IP2CParser::IP2CParser()
+#include <cstdint>
+
+bool IP2CParser::parse(QIODevice &dataBase)
 {
-	currentParsingThread = nullptr;
-	bIsParsing = false;
-}
+	QDataStream dstream(&dataBase);
+	dstream.setByteOrder(QDataStream::LittleEndian);
+	DataStreamOperatorWrapper stream(&dstream);
 
-bool IP2CParser::doReadDatabase(const QString &filePath)
-{
-	QMutexLocker mutexLocker(&thisLock);
-
-	// This will set proper state whenever and wherever this method finishes.
-	ConstructorDestructorParserStateSetter stateSetter(this);
-
-	QFile dataBase(filePath);
-	gLog << tr("Parsing IP2C database: %1").arg(dataBase.fileName());
-
-	if (!dataBase.exists()
-		|| !dataBase.open(QIODevice::ReadOnly)
-		|| !dataBase.isReadable())
-	{
-		gLog << tr("Unable to open IP2C file.");
-		return false;
-	}
-
-	QElapsedTimer time;
-	time.start();
-
-	QByteArray dataArray = dataBase.readAll();
-
-	// Read version.
-	int pos = 4;
-	if (pos >= dataArray.size())
+	// Verify the magic number.
+	const uint32_t magic = stream.readQUInt32();
+	if (magic != MAKEID('I', 'P', '2', 'C'))
 		return false;
 
-	const char *data = dataArray.constData();
-	unsigned short version = READINT16(&data[pos]);
-
-	bool wasReadSuccessful = false;
+	// Read the version.
+	if (!stream.hasRemaining())
+		return false;
+	const uint16_t version = stream.readQUInt16();
 	switch (version)
 	{
 	case 2:
-		wasReadSuccessful = readDatabaseVersion2(dataArray);
-		break;
-
+		return IP2CParserV2().parse(*this, dataBase);
+	case 3:
+		return IP2CParserV3().parse(*this, dataBase);
 	default:
-		wasReadSuccessful = false;
-		break;
-	}
-
-	if (!wasReadSuccessful)
 		return false;
-
-	gLog << tr("IP2C database read in %1 ms; IP ranges: %2")
-		.arg(time.elapsed()).arg(ranges_.size());
-	return true;
-}
-
-void IP2CParser::parsingThreadFinished()
-{
-	bool bSuccessState = currentParsingThread->bSuccessState;
-	gLog << tr("IP2C parsing thread has finished.");
-
-	delete currentParsingThread;
-	currentParsingThread = nullptr;
-
-	emit parsingFinished(bSuccessState);
-}
-
-bool IP2CParser::readDatabase(const QString &filePath)
-{
-	bool bSuccess = doReadDatabase(filePath);
-	emit parsingFinished(bSuccess);
-
-	return bSuccess;
-}
-
-void IP2CParser::readDatabaseThreaded(const QString &filePath)
-{
-	if (currentParsingThread != nullptr)
-		return;
-
-	auto pParsingThread = new ParsingThread(this, filePath);
-	connect(pParsingThread, SIGNAL(finished()), this, SLOT(parsingThreadFinished()));
-
-	currentParsingThread = pParsingThread;
-
-	pParsingThread->start();
-}
-
-bool IP2CParser::readDatabaseVersion2(const QByteArray &dataArray)
-{
-	QBuffer buffer;
-	buffer.setData(dataArray);
-	buffer.open(QIODevice::ReadOnly);
-	QDataStream dstream(&buffer);
-	dstream.setByteOrder(QDataStream::LittleEndian);
-	DataStreamOperatorWrapper stream(&dstream);
-	stream.skipRawData(6); // skip file tag and version number
-
-	// We need to store the addresses in such hash table to make sure they
-	// are ordered in proper, ascending order. Otherwise the whole library
-	// will not work!
-	QMap<unsigned, IP2CRange> hashTable;
-
-	while (stream.hasRemaining())
-	{
-		// Discard the first field as it is the country name. As of Doomseeker
-		// 1.3.3, the country names and their alpha-3 codes are hardcoded.
-		QString::fromUtf8(stream.readRawUntilByte('\0'));
-		QString countryCode = QString::fromUtf8(stream.readRawUntilByte('\0'));
-
-		// Base entry for each IP read from the file
-		IP2CRange baseEntry;
-		baseEntry.country = countryCode;
-		if (!stream.hasRemaining())
-			return false;
-
-		quint32 numOfIpBlocks = stream.readQUInt32();
-
-		for (quint32 x = 0; x < numOfIpBlocks; ++x)
-		{
-			// Create new entry from the base.
-			IP2CRange entry = baseEntry;
-
-			entry.ipStart = stream.readQUInt32();
-			if (!stream.hasRemaining())
-				return false;
-			entry.ipEnd = stream.readQUInt32();
-
-			hashTable[entry.ipStart] = entry;
-		}
 	}
-
-	this->ranges_ = hashTable.values();
-
-	return true;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-IP2CParser::ConstructorDestructorParserStateSetter::ConstructorDestructorParserStateSetter(IP2CParser *pParser)
-{
-	this->pParser = pParser;
-	pParser->bIsParsing = true;
-}
-
-IP2CParser::ConstructorDestructorParserStateSetter::~ConstructorDestructorParserStateSetter()
-{
-	pParser->bIsParsing = false;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-void IP2CParser::ParsingThread::run()
-{
-	bSuccessState = pParser->doReadDatabase(filePath);
 }

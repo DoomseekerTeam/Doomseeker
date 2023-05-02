@@ -124,7 +124,7 @@ void FlagsId::assign()
 	f->cbCompatOldDamageRadiusInfiniteHeight->setProperty("flagname", COMPAT_OLD_DAMAGE_RADIUS_INFINITE_HEIGHT);
 	f->cbCompatOldRandomNumberGenerator->setProperty("flagname", COMPAT_OLD_RANDOM_NUMBER_GENERATOR);
 	f->cbCompatNETScriptsAreClientside->setProperty("flagname", COMPAT_NETSCRIPTS_ARE_CLIENTSIDE);
-	f->cbCompatNoPredictionACS->setProperty("flagname", COMPAT_NO_PREDICTION_ACS);
+	f->cbCompatPredictFunctions->setProperty("flagname", COMPAT_PREDICT_FUNCTIONS);
 	f->cbCompatAddNOGRAVITYFlagToSpheres->setProperty("flagname", COMPAT_ADD_NOGRAVITYFLAG_TO_SPHERES);
 	f->cbDontStopPlayerScriptsOnDisconnect->setProperty("flagname", DONT_STOP_PLAYER_SCRIPTS_ON_DISCONNECT);
 	f->cbOldZDoomHorizontalThrust->setProperty("flagname", OLD_ZDOOM_HORIZONTAL_THRUST);
@@ -136,8 +136,11 @@ void FlagsId::assign()
 	f->cbCompatWestSpawnsAreSilent->setProperty("flagname", COMPAT_WEST_SPAWNS_ARE_SILENT);
 	f->cbCompatMaskedMidtex->setProperty("flagname", COMPAT_MASKED_MIDTEX);
 	f->cbCompatBadAngles->setProperty("flagname", COMPAT_BAD_ANGLES);
-	f->cbCompatDisableCrosshairAccurate->setProperty("flagname", COMPAT_DISABLE_CROSSHAIR_ACCURATE);
-	f->cbCompatDisableWallFriction->setProperty("flagname", COMPAT_DISABLE_WALL_FRICTION);
+	f->cbAccurateCrosshair->setProperty("flagname", ACCURATE_CROSSHAIR);
+	f->cbDisableWallFriction->setProperty("flagname", DISABLE_WALL_FRICTION);
+	f->cbEnableProjectileHitboxFix->setProperty("flagname", ENABLE_PROJECTILE_HITBOX_FIX);
+	f->cbQuakeThrust->setProperty("flagname", QUAKE_THRUST);
+	f->cbEnableElevatedSpecialFix->setProperty("flagname", ELEVATED_SPECIAL_FIX);
 	f->cbCompatFloorMove->setProperty("flagname", COMPAT_FLOOR_MOVE);
 	f->cbNoMonsters->setProperty("flagname", NO_MONSTERS);
 	f->cbItemsRespawn->setProperty("flagname", ITEMS_RESPAWN);
@@ -157,6 +160,7 @@ void FlagsId::assign()
 	f->cbRespawnAutomatically->setProperty("flagname", RESPAWN_AUTOMATICALLY);
 	f->cbRespawnFarthestAwayFromOthers->setProperty("flagname", RESPAWN_FARTHEST_AWAY_FROM_OTHERS);
 	f->cbWeaponsStayAfterPickup->setProperty("flagname", WEAPONS_STAY_AFTER_PICKUP);
+	f->cbWeaponsStayRefill->setProperty("flagname", WEAPONS_STAY_REFILL);
 	f->cbDontSpawnHealth->setProperty("flagname", DONT_SPAWN_HEALTH);
 	f->cbDontSpawnArmor->setProperty("flagname", DONT_SPAWN_ARMOR);
 	f->cbBarrelsRespawn->setProperty("flagname", BARRELS_RESPAWN);
@@ -177,6 +181,7 @@ void FlagsId::assign()
 	f->cbDontCheckAmmoWhenSwitchingWeapons->setProperty("flagname", DONT_CHECK_AMMO_WHEN_SWITCHING_WEAPONS);
 	f->cbMonstersMustBeKilledToExit->setProperty("flagname", MONSTERS_MUST_BE_KILLED_TO_EXIT);
 	f->cbKillBossMonsters->setProperty("flagname", KILL_BOSS_MONSTERS);
+	f->cbDontCountEndlevelMonsters->setProperty("flagname", NO_COUNT_END_MONST);
 	f->cbRespawnWhereDied->setProperty("flagname", RESPAWN_WHERE_DIED);
 	f->cbRespawnWithAShotgun->setProperty("flagname", RESPAWN_WITH_ASHOTGUN);
 	f->cbDropWeaponOnDeath->setProperty("flagname", DROP_WEAPON_ON_DEATH);

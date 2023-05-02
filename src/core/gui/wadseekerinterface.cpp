@@ -32,6 +32,7 @@
 #include "serverapi/server.h"
 #include "serverapi/serverstructs.h"
 #include "strings.hpp"
+#include "templatedpathresolver.h"
 #include "wadseeker/entities/checksum.h"
 #include "wadseeker/entities/modfile.h"
 #include "wadseeker/entities/modset.h"
@@ -196,8 +197,8 @@ void WadseekerInterface::construct()
 	connectWadseekerObject();
 
 	// Connect tables.
-	this->connect(d->twWads, SIGNAL(rightMouseClick(const QModelIndex&,const QPoint&)),
-		SLOT(wadsTableRightClicked(const QModelIndex&,const QPoint&)));
+	connect(d->twWads, &QWidget::customContextMenuRequested,
+		this, &WadseekerInterface::showWadsTableContextMenu);
 
 	bAutomatic = false;
 	bFirstShown = false;
@@ -418,7 +419,6 @@ void WadseekerInterface::setupIdgames()
 {
 	wadseeker.setIdgamesEnabled(gConfig.wadseeker.bSearchInIdgames);
 	wadseeker.setIdgamesUrl(gConfig.wadseeker.idgamesURL);
-	wadseeker.setWadArchiveEnabled(gConfig.wadseeker.bSearchInWadArchive);
 }
 
 void WadseekerInterface::showEvent(QShowEvent *event)
@@ -482,7 +482,7 @@ void WadseekerInterface::startSeeking(const QList<PWad> &seekedFilesList)
 
 	setupIdgames();
 
-	wadseeker.setTargetDirectory(gConfig.wadseeker.targetDirectory);
+	wadseeker.setTargetDirectory(gDoomseekerTemplatedPathResolver().resolve(gConfig.wadseeker.targetDirectory));
 	wadseeker.setCustomSites(customSites);
 	wadseeker.setMaximumConcurrentSeeks(gConfig.wadseeker.maxConcurrentSiteDownloads);
 	wadseeker.setMaximumConcurrentDownloads(gConfig.wadseeker.maxConcurrentWadDownloads);
@@ -536,9 +536,10 @@ QList<PWad> WadseekerInterface::unsuccessfulWads() const
 	return allWads;
 }
 
-void WadseekerInterface::wadsTableRightClicked(const QModelIndex &index, const QPoint &cursorPosition)
+void WadseekerInterface::showWadsTableContextMenu(const QPoint &position)
 {
-	WadseekerWadsTable::ContextMenu *menu = d->twWads->contextMenu(index, cursorPosition);
+	const QModelIndex index = d->twWads->indexAt(position);
+	WadseekerWadsTable::ContextMenu *menu = d->twWads->contextMenu(index, position);
 
 	// Disable actions depending on Wadseeker's state.
 	QString fileName = d->twWads->fileNameAtRow(index.row());

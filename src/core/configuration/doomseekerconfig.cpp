@@ -35,6 +35,7 @@
 #include "pathfinder/filealias.h"
 #include "pathfinder/filesearchpath.h"
 #include "plugins/engineplugin.h"
+#include "templatedpathresolver.h"
 #include "scanner.h"
 #include "strings.hpp"
 #include "updater/updatechannel.h"
@@ -284,6 +285,7 @@ DoomseekerConfig::DoomseekerCfg::DoomseekerCfg()
 	this->bRecordDemo = false;
 	this->bTellMeWhereAreTheWADsWhenIHoverCursorOverWADSColumn = true;
 	this->bCheckTheIntegrityOfWads = true;
+	this->bResolveTemplatedPathsPlaceholders = false;
 	this->bUseTrayIcon = false;
 	this->bMarkServersWithBuddies = true;
 	this->buddyServersColor = "#5ecf75";
@@ -350,6 +352,7 @@ void DoomseekerConfig::DoomseekerCfg::init(IniSection &section)
 	section.createSetting("RecordDemo", this->bRecordDemo);
 	section.createSetting("TellMeWhereAreTheWADsWhenIHoverCursorOverWADSColumn", this->bTellMeWhereAreTheWADsWhenIHoverCursorOverWADSColumn);
 	section.createSetting("CheckTheIntegrityOfWads", this->bCheckTheIntegrityOfWads);
+	section.createSetting("ResolveTemplatedPathsPlaceholders", bResolveTemplatedPathsPlaceholders);
 	section.createSetting("UseTrayIcon", this->bUseTrayIcon);
 	section.createSetting("MarkServersWithBuddies", this->bMarkServersWithBuddies);
 	section.createSetting("BuddyServersColor", this->buddyServersColor);
@@ -393,6 +396,7 @@ void DoomseekerConfig::DoomseekerCfg::load(IniSection &section)
 	this->bRecordDemo = section["RecordDemo"];
 	this->bTellMeWhereAreTheWADsWhenIHoverCursorOverWADSColumn = section["TellMeWhereAreTheWADsWhenIHoverCursorOverWADSColumn"];
 	this->bCheckTheIntegrityOfWads = section["CheckTheIntegrityOfWads"];
+	this->bResolveTemplatedPathsPlaceholders = section["ResolveTemplatedPathsPlaceholders"];
 	this->bUseTrayIcon = section["UseTrayIcon"];
 	this->bMarkServersWithBuddies = section["MarkServersWithBuddies"];
 	this->buddyServersColor = (const QString &)section["BuddyServersColor"];
@@ -491,6 +495,7 @@ void DoomseekerConfig::DoomseekerCfg::save(IniSection &section)
 	section["RecordDemo"] = this->bRecordDemo;
 	section["TellMeWhereAreTheWADsWhenIHoverCursorOverWADSColumn"] = this->bTellMeWhereAreTheWADsWhenIHoverCursorOverWADSColumn;
 	section["CheckTheIntegrityOfWads"] = this->bCheckTheIntegrityOfWads;
+	section["ResolveTemplatedPathsPlaceholders"] = this->bResolveTemplatedPathsPlaceholders;
 	section["UseTrayIcon"] = this->bUseTrayIcon;
 	section["MarkServersWithBuddies"] = this->bMarkServersWithBuddies;
 	section["BuddyServersColor"] = this->buddyServersColor;
@@ -571,8 +576,12 @@ void DoomseekerConfig::DoomseekerCfg::setWadAliases(const QList<FileAlias> &val)
 
 void DoomseekerConfig::DoomseekerCfg::enableFreedoomInstallation(const QString &dir)
 {
-	if (!FileUtils::containsPath(wadPathsOnly(), dir))
+	if (!FileUtils::containsPath(
+			gDoomseekerTemplatedPathResolver().resolve(wadPathsOnly()),
+			gDoomseekerTemplatedPathResolver().resolve(dir)))
+	{
 		wadPaths.prepend(dir);
+	}
 	QList<FileAlias> aliases = wadAliases();
 	aliases << FileAlias::freeDoom1Aliases();
 	aliases << FileAlias::freeDoom2Aliases();
@@ -638,6 +647,7 @@ void DoomseekerConfig::ServerFilter::init(IniSection &section)
 	section.createSetting("GameModes", QStringList());
 	section.createSetting("GameModesExcluded", QStringList());
 	section.createSetting("MaxPing", 0);
+	section.createSetting("LockedServers", Doomseeker::Indifferent);
 	section.createSetting("ServerName", "");
 	section.createSetting("TestingServers", Doomseeker::Indifferent);
 	section.createSetting("WADs", QStringList());
@@ -652,6 +662,7 @@ void DoomseekerConfig::ServerFilter::load(IniSection &section)
 	info.bShowOnlyValid = section["bShowOnlyValid"];
 	info.gameModes = section["GameModes"].value().toStringList();
 	info.gameModesExcluded = section["GameModesExcluded"].value().toStringList();
+	info.lockedServers = static_cast<Doomseeker::ShowMode>(section.value("LockedServers").toInt());
 	info.maxPing = section["MaxPing"];
 	info.serverName = (const QString &)section["ServerName"];
 	info.testingServers = static_cast<Doomseeker::ShowMode>(section.value("TestingServers").toInt());
@@ -667,6 +678,7 @@ void DoomseekerConfig::ServerFilter::save(IniSection &section)
 	section["bShowOnlyValid"] = info.bShowOnlyValid;
 	section["GameModes"].setValue(info.gameModes);
 	section["GameModesExcluded"].setValue(info.gameModesExcluded);
+	section["LockedServers"] = info.lockedServers;
 	section["MaxPing"] = info.maxPing;
 	section["ServerName"] = info.serverName;
 	section["TestingServers"] = info.testingServers;
@@ -680,7 +692,6 @@ DoomseekerConfig::WadseekerCfg::WadseekerCfg()
 {
 	this->bAlwaysUseDefaultSites = true;
 	this->bSearchInIdgames = true;
-	this->bSearchInWadArchive = true;
 	this->colorMessageCriticalError = "#ff0000";
 	this->colorMessageError = "#ff0000";
 	this->colorMessageNotice = "#000000";
@@ -699,7 +710,6 @@ void DoomseekerConfig::WadseekerCfg::init(IniSection &section)
 {
 	section.createSetting("AlwaysUseDefaultSites", this->bAlwaysUseDefaultSites);
 	section.createSetting("SearchInIdgames", this->bSearchInIdgames);
-	section.createSetting("SearchInWadArchive", this->bSearchInWadArchive);
 	section.createSetting("ColorMessageCriticalError", this->colorMessageCriticalError);
 	section.createSetting("ColorMessageError", this->colorMessageError);
 	section.createSetting("ColorMessageNotice", this->colorMessageNotice);
@@ -714,7 +724,6 @@ void DoomseekerConfig::WadseekerCfg::load(IniSection &section)
 {
 	this->bAlwaysUseDefaultSites = section["AlwaysUseDefaultSites"];
 	this->bSearchInIdgames = section["SearchInIdgames"];
-	this->bSearchInWadArchive = section["SearchInWadArchive"];
 	this->colorMessageCriticalError = (const QString &)section["ColorMessageCriticalError"];
 	this->colorMessageError = (const QString &)section["ColorMessageError"];
 	this->colorMessageNotice = (const QString &)section["ColorMessageNotice"];
@@ -736,7 +745,6 @@ void DoomseekerConfig::WadseekerCfg::save(IniSection &section)
 {
 	section["AlwaysUseDefaultSites"] = this->bAlwaysUseDefaultSites;
 	section["SearchInIdgames"] = this->bSearchInIdgames;
-	section["SearchInWadArchive"] = this->bSearchInWadArchive;
 	section["ColorMessageCriticalError"] = this->colorMessageCriticalError;
 	section["ColorMessageError"] = this->colorMessageError;
 	section["ColorMessageNotice"] = this->colorMessageNotice;

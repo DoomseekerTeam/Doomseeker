@@ -80,8 +80,7 @@ void WWWSeeker::abort()
 
 void WWWSeeker::addFileSiteUrl(const QString &filename, const QUrl &url)
 {
-	const int DEFAULT_PRIORITY = 0;
-	addFileSiteUrlWithPriority(filename, url, DEFAULT_PRIORITY);
+	addFileSiteUrlWithPriority(filename, url, WWWSeeker::PRIORITY_NORMAL);
 }
 
 void WWWSeeker::addFileSiteUrlWithPriority(const QString &filename, const QUrl &url, int priority)

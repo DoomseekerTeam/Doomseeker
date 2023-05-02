@@ -33,6 +33,7 @@
 #include <serverapi/gamefile.h>
 #include <serverapi/message.h>
 #include <serverapi/playerslist.h>
+#include <templatedpathresolver.h>
 #include <QFileInfo>
 #include <QRegularExpression>
 
@@ -123,10 +124,11 @@ void ChocolateDoomGameClientRunner::joinPopulatedServer()
 	dialog->setIwadByName(server->iwad());
 	if (dialog->exec() == QDialog::Accepted)
 	{
-		overwriteExecutable = dialog->executable();
-		args() << "-iwad" << dialog->iwadPath();
-		for (const QString &file : dialog->filePaths())
+		overwriteExecutable = gDoomseekerTemplatedPathResolver().resolve(dialog->executable());
+		args() << "-iwad" << gDoomseekerTemplatedPathResolver().resolve(dialog->iwadPath());
+		for (QString file : dialog->filePaths())
 		{
+			file = gDoomseekerTemplatedPathResolver().resolve(file);
 			if (file.toLower().endsWith(".deh"))
 				args() << "-deh" << file;
 			else

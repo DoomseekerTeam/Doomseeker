@@ -9,6 +9,10 @@ library.
 Doomseeker and Wadseeker are licensed under the GNU LGPL v2.1 or later.
 
 * [Website](https://doomseeker.drdteam.org)
+* [Install Guide](https://wiki.zandronum.com/Install_Doomseeker)
+* Suggestions & bug reporting: [Zandronum Tracker](https://zandronum.com/tracker/)
+  / Doomseeker project
+* Direct support: [Zandronum Discord](https://discord.gg/8QqxCBR)
 
 Compiling
 ---------

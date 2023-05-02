@@ -62,7 +62,7 @@ private:
 	DPtr<CFGIRCSounds> d;
 
 	void playSound(const QString &path) const;
-	QString validateFilePath(const QString &path) const;
+	QString validateFilePath(QString path) const;
 
 private slots:
 	void browseNicknameUsed();

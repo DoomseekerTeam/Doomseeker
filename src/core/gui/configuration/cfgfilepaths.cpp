@@ -23,8 +23,11 @@
 #include "cfgfilepaths.h"
 #include "configuration/doomseekerconfig.h"
 #include "pathfinder/filesearchpath.h"
+#include "templatedpathresolver.h"
 #include "ui_cfgfilepaths.h"
+#include <QApplication>
 #include <QFileDialog>
+#include <QStyle>
 
 static const int COL_PATH = 0;
 static const int COL_RECURSE = 1;
@@ -32,6 +35,16 @@ static const int NUM_COLS = 2;
 
 DClass<CFGFilePaths> : public Ui::CFGFilePaths
 {
+public:
+	struct SavedState
+	{
+		bool bResolveTemplatedPathsPlaceholders;
+	} savedState;
+
+	void resetSavedState()
+	{
+		savedState.bResolveTemplatedPathsPlaceholders = gConfig.doomseeker.bResolveTemplatedPathsPlaceholders;
+	}
 };
 
 DPointered(CFGFilePaths)
@@ -39,6 +52,7 @@ DPointered(CFGFilePaths)
 CFGFilePaths::CFGFilePaths(QWidget *parent)
 	: ConfigPage(parent)
 {
+	set_reject(&CFGFilePaths::reject_);
 	d->setupUi(this);
 
 	QStringList labels;
@@ -50,11 +64,48 @@ CFGFilePaths::CFGFilePaths(QWidget *parent)
 	header->setSectionResizeMode(COL_PATH, QHeaderView::Stretch);
 	header->setSectionResizeMode(COL_RECURSE, QHeaderView::ResizeToContents);
 
+	QString templatedPathsToolTip = QString("<p>%1</p>").arg(tr(
+		"Doomseeker supports special characters in user-configurable "
+		"paths. This affects all paths everywhere, not only the file "
+		"paths configured on this page. The placeholders are:"));
+	templatedPathsToolTip += "<ul>";
+
+	templatedPathsToolTip += QString("<li>%1</li>").arg(
+		tr("<b>~</b> - if at the beginning of the path, resolved to "
+			"the home directory of the current user"));
+#ifdef DOOMSEEKER_TEMPLATED_PATH_RESOLVER_TILDEUSER
+	templatedPathsToolTip += QString("<li>%1</li>").arg(
+		tr("<b>~<i>user</i></b> - if at the beginning of the path, resolved to "
+			"the home directory of the specified <i>user</i>"));
+#endif
+	templatedPathsToolTip += QString("<li>%1</li>").arg(
+		tr("<b>$PROGDIR</b> - resolved to the directory where Doomseeker's "
+			"executable is located; this may create invalid paths if "
+			"used in the middle of the path"));
+	templatedPathsToolTip += QString("<li>%1</li>").arg(
+		tr("<b>$<i>NAME</i></b> - any <i>NAME</i> is resolved to the environment "
+			"variable of the same <i>NAME</i>, or to empty if the environment "
+			"variable is absent"));
+	templatedPathsToolTip += "</ul>";
+
+	templatedPathsToolTip += QString("<p>%1</p>").arg(tr(
+		"This option controls whether the <b>$PROGDIR</b> "
+		"and <b>$<i>NAME</i></b> will be resolved or ignored. "
+		"If this option is <b>checked</b>, both are resolved as explained. "
+		"If this option is <b>unchecked</b>, both will be taken literally. "
+		"The <b>~</b> placeholders are always resolved regardless."));
+
+	d->cbResolveTemplatedPathsPlaceholders->setToolTip(templatedPathsToolTip);
+	d->btnBrowseWadPath->setIcon(QApplication::style()->standardIcon(QStyle::SP_DirOpenIcon));
+
 	connect(d->btnAddWadPath, SIGNAL(clicked()), this, SLOT(btnAddWadPath_Click()));
+	connect(d->btnBrowseWadPath, &QPushButton::clicked, this, &CFGFilePaths::btnBrowseWadPath_Click);
 	connect(d->btnRemoveWadPath, SIGNAL(clicked()), this, SLOT(btnRemoveWadPath_Click()));
 	this->connect(d->tblFilePaths->itemDelegate(),
 		SIGNAL(closeEditor(QWidget*,QAbstractItemDelegate::EndEditHint)),
 		SIGNAL(validationRequested()));
+	connect(d->cbResolveTemplatedPathsPlaceholders, &QAbstractButton::toggled,
+		this, &CFGFilePaths::cbResolveTemplatedPathsPlaceholders_Toggled);
 	d->tblFilePaths->connect(d->tblFilePaths,
 		&TableWidgetReorderable::rowsReordered,
 		&QTableWidget::resizeRowsToContents);
@@ -66,28 +117,34 @@ CFGFilePaths::~CFGFilePaths()
 
 void CFGFilePaths::addPath(const FileSearchPath &fileSearchPath)
 {
-	if (fileSearchPath.isValid())
-		return;
+	if (fileSearchPath.isValid() && !isPathAlreadyDefined(fileSearchPath.path()))
+		addPathToTable(fileSearchPath);
+}
 
-	if (!isPathAlreadyDefined(fileSearchPath.path()))
-	{
-		d->tblFilePaths->setSortingEnabled(false);
-		int newRow = d->tblFilePaths->rowCount();
-		d->tblFilePaths->insertRow(newRow);
-		auto path = new QTableWidgetItem(fileSearchPath.path());
-		path->setData(Qt::ToolTipRole, fileSearchPath.path());
-		auto recurse = new QTableWidgetItem();
-		recurse->setCheckState(fileSearchPath.isRecursive() ? Qt::Checked : Qt::Unchecked);
-		recurse->setData(Qt::TextAlignmentRole, Qt::AlignCenter);
+void CFGFilePaths::addPathToTable(const FileSearchPath &fileSearchPath)
+{
+	d->tblFilePaths->setSortingEnabled(false);
+	int newRow = d->tblFilePaths->rowCount();
+	d->tblFilePaths->insertRow(newRow);
+	auto path = new QTableWidgetItem(fileSearchPath.path());
+	path->setData(Qt::ToolTipRole, fileSearchPath.path());
+	auto recurse = new QTableWidgetItem();
+	recurse->setCheckState(fileSearchPath.isRecursive() ? Qt::Checked : Qt::Unchecked);
+	recurse->setData(Qt::TextAlignmentRole, Qt::AlignCenter);
 
-		d->tblFilePaths->setItem(newRow, COL_PATH, path);
-		d->tblFilePaths->setItem(newRow, COL_RECURSE, recurse);
-		d->tblFilePaths->resizeRowsToContents();
-		d->tblFilePaths->setSortingEnabled(true);
-	}
+	d->tblFilePaths->setItem(newRow, COL_PATH, path);
+	d->tblFilePaths->setItem(newRow, COL_RECURSE, recurse);
+	d->tblFilePaths->resizeRowsToContents();
+	d->tblFilePaths->setSortingEnabled(true);
 }
 
 void CFGFilePaths::btnAddWadPath_Click()
+{
+	addPathToTable(QString());
+	emit validationRequested();
+}
+
+void CFGFilePaths::btnBrowseWadPath_Click()
 {
 	QString strDir = QFileDialog::getExistingDirectory(this, tr("Doomseeker - Add game mod path"));
 	addPath(strDir);
@@ -107,12 +164,18 @@ void CFGFilePaths::btnRemoveWadPath_Click()
 	emit validationRequested();
 }
 
+void CFGFilePaths::cbResolveTemplatedPathsPlaceholders_Toggled(bool state)
+{
+	gConfig.doomseeker.bResolveTemplatedPathsPlaceholders = state;
+	emit validationRequested();
+}
+
 QIcon CFGFilePaths::icon() const
 {
 	return QApplication::style()->standardIcon(QStyle::SP_DirOpenIcon);
 }
 
-bool CFGFilePaths::isPathAlreadyDefined(const QString &path)
+bool CFGFilePaths::isPathAlreadyDefined(const QString &path) const
 {
 	Qt::CaseSensitivity caseSensitivity;
 
@@ -124,7 +187,7 @@ bool CFGFilePaths::isPathAlreadyDefined(const QString &path)
 
 	for (int i = 0; i < d->tblFilePaths->rowCount(); ++i)
 	{
-		QTableWidgetItem *item = d->tblFilePaths->item(i, COL_PATH);
+		const QTableWidgetItem *item = d->tblFilePaths->item(i, COL_PATH);
 		QString dir = item->text();
 
 		if (dir.compare(path, caseSensitivity) == 0)
@@ -136,12 +199,15 @@ bool CFGFilePaths::isPathAlreadyDefined(const QString &path)
 
 void CFGFilePaths::readSettings()
 {
+	d->resetSavedState();
+
 	const QList<FileSearchPath> &wadPaths = gConfig.doomseeker.wadPaths;
 	for (int i = 0; i < wadPaths.count(); ++i)
 		addPath(wadPaths[i]);
 
 	d->cbTellMeWhereAreMyWads->setChecked(gConfig.doomseeker.bTellMeWhereAreTheWADsWhenIHoverCursorOverWADSColumn);
 	d->cbCheckTheIntegrityOfWads->setChecked(gConfig.doomseeker.bCheckTheIntegrityOfWads);
+	d->cbResolveTemplatedPathsPlaceholders->setChecked(gConfig.doomseeker.bResolveTemplatedPathsPlaceholders);
 }
 
 void CFGFilePaths::saveSettings()
@@ -160,6 +226,14 @@ void CFGFilePaths::saveSettings()
 	gConfig.doomseeker.wadPaths = wadPaths;
 	gConfig.doomseeker.bTellMeWhereAreTheWADsWhenIHoverCursorOverWADSColumn = d->cbTellMeWhereAreMyWads->isChecked();
 	gConfig.doomseeker.bCheckTheIntegrityOfWads = d->cbCheckTheIntegrityOfWads->isChecked();
+	gConfig.doomseeker.bResolveTemplatedPathsPlaceholders = d->cbResolveTemplatedPathsPlaceholders->isChecked();
+
+	d->resetSavedState();
+}
+
+void CFGFilePaths::reject_()
+{
+	gConfig.doomseeker.bResolveTemplatedPathsPlaceholders = d->savedState.bResolveTemplatedPathsPlaceholders;
 }
 
 ConfigPage::Validation CFGFilePaths::validate()
@@ -169,7 +243,7 @@ ConfigPage::Validation CFGFilePaths::validate()
 	{
 		QTableWidgetItem *itemPath = d->tblFilePaths->item(i, COL_PATH);
 
-		QString validationError = validatePath(itemPath->text());
+		QString validationError = validatePath(gDoomseekerTemplatedPathResolver().resolve(itemPath->text()));
 		bool valid = validationError.isEmpty();
 		allPathsValid = allPathsValid && valid;
 
@@ -182,7 +256,7 @@ ConfigPage::Validation CFGFilePaths::validate()
 QString CFGFilePaths::validatePath(const QString &path) const
 {
 	if (path.trimmed().isEmpty())
-		return tr("No path specified.");
+		return tr("Path empty.");
 
 	QFileInfo fileInfo(path.trimmed());
 	if (!fileInfo.exists())

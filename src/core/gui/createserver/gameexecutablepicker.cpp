@@ -30,6 +30,7 @@
 #include "serverapi/exefile.h"
 #include "serverapi/gameexefactory.h"
 #include "serverapi/gamefile.h"
+#include "templatedpathresolver.h"
 #include "ui_gameexecutablepicker.h"
 #include <QFileDialog>
 
@@ -121,7 +122,7 @@ void GameExecutablePicker::setExecutableToDefault()
 
 	for (const GameFile &candidate : execs.asQList())
 	{
-		QString path = cfg->value(candidate.configName()).toString();
+		const QString path = cfg->value(candidate.configName()).toString();
 		if (!path.isEmpty())
 		{
 			d->executableInput->setCurrentText(path);
@@ -173,7 +174,7 @@ void GameExecutablePicker::reloadExecutables()
 	}
 	for (const ExeFilePath &exe : d->plugin->gameExe()->additionalExecutables(d->allowedExecs))
 	{
-		QFileInfo fileInfo(exe.path());
+		QFileInfo fileInfo(gDoomseekerTemplatedPathResolver().resolve(exe.path()));
 		if (fileInfo.isFile())
 			add(exe.path());
 	}

@@ -77,6 +77,7 @@ public:
 		bool bRecordDemo;
 		bool bTellMeWhereAreTheWADsWhenIHoverCursorOverWADSColumn;
 		bool bCheckTheIntegrityOfWads;
+		bool bResolveTemplatedPathsPlaceholders;
 		PatternList buddies;
 		bool bUseTrayIcon;
 		QString buddyServersColor;
@@ -189,7 +190,6 @@ public:
 
 		bool bAlwaysUseDefaultSites;
 		bool bSearchInIdgames;
-		bool bSearchInWadArchive;
 		QString colorMessageCriticalError;
 		QString colorMessageError;
 		QString colorMessageNotice;

@@ -27,7 +27,6 @@
 #include "global.h"
 #include "huffman/huffman.h"
 #include "log.h"
-#include "zandronumqbinaries.h"
 #include "zandronumqengineplugin.h"
 #include "zandronumqgamehost.h"
 #include "zandronumqgameinfo.h"
@@ -119,11 +118,6 @@ ZandronumqServer::ZandronumqServer(const QHostAddress &address, unsigned short p
 	connect(this, SIGNAL(updated(ServerPtr,int)), this, SLOT(updatedSlot(ServerPtr,int)));
 }
 
-ExeFile *ZandronumqServer::clientExe()
-{
-	return new ZandronumqClientExeFile(self().toStrongRef().staticCast<ZandronumqServer>());
-}
-
 GameClientRunner *ZandronumqServer::gameRunner()
 {
 	return new ZandronumqGameClientRunner(self());
@@ -202,11 +196,8 @@ Server::Response ZandronumqServer::readRequest(const QByteArray &data)
 	// Check the response code
 	qint32 response = in.readQInt32();
 
-	// Determine ping. Time is sent no matter what the response is, still we
-	// should check if there's enough data to read from.
-	qint32 responseTimestamp = in.readQInt32();
-	setPing(millisecondTime() - responseTimestamp);
-	setPingIsSet(true);
+	// Drop the "response timestamp" field.
+	in.readQInt32();
 
 	// Act according to the response
 	switch (response)
@@ -295,8 +286,7 @@ Server::Response ZandronumqServer::readRequest(const QByteArray &data)
 		{
 			RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
 			QString wad = in.readRawUntilByte('\0');
-			if (!wad.isEmpty())
-				addWad(wad);
+			addWad(wad);
 		}
 	}
 
@@ -618,6 +608,25 @@ Server::Response ZandronumqServer::readRequest(const QByteArray &data)
 			resetPwadsList(pwads);
 		}
 	}
+
+	// Now when the server is fully known, clean-up the PWADs list.
+	bool pwadsModified = false;
+	QList<PWad> pwads = wads();
+	for (unsigned index = 0; index < pwads.size(); index++)
+	{
+		PWad pwad = pwads[index];
+		if (pwad.name().isEmpty())
+		{
+			pwadsModified = true;
+			pwads.removeAt(index);
+			--index;
+		}
+	}
+	if (pwadsModified)
+	{
+		resetPwadsList(pwads);
+	}
+
 	return RESPONSE_GOOD;
 }
 

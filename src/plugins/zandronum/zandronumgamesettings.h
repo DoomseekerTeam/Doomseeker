@@ -128,6 +128,7 @@ extern const QString ALLOW_BFGFREEAIMING;
 extern const QString DONT_CHECK_AMMO_WHEN_SWITCHING_WEAPONS;
 extern const QString MONSTERS_MUST_BE_KILLED_TO_EXIT;
 extern const QString KILL_BOSS_MONSTERS;
+extern const QString NO_COUNT_END_MONST;
 extern const QString RESPAWN_WHERE_DIED;
 extern const QString RESPAWN_WITH_ASHOTGUN;
 extern const QString DROP_WEAPON_ON_DEATH;

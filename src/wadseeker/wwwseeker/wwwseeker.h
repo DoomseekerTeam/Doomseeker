@@ -39,24 +39,27 @@ class NetworkReplySignalWrapper;
 class NetworkReply;
 
 /**
- *	@brief Search and protocol wrapper class.
+ * @brief Search and protocol wrapper class.
  *
- *	WWWSeeker class seeks specified files by iterating through
- *	previously defined set of sites and parsing their HTML code
- *	if necessary.
+ * WWWSeeker class seeks specified files by iterating through
+ * previously defined set of sites and parsing their HTML code
+ * if necessary.
  *
- *	This class handles URLs by selecting proper protocols for them.
- *	It hides how protocols work and provides simple interface:
- *	request a file, inform about download progress and
- *	send a proper signal when download is finished.
+ * This class handles URLs by selecting proper protocols for them.
+ * It hides how protocols work and provides simple interface:
+ * request a file, inform about download progress and
+ * send a proper signal when download is finished.
  *
- *	URLs with wildcards can be used, see: primaryFile
+ * URLs with wildcards can be used, see: primaryFile
  */
 class WWWSeeker : public QObject
 {
 	Q_OBJECT
 
 public:
+	static const int PRIORITY_NORMAL = 0;
+	static const int PRIORITY_HIGH = 100;
+
 	WWWSeeker();
 	~WWWSeeker() override;
 
@@ -90,7 +93,8 @@ public:
 	 * If specified URL is on visited URLs list this becomes a no-op.
 	 *
 	 * @param priority
-	 *     The higher the number, the bigger the URL priority.
+	 *     The higher the number, the bigger the URL priority. Try to
+	 *     use the PRIORITY constants defined in this class.
 	 */
 	void addFileSiteUrlWithPriority(const QString &filename, const QUrl &url, int priority);
 

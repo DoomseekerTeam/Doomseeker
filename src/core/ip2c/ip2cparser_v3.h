@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------
-// wadarchiveclient.h
+// ip2cparser.h
 //------------------------------------------------------------------------------
 //
 // This library is free software; you can redistribute it and/or
@@ -18,51 +18,27 @@
 // 02110-1301  USA
 //
 //------------------------------------------------------------------------------
-// Copyright (C) 2015 "Zalewa" <zalewapl@gmail.com>
+// Copyright (C) 2022 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
-#ifndef id6c75c254_acf8_441c_980d_c044fd80f264
-#define id6c75c254_acf8_441c_980d_c044fd80f264
+#ifndef __IP2CPARSER_V3_H__
+#define __IP2CPARSER_V3_H__
 
-#include "wadseekermessagetype.h"
-#include <QNetworkAccessManager>
-#include <QNetworkReply>
-#include <QObject>
-#include <QString>
-#include <QUrl>
-#include <QVariant>
+#include <QByteArray>
+#include <QIODevice>
 
-class WadDownloadInfo;
-
-class WadArchiveClient : public QObject
+class IP2CParser;
+/**
+ * Compacted database file format, version 3
+ */
+class IP2CParserV3
 {
-	Q_OBJECT
-
 public:
-	WadArchiveClient();
-	~WadArchiveClient() override;
-
-	void abort();
-	void enqueue(const WadDownloadInfo &wad);
-	bool isWorking() const;
-	void reportBadUrlIfOriginatingFromHere(const QUrl &url);
-	void setUserAgent(const QString &userAgent);
-	void start();
-	QNetworkReply *startQNetworkReply(const QUrl &url);
-signals:
-	void finished();
-	void message(const QString &msg, WadseekerLib::MessageType type);
-	void urlFound(const QString &wadName, const QUrl &url);
+	bool parse(IP2CParser &self, QIODevice &dataBase);
 
 private:
-	class PrivData;
-	PrivData *d;
-
-	void emitFinished();
-	void parseWadArchiveStructure(const QVariantMap &mapName, const QVariantMap &mapMd5);
-	void startNextInQueue();
-
-private slots:
-	void onQueryFinished();
+	bool readSectionIpv4(IP2CParser &self, QByteArray &&section);
+	bool readSectionLegalNotice(IP2CParser &self, QByteArray &&section);
+	bool readSectionUrl(IP2CParser &self, QByteArray &&section);
 };
 
 #endif

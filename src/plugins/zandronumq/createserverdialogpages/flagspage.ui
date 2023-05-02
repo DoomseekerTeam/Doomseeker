@@ -785,6 +785,13 @@ p, li { white-space: pre-wrap; }
                    </property>
                   </widget>
                  </item>
+                 <item>
+                  <widget class="QCheckBox" name="cbDontCountEndlevelMonsters">
+                   <property name="text">
+                    <string>Don't count monsters in the &quot;end level&quot; sector towards kills</string>
+                   </property>
+                  </widget>
+                 </item>
                 </layout>
                </widget>
               </item>
@@ -1030,6 +1037,13 @@ p, li { white-space: pre-wrap; }
                <widget class="QCheckBox" name="cbWeaponsStayAfterPickup">
                 <property name="text">
                  <string>Weapons stay after pickup</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="cbWeaponsStayRefill">
+                <property name="text">
+                 <string>Weapons always refill ammo</string>
                 </property>
                </widget>
               </item>
@@ -1685,12 +1699,22 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="cbCompatDisableCrosshairAccurate">
+            <widget class="QCheckBox" name="cbAccurateCrosshair">
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bring back vanilla ZDoom shooting below the crosshair.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Make weapons shoot where the crosshair is.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="text">
-              <string>Disable shooting where crosshair is</string>
+              <string>Enable shooting where crosshair is</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbEnableProjectileHitboxFix">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Make projectile hitbox work across entire sprite instead of only upper half.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Enable projectile hitbox fix</string>
              </property>
             </widget>
            </item>
@@ -1733,12 +1757,12 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="cbCompatNoPredictionACS">
+            <widget class="QCheckBox" name="cbCompatPredictFunctions">
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Don't execute predicted ACS scripts on client side. Turning this on can fix ACS teleports or jumppads on maps that are not using ACS_ExecuteWithResult.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When this option is ON, many Decorate and ACS functions will execute on clients without before receiving a command from the server. This can lead to smoother multiplayer, but can breaks mods that don't support it..&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="text">
-              <string>Don't execute prediction ACS on client</string>
+              <string>Enable predicting Decorate and ACS functions on clients</string>
              </property>
             </widget>
            </item>
@@ -1805,9 +1829,29 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="cbCompatDisableWallFriction">
+            <widget class="QCheckBox" name="cbDisableWallFriction">
              <property name="text">
               <string>Disable wall friction</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbQuakeThrust">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The Quake thrust formula considers damage source and victim positions and applies thrust properly among all three axes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Use Quake thrust formula</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbEnableElevatedSpecialFix">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Fix cases when there is an elevated floor with a special, but an actor is standing on it's edge so that actor's center is in the air and the special doesn't trigger.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Enable elevated sector special fix</string>
              </property>
             </widget>
            </item>
@@ -2012,6 +2056,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>spinMonsterKillPercentage</tabstop>
   <tabstop>spinMonstersDamageFactor</tabstop>
   <tabstop>cbKillBossMonsters</tabstop>
+  <tabstop>cbDontCountEndlevelMonsters</tabstop>
   <tabstop>cbRespawnWhereDied</tabstop>
   <tabstop>cbLoseAllInventory</tabstop>
   <tabstop>cbLoseArmor</tabstop>
@@ -2034,6 +2079,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>rbKillThePlayer</tabstop>
   <tabstop>cbKeepFragsAfterMapChange</tabstop>
   <tabstop>cbWeaponsStayAfterPickup</tabstop>
+  <tabstop>cbWeaponsStayRefill</tabstop>
   <tabstop>cbDoubleAmmo</tabstop>
   <tabstop>cbDontSpawnHealth</tabstop>
   <tabstop>cbDontSpawnArmor</tabstop>
@@ -2092,12 +2138,15 @@ p, li { white-space: pre-wrap; }
   <tabstop>cbCompatUseVanillaAutoaimTracerBehavior</tabstop>
   <tabstop>cbCompatMaskedMidtex</tabstop>
   <tabstop>cbCompatBadAngles</tabstop>
-  <tabstop>cbCompatDisableCrosshairAccurate</tabstop>
+  <tabstop>cbAccurateCrosshair</tabstop>
+  <tabstop>cbEnableProjectileHitboxFix</tabstop>
+  <tabstop>cbQuakeThrust</tabstop>
+  <tabstop>cbEnableElevatedSpecialFix</tabstop>
   <tabstop>cbCompatFindShortestTexturesLikeDoom</tabstop>
   <tabstop>cbCompatLimitPainElementals</tabstop>
   <tabstop>cbCompatSpawnItemDropsOnTheFloor</tabstop>
   <tabstop>cbCompatNETScriptsAreClientside</tabstop>
-  <tabstop>cbCompatNoPredictionACS</tabstop>
+  <tabstop>cbCompatPredictFunctions</tabstop>
   <tabstop>cbCompatActorsAreInfinitelyTall</tabstop>
   <tabstop>cbCompatUseBuggierStairBuilding</tabstop>
   <tabstop>cbCompatDisableBoomDoorLightEffect</tabstop>
@@ -2106,7 +2155,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>cbCompatFullWeaponLower</tabstop>
   <tabstop>cbCompatWestSpawnsAreSilent</tabstop>
   <tabstop>cbCompatFloorMove</tabstop>
-  <tabstop>cbCompatDisableWallFriction</tabstop>
+  <tabstop>cbDisableWallFriction</tabstop>
   <tabstop>votingPage</tabstop>
   <tabstop>leDmflags</tabstop>
   <tabstop>leDmflags2</tabstop>
@@ -3046,7 +3095,7 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
-   <sender>cbDoubleAmmo</sender>
+   <sender>cbWeaponsStayRefill</sender>
    <signal>clicked()</signal>
    <receiver>FlagsPage</receiver>
    <slot>applyWidgetsChange()</slot>
@@ -3058,6 +3107,22 @@ p, li { white-space: pre-wrap; }
     <hint type="destinationlabel">
      <x>586</x>
      <y>232</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbDoubleAmmo</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>597</x>
+     <y>229</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>262</y>
     </hint>
    </hints>
   </connection>
@@ -3910,7 +3975,7 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
-   <sender>cbCompatNoPredictionACS</sender>
+   <sender>cbCompatPredictFunctions</sender>
    <signal>clicked()</signal>
    <receiver>FlagsPage</receiver>
    <slot>applyWidgetsChange()</slot>
@@ -4390,7 +4455,55 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
-   <sender>cbCompatDisableCrosshairAccurate</sender>
+   <sender>cbAccurateCrosshair</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>89</x>
+     <y>323</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>338</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbEnableProjectileHitboxFix</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>89</x>
+     <y>323</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>338</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbQuakeThrust</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>89</x>
+     <y>323</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>338</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbEnableElevatedSpecialFix</sender>
    <signal>clicked()</signal>
    <receiver>FlagsPage</receiver>
    <slot>applyWidgetsChange()</slot>
@@ -4422,7 +4535,7 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
-   <sender>cbCompatDisableWallFriction</sender>
+   <sender>cbDisableWallFriction</sender>
    <signal>clicked()</signal>
    <receiver>FlagsPage</receiver>
    <slot>applyWidgetsChange()</slot>
@@ -4514,6 +4627,22 @@ p, li { white-space: pre-wrap; }
     <hint type="destinationlabel">
      <x>845</x>
      <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbDontCountEndlevelMonsters</sender>
+   <signal>clicked()</signal>
+   <receiver>FlagsPage</receiver>
+   <slot>applyWidgetsChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>104</x>
+     <y>328</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>0</x>
+     <y>320</y>
     </hint>
    </hints>
   </connection>

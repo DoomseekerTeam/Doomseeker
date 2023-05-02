@@ -171,7 +171,7 @@ void ServerListRowHandler::fillPlayerColumn()
 	else
 	{
 		fillItem(pItem, sortValue, QString("%1/%2").arg(players.numClients())
-			.arg(d->server->numTotalSlots()));
+			.arg(d->server->maxClients()));
 	}
 
 	// Unset some data if it has been set before.

@@ -41,6 +41,8 @@ public:
 	QStringList gameModes;
 	QStringList gameModesExcluded;
 
+	Doomseeker::ShowMode lockedServers;
+
 	/**
 	 *	@brief Maximum allowed ping.
 	 *

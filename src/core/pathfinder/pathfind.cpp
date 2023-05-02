@@ -23,6 +23,7 @@
 #include "pathfind.h"
 
 #include "serverapi/gamefile.h"
+#include "templatedpathresolver.h"
 #include <QDir>
 #include <QFileInfo>
 #include <QStringList>
@@ -50,7 +51,7 @@ QString PathFind::findGameFile(const QStringList &knownPaths, const GameFile &ga
 	{
 		if (!path.trimmed().isEmpty())
 		{
-			QFileInfo fileInfo(path);
+			QFileInfo fileInfo(gDoomseekerTemplatedPathResolver().resolve(path));
 			if (fileInfo.isDir())
 			{
 				pathFinder.addPrioritySearchDir(fileInfo.filePath());

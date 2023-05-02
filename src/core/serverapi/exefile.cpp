@@ -30,6 +30,7 @@
 #include "plugins/engineplugin.h"
 #include "serverapi/server.h"
 #include "strings.hpp"
+#include "templatedpathresolver.h"
 #include <QFileInfo>
 #include <QString>
 
@@ -83,7 +84,7 @@ const QString ExeFile::pathToExe(Message &message, const InternalClientsInspecti
 		return QString();
 	}
 
-	QFileInfo fi(path);
+	QFileInfo fi(gDoomseekerTemplatedPathResolver().resolve(path));
 
 	if (!fi.exists() || (fi.isDir() && !fi.isBundle()))
 	{
@@ -122,7 +123,7 @@ void ExeFile::setProgramName(const QString &name)
 QString ExeFile::workingDirectory(Message &message)
 {
 	QFileInfo fi(pathToExe(message));
-	return fi.absolutePath();
+	return fi.path();
 }
 
 const InstallationPublicData ExeFile::createInstallationData() const

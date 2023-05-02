@@ -30,6 +30,7 @@
 class ServerConsole : public QWidget
 {
 	Q_OBJECT
+	Q_DISABLE_COPY(ServerConsole)
 
 public:
 	ServerConsole(QWidget *parent = nullptr, Qt::WindowFlags f = {});
@@ -46,11 +47,12 @@ public slots:
 signals:
 	void messageSent(const QString &message);
 
-protected slots:
-	void forwardMessage();
-
 private:
 	DPtr<ServerConsole> d;
+
+private slots:
+	void flushBuffer();
+	void forwardMessage();
 };
 
 #endif // SERVERCONSOLE_H

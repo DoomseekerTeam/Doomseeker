@@ -169,20 +169,6 @@ icons/person.png (blue hue changed to red by Zalewa)
 icons/pencil.png
 
 
-- Copyright (C) MaxMind
-	link: https://dev.maxmind.com/geoip/geoip2/geolite2/
-	license: Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
-	license link: https://creativecommons.org/licenses/by-sa/4.0/
-	Notes: data stored in this file does indeed come from MaxMind's
-		GeoIP2 database, although the format in which this data
-		is stored is native to Doomseeker.
-
-	This product includes GeoLite2 data created by MaxMind,
-	available from http://www.maxmind.com.
-
-IpToCountry.dat
-
-
 - Copyright unclaimed by The Doomseeker Team;
   pictures depicting game logos.
 

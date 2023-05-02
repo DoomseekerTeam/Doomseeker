@@ -8,8 +8,84 @@ This file follows the format of
 and this project does not adhere to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+### Added
+- Upgrade the IpToCountry.dat file format to version 3.
+- A tri-state filter for password-protected servers. (#4008)
+- Wadseeker: add a bunch of websites to the WAD search list: (#4053)
+    - https://doomshack.org/wadlist.php
+    - https://wads.firestick.games/
+    - https://euroboros.net/zandronum/wads/
+    - https://static.dudoomers.com/wads/
+- Cyprus country flag.
+- Zandronum, Q-Zandronum: add "Don't count monsters in the 'end level' sector
+towards kills" checkbox to the Create Game box. (#4055)
+
+### Changed
+- Refresh the servers in a randomized order rather than the order
+in which they were provided by the plugin (ergo: by the master
+server, ergo: sorted by IP). This should be more fair, as the previous
+method favored servers that were in the lower IP ranges.
+- Updated Flag of Ukraine colors to DSTU 4512:2006. Previously, Doomseeker was
+displaying the flag of Post-Soviet Ukraine, a design with lighter blue color
+shade, from 1991-1992. (#3983)
+- In case if Doomseeker uses the old version 2 file format for IP2C,
+redirect the IP2C licensing info to a Doomseeker's webpage instead of
+displaying anything that was hardcoded at the time when Doomseeker was
+compiled and could potentially not be accurate anymore at the time of
+viewing. (#3952)
+- Hide the IP2C update actions in the IP2C updater dialog box if the
+updater determines that the local DB is the same as the remote one. (#3731)
+- Wadseeker: added `sigil_shreds` and `sigil_shreds_compat` to the
+list of forbidden downloads.
+- Wadseeker: upgrade LZMA SDK to version 22.01. (#3934)
+- Q-Zandronum: adapt plugin to Q-Zandronum 1.3.
+- Zandronum, Q-Zandronum: rely on Doomseeker's internal mechanism to
+calculate the ping to the game server rather than using the port's
+feature where the timestamp is sent back in the challenge reply
+packet. (#3992)
+- Zandronum: remove the defunct IRC server.
+
+### Deprecated
+- Wadseeker: Wadseeker::setWadArchiveEnabled(). (#4048)
+- Plugin API: Server::numTotalSlots(). (#4038)
+
+### Fixed
+- Use signed integers to display the dmflags in the server details. (#3944)
+- Buffer the messages in the RCon to fix performance issue when many
+small messages arrive. (#4026)
+- The "Put populated servers on top" option would not be applied to the
+server list on program start if disabled. (#3772)
+- Wrong amount of free server slots was reported if server allowed more
+players to join the game than clients to connect to the server. (#4038)
+- Bring up the context menu for the server list and for Wadseeker's WADs
+table when the keyboard menu key is pressed. (#3671)
+- Fix the layouting issues with progress bars in Wadseeker's dialog box. (#3707)
+- Wadseeker: custom (server-provided) template URLs with the %WADNAME%
+placeholder wouldn't get the higher priority status that the plain
+custom URLs normally enjoy. (#3996)
+- Zandronum, Q-Zandronum: servers that emitted empty PWAD names in their
+challenge reply would appear as errored because the plugins failed to
+parse the subsequent MD5 checksum hashes for these PWADs. The plugins
+will now sanitize such empty PWADs so that such servers can appear
+correctly on the list. (#3624)
+- Zandronum: fix a failure to parse the version of the game for the
+servers, which resulted in the dmflags being displayed incorrectly
+in the server details and the game's beta builds from being
+installed. (#4020, #4024)
+- Zandronum: fix the game setup page (#4055):
+    - "Keep teams after a map change" flag wasn't toggling its
+      corresponding zadmflag.
+    - Add proper voting flags and hide the obsolete for Zandronum 3.0.
+    - Auto-correct the spin boxes in the flags page to the nearest
+      allowed value instead of snapping to the previous one.
+- Zandronum: update the game icon to Zandronum 3.1's.
+
+### Removed
+- Wadseeker: Removed Wad Archive support due to the site shutdown. (#4048)
+
 ## [1.3.3] - 2022-01-18
-### Added:
+### Added
 - An IP2C option to toggle honoring of the countries received from
 the game servers; enabled by default. If enabled, display the country
 flags and the locations basing on this info. (#3939)

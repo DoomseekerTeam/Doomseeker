@@ -23,6 +23,7 @@
 #include "ircsounds.h"
 
 #include "irc/configuration/ircconfig.h"
+#include "templatedpathresolver.h"
 
 #include <QFileInfo>
 #include <QSoundEffect>
@@ -46,7 +47,7 @@ void IRCSounds::loadFromConfig()
 
 QSoundEffect *IRCSounds::loadIfExists(const QString &path)
 {
-	QFileInfo fileInfo(path);
+	QFileInfo fileInfo(gDoomseekerTemplatedPathResolver().resolve(path));
 	if (fileInfo.isFile())
 	{
 		auto sfx = new QSoundEffect();

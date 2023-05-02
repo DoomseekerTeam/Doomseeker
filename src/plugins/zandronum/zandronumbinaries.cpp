@@ -30,6 +30,8 @@
 #include "serverapi/message.h"
 #include <ini/inisection.h>
 #include <ini/inivariable.h>
+#include <templatedpathresolver.h>
+
 #include <QDir>
 #include <QFileInfo>
 #include <QMessageBox>
@@ -105,7 +107,7 @@ const QString ZandronumClientExeFile::pathToExe(Message& message, const Internal
 			return QString();
 		}
 
-		QString path = versionInstallPath();
+		QString path = gDoomseekerTemplatedPathResolver().resolve(versionInstallPath());
 
 		QFileInfo fi(path);
 		if (!fi.exists() || isEmptyDir(path))

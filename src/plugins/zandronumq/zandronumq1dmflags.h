@@ -110,6 +110,7 @@ public:
 		DF2_DONTCHECKAMMO		= 1 << 24,	// Don't Check ammo when switching weapons.
 		DF2_KILLBOSSMONST		= 1 << 25,	// Kills all monsters spawned by a boss cube when the boss dies
 		DF2_NOCOUNTENDMONST		= 1 << 26,	// Do not count monsters in 'end level when dying' sectors towards kill count
+		DF2_WEAPONS_STAY_REFILL	= 1 << 27,	// Refill ammo when sv_weaponstay is on
 	};
 
 	// [BB] Zandronum dmflags.
@@ -175,6 +176,23 @@ public:
 		// If unset, players who lose all lives will lose entire inventory
 		// regardless of the DF_COOP_* flags.
 		ZADF_DEAD_PLAYERS_CAN_KEEP_INVENTORY = 1 << 17,
+
+		// [geNia] Enable crosshair accurate firing
+		ZADF_ACCURATE_CROSSHAIR = 1 << 18,
+
+		// [geNia] Disable wall friction
+		ZADF_DISABLE_WALL_FRICTION = 1 << 19,
+
+		// [geNia] Enable projectile hitbox lowering to match it's sprite
+		ZADF_ENABLE_PROJECTILE_HITBOX_FIX = 1 << 20,
+
+		// [geNia] Use Quake formula for all thrusts
+		ZADF_QUAKE_THRUST = 1 << 21,
+
+		// [geNia] Fix cases when there is an elevated floor with a special,
+		// but an actor is standing on it's edge so that actor's center is in the air.
+		// The special won't activate in that case, but with this flag it will.
+		ZADF_ELEVATED_SPECIAL_FIX = 1 << 22,
 	};
 
 	// [RH] Compatibility flags.
@@ -285,15 +303,8 @@ public:
 		// [BB] Clients use the vanilla Doom weapon on pickup behavior.
 		ZACOMPATF_OLD_WEAPON_SWITCH		= 1 << 26,
 
-		// [geNia] Disable crosshair accurate weapons
-		ZACOMPATF_DISABLE_CROSSHAIR_ACCURATE = 1 << 27,
-
-		// [geNia] Disable executing ACS_ExecuteWithResult on client
-		// TODO add new prediction ACS type for this
-		ZACOMPATF_NO_PREDICTION_ACS = 1 << 28,
-
-		// [geNia] Disable wallfriction
-		ZACOMPATF_DISABLE_WALL_FRICTION = 1 << 29,
+		// [geNia] Enable predicting Decorate and ACS functions on clients
+		ZACOMPATF_PREDICT_FUNCTIONS = 1 << 27,
 	};
 
 	QList<DMFlagsSection> flags();

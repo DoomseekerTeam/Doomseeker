@@ -48,7 +48,9 @@ QStringList VotingSetupWidget::gameParametersList() const
 {
 	QStringList params;
 
-	params << "+sv_limitnumvotes" << (cbVoteFloodingProtectionEnabled->isChecked() ? "1" : "0");
+	params << "+sv_votecooldown" << QString::number(spinVoteCooldown->value());
+	params << "+sv_voteconnectwait" << QString::number(spinVoteConnectWait->value());
+
 	params << "+sv_minvoters" << QString::number(spinMinimumNumberOfPlayersRequiredToCallAVote->value());
 	params << "+sv_nocallvote" << QString::number(static_cast<int>(whoCanVote()));
 
@@ -74,8 +76,8 @@ bool VotingSetupWidget::loadConfig(Ini &ini)
 
 	setWhoCanVote(static_cast<WhoCanVote>(section.value("WhoCanVote").toInt()));
 	spinMinimumNumberOfPlayersRequiredToCallAVote->setValue(section.value("MinimumPlayersRequiredToVote", 1).toInt());
-	cbVoteFloodingProtectionEnabled->setChecked(section.value("VoteFloodingProtection", true).toBool());
-
+	spinVoteCooldown->setValue(section.value("VoteCooldown", 5).toInt());
+	spinVoteConnectWait->setValue(section.value("VoteConnectWait", 0).toInt());
 	cbKickVote->setChecked(section.value("KickVote", true).toBool());
 	cbChangeMapVote->setChecked(section.value("ChangeMapVote", true).toBool());
 	cbNextMapVote->setChecked(section.value("NextMapVote", true).toBool());
@@ -98,7 +100,8 @@ bool VotingSetupWidget::saveConfig(Ini &ini)
 
 	section["WhoCanVote"] = whoCanVote();
 	section["MinimumPlayersRequiredToVote"] = spinMinimumNumberOfPlayersRequiredToCallAVote->value();
-	section["VoteFloodingProtection"] = cbVoteFloodingProtectionEnabled->isChecked();
+	section["VoteCooldown"] = spinVoteCooldown->value();
+	section["VoteConnectWait"] = spinVoteConnectWait->value();
 
 	section["KickVote"] = cbKickVote->isChecked();
 	section["NextMapVote"] = cbNextMapVote->isChecked();

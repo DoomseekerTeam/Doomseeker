@@ -123,6 +123,7 @@ const QString ALLOW_BFGFREEAIMING = "AllowBFGFreeaiming";
 const QString DONT_CHECK_AMMO_WHEN_SWITCHING_WEAPONS = "DontCheckAmmoWhenSwitchingWeapons";
 const QString MONSTERS_MUST_BE_KILLED_TO_EXIT = "MonstersMustBeKilledToExit";
 const QString KILL_BOSS_MONSTERS = "KillBossMonsters";
+const QString NO_COUNT_END_MONST = "NoCountEndMonst";
 const QString RESPAWN_WHERE_DIED = "RespawnWhereDied";
 const QString RESPAWN_WITH_ASHOTGUN = "RespawnWithAShotgun";
 const QString DROP_WEAPON_ON_DEATH = "DropWeaponOnDeath";

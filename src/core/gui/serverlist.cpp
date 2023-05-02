@@ -129,8 +129,8 @@ void ServerList::connectTableModelProxySlots()
 		SLOT(itemSelected(QItemSelection)));
 	this->connect(table, SIGNAL(middleMouseClicked(QModelIndex,QPoint)),
 		SLOT(tableMiddleClicked()));
-	this->connect(table, SIGNAL(rightMouseClicked(QModelIndex,QPoint)),
-		SLOT(tableRightClicked(QModelIndex,QPoint)));
+	connect(table, &QWidget::customContextMenuRequested,
+		this, &ServerList::showContextMenu);
 	this->connect(table, SIGNAL(entered(QModelIndex)), SLOT(mouseEntered(QModelIndex)));
 	this->connect(table, SIGNAL(leftMouseDoubleClicked(QModelIndex,QPoint)),
 		SLOT(doubleClicked(QModelIndex)));
@@ -354,6 +354,7 @@ void ServerList::prepareServerTable()
 
 	columnHeaderClicked(IDPlayers);
 	table->setModel(proxyModel);
+	table->setContextMenuPolicy(Qt::CustomContextMenu);
 	table->setupTableProperties();
 
 	if (gConfig.doomseeker.serverListSortIndex >= 0)
@@ -364,6 +365,7 @@ void ServerList::prepareServerTable()
 
 	connectTableModelProxySlots();
 	proxyModel->setAdditionalSortColumns(gConfig.doomseeker.additionalSortColumns());
+	proxyModel->setGroupServersWithPlayersAtTop(gConfig.doomseeker.bGroupServersWithPlayersAtTheTopOfTheList);
 }
 
 void ServerList::redraw()
@@ -511,8 +513,9 @@ void ServerList::tableMiddleClicked()
 	refreshSelected();
 }
 
-void ServerList::tableRightClicked(const QModelIndex &index, const QPoint &cursorPosition)
+void ServerList::showContextMenu(const QPoint &position)
 {
+	const QModelIndex index = table->indexAt(position);
 	ServerPtr server = serverFromIndex(index);
 
 	ServerListContextMenu *contextMenu = new ServerListContextMenu(server,
@@ -520,7 +523,7 @@ void ServerList::tableRightClicked(const QModelIndex &index, const QPoint &curso
 	this->connect(contextMenu, SIGNAL(aboutToHide()), SLOT(contextMenuAboutToHide()));
 	this->connect(contextMenu, SIGNAL(triggered(QAction*)), SLOT(contextMenuTriggered(QAction*)));
 
-	QPoint displayPoint = table->viewport()->mapToGlobal(cursorPosition);
+	QPoint displayPoint = table->viewport()->mapToGlobal(position);
 	contextMenu->popup(displayPoint);
 }
 

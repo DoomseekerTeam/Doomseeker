@@ -46,12 +46,6 @@ WadInstaller::WadInstallerResult WadInstaller::installArchive(UnArchive &archive
 	}
 
 	WadInstallerResult result;
-	#ifndef NDEBUG
-	for (const QString &file : archive.files())
-	{
-		qDebug() << "archive file entry " << file;
-	}
-	#endif
 	FileFind fileFinder(archive.files());
 
 	// We will try to find all requested WADs in the single archive.

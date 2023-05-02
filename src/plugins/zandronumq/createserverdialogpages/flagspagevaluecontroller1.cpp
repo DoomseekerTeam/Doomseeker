@@ -156,8 +156,8 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 			f->cbCompatOldRandomNumberGenerator);
 		m.insert(Dmflags::ZACOMPATF_NETSCRIPTS_ARE_CLIENTSIDE,
 			f->cbCompatNETScriptsAreClientside);
-		m.insert(Dmflags::ZACOMPATF_NO_PREDICTION_ACS,
-			f->cbCompatNoPredictionACS);
+		m.insert(Dmflags::ZACOMPATF_PREDICT_FUNCTIONS,
+			f->cbCompatPredictFunctions);
 		m.insert(Dmflags::ZACOMPATF_NOGRAVITY_SPHERES,
 			f->cbCompatAddNOGRAVITYFlagToSpheres);
 		m.insert(Dmflags::ZACOMPATF_DONT_STOP_PLAYER_SCRIPTS_ON_DISCONNECT,
@@ -176,10 +176,6 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 			f->cbCompatUseVanillaAutoaimTracerBehavior);
 		m.insert(Dmflags::ZACOMPATF_SILENT_WEST_SPAWNS,
 			f->cbCompatWestSpawnsAreSilent);
-		m.insert(Dmflags::ZACOMPATF_DISABLE_CROSSHAIR_ACCURATE,
-			f->cbCompatDisableCrosshairAccurate);
-		m.insert(Dmflags::ZACOMPATF_DISABLE_WALL_FRICTION,
-			f->cbCompatDisableWallFriction);
 	}
 
 	// DMFlags
@@ -252,8 +248,6 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 			f->cbServerPicksTeams);
 		m.insert(Dmflags::DF2_NO_TEAM_SWITCH,
 			f->cbPlayersCantSwitchTeams);
-		m.insert(Dmflags::ZADF_YES_KEEP_TEAMS,
-			f->cbKeepTeamsAfterAMapChange);
 		m.insert(Dmflags::DF2_NO_AUTOMAP_ALLIES,
 			f->cbHideAlliesOnTheAutomap);
 		m.insert(Dmflags::DF2_DISALLOW_SPYING,
@@ -289,6 +283,8 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 			f->cbMonstersMustBeKilledToExit);
 		m.insert(Dmflags::DF2_KILLBOSSMONST,
 			f->cbKillBossMonsters);
+		m.insert(Dmflags::DF2_NOCOUNTENDMONST,
+			f->cbDontCountEndlevelMonsters);
 		// - Player death
 		m.insert(Dmflags::DF2_SAME_SPAWN_SPOT,
 			f->cbRespawnWhereDied);
@@ -307,6 +303,8 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 		m.insert(Dmflags::DF2_YES_KEEPFRAGS,
 			f->cbKeepFragsAfterMapChange);
 		// - Weapons&ammo
+		m.insert(Dmflags::DF2_WEAPONS_STAY_REFILL,
+			f->cbWeaponsStayRefill);
 		m.insert(Dmflags::DF2_YES_DOUBLEAMMO,
 			f->cbDoubleAmmo);
 		// - Don't spawn
@@ -327,6 +325,18 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 			f->cbNoMedals);
 		m.insert(Dmflags::ZADF_AWARD_DAMAGE_INSTEAD_KILLS,
 			f->cbScoreDamageNotKills);
+		m.insert(Dmflags::ZADF_YES_KEEP_TEAMS,
+			f->cbKeepTeamsAfterAMapChange);
+		m.insert(Dmflags::ZADF_ACCURATE_CROSSHAIR,
+			f->cbAccurateCrosshair);
+		m.insert(Dmflags::ZADF_DISABLE_WALL_FRICTION,
+			f->cbDisableWallFriction);
+		m.insert(Dmflags::ZADF_ENABLE_PROJECTILE_HITBOX_FIX,
+			f->cbEnableProjectileHitboxFix);
+		m.insert(Dmflags::ZADF_QUAKE_THRUST,
+			f->cbQuakeThrust);
+		m.insert(Dmflags::ZADF_ELEVATED_SPECIAL_FIX,
+			f->cbEnableElevatedSpecialFix);
 		// - Environment
 		m.insert(Dmflags::ZADF_COOP_SP_ACTOR_SPAWN,
 			f->cbDontSpawnAnyMultiplayerItem);

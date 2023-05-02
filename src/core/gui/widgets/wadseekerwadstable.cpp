@@ -57,6 +57,8 @@ void WadseekerWadsTable::addFile(const QString &filename)
 		setSortingEnabled(false);
 
 		auto pBar = new QProgressBar();
+		pBar->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+		pBar->setFixedWidth(PROGRESS_COLUMN_WIDTH);
 		pBar->setAlignment(Qt::AlignCenter);
 
 		setItem(rowIndex, IDX_NAME_COLUMN, new QTableWidgetItem(filename));
@@ -224,9 +226,10 @@ void WadseekerWadsTable::showEvent(QShowEvent *pEvent)
 
 		// Setup resizing
 		pHeader->setSectionResizeMode(IDX_URL_COLUMN, QHeaderView::Stretch);
+		pHeader->setSectionResizeMode(IDX_PROGRESS_COLUMN, QHeaderView::Fixed);
 
 		pHeader->resizeSection(IDX_NAME_COLUMN, 140);
-		pHeader->resizeSection(IDX_PROGRESS_COLUMN, 85);
+		pHeader->resizeSection(IDX_PROGRESS_COLUMN, PROGRESS_COLUMN_WIDTH);
 		pHeader->resizeSection(IDX_ETA_COLUMN, 85);
 		pHeader->resizeSection(IDX_SIZE_COLUMN, 150);
 		pHeader->resizeSection(IDX_SPEED_COLUMN, 85);

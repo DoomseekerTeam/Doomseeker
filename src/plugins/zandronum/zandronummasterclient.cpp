@@ -67,9 +67,9 @@ QByteArray ZandronumMasterClient::createServerListRequest()
 
 QString ZandronumMasterClient::masterBanHelp() const
 {
-	return tr("You may contact Zandronum staff about this through "
-		"IRC: <b>irc.zandronum.com #zandronum</b> or on "
-		"the forum: <a href=\"https://zandronum.com/forum\">https://zandronum.com/forum.</a>");
+	return tr("You can contact Zandronum staff about this "
+		"on Discord or on "
+		"the forum: <a href=\"https://zandronum.com/forum\">https://zandronum.com/forum</a>.");
 }
 
 const EnginePlugin *ZandronumMasterClient::plugin() const

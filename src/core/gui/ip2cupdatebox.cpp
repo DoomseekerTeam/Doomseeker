@@ -46,12 +46,12 @@ IP2CUpdateBox::IP2CUpdateBox(QWidget *parent)
 
 	connect(d->btnUpdate, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(d->btnCancel, SIGNAL(clicked()), this, SLOT(reject()));
-	d->progressBar->hide();
 
 	d->ip2cUpdater = new IP2CUpdater(this);
 	this->connect(d->ip2cUpdater, SIGNAL(updateNeeded(int)), SLOT(updateInfo(int)));
 
 	start();
+	this->adjustSize();
 }
 
 IP2CUpdateBox::~IP2CUpdateBox()
@@ -79,7 +79,8 @@ void IP2CUpdateBox::start()
 	{
 		d->lblFileIcon->setPixmap(QPixmap(":/icons/edit-redo.png"));
 		d->lblDatabaseStatus->setText(tr("Verifying checksum ..."));
-		d->progressBar->show();
+		d->updateInfoPanel->hide();
+		d->btnUpdate->hide();
 		d->ip2cUpdater->needsUpdate(filePath);
 	}
 	else
@@ -87,29 +88,37 @@ void IP2CUpdateBox::start()
 		d->lblFileIcon->setPixmap(QPixmap(":/icons/edit-redo-red.png"));
 		d->lblDatabaseStatus->setText(tr("IP2C database file was not found. "
 			"Use the update button if you want to download the newest database."));
+		d->btnUpdate->setText(tr("DOWNLOAD!"));
+		d->progressBar->hide();
 	}
 }
 
 void IP2CUpdateBox::updateInfo(int status)
 {
+	bool canUpdate = true;
 	d->progressBar->hide();
 	switch (status)
 	{
 	case IP2CUpdater::UpdateNeeded:
 		d->lblStatusIcon->setPixmap(QPixmap(":/icons/edit-redo-red.png"));
-		d->lblDatabaseStatus->setText(tr("Update required."));
+		d->lblDatabaseStatus->setText(tr("Update available."));
 		break;
 	case IP2CUpdater::UpToDate:
 		d->lblStatusIcon->setPixmap(QPixmap(":/icons/edit-redo.png"));
 		d->lblDatabaseStatus->setText(tr("Database is up-to-date."));
+		canUpdate = false;
 		break;
 	case IP2CUpdater::UpdateCheckError:
 		d->lblStatusIcon->setPixmap(QPixmap(":/icons/x.png"));
-		d->lblDatabaseStatus->setText(tr("Database status check failed. See log for details."));
+		d->lblDatabaseStatus->setText(tr("Database status check failed. See the log for details."));
 		break;
 	default:
 		d->lblStatusIcon->setPixmap(QPixmap(":/icons/x.png"));
 		d->lblDatabaseStatus->setText(tr("Unhandled update check status."));
 		break;
 	}
+	d->updateInfoPanel->setVisible(canUpdate);
+	d->btnUpdate->setVisible(canUpdate);
+	d->btnUpdate->setText(tr("UPDATE!"));
+	d->btnCancel->setText(canUpdate ? tr("Cancel") : tr("Close"));
 }

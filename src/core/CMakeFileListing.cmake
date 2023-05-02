@@ -188,6 +188,8 @@ set(HEADER_FILES
 	ip2c/ip2ccountry.h
 	ip2c/ip2cloader.h
 	ip2c/ip2cparser.h
+	ip2c/ip2cparser_v2.h
+	ip2c/ip2cparser_v3.h
 	ip2c/ip2crange.h
 	ip2c/ip2cupdater.h
 	irc/chatlogarchive.h
@@ -279,6 +281,7 @@ set(HEADER_FILES
 	socketsignalsadapter.h
 	speedcalculator.h
 	strings.hpp
+	templatedpathresolver.h
 	tests/testbase.h
 	tests/testcore.h
 	tests/testdatapaths.h
@@ -288,6 +291,7 @@ set(HEADER_FILES
 	tests/testplayer.h
 	tests/testruns.h
 	tests/teststrings.h
+	tests/testtemplatedpathresolver.h
 	tests/testutf8splitter.h
 	updater/autoupdater.h
 	updater/updatechannel.h
@@ -426,6 +430,8 @@ set(SOURCE_FILES
 	ip2c/ip2ccountry.cpp
 	ip2c/ip2cloader.cpp
 	ip2c/ip2cparser.cpp
+	ip2c/ip2cparser_v2.cpp
+	ip2c/ip2cparser_v3.cpp
 	ip2c/ip2cupdater.cpp
 	irc/chatlogarchive.cpp
 	irc/chatlogrotate.cpp
@@ -510,6 +516,7 @@ set(SOURCE_FILES
 	serverapi/tooltips/tooltipgenerator.cpp
 	speedcalculator.cpp
 	strings.cpp
+	templatedpathresolver.cpp
 	tests/testbase.cpp
 	tests/testcore.cpp
 	tests/testdatapaths.cpp
@@ -519,6 +526,7 @@ set(SOURCE_FILES
 	tests/testplayer.cpp
 	tests/testruns.cpp
 	tests/teststrings.cpp
+	tests/testtemplatedpathresolver.cpp
 	tests/testutf8splitter.cpp
 	updater/autoupdater.cpp
 	updater/updatechannel.cpp

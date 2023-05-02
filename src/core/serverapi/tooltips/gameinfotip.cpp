@@ -61,14 +61,9 @@ QString GameInfoTip::playersHTML()
 	const QString PLAYERS = tr("Players");
 
 	const PlayersList &players = d->server->players();
-	int canJoin = d->server->maxPlayers() - players.numClients();
-	if (canJoin < 0)
-	{
-		canJoin = 0;
-	}
-
-	return"<tr><td>" + PLAYERS + ":&nbsp;</td><td>"
-		+ tr("%1 / %2 (%3 can join)").arg(players.numClients()).arg(d->server->numTotalSlots()).arg(canJoin)
+	const int canJoin = qMax(0, d->server->numFreeClientSlots());
+	return "<tr><td>" + PLAYERS + ":&nbsp;</td><td>"
+		+ tr("%1 / %2 (%3 can join)").arg(players.numClients()).arg(d->server->maxClients()).arg(canJoin)
 		+ "</td></tr>";
 }
 

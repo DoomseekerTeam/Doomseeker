@@ -21,7 +21,7 @@
 #------------------------------------------------------------------------------
 
 set(PLUGIN_NAME zandronumq)
-set(PLUGIN_VERSION 6)
+set(PLUGIN_VERSION 9)
 include(../PluginHeader.cmake)
 
 set(ZANDRONUMQ_FILES
@@ -36,7 +36,6 @@ set(ZANDRONUMQ_FILES
 	enginezandronumqconfigbox.cpp
 	huffmanqt.cpp
 	huffmanudpsocket.cpp
-	zandronumqbinaries.cpp
 	zandronumqbroadcast.cpp
 	zandronumq1dmflags.cpp
 	zandronumqengineplugin.cpp
@@ -64,7 +63,6 @@ set(HEADER_FILES
 	enginezandronumqconfigbox.h
 	huffmanqt.h
 	huffmanudpsocket.h
-	zandronumqbinaries.h
 	zandronumqbroadcast.h
 	zandronumq1dmflags.h
 	zandronumqengineplugin.h

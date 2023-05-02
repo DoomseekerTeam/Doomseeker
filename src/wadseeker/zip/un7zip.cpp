@@ -35,8 +35,8 @@ SZByteStream::SZByteStream(QIODevice *buffer) : buffer(buffer)
 {
 	buffer->open(QIODevice::ReadOnly);
 
-	stream.Read = Read;
-	stream.Seek = Seek;
+	stream.Read = &Read;
+	stream.Seek = &Seek;
 }
 
 SZByteStream::~SZByteStream()
@@ -44,9 +44,9 @@ SZByteStream::~SZByteStream()
 	buffer->close();
 }
 
-SRes SZByteStream::Read(void *p, void *buf, size_t *size)
+SRes SZByteStream::Read(const ISeekInStream *p, void *buf, size_t *size)
 {
-	auto s = reinterpret_cast<SZByteStream *>(p);
+	auto s = reinterpret_cast<SZByteStream *>(const_cast<ISeekInStream *>(p));
 	qint64 numRead = s->buffer->read(reinterpret_cast<char *>(buf), *size);
 	if (numRead < 0)
 	{
@@ -57,9 +57,9 @@ SRes SZByteStream::Read(void *p, void *buf, size_t *size)
 	return SZ_OK;
 }
 
-SRes SZByteStream::Seek(void *p, Int64 *pos, ESzSeek origin)
+SRes SZByteStream::Seek(const ISeekInStream *p, Int64 *pos, ESzSeek origin)
 {
-	auto s = reinterpret_cast<SZByteStream *>(p);
+	auto s = reinterpret_cast<SZByteStream *>(const_cast<ISeekInStream *>(p));
 	bool ret = false;
 	switch (origin)
 	{
@@ -79,12 +79,12 @@ SRes SZByteStream::Seek(void *p, Int64 *pos, ESzSeek origin)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-void *Un7Zip::SzAlloc(void *p, size_t size)
+void *Un7Zip::SzAlloc(ISzAllocPtr p, size_t size)
 {
 	Q_UNUSED(p);
 	return malloc(size);
 }
-void Un7Zip::SzFree(void *p, void *address)
+void Un7Zip::SzFree(ISzAllocPtr p, void *address)
 {
 	Q_UNUSED(p);
 	free(address);
@@ -99,6 +99,8 @@ Un7Zip::Un7Zip(QIODevice *device)
 
 Un7Zip::~Un7Zip()
 {
+	if (lookStream.buf != nullptr)
+		delete lookStream.buf;
 	if (out != nullptr)
 		IAlloc_Free(&alloc, out);
 	SzArEx_Free(&db, &alloc);
@@ -111,7 +113,7 @@ bool Un7Zip::extract(int file, const QString &where)
 	UInt32 blockIndex = 0xFFFFFFFF; // Not sure what this is, but this is what ZDoom uses.
 	size_t offset, outSizeProcessed;
 
-	SRes res = SzArEx_Extract(&db, &lookStream.s, file, &blockIndex, &out, &outSize, &offset, &outSizeProcessed, &alloc, &alloc);
+	SRes res = SzArEx_Extract(&db, &lookStream.vt, file, &blockIndex, &out, &outSize, &offset, &outSizeProcessed, &alloc, &alloc);
 	if (res == SZ_OK)
 	{
 		QFile outputFile(where);
@@ -161,12 +163,14 @@ void Un7Zip::Init()
 		CrcGenerateTable();
 
 	byteStream = new SZByteStream(stream);
-	LookToRead_CreateVTable(&lookStream, false);
+	LookToRead2_CreateVTable(&lookStream, false);
 	lookStream.realStream = &byteStream->stream;
-	LookToRead_Init(&lookStream);
+	lookStream.bufSize = 1 * 1024 * 1024;
+	lookStream.buf = new Byte[lookStream.bufSize];
+	LookToRead2_Init(&lookStream);
 
 	SzArEx_Init(&db);
 	SRes tmp;
-	if ((tmp = SzArEx_Open(&db, &lookStream.s, &alloc, &alloc)) != SZ_OK)
+	if ((tmp = SzArEx_Open(&db, &lookStream.vt, &alloc, &alloc)) != SZ_OK)
 		valid = false;
 }

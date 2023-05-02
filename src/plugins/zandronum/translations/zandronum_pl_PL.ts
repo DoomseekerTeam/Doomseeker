@@ -3123,8 +3123,8 @@ Doomseeker może zainstalować grę, jeśli chcesz.</translation>
     <name>ZandronumMasterClient</name>
     <message>
         <location filename="../zandronummasterclient.cpp" line="70"/>
-        <source>You may contact Zandronum staff about this through IRC: &lt;b&gt;irc.zandronum.com #zandronum&lt;/b&gt; or on the forum: &lt;a href=&quot;https://zandronum.com/forum&quot;&gt;https://zandronum.com/forum.&lt;/a&gt;</source>
-        <translation>Możesz skontaktować się z ekipą Zandronum w tym temacie poprzez IRC: &lt;b&gt;irc.zandronum.com #zandronum&lt;/b&gt;, albo na forum: &lt;a href=&quot;https://zandronum.com/forum&quot;&gt;https://zandronum.com/forum.&lt;/a&gt;</translation>
+        <source>You can contact Zandronum staff about this on Discord or on the forum: &lt;a href=&quot;https://zandronum.com/forum&quot;&gt;https://zandronum.com/forum&lt;/a&gt;.</source>
+        <translation>Możesz uzyskać pomoc w tej sprawie poprzez kontakt z załogą Zandronum na Discordzie lub na forum: &lt;a href=&quot;https://zandronum.com/forum&quot;&gt;https://zandronum.com/forum&lt;/a&gt;.</translation>
     </message>
 </context>
 <context>

@@ -38,6 +38,9 @@ class PWad;
 /**
  * @ingroup group_pluginapi
  * @brief Game parametrization data used when creating new games.
+ *
+ * Doomseeker resolves the templates in all the paths provided here,
+ * except for customParameters() which are provided as-is.
  */
 class MAIN_EXPORT GameCreateParams
 {

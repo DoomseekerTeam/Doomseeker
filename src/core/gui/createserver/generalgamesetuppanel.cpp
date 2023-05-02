@@ -33,6 +33,7 @@
 #include "serverapi/gamecreateparams.h"
 #include "serverapi/gameexefactory.h"
 #include "serverapi/gamefile.h"
+#include "templatedpathresolver.h"
 #include <cassert>
 #include <QFileDialog>
 #include <QFileInfo>
@@ -94,10 +95,10 @@ QStringList GeneralGameSetupPanel::getAllWadPaths() const
 
 void GeneralGameSetupPanel::fillInParams(GameCreateParams &params)
 {
-	params.setExecutablePath(pathToExe());
-	params.setIwadPath(d->iwadPicker->currentIwad());
-	params.setLoggingPath(d->logDirectoryPicker->validatedCurrentPath());
-	params.setPwadsPaths(d->wadsPicker->filePaths());
+	params.setExecutablePath(gDoomseekerTemplatedPathResolver().resolve(pathToExe()));
+	params.setIwadPath(gDoomseekerTemplatedPathResolver().resolve(d->iwadPicker->currentIwad()));
+	params.setLoggingPath(gDoomseekerTemplatedPathResolver().resolve(d->logDirectoryPicker->validatedCurrentPath()));
+	params.setPwadsPaths(gDoomseekerTemplatedPathResolver().resolve(d->wadsPicker->filePaths()));
 	params.setPwadsOptional(d->wadsPicker->fileOptional());
 	params.setBroadcastToLan(d->cbBroadcastToLAN->isChecked());
 	params.setBroadcastToMaster(d->cbBroadcastToMaster->isChecked());

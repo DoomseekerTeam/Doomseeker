@@ -38,28 +38,9 @@ void WadseekerSitesTable::addUrl(const QUrl &url)
 	// Add new row to table, but only if URL is not yet added.
 	if (findRow(url) < 0)
 	{
-		setSortingEnabled(false);
-
-		insertRow(rowCount());
-		int rowIndex = rowCount() - 1;
-
-		auto pBar = new QProgressBar();
-		pBar->setAlignment(Qt::AlignCenter);
-		pBar->setMinimum(0);
-		pBar->setMaximum(0);
-
-		QPushButton *abortButton = new QPushButton(tr("Abort"));
-
-		connect (abortButton, &QPushButton::clicked, [this, url]()
-		{
+		addSite(url.toString(), [this, url]() {
 			this->requestUrlAbort(url.toString());
 		});
-
-		setItem(rowIndex, IDX_URL_COLUMN, new QTableWidgetItem(url.toString()));
-		setCellWidget(rowIndex, IDX_PROGRESS_COLUMN, pBar);
-		setCellWidget(rowIndex, IDX_ABORT_COLUMN, abortButton);
-
-		setSortingEnabled(true);
 	}
 }
 
@@ -89,29 +70,34 @@ void WadseekerSitesTable::addService(const QString &service)
 {
 	if (findRow(service) < 0)
 	{
-		setSortingEnabled(false);
-
-		insertRow(rowCount());
-		int rowIndex = rowCount() - 1;
-
-		auto pBar = new QProgressBar();
-		pBar->setAlignment(Qt::AlignCenter);
-		pBar->setMinimum(0);
-		pBar->setMaximum(0);
-
-		QPushButton *abortButton = new QPushButton(tr("Abort"));
-
-		connect (abortButton, &QPushButton::clicked, [this, service]()
-		{
+		addSite(service, [this, service]() {
 			this->serviceAbortRequested(service);
 		});
-
-		setItem(rowIndex, IDX_URL_COLUMN, new QTableWidgetItem(service));
-		setCellWidget(rowIndex, IDX_PROGRESS_COLUMN, pBar);
-		setCellWidget(rowIndex, IDX_ABORT_COLUMN, abortButton);
-
-		setSortingEnabled(true);
 	}
+}
+
+void WadseekerSitesTable::addSite(const QString &text, std::function<void(void)> onAbort)
+{
+	setSortingEnabled(false);
+
+	insertRow(rowCount());
+	int rowIndex = rowCount() - 1;
+
+	auto pBar = new QProgressBar();
+	pBar->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	pBar->setFixedWidth(PROGRESS_COLUMN_WIDTH);
+	pBar->setAlignment(Qt::AlignCenter);
+	pBar->setMinimum(0);
+	pBar->setMaximum(0);
+
+	QPushButton *abortButton = new QPushButton(tr("Abort"));
+	connect(abortButton, &QPushButton::clicked, onAbort);
+
+	setItem(rowIndex, IDX_URL_COLUMN, new QTableWidgetItem(text));
+	setCellWidget(rowIndex, IDX_PROGRESS_COLUMN, pBar);
+	setCellWidget(rowIndex, IDX_ABORT_COLUMN, abortButton);
+
+	setSortingEnabled(true);
 }
 
 void WadseekerSitesTable::removeService(const QString &service)
@@ -149,7 +135,8 @@ void WadseekerSitesTable::showEvent(QShowEvent *pEvent)
 
 		// Setup resizing
 		pHeader->setSectionResizeMode(IDX_URL_COLUMN, QHeaderView::Stretch);
+		pHeader->setSectionResizeMode(IDX_PROGRESS_COLUMN, QHeaderView::Fixed);
 
-		pHeader->resizeSection(IDX_PROGRESS_COLUMN, 85);
+		pHeader->resizeSection(IDX_PROGRESS_COLUMN, PROGRESS_COLUMN_WIDTH);
 	}
 }

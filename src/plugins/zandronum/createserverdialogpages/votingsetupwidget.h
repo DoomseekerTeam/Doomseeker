@@ -24,6 +24,7 @@
 #define id3E880CB7_0FF0_4187_BAD90AD0EA16A263
 
 #include "ui_votingsetupwidget.h"
+#include "zandronumgameinfo.h"
 #include <QStringList>
 #include <QWidget>
 
@@ -36,9 +37,10 @@ class VotingSetupWidget : public QWidget, private Ui::VotingSetupWidget
 public:
 	VotingSetupWidget(QWidget *parent);
 
-	QStringList generateGameRunParameters();
+	QStringList generateGameRunParameters(ZandronumGameInfo::GameVersion version);
 	bool loadConfig(Ini &ini);
 	bool saveConfig(Ini &ini);
+	void setGameVersion(ZandronumGameInfo::GameVersion version);
 
 private:
 	/**
@@ -51,7 +53,7 @@ private:
 		SpectatorsCantVote = 2
 	};
 
-	QStringList gameParametersList() const;
+	QStringList gameParametersList(ZandronumGameInfo::GameVersion version) const;
 
 	void setWhoCanVote(WhoCanVote who);
 	WhoCanVote whoCanVote() const;

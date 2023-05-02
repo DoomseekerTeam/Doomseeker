@@ -22,7 +22,6 @@
 //------------------------------------------------------------------------------
 #include "zandronumqgameexefactory.h"
 
-#include "zandronumqbinaries.h"
 #include <ini/inisection.h>
 #include <plugins/engineplugin.h>
 #include <QDir>
@@ -42,35 +41,6 @@ ZandronumqGameExeFactory::ZandronumqGameExeFactory(EnginePlugin *plugin)
 
 ZandronumqGameExeFactory::~ZandronumqGameExeFactory()
 {
-}
-
-QList<ExeFilePath> ZandronumqGameExeFactory::scanSubdir(const QDir &mainDir,
-	const QString &subdirName, int execType) const
-{
-	QList<ExeFilePath> paths;
-	QDir subdir = mainDir;
-	subdir.cd(subdirName);
-	if (execType & GameFile::Client || execType & GameFile::Offline)
-	{
-		if (!subdir.entryList(QStringList(execName()), QDir::Files).isEmpty())
-		{
-			paths << mainDir.absoluteFilePath(
-					subdirName + ZandronumqClientExeFile::scriptFileExtension());
-		}
-	}
-	if (execType & GameFile::Server)
-	{
-		if (!subdir.entryList(QStringList(serverExecName()), QDir::Files).isEmpty())
-		{
-			#ifdef Q_OS_WIN32
-			paths << mainDir.absoluteFilePath(
-					subdirName + ZandronumqClientExeFile::scriptFileExtension());
-			#else
-			paths << mainDir.absoluteFilePath(subdirName + "/q-zandronum-server");
-			#endif
-		}
-	}
-	return paths;
 }
 
 QString ZandronumqGameExeFactory::execName() const

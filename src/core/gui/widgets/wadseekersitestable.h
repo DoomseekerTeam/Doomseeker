@@ -25,6 +25,8 @@
 
 #include "gui/widgets/tablewidgetmouseaware.h"
 
+#include <functional>
+
 class WadseekerSitesTable : public TableWidgetMouseAware
 {
 	Q_OBJECT
@@ -33,6 +35,8 @@ public:
 	static const int IDX_URL_COLUMN = 0;
 	static const int IDX_PROGRESS_COLUMN = 1;
 	static const int IDX_ABORT_COLUMN = 2;
+
+	static const int PROGRESS_COLUMN_WIDTH = 85;
 
 	WadseekerSitesTable(QWidget *pParent = nullptr);
 
@@ -60,6 +64,7 @@ private:
 
 	PrivData d;
 
+	void addSite(const QString &text, std::function<void(void)> onAbort);
 	int findRow(const QString &text);
 	int findRow(const QUrl &url);
 

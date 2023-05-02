@@ -35,6 +35,7 @@
 #include "serverapi/playerslist.h"
 #include "serverapi/tooltips/tooltipgenerator.h"
 #include "strings.hpp"
+#include "templatedpathresolver.h"
 #include <cassert>
 #include <QElapsedTimer>
 #include <QUdpSocket>
@@ -439,13 +440,15 @@ const QString &Server::name() const
 
 int Server::numFreeClientSlots() const
 {
-	int returnValue = numTotalSlots() - d->players.numClients();
+	int returnValue = static_cast<int>(d->maxClients)
+		- static_cast<int>(d->players.numClients());
 	return (returnValue < 0) ? 0 : returnValue;
 }
 
 int Server::numFreeJoinSlots() const
 {
-	int returnValue = d->maxPlayers - d->players.numClients();
+	int returnValue = static_cast<int>(qMin(d->maxPlayers, d->maxClients))
+		- static_cast<int>(d->players.numClients());
 	return (returnValue < 0) ? 0 : returnValue;
 }
 
@@ -801,7 +804,8 @@ PathFinder Server::wadPathFinder()
 	{
 		GameExeRetriever exeRetriever(*plugin()->gameExe());
 		Message msg;
-		pathFinder.addPrioritySearchDir(exeRetriever.pathToOfflineExe(msg));
+		pathFinder.addPrioritySearchDir(
+			gDoomseekerTemplatedPathResolver().resolve(exeRetriever.pathToOfflineExe(msg)));
 	}
 	#endif
 	if (isTestingServer())

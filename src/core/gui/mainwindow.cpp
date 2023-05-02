@@ -56,6 +56,7 @@
 #include "gui/wadseekerinterface.h"
 #include "gui/wadseekershow.h"
 #include "gui/widgets/serversstatuswidget.h"
+#include "ip2c/ip2c.h"
 #include "ip2c/ip2cloader.h"
 #include "irc/configuration/chatnetworkscfg.h"
 #include "irc/configuration/ircconfig.h"
@@ -295,7 +296,7 @@ MainWindow::MainWindow(QApplication *application)
 
 	// IP2C
 	d->menuActionUpdateIP2C->setEnabled(false);
-	d->ip2cLoader = new IP2CLoader();
+	d->ip2cLoader = new IP2CLoader(*IP2C::instance());
 	connectIP2CLoader();
 	d->ip2cLoader->load();
 
@@ -958,7 +959,7 @@ void MainWindow::ip2cStartUpdate()
 	d->menuActionUpdateIP2C->setEnabled(false);
 	d->ip2cUpdateProgressBar->show();
 
-	d->ip2cLoader = new IP2CLoader();
+	d->ip2cLoader = new IP2CLoader(*IP2C::instance());
 	connectIP2CLoader();
 	d->ip2cLoader->update();
 }

@@ -83,7 +83,6 @@ ZandronumEnginePlugin::ZandronumEnginePlugin()
 		EP_DefaultServerPort, 10666,
 		EP_DefaultMaster, "master.zandronum.com:15300",
 		EP_SupportsRandomMapRotation,
-		EP_IRCChannel, "Zandronum", "irc.zandronum.com", "#zandronum",
 		EP_RefreshThreshold, 10,
 		EP_DemoExtension, false, "cld",
 		EP_URLScheme, "zan",

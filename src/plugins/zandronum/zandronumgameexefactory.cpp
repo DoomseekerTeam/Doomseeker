@@ -23,11 +23,14 @@
 #include "zandronumgameexefactory.h"
 
 #include "zandronumbinaries.h"
+
 #include <ini/inisection.h>
 #include <plugins/engineplugin.h>
-#include <QDir>
 #include <serverapi/exefile.h>
 #include <serverapi/gamefile.h>
+#include <templatedpathresolver.h>
+
+#include <QDir>
 
 DClass<ZandronumGameExeFactory>
 {

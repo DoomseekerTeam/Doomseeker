@@ -257,8 +257,6 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 			f->cbServerPicksTeams);
 		m.insert(Dmflags::DF2_NO_TEAM_SWITCH,
 			f->cbPlayersCantSwitchTeams);
-		m.insert(Dmflags::ZADF_YES_KEEP_TEAMS,
-			f->cbKeepTeamsAfterAMapChange);
 		m.insert(Dmflags::DF2_NO_AUTOMAP_ALLIES,
 			f->cbHideAlliesOnTheAutomap);
 		m.insert(Dmflags::DF2_DISALLOW_SPYING,
@@ -294,6 +292,8 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 			f->cbMonstersMustBeKilledToExit);
 		m.insert(Dmflags::DF2_KILLBOSSMONST,
 			f->cbKillBossMonsters);
+		m.insert(Dmflags::DF2_NOCOUNTENDMONST,
+			f->cbDontCountEndlevelMonsters);
 		// - Player death
 		m.insert(Dmflags::DF2_SAME_SPAWN_SPOT,
 			f->cbRespawnWhereDied);
@@ -369,6 +369,10 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 			f->cbSurvivalNoMapResetOnDeath);
 		m.insert(Dmflags::ZADF_DEAD_PLAYERS_CAN_KEEP_INVENTORY,
 			f->cbDeadPlayersCanKeepInventory);
+
+		// Teams
+		m.insert(Dmflags::ZADF_YES_KEEP_TEAMS,
+			f->cbKeepTeamsAfterAMapChange);
 	}
 
 	// LMSAllowedWeapons
@@ -733,6 +737,7 @@ void FlagsPageValueController::setVisible(bool visible)
 	flagsPage->cbCompatResetWorldAcsVarsOnMapReset->setVisible(visible);
 	flagsPage->serverCountryPanel->setVisible(visible);
 	flagsPage->respawnDelayPanel->setVisible(visible);
+	flagsPage->cbDontCountEndlevelMonsters->setVisible(visible);
 	for (QWidget *checkbox : compatflags2Checkboxes.values())
 	{
 		checkbox->setVisible(visible);

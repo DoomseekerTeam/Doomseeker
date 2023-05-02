@@ -120,7 +120,7 @@ DMFlagsSection Dmflags::zandronumqCompatFlags()
 	DMFlagsSection section("ZA Compat. flags");
 	section << DMFlag(COMPAT_NETSCRIPTS_ARE_CLIENTSIDE, ZACOMPATF_NETSCRIPTS_ARE_CLIENTSIDE,
 		tr("Net scripts are client side"));
-	section << DMFlag(COMPAT_NO_PREDICTION_ACS, ZACOMPATF_NO_PREDICTION_ACS,
+	section << DMFlag(COMPAT_PREDICT_FUNCTIONS, ZACOMPATF_PREDICT_FUNCTIONS,
 		tr("Don't execute prediction ACS on client"));
 	section << DMFlag(NO_USE_LAND_CONSOLE_COMMAND, ZACOMPATF_NO_LAND,
 		tr("Players can't use 'land' CCMD"));
@@ -167,10 +167,6 @@ DMFlagsSection Dmflags::zandronumqCompatFlags()
 		tr("Disable crosshair"));
 	section << DMFlag(COMPAT_ORIGINAL_WEAPON_SWITCH, ZACOMPATF_OLD_WEAPON_SWITCH,
 		tr("Force weapon switch"));
-	section << DMFlag(COMPAT_DISABLE_CROSSHAIR_ACCURATE, ZACOMPATF_DISABLE_CROSSHAIR_ACCURATE,
-		tr("Disable shooting where crosshair is"));
-	section << DMFlag(COMPAT_DISABLE_WALL_FRICTION, ZACOMPATF_DISABLE_WALL_FRICTION,
-		tr("Disable wall friction"));
 	return section;
 }
 
@@ -296,11 +292,15 @@ DMFlagsSection Dmflags::dmflags2()
 	section << DMFlag("Do not count monsters in 'end level when dying' sectors towards kill count",
 		DF2_NOCOUNTENDMONST,
 		tr("Do not count monsters in 'end level when dying' sectors towards kill count"));
+	section << DMFlag("Weapons always refill ammo (DM)", DF2_WEAPONS_STAY_REFILL,
+		tr("Weapons always refill ammo (DM)"));
 	return section;
 }
 
 DMFlagsSection Dmflags::zandronumqDmflags()
 {
+	using namespace ZandronumqGameSettingsNames;
+
 	DMFlagsSection section("Q-Zandronum Flags");
 	section << DMFlag("Clients can't identify targets", ZADF_NO_IDENTIFY_TARGET,
 		tr("Clients can't identify targets"));
@@ -340,6 +340,16 @@ DMFlagsSection Dmflags::zandronumqDmflags()
 		tr("No map reset on death in survival"));
 	section << DMFlag("Dead players can keep inventory", ZADF_DEAD_PLAYERS_CAN_KEEP_INVENTORY,
 		tr("Dead players can keep inventory"));
+	section << DMFlag(ACCURATE_CROSSHAIR, ZADF_ACCURATE_CROSSHAIR,
+		tr("Enable shooting where crosshair is"));
+	section << DMFlag(DISABLE_WALL_FRICTION, ZADF_DISABLE_WALL_FRICTION,
+		tr("Disable wall friction"));
+	section << DMFlag(ENABLE_PROJECTILE_HITBOX_FIX, ZADF_ENABLE_PROJECTILE_HITBOX_FIX,
+		tr("Enable projectile hitbox fix"));
+	section << DMFlag(QUAKE_THRUST, ZADF_QUAKE_THRUST,
+		tr("Use Quake thrust formula"));
+	section << DMFlag(ELEVATED_SPECIAL_FIX, ZADF_ELEVATED_SPECIAL_FIX,
+		tr("Enable elevated sector special fix"));
 	return section;
 }
 

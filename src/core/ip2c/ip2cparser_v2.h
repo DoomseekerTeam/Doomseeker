@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------
-// zandronumqbinaries.h
+// ip2cparser_v2.h
 //------------------------------------------------------------------------------
 //
 // This library is free software; you can redistribute it and/or
@@ -18,44 +18,48 @@
 // 02110-1301  USA
 //
 //------------------------------------------------------------------------------
-// Copyright (C) 2012 "Zalewa" <zalewapl@gmail.com>
+// Copyright (C) 2022 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
-#ifndef DOOMSEEKER_PLUGIN_ZANDRONUMQ_BINARIES_H
-#define DOOMSEEKER_PLUGIN_ZANDRONUMQ_BINARIES_H
+#ifndef __IP2CPARSER_V2_H__
+#define __IP2CPARSER_V2_H__
 
-#include <QNetworkReply>
-#include <QProgressDialog>
+#include <QIODevice>
 
-#include <serverapi/exefile.h>
+class DataStreamOperatorWrapper;
+class IP2CParser;
 
-class EnginePlugin;
-class IniSection;
-class ZandronumqServer;
-class QDir;
-
-class ZandronumqClientExeFile : public ExeFile
+/**
+ * Compacted database file format, version 2:
+ * (all strings are null terminated)
+ * Header:
+ * @code
+ * TYPE			LENGTH		DESCRIPTION
+ * -----------------------------------------------------
+ * unsigned long	4			'I' 'P' '2' 'C' bytes
+ * unsigned short	2			Version (equal to 2)
+ * @endcode
+ *
+ * Block repeated until EOF:
+ * @code
+ * TYPE			LENGTH		DESCRIPTION
+ * -----------------------------------------------------
+ * string			N/A		Country full name, UTF-8
+ * string			N/A		Country abbreviation (3 letters version)
+ * unsigned long	4			Number of IP Blocks (N_IP_BLOCKS)
+ *
+ * -- BLOCK: repeated N_IP_BLOCKS times.
+ * unsigned long	4			Beginning of an IP range
+ * unsigned long	4			End of an IP range
+ * -- END OF BLOCK
+ * @endcode
+ */
+class IP2CParserV2
 {
-	Q_OBJECT
-
 public:
-	static QString scriptFileExtension();
-
-	ZandronumqClientExeFile(const QSharedPointer<ZandronumqServer> &server);
-	~ZandronumqClientExeFile() override;
-
-	/**
-	 * If the parent Server is a normal server simple path to executable
-	 * file is returned. If this is a testing server, a shell script is
-	 * created	if necessary and a path to this shell script s returned.
-	 */
-	const QString pathToExe(Message &message, const InternalClientsInspection internalCliInspection = NoInternalChecking) const override;
-	QString workingDirectory(Message &message) override;
+	bool parse(IP2CParser &self, QIODevice &dataBase);
 
 private:
-	class PrivData;
-	PrivData *d;
-
-	IniSection &config();
+	bool readSectionIpv4(IP2CParser &self, DataStreamOperatorWrapper &stream);
 };
 
 #endif
