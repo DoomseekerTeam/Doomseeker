@@ -178,7 +178,7 @@ void FreedoomDialog::insertModFile(const ModFile &file)
 	d->wadsTable->setItem(row, ColName, new QTableWidgetItem(file.fileName()));
 	d->wadsTable->setItem(row, ColStatus, new QTableWidgetItem(status));
 
-	QCheckBox *checkBox = new QCheckBox();
+	auto checkBox = new QCheckBox();
 	checkBox->setChecked(needsInstall);
 	d->wadsTable->setCellWidget(row, ColInstall, checkBox);
 
@@ -214,7 +214,7 @@ ModSet FreedoomDialog::selectedModFiles() const
 	ModSet modSet;
 	for (int row = 0; row < d->wadsTable->rowCount(); ++row)
 	{
-		QCheckBox *checkbox = static_cast<QCheckBox *>(d->wadsTable->cellWidget(row, ColInstall));
+		auto checkbox = static_cast<QCheckBox *>(d->wadsTable->cellWidget(row, ColInstall));
 		if (checkbox->isChecked())
 		{
 			QString fileName = d->wadsTable->item(row, ColName)->text();
@@ -226,7 +226,7 @@ ModSet FreedoomDialog::selectedModFiles() const
 
 void FreedoomDialog::setupInstallPaths()
 {
-	QCompleter *completer = new QCompleter(this);
+	auto completer = new QCompleter(this);
 	completer->setModel(new QDirModel(completer));
 	d->cboInstallPath->setCompleter(completer);
 

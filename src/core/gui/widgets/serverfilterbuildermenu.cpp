@@ -87,7 +87,7 @@ ServerFilterBuilderMenu::~ServerFilterBuilderMenu()
 
 QAction *ServerFilterBuilderMenu::addAction(QMenu *menu, const QString &text, const char *slot)
 {
-	QAction *action = new QAction(menu);
+	auto action = new QAction(menu);
 	action->setText(text);
 	this->connect(action, SIGNAL(triggered()), slot);
 	menu->addAction(action);
@@ -113,7 +113,7 @@ void ServerFilterBuilderMenu::applyPingFilter()
 
 void ServerFilterBuilderMenu::excludeWadFromAction()
 {
-	QAction *action = static_cast<QAction *>(sender());
+	auto action = static_cast<QAction *>(sender());
 	PrivData<ServerFilterBuilderMenu>::addIfNotContains(d->filter.wadsExcluded, action->text());
 }
 
@@ -124,7 +124,7 @@ const ServerListFilterInfo &ServerFilterBuilderMenu::filter() const
 
 void ServerFilterBuilderMenu::includeWadFromAction()
 {
-	QAction *action = static_cast<QAction *>(sender());
+	auto action = static_cast<QAction *>(sender());
 	PrivData<ServerFilterBuilderMenu>::addIfNotContains(d->filter.wads, action->text());
 }
 

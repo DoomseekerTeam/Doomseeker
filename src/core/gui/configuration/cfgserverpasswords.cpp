@@ -125,6 +125,8 @@ bool CFGServerPasswords::isPassphraseInTable(const QString &phrase)
 void CFGServerPasswords::onPasswordTableCellChange(int currentRow, int currentColumn,
 	int previousRow, int previousColumn)
 {
+	Q_UNUSED(currentColumn);
+	Q_UNUSED(previousColumn);
 	if (currentRow != previousRow)
 	{
 		// Setting an invalid password will clear the table which is
@@ -272,7 +274,7 @@ void CFGServerPasswords::toggleRevealHide()
 
 QTableWidgetItem *CFGServerPasswords::toolTipItem(const QString &contents)
 {
-	QTableWidgetItem *item = new QTableWidgetItem(contents);
+	auto item = new QTableWidgetItem(contents);
 	item->setToolTip(contents);
 	return item;
 }

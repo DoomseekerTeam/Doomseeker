@@ -35,7 +35,7 @@ class ZandronumGameExeFactory : public GameExeFactory
 {
 public:
 	ZandronumGameExeFactory(EnginePlugin *plugin);
-	~ZandronumGameExeFactory();
+	~ZandronumGameExeFactory() override;
 
 protected:
 	QList<ExeFilePath> scanSubdir(const QDir &mainDir, const QString &subdirName, int execType) const override;

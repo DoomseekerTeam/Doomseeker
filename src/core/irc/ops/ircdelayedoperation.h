@@ -31,7 +31,7 @@ class IRCDelayedOperation : public QObject
 
 public:
 	IRCDelayedOperation(QObject *parent);
-	virtual ~IRCDelayedOperation() {}
+	virtual ~IRCDelayedOperation() override {}
 };
 
 #endif

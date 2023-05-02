@@ -200,7 +200,7 @@ public:
 
 DPointeredNoCopy(MainWindow)
 
-MainWindow::MainWindow(QApplication *application, int argc, char **argv)
+MainWindow::MainWindow(QApplication *application)
 {
 	d->autoUpdater = nullptr;
 	d->mainDock = nullptr;
@@ -297,7 +297,7 @@ MainWindow::MainWindow(QApplication *application, int argc, char **argv)
 	// IP2C
 	d->menuActionUpdateIP2C->setEnabled(false);
 	d->ip2cLoader = new IP2CLoader();
-	connectIP2CLoader(d->ip2cLoader);
+	connectIP2CLoader();
 	d->ip2cLoader->load();
 
 	restoreState(QByteArray::fromBase64(gConfig.doomseeker.mainWindowState.toUtf8()));
@@ -369,7 +369,7 @@ void MainWindow::autoRefreshTimer_timeout()
 {
 	if (gConfig.doomseeker.bQueryAutoRefreshDontIfActive && !isMinimized())
 	{
-		if (QApplication::activeWindow() != 0)
+		if (QApplication::activeWindow() != nullptr)
 			return;
 	}
 
@@ -493,7 +493,7 @@ void MainWindow::confirmUpdateInstallation()
 	d->autoUpdater->confirmDownloadAndInstall();
 }
 
-void MainWindow::connectIP2CLoader(IP2CLoader *loader)
+void MainWindow::connectIP2CLoader()
 {
 	this->connect(d->ip2cLoader, SIGNAL(finished()), SLOT(ip2cJobsFinished()));
 	this->connect(d->ip2cLoader, SIGNAL(downloadProgress(qint64,qint64)),
@@ -572,7 +572,7 @@ void MainWindow::fillQueryMenu(MasterManager *masterManager)
 			d->broadcastManager->registerPlugin(plugin);
 
 		// Now is a good time to also populate the status bar widgets
-		ServersStatusWidget *statusWidget = new ServersStatusWidget(plugin, d->serverList);
+		auto statusWidget = new ServersStatusWidget(plugin, d->serverList);
 		d->serversStatusesWidgets.insert(plugin, statusWidget);
 
 		this->connect(statusWidget, SIGNAL(clicked(const EnginePlugin*)),
@@ -583,7 +583,7 @@ void MainWindow::fillQueryMenu(MasterManager *masterManager)
 		statusBar()->addPermanentWidget(statusWidget);
 
 		QString name = gPlugins->info(i)->data()->name;
-		QueryMenuAction *query = new QueryMenuAction(plugin, statusWidget, d->menuQuery);
+		auto query = new QueryMenuAction(plugin, statusWidget, d->menuQuery);
 		d->queryMenuPorts.insert(plugin, query);
 
 		d->menuQuery->addAction(query);
@@ -616,7 +616,7 @@ void MainWindow::findMissingWADs(const ServerPtr &server)
 	QList<PWad> missingWads;
 	QList<PWad> incompatibleWads;
 
-	CheckWadsDlg *checkWadsDlg = new CheckWadsDlg(&pathFinder);
+	auto checkWadsDlg = new CheckWadsDlg(&pathFinder);
 	checkWadsDlg->addWads(wads);
 	const CheckResult checkResults = checkWadsDlg->checkWads();
 
@@ -706,14 +706,14 @@ void MainWindow::getServers()
 	if (!isAnythingToRefresh())
 	{
 		QString message = tr("Doomseeker is unable to proceed with the refresh"
-			" operation because the following problem has occured:\n\n");
+			" operation because the following problem has occurred:\n\n");
 
 		if (gPlugins->numPlugins() == 0)
 			message += tr("Plugins are missing from the \"engines/\" directory.");
 		else if (!isAnyMasterEnabled())
 			message += tr("No master servers are enabled in the \"Query\" menu.");
 		else
-			message += tr("Unknown error occured.");
+			message += tr("Unknown error occurred.");
 
 		gLog << message;
 		QMessageBox::warning(this, tr("Doomseeker - refresh problem"), message);
@@ -859,7 +859,7 @@ void MainWindow::initLogDock()
 
 void MainWindow::initMainDock()
 {
-	setDockNestingEnabled(true); // This line allows us to essentually treat a dock as a central widget.
+	setDockNestingEnabled(true); // This line allows us to essentially treat a dock as a central widget.
 
 	// Make a dock out of the central MainWindow widget and drop that widget
 	// from the MainWindow itself.
@@ -868,7 +868,7 @@ void MainWindow::initMainDock()
 	d->mainDock->setObjectName("ServerList");
 	d->mainDock->setFeatures(QDockWidget::NoDockWidgetFeatures);
 	d->mainDock->setWidget(centralWidget());
-	setCentralWidget(0);
+	setCentralWidget(nullptr);
 	addDockWidget(Qt::RightDockWidgetArea, d->mainDock);
 }
 
@@ -960,7 +960,7 @@ void MainWindow::ip2cStartUpdate()
 	d->ip2cUpdateProgressBar->show();
 
 	d->ip2cLoader = new IP2CLoader();
-	connectIP2CLoader(d->ip2cLoader);
+	connectIP2CLoader();
 	d->ip2cLoader->update();
 }
 
@@ -989,6 +989,7 @@ bool MainWindow::isEffectivelyActiveWindow() const
 
 void MainWindow::masterManagerMessages(MasterClient *pSender, const QString &title, const QString &content, bool isError)
 {
+	Q_UNUSED(title);
 	QString message = tr("Master server for %1: %2").arg(pSender->plugin()->data()->name).arg(content);
 
 	if (isError)
@@ -1016,7 +1017,7 @@ void MainWindow::menuBuddies()
 void MainWindow::menuCreateServer()
 {
 	// This object will auto-delete on close.
-	CreateServerDialog *dialog = new CreateServerDialog(GameCreateParams::Host, nullptr);
+	auto dialog = new CreateServerDialog(GameCreateParams::Host, nullptr);
 	dialog->setWindowIcon(this->windowIcon());
 	dialog->show();
 }
@@ -1111,7 +1112,7 @@ void MainWindow::menuWadSeeker()
 
 QProgressBar *MainWindow::mkStdProgressBarForStatusBar()
 {
-	QProgressBar *pBar = new QProgressBar(statusBar());
+	auto pBar = new QProgressBar(statusBar());
 	pBar->setAlignment(Qt::AlignCenter);
 	pBar->setTextVisible(true);
 	pBar->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
@@ -1407,6 +1408,7 @@ void MainWindow::showAndLogStatusMessage(const QString &message)
 
 void MainWindow::showEvent(QShowEvent *event)
 {
+	Q_UNUSED(event);
 	// http://stackoverflow.com/a/26910648/1089357
 	d->taskbarButton->setWindow(windowHandle());
 }
@@ -1418,7 +1420,7 @@ void MainWindow::showInstallFreedoomDialog()
 		d->freedoomDialog->activateWindow();
 		return;
 	}
-	FreedoomDialog *dialog = new FreedoomDialog(nullptr);
+	auto dialog = new FreedoomDialog(nullptr);
 	dialog->setAttribute(Qt::WA_DeleteOnClose);
 	dialog->show();
 	d->freedoomDialog = dialog;
@@ -1426,7 +1428,7 @@ void MainWindow::showInstallFreedoomDialog()
 
 void MainWindow::showProgramArgsHelp()
 {
-	ProgramArgsHelpDialog *dialog = new ProgramArgsHelpDialog(this);
+	auto dialog = new ProgramArgsHelpDialog(this);
 	dialog->setAttribute(Qt::WA_DeleteOnClose);
 	dialog->show();
 }
@@ -1443,7 +1445,7 @@ void MainWindow::showServerJoinCommandLine(const ServerPtr &server)
 
 void MainWindow::showServerJoinCommandLineOnBuilderFinished()
 {
-	JoinCommandLineBuilder *builder = static_cast<JoinCommandLineBuilder *>(sender());
+	auto builder = static_cast<JoinCommandLineBuilder *>(sender());
 	CommandLineInfo cli = builder->builtCommandLine();
 	if (cli.isValid())
 	{

@@ -35,18 +35,18 @@ class CFGWadseekerSites : public ConfigPage
 
 public:
 	CFGWadseekerSites(QWidget *parent = nullptr);
-	~CFGWadseekerSites();
+	~CFGWadseekerSites() override;
 
-	QIcon icon() const
+	QIcon icon() const override
 	{
 		return QIcon(":/icons/internet-web-browser.png");
 	}
-	QString name() const
+	QString name() const override
 	{
 		return tr("Sites");
 	}
-	void readSettings();
-	QString title() const
+	void readSettings() override;
+	QString title() const override
 	{
 		return tr("Wadseeker - Sites");
 	}
@@ -57,7 +57,7 @@ protected slots:
 	void btnUrlRemoveClicked();
 
 protected:
-	void saveSettings();
+	void saveSettings() override;
 
 private:
 	DPtr<CFGWadseekerSites> d;

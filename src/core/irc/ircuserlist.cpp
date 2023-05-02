@@ -25,8 +25,7 @@
 
 IRCUserList::~IRCUserList()
 {
-	for (int i = 0; i < usersArray.size(); ++i)
-		delete usersArray[i];
+	qDeleteAll(usersArray);
 }
 
 bool IRCUserList::appendNameToCachedList(const IRCUserInfo &userInfo)
@@ -39,7 +38,7 @@ bool IRCUserList::appendNameToCachedList(const IRCUserInfo &userInfo)
 	}
 	else
 	{
-		IRCUserInfo *pUserInfo = new IRCUserInfo(userInfo);
+		auto pUserInfo = new IRCUserInfo(userInfo);
 		usersArray.append(pUserInfo);
 		return true;
 	}
@@ -99,8 +98,8 @@ void IRCUserList::setUserModes(const QString &nickname, const QList<char> &modes
 QStringList IRCUserList::toStringList() const
 {
 	QStringList nicksList;
-	for (int i = 0; i < usersArray.size(); ++i)
-		nicksList << usersArray[i]->prefixedName();
+	for (auto *i : usersArray)
+		nicksList << i->prefixedName();
 
 	return nicksList;
 }

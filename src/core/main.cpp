@@ -322,7 +322,7 @@ void Main::createMainWindow()
 {
 	gLog << tr("Preparing GUI.");
 
-	gApp->setMainWindow(new MainWindow(gApp, argumentsCount, arguments));
+	gApp->setMainWindow(new MainWindow(gApp));
 	gApp->mainWindow()->show();
 
 	if (bIsFirstRun)
@@ -334,7 +334,7 @@ void Main::createMainWindow()
 void Main::runCreateGame()
 {
 	gLog << tr("Starting Create Game box.");
-	CreateServerDialog *dialog = new CreateServerDialog(GameCreateParams::Host, nullptr);
+	auto dialog = new CreateServerDialog(GameCreateParams::Host, nullptr);
 	dialog->setWindowIcon(Application::icon());
 	dialog->show();
 }
@@ -363,7 +363,7 @@ void Main::runRemoteConsole()
 			return;
 		}
 
-		RemoteConsole *rc = new RemoteConsole();
+		auto rc = new RemoteConsole();
 		rc->show();
 	}
 	else

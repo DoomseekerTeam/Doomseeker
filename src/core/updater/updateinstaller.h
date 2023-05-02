@@ -57,7 +57,7 @@ public:
 	static QString processErrorCodeToStr(ProcessErrorCode code);
 
 	UpdateInstaller(QObject *pParent = nullptr);
-	~UpdateInstaller();
+	~UpdateInstaller() override;
 
 	/**
 	 * @brief Starts update process.

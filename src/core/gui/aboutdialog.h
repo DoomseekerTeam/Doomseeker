@@ -34,7 +34,7 @@ class AboutDialog : public QDialog
 
 public:
 	AboutDialog(QWidget *parent = nullptr);
-	~AboutDialog();
+	~AboutDialog() override;
 
 public slots:
 	void changePlugin(int pluginIndex);

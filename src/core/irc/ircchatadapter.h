@@ -53,7 +53,7 @@ public:
 	 *     Full name of the entity this adapter will be talking to.
 	 */
 	IRCChatAdapter(IRCNetworkAdapter *pNetwork, const QString &recipient);
-	virtual ~IRCChatAdapter();
+	virtual ~IRCChatAdapter() override;
 
 	/**
 	 * All messages starting with '/' character will be passed to the
@@ -65,19 +65,19 @@ public:
 	 * /PRIVMSG <recipient> :<message>
 	 * @endcode
 	 */
-	void doSendMessage(const QString &message, IRCAdapterBase *pOrigin);
+	void doSendMessage(const QString &message, IRCAdapterBase *pOrigin) override;
 
 	/**
 	 * @brief Emits message() signal formatting it to present sender's message.
 	 */
 	virtual void emitChatMessage(const QString &sender, const QString &content);
 
-	IRCNetworkAdapter *network()
+	IRCNetworkAdapter *network() override
 	{
 		return this->pNetwork;
 	}
 
-	QString recipient() const
+	QString recipient() const override
 	{
 		return this->recipientName;
 	}
@@ -91,7 +91,7 @@ public:
 	/**
 	 * @brief For chat adapters this will return recipientName.
 	 */
-	QString title() const;
+	QString title() const override;
 
 	/**
 	 * @brief Use this to register the fact that user has changed

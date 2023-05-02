@@ -74,9 +74,9 @@ void CFGFilePaths::addPath(const FileSearchPath &fileSearchPath)
 		d->tblFilePaths->setSortingEnabled(false);
 		int newRow = d->tblFilePaths->rowCount();
 		d->tblFilePaths->insertRow(newRow);
-		QTableWidgetItem *path = new QTableWidgetItem(fileSearchPath.path());
+		auto path = new QTableWidgetItem(fileSearchPath.path());
 		path->setData(Qt::ToolTipRole, fileSearchPath.path());
-		QTableWidgetItem *recurse = new QTableWidgetItem();
+		auto recurse = new QTableWidgetItem();
 		recurse->setCheckState(fileSearchPath.isRecursive() ? Qt::Checked : Qt::Unchecked);
 		recurse->setData(Qt::TextAlignmentRole, Qt::AlignCenter);
 

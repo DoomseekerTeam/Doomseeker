@@ -35,7 +35,7 @@ class WadsPicker : public QWidget
 
 public:
 	WadsPicker(QWidget *parent);
-	~WadsPicker();
+	~WadsPicker() override;
 
 	QList<bool> fileOptional() const;
 	QStringList filePaths() const;

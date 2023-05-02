@@ -160,6 +160,7 @@ void ZandronumClientExeFile::preInstallationSteps(Message& message) const
 		QFile file(sourcePath);
 		file.copy(targetPath);
 	}
+	Q_UNUSED(message);
 }
 
 const QUrl ZandronumClientExeFile::getUrl(Message& message) const

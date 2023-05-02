@@ -57,7 +57,7 @@ public:
 		: ZandronumServerDmflagsParser(server, in)
 	{}
 
-	QList<DMFlagsSection> parse();
+	QList<DMFlagsSection> parse() override;
 };
 
 class ZandronumServer2DmflagsParser : public ZandronumServerDmflagsParser
@@ -67,7 +67,7 @@ public:
 		: ZandronumServerDmflagsParser(server, in)
 	{}
 
-	QList<DMFlagsSection> parse();
+	QList<DMFlagsSection> parse() override;
 };
 
 class ZandronumServer3DmflagsParser : public ZandronumServerDmflagsParser
@@ -77,7 +77,7 @@ public:
 		: ZandronumServerDmflagsParser(server, in)
 	{}
 
-	QList<DMFlagsSection> parse();
+	QList<DMFlagsSection> parse() override;
 };
 
 #endif

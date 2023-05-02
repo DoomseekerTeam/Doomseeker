@@ -32,7 +32,7 @@ class PWad;
 
 class MissingWadsDialog : public QDialog
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	enum MissingWadsProceed
@@ -43,7 +43,7 @@ public:
 	};
 
 	MissingWadsDialog(const QList<PWad> &missingWads, const QList<PWad> &incompatibleWads, QWidget *parent);
-	~MissingWadsDialog();
+	~MissingWadsDialog() override;
 
 	MissingWadsProceed decision() const;
 	QList<PWad> filesToDownload() const;

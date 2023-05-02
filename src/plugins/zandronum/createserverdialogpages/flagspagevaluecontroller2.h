@@ -41,8 +41,8 @@ class FlagsPageValueController : public ::FlagsPageValueController
 public:
 	FlagsPageValueController(FlagsPage *flagsPage);
 
-	void convertNumericalToWidgets();
-	void convertWidgetsToNumerical();
+	void convertNumericalToWidgets() override;
+	void convertWidgetsToNumerical() override;
 
 private:
 	unsigned compatflags;

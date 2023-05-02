@@ -53,8 +53,8 @@ GameExeFactory::~GameExeFactory()
 {
 }
 
-POLYMORPHIC_DEFINE_CONST(QList<ExeFilePath>, GameExeFactory, additionalExecutables, (int execType), (execType));
-POLYMORPHIC_DEFINE_CONST(GameFileList, GameExeFactory, gameFiles, (), ());
+POLYMORPHIC_DEFINE_CONST(QList<ExeFilePath>, GameExeFactory, additionalExecutables, (int execType), (execType))
+POLYMORPHIC_DEFINE_CONST(GameFileList, GameExeFactory, gameFiles, (), ())
 
 EnginePlugin *GameExeFactory::plugin() const
 {
@@ -81,6 +81,7 @@ QList<ExeFilePath> GameExeFactory::additionalExecutables_default(int execType) c
 QList<ExeFilePath> GameExeFactory::scanSubdir(const QDir &mainDir,
 	const QString &subdirName, int execType) const
 {
+	Q_UNUSED(execType);
 	return QList<ExeFilePath>();
 }
 

@@ -30,13 +30,13 @@
 
 class ZandronumBroadcast : public Broadcast
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	ZandronumBroadcast();
-	~ZandronumBroadcast();
+	~ZandronumBroadcast() override;
 
-	EnginePlugin *plugin() const;
+	EnginePlugin *plugin() const override;
 	void start();
 
 private:

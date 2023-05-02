@@ -103,7 +103,7 @@ QUdpSocket *UdpSocketPool::acquire(const QHostAddress &address, quint16 port)
 		}
 	}
 	// Acquire new.
-	PrivData<UdpSocketPool>::Asset *asset = new PrivData<UdpSocketPool>::Asset();
+	auto asset = new PrivData<UdpSocketPool>::Asset();
 	if (asset->valid)
 	{
 		this->connect(asset->socket, SIGNAL(readyRead()), SIGNAL(readyRead()));

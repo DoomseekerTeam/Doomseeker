@@ -44,7 +44,7 @@ public:
 		{
 			this->wrapper = wrapper;
 		}
-		QStringList neighbours()
+		QStringList neighbours() override
 		{
 			return (*wrapper)->parent->collectKnownGameFilePaths();
 		}
@@ -121,7 +121,7 @@ void EngineConfigPage::addWidget(QWidget *widget)
 
 void EngineConfigPage::autoFindNeighbouringPaths()
 {
-	FilePickWidget *picker = qobject_cast<FilePickWidget *>(sender());
+	auto picker = qobject_cast<FilePickWidget *>(sender());
 	if (QFileInfo(picker->path()).isFile())
 	{
 		QStringList knownPaths = collectKnownGameFilePaths();
@@ -166,7 +166,7 @@ void EngineConfigPage::makeFileBrowsers()
 	QList<GameFile> files = d->plugin->gameExe()->gameFiles().asQList();
 	for (const GameFile &file : files)
 	{
-		FilePickWidget *widget = new FilePickWidget(d->exePickArea);
+		auto widget = new FilePickWidget(d->exePickArea);
 		widget->setFile(file);
 		widget->setNeighbourStrategy(neighbours);
 		this->connect(widget, SIGNAL(findFailed()), SLOT(showFindFailError()));

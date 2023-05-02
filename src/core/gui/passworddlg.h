@@ -37,13 +37,13 @@ class PasswordDlg : public QDialog
 
 public:
 	PasswordDlg(ServerCPtr server, QWidget *parent = nullptr);
-	~PasswordDlg();
+	~PasswordDlg() override;
 
 	QString connectPassword() const;
 	QString inGamePassword() const;
 
 public slots:
-	void accept();
+	void accept() override;
 
 private:
 	DPtr<PasswordDlg> d;

@@ -33,21 +33,21 @@ class CFGAutoUpdates : public ConfigPage
 
 public:
 	CFGAutoUpdates(QWidget *parent = nullptr);
-	~CFGAutoUpdates();
+	~CFGAutoUpdates() override;
 
-	QIcon icon() const
+	QIcon icon() const override
 	{
 		return QIcon(":/icons/doomseeker_plus.png");
 	}
-	QString name() const
+	QString name() const override
 	{
 		return tr("Auto Updates");
 	}
 
-	void readSettings();
+	void readSettings() override;
 
 protected:
-	void saveSettings();
+	void saveSettings() override;
 
 private:
 	void initUpdateChannels();

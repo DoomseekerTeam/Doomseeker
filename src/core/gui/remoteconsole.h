@@ -36,13 +36,13 @@ class RemoteConsole : public QMainWindow
 public:
 	RemoteConsole(QWidget *parent = nullptr);
 	RemoteConsole(ServerPtr server, QWidget *parent = nullptr);
-	~RemoteConsole();
+	~RemoteConsole() override;
 
 public slots:
 	void disconnectFromServer();
 
 protected:
-	void closeEvent(QCloseEvent *event);
+	void closeEvent(QCloseEvent *event) override;
 
 private:
 	DPtr<RemoteConsole> d;

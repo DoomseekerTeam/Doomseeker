@@ -28,7 +28,7 @@
 EnginePluginComboBox::EnginePluginComboBox(QWidget *parent)
 	: QComboBox(parent)
 {
-	this->connect(this, SIGNAL(currentIndexChanged(int)), SLOT(onIndexChanged(int)));
+	this->connect(this, SIGNAL(currentIndexChanged(int)), SLOT(onIndexChanged()));
 	loadPlugins();
 }
 
@@ -57,7 +57,7 @@ void EnginePluginComboBox::loadPlugins()
 		setCurrentIndex(0);
 }
 
-void EnginePluginComboBox::onIndexChanged(int index)
+void EnginePluginComboBox::onIndexChanged()
 {
 	emit currentPluginChanged(currentPlugin());
 }

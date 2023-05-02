@@ -46,7 +46,7 @@ class JoinCommandLineBuilder : public QObject
 
 public:
 	JoinCommandLineBuilder(ServerPtr server, GameDemo demo, QWidget *parentWidget);
-	~JoinCommandLineBuilder();
+	~JoinCommandLineBuilder() override;
 
 	const CommandLineInfo &builtCommandLine() const;
 	static bool checkWadseekerValidity(QWidget *parent = nullptr);

@@ -32,16 +32,16 @@ QString asciiOnly(const QByteArray &raw);
 
 class Srb2EnginePlugin : public EnginePlugin
 {
-	DECLARE_PLUGIN(Srb2EnginePlugin);
+	DECLARE_PLUGIN(Srb2EnginePlugin)
 
 public:
 	Srb2EnginePlugin();
 
-	QList<DMFlagsSection> dmFlags() const;
-	GameHost *gameHost();
-	QList<GameMode> gameModes() const;
-	QList<GameCVar> limits(const GameMode &mode) const;
-	ServerPtr mkServer(const QHostAddress &address, unsigned short port) const;
+	QList<DMFlagsSection> dmFlags() const override;
+	GameHost *gameHost() override;
+	QList<GameMode> gameModes() const override;
+	QList<GameCVar> limits(const GameMode &mode) const override;
+	ServerPtr mkServer(const QHostAddress &address, unsigned short port) const override;
 };
 
 #endif

@@ -46,13 +46,13 @@ public:
 		stream = new QBuffer(&bufferedData);
 		stream->open(QIODevice::ReadWrite);
 	}
-	~CompressedIODevice()
+	~CompressedIODevice() override
 	{
 	}
 
-	bool isSequential() const { return false; }
+	bool isSequential() const override { return false; }
 
-	bool seek(qint64 pos)
+	bool seek(qint64 pos) override
 	{
 		// Beware of the QIODevice buffer!
 		// We must seek both our QBuffer stream and the QIODevice.
@@ -75,7 +75,7 @@ public:
 		return true;
 	}
 
-	qint64 size() const
+	qint64 size() const override
 	{
 		return bufferedData.size();
 	}
@@ -83,7 +83,7 @@ public:
 protected:
 	virtual qint64 readCompressedData(char *data, qint64 maxSize) = 0;
 
-	qint64 readData(char *data, qint64 maxSize)
+	qint64 readData(char *data, qint64 maxSize) override
 	{
 		qint64 bytesRead = 0;
 		if (position < bufferedData.size())
@@ -103,8 +103,10 @@ protected:
 		return bytesRead;
 	}
 
-	qint64 writeData(const char *data, qint64 maxSize)
+	qint64 writeData(const char *data, qint64 maxSize) override
 	{
+		Q_UNUSED(data);
+		Q_UNUSED(maxSize);
 		return -1;
 	}
 private:
@@ -125,11 +127,11 @@ public:
 		gzCompress.zfree = gzDecompress.zfree = Z_NULL;
 		gzCompress.opaque = gzDecompress.opaque = Z_NULL;
 	}
-	~GZDevice()
+	~GZDevice() override
 	{
 	}
 
-	void close()
+	void close() override
 	{
 		if (openMode() | QIODevice::ReadOnly)
 			inflateEnd(&gzDecompress);
@@ -140,7 +142,7 @@ public:
 		CompressedIODevice::close();
 	}
 
-	bool open(OpenMode mode)
+	bool open(OpenMode mode) override
 	{
 		if (CompressedIODevice::open(mode) && wrap->open(mode))
 		{
@@ -168,7 +170,7 @@ protected:
 		stream.avail_out = stream.avail_in = 0;
 	}
 
-	qint64 readCompressedData(char *data, qint64 len)
+	qint64 readCompressedData(char *data, qint64 len) override
 	{
 		gzDecompress.next_out = (Bytef *)data;
 		gzDecompress.avail_out = len;
@@ -214,11 +216,11 @@ public:
 		bzCompress.bzfree = bzDecompress.bzfree = nullptr;
 		bzCompress.opaque = bzDecompress.opaque = nullptr;
 	}
-	~BZ2Device()
+	~BZ2Device() override
 	{
 	}
 
-	void close()
+	void close() override
 	{
 		if (openMode() | QIODevice::ReadOnly)
 			BZ2_bzDecompressEnd(&bzDecompress);
@@ -229,7 +231,7 @@ public:
 		CompressedIODevice::close();
 	}
 
-	bool open(OpenMode mode)
+	bool open(OpenMode mode) override
 	{
 		if (CompressedIODevice::open(mode) && wrap->open(mode))
 		{
@@ -249,7 +251,7 @@ public:
 	}
 
 protected:
-	qint64 readCompressedData(char *data, qint64 len)
+	qint64 readCompressedData(char *data, qint64 len) override
 	{
 		bzDecompress.next_out = data;
 		bzDecompress.avail_out = len;

@@ -34,20 +34,20 @@ class CFGQuery : public ConfigPage
 
 public:
 	CFGQuery(QWidget *parent = nullptr);
-	~CFGQuery();
+	~CFGQuery() override;
 
-	QIcon icon() const
+	QIcon icon() const override
 	{
 		return QIcon(":/icons/view-refresh-2.png");
 	}
-	QString name() const
+	QString name() const override
 	{
 		return tr("Query");
 	}
-	void readSettings();
+	void readSettings() override;
 
 protected:
-	void saveSettings();
+	void saveSettings() override;
 
 private:
 	DPtr<CFGQuery> d;

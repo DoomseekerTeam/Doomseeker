@@ -186,6 +186,7 @@ ZipFile::HeaderError UnZip::readHeaderFromFileIndex(int file, ZipFile::LocalFile
 
 int UnZip::uncompress(QIODevice &streamIn, QIODevice &streamOut, unsigned long compressedSize)
 {
+	Q_UNUSED(compressedSize);
 	const unsigned long BUFFER_SIZE = 2 * 1024 * 1024;
 	char *out = new char[BUFFER_SIZE];
 
@@ -220,6 +221,7 @@ int UnZip::uncompress(QIODevice &streamIn, QIODevice &streamOut, unsigned long c
 			{
 			case Z_NEED_DICT:
 				ret = Z_DATA_ERROR;
+				[[gnu::fallthrough]];
 			case Z_DATA_ERROR:
 			case Z_MEM_ERROR:
 				bOk = false;

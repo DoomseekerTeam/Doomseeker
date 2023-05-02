@@ -37,7 +37,7 @@ public:
 	static const int SAFE_MESSAGE_LENGTH = 400;
 
 	IRCClient();
-	~IRCClient();
+	~IRCClient() override;
 
 	void connect(const QString &address, unsigned short port);
 	void connectSocketSignals(SocketSignalsAdapter *pAdapter);

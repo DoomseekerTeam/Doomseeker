@@ -46,7 +46,7 @@ SZByteStream::~SZByteStream()
 
 SRes SZByteStream::Read(void *p, void *buf, size_t *size)
 {
-	SZByteStream *s = reinterpret_cast<SZByteStream *>(p);
+	auto s = reinterpret_cast<SZByteStream *>(p);
 	qint64 numRead = s->buffer->read(reinterpret_cast<char *>(buf), *size);
 	if (numRead < 0)
 	{
@@ -59,7 +59,7 @@ SRes SZByteStream::Read(void *p, void *buf, size_t *size)
 
 SRes SZByteStream::Seek(void *p, Int64 *pos, ESzSeek origin)
 {
-	SZByteStream *s = reinterpret_cast<SZByteStream *>(p);
+	auto s = reinterpret_cast<SZByteStream *>(p);
 	bool ret = false;
 	switch (origin)
 	{
@@ -81,10 +81,12 @@ SRes SZByteStream::Seek(void *p, Int64 *pos, ESzSeek origin)
 
 void *Un7Zip::SzAlloc(void *p, size_t size)
 {
+	Q_UNUSED(p);
 	return malloc(size);
 }
 void Un7Zip::SzFree(void *p, void *address)
 {
+	Q_UNUSED(p);
 	free(address);
 }
 ISzAlloc Un7Zip::alloc = { SzAlloc, SzFree };

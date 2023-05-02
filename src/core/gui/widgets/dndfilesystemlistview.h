@@ -43,8 +43,8 @@ signals:
 	void fileSystemPathDropped(const QString &path);
 
 protected:
-	void dragEnterEvent(QDragEnterEvent *pEvent);
-	void dropEvent(QDropEvent *pEvent);
+	void dragEnterEvent(QDragEnterEvent *pEvent) override;
+	void dropEvent(QDropEvent *pEvent) override;
 };
 
 #endif

@@ -55,7 +55,7 @@ public:
  */
 class CustomServers : public MasterClient
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	CustomServers() : MasterClient() {}
@@ -79,7 +79,7 @@ public:
 	static bool isServerPinned(const CustomServerInfo &serverInfo);
 	static void setServerPinned(const CustomServerInfo &serverInfo, bool pinned);
 
-	const EnginePlugin *plugin() const
+	const EnginePlugin *plugin() const override
 	{
 		return nullptr;
 	}
@@ -94,7 +94,7 @@ public:
 	 * Since this is not required here (there's no real
 	 * master to refresh) this does nothing.
 	 */
-	void refreshStarts() {}
+	void refreshStarts() override {}
 
 	/**
 	 * Sets a list of custom servers.
@@ -106,12 +106,13 @@ public:
 	QList<ServerPtr> setServers(const QList<CustomServerInfo> &serverDefs);
 
 protected:
-	QByteArray createServerListRequest()
+	QByteArray createServerListRequest() override
 	{
 		return QByteArray();
 	}
-	Response readMasterResponse(const QByteArray &data)
+	Response readMasterResponse(const QByteArray &data) override
 	{
+		Q_UNUSED(data);
 		return RESPONSE_BAD;
 	}
 };

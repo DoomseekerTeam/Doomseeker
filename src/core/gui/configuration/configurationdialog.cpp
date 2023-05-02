@@ -51,7 +51,7 @@ public:
 
 	QModelIndex findPageModelIndex(const QModelIndex &rootIndex, ConfigPage *page)
 	{
-		QStandardItemModel *model = static_cast<QStandardItemModel *>(tvOptionsList->model());
+		auto model = static_cast<QStandardItemModel *>(tvOptionsList->model());
 		for (int row = 0; row < model->rowCount(rootIndex); ++row)
 		{
 			QModelIndex index = model->index(row, COL_META, rootIndex);
@@ -92,7 +92,7 @@ ConfigurationDialog::ConfigurationDialog(QWidget *parent)
 {
 	d->setupUi(this);
 
-	QStandardItemModel *model = new QStandardItemModel(this);
+	auto model = new QStandardItemModel(this);
 	for (int column = PrivData<ConfigurationDialog>::COL_FIRST;
 		column < PrivData<ConfigurationDialog>::COLSIZE; ++column)
 	{
@@ -123,7 +123,7 @@ QStandardItem *ConfigurationDialog::addConfigPage(
 	if (!canConfigPageBeAdded(configPage))
 		return nullptr;
 
-	QStandardItemModel *pModel = (QStandardItemModel *)d->tvOptionsList->model();
+	auto pModel = (QStandardItemModel *)d->tvOptionsList->model();
 	if (rootItem == nullptr)
 		rootItem = pModel->invisibleRootItem();
 
@@ -160,7 +160,7 @@ QStandardItem *ConfigurationDialog::addConfigPage(
 
 QStandardItem *ConfigurationDialog::addLabel(QStandardItem *rootItem, const QString &label, int position)
 {
-	QStandardItemModel *pModel = (QStandardItemModel *)d->tvOptionsList->model();
+	auto pModel = (QStandardItemModel *)d->tvOptionsList->model();
 	if (rootItem == nullptr)
 		rootItem = pModel->invisibleRootItem();
 
@@ -172,7 +172,7 @@ QStandardItem *ConfigurationDialog::addLabel(QStandardItem *rootItem, const QStr
 
 	QList<QStandardItem *> row;
 
-	QStandardItem *nameItem = new QStandardItem(label);
+	auto nameItem = new QStandardItem(label);
 	nameItem->setData(variantMetaPointer, Qt::UserRole);
 	row.insert(PrivData<ConfigurationDialog>::COL_NAME, nameItem);
 	row.insert(PrivData<ConfigurationDialog>::COL_VALIDATION, new QStandardItem());
@@ -219,7 +219,7 @@ bool ConfigurationDialog::canConfigPageBeAdded(ConfigPage *configPage)
 
 QModelIndex ConfigurationDialog::findPageModelIndex(ConfigPage *page)
 {
-	QStandardItemModel *model = static_cast<QStandardItemModel *>(d->tvOptionsList->model());
+	auto model = static_cast<QStandardItemModel *>(d->tvOptionsList->model());
 	return d->findPageModelIndex(model->indexFromItem(model->invisibleRootItem()), page);
 }
 
@@ -260,7 +260,7 @@ bool ConfigurationDialog::hasItemOnList(QStandardItem *pItem) const
 	if (pItem == nullptr)
 		return false;
 
-	QStandardItemModel *pModel = (QStandardItemModel *)d->tvOptionsList->model();
+	auto pModel = (QStandardItemModel *)d->tvOptionsList->model();
 
 	// Calling index methods on the invisible root items will always return
 	// invalid values.
@@ -271,7 +271,7 @@ bool ConfigurationDialog::hasItemOnList(QStandardItem *pItem) const
 
 void ConfigurationDialog::onPageValidationRequested()
 {
-	ConfigPage *page = qobject_cast<ConfigPage *>(sender());
+	auto page = qobject_cast<ConfigPage *>(sender());
 	assert(page != nullptr);
 	validatePage(page);
 }
@@ -351,7 +351,7 @@ void ConfigurationDialog::validatePage(ConfigPage *page)
 	QModelIndex validationIndex = pageIndex.sibling(pageIndex.row(), PrivData<ConfigurationDialog>::COL_VALIDATION);
 	assert(validationIndex.isValid());
 
-	QStandardItemModel *model = static_cast<QStandardItemModel *>(d->tvOptionsList->model());
+	auto model = static_cast<QStandardItemModel *>(d->tvOptionsList->model());
 	QStandardItem *validationItem = model->itemFromIndex(validationIndex);
 	validationItem->setIcon(d->validationIcon(page->validate()));
 }

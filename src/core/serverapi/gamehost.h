@@ -72,7 +72,7 @@ class MAIN_EXPORT GameHost : public QObject
 
 public:
 	GameHost(EnginePlugin *plugin);
-	virtual ~GameHost();
+	virtual ~GameHost() override;
 
 	/**
 	 * @return Message::isError() == false if command line was
@@ -175,7 +175,7 @@ protected:
 	 * Default behavior does nothing.
 	 */
 	void addDMFlags();
-	POLYMORPHIC_SETTER_DECLARE(void, GameHost, addDMFlags, ());
+	POLYMORPHIC_SETTER_DECLARE(void, GameHost, addDMFlags, ())
 	void addDMFlags_default();
 
 	/**
@@ -203,14 +203,14 @@ protected:
 	 * command line.
 	 */
 	void addGlobalGameCustomParameters();
-	POLYMORPHIC_SETTER_DECLARE(void, GameHost, addGlobalGameCustomParameters, ());
+	POLYMORPHIC_SETTER_DECLARE(void, GameHost, addGlobalGameCustomParameters, ())
 	void addGlobalGameCustomParameters_default();
 
 	/**
 	 * @brief @b [Virtual] Loads IWAD.
 	 */
 	void addIwad();
-	POLYMORPHIC_SETTER_DECLARE(void, GameHost, addIwad, ());
+	POLYMORPHIC_SETTER_DECLARE(void, GameHost, addIwad, ())
 	void addIwad_default();
 
 	/**
@@ -218,7 +218,7 @@ protected:
 	 * (dehacked patches, pk3s, etc.)
 	 */
 	void addPwads();
-	POLYMORPHIC_SETTER_DECLARE(void, GameHost, addPwads, ());
+	POLYMORPHIC_SETTER_DECLARE(void, GameHost, addPwads, ())
 	void addPwads_default();
 	/**
 	 * @brief See: GameClientRunner::addModFiles_prefixOnce()
@@ -276,7 +276,7 @@ protected:
 private:
 	DPtr<GameHost> d;
 
-	Q_DISABLE_COPY(GameHost);
+	Q_DISABLE_COPY(GameHost)
 
 	void addDemoPlaybackIfApplicable();
 	void addDemoRecordIfApplicable();

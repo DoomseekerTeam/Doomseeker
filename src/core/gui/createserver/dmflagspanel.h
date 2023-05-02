@@ -37,7 +37,7 @@ class DMFlagsPanel : public QWidget
 {
 public:
 	DMFlagsPanel(QWidget *parent);
-	~DMFlagsPanel();
+	~DMFlagsPanel() override;
 
 	void fillInParams(GameCreateParams &params);
 	bool initDMFlagsTabs(const EnginePlugin *engine);

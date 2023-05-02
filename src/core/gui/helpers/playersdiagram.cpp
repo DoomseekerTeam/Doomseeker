@@ -31,6 +31,7 @@
 #include <QDir>
 #include <QPainter>
 #include <QResource>
+#include <utility>
 
 QImage PlayersDiagram::openImage;
 QImage PlayersDiagram::openSpecImage;
@@ -42,7 +43,7 @@ const QString PlayersDiagram::DEFAULT_STYLE = "blocks";
 QString PlayersDiagram::currentlyLoadedStyle;
 
 PlayersDiagram::PlayersDiagram(ServerCPtr server)
-	: server(server)
+	: server(std::move(server))
 {
 	if (openImage.isNull())
 		return;
@@ -85,18 +86,18 @@ QImage PlayersDiagram::colorizePlayer(QImage image, const QColor &color)
 {
 	QVector<QRgb> colors = image.colorTable();
 	QColor destinationColor = color.toHsv();
-	for (int i = 0; i < colors.size(); ++i)
+	for (QRgb &color : colors)
 	{
 		// Cyan has no red so move on if this color has red.
-		if (qRed(colors[i]) != 0 || qAlpha(colors[i]) == 0)
+		if (qRed(color) != 0 || qAlpha(color) == 0)
 			continue;
 
 		int hue = 0;
 		int saturation = 0;
 		int value = 0;
 		destinationColor.getHsv(&hue, &saturation, &value);
-		destinationColor.setHsv(hue, saturation, QColor(colors[i]).toHsv().value());
-		colors[i] = destinationColor.rgb();
+		destinationColor.setHsv(hue, saturation, QColor(color).toHsv().value());
+		color = destinationColor.rgb();
 	}
 	image.setColorTable(colors);
 

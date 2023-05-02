@@ -50,7 +50,7 @@ class ServerList : public QObject
 
 public:
 	ServerList(ServerListView *serverTable, MainWindow *pMainWindow);
-	~ServerList();
+	~ServerList() override;
 
 	void cleanUpForce();
 	void cleanUpRightNow();
@@ -91,7 +91,7 @@ public slots:
 	void setCountryFlagsIfNotPresent();
 	void setGroupServersWithPlayersAtTop(bool b);
 
-	void tableMiddleClicked(const QModelIndex &index, const QPoint &cursorPosition);
+	void tableMiddleClicked();
 	void tableRightClicked(const QModelIndex &index, const QPoint &cursorPosition);
 	void updateCountryFlags();
 	void updateSearch(const QString &search);

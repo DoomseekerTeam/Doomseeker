@@ -39,7 +39,7 @@ class ConfigurationDialog : public QDialog
 
 public:
 	ConfigurationDialog(QWidget *parent = nullptr);
-	~ConfigurationDialog();
+	~ConfigurationDialog() override;
 
 	/**
 	 * @brief Adds a new configuration page to the options tree view.
@@ -79,11 +79,11 @@ public:
 	QStandardItem *addLabel(QStandardItem *rootItem, const QString &label, int position = -1);
 
 public slots:
-	virtual void reject();
+	void reject() override;
 
 protected:
 	virtual void doSaveSettings() {}
-	virtual void keyPressEvent(QKeyEvent *e);
+	void keyPressEvent(QKeyEvent *e) override;
 
 	/**
 	 * @brief Returns pointer to the tree widget that contains

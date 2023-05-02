@@ -92,7 +92,7 @@ void URLProvider::addMirror(const QUrl &originalUrl, const QUrl &mirrorUrl)
 
 void URLProvider::addMirrorUrls(const QList<QUrl> &urls)
 {
-	MirrorStorage *pMirrorStorage = new MirrorStorage();
+	auto pMirrorStorage = new MirrorStorage();
 
 	for (const QUrl &url : urls)
 	{
@@ -117,7 +117,7 @@ void URLProvider::addUrl(const QUrl &url)
 {
 	if (!hasOrHadUrl(url))
 	{
-		MirrorStorage *pMirrorStorage = new MirrorStorage();
+		auto pMirrorStorage = new MirrorStorage();
 		pMirrorStorage->urls << url;
 		insertUrlPrioritized(url);
 		mirrors << pMirrorStorage;

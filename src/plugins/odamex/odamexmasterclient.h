@@ -35,14 +35,14 @@ class OdamexMasterClient : public MasterClient
 public:
 	OdamexMasterClient();
 
-	const EnginePlugin *plugin() const;
+	const EnginePlugin *plugin() const override;
 
 	void updateAddress();
 
 protected:
 
-	QByteArray createServerListRequest();
-	Response readMasterResponse(const QByteArray &data);
+	QByteArray createServerListRequest() override;
+	Response readMasterResponse(const QByteArray &data) override;
 };
 
 #endif /* __ODAMEXMASTERCLIENT_H__ */

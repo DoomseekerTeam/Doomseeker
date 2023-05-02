@@ -60,7 +60,7 @@ class ConnectionHandler : public QObject
 
 public:
 	ConnectionHandler(ServerPtr server, QWidget *parentWidget = nullptr);
-	~ConnectionHandler();
+	~ConnectionHandler() override;
 
 	void run();
 

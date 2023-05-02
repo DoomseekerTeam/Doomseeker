@@ -316,11 +316,11 @@ private:
  */
 class MAIN_EXPORT GameCVarProvider : public QObject
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	GameCVarProvider();
-	virtual ~GameCVarProvider();
+	virtual ~GameCVarProvider() override;
 
 	/**
 	 * @brief Default implementation creates empty set.
@@ -331,7 +331,7 @@ public:
 	virtual QList<GameCVar> get(const QVariant &context);
 
 private:
-	Q_DISABLE_COPY(GameCVarProvider);
+	Q_DISABLE_COPY(GameCVarProvider)
 
 	DPtr<GameCVarProvider> d;
 };
@@ -354,7 +354,7 @@ private:
  * will be GameMode::SGM_Unknown, upon which plugin should leave it up to the
  * game to pick the game mode.
  */
-typedef int gamemode_id;
+using gamemode_id = int;
 
 /**
  * @ingroup group_pluginapi
@@ -513,7 +513,7 @@ public:
 	 *
 	 * @param path - Path to the file.
 	 */
-	const bool validFile(const QString &path) const;
+	bool validFile(const QString &path) const;
 private:
 	DPtr<PWad> d;
 };

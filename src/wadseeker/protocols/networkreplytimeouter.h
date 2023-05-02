@@ -41,7 +41,7 @@ class WADSEEKER_API NetworkReplyTimeouter : public QObject
 
 public:
 	NetworkReplyTimeouter(QNetworkReply *pReply);
-	virtual ~NetworkReplyTimeouter();
+	virtual ~NetworkReplyTimeouter() override;
 
 	QNetworkReply &reply()
 	{
@@ -108,7 +108,7 @@ private:
 	void stopTimerIfNotNull(QTimer *pTimer);
 
 private slots:
-	void progressRegistered(qint64 bytesReceived, qint64 bytesTotal);
+	void progressRegistered();
 	void finishedSlot();
 	void timeout();
 };

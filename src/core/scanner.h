@@ -148,7 +148,7 @@ public:
 	 * @param expandState Used by checkToken, leave as true.
 	 */
 	bool nextToken(bool autoExpandState = true);
-	void mustGetToken(char token);
+	void mustGetToken(unsigned char token);
 	void rewind(); /// Only can rewind one step.
 	const char *scriptData() const;
 	void scriptMessage(MessageLevel level, const char *error, ...) const;

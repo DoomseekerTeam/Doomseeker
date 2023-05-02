@@ -142,7 +142,7 @@ FileAlias CFGWadAlias::aliasFromRow(int row) const
 		if (!candidateAlias.trimmed().isEmpty())
 			alias.addAlias(candidateAlias.trimmed());
 	}
-	QComboBox *cboMatchType = qobject_cast<QComboBox *>(d->table->cellWidget(
+	auto cboMatchType = qobject_cast<QComboBox *>(d->table->cellWidget(
 		row, PrivData<CFGWadAlias>::ColMatchType));
 	alias.setMatchType(static_cast<FileAlias::MatchType>(
 		cboMatchType->itemData(cboMatchType->currentIndex()).toInt()));
@@ -154,7 +154,7 @@ void CFGWadAlias::applyAliasToRow(int row, const FileAlias &alias)
 	d->table->setItem(row, PrivData<CFGWadAlias>::ColWad, toolTipItem(alias.name()));
 	d->table->setItem(row, PrivData<CFGWadAlias>::ColAliases, toolTipItem(alias.aliases().join("; ")));
 
-	QComboBox *cboMatchType = qobject_cast<QComboBox *>(
+	auto cboMatchType = qobject_cast<QComboBox *>(
 		d->table->cellWidget(row, PrivData<CFGWadAlias>::ColMatchType));
 	int matchTypeIdx = qMax(0, cboMatchType->findData(alias.matchType()));
 	cboMatchType->setCurrentIndex(matchTypeIdx);
@@ -180,7 +180,7 @@ QIcon CFGWadAlias::icon() const
 
 QComboBox *CFGWadAlias::mkMatchTypeComboBox(int row)
 {
-	QComboBox *cboMatchType = new QComboBox();
+	auto cboMatchType = new QComboBox();
 	cboMatchType->setToolTip(d->matchTypeHelp);
 	cboMatchType->addItem(tr("Left-to-Right"), FileAlias::LeftToRight);
 	cboMatchType->addItem(tr("All Equal"), FileAlias::AllEqual);
@@ -238,12 +238,13 @@ void CFGWadAlias::saveSettings()
 
 void CFGWadAlias::showEvent(QShowEvent *event)
 {
+	Q_UNUSED(event);
 	resizeRowsToContents();
 }
 
 QTableWidgetItem *CFGWadAlias::toolTipItem(const QString &contents)
 {
-	QTableWidgetItem *item = new QTableWidgetItem(contents);
+	auto item = new QTableWidgetItem(contents);
 	item->setToolTip(contents);
 	return item;
 }

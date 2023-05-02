@@ -39,20 +39,20 @@ class CFGCustomServers : public ConfigPage
 
 public:
 	CFGCustomServers(QWidget *parent = nullptr);
-	~CFGCustomServers();
+	~CFGCustomServers() override;
 
-	QIcon icon() const
+	QIcon icon() const override
 	{
 		return QIcon(":/flags/localhost-small");
 	}
-	QString name() const
+	QString name() const override
 	{
 		return tr("Pinned Servers");
 	}
 
 protected:
-	void readSettings();
-	void saveSettings();
+	void readSettings() override;
+	void saveSettings() override;
 
 private:
 	enum CheckAndFixPorts

@@ -40,7 +40,7 @@ class DemoManagerDlg : public QDialog
 
 public:
 	DemoManagerDlg();
-	~DemoManagerDlg();
+	~DemoManagerDlg() override;
 
 private slots:
 	void deleteSelected();

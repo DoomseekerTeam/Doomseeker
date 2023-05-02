@@ -32,13 +32,13 @@ class GameFileList;
 
 class ChocolateDoomGameExeFactory : public GameExeFactory
 {
-	Q_OBJECT;
+	Q_OBJECT
 public:
 	static GameFile executableForIwad(const QString &iwad);
 	static GameFileList gameFiles();
 
 	ChocolateDoomGameExeFactory(EnginePlugin *plugin);
-	~ChocolateDoomGameExeFactory();
+	~ChocolateDoomGameExeFactory() override;
 
 protected:
 	QList<ExeFilePath> scanSubdir(const QDir &mainDir, const QString &subdirName, int execType) const override;

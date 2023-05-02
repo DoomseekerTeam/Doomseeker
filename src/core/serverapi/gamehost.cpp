@@ -94,10 +94,10 @@ GameHost::~GameHost()
 {
 }
 
-POLYMORPHIC_DEFINE(void, GameHost, addIwad, (), ());
-POLYMORPHIC_DEFINE(void, GameHost, addPwads, (), ());
-POLYMORPHIC_DEFINE(void, GameHost, addDMFlags, (), ());
-POLYMORPHIC_DEFINE(void, GameHost, addGlobalGameCustomParameters, (), ());
+POLYMORPHIC_DEFINE(void, GameHost, addIwad, (), ())
+POLYMORPHIC_DEFINE(void, GameHost, addPwads, (), ())
+POLYMORPHIC_DEFINE(void, GameHost, addDMFlags, (), ())
+POLYMORPHIC_DEFINE(void, GameHost, addGlobalGameCustomParameters, (), ())
 
 void GameHost::addCustomParameters()
 {

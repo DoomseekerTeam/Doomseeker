@@ -69,7 +69,7 @@ protected:
 class TeamInfo
 {
 public:
-	TeamInfo(const QString &name = QObject::tr("<< Unknown >>"), const QColor &color = QColor(0, 0, 0), unsigned int score = 0);
+	TeamInfo(QString name = QObject::tr("<< Unknown >>"), QColor color = QColor(0, 0, 0), unsigned int score = 0);
 
 	const QString &name() const { return teamName; }
 	const QColor &color() const { return teamColor; }
@@ -145,22 +145,22 @@ public:
 
 	ZandronumServer(const QHostAddress &address, unsigned short port);
 
-	ExeFile *clientExe();
+	ExeFile *clientExe() override;
 
 	GameHost *gameHost();
-	GameClientRunner *gameRunner();
+	GameClientRunner *gameRunner() override;
 
-	bool hasRcon() const { return true; }
+	bool hasRcon() const override { return true; }
 
-	QList<GameCVar> modifiers() const;
-	EnginePlugin *plugin() const;
+	QList<GameCVar> modifiers() const override;
+	EnginePlugin *plugin() const override;
 
-	RConProtocol *rcon();
+	RConProtocol *rcon() override;
 
 	QRgb teamColor(unsigned team) const;
 	QString teamName(unsigned team) const;
 
-	PathFinder wadPathFinder();
+	PathFinder wadPathFinder() override;
 
 protected slots:
 	void updatedSlot(ServerPtr server, int response);

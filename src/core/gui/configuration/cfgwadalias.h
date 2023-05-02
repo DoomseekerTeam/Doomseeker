@@ -36,19 +36,19 @@ class CFGWadAlias : public ConfigPage
 
 public:
 	CFGWadAlias(QWidget *parent = nullptr);
-	~CFGWadAlias();
+	~CFGWadAlias() override;
 
-	QIcon icon() const;
-	QString name() const
+	QIcon icon() const override;
+	QString name() const override
 	{
 		return tr("WAD Aliases");
 	}
 
-	void readSettings();
+	void readSettings() override;
 
 protected:
-	void saveSettings();
-	void showEvent(QShowEvent *event);
+	void saveSettings() override;
+	void showEvent(QShowEvent *event) override;
 
 private:
 	DPtr<CFGWadAlias> d;

@@ -26,6 +26,7 @@
 #include "serverapi/player.h"
 #include "serverapi/serverptr.h"
 #include <QPixmap>
+#include <utility>
 
 class Server;
 class QImage;
@@ -44,13 +45,13 @@ public:
 		displayName[0] = displayName[0].toUpper();
 	}
 	PlayersDiagramStyle(QString name, QString displayName)
-		: name(name), displayName(displayName) {}
+		: name(std::move(name)), displayName(std::move(displayName)) {}
 };
 
 class PlayersDiagram : public QObject
 {
-	Q_OBJECT;
-	Q_DISABLE_COPY(PlayersDiagram);
+	Q_OBJECT
+	Q_DISABLE_COPY(PlayersDiagram)
 
 public:
 	static QList<PlayersDiagramStyle> availableSlotStyles();
@@ -64,7 +65,7 @@ public:
 
 	PlayersDiagram(ServerCPtr server);
 
-	~PlayersDiagram();
+	~PlayersDiagram() override;
 
 	QPixmap pixmap() const
 	{

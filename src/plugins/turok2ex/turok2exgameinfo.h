@@ -52,8 +52,9 @@ public:
 class Turok2ExDifficultyProvider : GameCVarProvider
 {
 public:
-	QList<GameCVar> get(const QVariant &context)
+	QList<GameCVar> get(const QVariant &context) override
 	{
+		Q_UNUSED(context);
 		return QList<GameCVar>();
 	}
 };
@@ -66,7 +67,7 @@ class Turok2AboutProvider : public TextProvider
 	Q_OBJECT
 
 public:
-	QString provide();
+	QString provide() override;
 };
 
 #endif

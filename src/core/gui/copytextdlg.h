@@ -30,11 +30,11 @@
 
 class CopyTextDlg : public QDialog
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	CopyTextDlg(const QString &content, const QString &description = QString(), QWidget *parent = nullptr);
-	~CopyTextDlg();
+	~CopyTextDlg() override;
 
 protected slots:
 	void copyContent();

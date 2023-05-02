@@ -67,7 +67,7 @@ void MapListPanel::addMapFromEditBoxToList()
 
 void MapListPanel::addMapsFromLoadedWads()
 {
-	MapListSelector *mapListSelector = new MapListSelector(this);
+	auto mapListSelector = new MapListSelector(this);
 	mapListSelector->addPaths(d->parentDialog->wadPaths());
 	if (mapListSelector->exec() == QDialog::Accepted)
 	{
@@ -82,8 +82,8 @@ void MapListPanel::addMapToMaplist(const QString &map)
 {
 	if (map.isEmpty())
 		return;
-	QStandardItemModel *model = static_cast<QStandardItemModel *>(d->lstMaplist->model());
-	QStandardItem *it = new QStandardItem(map);
+	auto model = static_cast<QStandardItemModel *>(d->lstMaplist->model());
+	auto it = new QStandardItem(map);
 	it->setDragEnabled(true);
 	it->setDropEnabled(false);
 	model->appendRow(it);
@@ -128,6 +128,7 @@ bool MapListPanel::isMapOnList(const QString &mapName) const
 
 void MapListPanel::showEvent(QShowEvent *event)
 {
+	Q_UNUSED(event);
 	updateMapWarningVisibility();
 }
 

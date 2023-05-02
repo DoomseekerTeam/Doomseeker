@@ -116,7 +116,7 @@ QStringList ChocolateDoomGameClientRunner::executables() const
 
 void ChocolateDoomGameClientRunner::joinPopulatedServer()
 {
-	IwadAndWadsPickerDialog *dialog = new IwadAndWadsPickerDialog(nullptr);
+	auto dialog = new IwadAndWadsPickerDialog(nullptr);
 	dialog->setWindowTitle(tr("Join Chocolate Doom game"));
 	dialog->setExecutables(executables());
 	dialog->setIwadByName(server->iwad());

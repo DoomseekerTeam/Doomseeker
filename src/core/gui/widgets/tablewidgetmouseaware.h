@@ -55,8 +55,8 @@ private:
 	bool bEmitSignalsEvenIfIndexIsInvalid;
 
 protected:
-	virtual void mouseDoubleClickEvent(QMouseEvent *event);
-	virtual void mouseReleaseEvent(QMouseEvent *event);
+	void mouseDoubleClickEvent(QMouseEvent *event) override;
+	void mouseReleaseEvent(QMouseEvent *event) override;
 
 signals:
 	void leftMouseDoubleClicked(const QModelIndex &index, const QPoint &cursorPosition);

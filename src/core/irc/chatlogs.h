@@ -36,7 +36,7 @@ class ChatLogs : public QObject
 
 public:
 	ChatLogs();
-	~ChatLogs();
+	~ChatLogs() override;
 
 	QString logFilePath(const IRCNetworkEntity &entity, const QString &recipient) const;
 	QString logFileName(const QString &recipient) const;

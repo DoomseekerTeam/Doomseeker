@@ -96,7 +96,7 @@ class MAIN_EXPORT GameClientRunner : public QObject
 
 public:
 	GameClientRunner(ServerPtr server);
-	virtual ~GameClientRunner();
+	virtual ~GameClientRunner() override;
 
 	/**
 	 * @brief Fills out CommandLineInfo object that allows client
@@ -124,7 +124,7 @@ protected:
 	 * This is argForConnect() followed by server "ip:port".
 	 */
 	void addConnectCommand();
-	POLYMORPHIC_SETTER_DECLARE(void, GameClientRunner, addConnectCommand, ());
+	POLYMORPHIC_SETTER_DECLARE(void, GameClientRunner, addConnectCommand, ())
 	void addConnectCommand_default();
 
 	/**
@@ -155,7 +155,7 @@ protected:
 	 * createCommandLineArguments().
 	 */
 	void addExtra();
-	POLYMORPHIC_SETTER_DECLARE(void, GameClientRunner, addExtra, ());
+	POLYMORPHIC_SETTER_DECLARE(void, GameClientRunner, addExtra, ())
 	void addExtra_default();
 
 	/**
@@ -163,7 +163,7 @@ protected:
 	 *        out put CommandLineInfo.
 	 */
 	void addGamePaths();
-	POLYMORPHIC_SETTER_DECLARE(void, GameClientRunner, addGamePaths, ());
+	POLYMORPHIC_SETTER_DECLARE(void, GameClientRunner, addGamePaths, ())
 	void addGamePaths_default();
 	/**
 	 * @brief @b [Virtual] Adds in-game password to the args list.
@@ -175,7 +175,7 @@ protected:
 	 *     and attempts to add the arguments anyway.
 	 */
 	void addInGamePassword();
-	POLYMORPHIC_SETTER_DECLARE(void, GameClientRunner, addInGamePassword, ());
+	POLYMORPHIC_SETTER_DECLARE(void, GameClientRunner, addInGamePassword, ())
 	void addInGamePassword_default();
 	/**
 	 * @brief @b [Virtual] Plugins can replace IWAD discovery mechanism
@@ -184,7 +184,7 @@ protected:
 	 * This method supports WAD aliasing configured in Doomseeker.
 	 */
 	void addIwad();
-	POLYMORPHIC_SETTER_DECLARE(void, GameClientRunner, addIwad, ());
+	POLYMORPHIC_SETTER_DECLARE(void, GameClientRunner, addIwad, ())
 	void addIwad_default();
 
 	/**
@@ -228,7 +228,7 @@ protected:
 	 *     Paths to found files.
 	 */
 	void addModFiles(const QStringList &files);
-	POLYMORPHIC_SETTER_DECLARE(void, GameClientRunner, addModFiles, (const QStringList &));
+	POLYMORPHIC_SETTER_DECLARE(void, GameClientRunner, addModFiles, (const QStringList &))
 	void addModFiles_default(const QStringList &files);
 	/**
 	 * @brief addModFiles() implementation that sorts files by extension and
@@ -267,7 +267,7 @@ protected:
 	 *     and attempts to add the arguments anyway.
 	 */
 	void addPassword();
-	POLYMORPHIC_SETTER_DECLARE(void, GameClientRunner, addPassword, ());
+	POLYMORPHIC_SETTER_DECLARE(void, GameClientRunner, addPassword, ())
 	void addPassword_default();
 
 	/**
@@ -360,7 +360,7 @@ protected:
 	 * "add*" methods where applicable.
 	 */
 	void createCommandLineArguments();
-	POLYMORPHIC_SETTER_DECLARE(void, GameClientRunner, createCommandLineArguments, ());
+	POLYMORPHIC_SETTER_DECLARE(void, GameClientRunner, createCommandLineArguments, ())
 	void createCommandLineArguments_default();
 
 	/**

@@ -49,7 +49,7 @@ CreateServerDialogApi::~CreateServerDialogApi()
 
 CreateServerDialogApi *CreateServerDialogApi::createNew(QWidget *parent)
 {
-	CreateServerDialogApi *api = new CreateServerDialogApi(parent);
+	auto api = new CreateServerDialogApi(parent);
 	return api;
 }
 
@@ -66,6 +66,7 @@ bool CreateServerDialogApi::fillInCommandLineArguments(QString &executable, QStr
 
 void CreateServerDialogApi::makeRemoteGameSetup(const EnginePlugin *plugin)
 {
+	Q_UNUSED(plugin)
 	assert(d->dialog);
 	d->dialog->makeRemoteGameSetupDialog(const_cast<EnginePlugin*>(plugin));
 }

@@ -34,8 +34,8 @@ class Message;
  */
 class GameExeRetriever : public QObject
 {
-	Q_OBJECT;
-	Q_DISABLE_COPY(GameExeRetriever);
+	Q_OBJECT
+	Q_DISABLE_COPY(GameExeRetriever)
 
 public:
 	GameExeRetriever(GameExeFactory &factory);

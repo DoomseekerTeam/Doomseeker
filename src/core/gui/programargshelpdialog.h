@@ -31,7 +31,7 @@ class ProgramArgsHelpDialog : public QDialog
 {
 public:
 	ProgramArgsHelpDialog(QWidget *parent);
-	~ProgramArgsHelpDialog();
+	~ProgramArgsHelpDialog() override;
 
 private:
 	DPtr<ProgramArgsHelpDialog> d;

@@ -121,7 +121,7 @@ public:
 		 */
 		RESPONSE_WAIT,
 		/**
-		 * @brief Response from the server was erroreneous.
+		 * @brief Response from the server was erroneous.
 		 *
 		 * Such servers are marked as invalid by Doomseeker.
 		 */
@@ -156,7 +156,7 @@ public:
 	 * @brief Spawn server with given address and port.
 	 */
 	Server(const QHostAddress &address, unsigned short port);
-	virtual ~Server();
+	virtual ~Server() override;
 
 	// VIRTUALS
 	/**
@@ -673,7 +673,7 @@ signals:
 	void updated(ServerPtr server, int response);
 
 protected:
-	POLYMORPHIC_SETTER_DECLARE(QString, Server, customDetails, ());
+	POLYMORPHIC_SETTER_DECLARE(QString, Server, customDetails, ())
 	QString customDetails_default();
 
 	/**
@@ -684,7 +684,7 @@ protected:
 	 *         thread safe and may lead to a crash.
 	 */
 	Response readRequest(const QByteArray &data);
-	POLYMORPHIC_SETTER_DECLARE(Response, Server, readRequest, (const QByteArray &data));
+	POLYMORPHIC_SETTER_DECLARE(Response, Server, readRequest, (const QByteArray &data))
 
 	/**
 	 * @brief <b>[Pure Virtual]</b> Prepares challenge data.
@@ -692,7 +692,7 @@ protected:
 	 * @return A prepared packet. Return empty buffer to signal error.
 	 */
 	QByteArray createSendRequest();
-	POLYMORPHIC_SETTER_DECLARE(QByteArray, Server, createSendRequest, ());
+	POLYMORPHIC_SETTER_DECLARE(QByteArray, Server, createSendRequest, ())
 
 	/**
 	 * @brief Add PWAD to the list of this server's PWADs.
@@ -781,7 +781,7 @@ private slots:
 	void setHostName(QHostInfo host);
 };
 
-Q_DECLARE_METATYPE(ServerPtr);
-Q_DECLARE_METATYPE(ServerCPtr);
+Q_DECLARE_METATYPE(ServerPtr)
+Q_DECLARE_METATYPE(ServerCPtr)
 
 #endif /* __SERVER_H__ */

@@ -145,7 +145,7 @@ public:
 	/**
 	 * Deallocates an instance of Wadseeker.
 	 */
-	~Wadseeker();
+	~Wadseeker() override;
 
 	/**
 	 * @brief Check if Wadseeker is currently downloading given file.

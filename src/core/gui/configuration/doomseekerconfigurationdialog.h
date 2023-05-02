@@ -34,7 +34,7 @@ class DoomseekerConfigurationDialog : public ConfigurationDialog
 public:
 	DoomseekerConfigurationDialog(QWidget *parent = nullptr);
 
-	QStandardItem *addConfigPage(QStandardItem *rootItem, ConfigPage *configPage, int position = -1);
+	QStandardItem *addConfigPage(QStandardItem *rootItem, ConfigPage *configPage, int position = -1) override;
 	bool addEngineConfiguration(ConfigPage *configPage);
 	bool customServersChanged() const
 	{
@@ -66,7 +66,7 @@ private:
 
 	void appendFilePathsConfigurationBoxes();
 	void appendWadseekerConfigurationBoxes();
-	void doSaveSettings();
+	void doSaveSettings() override;
 
 private slots:
 	/**

@@ -131,13 +131,13 @@ QString Player::nameColorTagsStripped() const
 QString Player::nameFormatted() const
 {
 	QString ret;
-	for (int i = 0; i < d->name.length(); ++i)
+	for (const auto &c : d->name)
 	{
 		// cut out bad characters
-		if ((d->name[i] < 32 || d->name[i] > 126) && d->name[i] != ESCAPE_COLOR_CHAR)
+		if ((c < 32 || c > 126) && c != ESCAPE_COLOR_CHAR)
 			continue;
 
-		switch (d->name[i].toLatin1())
+		switch (c.toLatin1())
 		{
 		case '<':
 			ret += "&lt;";
@@ -148,7 +148,7 @@ QString Player::nameFormatted() const
 			break;
 
 		default:
-			ret += d->name[i];
+			ret += c;
 			break;
 		}
 	}

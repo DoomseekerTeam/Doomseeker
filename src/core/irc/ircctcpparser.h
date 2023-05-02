@@ -57,7 +57,7 @@ public:
 
 	IRCCtcpParser(IRCNetworkAdapter *network, const QString &sender,
 		const QString &recipient, const QString &msg, MessageType msgType);
-	~IRCCtcpParser();
+	~IRCCtcpParser() override;
 
 	CtcpEcho echo() const;
 	bool parse();

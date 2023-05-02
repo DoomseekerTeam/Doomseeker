@@ -36,8 +36,8 @@ class ServerFilterBuilderMenu : public QMenu
 
 public:
 	ServerFilterBuilderMenu(const Server &server, const ServerListFilterInfo &filter,
-		QWidget *parent = 0);
-	~ServerFilterBuilderMenu();
+		QWidget *parent = nullptr);
+	~ServerFilterBuilderMenu() override;
 
 	const ServerListFilterInfo &filter() const;
 

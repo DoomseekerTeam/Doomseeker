@@ -47,9 +47,9 @@ void DndFileSystemListView::dropEvent(QDropEvent *pEvent)
 	if (pEvent->mimeData()->hasUrls())
 	{
 		QList<QUrl> droppedUrls = pEvent->mimeData()->urls();
-		for (int i = 0; i < droppedUrls.size(); ++i)
+		for (const auto &droppedUrl : droppedUrls)
 		{
-			QString localPath = droppedUrls[i].toLocalFile();
+			QString localPath = droppedUrl.toLocalFile();
 			QFileInfo fileInfo(localPath);
 			if (!localPath.isEmpty() && fileInfo.exists())
 				emit fileSystemPathDropped(fileInfo.absoluteFilePath());

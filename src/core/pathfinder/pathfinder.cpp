@@ -187,7 +187,7 @@ PathFinderResult PathFinder::findFiles(const QStringList &files) const
 	return result;
 }
 
-const void PathFinder::removeUnneededPaths() const
+void PathFinder::removeUnneededPaths() const
 {
 	Qt::CaseSensitivity caseSensitivity;
 	#ifdef Q_OS_WIN32

@@ -37,7 +37,7 @@ class UpdaterInfoParser : public QObject
 
 public:
 	UpdaterInfoParser();
-	~UpdaterInfoParser();
+	~UpdaterInfoParser() override;
 
 	const QList<UpdatePackage> &packages() const;
 

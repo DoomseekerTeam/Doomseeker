@@ -223,7 +223,7 @@ void Srb2MasterClient::parseServerPayload(const QByteArray &payload)
 
 	if (info.isValid())
 	{
-		Srb2Server *server = new Srb2Server(info.address, info.port);
+		auto server = new Srb2Server(info.address, info.port);
 		server->setName(info.name);
 		server->setGameVersion(info.version);
 		registerNewServer(ServerPtr(server));
@@ -232,6 +232,7 @@ void Srb2MasterClient::parseServerPayload(const QByteArray &payload)
 
 MasterClient::Response Srb2MasterClient::readMasterResponse(const QByteArray &data)
 {
+	Q_UNUSED(data);
 	return RESPONSE_GOOD;
 }
 

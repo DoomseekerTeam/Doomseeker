@@ -304,7 +304,7 @@ public:
 	QString workingDir;
 };
 
-DPointered(ExeFilePath);
+DPointered(ExeFilePath)
 
 ExeFilePath::ExeFilePath()
 {

@@ -51,7 +51,7 @@ IRCDelayedOperationBan::IRCDelayedOperationBan(IRCNetworkAdapter *network,
 	d->network = network;
 	this->connect(d->network->responseParser(),
 		SIGNAL(whoIsUser(QString,QString,QString,QString)),
-		SLOT(onWhoIsUser(QString,QString,QString,QString)));
+		SLOT(onWhoIsUser(QString,QString,QString)));
 }
 
 IRCDelayedOperationBan::~IRCDelayedOperationBan()
@@ -64,8 +64,10 @@ void IRCDelayedOperationBan::start()
 }
 
 void IRCDelayedOperationBan::onWhoIsUser(const QString &nickname, const QString &user,
-	const QString &hostName, const QString &realName)
+	const QString &hostName)
 {
+	Q_UNUSED(nickname);
+	Q_UNUSED(user);
 	QString banString = "*!*@" + hostName;
 	d->network->sendMessage(QString("/mode %1 +b %2").arg(d->channel, banString));
 	d->network->sendMessage(QString("/kick %1 %2 %3").arg(d->channel, d->nickname, d->reason));

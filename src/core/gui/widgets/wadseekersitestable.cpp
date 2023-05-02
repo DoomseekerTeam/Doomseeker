@@ -43,7 +43,7 @@ void WadseekerSitesTable::addUrl(const QUrl &url)
 		insertRow(rowCount());
 		int rowIndex = rowCount() - 1;
 
-		QProgressBar *pBar = new QProgressBar();
+		auto pBar = new QProgressBar();
 		pBar->setAlignment(Qt::AlignCenter);
 		pBar->setMinimum(0);
 		pBar->setMaximum(0);
@@ -94,7 +94,7 @@ void WadseekerSitesTable::addService(const QString &service)
 		insertRow(rowCount());
 		int rowIndex = rowCount() - 1;
 
-		QProgressBar *pBar = new QProgressBar();
+		auto pBar = new QProgressBar();
 		pBar->setAlignment(Qt::AlignCenter);
 		pBar->setMinimum(0);
 		pBar->setMaximum(0);
@@ -132,7 +132,7 @@ void WadseekerSitesTable::setUrlProgress(const QUrl &url, qint64 current, qint64
 
 	if (row >= 0)
 	{
-		QProgressBar *pBar = (QProgressBar *) this->cellWidget(row, IDX_PROGRESS_COLUMN);
+		auto pBar = (QProgressBar *) this->cellWidget(row, IDX_PROGRESS_COLUMN);
 		pBar->setMaximum(total);
 		pBar->setValue(current);
 	}
@@ -140,6 +140,7 @@ void WadseekerSitesTable::setUrlProgress(const QUrl &url, qint64 current, qint64
 
 void WadseekerSitesTable::showEvent(QShowEvent *pEvent)
 {
+	Q_UNUSED(pEvent);
 	if (!d.bAlreadyShownOnce)
 	{
 		// Events in this block must occur after the widget has been

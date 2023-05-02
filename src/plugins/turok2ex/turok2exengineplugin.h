@@ -31,10 +31,10 @@ class Turok2ExEnginePlugin : public EnginePlugin
 public:
 	Turok2ExEnginePlugin();
 
-	GameHost *gameHost();
-	QList<GameMode> gameModes() const;
-	QList<GameCVar> limits(const GameMode &mode) const;
-	ServerPtr mkServer(const QHostAddress &address, unsigned short port) const;
+	GameHost *gameHost() override;
+	QList<GameMode> gameModes() const override;
+	QList<GameCVar> limits(const GameMode &mode) const override;
+	ServerPtr mkServer(const QHostAddress &address, unsigned short port) const override;
 };
 
 #endif

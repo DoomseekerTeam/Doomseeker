@@ -40,7 +40,7 @@ public:
 
 	QString extractNicknamePrefix() const
 	{
-		const QString NICKNAME_MATCH = "\\[\\]\\{\\}\\-\\^\\`\\|\\\\A-Za-z0-9_";
+		const QString NICKNAME_MATCH = R"(\[\]\{\}\-\^\`\|\\A-Za-z0-9_)";
 		QRegExp regex(QString("(?:.*)[^%1]?([%1]*)").arg(NICKNAME_MATCH));
 		regex.setCaseSensitivity(Qt::CaseInsensitive);
 		regex.setMinimal(false);

@@ -38,9 +38,9 @@ class IRCChannelAdapter : public IRCChatAdapter
 
 public:
 	IRCChannelAdapter(IRCNetworkAdapter *pNetwork, const QString &recipient);
-	~IRCChannelAdapter();
+	~IRCChannelAdapter() override;
 
-	AdapterType adapterType() const
+	AdapterType adapterType() const override
 	{
 		return ChannelAdapter;
 	}
@@ -53,7 +53,7 @@ public:
 	/**
 	 * @brief Appends a single name to the sorted cachedNames list.
 	 *
-	 * Ensures that no duplicate names are found on the lsit.
+	 * Ensures that no duplicate names are found on the list.
 	 * This will emit nameAdded() signal.
 	 */
 	void appendNameToCachedList(const QString &name);
@@ -80,7 +80,7 @@ public:
 	 * when end of names list message is received for this channel.
 	 */
 	void emitCachedNameListUpdated();
-	void emitChatMessage(const QString &sender, const QString &content);
+	void emitChatMessage(const QString &sender, const QString &content) override;
 
 	bool hasUser(const QString &nickname);
 
@@ -131,15 +131,15 @@ public:
 	 * This will emit nameRemoved() for oldNickname and nameAdded()
 	 * for the newNickname.
 	 */
-	void userChangesNickname(const QString &oldNickname, const QString &newNickname);
-	void userJoins(const QString &nickname, const QString &fullSignature);
-	void userLeaves(const QString &nickname, const QString &farewellMessage, IRCQuitType quitType);
+	void userChangesNickname(const QString &oldNickname, const QString &newNickname) override;
+	void userJoins(const QString &nickname, const QString &fullSignature) override;
+	void userLeaves(const QString &nickname, const QString &farewellMessage, IRCQuitType quitType) override;
 
 	/**
 	 * this will first emit nameRemoved() for the nickname and then
 	 * nameAdded() for the same nickname.
 	 */
-	void userModeChanges(const QString &nickname, const QList<char> &addedFlags, const QList<char> &removedFlags);
+	void userModeChanges(const QString &nickname, const QList<char> &addedFlags, const QList<char> &removedFlags) override;
 
 signals:
 	/**

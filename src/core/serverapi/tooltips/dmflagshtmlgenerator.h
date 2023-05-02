@@ -30,11 +30,11 @@
 
 class DmflagsHtmlGenerator : public QObject
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	DmflagsHtmlGenerator(const ServerCPtr &server);
-	~DmflagsHtmlGenerator();
+	~DmflagsHtmlGenerator() override;
 
 	QString generate();
 

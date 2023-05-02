@@ -33,24 +33,24 @@ class CFGWadseekerAppearance : public ConfigPage
 
 public:
 	CFGWadseekerAppearance(QWidget *parent = nullptr);
-	~CFGWadseekerAppearance();
+	~CFGWadseekerAppearance() override;
 
-	QIcon icon() const
+	QIcon icon() const override
 	{
 		return QIcon(":/icons/color-fill.png");
 	}
-	QString name() const
+	QString name() const override
 	{
 		return tr("Appearance");
 	}
-	void readSettings();
-	QString title() const
+	void readSettings() override;
+	QString title() const override
 	{
 		return tr("Wadseeker - Appearance");
 	}
 
 protected:
-	void saveSettings();
+	void saveSettings() override;
 
 private:
 	DPtr<CFGWadseekerAppearance> d;

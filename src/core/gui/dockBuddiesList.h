@@ -49,7 +49,7 @@ public:
 	};
 
 	DockBuddiesList(QWidget *parent = nullptr);
-	~DockBuddiesList();
+	~DockBuddiesList() override;
 
 	bool hasBuddy(const ServerPtr &server);
 
@@ -79,7 +79,7 @@ class AddBuddyDlg : public QDialog
 
 public:
 	AddBuddyDlg(QWidget *parent = nullptr);
-	~AddBuddyDlg();
+	~AddBuddyDlg() override;
 
 	QRegExp pattern() const;
 

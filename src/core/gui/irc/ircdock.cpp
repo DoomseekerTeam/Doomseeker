@@ -67,7 +67,7 @@ IRCDock::~IRCDock()
 
 IRCDockTabContents *IRCDock::addIRCAdapter(IRCAdapterBase *pIRCAdapter)
 {
-	IRCDockTabContents *pNewAdapterWidget = new IRCDockTabContents(this);
+	auto pNewAdapterWidget = new IRCDockTabContents(this);
 
 	connect(pNewAdapterWidget, SIGNAL(chatWindowCloseRequest(IRCDockTabContents*)), SLOT(chatWindowCloseRequestSlot(IRCDockTabContents*)));
 	connect(pNewAdapterWidget, SIGNAL(focusRequest(IRCDockTabContents*)), SLOT(tabFocusRequest(IRCDockTabContents*)));
@@ -88,7 +88,7 @@ void IRCDock::applyAppearanceSettings()
 {
 	for (int i = 0; i < d->tabWidget->count(); ++i)
 	{
-		IRCDockTabContents *pWidget = (IRCDockTabContents *)d->tabWidget->widget(i);
+		auto pWidget = (IRCDockTabContents *)d->tabWidget->widget(i);
 		pWidget->applyAppearanceSettings();
 	}
 }
@@ -124,7 +124,7 @@ bool IRCDock::hasTabFocus(const IRCDockTabContents *pTab) const
 
 IRCNetworkAdapter *IRCDock::networkWithUiFocus()
 {
-	IRCDockTabContents *pWidget = (IRCDockTabContents *)d->tabWidget->currentWidget();
+	auto pWidget = (IRCDockTabContents *)d->tabWidget->currentWidget();
 	if (pWidget == nullptr)
 		return nullptr;
 
@@ -162,7 +162,7 @@ QString IRCDock::prefixMessage(IRCAdapterBase *pTargetChatWindow, IRCAdapterBase
 
 void IRCDock::setupToolbar()
 {
-	QToolBar *pToolBar = new QToolBar(this);
+	auto pToolBar = new QToolBar(this);
 	pToolBar->setMovable(false);
 	pToolBar->setOrientation(Qt::Vertical);
 
@@ -194,7 +194,7 @@ void IRCDock::tabCurrentChanged(int index)
 	if (index >= 0)
 	{
 		d->tabWidget->tabBarPublic()->setTabTextColor(index, "");
-		IRCDockTabContents *pTab = (IRCDockTabContents *) d->tabWidget->widget(index);
+		auto pTab = (IRCDockTabContents *) d->tabWidget->widget(index);
 		pTab->grabFocus();
 	}
 }
@@ -220,7 +220,7 @@ void IRCDock::titleChange(IRCDockTabContents *caller)
 
 void IRCDock::titleChangeWithColorOfSenderIfNotFocused()
 {
-	IRCDockTabContents *caller = static_cast<IRCDockTabContents *>(sender());
+	auto caller = static_cast<IRCDockTabContents *>(sender());
 	int tabIndex = d->tabWidget->indexOf(caller);
 	if (tabIndex >= 0)
 	{

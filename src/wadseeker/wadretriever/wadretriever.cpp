@@ -558,7 +558,7 @@ void WadRetriever::resolveDownloadFinish(NetworkReply *pReply, WadRetrieverInfo 
 void WadRetriever::setNetworkReply(WadRetrieverInfo &wadRetrieverInfo,
 	const QNetworkRequest &request, QNetworkReply *pReply)
 {
-	NetworkReply *pWrapperInfo = new NetworkReply(request, pReply);
+	auto pWrapperInfo = new NetworkReply(request, pReply);
 	pWrapperInfo->startConnectionTimeoutTimer();
 	pWrapperInfo->setProgressTimeout(NetworkReply::SUGGESTED_PROGRESS_TIMEOUT_MSECS);
 	wadRetrieverInfo.pNetworkReply = pWrapperInfo;
@@ -577,7 +577,7 @@ void WadRetriever::setWads(const QList<WadDownloadInfo> &wads)
 	{
 		if (!hasWad(wad))
 		{
-			WadRetrieverInfo *pRetrieverInfo = new WadRetrieverInfo(wad);
+			auto pRetrieverInfo = new WadRetrieverInfo(wad);
 
 			d.wads << pRetrieverInfo;
 		}

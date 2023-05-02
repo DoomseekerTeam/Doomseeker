@@ -332,6 +332,7 @@ void GeneralGameSetupPanel::setRemoteExecutableByPath(const QString &pathRequest
 
 void GeneralGameSetupPanel::showEvent(QShowEvent *event)
 {
+	Q_UNUSED(event);
 	updateMapWarningVisibility();
 }
 

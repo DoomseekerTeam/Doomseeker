@@ -98,7 +98,7 @@ QStringList CFGIRCDefineNetworkDialog::autojoinCommands() const
 
 void CFGIRCDefineNetworkDialog::buttonClicked(QAbstractButton *button)
 {
-	QPushButton *pButton = (QPushButton *)button;
+	auto pButton = (QPushButton *)button;
 	if (pButton == d->buttonBox->button(QDialogButtonBox::Ok))
 		this->accept();
 	else

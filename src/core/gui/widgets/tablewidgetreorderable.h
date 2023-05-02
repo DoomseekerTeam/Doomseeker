@@ -28,7 +28,7 @@
  */
 class TableWidgetReorderable : public QTableWidget
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 	friend class TableWidgetReorderableStyle;
 public:

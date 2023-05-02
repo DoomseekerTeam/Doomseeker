@@ -45,7 +45,7 @@ bool UnTar::extract(int file, const QString &where)
 	QByteArray fileData = stream->read(directory[file].size);
 	stream->close();
 
-	if (fileData.size() == directory[file].size)
+	if (static_cast<unsigned>(fileData.size()) == directory[file].size)
 	{
 		QFile outputFile(where);
 		outputFile.open(QFile::WriteOnly);

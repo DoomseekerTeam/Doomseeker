@@ -30,11 +30,11 @@
 class UdpSocketPool : public QObject
 {
 	Q_OBJECT
-	Q_DISABLE_COPY(UdpSocketPool);
+	Q_DISABLE_COPY(UdpSocketPool)
 
 public:
 	UdpSocketPool(int sliceSize = 25);
-	~UdpSocketPool();
+	~UdpSocketPool() override;
 
 	QUdpSocket *acquire(const QHostAddress &address, quint16 port);
 	QUdpSocket *acquireMasterSocket();

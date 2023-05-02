@@ -41,7 +41,7 @@ class GameRulesPanel : public QWidget
 
 public:
 	GameRulesPanel(QWidget *parent);
-	~GameRulesPanel();
+	~GameRulesPanel() override;
 
 	void fillInParams(GameCreateParams &params);
 	bool isAnythingAvailable() const;

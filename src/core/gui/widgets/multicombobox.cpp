@@ -35,7 +35,7 @@ public:
 		: QCheckBox(parent) {}
 
 protected:
-	bool hitButton(const QPoint &pos) const
+	bool hitButton(const QPoint &pos) const override
 	{
 		// Omit QCheckBox::hitButton() check as it returns true only if
 		// user actually clicked on the checkbox or on its title. In this
@@ -55,7 +55,7 @@ public:
 		: QItemDelegate(parent) {}
 
 	void paint(QPainter *painter, const QStyleOptionViewItem &option,
-		const QModelIndex &index) const
+		const QModelIndex &index) const override
 	{
 		//Get item data
 		bool value = index.data(Qt::UserRole).toBool();
@@ -75,23 +75,25 @@ public:
 
 	QWidget *createEditor(QWidget *parent,
 		const QStyleOptionViewItem &option,
-		const QModelIndex &index ) const
+		const QModelIndex &index ) const override
 	{
+		Q_UNUSED(option)
+		Q_UNUSED(index)
 		return new MultiComboBoxEditor(parent);
 	}
 
-	void setEditorData(QWidget *editor, const QModelIndex &index) const
+	void setEditorData(QWidget *editor, const QModelIndex &index) const override
 	{
-		QCheckBox *myEditor = static_cast<QCheckBox *>(editor);
+		auto myEditor = static_cast<QCheckBox *>(editor);
 		myEditor->setText(index.data(Qt::DisplayRole).toString());
 		myEditor->setChecked(index.data(Qt::UserRole).toBool());
 	}
 
 	void setModelData(QWidget *editor, QAbstractItemModel *model,
-		const QModelIndex &index) const
+		const QModelIndex &index) const override
 	{
 		//get the value from the editor (CheckBox)
-		QCheckBox *myEditor = static_cast<QCheckBox *>(editor);
+		auto myEditor = static_cast<QCheckBox *>(editor);
 		bool value = myEditor->isChecked();
 
 
@@ -103,8 +105,9 @@ public:
 	}
 
 	void updateEditorGeometry(QWidget *editor,
-		const QStyleOptionViewItem &option, const QModelIndex &index ) const
+		const QStyleOptionViewItem &option, const QModelIndex &index ) const override
 	{
+		Q_UNUSED(index);
 		editor->setGeometry(option.rect);
 	}
 };

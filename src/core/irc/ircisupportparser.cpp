@@ -89,7 +89,7 @@ void IRCISupportParser::parsePrefix()
 	QString value = findValue("PREFIX=");
 	if (value.isNull())
 		return;
-	QRegExp regex("\\((\\S+)\\)(\\S+)$");
+	QRegExp regex(R"(\((\S+)\)(\S+)$)");
 	regex.setMinimal(true);
 	if (regex.indexIn(value) < 0)
 		return;

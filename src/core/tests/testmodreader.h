@@ -30,7 +30,7 @@ class TestModReader : public TestUnitBase
 public:
 	TestModReader() : TestUnitBase("Read supported mod formats") {}
 
-	bool executeTest();
+	bool executeTest() override;
 };
 
 

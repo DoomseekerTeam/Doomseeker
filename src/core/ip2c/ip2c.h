@@ -180,7 +180,7 @@ private:
 	const IP2CData invalidData;
 
 	IP2C();
-	~IP2C();
+	~IP2C() override;
 };
 
 #endif /* __IP2C_H__ */

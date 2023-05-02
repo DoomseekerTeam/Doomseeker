@@ -214,9 +214,8 @@ QList<FileAlias> FileAliasList::mergeDuplicates(const QList<FileAlias> &input)
 	for (const FileAlias &alias : input)
 	{
 		bool merged = false;
-		for (int i = 0; i < result.size(); ++i)
+		for (auto &aliasOnList : result)
 		{
-			FileAlias &aliasOnList = result[i];
 			if (aliasOnList.isSameName(alias.name()) && aliasOnList.matchType() == alias.matchType())
 			{
 				aliasOnList.addAliases(alias.aliases());

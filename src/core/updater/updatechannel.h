@@ -82,6 +82,7 @@ public:
 	{
 		return !(*this == other);
 	}
+	UpdateChannel &operator=(const UpdateChannel &other);
 
 	bool isNull() const;
 

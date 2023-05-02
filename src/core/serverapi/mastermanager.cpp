@@ -41,8 +41,7 @@ MasterManager::~MasterManager()
 {
 	clearServers();
 
-	for (int i = 0; i < masters.size(); i++)
-		delete masters[i];
+	qDeleteAll(masters);
 
 	delete customServers;
 }
@@ -82,7 +81,7 @@ QList<ServerPtr> MasterManager::allServers() const
 
 void MasterManager::masterListUpdated()
 {
-	MasterClient *master = static_cast<MasterClient *>(sender());
+	auto master = static_cast<MasterClient *>(sender());
 	for (ServerPtr pServer : master->servers())
 	{
 		registerNewServer(pServer);
@@ -98,6 +97,7 @@ void MasterManager::masterListUpdated()
 
 MasterManager::Response MasterManager::readMasterResponse(const QByteArray &data)
 {
+	Q_UNUSED(data);
 	assert(0 && "MasterManager::readMasterResponse should not get called.");
 	return RESPONSE_BAD;
 }
@@ -108,15 +108,15 @@ void MasterManager::refreshStarts()
 
 	clearServers();
 
-	for (int i = 0; i < masters.size(); i++)
+	for (auto *master : masters)
 	{
-		if (!masters[i]->isEnabled())
+		if (!master->isEnabled())
 		{
 			continue;
 		}
 
-		mastersBeingRefreshed.insert(masters[i]);
-		masters[i]->refreshStarts();
+		mastersBeingRefreshed.insert(master);
+		master->refreshStarts();
 	}
 }
 

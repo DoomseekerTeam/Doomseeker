@@ -32,7 +32,7 @@ public:
 	DateTableWidgetItem(const QDateTime &date,
 		const QString &displayFormat = "yyyy-MM-dd hh:mm:ss");
 
-	bool operator<(const QTableWidgetItem &other) const;
+	bool operator<(const QTableWidgetItem &other) const override;
 
 	QString displayedText() const;
 	void setDateTime(const QDateTime &date);

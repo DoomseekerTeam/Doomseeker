@@ -379,6 +379,7 @@ QString DataPaths::programFilesDirectory(MachineType machineType)
 	return path;
 
 	#else
+	Q_UNUSED(machineType);
 	return QString();
 	#endif
 }

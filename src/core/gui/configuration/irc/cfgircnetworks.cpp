@@ -45,7 +45,7 @@ CFGIRCNetworks::CFGIRCNetworks(QWidget *parent)
 	connect(d->btnAdd, SIGNAL(clicked()), this, SLOT(addButtonClicked()));
 	connect(d->btnEdit, SIGNAL(clicked()), this, SLOT(editButtonClicked()));
 	connect(d->btnRemove, SIGNAL(clicked()), this, SLOT(removeButtonClicked()));
-	connect(d->gridNetworks, SIGNAL(doubleClicked(const QModelIndex&)), SLOT(tableDoubleClicked(const QModelIndex&)));
+	connect(d->gridNetworks, SIGNAL(doubleClicked(const QModelIndex&)), SLOT(tableDoubleClicked()));
 
 	// Crash prevention measure.
 	d->gridNetworks->setModel(new QStandardItemModel(this));
@@ -62,7 +62,7 @@ void CFGIRCNetworks::addButtonClicked()
 	dialog.setExistingNetworks(networksAsQList());
 	if (dialog.exec() == QDialog::Accepted)
 	{
-		IRCNetworkEntity *pNetworkEntity = new IRCNetworkEntity();
+		auto pNetworkEntity = new IRCNetworkEntity();
 		*pNetworkEntity = dialog.getNetworkEntity();
 
 		addRecord(pNetworkEntity);
@@ -72,7 +72,7 @@ void CFGIRCNetworks::addButtonClicked()
 
 void CFGIRCNetworks::addRecord(IRCNetworkEntity *pNetworkEntity)
 {
-	QStandardItemModel *pModel = (QStandardItemModel *)d->gridNetworks->model();
+	auto pModel = (QStandardItemModel *)d->gridNetworks->model();
 	pModel->appendRow(generateTableRecord(pNetworkEntity));
 
 	this->d->gridNetworks->resizeRowsToContents();
@@ -140,7 +140,7 @@ QList<QStandardItem *> CFGIRCNetworks::generateTableRecord(IRCNetworkEntity *pNe
 
 IRCNetworkEntity *CFGIRCNetworks::network(int row) const
 {
-	QStandardItemModel *pModel = (QStandardItemModel *)d->gridNetworks->model();
+	auto pModel = (QStandardItemModel *)d->gridNetworks->model();
 	IRCNetworkEntity *pNetwork = obtainNetworkEntity(pModel->item(row));
 	pNetwork->setAutojoinNetwork((pModel->item(row, 0)->checkState() == Qt::Checked));
 
@@ -151,7 +151,7 @@ QVector<IRCNetworkEntity *> CFGIRCNetworks::networks()
 {
 	QVector<IRCNetworkEntity *> entityArray;
 
-	QStandardItemModel *pModel = (QStandardItemModel *)d->gridNetworks->model();
+	auto pModel = (QStandardItemModel *)d->gridNetworks->model();
 	for (int i = 0; i < pModel->rowCount(); ++i)
 	{
 		IRCNetworkEntity *pEntity = this->network(i);
@@ -174,7 +174,7 @@ IRCNetworkEntity *CFGIRCNetworks::obtainNetworkEntity(QStandardItem *pItem) cons
 {
 	QtMetaPointer metaPointer = pItem->data().value<QtMetaPointer>();
 	void *pointer = metaPointer;
-	IRCNetworkEntity *pEntity = (IRCNetworkEntity *)pointer;
+	auto pEntity = (IRCNetworkEntity *)pointer;
 
 	return pEntity;
 }
@@ -183,7 +183,7 @@ void CFGIRCNetworks::prepareTable()
 {
 	cleanUpTable();
 
-	QStandardItemModel *pModel = new QStandardItemModel(this);
+	auto pModel = new QStandardItemModel(this);
 
 	QStringList labels;
 	labels << "" << tr("Description") << tr("Address");
@@ -205,11 +205,11 @@ void CFGIRCNetworks::readSettings()
 	prepareTable();
 
 	QList<IRCNetworkEntity> cfgNetworks = ChatNetworksCfg().networks();
-	for (int i = 0; i < cfgNetworks.size(); ++i)
+	for (const auto & cfgNetwork : cfgNetworks)
 	{
 		// Remember that pointers are stored within the table.
-		IRCNetworkEntity *pCopy = new IRCNetworkEntity();
-		*pCopy = cfgNetworks[i];
+		auto pCopy = new IRCNetworkEntity();
+		*pCopy = cfgNetwork;
 
 		addRecord(pCopy);
 	}
@@ -223,7 +223,7 @@ void CFGIRCNetworks::removeButtonClicked()
 
 	if (row >= 0)
 	{
-		QStandardItemModel *pModel = (QStandardItemModel *)d->gridNetworks->model();
+		auto pModel = (QStandardItemModel *)d->gridNetworks->model();
 		pModel->removeRow(row);
 	}
 }
@@ -265,14 +265,14 @@ int CFGIRCNetworks::selectedRow()
 	return -1;
 }
 
-void CFGIRCNetworks::tableDoubleClicked(const QModelIndex &index)
+void CFGIRCNetworks::tableDoubleClicked()
 {
 	editButtonClicked();
 }
 
 void CFGIRCNetworks::updateRecord(int row)
 {
-	QStandardItemModel *pModel = (QStandardItemModel *)d->gridNetworks->model();
+	auto pModel = (QStandardItemModel *)d->gridNetworks->model();
 	QStandardItem *pItemDescription = pModel->item(row, 1);
 
 	IRCNetworkEntity *pNetwork = this->network(row);

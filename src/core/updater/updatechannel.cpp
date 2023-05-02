@@ -85,6 +85,12 @@ bool UpdateChannel::operator==(const UpdateChannel &other) const
 	return this->channelName == other.channelName;
 }
 
+UpdateChannel &UpdateChannel::operator=(const UpdateChannel &other)
+{
+	channelName = other.channelName;
+	return *this;
+}
+
 bool UpdateChannel::isNull() const
 {
 	return this->channelName.isNull();

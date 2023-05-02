@@ -43,7 +43,7 @@ class MasterManager : public MasterClient
 
 public:
 	MasterManager();
-	~MasterManager();
+	~MasterManager() override;
 
 	void addMaster(MasterClient *master);
 	QList<ServerPtr> allServers() const;
@@ -51,12 +51,12 @@ public:
 
 	int numMasters() const { return masters.size(); }
 	void setBroadcastManager(BroadcastManager *broadcastManagerPtr);
-	const EnginePlugin *plugin() const { return nullptr; }
+	const EnginePlugin *plugin() const override { return nullptr; }
 
 	MasterClient *operator[](int index) { return masters[index]; }
 
 public slots:
-	void refreshStarts();
+	void refreshStarts() override;
 
 signals:
 	/**
@@ -74,22 +74,22 @@ private:
 
 	BroadcastManager *broadcastManager;
 
-	QByteArray createServerListRequest() { return QByteArray(); }
-	Response readMasterResponse(const QByteArray &data);
-	void timeoutRefreshEx();
+	QByteArray createServerListRequest() override { return QByteArray(); }
+	Response readMasterResponse(const QByteArray &data) override;
+	void timeoutRefreshEx() override;
 
 private slots:
 	void masterListUpdated();
 
 	void forwardMasterMessage(const QString &title, const QString &content, bool isError)
 	{
-		MasterClient *master = static_cast<MasterClient *>(sender());
+		auto master = static_cast<MasterClient *>(sender());
 		emit masterMessage(master, title, content, isError);
 	}
 
 	void forwardMasterMessageImportant(const Message &message)
 	{
-		MasterClient *master = static_cast<MasterClient *>(sender());
+		auto master = static_cast<MasterClient *>(sender());
 		emit masterMessageImportant(master, message);
 	}
 };

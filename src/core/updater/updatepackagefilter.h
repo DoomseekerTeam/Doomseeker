@@ -52,11 +52,11 @@
  */
 class UpdatePackageFilter : public QObject
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	UpdatePackageFilter();
-	~UpdatePackageFilter();
+	~UpdatePackageFilter() override;
 
 	QList<UpdatePackage> filter(const QList<UpdatePackage> &packages);
 	void setIgnoreRevisions(const QMap<QString, QList<QString> > &packagesRevisions);
@@ -78,7 +78,7 @@ public:
 	bool wasAnyUpdatePackageIgnored() const;
 
 private:
-	Q_DISABLE_COPY(UpdatePackageFilter);
+	Q_DISABLE_COPY(UpdatePackageFilter)
 
 	class PluginInfo;
 

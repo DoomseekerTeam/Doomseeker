@@ -149,7 +149,7 @@ public:
 
 
 	AutoUpdater(QObject *pParent = nullptr);
-	~AutoUpdater();
+	~AutoUpdater() override;
 
 	void abort();
 	/**

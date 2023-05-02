@@ -23,8 +23,8 @@
 #ifndef __WADDOWNLOADINFO_H__
 #define __WADDOWNLOADINFO_H__
 
-#include "../wadseekerexportinfo.h"
 #include "../dptr.h"
+#include "../wadseekerexportinfo.h"
 
 #include <QByteArray>
 #include <QList>
@@ -133,7 +133,7 @@ public:
 	 *
 	 * @param path - Path to the file.
 	 */
-	const bool validFile(const QString &path) const;
+	bool validFile(const QString &path) const;
 private:
 	DPtr<WadDownloadInfo> d;
 };

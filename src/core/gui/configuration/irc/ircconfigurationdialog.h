@@ -39,9 +39,9 @@ public:
 protected:
 	CFGIRCNetworks *cfgNetworks;
 
-	void doSaveSettings();
+	void doSaveSettings() override;
 	bool isNetworkAutojoinEnabled();
-	bool validate();
+	bool validate() override;
 };
 
 #endif

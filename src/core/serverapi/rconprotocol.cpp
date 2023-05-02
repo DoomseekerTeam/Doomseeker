@@ -59,9 +59,9 @@ RConProtocol::~RConProtocol()
 	d->socket.close();
 }
 
-POLYMORPHIC_DEFINE(void, RConProtocol, disconnectFromServer, (), ());
-POLYMORPHIC_DEFINE(void, RConProtocol, sendCommand, (const QString &cmd), (cmd));
-POLYMORPHIC_DEFINE(void, RConProtocol, sendPassword, (const QString &password), (password));
+POLYMORPHIC_DEFINE(void, RConProtocol, disconnectFromServer, (), ())
+POLYMORPHIC_DEFINE(void, RConProtocol, sendCommand, (const QString &cmd), (cmd))
+POLYMORPHIC_DEFINE(void, RConProtocol, sendPassword, (const QString &password), (password))
 
 const QHostAddress &RConProtocol::address() const
 {
@@ -95,11 +95,13 @@ QList<Player> &RConProtocol::playersMutable()
 
 void RConProtocol::sendCommand_default(const QString &cmd)
 {
+	Q_UNUSED(cmd);
 	assert(0 && "RConProtocol::sendCommand() is not implemented");
 }
 
 void RConProtocol::sendPassword_default(const QString &password)
 {
+	Q_UNUSED(password);
 	assert(0 && "RConProtocol::sendPassword() is not implemented");
 }
 

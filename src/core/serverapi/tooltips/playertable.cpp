@@ -48,7 +48,7 @@ PlayerTable::~PlayerTable()
 QString PlayerTable::generateHTML()
 {
 	QString tableStyle = "background-color: #FFFFFF; color: #000000";
-	QString table = "<table cellspacing=\"4\" style=\"" + tableStyle + "\">";
+	QString table = R"(<table cellspacing="4" style=")" + tableStyle + R"(">)";
 	table += tableHeader();
 	table += tableContent();
 	table += "</table>";
@@ -96,7 +96,7 @@ QString PlayerTable::spawnPartOfPlayerTable(const PlayersList &list, bool bAppen
 			{
 				strPlayer += QString("<td>%1</td>").arg(d->server->teamName(player.teamNum()));
 			}
-			strPlayer += "<td>%1</td><td align=\"right\">%2</td><td align=\"right\">%3</td><td>%4</td></tr>";
+			strPlayer += R"(<td>%1</td><td align="right">%2</td><td align="right">%3</td><td>%4</td></tr>)";
 			QString ping;
 			if (player.ping() != USHRT_MAX)
 			{
@@ -176,7 +176,7 @@ QString PlayerTable::tableHeader()
 	header += "<td align=\"right\">&nbsp;" + PING + "</td>";
 	header += "<td>" + STATUS + "</td>";
 	header += "</tr>";
-	header += QString("<tr><td colspan=\"%1\"><hr width=\"100%\"></td></tr>").arg(d->numOfColumns);
+	header += QString(R"(<tr><td colspan="%1"><hr width="100%"></td></tr>)").arg(d->numOfColumns);
 
 	return header;
 }

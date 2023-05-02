@@ -91,13 +91,13 @@ bool DMFlagsPanel::initDMFlagsTabs(const EnginePlugin *engine)
 
 		for (int i = 0; i < dmFlagsSections.count(); ++i)
 		{
-			DMFlagsTabWidget *dmftw = new DMFlagsTabWidget();
+			auto dmftw = new DMFlagsTabWidget();
 
 			QWidget *flagsTab = new QWidget(this);
 			dmftw->widget = flagsTab;
 			dmftw->section = dmFlagsSections[i];
 
-			QHBoxLayout *hLayout = new QHBoxLayout(flagsTab);
+			auto hLayout = new QHBoxLayout(flagsTab);
 
 			QVBoxLayout *layout = nullptr;
 			for (int j = 0; j < dmFlagsSections[i].count(); ++j)
@@ -111,7 +111,7 @@ bool DMFlagsPanel::initDMFlagsTabs(const EnginePlugin *engine)
 					hLayout->addLayout(layout);
 				}
 
-				QCheckBox *checkBox = new QCheckBox();
+				auto checkBox = new QCheckBox();
 				checkBox->setText(dmFlagsSections[i][j].name());
 				dmftw->checkBoxes << checkBox;
 				layout->addWidget(checkBox);

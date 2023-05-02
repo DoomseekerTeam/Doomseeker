@@ -48,7 +48,7 @@ public slots:
 	 * @brief Changes the appearance of the widget basing on the boolean
 	 * value.
 	 *
-	 * If set to true, apperance will be clear. If set to false, appearance
+	 * If set to true, appearance will be clear. If set to false, appearance
 	 * will be "grayed out".
 	 */
 	void setMasterEnabledStatus(bool bEnabled);
@@ -59,8 +59,8 @@ signals:
 	void counterUpdated();
 
 private:
-	void mousePressEvent(QMouseEvent *event);
-	void paintEvent(QPaintEvent *event);
+	void mousePressEvent(QMouseEvent *event) override;
+	void paintEvent(QPaintEvent *event) override;
 	void registerServer(ServerPtr server);
 	QString refreshedPercentAsText() const;
 

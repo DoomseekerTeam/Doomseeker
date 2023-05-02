@@ -28,7 +28,7 @@
 
 class FileFilter : public QObject
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	static QString allFilesFilter();

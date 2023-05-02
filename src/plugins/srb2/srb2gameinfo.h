@@ -69,8 +69,9 @@ public:
 class Srb2DifficultyProvider : GameCVarProvider
 {
 public:
-	QList<GameCVar> get(const QVariant &context)
+	QList<GameCVar> get(const QVariant &context) override
 	{
+		Q_UNUSED(context);
 		return QList<GameCVar>();
 	}
 };
@@ -83,7 +84,7 @@ class Srb2AboutProvider : public TextProvider
 	Q_OBJECT
 
 public:
-	QString provide();
+	QString provide() override;
 };
 
 #endif

@@ -44,7 +44,7 @@ private:
 	void loadPlugins();
 
 private slots:
-	void onIndexChanged(int index);
+	void onIndexChanged();
 };
 
 #endif

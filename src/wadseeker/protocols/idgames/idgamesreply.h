@@ -37,7 +37,7 @@ class IdgamesReply : public QObject
 	friend class IdgamesClient;
 
 public:
-	~IdgamesReply();
+	~IdgamesReply() override;
 
 	void abort();
 	IdgamesResult result() const;

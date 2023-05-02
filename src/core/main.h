@@ -52,7 +52,7 @@ public:
 	static QString argDataDir;
 
 	Main(int argc, char *argv[]);
-	~Main();
+	~Main() override;
 
 	/**
 	 * @brief Called by main() after run() returns.

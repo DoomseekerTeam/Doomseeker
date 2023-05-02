@@ -46,7 +46,7 @@ class TestReadINI : public TestUnitBase
 public:
 	TestReadINI();
 
-	bool executeTest();
+	bool executeTest() override;
 };
 
 class TestReadINIVariable : public TestUnitBase
@@ -55,7 +55,7 @@ public:
 	TestReadINIVariable()
 		: TestUnitBase("Read INI Variable") {}
 
-	bool executeTest();
+	bool executeTest() override;
 };
 
 class TestDeleteINIVariable : public TestUnitBase
@@ -64,7 +64,7 @@ public:
 	TestDeleteINIVariable()
 		: TestUnitBase("Delete INI Variable") {}
 
-	bool executeTest();
+	bool executeTest() override;
 };
 
 class TestDeleteINISection : public TestUnitBase
@@ -73,7 +73,7 @@ public:
 	TestDeleteINISection()
 		: TestUnitBase("Delete INI Section") {}
 
-	bool executeTest();
+	bool executeTest() override;
 };
 
 #endif

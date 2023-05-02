@@ -33,7 +33,7 @@ namespace ServerTooltip
 {
 class L10n : public QObject
 {
-	Q_OBJECT;
+	Q_OBJECT
 };
 
 QString createIwadToolTip(ServerPtr server);

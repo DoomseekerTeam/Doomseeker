@@ -31,10 +31,10 @@ class OdamexEnginePlugin : public EnginePlugin
 public:
 	OdamexEnginePlugin();
 
-	QList<DMFlagsSection> dmFlags() const;
-	GameHost *gameHost();
-	QList<GameMode> gameModes() const;
-	ServerPtr mkServer(const QHostAddress &address, unsigned short port) const;
+	QList<DMFlagsSection> dmFlags() const override;
+	GameHost *gameHost() override;
+	QList<GameMode> gameModes() const override;
+	ServerPtr mkServer(const QHostAddress &address, unsigned short port) const override;
 	void setupConfig(IniSection &config);
 
 	void start();

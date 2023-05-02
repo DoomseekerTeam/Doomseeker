@@ -47,15 +47,15 @@ class Srb2MasterClient : public MasterClient
 
 public:
 	Srb2MasterClient();
-	const EnginePlugin *plugin() const;
+	const EnginePlugin *plugin() const override;
 	void updateAddress();
 
 public slots:
-	void refreshStarts();
+	void refreshStarts() override;
 
 protected:
-	QByteArray createServerListRequest();
-	Response readMasterResponse(const QByteArray &data);
+	QByteArray createServerListRequest() override;
+	Response readMasterResponse(const QByteArray &data) override;
 
 private:
 	QTcpSocket socket;
@@ -64,7 +64,7 @@ private:
 	void parseServerPayload(const QByteArray &payload);
 	Srb2Master::Header readHeader();
 	void sendChallenge();
-	void timeoutRefreshEx();
+	void timeoutRefreshEx() override;
 
 private slots:
 	void readResponse();

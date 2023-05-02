@@ -35,25 +35,25 @@ class CFGIRCSounds : public ConfigPage
 
 public:
 	CFGIRCSounds(QWidget *parent = nullptr);
-	~CFGIRCSounds();
+	~CFGIRCSounds() override;
 
-	QIcon icon() const
+	QIcon icon() const override
 	{
 		return QIcon(":/icons/audio-speaker.png");
 	}
-	QString name() const
+	QString name() const override
 	{
 		return tr("Sounds");
 	}
-	void readSettings();
-	QString title() const
+	void readSettings() override;
+	QString title() const override
 	{
 		return tr("IRC - Sounds");
 	}
-	Validation validate();
+	Validation validate() override;
 
 protected:
-	void saveSettings();
+	void saveSettings() override;
 
 private:
 	QString getPathToWav();

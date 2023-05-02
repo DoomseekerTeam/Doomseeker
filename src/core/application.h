@@ -67,7 +67,7 @@ public:
 	static Application *instance();
 	static QIcon icon();
 
-	virtual ~Application();
+	virtual ~Application() override;
 
 	/**
 	 * @brief Plugins and other threads can use this to figure out

@@ -156,7 +156,7 @@ IRCDockTabContents::~IRCDockTabContents()
 
 	if (pIrcAdapter != nullptr)
 	{
-		disconnect(pIrcAdapter, 0, 0, 0);
+		disconnect(pIrcAdapter, nullptr, nullptr, nullptr);
 		IRCAdapterBase *pTmpAdapter = pIrcAdapter;
 		pIrcAdapter = nullptr;
 		delete pTmpAdapter;
@@ -173,7 +173,7 @@ void IRCDockTabContents::adapterTerminating()
 	if (pIrcAdapter != nullptr && !d->bIsDestroying)
 	{
 		// Disconnect the adapter from this tab.
-		disconnect(pIrcAdapter, 0, 0, 0);
+		disconnect(pIrcAdapter, nullptr, nullptr, nullptr);
 		pIrcAdapter = nullptr;
 
 		emit chatWindowCloseRequest(this);
@@ -260,7 +260,7 @@ bool IRCDockTabContents::eventFilter(QObject *watched, QEvent *event)
 {
 	if (watched == d->leCommandLine && event->type() == QEvent::KeyPress)
 	{
-		QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+		auto keyEvent = static_cast<QKeyEvent *>(event);
 		if (keyEvent->key() == Qt::Key_Tab)
 		{
 			completeNickname();
@@ -272,7 +272,7 @@ bool IRCDockTabContents::eventFilter(QObject *watched, QEvent *event)
 
 QStandardItem *IRCDockTabContents::findUserListItem(const QString &nickname)
 {
-	QStandardItemModel *pModel = (QStandardItemModel *)d->lvUserList->model();
+	auto pModel = (QStandardItemModel *)d->lvUserList->model();
 	IRCUserInfo userInfo(nickname, network());
 
 	for (int i = 0; i < pModel->rowCount(); ++i)
@@ -372,7 +372,7 @@ void IRCDockTabContents::myNicknameUsedSlot()
 
 void IRCDockTabContents::nameAdded(const IRCUserInfo &userInfo)
 {
-	QStandardItemModel *pModel = (QStandardItemModel *)d->lvUserList->model();
+	auto pModel = (QStandardItemModel *)d->lvUserList->model();
 	QStandardItem *pItem = new QStandardItem(userInfo.prefixedName());
 	pItem->setData(userInfo.cleanNickname(), IRCUserListModel::RoleCleanNickname);
 
@@ -404,7 +404,7 @@ void IRCDockTabContents::nameListUpdated(const IRCUserList &userList)
 
 void IRCDockTabContents::nameRemoved(const IRCUserInfo &userInfo)
 {
-	QStandardItemModel *pModel = (QStandardItemModel *)d->lvUserList->model();
+	auto pModel = (QStandardItemModel *)d->lvUserList->model();
 	for (int i = 0; i < pModel->rowCount(); ++i)
 	{
 		QStandardItem *pItem = pModel->item(i);
@@ -474,7 +474,7 @@ void IRCDockTabContents::rotateOldLog()
 
 void IRCDockTabContents::printToSendersNetworksCurrentChatBox(const QString &text, const IRCMessageClass &msgClass)
 {
-	IRCAdapterBase *adapter = static_cast<IRCAdapterBase *>(sender());
+	auto adapter = static_cast<IRCAdapterBase *>(sender());
 	IRCDockTabContents *tab = pParentIRCDock->tabWithFocus();
 	if (tab != nullptr && tab->ircAdapter()->network()->isAdapterRelated(adapter))
 		tab->ircAdapter()->emitMessageWithClass(text, msgClass);
@@ -570,7 +570,7 @@ QString IRCDockTabContents::selectedNickname()
 	if (!selectedIndexes.isEmpty())
 	{
 		int row = selectedIndexes[0].row();
-		QStandardItemModel *pModel = (QStandardItemModel *)d->lvUserList->model();
+		auto pModel = (QStandardItemModel *)d->lvUserList->model();
 		QStandardItem *pItem = pModel->item(row);
 
 		return pItem->text();
@@ -647,14 +647,14 @@ void IRCDockTabContents::setIRCAdapter(IRCAdapterBase *pAdapter)
 	{
 	case IRCAdapterBase::NetworkAdapter:
 	{
-		IRCNetworkAdapter *pNetworkAdapter = (IRCNetworkAdapter *)pAdapter;
+		auto pNetworkAdapter = (IRCNetworkAdapter *)pAdapter;
 		connect(pNetworkAdapter, SIGNAL(newChatWindowIsOpened(IRCChatAdapter*)), SLOT(newChatWindowIsOpened(IRCChatAdapter*)));
 		break;
 	}
 
 	case IRCAdapterBase::ChannelAdapter:
 	{
-		IRCChannelAdapter *pChannelAdapter = (IRCChannelAdapter *)pAdapter;
+		auto pChannelAdapter = (IRCChannelAdapter *)pAdapter;
 		connect(pChannelAdapter, SIGNAL(myNicknameUsed()), SLOT(myNicknameUsedSlot()));
 		connect(pChannelAdapter, SIGNAL(nameAdded(const IRCUserInfo&)), SLOT(nameAdded(const IRCUserInfo&)));
 		connect(pChannelAdapter, SIGNAL(nameListUpdated(const IRCUserList&)), SLOT(nameListUpdated(const IRCUserList&)));
@@ -666,7 +666,7 @@ void IRCDockTabContents::setIRCAdapter(IRCAdapterBase *pAdapter)
 			SLOT(userListCustomContextMenuRequested(const QPoint&)));
 
 		connect(d->lvUserList, SIGNAL(doubleClicked(const QModelIndex&)),
-			SLOT(userListDoubleClicked(const QModelIndex&)));
+			SLOT(userListDoubleClicked()));
 
 		d->lvUserList->setContextMenuPolicy(Qt::CustomContextMenu);
 
@@ -733,7 +733,7 @@ void IRCDockTabContents::onPrivChatActionTriggered()
 {
 	QString nickname = ircAdapter()->recipient();
 	QString cleanNickname = IRCUserInfo(nickname, network()).cleanNickname();
-	QAction *action = static_cast<QAction *>(sender());
+	auto action = static_cast<QAction *>(sender());
 	switch (action->data().toInt())
 	{
 	case PrivWhois:
@@ -760,7 +760,7 @@ void IRCDockTabContents::onPrivChatActionTriggered()
 
 void IRCDockTabContents::showIgnoresManager()
 {
-	IRCIgnoresManager *dialog = new IRCIgnoresManager(this, networkEntity().description());
+	auto dialog = new IRCIgnoresManager(this, networkEntity().description());
 	connect(dialog, SIGNAL(accepted()), network(), SLOT(reloadNetworkEntityFromConfig()));
 	dialog->setAttribute(Qt::WA_DeleteOnClose);
 	dialog->show();
@@ -768,7 +768,7 @@ void IRCDockTabContents::showIgnoresManager()
 
 void IRCDockTabContents::startIgnoreOperation(const QString &nickname)
 {
-	IRCDelayedOperationIgnore *op = new IRCDelayedOperationIgnore(this, network(), nickname);
+	auto op = new IRCDelayedOperationIgnore(this, network(), nickname);
 	op->setShowPatternPopup(true);
 	op->start();
 }
@@ -824,7 +824,7 @@ void IRCDockTabContents::userListCustomContextMenuRequested(const QPoint &pos)
 	}
 	QString cleanNickname = IRCUserInfo(nickname, network()).cleanNickname();
 
-	IRCChannelAdapter *pAdapter = (IRCChannelAdapter *) this->pIrcAdapter;
+	auto pAdapter = (IRCChannelAdapter *) this->pIrcAdapter;
 	const QString &channel = pAdapter->recipient();
 
 	UserListMenu &menu = this->getUserListContextMenu();
@@ -877,7 +877,7 @@ void IRCDockTabContents::userListCustomContextMenuRequested(const QPoint &pos)
 		sendWhois(cleanNickname);
 }
 
-void IRCDockTabContents::userListDoubleClicked(const QModelIndex &index)
+void IRCDockTabContents::userListDoubleClicked()
 {
 	if (this->pIrcAdapter->adapterType() != IRCAdapterBase::ChannelAdapter)
 	{

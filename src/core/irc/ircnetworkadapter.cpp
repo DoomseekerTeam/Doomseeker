@@ -154,7 +154,7 @@ void IRCNetworkAdapter::appendISupportLine(const QString &line)
 
 void IRCNetworkAdapter::banUser(const QString &nickname, const QString &reason, const QString &channel)
 {
-	IRCDelayedOperationBan *op = new IRCDelayedOperationBan(this, channel, nickname, this);
+	auto op = new IRCDelayedOperationBan(this, channel, nickname, this);
 	op->setReason(reason);
 	op->start();
 }
@@ -383,7 +383,7 @@ bool IRCNetworkAdapter::isOperator(const QString &nickname, const QString &chann
 {
 	if (IRCGlobal::isChannelName(channel))
 	{
-		const IRCChannelAdapter *pChannelAdapter = (const IRCChannelAdapter *) this->getChatAdapter(channel);
+		const auto pChannelAdapter = (const IRCChannelAdapter *) this->getChatAdapter(channel);
 		if (pChannelAdapter != nullptr)
 			return pChannelAdapter->isOperator(nickname);
 	}
@@ -395,7 +395,7 @@ void IRCNetworkAdapter::kick(const QString &channel, const QString &byWhom, cons
 {
 	if (hasRecipient(channel))
 	{
-		IRCChannelAdapter *pAdapter = (IRCChannelAdapter *) this->getOrCreateNewChatAdapter(channel);
+		auto pAdapter = (IRCChannelAdapter *) this->getOrCreateNewChatAdapter(channel);
 
 		if (isMyNickname(whoIsKicked))
 		{
@@ -455,7 +455,7 @@ void IRCNetworkAdapter::killChatWindow(const QString &recipient)
 
 void IRCNetworkAdapter::modeInfo(const QString &channel, const QString &whoSetThis, const QString &modeParams)
 {
-	IRCChannelAdapter *pAdapter = (IRCChannelAdapter *) this->getOrCreateNewChatAdapter(channel);
+	auto pAdapter = (IRCChannelAdapter *) this->getOrCreateNewChatAdapter(channel);
 	pAdapter->emitMessageWithClass(tr("%1 sets mode: %2").arg(whoSetThis, modeParams), IRCMessageClass::ChannelAction);
 }
 
@@ -463,7 +463,7 @@ void IRCNetworkAdapter::namesListReceived(const QString &channel, const QStringL
 {
 	if (this->hasRecipient(channel))
 	{
-		IRCChannelAdapter *pAdapter = (IRCChannelAdapter *) this->getOrCreateNewChatAdapter(channel);
+		auto pAdapter = (IRCChannelAdapter *) this->getOrCreateNewChatAdapter(channel);
 		pAdapter->appendNamesToCachedList(names);
 	}
 }
@@ -472,7 +472,7 @@ void IRCNetworkAdapter::namesListEndReceived(const QString &channel)
 {
 	if (this->hasRecipient(channel))
 	{
-		IRCChannelAdapter *pAdapter = (IRCChannelAdapter *) this->getOrCreateNewChatAdapter(channel);
+		auto pAdapter = (IRCChannelAdapter *) this->getOrCreateNewChatAdapter(channel);
 		pAdapter->emitCachedNameListUpdated();
 	}
 }
@@ -660,13 +660,13 @@ void IRCNetworkAdapter::userJoinsChannel(const QString &channel, const QString &
 	{
 		if (hasRecipient(channel))
 		{
-			IRCChannelAdapter *pChannel = (IRCChannelAdapter *)this->getOrCreateNewChatAdapter(channel);
+			auto pChannel = (IRCChannelAdapter *)this->getOrCreateNewChatAdapter(channel);
 			pChannel->userJoins(nickname, fullSignature);
 		}
 	}
 	else
 	{
-		IRCChannelAdapter *pChannel = (IRCChannelAdapter *)this->getOrCreateNewChatAdapter(channel);
+		auto pChannel = (IRCChannelAdapter *)this->getOrCreateNewChatAdapter(channel);
 		pChannel->emitFocusRequest();
 	}
 }
@@ -699,7 +699,7 @@ void IRCNetworkAdapter::userPartsChannel(const QString &channel, const QString &
 {
 	if (hasRecipient(channel))
 	{
-		IRCChannelAdapter *pChannel = (IRCChannelAdapter *)getChatAdapter(channel);
+		auto pChannel = (IRCChannelAdapter *)getChatAdapter(channel);
 
 		if (isMyNickname(nickname))
 		{
@@ -775,6 +775,7 @@ void IRCSocketSignalsAdapter::disconnected()
 
 void IRCSocketSignalsAdapter::errorReceived(QAbstractSocket::SocketError error)
 {
+	Q_UNUSED(error);
 	emit pParent->error(pSocket->errorString());
 }
 

@@ -28,6 +28,7 @@
 #include <QDir>
 #include <QString>
 #include <QStringList>
+#include <utility>
 
 #define gDefaultDataPaths (DataPaths::defaultInstance())
 
@@ -109,7 +110,7 @@ public:
 		DirErrno() : errnoNum(0) {}
 
 		DirErrno(QDir directory, int errnoNum, QString errnoString)
-			: directory(directory), errnoNum(errnoNum), errnoString(errnoString)
+			: directory(directory), errnoNum(errnoNum), errnoString(std::move(errnoString))
 		{
 		}
 

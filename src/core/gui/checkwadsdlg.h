@@ -49,11 +49,11 @@ struct CheckResult
  */
 class CheckWadsDlg : public QDialog
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	CheckWadsDlg(const PathFinder *pathFinder, QWidget *parent = nullptr);
-	~CheckWadsDlg();
+	~CheckWadsDlg() override;
 
 	/**
 	 * @brief adds the wads to check.

@@ -27,7 +27,7 @@
 
 class WadseekerSitesTable : public TableWidgetMouseAware
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	static const int IDX_URL_COLUMN = 0;
@@ -49,7 +49,7 @@ signals:
 	void urlAbortRequested(const QUrl &url);
 
 protected:
-	void showEvent(QShowEvent *pEvent);
+	void showEvent(QShowEvent *pEvent) override;
 
 private:
 	class PrivData

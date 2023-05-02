@@ -58,7 +58,7 @@ class WWWSeeker : public QObject
 
 public:
 	WWWSeeker();
-	virtual ~WWWSeeker();
+	~WWWSeeker() override;
 
 	/**
 	 * @brief Adds a URL to a site where a specified filename may reside

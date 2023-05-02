@@ -220,7 +220,7 @@ void DoomseekerConfigurationDialog::showPluginConfiguration(const EnginePlugin *
 		QStandardItem *page = enginesRoot->child(i);
 		QtMetaPointer metaPointer = page->data(Qt::UserRole).value<QtMetaPointer>();
 		void *pointer = metaPointer;
-		EngineConfigPage *engineConfig = (EngineConfigPage *)pointer;
+		auto engineConfig = (EngineConfigPage *)pointer;
 
 		if (engineConfig->plugin() == plugin)
 			showConfigPage(engineConfig);

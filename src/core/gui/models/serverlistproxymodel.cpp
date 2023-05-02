@@ -161,6 +161,7 @@ int ServerListProxyModel::compareColumnSortData(QVariant &var1, QVariant &var2, 
 
 bool ServerListProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
 {
+	Q_UNUSED(sourceParent);
 	ServerPtr s = serverFromList(sourceRow);
 	if (s == nullptr)
 		return false;
@@ -263,7 +264,7 @@ bool ServerListProxyModel::lessThan(const QModelIndex &left, const QModelIndex &
 	if (!d->parentHandler->getMainWindow()->isEffectivelyActiveWindow())
 		return false;
 
-	ServerListModel *model = static_cast<ServerListModel *>(sourceModel());
+	auto model = static_cast<ServerListModel *>(sourceModel());
 
 	ServerPtr s1 = serverFromList(left);
 	ServerPtr s2 = serverFromList(right);
@@ -357,7 +358,7 @@ ServerPtr ServerListProxyModel::serverFromList(const QModelIndex &index) const
 
 ServerPtr ServerListProxyModel::serverFromList(int row) const
 {
-	ServerListModel *model = static_cast<ServerListModel *>(sourceModel());
+	auto model = static_cast<ServerListModel *>(sourceModel());
 	return model->serverFromList(row);
 }
 

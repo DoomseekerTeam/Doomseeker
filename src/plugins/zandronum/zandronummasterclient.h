@@ -35,14 +35,14 @@ class ZandronumMasterClient : public MasterClient
 public:
 	ZandronumMasterClient();
 
-	const EnginePlugin *plugin() const;
+	const EnginePlugin *plugin() const override;
 
 public slots:
-	void refreshStarts();
+	void refreshStarts() override;
 
 protected:
-	QByteArray createServerListRequest();
-	Response readMasterResponse(const QByteArray &data);
+	QByteArray createServerListRequest() override;
+	Response readMasterResponse(const QByteArray &data) override;
 
 	/// This is used as a marker to determine if we have an accurate reading for numPackets.
 	bool readLastPacket;

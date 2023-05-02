@@ -262,7 +262,7 @@ IRCResponseType::MsgType IRCResponseType::typeFromRfcString(const QString &typeR
 	// Compare passed string against all known types.
 	for (int i = 0; i < NUM_TYPES; ++i)
 	{
-		MsgType enumType = (MsgType) i;
+		auto enumType = (MsgType) i;
 		QString strCurrent = toRfcString(enumType);
 		if (strTypeUpper == strCurrent)
 			return enumType;

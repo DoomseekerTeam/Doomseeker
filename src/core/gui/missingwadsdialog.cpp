@@ -139,7 +139,7 @@ void MissingWadsDialog::setupOptionalFilesArea()
 		d->areaOptionalFiles->show();
 		for (const PWad &file : files)
 		{
-			QListWidgetItem *item = new QListWidgetItem(file.name(), d->optionalFilesList);
+			auto item = new QListWidgetItem(file.name(), d->optionalFilesList);
 			item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
 			item->setCheckState(Qt::Checked);
 		}
@@ -156,7 +156,7 @@ void MissingWadsDialog::setupIncompatibleFilesArea()
 		d->areaIncompatibleFiles->show();
 		for (const PWad &file : files)
 		{
-			QListWidgetItem *item = new QListWidgetItem(file.name(), d->incompatibleFilesList);
+			auto item = new QListWidgetItem(file.name(), d->incompatibleFilesList);
 			item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
 			item->setCheckState(Qt::Checked);
 		}

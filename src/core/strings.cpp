@@ -173,7 +173,7 @@ QString Strings::createRandomAlphaNumericString(unsigned numChars)
 	QString generatedString = "";
 	for (unsigned i = 0; i < numChars; ++i)
 	{
-		unsigned index = (unsigned) Random::nextUShort(RANDOM_CHAR_POOL_SIZE);
+		auto index = (unsigned) Random::nextUShort(RANDOM_CHAR_POOL_SIZE);
 		generatedString += RANDOM_CHAR_POOL[index];
 	}
 
@@ -220,7 +220,7 @@ QString Strings::formatDataAmount(qint64 bytes)
 {
 	DataUnit dataUnit;
 
-	float fBytes = (float)bytes;
+	auto fBytes = (float)bytes;
 	fBytes = scaleDataUnit(fBytes, dataUnit);
 
 	QString formattedString = QString("%1 ").arg(fBytes, 0, 'f', 2);
@@ -333,9 +333,9 @@ QString Strings::formatTime(float seconds)
 
 bool Strings::isCharOnCharList(char c, const QString &charList)
 {
-	for (int i = 0; i < charList.length(); ++i)
+	for (const auto &candidate : charList)
 	{
-		if (charList[i] == c)
+		if (candidate == c)
 			return true;
 	}
 

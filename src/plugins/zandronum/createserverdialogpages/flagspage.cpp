@@ -42,7 +42,7 @@ const unsigned DEFAULT_LMSSPECTATORSETTINGS = 3;
 class DmflagsValidator : public QValidator
 {
 public:
-	void fixup(QString &input) const
+	void fixup(QString &input) const override
 	{
 		if (input.trimmed().isEmpty())
 		{
@@ -50,8 +50,9 @@ public:
 		}
 	}
 
-	State validate(QString &input, int &pos ) const
+	State validate(QString &input, int &pos) const override
 	{
+		Q_UNUSED(pos);
 		if (input.trimmed().isEmpty())
 		{
 			return QValidator::Intermediate;

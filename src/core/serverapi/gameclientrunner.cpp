@@ -145,14 +145,14 @@ public:
 
 DPointered(GameClientRunner)
 
-POLYMORPHIC_DEFINE(void, GameClientRunner, addConnectCommand, (), ());
-POLYMORPHIC_DEFINE(void, GameClientRunner, addExtra, (), ());
-POLYMORPHIC_DEFINE(void, GameClientRunner, addGamePaths, (), ());
-POLYMORPHIC_DEFINE(void, GameClientRunner, addInGamePassword, (), ());
-POLYMORPHIC_DEFINE(void, GameClientRunner, addIwad, (), ());
-POLYMORPHIC_DEFINE(void, GameClientRunner, addModFiles, (const QStringList &files), (files));
-POLYMORPHIC_DEFINE(void, GameClientRunner, addPassword, (), ());
-POLYMORPHIC_DEFINE(void, GameClientRunner, createCommandLineArguments, (), ());
+POLYMORPHIC_DEFINE(void, GameClientRunner, addConnectCommand, (), ())
+POLYMORPHIC_DEFINE(void, GameClientRunner, addExtra, (), ())
+POLYMORPHIC_DEFINE(void, GameClientRunner, addGamePaths, (), ())
+POLYMORPHIC_DEFINE(void, GameClientRunner, addInGamePassword, (), ())
+POLYMORPHIC_DEFINE(void, GameClientRunner, addIwad, (), ())
+POLYMORPHIC_DEFINE(void, GameClientRunner, addModFiles, (const QStringList &files), (files))
+POLYMORPHIC_DEFINE(void, GameClientRunner, addPassword, (), ())
+POLYMORPHIC_DEFINE(void, GameClientRunner, createCommandLineArguments, (), ())
 
 GameClientRunner::GameClientRunner(ServerPtr server)
 {
@@ -298,7 +298,7 @@ void GameClientRunner::addPassword_default()
 
 void GameClientRunner::addPwads()
 {
-	CheckWadsDlg *checkWadsDlg = new CheckWadsDlg(&d->pathFinder);
+	auto checkWadsDlg = new CheckWadsDlg(&d->pathFinder);
 	checkWadsDlg->addWads(d->server->wads());
 	const CheckResult checkResults = checkWadsDlg->checkWads();
 	for (const PWad &wad : checkResults.missingWads)

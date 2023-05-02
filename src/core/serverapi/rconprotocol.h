@@ -81,7 +81,7 @@ class MAIN_EXPORT RConProtocol : public QObject
 	Q_OBJECT
 
 public:
-	virtual ~RConProtocol();
+	virtual ~RConProtocol() override;
 
 	/**
 	 * @brief Whether connection is established or not.
@@ -162,9 +162,9 @@ signals:
 protected:
 	RConProtocol(ServerPtr server);
 
-	POLYMORPHIC_SETTER_DECLARE(void, RConProtocol, disconnectFromServer, ());
-	POLYMORPHIC_SETTER_DECLARE(void, RConProtocol, sendCommand, (const QString &cmd));
-	POLYMORPHIC_SETTER_DECLARE(void, RConProtocol, sendPassword, (const QString &password));
+	POLYMORPHIC_SETTER_DECLARE(void, RConProtocol, disconnectFromServer, ())
+	POLYMORPHIC_SETTER_DECLARE(void, RConProtocol, sendCommand, (const QString &cmd))
+	POLYMORPHIC_SETTER_DECLARE(void, RConProtocol, sendPassword, (const QString &password))
 
 	/**
 	 * @brief Address of the server to which this remote console

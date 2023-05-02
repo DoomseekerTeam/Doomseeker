@@ -51,7 +51,7 @@ RemoteConsole::RemoteConsole(QWidget *parent) : QMainWindow(parent)
 	show();
 
 	// Prompt for connection info & password.
-	RconPasswordDialog *dlg = new RconPasswordDialog(this, true);
+	auto dlg = new RconPasswordDialog(this, true);
 	connect(dlg, SIGNAL(rejected()), this, SLOT(close()));
 	while (d->protocol == nullptr)
 	{
@@ -158,7 +158,7 @@ void RemoteConsole::disconnectFromServer()
 void RemoteConsole::showPasswordDialog()
 {
 	// Prompt for password.
-	RconPasswordDialog *dlg = new RconPasswordDialog(this);
+	auto dlg = new RconPasswordDialog(this);
 	connect(dlg, SIGNAL(rejected()), this, SLOT(close()));
 	int ret = dlg->exec();
 	if (ret == QDialog::Accepted)
@@ -188,7 +188,7 @@ void RemoteConsole::updatePlayerList()
 	for (int i = 0; i < list.size(); ++i)
 	{
 		QString name = list[i].nameFormatted();
-		QTableWidgetItem *newItem = new QTableWidgetItem(name);
+		auto newItem = new QTableWidgetItem(name);
 		d->playerTable->setItem(i, 0, newItem);
 	}
 }

@@ -30,8 +30,9 @@ class DefaultDifficultyProvider : public GameCVarProvider
 	Q_OBJECT
 
 public:
-	QList<GameCVar> get(const QVariant &context)
+	QList<GameCVar> get(const QVariant &context) override
 	{
+		Q_UNUSED(context);
 		QList<GameCVar> list;
 		list << GameCVar(tr("1 - I'm too young to die"), "", 0);
 		list << GameCVar(tr("2 - Hey, not too rough"), "", 1);

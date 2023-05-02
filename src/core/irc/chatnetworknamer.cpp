@@ -30,10 +30,10 @@ QString ChatNetworkNamer::additionalAllowedChars()
 QString ChatNetworkNamer::convertToValidName(const QString &name)
 {
 	QString result = name;
-	for (int i = 0; i < result.length(); ++i)
+	for (auto &c : result)
 	{
-		if (!isValidCharacter(result[i]))
-			result[i] = '_';
+		if (!isValidCharacter(c))
+			c = '_';
 	}
 	return result;
 }
@@ -47,9 +47,9 @@ bool ChatNetworkNamer::isValidName(const QString &name)
 {
 	if (name.trimmed().isEmpty())
 		return false;
-	for (int i = 0; i < name.length(); ++i)
+	for (const auto &c : name)
 	{
-		if (!isValidCharacter(name[i]))
+		if (!isValidCharacter(c))
 			return false;
 	}
 	return true;

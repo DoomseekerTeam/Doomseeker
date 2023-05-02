@@ -36,9 +36,9 @@ class IRCNetworkSelectionBox : public QDialog
 
 public:
 	IRCNetworkSelectionBox(QWidget *parent = nullptr);
-	~IRCNetworkSelectionBox();
+	~IRCNetworkSelectionBox() override;
 
-	void accept();
+	void accept() override;
 
 	/**
 	 * @brief Extracts network specified in this dialog.

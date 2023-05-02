@@ -45,7 +45,7 @@ public:
 	 * @param idgamesPage - base address of idgames archive.
 	 */
 	Idgames(const QString &idgamesPage);
-	~Idgames();
+	~Idgames() override;
 
 	void abort();
 

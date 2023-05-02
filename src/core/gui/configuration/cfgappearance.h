@@ -34,21 +34,21 @@ class CFGAppearance : public ConfigPage
 
 public:
 	CFGAppearance(QWidget *parent = nullptr);
-	~CFGAppearance();
+	~CFGAppearance() override;
 
-	QIcon icon() const
+	QIcon icon() const override
 	{
 		return QIcon(":/icons/color-fill.png");
 	}
-	QString name() const
+	QString name() const override
 	{
 		return tr("Appearance");
 	}
 
-	void readSettings();
+	void readSettings() override;
 
 protected:
-	void saveSettings();
+	void saveSettings() override;
 
 private:
 	void initLanguagesList();

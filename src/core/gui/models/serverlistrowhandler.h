@@ -72,7 +72,7 @@ public:
 	 * parentModel.
 	 */
 	ServerListRowHandler(ServerListModel *parentModel, int rowIndex);
-	~ServerListRowHandler();
+	~ServerListRowHandler() override;
 
 	/**
 	 * Removes content from fields for which isColumnVital() returns false.

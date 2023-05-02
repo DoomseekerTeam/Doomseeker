@@ -42,7 +42,7 @@ class StandardServerConsole : public QMainWindow
 
 public:
 	StandardServerConsole(const QIcon &icon, const QString &program, const QStringList &arguments);
-	~StandardServerConsole();
+	~StandardServerConsole() override;
 
 private slots:
 	void errorDataReady();

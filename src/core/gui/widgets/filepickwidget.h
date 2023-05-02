@@ -32,7 +32,7 @@ class IniSection;
 
 class FilePickWidget : public QWidget
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	class NeighbourStrategy
@@ -47,7 +47,7 @@ public:
 
 
 	FilePickWidget(QWidget *parent);
-	~FilePickWidget();
+	~FilePickWidget() override;
 
 	bool isEmpty() const;
 	void setFile(const GameFile &file);

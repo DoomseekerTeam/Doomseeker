@@ -51,7 +51,7 @@ public:
 	static WadseekerInterface *create(QWidget *parent = nullptr);
 	static WadseekerInterface *create(ServerPtr server, QWidget *parent = nullptr);
 	static WadseekerInterface *createAutoNoGame(QWidget *parent = nullptr);
-	~WadseekerInterface();
+	~WadseekerInterface() override;
 
 	bool isAutomatic()
 	{
@@ -133,7 +133,7 @@ private:
 	void setStateWaiting();
 	void setupAutomatic();
 	void setupIdgames();
-	void showEvent(QShowEvent *event);
+	void showEvent(QShowEvent *event) override;
 	void startSeeking(const QList<PWad> &seekedFilesList);
 	void updateProgressBar();
 	void updateTitle();
@@ -147,10 +147,10 @@ private:
 private slots:
 	void abortService(const QString &service);
 	void abortSite(const QUrl &url);
-	void accept();
+	void accept() override;
 	void allDone(bool bSuccess);
 	void fileDownloadSuccessful(const ModFile &filename);
-	void reject();
+	void reject() override;
 	void message(const QString &message, WadseekerLib::MessageType type);
 	void registerUpdateRequest();
 	void seekStarted(const ModSet &filenames);

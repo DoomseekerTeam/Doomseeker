@@ -37,7 +37,7 @@ class WADSEEKER_API UnArchive : public QObject
 
 public:
 	UnArchive(QIODevice *dataStream);
-	virtual ~UnArchive();
+	virtual ~UnArchive() override;
 
 	/**
 	 * @brief Extracts file from specified entry to a specified path.

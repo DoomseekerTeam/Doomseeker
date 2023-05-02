@@ -47,8 +47,8 @@ class MainWindow : public QMainWindow
 	Q_OBJECT
 
 public:
-	MainWindow(QApplication *application, int argc, char **argv);
-	~MainWindow();
+	MainWindow(QApplication *application);
+	~MainWindow() override;
 
 	DockBuddiesList *buddiesList();
 
@@ -106,7 +106,7 @@ protected:
 
 	static const QString HELP_SITE_URL;
 
-	void changeEvent(QEvent *event);
+	void changeEvent(QEvent *event) override;
 	void checkForUpdates(bool bUserTriggered);
 
 	/**
@@ -115,7 +115,7 @@ protected:
 	 */
 	void connectEntities();
 
-	void closeEvent(QCloseEvent *event);
+	void closeEvent(QCloseEvent *event) override;
 
 	/**
 	 * Fills query menu with engines that have master server.
@@ -166,7 +166,7 @@ protected:
 
 	void refreshCustomServers();
 	void refreshServersOnList();
-	void showEvent(QShowEvent *event);
+	void showEvent(QShowEvent *event) override;
 	void setupIcons();
 	void setupToolBar();
 	ServerListCount sumServerListCount() const;
@@ -236,7 +236,7 @@ protected slots:
 private:
 	DPtr<MainWindow> d;
 
-	void connectIP2CLoader(IP2CLoader *loader);
+	void connectIP2CLoader();
 	void fixIconsDpi();
 
 private slots:

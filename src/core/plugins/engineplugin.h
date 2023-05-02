@@ -100,7 +100,7 @@ protected:
 		EP_SupportsRandomMapRotation, ///< Signifies that a server can be created with a random map rotation.
 		EP_RefreshThreshold, ///< (quint8) The amount of time (in seconds) that must pass before a server can be requeried.
 		EP_URLScheme, ///< (const char*) Overrides the URL scheme which Doomseeker sets for this plugin. By default it is the port's name without spaces.
-		EP_DemoExtension, ///< (bool)auto, (const char*)extension Sets the extension taht will be used for demos (default is true and lmp).
+		EP_DemoExtension, ///< (bool)auto, (const char*)extension Sets the extension that will be used for demos (default is true and lmp).
 
 		/**
 		 * (bool)
@@ -418,6 +418,7 @@ public:
 	 */
 	virtual QList<CreateServerDialogPage *> createServerDialogPages(CreateServerDialog *pDialog)
 	{
+		Q_UNUSED(pDialog);
 		return QList<CreateServerDialogPage *>();
 	}
 
@@ -466,6 +467,7 @@ public:
 	 */
 	virtual QList<GameCVar> limits(const GameMode &mode) const
 	{
+		Q_UNUSED(mode);
 		return QList<GameCVar>();
 	}
 

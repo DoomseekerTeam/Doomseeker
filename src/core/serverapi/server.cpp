@@ -176,9 +176,9 @@ Server::~Server()
 	clearDMFlags();
 }
 
-POLYMORPHIC_DEFINE(QString, Server, customDetails, (), ());
-POLYMORPHIC_DEFINE(QByteArray, Server, createSendRequest, (), ());
-POLYMORPHIC_DEFINE(Server::Response, Server, readRequest, (const QByteArray &data), (data));
+POLYMORPHIC_DEFINE(QString, Server, customDetails, (), ())
+POLYMORPHIC_DEFINE(QByteArray, Server, createSendRequest, (), ())
+POLYMORPHIC_DEFINE(Server::Response, Server, readRequest, (const QByteArray &data), (data))
 
 void Server::addPlayer(const Player &player)
 {
@@ -255,7 +255,7 @@ void Server::clearWads()
 
 ExeFile *Server::clientExe()
 {
-	ExeFile *f = new ExeFile(self().toStrongRef().staticCast<Server>());
+	auto *f = new ExeFile(self().toStrongRef().staticCast<Server>());
 	// TODO: Figure out a way so that plugins don't have to reset following
 	// values if they don't change:
 	f->setProgramName(plugin()->data()->name);
@@ -477,6 +477,7 @@ Server::Response Server::readRefreshQueryResponse(const QByteArray &data)
 
 Server::Response Server::readRequest_default(const QByteArray &data)
 {
+	Q_UNUSED(data);
 	assert(0 && "Server::readRequest(const QByteArray&) is not implemented.");
 	return RESPONSE_BAD;
 }

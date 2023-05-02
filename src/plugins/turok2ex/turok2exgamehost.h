@@ -33,7 +33,7 @@ public:
 	Turok2ExGameHost();
 
 protected:
-	void addExtra();
+	void addExtra() override;
 
 private:
 	Q_DISABLE_COPY(Turok2ExGameHost)

@@ -40,7 +40,7 @@ class MAIN_EXPORT CreateServerDialogPage : public QWidget
 {
 public:
 	CreateServerDialogPage(CreateServerDialog *pParentDialog, const QString &name);
-	virtual ~CreateServerDialogPage();
+	virtual ~CreateServerDialogPage() override;
 
 	/**
 	 * @brief Fills in GameCreateParams structure with the page's contents.

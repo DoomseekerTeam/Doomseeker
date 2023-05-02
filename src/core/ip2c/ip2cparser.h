@@ -119,7 +119,7 @@ protected:
 			this->pParser = pParser;
 		}
 
-		void run();
+		void run() override;
 	};
 
 	/**

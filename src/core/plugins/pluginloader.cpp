@@ -68,6 +68,7 @@ DPointered(PluginLoader::Plugin)
 
 PluginLoader::Plugin::Plugin(unsigned int type, QString file)
 {
+	Q_UNUSED(type); // THIS SHOULD BE REVIEWED. TYPE SEEMS USELESS.
 	d->file = file;
 	d->library = nullptr;
 	d->info = nullptr;
@@ -89,7 +90,7 @@ PluginLoader::Plugin::Plugin(unsigned int type, QString file)
 
 	if (d->library != nullptr)
 	{
-		unsigned int (*doomSeekerABI)() = (unsigned int (*)())(dlsym(d->library, "doomSeekerABI"));
+		auto doomSeekerABI = (unsigned int (*)())(dlsym(d->library, "doomSeekerABI"));
 		if (!doomSeekerABI || doomSeekerABI() != DOOMSEEKER_ABI_VERSION)
 		{
 			// Unsupported version
@@ -109,7 +110,7 @@ PluginLoader::Plugin::Plugin(unsigned int type, QString file)
 			return;
 		}
 
-		EnginePlugin *(*doomSeekerInit)() = (EnginePlugin * (*)())(dlsym(d->library, "doomSeekerInit"));
+		auto doomSeekerInit = (EnginePlugin * (*)())(dlsym(d->library, "doomSeekerInit"));
 		if (doomSeekerInit == nullptr)
 		{ // This is not a valid plugin.
 			unload();
@@ -318,7 +319,7 @@ PluginLoader *PluginLoader::instance()
 	return staticInstance;
 }
 
-const unsigned int PluginLoader::numPlugins() const
+unsigned int PluginLoader::numPlugins() const
 {
 	return d->plugins.size();
 }

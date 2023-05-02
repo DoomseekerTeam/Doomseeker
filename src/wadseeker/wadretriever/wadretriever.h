@@ -61,8 +61,8 @@ class WadRetriever : public QObject
 	Q_OBJECT
 
 public:
-	WadRetriever(QObject *parent = 0);
-	~WadRetriever();
+	WadRetriever(QObject *parent = nullptr);
+	~WadRetriever() override;
 
 	void abort();
 
@@ -288,10 +288,6 @@ private:
 		 */
 		bool operator==(const WadRetrieverInfo &other) const;
 		bool operator!=(const WadRetrieverInfo &other) const;
-
-	private:
-		WadRetrieverInfo(const WadRetrieverInfo &other) {}
-		WadRetrieverInfo &operator=(const WadRetrieverInfo &other) { return *this; }
 	};
 
 	class PrivData
@@ -356,7 +352,7 @@ private:
 	 * Pending WADs list will be modified here and signals will be emitted.
 	 *
 	 * @return If false is returned the tryInstall() method must return
-	 *         immediatelly. Otherwise is is allowed to continue.
+	 *         immediately. Otherwise is allowed to continue.
 	 */
 	bool parseInstallerResult(const WadInstaller::WadInstallerResult &result, const QString &filename, bool bWasArchive);
 

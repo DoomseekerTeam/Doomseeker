@@ -32,11 +32,11 @@
  */
 class LogDock : public QDockWidget
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	LogDock(QWidget *parent = nullptr);
-	~LogDock();
+	~LogDock() override;
 
 public slots:
 	/**

@@ -33,18 +33,18 @@ class CFGWadseekerIdgames : public ConfigPage
 
 public:
 	CFGWadseekerIdgames(QWidget *parent = nullptr);
-	~CFGWadseekerIdgames();
+	~CFGWadseekerIdgames() override;
 
-	QIcon icon() const
+	QIcon icon() const override
 	{
 		return QIcon(":/icons/utilities-file-archiver-2.png");
 	}
-	QString name() const
+	QString name() const override
 	{
 		return tr("Archives");
 	}
-	void readSettings();
-	QString title() const
+	void readSettings() override;
+	QString title() const override
 	{
 		return tr("Wadseeker - Archives");
 	}
@@ -53,7 +53,7 @@ protected slots:
 	void btnIdgamesURLDefaultClicked();
 
 protected:
-	void saveSettings();
+	void saveSettings() override;
 
 private:
 	DPtr<CFGWadseekerIdgames> d;

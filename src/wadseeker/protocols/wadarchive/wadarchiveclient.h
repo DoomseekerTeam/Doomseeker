@@ -39,7 +39,7 @@ class WadArchiveClient : public QObject
 
 public:
 	WadArchiveClient();
-	~WadArchiveClient();
+	~WadArchiveClient() override;
 
 	void abort();
 	void enqueue(const WadDownloadInfo &wad);

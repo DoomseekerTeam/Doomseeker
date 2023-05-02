@@ -111,7 +111,7 @@ void WWWSeeker::addFileSiteUrlWithPriority(const QString &filename, const QUrl &
 
 void WWWSeeker::addNetworkReply(const QNetworkRequest &request, QNetworkReply *pReply)
 {
-	NetworkReply *pQueryInfo = new NetworkReply(request, pReply);
+	auto pQueryInfo = new NetworkReply(request, pReply);
 	pQueryInfo->setProgressTimeout(NetworkReply::SUGGESTED_PROGRESS_TIMEOUT_MSECS);
 	pQueryInfo->startConnectionTimeoutTimer();
 

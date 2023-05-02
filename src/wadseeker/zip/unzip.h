@@ -36,18 +36,18 @@ class UnZip : public UnArchive
 
 public:
 	UnZip(QIODevice *device);
-	~UnZip();
+	~UnZip() override;
 
-	bool extract(int file, const QString &where);
-	int findFileEntry(const QString &entryName);
-	QString fileNameFromIndex(int file);
-	QStringList files();
+	bool extract(int file, const QString &where) override;
+	int findFileEntry(const QString &entryName) override;
+	QString fileNameFromIndex(int file) override;
+	QStringList files() override;
 
 	/**
 	 * @brief true if the QIODevice specified in the constructor
 	 *        is a valid ZIP file.
 	 */
-	bool isValid()
+	bool isValid() override
 	{
 		return isZip();
 	}

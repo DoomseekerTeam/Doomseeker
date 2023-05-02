@@ -36,7 +36,7 @@ class CustomParamsPanel : public QWidget
 
 public:
 	CustomParamsPanel(QWidget *parent);
-	~CustomParamsPanel();
+	~CustomParamsPanel() override;
 
 	void fillInParams(GameCreateParams &params);
 	void loadConfig(Ini &config);

@@ -31,11 +31,11 @@ class EnginePlugin;
 
 class MAIN_EXPORT Broadcast : public QObject
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
-	Broadcast(QObject *parent = 0);
-	virtual ~Broadcast();
+	Broadcast(QObject *parent = nullptr);
+	virtual ~Broadcast() override;
 
 	/**
 	 * @brief Is LAN broadcast capture enabled?

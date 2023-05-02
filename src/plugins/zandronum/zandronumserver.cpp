@@ -47,6 +47,7 @@
 #include <QDateTime>
 #include <QFileInfo>
 #include <QRegExp>
+#include <utility>
 
 #define SERVER_CHALLENGE    0xC7, 0x00, 0x00, 0x00
 #define SERVER_GOOD         5660023
@@ -94,12 +95,12 @@ bool ZandronumVersion::operator> (const ZandronumVersion &other) const
 	return false;
 }
 
-const QRegExp ZandronumVersion::versionExpression("(\\d+).(\\d+)(?:.(\\d+)(?:.(\\d+))?)?(?:-([a-zA-Z]*)?)?(?:-r(\\d+)(?:-(\\d+))?)?");
+const QRegExp ZandronumVersion::versionExpression(R"((\d+).(\d+)(?:.(\d+)(?:.(\d+))?)?(?:-([a-zA-Z]*)?)?(?:-r(\d+)(?:-(\d+))?)?)");
 
 ////////////////////////////////////////////////////////////////////////////////
 
-TeamInfo::TeamInfo(const QString &name, const QColor &color, unsigned int score) :
-	teamName(name), teamColor(color), teamScore(score)
+TeamInfo::TeamInfo(QString name, QColor color, unsigned int score) :
+	teamName(std::move(name)), teamColor(std::move(color)), teamScore(score)
 {
 }
 
@@ -582,7 +583,7 @@ Server::Response ZandronumServer::readRequest(const QByteArray &data)
 		while (numOpts--)
 		{
 			unsigned int index = in.readQInt8();
-			if (index < pwads.size())
+			if (index < static_cast<unsigned>(pwads.size()))
 				pwads.replace(index, PWad(pwads[index].name(), true));
 		}
 
@@ -621,7 +622,7 @@ Server::Response ZandronumServer::readRequest(const QByteArray &data)
 			unsigned int numHashes = in.readQInt8();
 			RETURN_BAD_IF_NOT_ENOUGH_DATA(numHashes);
 
-			for (int index = 0; index < numHashes; index++)
+			for (unsigned int index = 0; index < numHashes; index++)
 			{
 				PWad pwad(pwads[index].name(),
 					pwads[index].isOptional());
@@ -645,8 +646,8 @@ void ZandronumServer::resetPwadsList(const QList<PWad> &wads)
 QByteArray ZandronumServer::createSendRequest()
 {
 	// Prepare launcher challenge.
-	int standard_query = SQF_STANDARDQUERY;
-	int extended_query = SQF2_STANDARDQUERY;
+	unsigned int standard_query = SQF_STANDARDQUERY;
+	unsigned int extended_query = SQF2_STANDARDQUERY;
 	const unsigned char challenge[18] = {
 		SERVER_CHALLENGE,
 		WRITEINT32_DIRECT(unsigned char, standard_query),

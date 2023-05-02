@@ -35,7 +35,7 @@ class IRCDelayedOperationBan : public IRCDelayedOperation
 public:
 	IRCDelayedOperationBan(IRCNetworkAdapter *network, const QString &channel,
 		const QString &nickname, QObject *parent);
-	~IRCDelayedOperationBan();
+	~IRCDelayedOperationBan() override;
 
 	void setReason(const QString &reason);
 	void start();
@@ -45,7 +45,7 @@ private:
 
 private slots:
 	void onWhoIsUser(const QString &nickname, const QString &user,
-		const QString &hostName, const QString &realName);
+		const QString &hostName);
 };
 
 #endif

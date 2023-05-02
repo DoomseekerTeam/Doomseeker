@@ -49,9 +49,9 @@ class IRCNetworkAdapter : public IRCAdapterBase
 
 public:
 	IRCNetworkAdapter(IRCNetworkConnectionInfo connectionInfo);
-	~IRCNetworkAdapter();
+	~IRCNetworkAdapter() override;
 
-	AdapterType adapterType() const
+	AdapterType adapterType() const override
 	{
 		return NetworkAdapter;
 	}
@@ -119,7 +119,7 @@ public:
 	 *     some message and error signals through this pOrigin. Otherwise
 	 *     these signals will be sent directly.
 	 */
-	void doSendMessage(const QString &message, IRCAdapterBase *pOrigin);
+	void doSendMessage(const QString &message, IRCAdapterBase *pOrigin) override;
 
 	bool hasRecipient(const QString &recipient) const;
 
@@ -153,7 +153,7 @@ public:
 		return connectionInfo.nick;
 	}
 
-	IRCNetworkAdapter *network()
+	IRCNetworkAdapter *network() override
 	{
 		return this;
 	}
@@ -185,7 +185,7 @@ public:
 
 	void setNetworkEntity(const IRCNetworkEntity &network);
 
-	QString title() const;
+	QString title() const override;
 
 	/**
 	 * @brief All allowed modes with their nickname prefixes for this
@@ -320,9 +320,9 @@ public:
 	}
 
 public slots:
-	void connected();
-	void disconnected();
-	void errorReceived(QAbstractSocket::SocketError error);
+	void connected() override;
+	void disconnected() override;
+	void errorReceived(QAbstractSocket::SocketError error) override;
 	void infoMessage(const QString &message);
 };
 

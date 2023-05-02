@@ -31,7 +31,7 @@ public:
 	PluginGameHost();
 
 private:
-	Q_DISABLE_COPY(PluginGameHost);
+	Q_DISABLE_COPY(PluginGameHost)
 
 	void addDMFlags();
 };

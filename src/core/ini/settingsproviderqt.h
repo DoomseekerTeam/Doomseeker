@@ -46,14 +46,14 @@ class MAIN_EXPORT SettingsProviderQt : public SettingsProvider
 {
 public:
 	SettingsProviderQt(QSettings *target);
-	virtual ~SettingsProviderQt();
+	virtual ~SettingsProviderQt() override;
 
-	QStringList allKeys() const;
-	QStringList allSections() const;
-	bool hasKey(const QString &key) const;
-	void remove(const QString &key);
-	void setValue(const QString &key, const QVariant &value);
-	QVariant value(const QString &key, QVariant defValue = QVariant()) const;
+	QStringList allKeys() const override;
+	QStringList allSections() const override;
+	bool hasKey(const QString &key) const override;
+	void remove(const QString &key) override;
+	void setValue(const QString &key, const QVariant &value) override;
+	QVariant value(const QString &key, QVariant defValue = QVariant()) const override;
 
 private:
 	DPtr<SettingsProviderQt> d;

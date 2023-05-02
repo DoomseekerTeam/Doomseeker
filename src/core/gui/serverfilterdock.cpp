@@ -101,7 +101,7 @@ QLineEdit *ServerFilterDock::createQuickSearch()
 {
 	if (d->leQuickSearch == nullptr)
 	{
-		QLineEdit *qs = new QLineEdit();
+		auto qs = new QLineEdit();
 		qs->setText(d->leServerName->text());
 
 		connect(d->leServerName, SIGNAL(textEdited(const QString&)), qs, SLOT(setText(const QString&)));

@@ -229,7 +229,7 @@ bool Refresher::isAnythingToRefresh() const
 
 void Refresher::masterFinishedRefreshing()
 {
-	MasterClient *pMaster = static_cast<MasterClient *>(sender());
+	auto pMaster = static_cast<MasterClient *>(sender());
 	const QList<ServerPtr> &servers = pMaster->servers();
 	for (ServerPtr pServer : servers)
 	{
@@ -261,7 +261,7 @@ void Refresher::registerMaster(MasterClient *pMaster)
 {
 	if (!d->registeredMasters.contains(pMaster))
 	{
-		MasterClientInfo *pMasterInfo = new MasterClientInfo(this);
+		auto pMasterInfo = new MasterClientInfo(this);
 		this->connect(pMaster, SIGNAL(listUpdated()), SLOT(masterFinishedRefreshing()));
 
 		d->registeredMasters.insert(pMaster, pMasterInfo);
@@ -475,7 +475,8 @@ bool Refresher::tryReadDatagramByServer(const QHostAddress &address,
 				d->refreshingServers.append(refreshOp);
 				break;
 			}
-			response = Server::RESPONSE_BAD; // Intentional fall through
+			response = Server::RESPONSE_BAD;
+			[[gnu::fallthrough]];
 		default:
 			d->refreshingServers.removeAll(ServerRefreshTime(server));
 			server->refreshStops(static_cast<Server::Response>(response));

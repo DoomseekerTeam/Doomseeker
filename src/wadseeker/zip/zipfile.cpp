@@ -42,7 +42,7 @@ public:
 	ZipFile::EndOfCentralDirectory eocd;
 	QList<ZipFile::CentralDirectoryFileHeader> fileHeaders;
 };
-DPointered(ZipFile::CentralDirectory);
+DPointered(ZipFile::CentralDirectory)
 
 namespace ZipFile
 {
@@ -147,8 +147,8 @@ HeaderError EndOfCentralDirectory::read(QIODevice *io, EndOfCentralDirectory &ou
 	if (signature != SIGNATURE)
 		return NotHeader;
 
-	QByteArray header = QByteArray(4, 0xccU) + io->read(MINIMAL_SIZE - 4);
-	if (header.size() < MINIMAL_SIZE)
+	QByteArray header = QByteArray(4, static_cast<char>(0xccU)) + io->read(MINIMAL_SIZE - 4);
+	if (static_cast<unsigned>(header.size()) < MINIMAL_SIZE)
 		return EndOfFileReached;
 
 	const char *data = header.constData();
@@ -188,7 +188,7 @@ HeaderError CentralDirectoryFileHeader::read(QIODevice *io, CentralDirectoryFile
 	if (signature != SIGNATURE)
 		return NotHeader;
 
-	QByteArray header = QByteArray(4, 0xccU) + io->read(MINIMAL_SIZE - 4);
+	QByteArray header = QByteArray(4, static_cast<char>(0xccU)) + io->read(MINIMAL_SIZE - 4);
 	if (header.size() < MINIMAL_SIZE)
 		return EndOfFileReached;
 

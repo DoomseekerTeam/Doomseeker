@@ -32,7 +32,7 @@ class CaseInsensitiveFSFileSeeker : public FileSeeker
 {
 public:
 	CaseInsensitiveFSFileSeeker(QSharedPointer <QList<FileSearchPath> > paths);
-	QString findFileInPath(const QString &fileName, FileSearchPath &path);
+	QString findFileInPath(const QString &fileName, FileSearchPath &path) override;
 };
 
 #endif

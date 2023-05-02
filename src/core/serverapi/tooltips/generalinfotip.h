@@ -35,7 +35,7 @@ class GeneralInfoTip : public QObject
 
 public:
 	GeneralInfoTip(const ServerCPtr &server);
-	~GeneralInfoTip();
+	~GeneralInfoTip() override;
 
 	QString generateHTML();
 

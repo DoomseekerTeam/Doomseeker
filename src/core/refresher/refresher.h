@@ -37,7 +37,7 @@ class Refresher : public QObject
 	Q_OBJECT
 
 public:
-	~Refresher();
+	~Refresher() override;
 
 	/**
 	 * This will set bKeepRunning to false which will tell the refreshing

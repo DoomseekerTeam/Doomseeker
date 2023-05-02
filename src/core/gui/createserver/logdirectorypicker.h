@@ -33,7 +33,7 @@ class LogDirectoryPicker : public QWidget
 
 public:
 	LogDirectoryPicker(QWidget *parent);
-	~LogDirectoryPicker();
+	~LogDirectoryPicker() override;
 	/**
 	 * @brief returns a sanitized path. In case logging is disabled by the user,
 	 * or the path inserted does not exist, returns an empty string.

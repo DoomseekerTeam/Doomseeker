@@ -33,7 +33,7 @@ public:
 
 DPointered(ConfigPage)
 
-POLYMORPHIC_DEFINE(void, ConfigPage, reject, (), ());
+POLYMORPHIC_DEFINE(void, ConfigPage, reject, (), ())
 
 ConfigPage::ConfigPage(QWidget *parent)
 	: QWidget(parent)

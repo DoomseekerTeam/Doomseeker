@@ -33,7 +33,7 @@ public:
 	ChocolateDoomGameHost();
 
 protected:
-	void addExtra();
+	void addExtra() override;
 
 private:
 	Q_DISABLE_COPY(ChocolateDoomGameHost)

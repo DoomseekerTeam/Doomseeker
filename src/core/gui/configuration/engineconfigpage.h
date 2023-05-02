@@ -61,24 +61,24 @@ public:
 	 *     Parent widget, most likely configuration dialog box.
 	 */
 	EngineConfigPage(EnginePlugin *plugin, IniSection &cfg, QWidget *parent = nullptr);
-	virtual ~EngineConfigPage();
+	virtual ~EngineConfigPage() override;
 
-	QIcon icon() const;
-	QString name() const;
+	QIcon icon() const override;
+	QString name() const override;
 	/**
 	 * @brief Parent plugin handled by this page.
 	 */
 	const EnginePlugin *plugin() const;
-	QString title() const;
-	virtual Validation validate();
+	QString title() const override;
+	Validation validate() override;
 
 protected:
 	/**
 	 * @brief Add a new, custom widget below the standard ones.
 	 */
 	void addWidget(QWidget *widget);
-	void readSettings();
-	void saveSettings();
+	void readSettings() override;
+	void saveSettings() override;
 
 private:
 	DPtr<EngineConfigPage> d;

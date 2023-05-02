@@ -38,7 +38,7 @@ class MapListPanel : public QWidget
 
 public:
 	MapListPanel(QWidget *parent);
-	~MapListPanel();
+	~MapListPanel() override;
 
 	void fillInParams(GameCreateParams &params);
 	bool hasMaps() const;
@@ -49,7 +49,7 @@ public:
 	void setupForEngine(const EnginePlugin *engine);
 
 protected:
-	void showEvent(QShowEvent *event);
+	void showEvent(QShowEvent *event) override;
 
 private:
 	void addMapToMaplist(const QString &map);

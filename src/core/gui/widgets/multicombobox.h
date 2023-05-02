@@ -38,14 +38,14 @@ class QEvent;
  */
 class MultiComboBox : public QComboBox
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
-	MultiComboBox(QWidget *widget = 0);
-	virtual ~MultiComboBox();
+	MultiComboBox(QWidget *widget = nullptr);
+	~MultiComboBox() override;
 	QString displayText() const;
-	bool eventFilter(QObject *object, QEvent *event);
-	virtual void paintEvent(QPaintEvent *);
+	bool eventFilter(QObject *object, QEvent *event) override;
+	void paintEvent(QPaintEvent *) override;
 	QStringList selectedItemTexts() const;
 	void setSelectedTexts(const QStringList &texts);
 

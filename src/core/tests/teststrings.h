@@ -31,7 +31,7 @@ public:
 	TestStringsWrapUrls()
 		: TestUnitBase("Wrap URLs with A HREF tags") {}
 
-	bool executeTest();
+	bool executeTest() override;
 };
 
 #endif

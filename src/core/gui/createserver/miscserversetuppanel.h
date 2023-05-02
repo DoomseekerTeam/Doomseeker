@@ -37,7 +37,7 @@ class MiscServerSetupPanel : public QWidget
 
 public:
 	MiscServerSetupPanel(QWidget *parent);
-	~MiscServerSetupPanel();
+	~MiscServerSetupPanel() override;
 
 	void fillInParams(GameCreateParams &params);
 	bool isAnythingAvailable() const;

@@ -34,7 +34,7 @@ class ModFile;
 
 class WadseekerWadsTable : public TableWidgetMouseAware
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	class ContextMenu : public QMenu
@@ -56,7 +56,7 @@ public:
 	static const int IDX_SIZE_COLUMN = 5;
 
 	WadseekerWadsTable(QWidget *pParent = nullptr);
-	~WadseekerWadsTable();
+	~WadseekerWadsTable() override;
 
 	void addFile(const QString &filename);
 
@@ -93,7 +93,7 @@ public slots:
 	void setFileUrl(const ModFile &filename, const QUrl &url);
 
 protected:
-	void showEvent(QShowEvent *pEvent);
+	void showEvent(QShowEvent *pEvent) override;
 
 private:
 	class PrivData

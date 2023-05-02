@@ -47,7 +47,7 @@ public:
 	};
 
 	IP2CUpdater(QObject *parent = nullptr);
-	~IP2CUpdater();
+	~IP2CUpdater() override;
 
 	void downloadDatabase(const QString &savePath);
 	const QByteArray &downloadedData();

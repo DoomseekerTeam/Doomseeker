@@ -45,6 +45,7 @@ IRCChatAdapter::~IRCChatAdapter()
 
 void IRCChatAdapter::doSendMessage(const QString &message, IRCAdapterBase *pOrigin)
 {
+	Q_UNUSED(pOrigin);
 	// If network is null and we can still send messages this might be a bug
 	// in the application.
 	if (pNetwork == nullptr)
@@ -86,7 +87,7 @@ QString IRCChatAdapter::extractMessageLine(QStringList &words, int maxLength)
 		{
 			// If there is no valid way of splitting the sentence; if
 			// the word itself is longer than maxLength we have to split
-			// the word. Dash will be appened to the end of such word.
+			// the word. Dash will be appended to the end of such word.
 			if (sentence.isEmpty())
 			{
 				// We need to split the word.

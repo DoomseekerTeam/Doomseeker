@@ -47,7 +47,7 @@ class ImportantMessagesWidget : public QWidget
 
 public:
 	ImportantMessagesWidget(QWidget *pParent = nullptr);
-	~ImportantMessagesWidget();
+	~ImportantMessagesWidget() override;
 
 	/**
 	 * @brief Amount of messages that can be displayed in the widget at

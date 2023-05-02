@@ -43,7 +43,7 @@
  */
 class MAIN_EXPORT ConfigPage : public QWidget
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	/// Result of validate()
@@ -56,7 +56,7 @@ public:
 	};
 
 	ConfigPage(QWidget *parent = nullptr);
-	virtual ~ConfigPage();
+	virtual ~ConfigPage() override;
 
 	/**
 	 * @brief Does this page allow to save the new settings?
@@ -122,7 +122,7 @@ public:
 	 * will be displayed by Doomseeker in the configuration dialog box.
 	 * Still, the page itself must also take care to precisely pinpoint
 	 * the reason of the failure. When user navigates to the page,
-	 * it must be immediatelly visible what caused the problem
+	 * it must be immediately visible what caused the problem
 	 * and why.
 	 *
 	 * This is used purely for notification purposes. User
@@ -176,7 +176,7 @@ protected:
 	 */
 	virtual void saveSettings() = 0;
 
-	POLYMORPHIC_SETTER_DECLARE(void, ConfigPage, reject, ());
+	POLYMORPHIC_SETTER_DECLARE(void, ConfigPage, reject, ())
 	void reject_default();
 
 private:

@@ -25,7 +25,7 @@
 #define __TUROK2EXSERVER_H__
 
 #include <QMap>
-#include <stdint.h>
+#include <cstdint>
 
 #include "serverapi/server.h"
 
@@ -49,9 +49,9 @@ public:
 	{
 		return dehPatches;
 	}
-	GameClientRunner *gameRunner();
+	GameClientRunner *gameRunner() override;
 
-	EnginePlugin *plugin() const;
+	EnginePlugin *plugin() const override;
 
 protected:
 	Response readRequest(const QByteArray &data);

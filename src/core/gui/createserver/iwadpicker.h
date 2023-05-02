@@ -36,7 +36,7 @@ class IwadPicker : public QWidget
 
 public:
 	IwadPicker(QWidget *parent);
-	~IwadPicker();
+	~IwadPicker() override;
 
 	void addIwad(const QString &path);
 	QString currentIwad() const;

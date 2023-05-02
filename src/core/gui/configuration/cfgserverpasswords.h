@@ -37,21 +37,21 @@ class CFGServerPasswords : public ConfigPage
 
 public:
 	CFGServerPasswords(QWidget *parent = nullptr);
-	~CFGServerPasswords();
+	~CFGServerPasswords() override;
 
-	QIcon icon() const
+	QIcon icon() const override
 	{
 		return QIcon(":/icons/padlock.png");
 	}
-	QString name() const
+	QString name() const override
 	{
 		return tr("Server Passwords");
 	}
 
-	void readSettings();
+	void readSettings() override;
 
 protected:
-	void saveSettings();
+	void saveSettings() override;
 
 private:
 	DPtr<CFGServerPasswords> d;

@@ -57,7 +57,7 @@ public:
 		RESPONSE_TIMEOUT, // Server didn't respond at all
 		RESPONSE_WAIT, // Server responded with "wait"
 		RESPONSE_BAD, // Probably refreshing too quickly
-		RESPONSE_BANNED, // Won't recieve data from this server ever.
+		RESPONSE_BANNED, // Won't receive data from this server ever.
 		RESPONSE_NO_RESPONSE_YET, // "Dummy" response for servers that weren't refreshed yet
 		RESPONSE_PENDING, // Waiting for additional packets
 		RESPONSE_REPLY, // Ask the refresher to call createSendRequest again
@@ -65,7 +65,7 @@ public:
 	};
 
 	MasterClient();
-	virtual ~MasterClient();
+	virtual ~MasterClient() override;
 
 	/**
 	 * Clears the server list.
@@ -197,7 +197,7 @@ protected:
 	 *        to the master server.
 	 *
 	 * @return If empty array is returned refreshing of this master server
-	 *         is immediatelly aborted.
+	 *         is immediately aborted.
 	 */
 	virtual QByteArray createServerListRequest() = 0;
 
@@ -206,7 +206,7 @@ protected:
 	 */
 	void emptyServerList();
 
-	POLYMORPHIC_SETTER_DECLARE_CONST(QString, MasterClient, masterBanHelp, ());
+	POLYMORPHIC_SETTER_DECLARE_CONST(QString, MasterClient, masterBanHelp, ())
 	QString masterBanHelp_default() const;
 
 	/**

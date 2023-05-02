@@ -36,13 +36,13 @@ public:
 	Srb2GameHost();
 
 protected:
-	void addExtra();
+	void addExtra() override;
 
 private:
 	Q_DISABLE_COPY(Srb2GameHost)
 
-	bool casualServer;
 	bool listenServer;
+	bool casualServer;
 
 	void addDMFlags();
 	void addDMFlags(const QList<DMFlagsSection> &flags, bool enabled);

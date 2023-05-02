@@ -72,7 +72,7 @@ class MAIN_EXPORT Ini : public QObject
 
 public:
 	Ini(SettingsProvider *provider);
-	virtual ~Ini();
+	virtual ~Ini() override;
 
 	/**
 	 * Value of data parameter will be ignored and no changes will be

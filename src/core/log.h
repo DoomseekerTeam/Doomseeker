@@ -36,7 +36,7 @@
  */
 class MAIN_EXPORT Log : public QObject
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	/**
@@ -45,7 +45,7 @@ public:
 	static Log instance;
 
 	Log();
-	virtual ~Log();
+	virtual ~Log() override;
 
 	/**
 	 * @brief Timestamps are in format [hh:mm:ss]. Enabled by default.

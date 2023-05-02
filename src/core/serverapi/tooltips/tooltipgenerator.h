@@ -36,7 +36,7 @@ class MAIN_EXPORT TooltipGenerator : public QObject
 {
 public:
 	TooltipGenerator(const ServerCPtr &server);
-	virtual ~TooltipGenerator();
+	virtual ~TooltipGenerator() override;
 
 	/**
 	 * @brief DMFLAGS listing for the current server.

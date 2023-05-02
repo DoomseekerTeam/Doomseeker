@@ -33,11 +33,11 @@ class WadDownloadInfo;
 
 class WADSEEKER_API ModInstall : public QObject
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
-	ModInstall(QObject *parent = 0);
-	~ModInstall();
+	ModInstall(QObject *parent = nullptr);
+	~ModInstall() override;
 
 	const QString &error() const;
 	bool isError() const;

@@ -35,17 +35,17 @@ class Turok2ExMasterClient : public MasterClient
 public:
 	Turok2ExMasterClient();
 
-	const EnginePlugin *plugin() const;
+	const EnginePlugin *plugin() const override;
 
 	void updateAddress();
 
 public slots:
-	void refreshStarts();
+	void refreshStarts() override;
 
 protected:
 
-	QByteArray createServerListRequest();
-	Response readMasterResponse(const QByteArray &data);
+	QByteArray createServerListRequest() override;
+	Response readMasterResponse(const QByteArray &data) override;
 
 private:
 	unsigned int seedIP;

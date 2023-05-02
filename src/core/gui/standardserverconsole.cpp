@@ -25,8 +25,8 @@
 #include <QMessageBox>
 
 #ifndef Q_OS_WIN32
+#include <csignal>
 #include <QTextStream>
-#include <signal.h>
 #endif
 
 StandardServerConsole::StandardServerConsole(const QIcon &icon, const QString &program, const QStringList &arguments)

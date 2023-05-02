@@ -93,7 +93,7 @@ public:
 	void setRemoteExecutableByPath(const QString &pathRequest);
 
 private:
-	Q_DISABLE_COPY(CreateServerDialogApi);
+	Q_DISABLE_COPY(CreateServerDialogApi)
 
 	DPtr<CreateServerDialogApi> d;
 

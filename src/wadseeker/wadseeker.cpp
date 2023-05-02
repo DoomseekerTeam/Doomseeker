@@ -479,7 +479,7 @@ void Wadseeker::setupIdgamesClients(const QList<WadDownloadInfo> &wadDownloadInf
 {
 	for (const WadDownloadInfo &wad : wadDownloadInfoList)
 	{
-		Idgames *pIdgames = new Idgames(d->seekParametersForCurrentSeek->idgamesUrl);
+		auto pIdgames = new Idgames(d->seekParametersForCurrentSeek->idgamesUrl);
 
 		pIdgames->setUserAgent(WadseekerVersionInfo::userAgent());
 		pIdgames->setFile(wad);
@@ -789,7 +789,7 @@ void Wadseeker::wadRetrieverDownloadProgress(WadDownloadInfo wadDownloadInfo, qi
 
 void Wadseeker::wadRetrieverDownloadStarted(WadDownloadInfo wadDownloadInfo, const QUrl &url)
 {
-	emit message(tr("Started downloading file \"%1\" from URL \"%2\"")
+	emit message(tr(R"(Started downloading file "%1" from URL "%2")")
 		.arg(wadDownloadInfo.name(), url.toString()), WadseekerLib::Notice);
 	emit fileDownloadStarted(wadDownloadInfo.name(), url);
 }

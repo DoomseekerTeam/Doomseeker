@@ -31,13 +31,13 @@ class ModSet;
 
 class WADSEEKER_API Freedoom : public QObject
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	static bool hasFreedoomReplacement(const QString &fileName);
 
-	Freedoom(QObject *parent = 0);
-	virtual ~Freedoom();
+	Freedoom(QObject *parent = nullptr);
+	virtual ~Freedoom() override;
 
 	const QString &error() const;
 	bool isError() const;

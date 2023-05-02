@@ -54,7 +54,7 @@ class MAIN_EXPORT ExeFile : public QObject
 
 public:
 	ExeFile(const QSharedPointer<Server> &server);
-	virtual ~ExeFile();
+	virtual ~ExeFile() override;
 
 	/**
 	 * @brief Config key where executable path on current system

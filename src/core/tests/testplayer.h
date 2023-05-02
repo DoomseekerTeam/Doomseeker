@@ -32,7 +32,7 @@ public:
 		: TestUnitBase("Player Name Color Strip")
 	{}
 
-	bool executeTest();
+	bool executeTest() override;
 };
 
 #endif

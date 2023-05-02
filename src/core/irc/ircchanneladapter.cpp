@@ -124,7 +124,7 @@ void IRCChannelAdapter::removeNameFromCachedList(const QString &name)
 	IRCUserInfo user = users->userCopy(name);
 
 	if (!users->removeNameFromCachedList(name))
-		emit error(QString("Attempted to remove name \"%1\" from the \"%2\" channel's name list but no such name is on the list.").arg(name, this->recipientName));
+		emit error(QString(R"(Attempted to remove name "%1" from the "%2" channel's name list but no such name is on the list.)").arg(name, this->recipientName));
 	else
 		emit nameRemoved(user);
 }

@@ -45,10 +45,10 @@
 #define MASTER_RESPONSE_ENDPART         7
 #define MASTER_RESPONSE_SERVERBLOCK     8
 
-#define RETURN_BAD_IF_NOT_ENOUGH_DATA(min_amout_of_data_required) \
+#define RETURN_BAD_IF_NOT_ENOUGH_DATA(min_amount_of_data_required) \
 	{ \
-		if (in.remaining() < (min_amout_of_data_required)) \
-			return RESPONSE_BAD; \
+		if (in.remaining() < (min_amount_of_data_required)) \
+		return RESPONSE_BAD; \
 	}
 
 ZandronumMasterClient::ZandronumMasterClient() : MasterClient()
@@ -133,7 +133,7 @@ MasterClient::Response ZandronumMasterClient::readMasterResponse(const QByteArra
 			RETURN_BAD_IF_NOT_ENOUGH_DATA(4 + 2); // ip + port
 
 			// [Zalewa] Remember: it's a very bad idea to pass reads
-			// directly to funtion calls because function calls are
+			// directly to function calls because function calls are
 			// resolved in reverse order (in MSVC at least).
 			quint8 ip1 = in.readQUInt8();
 			quint8 ip2 = in.readQUInt8();
@@ -165,7 +165,7 @@ MasterClient::Response ZandronumMasterClient::readMasterResponse(const QByteArra
 		readLastPacket = true;
 	if (readLastPacket) // See if we read every packet.
 	{
-		if (packetsRead == (1 << numPackets) - 1)
+		if (packetsRead == static_cast<unsigned>((1 << numPackets) - 1))
 		{
 			emit listUpdated();
 			return RESPONSE_GOOD;

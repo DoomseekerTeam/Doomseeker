@@ -36,13 +36,13 @@ class ServerListView : public QTableView
 	Q_OBJECT
 
 public:
-	ServerListView(QWidget *parent = 0);
+	ServerListView(QWidget *parent = nullptr);
 
 	void setupTableProperties();
 
 protected:
-	virtual void mouseReleaseEvent(QMouseEvent *event);
-	virtual void mouseDoubleClickEvent(QMouseEvent *event);
+	void mouseReleaseEvent(QMouseEvent *event) override;
+	void mouseDoubleClickEvent(QMouseEvent *event) override;
 
 private:
 	void setupTableColumnWidths();

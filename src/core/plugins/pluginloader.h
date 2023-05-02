@@ -125,7 +125,7 @@ public:
 	 *
 	 * It will return 0 in safe mode.
 	 */
-	const unsigned int numPlugins() const;
+	unsigned int numPlugins() const;
 
 	/**
 	 * @brief Looks for a plugin which name equals to parameter.

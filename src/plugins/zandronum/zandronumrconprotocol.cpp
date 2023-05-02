@@ -170,7 +170,7 @@ void ZandronumRConProtocol::stepConnect()
 			{
 				emit messageReceived(
 					tr("Delaying for about %n seconds before next authentication attempt.",
-					0, qMax(1, delta / 1000)));
+					nullptr, qMax(1, delta / 1000)));
 			}
 			setReconnectState();
 			QTimer::singleShot(delta, this, SLOT(stepConnect()));
@@ -257,7 +257,7 @@ void ZandronumRConProtocol::processEstablishingPacket(QIODevice &ioDevice)
 
 void ZandronumRConProtocol::processPacket(QIODevice *ioDevice, bool initial, int maxUpdates)
 {
-	static const QRegExp colorCode("\\\\c(\\[[a-zA-Z0-9]*\\]|[a-v+\\-!*])");
+	static const QRegExp colorCode(R"(\\c(\[[a-zA-Z0-9]*\]|[a-v+\-!*]))");
 
 	// QIODevice is assumed to be already opened at this point.
 	QDataStream dataStream(ioDevice);

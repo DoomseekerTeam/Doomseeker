@@ -112,7 +112,7 @@ void IP2CParser::readDatabaseThreaded(const QString &filePath)
 	if (currentParsingThread != nullptr)
 		return;
 
-	ParsingThread *pParsingThread = new ParsingThread(this, filePath);
+	auto pParsingThread = new ParsingThread(this, filePath);
 	connect(pParsingThread, SIGNAL(finished()), this, SLOT(parsingThreadFinished()));
 
 	currentParsingThread = pParsingThread;

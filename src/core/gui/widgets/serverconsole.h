@@ -32,8 +32,8 @@ class ServerConsole : public QWidget
 	Q_OBJECT
 
 public:
-	ServerConsole(QWidget *parent = nullptr, Qt::WindowFlags f = 0);
-	~ServerConsole();
+	ServerConsole(QWidget *parent = nullptr, Qt::WindowFlags f = nullptr);
+	~ServerConsole() override;
 
 	/**
 	 * @brief Sets keyboard focus to the underlying line edit widget.

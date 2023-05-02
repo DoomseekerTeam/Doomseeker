@@ -34,7 +34,7 @@ class IRCDelayedOperationIgnore : public IRCDelayedOperation
 
 public:
 	IRCDelayedOperationIgnore(QWidget *parent, IRCNetworkAdapter *network, const QString &nickname);
-	~IRCDelayedOperationIgnore();
+	~IRCDelayedOperationIgnore() override;
 
 	/**
 	 * If disabled, a '*!*@host' pattern is assumed. Disabled by default.
@@ -47,7 +47,7 @@ private:
 
 private slots:
 	void onWhoIsUser(const QString &nickname, const QString &user,
-		const QString &hostName, const QString &realName);
+		const QString &hostName);
 };
 
 #endif

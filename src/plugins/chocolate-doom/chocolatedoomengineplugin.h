@@ -31,11 +31,11 @@ class ChocolateDoomEnginePlugin : public EnginePlugin
 	DECLARE_PLUGIN(ChocolateDoomEnginePlugin)
 public:
 	ChocolateDoomEnginePlugin();
-	GameHost *gameHost();
-	QList<GameMode> gameModes() const;
-	ServerPtr mkServer(const QHostAddress &address, unsigned short port) const;
+	GameHost *gameHost() override;
+	QList<GameMode> gameModes() const override;
+	ServerPtr mkServer(const QHostAddress &address, unsigned short port) const override;
 	void setupConfig(IniSection &config);
-	void start();
+	void start() override;
 };
 
 #endif

@@ -35,7 +35,7 @@ class PlayerTable : public QObject
 
 public:
 	PlayerTable(const ServerCPtr &server);
-	~PlayerTable();
+	~PlayerTable() override;
 
 	QString generateHTML();
 

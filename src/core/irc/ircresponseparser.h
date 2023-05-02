@@ -39,7 +39,7 @@ class IRCResponseParser : public QObject
 
 public:
 	IRCResponseParser(IRCNetworkAdapter *network);
-	~IRCResponseParser();
+	~IRCResponseParser() override;
 
 	/**
 	 * @brief Parses the message received from the network.
@@ -55,7 +55,7 @@ public:
 
 signals:
 	/**
-	 * @brief Emitted when user successfuly joins the network.
+	 * @brief Emitted when user successfully joins the network.
 	 *
 	 * @param nickname
 	 *     Nickname with which the user has just registered.

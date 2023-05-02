@@ -38,11 +38,11 @@ class IRCSounds;
  */
 class IRCDock : public QDockWidget
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	IRCDock(QWidget *parent = nullptr);
-	~IRCDock();
+	~IRCDock() override;
 
 	IRCDockTabContents *addIRCAdapter(IRCAdapterBase *pIRCAdapter);
 

@@ -35,7 +35,7 @@ class RconPasswordDialog : public QDialog
 
 public:
 	RconPasswordDialog(QWidget *parent = nullptr, bool connection = false);
-	~RconPasswordDialog();
+	~RconPasswordDialog() override;
 
 	QString connectPassword() const;
 	const EnginePlugin *selectedEngine() const;

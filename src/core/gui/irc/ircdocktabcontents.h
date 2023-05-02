@@ -45,11 +45,11 @@ class QStandardItem;
  */
 class IRCDockTabContents : public QWidget
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	IRCDockTabContents(IRCDock *pParentIRCDock);
-	~IRCDockTabContents();
+	~IRCDockTabContents() override;
 
 	/**
 	 * @brief Applies current appearance settings from the IRC config.
@@ -135,13 +135,13 @@ protected slots:
 	void receiveError(const QString &error);
 	void sendMessage();
 	void userListCustomContextMenuRequested(const QPoint &pos);
-	void userListDoubleClicked(const QModelIndex &index);
+	void userListDoubleClicked();
 
 protected:
 	IRCAdapterBase *pIrcAdapter;
 	IRCDock *pParentIRCDock;
 
-	bool eventFilter(QObject *watched, QEvent *event);
+	bool eventFilter(QObject *watched, QEvent *event) override;
 
 private:
 	class UserListMenu;

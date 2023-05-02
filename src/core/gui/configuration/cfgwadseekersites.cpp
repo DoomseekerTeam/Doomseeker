@@ -72,7 +72,7 @@ void CFGWadseekerSites::btnUrlRemoveClicked()
 	QModelIndexList indexList = selModel->selectedIndexes();
 	selModel->clear();
 
-	QStandardItemModel *model = static_cast<QStandardItemModel *>(d->lstUrls->model());
+	auto model = static_cast<QStandardItemModel *>(d->lstUrls->model());
 	QList<QStandardItem *> itemList;
 	for (int i = 0; i < indexList.count(); ++i)
 		itemList << model->itemFromIndex(indexList[i]);
@@ -90,7 +90,7 @@ void CFGWadseekerSites::insertUrl(const QString &url)
 		return;
 
 	// first we check whether the URL is already in the box.
-	QStandardItemModel *model = static_cast<QStandardItemModel *>(d->lstUrls->model());
+	auto model = static_cast<QStandardItemModel *>(d->lstUrls->model());
 	for (int i = 0; i < model->rowCount(); ++i)
 	{
 		QUrl existingUrl(model->item(i)->text());
@@ -98,7 +98,7 @@ void CFGWadseekerSites::insertUrl(const QString &url)
 			return;
 	}
 
-	QStandardItem *it = new QStandardItem(url);
+	auto it = new QStandardItem(url);
 
 	it->setDragEnabled(true);
 	it->setDropEnabled(false);
@@ -120,7 +120,7 @@ void CFGWadseekerSites::readSettings()
 void CFGWadseekerSites::saveSettings()
 {
 	QStringList urlList;
-	QStandardItemModel *model = static_cast<QStandardItemModel *>(d->lstUrls->model());
+	auto model = static_cast<QStandardItemModel *>(d->lstUrls->model());
 	for (int i = 0; i < model->rowCount(); ++i)
 		urlList << model->item(i)->text();
 

@@ -91,7 +91,7 @@ void ServerList::cleanUpForce()
 
 	if (sortIndex >= 0)
 	{
-		ServerListProxyModel *pModel = static_cast<ServerListProxyModel *>(table->model());
+		auto pModel = static_cast<ServerListProxyModel *>(table->model());
 		pModel->invalidate();
 		pModel->sortServers(sortIndex, sortOrder);
 	}
@@ -128,7 +128,7 @@ void ServerList::connectTableModelProxySlots()
 		SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
 		SLOT(itemSelected(QItemSelection)));
 	this->connect(table, SIGNAL(middleMouseClicked(QModelIndex,QPoint)),
-		SLOT(tableMiddleClicked(QModelIndex,QPoint)));
+		SLOT(tableMiddleClicked()));
 	this->connect(table, SIGNAL(rightMouseClicked(QModelIndex,QPoint)),
 		SLOT(tableRightClicked(QModelIndex,QPoint)));
 	this->connect(table, SIGNAL(entered(QModelIndex)), SLOT(mouseEntered(QModelIndex)));
@@ -143,7 +143,7 @@ void ServerList::contextMenuAboutToHide()
 
 void ServerList::contextMenuTriggered(QAction *action)
 {
-	ServerListContextMenu *contextMenu = static_cast<ServerListContextMenu *>(sender());
+	auto contextMenu = static_cast<ServerListContextMenu *>(sender());
 	ServerPtr server = contextMenu->server();
 	// 1. This is a bit convoluted, but emitting the serverFilterModified
 	//    signal leads to a call to applyFilter() in this class.
@@ -221,14 +221,14 @@ void ServerList::contextMenuTriggered(QAction *action)
 
 ServerListModel *ServerList::createModel()
 {
-	ServerListModel *serverListModel = new ServerListModel(this);
+	auto serverListModel = new ServerListModel(this);
 	serverListModel->prepareHeaders();
 	return serverListModel;
 }
 
 ServerListProxyModel *ServerList::createSortingProxy(ServerListModel *serverListModel)
 {
-	ServerListProxyModel *proxy = new ServerListProxyModel(this);
+	auto proxy = new ServerListProxyModel(this);
 	this->connect(proxy, SIGNAL(additionalSortColumnsChanged()),
 		SLOT(updateHeaderTitles()));
 	this->connect(proxy, SIGNAL(additionalSortColumnsChanged()),
@@ -281,7 +281,7 @@ bool ServerList::isSortingByColumn(int columnIndex)
 
 void ServerList::itemSelected(const QItemSelection &selection)
 {
-	QSortFilterProxyModel *pModel = static_cast<QSortFilterProxyModel *>(table->model());
+	auto pModel = static_cast<QSortFilterProxyModel *>(table->model());
 	QModelIndexList indexList = selection.indexes();
 
 	QList<ServerPtr> servers;
@@ -305,7 +305,7 @@ void ServerList::lookupHosts()
 
 void ServerList::mouseEntered(const QModelIndex &index)
 {
-	QSortFilterProxyModel *pModel = static_cast<QSortFilterProxyModel *>(table->model());
+	auto pModel = static_cast<QSortFilterProxyModel *>(table->model());
 	QModelIndex realIndex = pModel->mapToSource(index);
 	ServerPtr server = model->serverFromList(realIndex);
 	QString tooltip;
@@ -462,7 +462,7 @@ QList<ServerPtr> ServerList::servers() const
 
 ServerPtr ServerList::serverFromIndex(const QModelIndex &index)
 {
-	QSortFilterProxyModel *pModel = static_cast<QSortFilterProxyModel *>(table->model());
+	auto pModel = static_cast<QSortFilterProxyModel *>(table->model());
 	QModelIndex indexReal = pModel->mapToSource(index);
 	return model->serverFromList(indexReal);
 }
@@ -497,7 +497,7 @@ void ServerList::setGroupServersWithPlayersAtTop(bool b)
 
 void ServerList::sortAdditionally(const QModelIndex &modelIndex, Qt::SortOrder order)
 {
-	ServerListProxyModel *model = static_cast<ServerListProxyModel *>(table->model());
+	auto model = static_cast<ServerListProxyModel *>(table->model());
 	model->addAdditionalColumnSorting(modelIndex.column(), order);
 }
 
@@ -506,7 +506,7 @@ Qt::SortOrder ServerList::swappedCurrentSortOrder()
 	return sortOrder == Qt::AscendingOrder ? Qt::DescendingOrder : Qt::AscendingOrder;
 }
 
-void ServerList::tableMiddleClicked(const QModelIndex &index, const QPoint &cursorPosition)
+void ServerList::tableMiddleClicked()
 {
 	refreshSelected();
 }

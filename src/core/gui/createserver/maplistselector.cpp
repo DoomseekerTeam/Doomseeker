@@ -122,7 +122,7 @@ void MapListSelector::setMapsOfCheckableList(const QList<MapEntry> &list)
 	d->listMapsWidget->clear();
 	for (const MapEntry &mapEntry : list)
 	{
-		QListWidgetItem *item = new QListWidgetItem(mapEntry.name, d->listMapsWidget);
+		auto item = new QListWidgetItem(mapEntry.name, d->listMapsWidget);
 		item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
 		item->setCheckState(Qt::Checked);
 		if (mapEntry.isIwad)

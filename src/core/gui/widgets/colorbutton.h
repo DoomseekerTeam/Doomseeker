@@ -50,7 +50,7 @@ public:
 
 	void setColor(unsigned colorValue);
 	void setColorHtml(const QString &colorHtml);
-	QSize sizeHint() const;
+	QSize sizeHint() const override;
 
 signals:
 	void colorUpdated(QColor oldColor, const QColor &newColor);

@@ -104,7 +104,8 @@ void TaskbarButton::setWindow(QWindow *window)
 	#ifdef WIN_TASKBAR
 	if (d->button != nullptr)
 		d->button->setWindow(window);
-
+	#else
+	Q_UNUSED(window);
 	#endif
 }
 
@@ -132,7 +133,8 @@ void TaskbarButton::setOverlayAccessibleDescription(const QString &description)
 	#ifdef WIN_TASKBAR
 	if (d->button != nullptr)
 		d->button->setOverlayAccessibleDescription(description);
-
+	#else
+	Q_UNUSED(description);
 	#endif
 }
 
@@ -141,6 +143,7 @@ void TaskbarButton::setOverlayIcon(const QIcon &icon)
 	#ifdef WIN_TASKBAR
 	if (d->button != nullptr)
 		d->button->setOverlayIcon(icon);
-
+	#else
+	Q_UNUSED(icon);
 	#endif
 }

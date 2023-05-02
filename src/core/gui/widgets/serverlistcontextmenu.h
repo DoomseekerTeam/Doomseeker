@@ -68,7 +68,7 @@ public:
 		const QModelIndex &modelIndex,
 		const QList<ServerPtr> &servers,
 		ServerList *parent);
-	~ServerListContextMenu();
+	~ServerListContextMenu() override;
 
 	const QModelIndex &modelIndex() const;
 	void popup(const QPoint &point);

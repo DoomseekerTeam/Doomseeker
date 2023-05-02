@@ -42,6 +42,8 @@ void IRCPrivAdapter::userChangesNickname(const QString &oldNickname, const QStri
 
 void IRCPrivAdapter::userJoins(const QString &nickname, const QString &fullSignature)
 {
+	Q_UNUSED(nickname);
+	Q_UNUSED(fullSignature);
 	// Ignore. This has no sensible application here.
 }
 

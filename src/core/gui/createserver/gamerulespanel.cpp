@@ -285,7 +285,7 @@ void GameRulesPanel::setupLimitWidgets(const EnginePlugin *engine, const GameMod
 	{
 		QLabel *label = new QLabel(this);
 		label->setText(limit.name());
-		QSpinBox *spinBox = new QSpinBox(this);
+		auto spinBox = new QSpinBox(this);
 		spinBox->setMaximum(INT_MAX);
 		spinBox->setMinimum(INT_MIN);
 		spinBox->setCorrectionMode(QAbstractSpinBox::CorrectToNearestValue);
@@ -293,7 +293,7 @@ void GameRulesPanel::setupLimitWidgets(const EnginePlugin *engine, const GameMod
 
 		d->limitsLayout->addRow(label, spinBox);
 
-		PrivData<GameRulesPanel>::GameLimitWidget *glw = new PrivData<GameRulesPanel>::GameLimitWidget();
+		auto glw = new PrivData<GameRulesPanel>::GameLimitWidget();
 		glw->label = label;
 		glw->spinBox = spinBox;
 		glw->limit = limit;

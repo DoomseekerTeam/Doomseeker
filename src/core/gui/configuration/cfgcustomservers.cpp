@@ -74,7 +74,7 @@ void CFGCustomServers::add(const QString &engineName, const QString &host,
 {
 	QList<QStandardItem *> record;
 
-	QStandardItem *engineItem = new QStandardItem();
+	auto engineItem = new QStandardItem();
 	setEngineOnItem(engineItem, engineName);
 
 	QString portString = QString::number(port);
@@ -83,7 +83,7 @@ void CFGCustomServers::add(const QString &engineName, const QString &host,
 	record.append(new QStandardItem(host));
 	record.append(new QStandardItem(portString));
 
-	QStandardItem *enabledItem = new QStandardItem();
+	auto enabledItem = new QStandardItem();
 	enabledItem->setCheckState(enabled ? Qt::Checked : Qt::Unchecked);
 	enabledItem->setCheckable(true);
 	enabledItem->setToolTip(tr("Toggle enabled state"));

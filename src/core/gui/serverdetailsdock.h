@@ -35,13 +35,13 @@ class ServerDetailsDock : public QDockWidget
 
 public:
 	ServerDetailsDock(QWidget *parent);
-	~ServerDetailsDock();
+	~ServerDetailsDock() override;
 
 public slots:
 	void displaySelection(QList<ServerPtr> &);
 
 protected:
-	void resizeEvent(QResizeEvent *event);
+	void resizeEvent(QResizeEvent *event) override;
 
 private:
 	void clear();

@@ -236,7 +236,7 @@ void DockBuddiesList::scan(const MasterManager *master)
 			{
 			case BLCID_ID:
 			{
-				QStandardItem *item = new QStandardItem();
+				auto item = new QStandardItem();
 				item->setData(i);
 				columns << item;
 				break;

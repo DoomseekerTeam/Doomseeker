@@ -37,13 +37,13 @@ class UnTar : public UnArchive
 
 public:
 	UnTar(QIODevice *device);
-	~UnTar();
+	~UnTar() override;
 
-	bool extract(int file, const QString &where);
-	QString fileNameFromIndex(int file);
-	int findFileEntry(const QString &entryName);
-	QStringList files();
-	bool isValid() { return valid; }
+	bool extract(int file, const QString &where) override;
+	QString fileNameFromIndex(int file) override;
+	int findFileEntry(const QString &entryName) override;
+	QStringList files() override;
+	bool isValid() override { return valid; }
 
 protected:
 	class TarFile

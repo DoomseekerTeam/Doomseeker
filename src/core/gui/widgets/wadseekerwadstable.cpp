@@ -56,7 +56,7 @@ void WadseekerWadsTable::addFile(const QString &filename)
 		// Create the row contents.
 		setSortingEnabled(false);
 
-		QProgressBar *pBar = new QProgressBar();
+		auto pBar = new QProgressBar();
 		pBar->setAlignment(Qt::AlignCenter);
 
 		setItem(rowIndex, IDX_NAME_COLUMN, new QTableWidgetItem(filename));
@@ -66,7 +66,7 @@ void WadseekerWadsTable::addFile(const QString &filename)
 		setItem(rowIndex, IDX_ETA_COLUMN, new QTableWidgetItem(tr("N/A")));
 		setItem(rowIndex, IDX_SIZE_COLUMN, new QTableWidgetItem(tr("N/A")));
 
-		SpeedCalculator *pCalculator = new SpeedCalculator();
+		auto pCalculator = new SpeedCalculator();
 		pCalculator->start();
 
 		d.speedCalculators.insert(filename, pCalculator);
@@ -77,7 +77,7 @@ void WadseekerWadsTable::addFile(const QString &filename)
 
 WadseekerWadsTable::ContextMenu *WadseekerWadsTable::contextMenu(const QModelIndex &index, const QPoint &cursorPosition)
 {
-	WadseekerWadsTable::ContextMenu *menu = new ContextMenu(this);
+	auto menu = new ContextMenu(this);
 	QPoint displayPoint = this->viewport()->mapToGlobal(cursorPosition);
 	menu->move(displayPoint);
 
@@ -150,7 +150,7 @@ void WadseekerWadsTable::setFileProgress(const ModFile &filename, qint64 current
 
 	if (row >= 0)
 	{
-		QProgressBar *pBar = (QProgressBar *) this->cellWidget(row, IDX_PROGRESS_COLUMN);
+		auto pBar = (QProgressBar *) this->cellWidget(row, IDX_PROGRESS_COLUMN);
 		pBar->setMaximum(total);
 		pBar->setValue(current);
 
@@ -171,7 +171,7 @@ void WadseekerWadsTable::setFileSuccessful(const ModFile &filename)
 	if (row >= 0)
 	{
 		// Set progress bar to 100%.
-		QProgressBar *pBar = (QProgressBar *) this->cellWidget(row, IDX_PROGRESS_COLUMN);
+		auto pBar = (QProgressBar *) this->cellWidget(row, IDX_PROGRESS_COLUMN);
 		SpeedCalculator *pCalculator = d.speedCalculators[filename.fileName()];
 		if (pCalculator->expectedDataSize() == 0)
 			pCalculator->setExpectedDataSize(1);
@@ -204,7 +204,7 @@ void WadseekerWadsTable::setFileUrl(const ModFile &filename, const QUrl &url)
 		pItem->setText(url.toString());
 		pItem->setToolTip(url.toString());
 
-		QProgressBar *pBar = (QProgressBar *) this->cellWidget(row, IDX_PROGRESS_COLUMN);
+		auto pBar = (QProgressBar *) this->cellWidget(row, IDX_PROGRESS_COLUMN);
 		pBar->setMaximum(0);
 		pBar->setValue(0);
 
@@ -215,6 +215,7 @@ void WadseekerWadsTable::setFileUrl(const ModFile &filename, const QUrl &url)
 
 void WadseekerWadsTable::showEvent(QShowEvent *pEvent)
 {
+	Q_UNUSED(pEvent);
 	if (!d.bAlreadyShownOnce)
 	{
 		// Events in this block must occur after the widget has been
@@ -241,7 +242,7 @@ double WadseekerWadsTable::totalDonePercentage() const
 
 	for (int i = 0; i < this->rowCount(); ++i)
 	{
-		const QProgressBar *pBar = (const QProgressBar *) this->cellWidget(i, IDX_PROGRESS_COLUMN);
+		const auto pBar = (const QProgressBar *) this->cellWidget(i, IDX_PROGRESS_COLUMN);
 		if (pBar != nullptr)
 		{
 			int val = pBar->value();

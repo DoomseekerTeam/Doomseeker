@@ -171,13 +171,14 @@ bool DoomseekerConfig::saveToFile()
 	if (pIni == nullptr)
 		return false;
 
-	// TODO:
-	// Find a way to work around this.
-	//	const QString TOP_COMMENT = QObject::tr("This is %1 configuration file.\n\
-	// //Any modification done manually to this file is on your own risk.").arg(Version::fullVersionInfo());
-	//
-	//	pIni->setIniTopComment(TOP_COMMENT);
+	/*
+	TODO:
+	Find a way to work around this.
+	const QString TOP_COMMENT = QObject::tr("This is %1 configuration file.\n\
+	Any modification done manually to this file is on your own risk.").arg(Version::fullVersionInfo());
 
+	pIni->setIniTopComment(TOP_COMMENT);
+	*/
 	IniSection sectionDoomseeker = pIni->section(doomseeker.SECTION_NAME);
 	doomseeker.save(sectionDoomseeker);
 

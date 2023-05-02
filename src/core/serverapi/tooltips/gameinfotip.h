@@ -34,7 +34,7 @@ class GameInfoTip : public QObject
 
 public:
 	GameInfoTip(const ServerCPtr &server);
-	~GameInfoTip();
+	~GameInfoTip() override;
 
 	QString generateHTML();
 

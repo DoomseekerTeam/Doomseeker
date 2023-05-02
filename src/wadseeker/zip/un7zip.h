@@ -59,16 +59,17 @@ class Un7Zip : public UnArchive
 
 public:
 	Un7Zip(QIODevice *device);
-	~Un7Zip();
+	~Un7Zip() override;
 
-	bool extract(int file, const QString &where);
-	QString fileNameFromIndex(int file);
-	int findFileEntry(const QString &entryName);
-	QStringList files();
-	bool isValid()
+	bool extract(int file, const QString &where) override;
+	QString fileNameFromIndex(int file) override;
+	int findFileEntry(const QString &entryName) override;
+	QStringList files() override;
+	bool isValid() override
 	{
 		return valid;
 	}
+
 
 protected:
 	static void *SzAlloc(void *p, size_t size);

@@ -255,10 +255,12 @@ IRCConfig::GeneralCfg::GeneralCfg()
 
 void IRCConfig::GeneralCfg::load(IniSection &section)
 {
+	Q_UNUSED(section);
 }
 
 void IRCConfig::GeneralCfg::save(IniSection &section)
 {
+	Q_UNUSED(section);
 }
 //////////////////////////////////////////////////////////////////////////////
 const QString IRCConfig::PersonalCfg::SECTION_NAME = "Personal";

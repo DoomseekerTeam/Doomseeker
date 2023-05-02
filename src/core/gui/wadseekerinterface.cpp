@@ -421,6 +421,7 @@ void WadseekerInterface::setupIdgames()
 
 void WadseekerInterface::showEvent(QShowEvent *event)
 {
+	Q_UNUSED(event);
 	if (!bFirstShown)
 	{
 		d->taskbarButton->setWindow(windowHandle());
@@ -489,7 +490,7 @@ void WadseekerInterface::startSeeking(const QList<PWad> &seekedFilesList)
 void WadseekerInterface::updateProgressBar()
 {
 	double totalPercentage = d->twWads->totalDonePercentage();
-	unsigned progressBarValue = (unsigned)(totalPercentage * 100.0);
+	auto progressBarValue = (unsigned)(totalPercentage * 100.0);
 
 	d->pbOverallProgress->setValue(progressBarValue);
 	d->taskbarProgress->setValue(progressBarValue);

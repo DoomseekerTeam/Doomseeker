@@ -41,7 +41,7 @@ void TableWidgetReorderableStyle::drawPrimitive(QStyle::PrimitiveElement element
 {
 	if (element == PE_IndicatorItemViewItemDrop && !option->rect.isNull() && widget)
 	{
-		auto *table = static_cast<const TableWidgetReorderable*>(widget);
+		auto table = static_cast<const TableWidgetReorderable*>(widget);
 		QPoint cursorPos = QCursor::pos();
 		QPoint tablePos = table->mapFromGlobal(cursorPos);
 		tablePos.setX(tablePos.x() - table->verticalHeader()->width());

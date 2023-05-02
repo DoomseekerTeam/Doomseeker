@@ -45,7 +45,7 @@ class FlagsPage : public CreateServerDialogPage, private Ui::FlagsPage
 	friend class Zandronum2::FlagsPageValueController;
 	friend class Zandronum3::FlagsPageValueController;
 
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	/**
@@ -94,11 +94,11 @@ public:
 	static const ZandronumGameInfo::GameVersion DEFAULT_GAME_VERSION = ZandronumGameInfo::GV_Zandronum2;
 
 	FlagsPage(CreateServerDialog *pParentDialog);
-	~FlagsPage();
+	~FlagsPage() override;
 
-	virtual void fillInGameCreateParams(GameCreateParams &params);
-	virtual bool loadConfig(Ini &ini);
-	virtual bool saveConfig(Ini &ini);
+	void fillInGameCreateParams(GameCreateParams &params) override;
+	bool loadConfig(Ini &ini) override;
+	bool saveConfig(Ini &ini) override;
 
 private:
 	class PrivData;

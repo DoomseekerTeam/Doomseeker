@@ -157,7 +157,7 @@ void AutoUpdater::dumpUpdatePackagesToLog(const QList<UpdatePackage> &packages)
 {
 	for (const UpdatePackage &pkg : packages)
 	{
-		gLog << tr("Detected update for package \"%1\" from version \"%2\" to version \"%3\".")
+		gLog << tr(R"(Detected update for package "%1" from version "%2" to version "%3".)")
 			.arg(pkg.displayName, pkg.currentlyInstalledDisplayVersion, pkg.displayVersion);
 	}
 }
@@ -335,7 +335,7 @@ void AutoUpdater::onUpdaterInfoDownloadFinish()
 	}
 	QByteArray json = d->pNetworkReply->readAll();
 	UpdaterInfoParser parser;
-	ErrorCode parseResult = (ErrorCode) parser.parse(json);
+	auto parseResult = (ErrorCode) parser.parse(json);
 	if (parseResult == EC_Ok)
 	{
 		UpdatePackageFilter filter;

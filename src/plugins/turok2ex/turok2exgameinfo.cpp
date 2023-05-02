@@ -37,6 +37,7 @@ QList<GameMode> Turok2ExGameInfo::gameModes()
 
 QList<GameCVar> Turok2ExGameInfo::limits(const GameMode &gameMode)
 {
+	Q_UNUSED(gameMode);
 	QList<GameCVar> limits;
 	limits << GameCVar(tr("Frag limit"), "+sv_fraglimit", 20);
 	limits << GameCVar(tr("Time limit (in seconds)"), "+sv_timelimit", 600);

@@ -63,7 +63,7 @@ public:
 
 DPointered(MasterClient)
 
-POLYMORPHIC_DEFINE_CONST(QString, MasterClient, masterBanHelp, (), ());
+POLYMORPHIC_DEFINE_CONST(QString, MasterClient, masterBanHelp, (), ())
 
 MasterClient::MasterClient()
 {

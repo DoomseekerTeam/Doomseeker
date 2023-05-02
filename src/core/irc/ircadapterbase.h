@@ -52,7 +52,7 @@ public:
 	/**
 	 * @brief Destructor emits terminating() signal.
 	 */
-	virtual ~IRCAdapterBase()
+	virtual ~IRCAdapterBase() override
 	{
 		emit terminating();
 	}

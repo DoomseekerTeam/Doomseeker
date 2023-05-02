@@ -131,7 +131,7 @@ private:
 	/**
 	 * @brief Delete duplicated paths and subdirs of recursive dirs.
 	 */
-	const void removeUnneededPaths() const;
+	void removeUnneededPaths() const;
 	DPtr<PathFinder> d;
 };
 

@@ -59,7 +59,7 @@ class ServerListProxyModel : public QSortFilterProxyModel
 
 public:
 	ServerListProxyModel(ServerList *serverListHandler);
-	~ServerListProxyModel();
+	~ServerListProxyModel() override;
 
 	void addAdditionalColumnSorting(int column, Qt::SortOrder order);
 	const QList<ColumnSort> &additionalSortColumns() const;
@@ -86,13 +86,13 @@ protected:
 	/**
 	 * Overloaded method that will filter out rows basing on pFilterInfo.
 	 */
-	bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const;
+	bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override;
 
 private:
 	DPtr<ServerListProxyModel> d;
 
 	int compareColumnSortData(QVariant &var1, QVariant &var2, int column) const;
-	bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
+	bool lessThan(const QModelIndex &left, const QModelIndex &right) const override;
 
 	ServerPtr serverFromList(const QModelIndex &index) const;
 	ServerPtr serverFromList(int row) const;

@@ -38,25 +38,25 @@ class CFGIRCNetworks : public ConfigPage
 
 public:
 	CFGIRCNetworks(QWidget *parent = nullptr);
-	~CFGIRCNetworks();
+	~CFGIRCNetworks() override;
 
-	QIcon icon() const
+	QIcon icon() const override
 	{
 		return QIcon(":/flags/lan-small");
 	}
-	QString name() const
+	QString name() const override
 	{
 		return tr("Networks");
 	}
 	QVector<IRCNetworkEntity *> networks();
-	void readSettings();
-	QString title() const
+	void readSettings() override;
+	QString title() const override
 	{
 		return tr("IRC - Networks");
 	}
 
 protected:
-	void saveSettings();
+	void saveSettings() override;
 
 private:
 	void addRecord(IRCNetworkEntity *pNetworkEntity);
@@ -81,7 +81,7 @@ private slots:
 	void addButtonClicked();
 	void editButtonClicked();
 	void removeButtonClicked();
-	void tableDoubleClicked(const QModelIndex &index);
+	void tableDoubleClicked();
 };
 
 #endif

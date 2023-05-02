@@ -318,6 +318,7 @@ void EnginePlugin::setConfig(IniSection &ini)
 
 void EnginePlugin::setupConfig(IniSection &config)
 {
+	Q_UNUSED(config);
 }
 
 void EnginePlugin::setGameExeFactory(QSharedPointer<GameExeFactory> factory)

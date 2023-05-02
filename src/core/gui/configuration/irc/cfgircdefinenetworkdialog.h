@@ -38,7 +38,7 @@ class CFGIRCDefineNetworkDialog : public QDialog
 public:
 	CFGIRCDefineNetworkDialog(const IRCNetworkEntity &initValuesEntity, QWidget *parent = nullptr);
 	CFGIRCDefineNetworkDialog(QWidget *parent = nullptr);
-	~CFGIRCDefineNetworkDialog();
+	~CFGIRCDefineNetworkDialog() override;
 
 	IRCNetworkEntity getNetworkEntity() const;
 	/**
@@ -47,7 +47,7 @@ public:
 	void setExistingNetworks(const QList<IRCNetworkEntity> &networks);
 
 public slots:
-	void accept();
+	void accept() override;
 
 private:
 	DPtr<CFGIRCDefineNetworkDialog> d;

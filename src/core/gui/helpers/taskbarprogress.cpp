@@ -63,7 +63,8 @@ TaskbarProgress::TaskbarProgress(QWinTaskbarProgress *progress, QObject *parent)
 	assert(d->isAllowedOsVersion());
 	if (d->isAllowedOsVersion())
 		d->progress = progress;
-
+	#else
+	Q_UNUSED(progress);
 	#endif
 	construct();
 }
@@ -194,7 +195,8 @@ void TaskbarProgress::setMaximum(int maximum)
 	#ifdef WIN_TASKBAR
 	if (d->progress != nullptr)
 		d->progress->setMaximum(maximum);
-
+	#else
+	Q_UNUSED(maximum)
 	#endif
 }
 
@@ -203,7 +205,8 @@ void TaskbarProgress::setMinimum(int minimum)
 	#ifdef WIN_TASKBAR
 	if (d->progress != nullptr)
 		d->progress->setMinimum(minimum);
-
+	#else
+	Q_UNUSED(minimum);
 	#endif
 }
 
@@ -212,7 +215,8 @@ void TaskbarProgress::setPaused(bool paused)
 	#ifdef WIN_TASKBAR
 	if (d->progress != nullptr)
 		d->progress->setPaused(paused);
-
+	#else
+	Q_UNUSED(paused);
 	#endif
 }
 
@@ -221,7 +225,9 @@ void TaskbarProgress::setRange(int minimum, int maximum)
 	#ifdef WIN_TASKBAR
 	if (d->progress != nullptr)
 		d->progress->setRange(minimum, maximum);
-
+	#else
+	Q_UNUSED(minimum);
+	Q_UNUSED(maximum);
 	#endif
 }
 
@@ -230,7 +236,8 @@ void TaskbarProgress::setValue(int value)
 	#ifdef WIN_TASKBAR
 	if (d->progress != nullptr)
 		d->progress->setValue(value);
-
+	#else
+	Q_UNUSED(value);
 	#endif
 }
 
@@ -239,7 +246,8 @@ void TaskbarProgress::setVisible(bool visible)
 	#ifdef WIN_TASKBAR
 	if (d->progress != nullptr)
 		d->progress->setVisible(visible);
-
+	#else
+	Q_UNUSED(visible);
 	#endif
 }
 

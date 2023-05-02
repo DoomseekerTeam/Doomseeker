@@ -342,6 +342,7 @@ GameCVarProvider::~GameCVarProvider()
 
 QList<GameCVar> GameCVarProvider::get(const QVariant &context)
 {
+	Q_UNUSED(context);
 	return QList<GameCVar>();
 }
 
@@ -525,7 +526,7 @@ void PWad::addChecksum(const QByteArray &hash, const QCryptographicHash::Algorit
 	d->checksums.append(Checksum(hash, algorithm));
 }
 
-const bool PWad::validFile(const QString &path) const
+bool PWad::validFile(const QString &path) const
 {
 	for (const Checksum checksum : d->checksums)
 	{

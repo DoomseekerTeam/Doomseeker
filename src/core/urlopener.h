@@ -41,7 +41,7 @@ private:
 	DPtr<UrlOpener> d;
 
 	UrlOpener();
-	~UrlOpener();
+	~UrlOpener() override;
 
 	static UrlOpener *inst;
 

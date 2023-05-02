@@ -87,6 +87,7 @@ void ServerDetailsDock::reorientContentsBasingOnDimensions()
 
 void ServerDetailsDock::resizeEvent(QResizeEvent *event)
 {
+	Q_UNUSED(event);
 	reorientContentsBasingOnDimensions();
 }
 

@@ -37,7 +37,7 @@ class ServerFilterDock : public QDockWidget
 
 public:
 	ServerFilterDock(QWidget *pParent = nullptr);
-	~ServerFilterDock();
+	~ServerFilterDock() override;
 
 	void addGameModeToComboBox(const QString &gameMode);
 

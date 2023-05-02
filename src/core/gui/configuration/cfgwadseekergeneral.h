@@ -33,27 +33,27 @@ class CFGWadseekerGeneral : public ConfigPage
 
 public:
 	CFGWadseekerGeneral(QWidget *parent = nullptr);
-	~CFGWadseekerGeneral();
+	~CFGWadseekerGeneral() override;
 
-	QIcon icon() const
+	QIcon icon() const override
 	{
 		return QIcon(":/icons/preferences-system-4.png");
 	}
-	QString name() const
+	QString name() const override
 	{
 		return tr("General");
 	}
-	QString title() const
+	QString title() const override
 	{
 		return tr("Wadseeker - General");
 	}
-	Validation validate();
+	Validation validate() override;
 
 protected:
 	void fillTargetDirectoryComboBox();
-	void readSettings();
-	void saveSettings();
-	void showEvent(QShowEvent *);
+	void readSettings() override;
+	void saveSettings() override;
+	void showEvent(QShowEvent *) override;
 
 private:
 	DPtr<CFGWadseekerGeneral> d;

@@ -188,7 +188,7 @@ bool Localization::installTranslation(const QString &translationName, const QStr
 
 QTranslator *Localization::loadTranslationFile(const QString &translationName, const QStringList &searchPaths)
 {
-	QTranslator *pTranslator = new QTranslator();
+	auto pTranslator = new QTranslator();
 	bool bLoaded = false;
 	for (const QString &dir : searchPaths)
 	{

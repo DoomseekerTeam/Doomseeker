@@ -48,11 +48,11 @@
  */
 class MAIN_EXPORT IwadAndWadsPickerDialog : public QDialog
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	IwadAndWadsPickerDialog(QWidget *parent);
-	virtual ~IwadAndWadsPickerDialog();
+	virtual ~IwadAndWadsPickerDialog() override;
 
 	QString executable() const;
 	void setExecutables(const QStringList &executables);

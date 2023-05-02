@@ -64,17 +64,17 @@ public:
 	 * @param path absolute path to WAD file.
 	 */
 	WadReader(const QString &path);
-	~WadReader();
+	~WadReader() override;
 	/**
 	 * @brief loads the WAD set in the constructor.
 	 *
 	 * @return true if everything was successful.
 	 */
-	bool load();
+	bool load() override;
 	/**
 	 * @brief returns whether or not this is a IWAD.
 	 */
-	bool isIwad();
+	bool isIwad() override;
 	/**
 	 * @brief Get all the directory of the WAD.
 	 */
@@ -84,7 +84,7 @@ public:
 	 *
 	 * @return QStringList list of maps.
 	 */
-	QStringList getAllMaps();
+	QStringList getAllMaps() override;
 
 private:
 	/**
@@ -113,17 +113,17 @@ public:
 	 * @param path absolute path to the compressed file.
 	 */
 	CompressedReader(const QString &path);
-	~CompressedReader();
+	~CompressedReader() override;
 	/**
 	 * @brief loads the compressed file set in the constructor.
 	 *
 	 * @return true if everything was successful.
 	 */
-	bool load();
+	bool load() override;
 	/**
 	 * @brief returns whether or not this is a IWAD. It will always be false.
 	 */
-	bool isIwad()
+	bool isIwad() override
 	{
 		return false;
 	}
@@ -132,7 +132,7 @@ public:
 	 *
 	 * @return QStringList list of maps.
 	 */
-	QStringList getAllMaps();
+	QStringList getAllMaps() override;
 protected:
 	QStringList getAllMapsRootDir();
 	DPtr<CompressedReader> d;

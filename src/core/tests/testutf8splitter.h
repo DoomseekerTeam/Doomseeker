@@ -31,7 +31,7 @@ public:
 	TestUtf8Splitter()
 		: TestUnitBase("UTF-8 Splitter") {}
 
-	bool executeTest();
+	bool executeTest() override;
 };
 
 

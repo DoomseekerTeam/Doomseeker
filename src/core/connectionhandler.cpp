@@ -152,7 +152,7 @@ void ConnectionHandler::buildJoinCommandLine()
 
 void ConnectionHandler::onCommandLineBuildFinished()
 {
-	JoinCommandLineBuilder *builder = static_cast<JoinCommandLineBuilder *>(sender());
+	auto builder = static_cast<JoinCommandLineBuilder *>(sender());
 	CommandLineInfo builtCli = builder->builtCommandLine();
 	if (builtCli.isValid())
 		runCommandLine(builtCli);
@@ -172,7 +172,7 @@ void ConnectionHandler::runCommandLine(const CommandLineInfo &cli)
 	Message message = AppRunner::runExecutable(cli);
 	if (message.isError())
 	{
-		gLog << tr("Error while launching executable for server \"%1\", game \"%2\": %3")
+		gLog << tr(R"(Error while launching executable for server "%1", game "%2": %3)")
 			.arg(d->server->name()).arg(d->server->engineName()).arg(message.contents());
 		QMessageBox::critical(d->parentWidget, tr("Doomseeker - launch executable"), message.contents());
 	}

@@ -43,11 +43,11 @@ struct MapEntry
  */
 class MapListSelector : public QDialog
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	MapListSelector(QWidget *parent = nullptr);
-	~MapListSelector();
+	~MapListSelector() override;
 
 	/**
 	 * @brief adds the paths to check for maps. Please note that it will

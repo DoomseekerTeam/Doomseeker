@@ -63,7 +63,7 @@ IRCDelayedOperationIgnore::IRCDelayedOperationIgnore(QWidget *parent,
 	d->parentWidget = parent;
 	this->connect(d->network->responseParser(),
 		SIGNAL(whoIsUser(QString,QString,QString,QString)),
-		SLOT(onWhoIsUser(QString,QString,QString,QString)));
+		SLOT(onWhoIsUser(QString,QString,QString)));
 }
 
 IRCDelayedOperationIgnore::~IRCDelayedOperationIgnore()
@@ -76,7 +76,7 @@ void IRCDelayedOperationIgnore::start()
 }
 
 void IRCDelayedOperationIgnore::onWhoIsUser(const QString &nickname, const QString &user,
-	const QString &hostName, const QString &realName)
+	const QString &hostName)
 {
 	QString ignorePattern = "*!*@" + hostName;
 	if (d->showPatternPopup)

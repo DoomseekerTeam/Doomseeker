@@ -33,10 +33,10 @@ NetworkReplyTimeouter::NetworkReplyTimeouter(QNetworkReply *pReply)
 
 	this->connect(pReply,
 		SIGNAL(downloadProgress(qint64,qint64)),
-		SLOT(progressRegistered(qint64,qint64)));
+		SLOT(progressRegistered()));
 	this->connect(pReply,
 		SIGNAL(uploadProgress(qint64,qint64)),
-		SLOT(progressRegistered(qint64,qint64)));
+		SLOT(progressRegistered()));
 
 
 	// This little monster here allows us to emit custom generated
@@ -65,7 +65,7 @@ void NetworkReplyTimeouter::finishedSlot()
 	stopTimerIfNotNull(pProgressTimeoutTimer);
 }
 
-void NetworkReplyTimeouter::progressRegistered(qint64 bytesSent, qint64 bytesTotal)
+void NetworkReplyTimeouter::progressRegistered()
 {
 	bIsProgressing = true;
 	stopTimerIfNotNull(pConnectionTimeoutTimer);

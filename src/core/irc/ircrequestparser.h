@@ -67,7 +67,7 @@ public:
 	};
 
 	IRCRequestParser();
-	~IRCRequestParser();
+	~IRCRequestParser() override;
 
 	const QString &output() const;
 

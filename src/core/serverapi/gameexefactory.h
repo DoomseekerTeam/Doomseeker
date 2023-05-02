@@ -56,7 +56,7 @@ class MAIN_EXPORT GameExeFactory : public QObject
 
 public:
 	GameExeFactory(EnginePlugin *plugin);
-	virtual ~GameExeFactory();
+	virtual ~GameExeFactory() override;
 
 	/**
 	 * @brief @b [Virtual] Additional paths to any executable that matches
@@ -96,10 +96,10 @@ public:
 	EnginePlugin *plugin() const;
 
 protected:
-	POLYMORPHIC_SETTER_DECLARE_CONST(GameFileList, GameExeFactory, gameFiles, ());
+	POLYMORPHIC_SETTER_DECLARE_CONST(GameFileList, GameExeFactory, gameFiles, ())
 	GameFileList gameFiles_default() const;
 
-	POLYMORPHIC_SETTER_DECLARE_CONST(QList<ExeFilePath>, GameExeFactory, additionalExecutables, (int));
+	POLYMORPHIC_SETTER_DECLARE_CONST(QList<ExeFilePath>, GameExeFactory, additionalExecutables, (int))
 	QList<ExeFilePath> additionalExecutables_default(int execType) const;
 
 	/**

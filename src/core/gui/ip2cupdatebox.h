@@ -33,7 +33,7 @@ class IP2CUpdateBox : public QDialog
 
 public:
 	IP2CUpdateBox(QWidget *parent = nullptr);
-	~IP2CUpdateBox();
+	~IP2CUpdateBox() override;
 
 private:
 	DPtr<IP2CUpdateBox> d;

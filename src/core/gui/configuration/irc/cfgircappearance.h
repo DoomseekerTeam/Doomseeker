@@ -33,24 +33,24 @@ class CFGIRCAppearance : public ConfigPage
 
 public:
 	CFGIRCAppearance(QWidget *parent = nullptr);
-	~CFGIRCAppearance();
+	~CFGIRCAppearance() override;
 
-	QIcon icon() const
+	QIcon icon() const override
 	{
 		return QIcon(":/icons/color-fill.png");
 	}
-	QString name() const
+	QString name() const override
 	{
 		return tr("Appearance");
 	}
-	void readSettings();
-	QString title() const
+	void readSettings() override;
+	QString title() const override
 	{
 		return tr("IRC - Appearance");
 	}
 
 protected:
-	void saveSettings();
+	void saveSettings() override;
 
 private:
 	DPtr<CFGIRCAppearance> d;

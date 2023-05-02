@@ -30,11 +30,11 @@ class ModSet;
 
 class FreedoomQuery : public QObject
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
-	FreedoomQuery(QObject *parent = 0);
-	~FreedoomQuery();
+	FreedoomQuery(QObject *parent = nullptr);
+	~FreedoomQuery() override;
 
 	const QString &error() const;
 	const ModSet &modSet() const;

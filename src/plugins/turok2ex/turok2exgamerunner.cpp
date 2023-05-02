@@ -42,6 +42,7 @@ void Turok2ExGameClientRunner::addConnectCommand()
 
 void Turok2ExGameClientRunner::addFiles(const QStringList &files)
 {
+	Q_UNUSED(files);
 	QString waddir = "";
 	for (int i = 0; i < server->numWads(); ++i)
 	{

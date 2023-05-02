@@ -38,7 +38,7 @@ QString CommonGUI::askString(const QString &title, const QString &label,
 QList<bool> CommonGUI::listViewStandardItemsToBoolList(QListView *listview)
 {
 	QList<bool> list;
-	QStandardItemModel *model = static_cast<QStandardItemModel *>(
+	auto model = static_cast<QStandardItemModel *>(
 		listview->model());
 	for (int i = 0; i < model->rowCount(); ++i)
 		list << (model->item(i)->checkState() == Qt::Checked);
@@ -49,7 +49,7 @@ QList<bool> CommonGUI::listViewStandardItemsToBoolList(QListView *listview)
 QStringList CommonGUI::listViewStandardItemsToStringList(QListView *listview)
 {
 	QStringList list;
-	QStandardItemModel *model = static_cast<QStandardItemModel *>(
+	auto model = static_cast<QStandardItemModel *>(
 		listview->model());
 	for (int i = 0; i < model->rowCount(); ++i)
 		list << model->item(i)->text();
@@ -82,7 +82,7 @@ void CommonGUI::removeSelectedRowsFromStandardItemView(QAbstractItemView *view,
 	QModelIndexList indexList = selModel->selectedIndexes();
 	selModel->clear();
 
-	QStandardItemModel *model = static_cast<QStandardItemModel *>(view->model());
+	auto model = static_cast<QStandardItemModel *>(view->model());
 	QList<QStandardItem *> itemList;
 	int lowestRemovedRow = 0;
 	for (int i = 0; i < indexList.count(); ++i)
@@ -118,13 +118,13 @@ void CommonGUI::removeSelectedRowsFromStandardItemView(QAbstractItemView *view,
 void CommonGUI::stringListToStandardItemsListView(QListView *targetListview,
 	const QStringList &stringList)
 {
-	QStandardItemModel *model = static_cast<QStandardItemModel *>(
+	auto model = static_cast<QStandardItemModel *>(
 		targetListview->model());
 	model->removeRows(0, model->rowCount());
 
 	for (const QString &str : stringList)
 	{
-		QStandardItem *pItem = new QStandardItem();
+		auto pItem = new QStandardItem();
 		pItem->setText(str);
 		model->appendRow(pItem);
 	}

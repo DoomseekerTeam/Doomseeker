@@ -35,25 +35,25 @@ class CfgChatLogsPage : public ConfigPage
 
 public:
 	CfgChatLogsPage(QWidget *parent);
-	~CfgChatLogsPage();
+	~CfgChatLogsPage() override;
 
-	QIcon icon() const
+	QIcon icon() const override
 	{
 		return QIcon(":/icons/log.png");
 	}
-	QString name() const
+	QString name() const override
 	{
 		return tr("Logging");
 	}
-	void readSettings();
-	QString title() const
+	void readSettings() override;
+	QString title() const override
 	{
 		return tr("IRC - Logging");
 	}
-	Validation validate();
+	Validation validate() override;
 
 protected:
-	void saveSettings();
+	void saveSettings() override;
 
 private:
 	DPtr<CfgChatLogsPage> d;

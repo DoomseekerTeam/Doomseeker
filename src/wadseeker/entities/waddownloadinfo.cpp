@@ -165,7 +165,7 @@ const QList<Checksum> &WadDownloadInfo::checksums() const
 	return d->checksums;
 }
 
-const bool WadDownloadInfo::validFile(const QString &path) const
+bool WadDownloadInfo::validFile(const QString &path) const
 {
 	for (const Checksum checksum : d->checksums)
 	{

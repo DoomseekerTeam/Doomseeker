@@ -550,8 +550,6 @@ void FlagsPageValueController::convertToNumericalPlayers()
 ////////////////////////////////////////////////////////////////////////////////
 void FlagsPageValueController::convertToNumericalCooperative()
 {
-	FlagsPage *f = flagsPage;
-
 	// Placeholder method for future use.
 }
 
@@ -644,8 +642,6 @@ void FlagsPageValueController::convertToWidgetPlayers()
 ////////////////////////////////////////////////////////////////////////////////
 void FlagsPageValueController::convertToWidgetCooperative()
 {
-	FlagsPage *f = flagsPage;
-
 	// Placeholder method for future use.
 }
 ////////////////////////////////////////////////////////////////////////////////

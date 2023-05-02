@@ -58,7 +58,7 @@ public:
 	unsigned int scanPos;
 };
 
-DPointered(Scanner::ParserState);
+DPointered(Scanner::ParserState)
 DPointered(Scanner)
 
 void (*Scanner::messageHandler)(MessageLevel, const char *, va_list) = nullptr;
@@ -547,6 +547,7 @@ bool Scanner::nextToken(bool autoExpandState)
 					}
 					break;
 				}
+				[[gnu::fallthrough]];
 			case TK_FloatConst:
 				if (cur < '0' || cur > '9')
 				{
@@ -646,17 +647,17 @@ bool Scanner::nextToken(bool autoExpandState)
 	return false;
 }
 
-void Scanner::mustGetToken(char token)
+void Scanner::mustGetToken(unsigned char token)
 {
 	if (!checkToken(token))
 	{
 		expandState();
 		if (token < TK_NumSpecialTokens && d->state.token() < TK_NumSpecialTokens)
-			scriptMessage(Scanner::ML_ERROR, "Expected '%s' but got '%s' instead.", TokenNames[token], TokenNames[d->state.token()]);
+			scriptMessage(Scanner::ML_ERROR, "Expected '%s' but got '%s' instead.", TokenNames[token], TokenNames[static_cast<unsigned>(d->state.token())]);
 		else if (token < TK_NumSpecialTokens && d->state.token() >= TK_NumSpecialTokens)
 			scriptMessage(Scanner::ML_ERROR, "Expected '%s' but got '%c' instead.", TokenNames[token], d->state.token());
 		else if (token >= TK_NumSpecialTokens && d->state.token() < TK_NumSpecialTokens)
-			scriptMessage(Scanner::ML_ERROR, "Expected '%c' but got '%s' instead.", token, TokenNames[d->state.token()]);
+			scriptMessage(Scanner::ML_ERROR, "Expected '%c' but got '%s' instead.", token, TokenNames[static_cast<unsigned>(d->state.token())]);
 		else
 			scriptMessage(Scanner::ML_ERROR, "Expected '%c' but got '%c' instead.", token, d->state.token());
 	}

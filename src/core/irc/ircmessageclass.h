@@ -79,6 +79,12 @@ public:
 		return this->className != className;
 	}
 
+	IRCMessageClass &operator=(const IRCMessageClass &other)
+	{
+		className = other.className;
+		return *this;
+	}
+
 	operator ClassName() const
 	{
 		return this->className;

@@ -41,7 +41,7 @@ class GeneralGameSetupPanel : public QWidget
 
 public:
 	GeneralGameSetupPanel(QWidget *parent);
-	~GeneralGameSetupPanel();
+	~GeneralGameSetupPanel() override;
 
 	GameMode currentGameMode() const;
 	EnginePlugin *currentPlugin() const;
@@ -63,7 +63,7 @@ signals:
 	void pluginChanged(EnginePlugin *plugin);
 
 protected:
-	void showEvent(QShowEvent *event);
+	void showEvent(QShowEvent *event) override;
 
 private:
 	DPtr<GeneralGameSetupPanel> d;
