@@ -46,7 +46,7 @@
 #include <QDataStream>
 #include <QDateTime>
 #include <QFileInfo>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <utility>
 
 #define SERVER_CHALLENGE    0xC7, 0x00, 0x00, 0x00
@@ -68,15 +68,14 @@
  */
 ZandronumVersion::ZandronumVersion(QString version) : version(version)
 {
-	versionExpression.exactMatch(version);
-	QStringList parts = versionExpression.capturedTexts();
-	major = parts[1].toUShort();
-	minor = parts[2].toUShort();
-	revision = parts[3].toUShort();
-	build = parts[4].toUShort();
-	tag = parts[5];
-	hgRevisionDate = parts[6].toUInt();
-	hgRevisionTime = parts[7].toUShort();
+	auto match = versionExpression.match(version);
+	major = match.captured(1).toUShort();
+	minor = match.captured(2).toUShort();
+	revision = match.captured(3).toUShort();
+	build = match.captured(4).toUShort();
+	tag = match.captured(5);
+	hgRevisionDate = match.captured(6).toUInt();
+	hgRevisionTime = match.captured(7).toUShort();
 }
 
 bool ZandronumVersion::operator> (const ZandronumVersion &other) const
@@ -95,7 +94,7 @@ bool ZandronumVersion::operator> (const ZandronumVersion &other) const
 	return false;
 }
 
-const QRegExp ZandronumVersion::versionExpression(R"((\d+).(\d+)(?:.(\d+)(?:.(\d+))?)?(?:-([a-zA-Z]*)?)?(?:-r(\d+)(?:-(\d+))?)?)");
+const QRegularExpression ZandronumVersion::versionExpression(R"(^(\d+).(\d+)(?:.(\d+)(?:.(\d+))?)?(?:-([a-zA-Z]*)?)?(?:-r(\d+)(?:-(\d+))?)?$)");
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -610,7 +609,7 @@ Server::Response ZandronumServer::readRequest(const QByteArray &data)
 	//Extended flags
 	if ((flags & SQF_EXTENDED_INFO) == SQF_EXTENDED_INFO)
 	{
-		RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
+		RETURN_BAD_IF_NOT_ENOUGH_DATA(4);
 		quint32 flags2 = in.readQInt32();
 
 		if ((flags2 & SQF2_PWAD_HASHES) == SQF2_PWAD_HASHES)
@@ -620,10 +619,16 @@ Server::Response ZandronumServer::readRequest(const QByteArray &data)
 
 			RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
 			unsigned int numHashes = in.readQInt8();
-			RETURN_BAD_IF_NOT_ENOUGH_DATA(numHashes);
+
+			if (numHashes > pwads.length())
+			{
+				return RESPONSE_BAD;
+			}
 
 			for (unsigned int index = 0; index < numHashes; index++)
 			{
+				RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
+
 				PWad pwad(pwads[index].name(),
 					pwads[index].isOptional());
 				pwad.addChecksum(QByteArray::fromHex(in.readRawUntilByte('\0')),
@@ -631,6 +636,13 @@ Server::Response ZandronumServer::readRequest(const QByteArray &data)
 				pwads.replace(index, pwad);
 			}
 			resetPwadsList(pwads);
+		}
+
+		if ((flags2 & SQF2_COUNTRY) == SQF2_COUNTRY)
+		{
+			RETURN_BAD_IF_NOT_ENOUGH_DATA(3);
+			QByteArray countryCode = in.readRaw(3);
+			setCountry(QString::fromLatin1(countryCode));
 		}
 	}
 	return RESPONSE_GOOD;

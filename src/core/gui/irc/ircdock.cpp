@@ -20,6 +20,7 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2010 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
+#include "gui/commongui.h"
 #include "gui/irc/ircdocktabcontents.h"
 #include "gui/irc/ircnetworkselectionbox.h"
 #include "gui/irc/ircsounds.h"
@@ -172,7 +173,7 @@ void IRCDock::setupToolbar()
 	pToolBar->addAction(d->toolBarConnect);
 	pToolBar->addAction(d->toolBarOpenChatWindow);
 
-	d->horizontalLayout->insertWidget(0, pToolBar);
+	d->toolBarLayout->addWidget(pToolBar);
 	connect(pToolBar, SIGNAL(actionTriggered(QAction*)), this, SLOT(toolBarAction(QAction*)));
 }
 
@@ -257,7 +258,7 @@ void IRCDock::toolBarAction(QAction *pAction)
 			QMessageBox::warning(nullptr, tr("Doomseeker IRC - Open chat window"), tr("You are not connected to this network."));
 		else
 		{
-			QString recipientName = QInputDialog::getText(nullptr, tr("Open chat window"), tr("Specify a channel or user name:"));
+			QString recipientName = CommonGUI::getText(nullptr, tr("Open chat window"), tr("Specify a channel or user name:"));
 			if (!recipientName.isEmpty())
 				pNetwork->openNewAdapter(recipientName);
 		}

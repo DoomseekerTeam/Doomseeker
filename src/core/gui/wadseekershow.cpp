@@ -60,8 +60,8 @@ bool WadseekerShow::checkWadseekerValidity(QWidget *parent)
 	if (targetDirPath.isEmpty() || !targetDir.exists() || !targetDirFileInfo.isWritable())
 	{
 		QString error = tr("Wadseeker will not work correctly:\n\n"
-			"Target directory is either not set, is invalid or cannot be written to.\n\n"
-			"Please review your Configuration and/or refer to online help available from "
+			"The target directory is either not configured, is invalid or cannot be written to.\n\n"
+			"Please review your Configuration and/or refer to the online help available from "
 			"the Help menu.");
 		QMessageBox::warning(parent, tr("Wadseeker cannot be launched"),
 			error, QMessageBox::Ok);

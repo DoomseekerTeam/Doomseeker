@@ -67,9 +67,6 @@ public:
 		 */
 		EnginePlugin *info() const;
 
-		#ifdef Q_OS_WIN32
-		static QString getDllWindowsErrorMessage();
-		#endif
 	private:
 		DPtr<Plugin> d;
 

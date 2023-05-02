@@ -130,51 +130,7 @@ QList<GameCVar> ZandronumEnginePlugin::gameModifiers() const
 
 QList<GameCVar> ZandronumEnginePlugin::limits(const GameMode &gm) const
 {
-	QList<GameCVar> gl;
-
-	int m = gm.index();
-
-	if (m != GameMode::SGM_Cooperative
-		&& m != ZandronumGameInfo::GAMEMODE_INVASION
-		&& m != ZandronumGameInfo::GAMEMODE_SURVIVAL)
-	{
-		gl << GameCVar(QObject::tr("Time limit:"), "+timelimit");
-	}
-
-	if (m == GameMode::SGM_Deathmatch
-		|| m == ZandronumGameInfo::GAMEMODE_DUEL
-		|| m == GameMode::SGM_TeamDeathmatch
-		|| m == ZandronumGameInfo::GAMEMODE_TERMINATOR)
-	{
-		gl << GameCVar(QObject::tr("Frag limit:"), "+fraglimit");
-	}
-
-	if (m == GameMode::SGM_CTF
-		|| m == ZandronumGameInfo::GAMEMODE_DOMINATION
-		|| m == ZandronumGameInfo::GAMEMODE_ONEFLAGCTF
-		|| m == ZandronumGameInfo::GAMEMODE_POSSESSION
-		|| m == ZandronumGameInfo::GAMEMODE_SKULLTAG
-		|| m == ZandronumGameInfo::GAMEMODE_TEAMGAME
-		|| m == ZandronumGameInfo::GAMEMODE_TEAMPOSSESSION)
-	{
-		gl << GameCVar(QObject::tr("Point limit:"), "+pointlimit");
-	}
-
-	if (m == ZandronumGameInfo::GAMEMODE_DUEL
-		|| m == ZandronumGameInfo::GAMEMODE_LASTMANSTANDING
-		|| m == ZandronumGameInfo::GAMEMODE_TEAMLMS)
-	{
-		gl << GameCVar(QObject::tr("Win limit:"), "+winlimit");
-	}
-
-	if (m == ZandronumGameInfo::GAMEMODE_DUEL)
-	{
-		gl << GameCVar(QObject::tr("Duel limit:"), "+duellimit");
-	}
-
-	gl << GameCVar(QObject::tr("Max. lives:"), "+sv_maxlives");
-
-	return gl;
+	return ZandronumGameInfo::extraSettings(gm);
 }
 
 ServerPtr ZandronumEnginePlugin::mkServer(const QHostAddress &address, unsigned short port) const

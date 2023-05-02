@@ -125,8 +125,8 @@ QList<GameCVar> Srb2GameInfo::limits(const GameMode &gameMode)
 	case GameMode::SGM_CTF:
 		if (gameMode.index() == GameMode::SGM_CTF)
 			limits << GameCVar(tr("Team difference autobalance"), "+autobalance", 0);
-		limits << GameCVar(tr("Point limit"), "+pointlimit");
-		limits << GameCVar(tr("Time limit"), "+timelimit");
+		limits << GameCVar(tr("Point limit"), "+pointlimit", 0);
+		limits << GameCVar(tr("Time limit"), "+timelimit", 0);
 		break;
 	}
 	if (gameMode.index() == GameMode::SGM_CTF)

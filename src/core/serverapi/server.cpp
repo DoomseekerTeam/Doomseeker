@@ -37,7 +37,6 @@
 #include "strings.hpp"
 #include <cassert>
 #include <QElapsedTimer>
-#include <QTime>
 #include <QUdpSocket>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -69,6 +68,7 @@ public:
 	bool bPingIsSet;
 
 	bool bSecure;
+	QString country;
 	GameMode gameMode;
 	unsigned int ping;
 	bool custom;
@@ -85,7 +85,7 @@ public:
 	unsigned short maxPlayers;
 	QString motd;
 	QString name;
-	QTime pingClock;
+	QElapsedTimer pingClock;
 	PlayersList players;
 	bool randomMapRotation;
 	Server::Response response;
@@ -98,7 +98,7 @@ public:
 	QString version;
 	QList<PWad> wads;
 	QString webSite;
-
+	QStringList additionalWebSites;
 	/**
 	 * This is used to make
 	 * sure that refresh isn't run on
@@ -262,6 +262,11 @@ ExeFile *Server::clientExe()
 	f->setExeTypeName(tr("client"));
 	f->setConfigKey("BinaryPath");
 	return f;
+}
+
+const QString &Server::country() const
+{
+	return d->country;
 }
 
 QString Server::customDetails_default()
@@ -558,6 +563,11 @@ bool Server::sendRefreshQuery(QUdpSocket *socket)
 	return true;
 }
 
+void Server::setCountry(const QString &country)
+{
+	d->country = country.trimmed().toUpper();
+}
+
 void Server::setCustom(bool custom)
 {
 	d->custom = custom;
@@ -720,6 +730,11 @@ void Server::setWebSite(const QString &webSite)
 	d->webSite = webSite;
 }
 
+void Server::setAdditionalWebSites(const QStringList &list)
+{
+	d->additionalWebSites = list;
+}
+
 QRgb Server::teamColor(int team) const
 {
 	switch (team)
@@ -806,6 +821,18 @@ const QList<PWad> &Server::wads() const
 const QString &Server::webSite() const
 {
 	return d->webSite;
+}
+
+const QStringList &Server::additionalWebSites() const
+{
+	return d->additionalWebSites;
+}
+
+QStringList Server::allWebSites() const
+{
+	QStringList sites = additionalWebSites();
+	sites.prepend(webSite());
+	return sites;
 }
 
 bool Server::isLan() const

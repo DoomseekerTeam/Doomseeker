@@ -44,7 +44,7 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 
 	// Compat flags
 	{
-		QMap<unsigned, QAbstractButton *> &m = compatflagsCheckboxes;
+		QMap<int32_t, QAbstractButton *> &m = compatflagsCheckboxes;
 
 		// Compatibility
 		// - Oldschool
@@ -119,15 +119,16 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 
 	// Compatflags2
 	{
-		QMap<unsigned, QAbstractButton *> &m = compatflags2Checkboxes;
+		QMap<int32_t, QAbstractButton *> &m = compatflags2Checkboxes;
 
 		m.insert(Dmflags::COMPATF2_BADANGLES, f->cbCompatBadAngles);
 		m.insert(Dmflags::COMPATF2_FLOORMOVE, f->cbCompatFloorMove);
+		m.insert(Dmflags::COMPATF2_PUSHWINDOW, f->cbCompatPushWindow);
 	}
 
 	// Zandronum compatflags
 	{
-		QMap<unsigned, QAbstractButton *> &m = zandronumCompatflagsCheckboxes;
+		QMap<int32_t, QAbstractButton *> &m = zandronumCompatflagsCheckboxes;
 
 		// Players
 		m.insert(Dmflags::ZACOMPATF_DISABLETAUNTS,
@@ -176,11 +177,17 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 			f->cbCompatUseVanillaAutoaimTracerBehavior);
 		m.insert(Dmflags::ZACOMPATF_SILENT_WEST_SPAWNS,
 			f->cbCompatWestSpawnsAreSilent);
+		m.insert(Dmflags::ZACOMPATF_SKULLTAG_JUMPING,
+			f->cbCompatSkulltagJumping);
+		m.insert(Dmflags::ZACOMPATF_RESET_GLOBALVARS_ON_MAPRESET,
+			f->cbCompatResetWorldAcsVarsOnMapReset);
+		m.insert(Dmflags::ZACOMPATF_NO_OBITUARIES,
+			f->cbCompatNoObituaries);
 	}
 
 	// DMFlags
 	{
-		QMap<unsigned, QAbstractButton *> &m = dmflagsCheckboxes;
+		QMap<int32_t, QAbstractButton *> &m = dmflagsCheckboxes;
 
 		// General
 		m.insert(Dmflags::DF_NO_MONSTERS,
@@ -241,7 +248,7 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 
 	// DMFlags 2
 	{
-		QMap<unsigned, QAbstractButton *> &m = dmflags2Checkboxes;
+		QMap<int32_t, QAbstractButton *> &m = dmflags2Checkboxes;
 
 		// General
 		m.insert(Dmflags::DF2_BARRELS_RESPAWN,
@@ -314,11 +321,13 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 
 	// Zandronum DMFlags
 	{
-		QMap<unsigned, QAbstractButton *> &m = zandronumDmflagsCheckboxes;
+		QMap<int32_t, QAbstractButton *> &m = zandronumDmflagsCheckboxes;
 
 		// General
 		m.insert(Dmflags::ZADF_NOUNLAGGED,
 			f->cbNoUnlagged);
+		m.insert(Dmflags::ZADF_NOUNLAGGED_BFG_TRACERS,
+			f->cbNoUnlaggedBfgTracers);
 		m.insert(Dmflags::ZADF_ALWAYS_APPLY_LMS_SPECTATORSETTINGS,
 			f->cbAlwaysApplyLMSSpectatorSettings);
 		m.insert(Dmflags::ZADF_NO_MEDALS,
@@ -338,18 +347,20 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 		m.insert(Dmflags::ZADF_MAX_BLOOD_SCALAR,
 			f->cbNoMaxBloodScalar);
 		m.insert(Dmflags::ZADF_NODROP, f->cbNoItemDrop);
+		m.insert(Dmflags::ZADF_NODOORCLOSE, f->cbNoClosingDoors);
 		// - Behavior
-		m.insert(Dmflags::ZADF_UNBLOCK_PLAYERS,
-			f->rbPlayersCanWalkThroughEachOther);
-		m.insert(Dmflags::ZADF_UNBLOCK_ALLIES,
-			f->rbAlliesCanWalkThroughEachOther);
-
 		m.insert(Dmflags::ZADF_NO_ROCKET_JUMPING,
 			f->cbNoRocketJump);
-		m.insert(Dmflags::ZADF_FORCE_GL_DEFAULTS,
-			f->cbNoUseCustomGLLightingSettings);
+		m.insert(Dmflags::ZADF_FORCE_VIDEO_DEFAULTS,
+			f->cbNoUseCustomRendererSettings);
 		m.insert(Dmflags::ZADF_FORCE_ALPHA,
 			f->cbNoTurnOffTranslucency);
+		m.insert(Dmflags::ZADF_FORCE_SOFTWARE_PITCH_LIMITS,
+			f->cbLimitVerticalLook);
+		m.insert(Dmflags::ZADF_SHOOT_THROUGH_ALLIES,
+			f->cbShootThroughAllies);
+		m.insert(Dmflags::ZADF_DONT_PUSH_ALLIES,
+			f->cbDontPushAllies);
 
 		// Cooperative
 		m.insert(Dmflags::ZADF_SHARE_KEYS,
@@ -362,7 +373,7 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 
 	// LMSAllowedWeapons
 	{
-		QMap<unsigned, QAbstractButton *> &m = lmsAllowedWeaponsCheckboxes;
+		QMap<int32_t, QAbstractButton *> &m = lmsAllowedWeaponsCheckboxes;
 
 		m.insert(ZandronumGameInfo::LMSAW_Chainsaw,
 			f->cbLMSChainsaw);
@@ -388,7 +399,7 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 
 	// LMSSpectatorSettings
 	{
-		QMap<unsigned, QAbstractButton *> &m = lmsSpectatorSettingsCheckboxes;
+		QMap<int32_t, QAbstractButton *> &m = lmsSpectatorSettingsCheckboxes;
 
 		m.insert(ZandronumGameInfo::LMSSS_TalkToActivePlayers,
 			f->cbLMSSpectatorsCanTalkToActivePlayers);
@@ -448,10 +459,10 @@ void FlagsPageValueController::convertWidgetsToNumerical()
 }
 
 void FlagsPageValueController::convertCheckboxesToNumerical(
-	const QMap<unsigned, QAbstractButton *> &checkboxMap,
-	unsigned &flagsValue)
+	const QMap<int32_t, QAbstractButton *> &checkboxMap,
+	int32_t &flagsValue)
 {
-	for (unsigned flag : checkboxMap.keys())
+	for (int32_t flag : checkboxMap.keys())
 	{
 		if (checkboxMap[flag]->isChecked())
 		{
@@ -468,10 +479,10 @@ void FlagsPageValueController::convertCheckboxesToNumerical(
 }
 
 void FlagsPageValueController::convertNumericalToCheckboxes(
-	QMap<unsigned, QAbstractButton *> &checkboxMap,
-	unsigned flagsValue)
+	QMap<int32_t, QAbstractButton *> &checkboxMap,
+	int32_t flagsValue)
 {
-	for (unsigned flag : checkboxMap.keys())
+	for (int32_t flag : checkboxMap.keys())
 	{
 		checkboxMap[flag]->setChecked(flagsValue & flag);
 	}
@@ -544,6 +555,22 @@ void FlagsPageValueController::convertToNumericalPlayers()
 		break;
 	case FlagsPage::JCA_No:
 		dmflags |= Dmflags::DF_NO_CROUCH;
+		break;
+	}
+
+	// Reset the value.
+	zandronumDmflags &= ~(Dmflags::ZADF_UNBLOCK_PLAYERS
+		| Dmflags::ZADF_UNBLOCK_ALLIES);
+	switch (f->cboPlayerBlock->currentData().toInt()) {
+	case FlagsPage::PB_Noclip:
+		zandronumDmflags |= Dmflags::ZADF_UNBLOCK_PLAYERS;
+		break;
+	case FlagsPage::PB_AllyNoclip:
+		zandronumDmflags |= Dmflags::ZADF_UNBLOCK_ALLIES;
+		break;
+	case FlagsPage::PB_Block:
+	default:
+		// pass
 		break;
 	}
 }
@@ -633,10 +660,20 @@ void FlagsPageValueController::convertToWidgetPlayers()
 		f->cboCrouching->setCurrentIndex(FlagsPage::JCA_Default);
 	}
 
-	if ((zandronumDmflags & Dmflags::ZADF_UNBLOCK_PLAYERS) == 0 &&
-		(zandronumDmflags & Dmflags::ZADF_UNBLOCK_ALLIES) == 0)
+	if (zandronumDmflags & Dmflags::ZADF_UNBLOCK_PLAYERS)
 	{
-		f->rbPlayersBlockEachOtherNormally->setChecked(true);
+		f->cboPlayerBlock->setCurrentIndex(
+			f->cboPlayerBlock->findData(FlagsPage::PB_Noclip));
+	}
+	else if (zandronumDmflags & Dmflags::ZADF_UNBLOCK_ALLIES)
+	{
+		f->cboPlayerBlock->setCurrentIndex(
+			f->cboPlayerBlock->findData(FlagsPage::PB_AllyNoclip));
+	}
+	else
+	{
+		f->cboPlayerBlock->setCurrentIndex(
+			f->cboPlayerBlock->findData(FlagsPage::PB_Block));
 	}
 }
 ////////////////////////////////////////////////////////////////////////////////
@@ -667,14 +704,14 @@ void FlagsPageValueController::convertToWidgetDeathmatch()
 ////////////////////////////////////////////////////////////////////////////////
 void FlagsPageValueController::readFlagsFromTextInputs()
 {
-	dmflags = flagsPage->leDmflags->text().toUInt();
-	dmflags2 = flagsPage->leDmflags2->text().toUInt();
-	zandronumDmflags = flagsPage->leZandronumDmflags->text().toUInt();
-	compatflags = flagsPage->leCompatflags->text().toUInt();
-	compatflags2 = flagsPage->leCompatflags2->text().toUInt();
-	zandronumCompatflags = flagsPage->leZandronumCompatflags->text().toUInt();
-	lmsAllowedWeapons = flagsPage->leLMSAllowedWeapons->text().toUInt();
-	lmsSpectatorSettings = flagsPage->leLMSSpectatorSettings->text().toUInt();
+	dmflags = flagsPage->leDmflags->text().toInt();
+	dmflags2 = flagsPage->leDmflags2->text().toInt();
+	zandronumDmflags = flagsPage->leZandronumDmflags->text().toInt();
+	compatflags = flagsPage->leCompatflags->text().toInt();
+	compatflags2 = flagsPage->leCompatflags2->text().toInt();
+	zandronumCompatflags = flagsPage->leZandronumCompatflags->text().toInt();
+	lmsAllowedWeapons = flagsPage->leLMSAllowedWeapons->text().toInt();
+	lmsSpectatorSettings = flagsPage->leLMSSpectatorSettings->text().toInt();
 }
 
 void FlagsPageValueController::setVisible(bool visible)
@@ -685,6 +722,17 @@ void FlagsPageValueController::setVisible(bool visible)
 	flagsPage->cbNoItemDrop->setVisible(visible);
 	flagsPage->cbSurvivalNoMapResetOnDeath->setVisible(visible);
 	flagsPage->cbDeadPlayersCanKeepInventory->setVisible(visible);
+	flagsPage->cboPrivateChat->setVisible(visible);
+	flagsPage->cbNoUnlaggedBfgTracers->setVisible(visible);
+	flagsPage->cbNoClosingDoors->setVisible(visible);
+	flagsPage->cbLimitVerticalLook->setVisible(visible);
+	flagsPage->cbShootThroughAllies->setVisible(visible);
+	flagsPage->cbDontPushAllies->setVisible(visible);
+	flagsPage->cbCompatNoObituaries->setVisible(visible);
+	flagsPage->cbCompatSkulltagJumping->setVisible(visible);
+	flagsPage->cbCompatResetWorldAcsVarsOnMapReset->setVisible(visible);
+	flagsPage->serverCountryPanel->setVisible(visible);
+	flagsPage->respawnDelayPanel->setVisible(visible);
 	for (QWidget *checkbox : compatflags2Checkboxes.values())
 	{
 		checkbox->setVisible(visible);

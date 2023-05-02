@@ -27,6 +27,7 @@
 #include "gui/configuration/cfgautoupdates.h"
 #include "gui/configuration/cfgcustomservers.h"
 #include "gui/configuration/cfgfilepaths.h"
+#include "gui/configuration/cfgip2c.h"
 #include "gui/configuration/cfgquery.h"
 #include "gui/configuration/cfgserverpasswords.h"
 #include "gui/configuration/cfgwadalias.h"
@@ -93,22 +94,11 @@ void DoomseekerConfigurationDialog::appendFilePathsConfigurationBoxes()
 
 void DoomseekerConfigurationDialog::appendWadseekerConfigurationBoxes()
 {
-	QStandardItem *wadseekerRoot = addLabel(nullptr, tr("Wadseeker"));
-	wadseekerRoot->setIcon(QIcon(":/icons/get-wad.png"));
+	QStandardItem *wadseekerRoot = addConfigPage(nullptr, new CFGWadseekerGeneral(this));
 
-	ConfigPage *configPage = nullptr;
-
-	configPage = new CFGWadseekerAppearance(this);
-	addConfigPage(wadseekerRoot, configPage);
-
-	configPage = new CFGWadseekerGeneral(this);
-	addConfigPage(wadseekerRoot, configPage);
-
-	configPage = new CFGWadseekerSites(this);
-	addConfigPage(wadseekerRoot, configPage);
-
-	configPage = new CFGWadseekerIdgames(this);
-	addConfigPage(wadseekerRoot, configPage);
+	addConfigPage(wadseekerRoot, new CFGWadseekerAppearance(this));
+	addConfigPage(wadseekerRoot, new CFGWadseekerSites(this));
+	addConfigPage(wadseekerRoot, new CFGWadseekerIdgames(this));
 }
 
 void DoomseekerConfigurationDialog::doSaveSettings()
@@ -125,23 +115,17 @@ void DoomseekerConfigurationDialog::initOptionsList()
 	enginesRoot = addLabel(nullptr, tr("Games"));
 	enginesRoot->setIcon(QIcon(":/icons/joystick.png"));
 
-	ConfigPage *configPage = nullptr;
+	addConfigPage(nullptr, new CFGAppearance(this));
+	#ifdef WITH_AUTOUPDATES
+	addConfigPage(nullptr, new CFGAutoUpdates(this));
+	#endif
 
-	configPage = new CFGAppearance(this);
-	addConfigPage(nullptr, configPage);
+	customServersCfgBox = new CFGCustomServers(this);
+	addConfigPage(nullptr, customServersCfgBox);
 
-	configPage = new CFGAutoUpdates(this);
-	addConfigPage(nullptr, configPage);
-
-	configPage = new CFGCustomServers(this);
-	addConfigPage(nullptr, configPage);
-	customServersCfgBox = configPage;
-
-	configPage = new CFGServerPasswords(this);
-	addConfigPage(nullptr, configPage);
-
-	configPage = new CFGQuery(this);
-	addConfigPage(nullptr, configPage);
+	addConfigPage(nullptr, new CFGServerPasswords(this));
+	addConfigPage(nullptr, new CFGQuery(this));
+	addConfigPage(nullptr, new CFGIP2C(this));
 
 	appendFilePathsConfigurationBoxes();
 	appendWadseekerConfigurationBoxes();

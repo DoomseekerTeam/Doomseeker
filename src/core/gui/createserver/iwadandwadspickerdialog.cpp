@@ -37,6 +37,7 @@ IwadAndWadsPickerDialog::IwadAndWadsPickerDialog(QWidget *parent)
 	: QDialog(parent)
 {
 	d->setupUi(this);
+	CommonGUI::setupDialog(*this);
 }
 
 IwadAndWadsPickerDialog::~IwadAndWadsPickerDialog()

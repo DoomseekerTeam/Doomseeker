@@ -94,7 +94,6 @@ public slots:
 	void tableMiddleClicked();
 	void tableRightClicked(const QModelIndex &index, const QPoint &cursorPosition);
 	void updateCountryFlags();
-	void updateSearch(const QString &search);
 
 signals:
 	/**

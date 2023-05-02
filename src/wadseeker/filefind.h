@@ -25,9 +25,12 @@
 
 #include "dptr.h"
 
-#include <QList>
+#include <QtContainerFwd>
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+// In Qt6 this becomes an alias in QtContainerFwd
 class QStringList;
+#endif
 
 /**
  * @brief Case-insensitive filename seeker that seeks in a file tree listing.

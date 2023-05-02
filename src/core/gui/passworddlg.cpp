@@ -26,6 +26,7 @@
 
 #include "configuration/passwordscfg.h"
 #include "configuration/serverpassword.h"
+#include "gui/commongui.h"
 #include "gui/helpers/comboboxex.h"
 #include "serverapi/server.h"
 
@@ -45,6 +46,7 @@ PasswordDlg::PasswordDlg(ServerCPtr server, QWidget *parent)
 	: QDialog(parent)
 {
 	d->setupUi(this);
+	CommonGUI::setupDialog(*this);
 	d->cboConnectPassEx = new ComboBoxEx(*d->cboConnectPassword);
 	d->cboIngamePassEx = new ComboBoxEx(*d->cboIngamePassword);
 	d->server = server;

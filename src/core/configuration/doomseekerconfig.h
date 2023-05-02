@@ -64,6 +64,7 @@ public:
 		bool bColorizeServerConsole;
 		bool bDrawGridInServerTable;
 		bool bHidePasswords;
+		bool bHonorServerCountries;
 		bool bGroupServersWithPlayersAtTheTopOfTheList;
 		bool bIP2CountryAutoUpdate;
 		bool bLogCreatedServer;
@@ -192,8 +193,6 @@ public:
 		QString colorMessageCriticalError;
 		QString colorMessageError;
 		QString colorMessageNotice;
-		int connectTimeoutSeconds;
-		int downloadTimeoutSeconds;
 		int maxConcurrentSiteDownloads;
 		int maxConcurrentWadDownloads;
 		QString idgamesURL;

@@ -30,13 +30,13 @@ if(MSVC)
 	set(CMAKE_SHARED_MODULE_PREFIX "lib")
 endif()
 
-find_package(Qt5 COMPONENTS Widgets)
+find_package(${Qt_PACKAGE} COMPONENTS Widgets)
 
-if(NOT Qt5_FOUND)
-	message(FATAL_ERROR "Qt5 not found. Please make sure to set the Qt5_DIR variable")
+if(NOT ${Qt_PACKAGE}_FOUND)
+	message(FATAL_ERROR "${Qt_PACKAGE} not found. Please make sure to set the ${Qt_PACKAGE}_DIR variable")
 else()
-	find_package(Qt5 COMPONENTS Core Gui LinguistTools Multimedia Network Xml REQUIRED)
-	set(QT_LIBRARIES Qt5::Widgets Qt5::Multimedia Qt5::Network Qt5::Xml Qt5::Gui Qt5::Core)
+	find_package(${Qt_PACKAGE} COMPONENTS Core Gui LinguistTools Multimedia Network Xml REQUIRED)
+	set(QT_LIBRARIES ${Qt_PACKAGE}::Widgets ${Qt_PACKAGE}::Multimedia ${Qt_PACKAGE}::Network ${Qt_PACKAGE}::Xml ${Qt_PACKAGE}::Gui ${Qt_PACKAGE}::Core)
 endif()
 
 message(STATUS "Setting up plugin ${PLUGIN_NAME}. Source dir:\n"

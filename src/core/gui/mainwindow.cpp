@@ -85,7 +85,6 @@
 #include <QAction>
 #include <QApplication>
 #include <QDesktopServices>
-#include <QDesktopWidget>
 #include <QDockWidget>
 #include <QFileInfo>
 #include <QHeaderView>
@@ -632,14 +631,14 @@ void MainWindow::findMissingWADs(const ServerPtr &server)
 		return;
 	}
 
-	MissingWadsDialog dialog(missingWads, incompatibleWads, this);
+	MissingWadsDialog dialog(missingWads, incompatibleWads, server->plugin(), this);
 	dialog.setAllowIgnore(false);
 	if (dialog.exec() == QDialog::Accepted && dialog.decision() == MissingWadsDialog::Install)
 	{
 		if (!gWadseekerShow->checkWadseekerValidity(this))
 			return;
 		WadseekerInterface *wadseeker = WadseekerInterface::createAutoNoGame();
-		wadseeker->setCustomSite(server->webSite());
+		wadseeker->setCustomSites(server->allWebSites());
 		wadseeker->setWads(dialog.filesToDownload());
 		wadseeker->setAttribute(Qt::WA_DeleteOnClose);
 		wadseeker->show();
@@ -876,7 +875,7 @@ void MainWindow::initServerDetailsDock()
 {
 	d->detailsDock = new ServerDetailsDock(this);
 	d->menuView->addAction(d->detailsDock->toggleViewAction());
-	d->detailsDock->toggleViewAction()->setText(tr("Server &Details"));
+	d->detailsDock->toggleViewAction()->setText(tr("Server &details"));
 	d->detailsDock->toggleViewAction()->setShortcut(tr("CTRL+D"));
 	d->detailsDock->hide();
 	addDockWidget(Qt::BottomDockWidgetArea, d->detailsDock);
@@ -1463,7 +1462,7 @@ void MainWindow::showServerJoinCommandLineOnBuilderFinished()
 		if (!builder->error().isEmpty())
 		{
 			QMessageBox::critical(this, tr("Doomseeker - show join command line"),
-				tr("Command line cannot be built:\n%1").arg(builder->error()));
+				tr("The command line cannot be built:\n%1").arg(builder->error()));
 		}
 	}
 	builder->deleteLater();

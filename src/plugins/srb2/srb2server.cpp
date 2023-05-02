@@ -135,11 +135,17 @@ struct Srb2ServerPacket::ServerInfo
 
 	struct D
 	{
+		quint8 num255 = 0; // (since 2.2.6)
+		quint8 packetVersion; // (since 2.2.6)
 		quint8 version;
 		quint8 subversion;
 		quint8 numPlayers;
 		quint8 maxPlayers;
-		quint8 gameType;
+		union
+		{
+			quint8 gameType,
+				refuseReason; // (since 2.2.6)
+		};
 		quint8 modifiedGame;
 		quint8 cheatsEnabled;
 		quint8 dedicated;
@@ -156,6 +162,8 @@ struct Srb2ServerPacket::ServerInfo
 	};
 
 	D d;
+	QString gameTypeString; // 24 bytes (since 2.2.6)
+	QString application; // 16 bytes (since 2.2.6)
 	QString name; // 32 bytes
 	QString mapName; // 8 bytes
 	QString mapTitle; // 33 bytes
@@ -165,8 +173,19 @@ struct Srb2ServerPacket::ServerInfo
 	GameMode gameMode() const
 	{
 		QList<GameMode> modes = Srb2GameInfo::gameModes();
-		if (d.gameType < modes.length())
-			return modes[d.gameType];
+		if (d.num255 == 255)
+		{
+			for (auto &mode : modes)
+			{
+				if (gameTypeString == mode.name())
+					return mode;
+			}
+		}
+		else
+		{
+			if (d.gameType < modes.length())
+				return modes[d.gameType];
+		}
 		return GameMode::mkUnknown();
 	}
 };
@@ -176,18 +195,27 @@ QDataStream &operator>>(QDataStream &stream, ServerInfo &info)
 	DataStreamOperatorWrapper reader(&stream);
 
 	stream >> info.d.version;
+	if (info.d.version == 255)
+	{
+		info.d.num255 = info.d.version;
+		stream >> info.d.packetVersion;
+		info.application = Srb2::asciiOnly(reader.readRaw(16));
+		stream >> info.d.version;
+	}
 	stream >> info.d.subversion;
 	stream >> info.d.numPlayers;
 	stream >> info.d.maxPlayers;
-	stream >> info.d.gameType;
+	stream >> info.d.refuseReason;
+	if (info.d.num255 == 255)
+		info.gameTypeString = Srb2::asciiOnly(reader.readRaw(24));
 	stream >> info.d.modifiedGame;
 	stream >> info.d.cheatsEnabled;
 	stream >> info.d.dedicated;
 
 	quint8 numModFiles = 0;
 	stream >> numModFiles;
-
-	stream >> info.d.numVerifiedPlayers;
+	if (info.d.num255 != 255)
+		stream >> info.d.numVerifiedPlayers;
 	stream >> info.d.time;
 	stream >> info.d.levelTime;
 	info.name = Srb2::asciiOnly(reader.readRaw(32));
@@ -376,6 +404,8 @@ Server::Response Srb2Server::processInfoPackets()
 
 Server::Response Srb2Server::processServerInfo(const ServerInfo &info)
 {
+	if (info.application != "SRB2" && !info.application.isEmpty())
+		return RESPONSE_BAD;
 	setName(info.name);
 	if (gameVersion().isEmpty())
 	{
@@ -394,7 +424,7 @@ Server::Response Srb2Server::processServerInfo(const ServerInfo &info)
 	setMap(info.mapName);
 	setGameMode(info.gameMode());
 
-	setIwad(info.files.first().name);
+	setIwad(!info.files.empty() ? info.files.first().name : "");
 	clearWads();
 	bool first = true;
 	for (const FileNeeded &file : info.files)

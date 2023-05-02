@@ -26,6 +26,7 @@
 #include "ui_flagspage.h"
 #include "zandronumgameinfo.h"
 #include <gui/widgets/createserverdialogpage.h>
+#include <cstdint>
 
 namespace Zandronum2
 {
@@ -80,6 +81,13 @@ public:
 		PB_Block = 3
 	};
 
+	enum PrivateChat
+	{
+		PrivChat_Forbidden = 0,
+		PrivChat_Allowed = 1,
+		PrivChat_Team = 2,
+	};
+
 	/**
 	 * This is stored in config and indexing cannot change between versions.
 	 */
@@ -106,7 +114,7 @@ private:
 	PrivData *d;
 
 	void initJumpCrouchComboBoxes(QComboBox *pComboBox);
-	void insertFlagsIfValid(QLineEdit *dst, QString flags, unsigned valIfInvalid = 0);
+	void insertFlagsIfValid(QLineEdit *dst, QString flags, int32_t valIfInvalid = 0);
 
 	ZandronumGameInfo::GameVersion gameVersion() const;
 	void loadGameVersion(ZandronumGameInfo::GameVersion version);
@@ -117,6 +125,9 @@ private:
 
 	LevelExit levelExit() const;
 	void setLevelExit(LevelExit levelExit);
+
+	QString country() const;
+	void setCountry(const QString &country);
 
 private slots:
 	void applyGameVersion();

@@ -27,7 +27,7 @@
 #include <QDockWidget>
 
 #include "dptr.h"
-#include "serverapi/serverptr.h"
+#include "serverapi/server.h" // Qt6 requires Server class for moc on ServerPtr
 
 class ServerDetailsDock : public QDockWidget
 {

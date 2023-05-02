@@ -43,7 +43,7 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 
 	// Compat flags
 	{
-		QMap<unsigned, QAbstractButton *> &m = compatflagsCheckboxes;
+		QMap<int32_t, QAbstractButton *> &m = compatflagsCheckboxes;
 
 		// Compatibility
 		// - Oldschool
@@ -116,7 +116,7 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 
 	// Zandronum compatflags
 	{
-		QMap<unsigned, QAbstractButton *> &m = zandronumCompatflagsCheckboxes;
+		QMap<int32_t, QAbstractButton *> &m = zandronumCompatflagsCheckboxes;
 
 		// Players
 		m.insert(Dmflags::ZACOMPATF_DISABLETAUNTS,
@@ -169,7 +169,7 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 
 	// DMFlags
 	{
-		QMap<unsigned, QAbstractButton *> &m = dmflagsCheckboxes;
+		QMap<int32_t, QAbstractButton *> &m = dmflagsCheckboxes;
 
 		// General
 		m.insert(Dmflags::DF_NO_MONSTERS,
@@ -230,7 +230,7 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 
 	// DMFlags 2
 	{
-		QMap<unsigned, QAbstractButton *> &m = dmflags2Checkboxes;
+		QMap<int32_t, QAbstractButton *> &m = dmflags2Checkboxes;
 
 		// General
 		m.insert(Dmflags::DF2_BARRELS_RESPAWN,
@@ -303,7 +303,7 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 
 	// Zandronum DMFlags
 	{
-		QMap<unsigned, QAbstractButton *> &m = zandronumDmflagsCheckboxes;
+		QMap<int32_t, QAbstractButton *> &m = zandronumDmflagsCheckboxes;
 
 		// General
 		m.insert(Dmflags::ZADF_NOUNLAGGED,
@@ -327,15 +327,10 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 		m.insert(Dmflags::ZADF_MAX_BLOOD_SCALAR,
 			f->cbNoMaxBloodScalar);
 		// - Behavior
-		m.insert(Dmflags::ZADF_UNBLOCK_PLAYERS,
-			f->rbPlayersCanWalkThroughEachOther);
-		m.insert(Dmflags::ZADF_UNBLOCK_ALLIES,
-			f->rbAlliesCanWalkThroughEachOther);
-
 		m.insert(Dmflags::ZADF_NO_ROCKET_JUMPING,
 			f->cbNoRocketJump);
 		m.insert(Dmflags::ZADF_FORCE_GL_DEFAULTS,
-			f->cbNoUseCustomGLLightingSettings);
+			f->cbNoUseCustomRendererSettings);
 		m.insert(Dmflags::ZADF_FORCE_ALPHA,
 			f->cbNoTurnOffTranslucency);
 
@@ -346,7 +341,7 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 
 	// LMSAllowedWeapons
 	{
-		QMap<unsigned, QAbstractButton *> &m = lmsAllowedWeaponsCheckboxes;
+		QMap<int32_t, QAbstractButton *> &m = lmsAllowedWeaponsCheckboxes;
 
 		m.insert(ZandronumGameInfo::LMSAW_Chainsaw,
 			f->cbLMSChainsaw);
@@ -372,7 +367,7 @@ FlagsPageValueController::FlagsPageValueController(FlagsPage *flagsPage)
 
 	// LMSSpectatorSettings
 	{
-		QMap<unsigned, QAbstractButton *> &m = lmsSpectatorSettingsCheckboxes;
+		QMap<int32_t, QAbstractButton *> &m = lmsSpectatorSettingsCheckboxes;
 
 		m.insert(ZandronumGameInfo::LMSSS_TalkToActivePlayers,
 			f->cbLMSSpectatorsCanTalkToActivePlayers);
@@ -429,10 +424,10 @@ void FlagsPageValueController::convertWidgetsToNumerical()
 }
 
 void FlagsPageValueController::convertCheckboxesToNumerical(
-	const QMap<unsigned, QAbstractButton *> &checkboxMap,
-	unsigned &flagsValue)
+	const QMap<int32_t, QAbstractButton *> &checkboxMap,
+	int32_t &flagsValue)
 {
-	for (unsigned flag : checkboxMap.keys())
+	for (int32_t flag : checkboxMap.keys())
 	{
 		if (checkboxMap[flag]->isChecked())
 		{
@@ -449,10 +444,10 @@ void FlagsPageValueController::convertCheckboxesToNumerical(
 }
 
 void FlagsPageValueController::convertNumericalToCheckboxes(
-	QMap<unsigned, QAbstractButton *> &checkboxMap,
-	unsigned flagsValue)
+	QMap<int32_t, QAbstractButton *> &checkboxMap,
+	int32_t flagsValue)
 {
-	for (unsigned flag : checkboxMap.keys())
+	for (int32_t flag : checkboxMap.keys())
 	{
 		checkboxMap[flag]->setChecked(flagsValue & flag);
 	}
@@ -525,6 +520,22 @@ void FlagsPageValueController::convertToNumericalPlayers()
 		break;
 	case FlagsPage::JCA_No:
 		dmflags |= Dmflags::DF_NO_CROUCH;
+		break;
+	}
+
+	// Reset the value.
+	zandronumDmflags &= ~(Dmflags::ZADF_UNBLOCK_PLAYERS
+		| Dmflags::ZADF_UNBLOCK_ALLIES);
+	switch (f->cboPlayerBlock->currentData().toInt()) {
+	case FlagsPage::PB_Noclip:
+		zandronumDmflags |= Dmflags::ZADF_UNBLOCK_PLAYERS;
+		break;
+	case FlagsPage::PB_AllyNoclip:
+		zandronumDmflags |= Dmflags::ZADF_UNBLOCK_ALLIES;
+		break;
+	case FlagsPage::PB_Block:
+	default:
+		// pass
 		break;
 	}
 }
@@ -614,10 +625,20 @@ void FlagsPageValueController::convertToWidgetPlayers()
 		f->cboCrouching->setCurrentIndex(FlagsPage::JCA_Default);
 	}
 
-	if ((zandronumDmflags & Dmflags::ZADF_UNBLOCK_PLAYERS) == 0 &&
-		(zandronumDmflags & Dmflags::ZADF_UNBLOCK_ALLIES) == 0)
+	if (zandronumDmflags & Dmflags::ZADF_UNBLOCK_PLAYERS)
 	{
-		f->rbPlayersBlockEachOtherNormally->setChecked(true);
+		f->cboPlayerBlock->setCurrentIndex(
+			f->cboPlayerBlock->findData(FlagsPage::PB_Noclip));
+	}
+	else if (zandronumDmflags & Dmflags::ZADF_UNBLOCK_ALLIES)
+	{
+		f->cboPlayerBlock->setCurrentIndex(
+			f->cboPlayerBlock->findData(FlagsPage::PB_AllyNoclip));
+	}
+	else
+	{
+		f->cboPlayerBlock->setCurrentIndex(
+			f->cboPlayerBlock->findData(FlagsPage::PB_Block));
 	}
 }
 ////////////////////////////////////////////////////////////////////////////////
@@ -648,12 +669,12 @@ void FlagsPageValueController::convertToWidgetDeathmatch()
 ////////////////////////////////////////////////////////////////////////////////
 void FlagsPageValueController::readFlagsFromTextInputs()
 {
-	dmflags = flagsPage->leDmflags->text().toUInt();
-	dmflags2 = flagsPage->leDmflags2->text().toUInt();
-	zandronumDmflags = flagsPage->leZandronumDmflags->text().toUInt();
-	compatflags = flagsPage->leCompatflags->text().toUInt();
-	zandronumCompatflags = flagsPage->leZandronumCompatflags->text().toUInt();
-	lmsAllowedWeapons = flagsPage->leLMSAllowedWeapons->text().toUInt();
-	lmsSpectatorSettings = flagsPage->leLMSSpectatorSettings->text().toUInt();
+	dmflags = flagsPage->leDmflags->text().toInt();
+	dmflags2 = flagsPage->leDmflags2->text().toInt();
+	zandronumDmflags = flagsPage->leZandronumDmflags->text().toInt();
+	compatflags = flagsPage->leCompatflags->text().toInt();
+	zandronumCompatflags = flagsPage->leZandronumCompatflags->text().toInt();
+	lmsAllowedWeapons = flagsPage->leLMSAllowedWeapons->text().toInt();
+	lmsSpectatorSettings = flagsPage->leLMSSpectatorSettings->text().toInt();
 }
 }

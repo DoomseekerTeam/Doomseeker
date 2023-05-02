@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CFGIP2C</class>
+ <widget class="QWidget" name="CFGIP2C">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QCheckBox" name="cbAutoUpdate">
+     <property name="toolTip">
+      <string>&lt;p&gt;A new IP2C database will be downloaded if the local one is missing or has a different checksum than the one stored on Doomseeker's web page.&lt;/p&gt;</string>
+     </property>
+     <property name="text">
+      <string>IP2C auto update</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="cbHonorServerCountries">
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Servers of some games are able to directly tell Doomseeker in which country they are located in. If this is checked, Doomseeker will honor this information. If unchecked, Doomseeker will always try to detect the country by server's IP. &lt;/p&gt;&lt;p&gt;Neither of these methods may be accurate - the server can tell false info and the IP2C database may contain inaccuracies. Either method can lead to the wrong country being displayed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="text">
+      <string>Honor countries set by servers</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -16,7 +16,7 @@
 <context>
     <name>ChocolateDoomGameClientRunner</name>
     <message>
-        <location filename="../chocolatedoomgamerunner.cpp" line="108"/>
+        <location filename="../chocolatedoomgamerunner.cpp" line="97"/>
         <source>Join Chocolate Doom game</source>
         <translation>Unirse al juego Chocolate Doom</translation>
     </message>
@@ -24,22 +24,22 @@
 <context>
     <name>ChocolateDoomGameExeFactory</name>
     <message>
-        <location filename="../chocolatedoomgameexefactory.cpp" line="92"/>
+        <location filename="../chocolatedoomgameexefactory.cpp" line="86"/>
         <source>Chocolate Doom</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../chocolatedoomgameexefactory.cpp" line="95"/>
+        <location filename="../chocolatedoomgameexefactory.cpp" line="89"/>
         <source>Chocolate Hexen</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../chocolatedoomgameexefactory.cpp" line="98"/>
+        <location filename="../chocolatedoomgameexefactory.cpp" line="92"/>
         <source>Chocolate Heretic</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../chocolatedoomgameexefactory.cpp" line="101"/>
+        <location filename="../chocolatedoomgameexefactory.cpp" line="95"/>
         <source>Chocolate Strife</source>
         <translation></translation>
     </message>

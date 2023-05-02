@@ -58,9 +58,9 @@ public:
 		return bAutomatic;
 	}
 
-	void setCustomSite(const QString &site)
+	void setCustomSites(const QStringList &sites)
 	{
-		this->customSite = site;
+		this->customSites = sites;
 	}
 
 	/**
@@ -98,7 +98,7 @@ private:
 	QString colorHtmlMessageError;
 	QString colorHtmlMessageNotice;
 
-	QString customSite;
+	QStringList customSites;
 
 	/**
 	 * Interface uses this to store the PWads.

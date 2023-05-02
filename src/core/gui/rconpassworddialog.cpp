@@ -21,6 +21,8 @@
 // Copyright (C) 2009 Braden "Blzut3" Obrzut <admin@maniacsvault.net>
 //------------------------------------------------------------------------------
 #include "configuration/doomseekerconfig.h"
+
+#include "gui/commongui.h"
 #include "plugins/engineplugin.h"
 #include "plugins/pluginloader.h"
 #include "rconpassworddialog.h"
@@ -37,6 +39,7 @@ RconPasswordDialog::RconPasswordDialog(QWidget *parent, bool connection)
 	: QDialog(parent)
 {
 	d->setupUi(this);
+	CommonGUI::setupDialog(*this);
 	this->connect(d->cbHidePassword, SIGNAL(toggled(bool)), SLOT(setHidePassword(bool)));
 
 	if (connection)

@@ -52,7 +52,7 @@ QString FileUtils::cdUpUntilExists(QString path)
 			return QString();
 		if (fileInfo.exists() || fileInfo.isRoot())
 			return fileInfo.filePath();
-		fileInfo = QDir::cleanPath(fileInfo.filePath() + "/..");
+		fileInfo = QFileInfo(QDir::cleanPath(fileInfo.filePath() + "/.."));
 	}
 	return QString();
 }

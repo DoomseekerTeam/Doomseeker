@@ -56,16 +56,16 @@ static PatternList readPre1Point2BuddiesList(const QString &configEntry)
 		if (!listReader.checkToken(TK_Identifier))
 			break; // Invalid so lets just use what we have.
 
-		QRegExp::PatternSyntax syntax;
+		Pattern::Syntax syntax;
 		if (listReader->str().compare("basic") == 0)
-			syntax = QRegExp::Wildcard;
+			syntax = Pattern::Wildcard;
 		else
-			syntax = QRegExp::RegExp;
+			syntax = Pattern::RegExp;
 
 		if (!listReader.checkToken(TK_StringConst))
 			break;
 
-		QRegExp pattern(listReader->str(), Qt::CaseInsensitive, syntax);
+		Pattern pattern(listReader->str(), QRegularExpression::CaseInsensitiveOption, syntax);
 		if (pattern.isValid())
 			patterns << pattern;
 
@@ -272,6 +272,7 @@ DoomseekerConfig::DoomseekerCfg::DoomseekerCfg()
 	this->bColorizeServerConsole = true;
 	this->bDrawGridInServerTable = false;
 	this->bHidePasswords = false;
+	this->bHonorServerCountries = true;
 	this->bGroupServersWithPlayersAtTheTopOfTheList = true;
 	this->bIP2CountryAutoUpdate = true;
 	this->bLogCreatedServer = false;
@@ -297,7 +298,7 @@ DoomseekerConfig::DoomseekerCfg::DoomseekerCfg()
 	this->previousCreateServerExecDir = "";
 	this->previousCreateServerLogDir = "";
 	this->previousCreateServerWadDir = "";
-	this->slotStyle = 1;
+	this->slotStyle = "blocks";
 	this->serverListSortIndex = -1;
 	this->serverListSortDirection = Qt::DescendingOrder;
 	this->wadPaths = FileSearchPath::fromStringList(gDefaultDataPaths->defaultWadPaths());
@@ -338,6 +339,7 @@ void DoomseekerConfig::DoomseekerCfg::init(IniSection &section)
 	section.createSetting("ColorizeServerConsole", this->bColorizeServerConsole);
 	section.createSetting("DrawGridInServerTable", this->bDrawGridInServerTable);
 	section.createSetting("HidePasswords", this->bHidePasswords);
+	section.createSetting("HonorServerCountries", this->bHonorServerCountries);
 	section.createSetting("GroupServersWithPlayersAtTheTopOfTheList", this->bGroupServersWithPlayersAtTheTopOfTheList);
 	section.createSetting("IP2CAutoUpdate", this->bIP2CountryAutoUpdate);
 	section.createSetting("LogCreatedServers", this->bLogCreatedServer);
@@ -379,6 +381,7 @@ void DoomseekerConfig::DoomseekerCfg::load(IniSection &section)
 	this->bColorizeServerConsole = section["ColorizeServerConsole"];
 	this->bDrawGridInServerTable = section["DrawGridInServerTable"];
 	this->bHidePasswords = section["HidePasswords"];
+	this->bHonorServerCountries = section["HonorServerCountries"];
 	this->bGroupServersWithPlayersAtTheTopOfTheList = section["GroupServersWithPlayersAtTheTopOfTheList"];
 	this->bIP2CountryAutoUpdate = section["IP2CAutoUpdate"];
 	this->bLogCreatedServer = section["LogCreatedServers"];
@@ -476,6 +479,7 @@ void DoomseekerConfig::DoomseekerCfg::save(IniSection &section)
 	section["ColorizeServerConsole"] = this->bColorizeServerConsole;
 	section["DrawGridInServerTable"] = this->bDrawGridInServerTable;
 	section["HidePasswords"] = this->bHidePasswords;
+	section["HonorServerCountries"] = this->bHonorServerCountries;
 	section["GroupServersWithPlayersAtTheTopOfTheList"] = this->bGroupServersWithPlayersAtTheTopOfTheList;
 	section["IP2CAutoUpdate"] = this->bIP2CountryAutoUpdate;
 	section["LogCreatedServers"] = this->bLogCreatedServer;
@@ -680,8 +684,7 @@ DoomseekerConfig::WadseekerCfg::WadseekerCfg()
 	this->colorMessageCriticalError = "#ff0000";
 	this->colorMessageError = "#ff0000";
 	this->colorMessageNotice = "#000000";
-	this->connectTimeoutSeconds = WADSEEKER_CONNECT_TIMEOUT_SECONDS_DEFAULT;
-	this->downloadTimeoutSeconds = WADSEEKER_DOWNLOAD_TIMEOUT_SECONDS_DEFAULT;
+;
 	this->idgamesURL = Wadseeker::defaultIdgamesUrl();
 	this->maxConcurrentSiteDownloads = 3;
 	this->maxConcurrentWadDownloads = 2;
@@ -700,8 +703,6 @@ void DoomseekerConfig::WadseekerCfg::init(IniSection &section)
 	section.createSetting("ColorMessageCriticalError", this->colorMessageCriticalError);
 	section.createSetting("ColorMessageError", this->colorMessageError);
 	section.createSetting("ColorMessageNotice", this->colorMessageNotice);
-	section.createSetting("ConnectTimeoutSeconds", this->connectTimeoutSeconds);
-	section.createSetting("DownloadTimeoutSeconds", this->downloadTimeoutSeconds);
 	section.createSetting("IdgamesApiURL", this->idgamesURL);
 	section.createSetting("MaxConcurrentSiteDownloads", this->maxConcurrentSiteDownloads);
 	section.createSetting("MaxConcurrentWadDownloads", this->maxConcurrentWadDownloads);
@@ -717,8 +718,6 @@ void DoomseekerConfig::WadseekerCfg::load(IniSection &section)
 	this->colorMessageCriticalError = (const QString &)section["ColorMessageCriticalError"];
 	this->colorMessageError = (const QString &)section["ColorMessageError"];
 	this->colorMessageNotice = (const QString &)section["ColorMessageNotice"];
-	this->connectTimeoutSeconds = section["ConnectTimeoutSeconds"];
-	this->downloadTimeoutSeconds = section["DownloadTimeoutSeconds"];
 	this->idgamesURL = (const QString &)section["IdgamesApiURL"];
 	this->maxConcurrentSiteDownloads = section["MaxConcurrentSiteDownloads"];
 	this->maxConcurrentWadDownloads = section["MaxConcurrentWadDownloads"];
@@ -726,7 +725,7 @@ void DoomseekerConfig::WadseekerCfg::load(IniSection &section)
 
 	// Complex data values
 	this->searchURLs.clear();
-	QStringList urlList = section["SearchURLs"].valueString().split(";", QString::SkipEmptyParts);
+	QStringList urlList = section["SearchURLs"].valueString().split(";", Qt::SkipEmptyParts);
 	for (const QString &url : urlList)
 	{
 		this->searchURLs << QUrl::fromPercentEncoding(url.toUtf8());
@@ -741,8 +740,6 @@ void DoomseekerConfig::WadseekerCfg::save(IniSection &section)
 	section["ColorMessageCriticalError"] = this->colorMessageCriticalError;
 	section["ColorMessageError"] = this->colorMessageError;
 	section["ColorMessageNotice"] = this->colorMessageNotice;
-	section["ConnectTimeoutSeconds"] = this->connectTimeoutSeconds;
-	section["DownloadTimeoutSeconds"] = this->downloadTimeoutSeconds;
 	section["IdgamesApiURL"] = this->idgamesURL;
 	section["MaxConcurrentSiteDownloads"] = this->maxConcurrentSiteDownloads;
 	section["MaxConcurrentWadDownloads"] = this->maxConcurrentWadDownloads;

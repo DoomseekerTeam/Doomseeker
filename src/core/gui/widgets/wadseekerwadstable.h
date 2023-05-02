@@ -23,9 +23,9 @@
 #ifndef __WADSEEKERWADSTABLE_H__
 #define __WADSEEKERWADSTABLE_H__
 
+#include <QElapsedTimer>
 #include <QMap>
 #include <QMenu>
-#include <QTime>
 
 #include "gui/widgets/tablewidgetmouseaware.h"
 
@@ -109,7 +109,7 @@ private:
 		 * Value - Pointer to SpeedCalculator instance.
 		 */
 		QMap<QString, SpeedCalculator *> speedCalculators;
-		QTime updateClock;
+		QElapsedTimer updateClock;
 	};
 
 	static const int UPDATE_INTERVAL_MS = 1000;

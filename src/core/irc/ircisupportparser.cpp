@@ -24,6 +24,7 @@
 
 #include "irc/entities/ircuserprefix.h"
 #include <QByteArray>
+#include <QRegularExpression>
 #include <QStringList>
 
 DClass<IRCISupportParser>
@@ -89,12 +90,12 @@ void IRCISupportParser::parsePrefix()
 	QString value = findValue("PREFIX=");
 	if (value.isNull())
 		return;
-	QRegExp regex(R"(\((\S+)\)(\S+)$)");
-	regex.setMinimal(true);
-	if (regex.indexIn(value) < 0)
+	QRegularExpression regex(R"(\((\S+)\)(\S+)$)", QRegularExpression::InvertedGreedinessOption);
+	auto match = regex.match(value);
+	if (!match.hasMatch())
 		return;
-	QByteArray modes = regex.cap(1).toUtf8();
-	QByteArray prefixes = regex.cap(2).toUtf8();
+	QByteArray modes = match.captured(1).toUtf8();
+	QByteArray prefixes = match.captured(2).toUtf8();
 	if (modes.size() != prefixes.size())
 		return;
 	IRCUserPrefix userPrefixes;

@@ -63,7 +63,8 @@ public:
 	{
 		// Pointer to the server structure is always stored in the first column
 		SLDT_POINTER_TO_SERVER_STRUCTURE = Qt::UserRole + 1,
-		SLDT_SORT = Qt::UserRole + 2
+		SLDT_SORT = Qt::UserRole + 2,
+		SLDT_SERVER_GROUP = Qt::UserRole + 3
 	};
 
 	ServerListModel(ServerList *parent);

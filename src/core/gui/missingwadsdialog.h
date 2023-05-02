@@ -29,6 +29,7 @@
 #include <QStringList>
 
 class PWad;
+class EnginePlugin;
 
 class MissingWadsDialog : public QDialog
 {
@@ -42,7 +43,7 @@ public:
 		Install
 	};
 
-	MissingWadsDialog(const QList<PWad> &missingWads, const QList<PWad> &incompatibleWads, QWidget *parent);
+	MissingWadsDialog(const QList<PWad> &missingWads, const QList<PWad> &incompatibleWads, EnginePlugin *plugin = nullptr, QWidget *parent = nullptr);
 	~MissingWadsDialog() override;
 
 	MissingWadsProceed decision() const;

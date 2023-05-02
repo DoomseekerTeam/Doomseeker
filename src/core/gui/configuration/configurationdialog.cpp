@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 #include "configurationdialog.h"
 #include "ui_configurationdialog.h"
+#include "gui/commongui.h"
 
 #include "configpage.h"
 #include "qtmetapointer.h"
@@ -91,6 +92,7 @@ ConfigurationDialog::ConfigurationDialog(QWidget *parent)
 	: QDialog(parent)
 {
 	d->setupUi(this);
+	CommonGUI::setupDialog(*this);
 
 	auto model = new QStandardItemModel(this);
 	for (int column = PrivData<ConfigurationDialog>::COL_FIRST;
@@ -103,7 +105,7 @@ ConfigurationDialog::ConfigurationDialog(QWidget *parent)
 	d->tvOptionsList->header()->setSectionResizeMode(
 		PrivData<ConfigurationDialog>::COL_NAME, QHeaderView::Stretch);
 	d->tvOptionsList->header()->setSectionResizeMode(
-		PrivData<ConfigurationDialog>::COL_VALIDATION, QHeaderView::Fixed);
+		PrivData<ConfigurationDialog>::COL_VALIDATION, QHeaderView::ResizeToContents);
 
 	d->currentlyDisplayedPage = nullptr;
 	connect(d->buttonBox, SIGNAL(clicked(QAbstractButton*)), this, SLOT (btnClicked(QAbstractButton*)));
@@ -134,11 +136,12 @@ QStandardItem *ConfigurationDialog::addConfigPage(
 
 	QStandardItem *nameItem = new QStandardItem(configPage->name());
 	nameItem->setIcon(configPage->icon());
+	nameItem->setToolTip(configPage->title());
 
 	row.insert(PrivData<ConfigurationDialog>::COL_NAME, nameItem);
 
 	QtMetaPointer metaPointer = configPage;
-	nameItem->setData(qVariantFromValue(metaPointer), Qt::UserRole);
+	nameItem->setData(QVariant::fromValue(metaPointer), Qt::UserRole);
 
 	row.insert(PrivData<ConfigurationDialog>::COL_VALIDATION, new QStandardItem());
 
@@ -168,7 +171,7 @@ QStandardItem *ConfigurationDialog::addLabel(QStandardItem *rootItem, const QStr
 		return nullptr;
 
 	QtMetaPointer metaPointer = (void *)nullptr;
-	QVariant variantMetaPointer = qVariantFromValue(metaPointer);
+	QVariant variantMetaPointer = QVariant::fromValue(metaPointer);
 
 	QList<QStandardItem *> row;
 
@@ -290,11 +293,10 @@ void ConfigurationDialog::switchToItem(const QModelIndex &current, const QModelI
 	if (current.isValid() && current != previous)
 	{
 		ConfigPage *configPage = d->pageFromIndex(current);
-
-		// Something with sense was selected, display this something
-		// and hide previous box.
 		if (isConfigPageValid(configPage))
 			showConfigPage(configPage);
+		else
+			showConfigPage(nullptr);
 	}
 }
 

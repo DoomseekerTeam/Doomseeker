@@ -26,15 +26,14 @@
 #include "global.h"
 #include "log.h"
 #include <QBuffer>
+#include <QElapsedTimer>
 #include <QFile>
 #include <QMap>
 #include <QMutexLocker>
-#include <QTime>
 
-IP2CParser::IP2CParser(IP2C *pTargetDatabase)
+IP2CParser::IP2CParser()
 {
 	currentParsingThread = nullptr;
-	this->pTargetDatabase = pTargetDatabase;
 	bIsParsing = false;
 }
 
@@ -56,7 +55,7 @@ bool IP2CParser::doReadDatabase(const QString &filePath)
 		return false;
 	}
 
-	QTime time;
+	QElapsedTimer time;
 	time.start();
 
 	QByteArray dataArray = dataBase.readAll();
@@ -84,7 +83,8 @@ bool IP2CParser::doReadDatabase(const QString &filePath)
 	if (!wasReadSuccessful)
 		return false;
 
-	gLog << tr("IP2C database read in %1 ms. Entries read: %2").arg(time.elapsed()).arg(pTargetDatabase->numKnownEntries());
+	gLog << tr("IP2C database read in %1 ms; IP ranges: %2")
+		.arg(time.elapsed()).arg(ranges_.size());
 	return true;
 }
 
@@ -133,15 +133,18 @@ bool IP2CParser::readDatabaseVersion2(const QByteArray &dataArray)
 	// We need to store the addresses in such hash table to make sure they
 	// are ordered in proper, ascending order. Otherwise the whole library
 	// will not work!
-	QMap<unsigned, IP2C::IP2CData> hashTable;
+	QMap<unsigned, IP2CRange> hashTable;
 
 	while (stream.hasRemaining())
 	{
-		// Base entry for each IP read from the file
-		IP2C::IP2CData baseEntry;
+		// Discard the first field as it is the country name. As of Doomseeker
+		// 1.3.3, the country names and their alpha-3 codes are hardcoded.
+		QString::fromUtf8(stream.readRawUntilByte('\0'));
+		QString countryCode = QString::fromUtf8(stream.readRawUntilByte('\0'));
 
-		baseEntry.countryFullName = QString::fromUtf8(stream.readRawUntilByte('\0'));
-		baseEntry.country = QString::fromUtf8(stream.readRawUntilByte('\0'));
+		// Base entry for each IP read from the file
+		IP2CRange baseEntry;
+		baseEntry.country = countryCode;
 		if (!stream.hasRemaining())
 			return false;
 
@@ -150,7 +153,7 @@ bool IP2CParser::readDatabaseVersion2(const QByteArray &dataArray)
 		for (quint32 x = 0; x < numOfIpBlocks; ++x)
 		{
 			// Create new entry from the base.
-			IP2C::IP2CData entry = baseEntry;
+			IP2CRange entry = baseEntry;
 
 			entry.ipStart = stream.readQUInt32();
 			if (!stream.hasRemaining())
@@ -161,7 +164,7 @@ bool IP2CParser::readDatabaseVersion2(const QByteArray &dataArray)
 		}
 	}
 
-	pTargetDatabase->setDatabase(hashTable.values());
+	this->ranges_ = hashTable.values();
 
 	return true;
 }

@@ -80,7 +80,7 @@ IRCRequestParser::IRCRequestParseResult IRCRequestParser::parse(IRCAdapterBase *
 	if (input.isEmpty())
 		return ErrorMessageEmpty;
 
-	QStringList inputSplit = input.split(" ", QString::SkipEmptyParts);
+	QStringList inputSplit = input.split(" ", Qt::SkipEmptyParts);
 	d->message = inputSplit.takeFirst().toUpper();
 	d->tokens = inputSplit;
 

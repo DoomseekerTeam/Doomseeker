@@ -56,12 +56,11 @@ private:
 	DPtr<GameRulesPanel> d;
 
 	void applyModeToUi();
-	void fillInLimits(GameCreateParams &params);
+	void fillInCVars(GameCreateParams &params);
 	void fillInModifiers(GameCreateParams &params);
-	void memorizeLimits();
-	void loadMemorizedLimits(const EnginePlugin *engine);
-	void removeLimitWidgets();
-	void setupLimitWidgets(const EnginePlugin *engine, const GameMode &gameMode);
+	void memorizeCVars();
+	void loadMemorizedCVars(const EnginePlugin *engine);
+	void setupCVarWidgets(const EnginePlugin *engine, const GameMode &gameMode);
 	void setupModifiers(const EnginePlugin *engine);
 };
 

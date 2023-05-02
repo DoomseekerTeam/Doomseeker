@@ -18,10 +18,9 @@
 #------------------------------------------------------------------------------
 # Copyright (C) 2009 Braden "Blzut3" Obrzut <admin@maniacsvault.net>
 #------------------------------------------------------------------------------
-cmake_minimum_required(VERSION 2.8.12)
 
 set(PLUGIN_NAME chocolatedoom)
-set(PLUGIN_VERSION 28)
+set(PLUGIN_VERSION 30)
 include(../PluginHeader.cmake)
 
 set(CHOCOLATEDOOM_FILES
@@ -46,12 +45,9 @@ set(HEADER_FILES
 )
 
 set(TRANSLATIONS_FILES
+	translations/chocolatedoom_ca_ES.ts
 	translations/chocolatedoom_es_ES.ts
 	translations/chocolatedoom_pl_PL.ts
-)
-set(FILES_TO_TRANSLATE
-	${HEADER_FILES}
-	${CHOCOLATEDOOM_FILES}
 )
 
 include(../Translation.cmake)

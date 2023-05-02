@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------
-// ip2ccountryinfo.h
+// enginezandronumqconfigbox.cpp
 //------------------------------------------------------------------------------
 //
 // This library is free software; you can redistribute it and/or
@@ -18,29 +18,16 @@
 // 02110-1301  USA
 //
 //------------------------------------------------------------------------------
-// Copyright (C) 2011 "Zalewa" <zalewapl@gmail.com>
+// Copyright (C) 2012 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
-#ifndef __IP2CCOUNTRYINFO_H__
-#define __IP2CCOUNTRYINFO_H__
 
-#include "global.h"
+#include "enginezandronumqconfigbox.h"
+#include "ini/ini.h"
+#include "plugins/engineplugin.h"
+#include "zandronumqengineplugin.h"
 
-#include <QPixmap>
-#include <QString>
-
-/**
- *	@brief Flag and name of the country.
- */
-class IP2CCountryInfo
+EngineZandronumqConfigBox::EngineZandronumqConfigBox(EnginePlugin *plugin, IniSection &cfg, QWidget *parent)
+	: EngineConfigPage(plugin, cfg, parent)
 {
-public:
-	const QPixmap *flag;
-	QString name;
-
-	IP2CCountryInfo();
-	IP2CCountryInfo(const QPixmap *flag, QString name);
-
-	bool isValid() const;
-};
-
-#endif
+// do nothing
+}

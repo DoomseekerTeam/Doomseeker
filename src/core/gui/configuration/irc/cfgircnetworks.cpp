@@ -124,7 +124,7 @@ QList<QStandardItem *> CFGIRCNetworks::generateTableRecord(IRCNetworkEntity *pNe
 
 	void *pointer = pNetworkEntity;
 	QtMetaPointer metaPointer = pointer;
-	QVariant variantPointer = qVariantFromValue(metaPointer);
+	QVariant variantPointer = QVariant::fromValue(metaPointer);
 	pItem->setData(variantPointer);
 
 	pItem = new QStandardItem(pNetworkEntity->description());
@@ -205,7 +205,7 @@ void CFGIRCNetworks::readSettings()
 	prepareTable();
 
 	QList<IRCNetworkEntity> cfgNetworks = ChatNetworksCfg().networks();
-	for (const auto & cfgNetwork : cfgNetworks)
+	for (const auto &cfgNetwork : cfgNetworks)
 	{
 		// Remember that pointers are stored within the table.
 		auto pCopy = new IRCNetworkEntity();

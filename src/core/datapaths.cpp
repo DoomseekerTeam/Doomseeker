@@ -77,9 +77,10 @@ static QStringList uniquePaths(const QStringList &paths)
 	QStringList result;
 	for (const QString &path : paths)
 	{
-		if (!uniqueMarkers.contains(path))
+		QFileInfo fileInfo(path);
+		if (!uniqueMarkers.contains(fileInfo))
 		{
-			uniqueMarkers << path;
+			uniqueMarkers << fileInfo;
 			result << path;
 		}
 	}
@@ -139,7 +140,7 @@ DataPaths::DataPaths(bool bPortableModeOn)
 			QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation),
 			Application::NAME));
 		#endif
-		d->dataDirectory.setPath(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
+		d->dataDirectory.setPath(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation));
 	}
 
 	gLog << QString("Cache directory: %1").arg(d->cacheDirectory.absolutePath());

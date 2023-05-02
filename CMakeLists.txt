@@ -18,7 +18,11 @@
 #------------------------------------------------------------------------------
 # Copyright (C) 2009 Braden "Blzut3" Obrzut <admin@maniacsvault.net>
 #------------------------------------------------------------------------------
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.5...3.21)
+if(CMAKE_VERSION VERSION_LESS 3.12)
+	cmake_policy(VERSION ${CMAKE_VERSION})
+endif()
+
 project(Doomseeker)
 
 # Multiarch support
@@ -95,7 +99,7 @@ endif()
 
 if( ZLIB_FOUND AND NOT FORCE_INTERNAL_ZLIB )
 	message( STATUS "Using system zlib" )
-else( ZLIB_FOUND AND NOT FORCE_INTERNAL_ZLIB )
+else()
 	message( STATUS "Using internal zlib" )
 	set( ZLIB_INTERNAL YES )
 	set(SKIP_INSTALL_ALL ON)
@@ -109,7 +113,7 @@ endif()
 
 if( BZIP2_FOUND AND NOT FORCE_INTERNAL_BZIP2 )
 	message( STATUS "Using system bzip2 library" )
-else( BZIP2_FOUND AND NOT FORCE_INTERNAL_BZIP2 )
+else()
 	message( STATUS "Using internal bzip2 library" )
 	set( BZIP2_INTERNAL YES )
 	add_subdirectory( dependencies/bzip2 )
@@ -121,7 +125,7 @@ endif()
 
 if ( wadseeker_FOUND AND NOT FORCE_INTERNAL_WADSEEKER )
 	message( STATUS "Using system Wadseeker library" )
-else( wadseeker_FOUND AND NOT FORCE_INTERNAL_WADSEEKER )
+else()
 	message( STATUS "Using internal Wadseeker library" )
 	set( WADSEEKER_INTERNAL YES )
 	add_subdirectory( src/wadseeker )
@@ -140,16 +144,8 @@ if(MSVC AND NOT MSVC90 AND NOT MSVC12)
 endif()
 
 # C++ standard
-if(CMAKE_VERSION VERSION_LESS "3.1")
-	if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
-	else()
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-	endif ()
-else ()
-		set(CMAKE_CXX_STANDARD 11)
-		set(CXX_STANDARD_REQUIRED ON)
-endif ()
+set(CMAKE_CXX_STANDARD 11)
+set(CXX_STANDARD_REQUIRED ON)
 
 if(WIN32)
 	set(WITH_AUTOUPDATES 1)

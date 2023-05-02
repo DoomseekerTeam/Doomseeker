@@ -23,7 +23,8 @@
 #ifndef __IP2CPARSER_H__
 #define __IP2CPARSER_H__
 
-#include "ip2c.h"
+#include "ip2ccountry.h"
+#include "ip2crange.h"
 #include <QMutex>
 #include <QThread>
 
@@ -57,15 +58,7 @@ class IP2CParser : public QObject
 	Q_OBJECT
 
 public:
-	IP2CParser(IP2C *pTargetDatabase);
-
-	/**
-	 * @brief Retrieves the IP2C database this parser operates on.
-	 */
-	IP2C *ip2c() const
-	{
-		return pTargetDatabase;
-	}
+	IP2CParser();
 
 	/**
 	 * @brief For multi-threading purposes. If this is true it is not
@@ -74,6 +67,11 @@ public:
 	bool isParsing() const
 	{
 		return bIsParsing;
+	}
+
+	const QList<IP2CRange> ranges() const
+	{
+		return ranges_;
 	}
 
 	bool readDatabase(const QString &filePath);
@@ -88,7 +86,7 @@ signals:
 	 */
 	void parsingFinished(bool bSuccess);
 
-protected:
+private:
 	/**
 	 * @brief Sets states for IP2C when being constructed and destructed.
 	 *
@@ -122,31 +120,16 @@ protected:
 		void run() override;
 	};
 
-	/**
-	 * Key value is the abbreviation of the country name.
-	 */
-	typedef QHash<QString, QList<IP2C::IP2CData> > Countries;
-	typedef QHash<QString, QList<IP2C::IP2CData> >::iterator CountriesIt;
-	typedef QHash<QString, QList<IP2C::IP2CData> >::const_iterator CountriesConstIt;
-
 	bool bIsParsing;
 	ParsingThread *currentParsingThread;
-
-	/**
-	 * @brief Database to which the IP2C parser will save the data it
-	 * retrieves from IP2C file.
-	 *
-	 * Since IP2CParser is prepared to work in a separate thread it is
-	 * not advised to delete the IP2C object before parsing is complete.
-	 */
-	IP2C *pTargetDatabase;
+	QList<IP2CRange> ranges_;
 
 	QMutex thisLock;
 
 	bool doReadDatabase(const QString &filePath);
 	bool readDatabaseVersion2(const QByteArray &dataArray);
 
-protected slots:
+private slots:
 	void parsingThreadFinished();
 };
 

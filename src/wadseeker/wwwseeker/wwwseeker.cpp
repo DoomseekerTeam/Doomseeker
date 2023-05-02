@@ -158,7 +158,7 @@ bool WWWSeeker::isMoreToSearch() const
 
 	bool hasSiteUrls = !d.sitesUrls.isEmpty();
 	bool hasFileSiteUrls = !d.fileSiteUrls.isEmpty();
-	bool hasCustomUrl = d.customSiteUrl.isValid();
+	bool hasCustomUrl = !d.customSiteUrls.isEmpty();
 
 	return hasSiteUrls
 		|| hasFileSiteUrls
@@ -545,13 +545,14 @@ QUrl WWWSeeker::takeNextUrl()
 	printf("Taking next URL\n");
 
 	// Custom site has priority above all else.
-	if (d.customSiteUrl.isValid())
+	while (!d.customSiteUrls.isEmpty())
 	{
-		printf("Taking custom URL\n");
-		QUrl tmp = d.customSiteUrl;
-		d.customSiteUrl = QUrl(); // Make it invalid.
-
-		return tmp;
+		printf("Taking custom URL %d\n", d.customSiteUrls.size());
+		QUrl url = d.customSiteUrls.takeFirst();
+		if (url.isValid() && !wasUrlUsed(url))
+		{
+			return url;
+		}
 	}
 
 	// Try to take one of the sites that are suspected to contain at least

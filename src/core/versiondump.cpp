@@ -22,11 +22,11 @@
 //------------------------------------------------------------------------------
 #include "versiondump.h"
 
-#include "json.h"
 #include "plugins/engineplugin.h"
 #include "plugins/pluginloader.h"
 #include "version.h"
 #include <QIODevice>
+#include <QJsonDocument>
 #include <QString>
 #include <wadseeker/wadseekerversioninfo.h>
 
@@ -79,6 +79,6 @@ void VersionDump::dumpJsonToIO(QIODevice &io)
 		root[keyword] = Module(name, QString::number(plugin->info()->data()->version)).toVariantMap();
 	}
 
-	io.write(QtJson::Json::serialize(root));
+	io.write(QJsonDocument::fromVariant(root).toJson());
 	io.write("\n");
 }

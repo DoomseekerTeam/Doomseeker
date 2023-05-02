@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 #include "aboutdialog.h"
 
+#include "gui/commongui.h"
 #include "gui/copytextdlg.h"
 #include "plugins/engineplugin.h"
 #include "plugins/pluginloader.h"
@@ -41,6 +42,7 @@ DPointered(AboutDialog)
 AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 {
 	d->setupUi(this);
+	CommonGUI::setupDialog(*this);
 
 	connect(d->buttonBox, SIGNAL(clicked(QAbstractButton*)), SLOT(close()));
 
@@ -64,7 +66,6 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 	connect(d->pluginBox, SIGNAL(currentIndexChanged(int)), SLOT(changePlugin(int)));
 	changePlugin(0);
 
-	d->jsonLayout->setAlignment(d->btnJsonLicense, Qt::AlignTop);
 	adjustSize();
 }
 
@@ -107,7 +108,8 @@ QString AboutDialog::copyrightVerboseNotice() const
 	// Translations
 	paragraphs << tr("Doomseeker translations contributed by:\n")
 		+ tr("- Polish: Zalewa") + "\n"
-		+ tr("- Spanish: Pol Marcet Sard%1").arg(smallAGraveChar);
+		+ tr("- Spanish: Pol Marcet Sard%1").arg(smallAGraveChar) + "\n"
+		+ tr("- Catalan: Pol Marcet Sard%1").arg(smallAGraveChar);
 
 	// GeoLite2
 	paragraphs << tr("This program uses GeoLite2 data for IP-to-Country (IP2C) purposes, "
@@ -131,15 +133,4 @@ QString AboutDialog::copyrightVerboseNotice() const
 	paragraphs << tr("This program uses icons (or derivates of) from following sources:\n") + icons.join("\n");
 
 	return paragraphs.join("\n\n");
-}
-
-void AboutDialog::showJsonLicense()
-{
-	QResource license("LICENSE.json");
-	QString licenseText = QString::fromUtf8(
-		reinterpret_cast<const char *>(license.data()),
-		license.size());
-	CopyTextDlg dialog(licenseText, tr("JSON library license"), this);
-	dialog.resize(550, dialog.height());
-	dialog.exec();
 }

@@ -76,7 +76,7 @@ bool CfgChatLogsPage::checkDir(const QString &directory)
 		QMessageBox::critical(this, tr("Directory error"), tr("Directory doesn't exist."));
 		return false;
 	}
-	QString validationError = validateChatLogsPath(directory);
+	QString validationError = validateChatLogsPath(dir);
 	if (!validationError.isEmpty())
 	{
 		QMessageBox::critical(this, tr("Directory error"), validationError);
@@ -117,7 +117,7 @@ void CfgChatLogsPage::saveSettings()
 
 ConfigPage::Validation CfgChatLogsPage::validate()
 {
-	QString error = validateChatLogsPath(d->leDir->text().trimmed());
+	QString error = validateChatLogsPath(QFileInfo(d->leDir->text().trimmed()));
 	d->lblDirWarning->setToolTip(error);
 	d->lblDirWarning->setVisible(!error.isEmpty());
 	return error.isEmpty() ? VALIDATION_OK : VALIDATION_ERROR;
@@ -126,6 +126,6 @@ ConfigPage::Validation CfgChatLogsPage::validate()
 QString CfgChatLogsPage::validateChatLogsPath(const QFileInfo &path) const
 {
 	if (path.exists() && !path.isDir())
-		return tr("Specified path isn't a directory.");
+		return tr("The specified path isn't a directory.");
 	return "";
 }

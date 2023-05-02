@@ -76,7 +76,7 @@ QList<ServerPtr> MasterManager::allServers() const
 		for (ServerPtr server : broadcastManager->servers())
 			result.insert(server);
 	}
-	return result.toList();
+	return result.values();
 }
 
 void MasterManager::masterListUpdated()

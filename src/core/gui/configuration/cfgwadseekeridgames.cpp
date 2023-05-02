@@ -26,7 +26,6 @@
 #include "wadseeker/wadseeker.h"
 #include <QCompleter>
 #include <QDebug>
-#include <QDirModel>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QUrl>

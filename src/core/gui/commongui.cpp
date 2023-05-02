@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 #include "commongui.h"
 #include <QComboBox>
+#include <QDialog>
 #include <QInputDialog>
 #include <QListView>
 #include <QStandardItemModel>
@@ -31,8 +32,25 @@
 QString CommonGUI::askString(const QString &title, const QString &label,
 	bool *ok, const QString &defaultString)
 {
-	return QInputDialog::getText(nullptr, title, label, QLineEdit::Normal,
+	return getText(nullptr, title, label, QLineEdit::Normal,
 		defaultString, ok);
+}
+
+QString CommonGUI::getText(QWidget *parent, const QString &title, const QString &label,
+	QLineEdit::EchoMode mode, const QString &text, bool *ok)
+{
+	bool _ok;
+	if (ok == nullptr)
+		ok = &_ok;
+	QInputDialog dialog(parent);
+	setupDialog(dialog);
+	dialog.setWindowTitle(title);
+	dialog.setLabelText(label);
+	dialog.setInputMode(QInputDialog::TextInput);
+	dialog.setTextValue(text);
+	dialog.setTextEchoMode(mode);
+	*ok = (dialog.exec() == QDialog::Accepted);
+	return (*ok) ? dialog.textValue() : QString();
 }
 
 QList<bool> CommonGUI::listViewStandardItemsToBoolList(QListView *listview)
@@ -113,6 +131,11 @@ void CommonGUI::removeSelectedRowsFromStandardItemView(QAbstractItemView *view,
 			selModel->select(newIdx, QItemSelectionModel::ClearAndSelect);
 		}
 	}
+}
+
+void CommonGUI::setupDialog(QDialog &dialog)
+{
+	dialog.setWindowFlags(dialog.windowFlags() & (~Qt::WindowContextHelpButtonHint));
 }
 
 void CommonGUI::stringListToStandardItemsListView(QListView *targetListview,

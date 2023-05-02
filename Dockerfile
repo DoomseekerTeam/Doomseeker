@@ -4,7 +4,7 @@ FROM ubuntu:16.04
 RUN apt-get update && apt-get -y install \
 	build-essential \
 	cmake \
-	mercurial \
+	git \
 	libbz2-dev \
 	zlib1g-dev \
 	qt5-default \

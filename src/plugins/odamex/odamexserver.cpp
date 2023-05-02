@@ -27,10 +27,11 @@
 #include <QDataStream>
 
 #include "datastreamoperatorwrapper.h"
+#include "odamexbinaries.h"
 #include "odamexengineplugin.h"
 #include "odamexgamehost.h"
 #include "odamexgameinfo.h"
-#include "odamexbinaries.h"
+#include "odamexgamemode.h"
 #include "odamexgamerunner.h"
 #include "plugins/engineplugin.h"
 #include "serverapi/playerslist.h"
@@ -46,7 +47,8 @@
 		return RESPONSE_BAD; \
 	}
 
-#define SERVER_CHALLENGE    0x02, 0x10, 0x01, 0xAD, 0, 7, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0
+// Server challenge, max supported engine version and max protocol version
+#define SERVER_CHALLENGE    0x02, 0x10, 0x01, 0xAD, 0xFF, 0xFF, 0xFF, 0xFF, 7, 0, 0, 0, 0, 0, 0, 0
 
 #define SPECTATOR_INFO      0x01020304
 #define EXTRA_INFO          0x01020305
@@ -115,7 +117,17 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 
 	CHECK_POS;
 
-	strVersion += QString(" r%1").arg(in.readQUInt32());
+	if (protocolVersion >= 7)
+	{
+		static const QString notFound = "HEAD-HASH-NOTFOUND";
+		QString revision(in.readRawUntilByte('\0'));
+		if (notFound != revision && !revision.isEmpty())
+			strVersion += QString(" %1").arg(revision);
+	}
+	else
+	{
+		strVersion += QString(" r%1").arg(in.readQUInt32());
+	}
 	setGameVersion(strVersion);
 
 	CHECK_POS;
@@ -171,16 +183,62 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 			setMaxClients((quint8)cvarValue.toInt());
 		else if (cvarName == "sv_scorelimit")
 			setScoreLimit(cvarValue.toUInt());
-		else if (cvarName == "sv_gametype")
-		{
-			unsigned int mode = cvarValue.toUInt();
-			if (mode < (unsigned)plugin()->gameModes().size())
-				setGameMode(plugin()->gameModes()[cvarValue.toUInt()]);
-		}
 		else if (cvarName == "sv_website")
 			setWebSite(cvarValue);
+		else if (cvarName == "sv_downloadsites")
+			setAdditionalWebSites(cvarValue.split(' '));
+		else if (cvarName == "sv_timelimit")
+			setTimeLimit(cvarValue.toUInt());
 		else
 			cvars.insert(cvarName, cvarValue);
+	}
+
+	/*
+	  Define the gamemode.
+	  From: https://github.com/odamex/odamex/blob/f0e0416fc42ef06ce8ff1f1c462df6a69fc65fd1/common/g_gametype.cpp#L53
+	  Do not use g_gametypename.
+	*/
+	setGameMode([&]()
+	{
+		return OdamexGameMode::derived()[([&]()
+		{
+			unsigned int mode = cvars.value("sv_gametype", "0").toUInt();
+			unsigned int lives = cvars.value("g_lives", "0").toUInt();
+			bool sides = cvars.value("g_sides", "0").toUInt();
+			if (mode == OdamexGameMode::BASE_COOPERATIVE && lives > 0)
+				return OdamexGameMode::DERIVED_SURVIVAL;
+			else if (mode == OdamexGameMode::BASE_COOPERATIVE)
+				return OdamexGameMode::DERIVED_COOPERATIVE;
+			else if (mode == OdamexGameMode::BASE_DEATHMATCH && lives > 0)
+				return OdamexGameMode::DERIVED_LAST_MARINE_STANDING;
+			else if (mode == OdamexGameMode::BASE_DEATHMATCH && maxPlayers() <= 2)
+				return OdamexGameMode::DERIVED_DUEL;
+			else if (mode == OdamexGameMode::BASE_DEATHMATCH)
+				return OdamexGameMode::DERIVED_DEATHMATCH;
+			else if (mode == OdamexGameMode::BASE_TEAM_DEATHMATCH && lives > 0)
+				return OdamexGameMode::DERIVED_TEAM_LAST_MARINE_STANDING;
+			else if (mode == OdamexGameMode::BASE_TEAM_DEATHMATCH)
+				return OdamexGameMode::DERIVED_TEAM_DEATHMATCH;
+			else if (mode == OdamexGameMode::BASE_CTF && sides)
+				return OdamexGameMode::DERIVED_ATTACK_DEFEND_CTF;
+			else if (mode == OdamexGameMode::BASE_CTF && lives > 0)
+				return OdamexGameMode::DERIVED_LMS_CTF;
+			else if (mode == OdamexGameMode::BASE_CTF)
+				return OdamexGameMode::DERIVED_CAPTURE_THE_FLAG;
+			else if (mode == OdamexGameMode::BASE_HORDE && lives > 0)
+				return OdamexGameMode::DERIVED_SURVIVAL_HORDE;
+			else if (mode == OdamexGameMode::BASE_HORDE)
+				return OdamexGameMode::DERIVED_HORDE;
+			else
+				return OdamexGameMode::DERIVED_COOPERATIVE; // Arbitrary default
+		}())];
+	}());
+
+	if (webSite().isEmpty() && !additionalWebSites().isEmpty())
+	{
+		auto list = additionalWebSites();
+		setWebSite(list.takeFirst());
+		setAdditionalWebSites(list);
 	}
 
 	if (protocolVersion >= 4)
@@ -199,7 +257,13 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 	setMap(in.readRawUntilByte('\0'));
 	CHECK_POS;
 
-	setTimeLeft(in.readQUInt16());
+	if (protocolVersion >= 6)
+	{
+		if (timeLimit() != 0)
+			setTimeLeft(in.readQUInt16());
+	}
+	else
+		setTimeLeft(in.readQUInt16());
 
 	if (protocolVersion < 5 || gameMode().isTeamGame())
 	{
@@ -281,9 +345,6 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 		Player player(playerName, score, ping, team, spectator);
 		addPlayer(player);
 	}
-
-	if (maxPlayers() == 2 && gameMode().index() == GameMode::SGM_Deathmatch)
-		setGameMode(OdamexGameInfo::gameModeDuel());
 
 	return RESPONSE_GOOD;
 }

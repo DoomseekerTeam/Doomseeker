@@ -26,6 +26,7 @@
 #include "irc/chatnetworknamer.h"
 #include "irc/configuration/chatnetworkscfg.h"
 #include "irc/entities/ircnetworkentity.h"
+#include "strings.hpp"
 #include <cassert>
 #include <QMessageBox>
 
@@ -76,7 +77,7 @@ void CFGIRCDefineNetworkDialog::accept()
 bool CFGIRCDefineNetworkDialog::askToAcceptAnywayWhenCommandsBad(const QStringList &offenders)
 {
 	assert(!offenders.isEmpty() && "no offenders");
-	QString header = tr("Following commands have violated the IRC maximum byte "
+	QString header = tr("These commands have violated the IRC maximum byte "
 		"number limit (%1):\n\n").arg(PrivData<CFGIRCDefineNetworkDialog>::MAX_IRC_COMMAND_LENGTH);
 	QString footer = tr("\n\nIf saved, the script may not run properly.\n\n"
 		"Do you wish to save the script anyway?");
@@ -130,7 +131,7 @@ IRCNetworkEntity CFGIRCDefineNetworkDialog::getNetworkEntity() const
 	autojoinChannels.remove('\r').replace('\n', ' ');
 
 	entity.setAddress(d->leAddress->text().trimmed());
-	entity.setAutojoinChannels(autojoinChannels.split(" ", QString::SkipEmptyParts));
+	entity.setAutojoinChannels(autojoinChannels.split(" ", Qt::SkipEmptyParts));
 	entity.setAutojoinCommands(autojoinCommands());
 	entity.setDescription(d->leDescription->text().trimmed());
 	entity.setNickservCommand(d->leNickservCommand->text().trimmed());

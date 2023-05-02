@@ -50,7 +50,7 @@ IP2CLoader::IP2CLoader(QObject *parent)
 	d->updateInProgress = false;
 	d->inFallbackMode = false;
 
-	d->ip2cParser = new IP2CParser(IP2C::instance());
+	d->ip2cParser = new IP2CParser();
 	this->connect(d->ip2cParser, SIGNAL(parsingFinished(bool)),
 		SLOT(ip2cFinishedParsing(bool)));
 
@@ -120,7 +120,7 @@ void IP2CLoader::update()
 	{
 		// Delay in hope that parser finishes
 		gLog << tr("IP2C update must wait until parsing of current database finishes. "
-				"Waiting 1 second");
+				"Waiting 1 second.");
 		QTimer::singleShot(1000, this, SLOT(update()));
 	}
 }
@@ -188,6 +188,7 @@ void IP2CLoader::ip2cFinishedParsing(bool bSuccess)
 	else
 	{
 		gLog << tr("IP2C parsing finished.");
+		IP2C::instance()->setRangesDatabase(d->ip2cParser->ranges());
 		ip2cJobsFinished();
 	}
 }

@@ -31,6 +31,7 @@
 #include <QDockWidget>
 
 class MasterManager;
+class Pattern;
 class QAbstractButton;
 class QModelIndex;
 
@@ -81,13 +82,16 @@ public:
 	AddBuddyDlg(QWidget *parent = nullptr);
 	~AddBuddyDlg() override;
 
-	QRegExp pattern() const;
+	Pattern pattern() const;
 
 protected slots:
 	void buttonBoxClicked(QAbstractButton *button);
 
 private:
 	DPtr<AddBuddyDlg> d;
+
+private slots:
+	void updateTip();
 };
 
 #endif /* __DOCKBUDDIESLIST_H__ */

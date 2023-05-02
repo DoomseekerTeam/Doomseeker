@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Doomseeker - Checking wads</string>
+   <string>Doomseeker - Checking WADs</string>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -29,7 +29,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>Checking the loaction and integrity of your wads</string>
+      <string>Checking the location and integrity of your WADs</string>
      </property>
     </widget>
    </item>

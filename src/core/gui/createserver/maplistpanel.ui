@@ -37,6 +37,9 @@
      <property name="selectionMode">
       <enum>QAbstractItemView::ExtendedSelection</enum>
      </property>
+     <property name="verticalScrollMode">
+      <enum>QAbstractItemView::ScrollPerPixel</enum>
+     </property>
      <property name="movement">
       <enum>QListView::Free</enum>
      </property>
@@ -45,7 +48,7 @@
    <item>
     <widget class="QPushButton" name="btnAddMapsFromWads">
      <property name="text">
-      <string>Add from loaded wads</string>
+      <string>Add from loaded WADs</string>
      </property>
      <property name="icon">
       <iconset resource="../../../../media/resources.qrc">

@@ -6,6 +6,7 @@ set(UI_FILES
 	gui/configuration/cfgautoupdates.ui
 	gui/configuration/cfgcustomservers.ui
 	gui/configuration/cfgfilepaths.ui
+	gui/configuration/cfgip2c.ui
 	gui/configuration/cfgquery.ui
 	gui/configuration/cfgserverpasswords.ui
 	gui/configuration/cfgwadalias.ui
@@ -88,6 +89,7 @@ set(HEADER_FILES
 	gui/configuration/cfgautoupdates.h
 	gui/configuration/cfgcustomservers.h
 	gui/configuration/cfgfilepaths.h
+	gui/configuration/cfgip2c.h
 	gui/configuration/cfgquery.h
 	gui/configuration/cfgserverpasswords.h
 	gui/configuration/cfgwadalias.h
@@ -108,6 +110,7 @@ set(HEADER_FILES
 	gui/copytextdlg.h
 	gui/createserver/customparamspanel.h
 	gui/createserver/dmflagspanel.h
+	gui/createserver/gamecvaredit.h
 	gui/createserver/gameexecutablepicker.h
 	gui/createserver/gamerulespanel.h
 	gui/createserver/generalgamesetuppanel.h
@@ -180,10 +183,12 @@ set(HEADER_FILES
 	ini/inivariable.h
 	ini/settingsprovider.h
 	ini/settingsproviderqt.h
-	ip2c/entities/ip2ccountryinfo.h
 	ip2c/ip2c.h
+	ip2c/ip2capi.h
+	ip2c/ip2ccountry.h
 	ip2c/ip2cloader.h
 	ip2c/ip2cparser.h
+	ip2c/ip2crange.h
 	ip2c/ip2cupdater.h
 	irc/chatlogarchive.h
 	irc/chatlogrotate.h
@@ -216,7 +221,6 @@ set(HEADER_FILES
 	irc/ops/ircdelayedoperationban.h
 	irc/ops/ircdelayedoperationignore.h
 	joincommandlinebuilder.h
-	json.h
 	localization.h
 	localizationinfo.h
 	log.h
@@ -230,6 +234,7 @@ set(HEADER_FILES
 	pathfinder/pathfind.h
 	pathfinder/pathfinder.h
 	pathfinder/wadpathfinder.h
+	pattern.h
 	patternlist.h
 	plugins/enginedefaults.h
 	plugins/engineplugin.h
@@ -324,6 +329,7 @@ set(SOURCE_FILES
 	gui/configuration/cfgautoupdates.cpp
 	gui/configuration/cfgcustomservers.cpp
 	gui/configuration/cfgfilepaths.cpp
+	gui/configuration/cfgip2c.cpp
 	gui/configuration/cfgquery.cpp
 	gui/configuration/cfgserverpasswords.cpp
 	gui/configuration/cfgwadalias.cpp
@@ -344,6 +350,7 @@ set(SOURCE_FILES
 	gui/copytextdlg.cpp
 	gui/createserver/customparamspanel.cpp
 	gui/createserver/dmflagspanel.cpp
+	gui/createserver/gamecvaredit.cpp
 	gui/createserver/gameexecutablepicker.cpp
 	gui/createserver/gamerulespanel.cpp
 	gui/createserver/generalgamesetuppanel.cpp
@@ -414,8 +421,9 @@ set(SOURCE_FILES
 	ini/inivariable.cpp
 	ini/settingsprovider.cpp
 	ini/settingsproviderqt.cpp
-	ip2c/entities/ip2ccountryinfo.cpp
 	ip2c/ip2c.cpp
+	ip2c/ip2capi.cpp
+	ip2c/ip2ccountry.cpp
 	ip2c/ip2cloader.cpp
 	ip2c/ip2cparser.cpp
 	ip2c/ip2cupdater.cpp
@@ -449,7 +457,6 @@ set(SOURCE_FILES
 	irc/ops/ircdelayedoperationban.cpp
 	irc/ops/ircdelayedoperationignore.cpp
 	joincommandlinebuilder.cpp
-	json.cpp
 	localization.cpp
 	localizationinfo.cpp
 	log.cpp
@@ -463,7 +470,9 @@ set(SOURCE_FILES
 	pathfinder/pathfind.cpp
 	pathfinder/pathfinder.cpp
 	pathfinder/wadpathfinder.cpp
+	pattern.cpp
 	patternlist.cpp
+	patternwildcard.cpp
 	plugins/engineplugin.cpp
 	plugins/pluginloader.cpp
 	random.cpp

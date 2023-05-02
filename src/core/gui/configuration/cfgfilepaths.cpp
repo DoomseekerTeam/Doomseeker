@@ -89,7 +89,7 @@ void CFGFilePaths::addPath(const FileSearchPath &fileSearchPath)
 
 void CFGFilePaths::btnAddWadPath_Click()
 {
-	QString strDir = QFileDialog::getExistingDirectory(this, tr("Doomseeker - Add wad path"));
+	QString strDir = QFileDialog::getExistingDirectory(this, tr("Doomseeker - Add game mod path"));
 	addPath(strDir);
 	emit validationRequested();
 }
@@ -99,7 +99,7 @@ void CFGFilePaths::btnRemoveWadPath_Click()
 	QSet<int> uniqueRows;
 	for (auto *item : d->tblFilePaths->selectedItems())
 		uniqueRows.insert(item->row());
-	QList<int> rows = uniqueRows.toList();
+	QList<int> rows = uniqueRows.values();
 	// Reverse the order of rows.
 	std::sort(rows.begin(), rows.end(), [](int a, int b) { return b < a; });
 	for (int row : rows)

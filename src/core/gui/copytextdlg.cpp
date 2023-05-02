@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 #include "clipboard.h"
 #include "copytextdlg.h"
+#include "gui/commongui.h"
 
 DClass<CopyTextDlg> : public Ui::CopyTextDlg
 {
@@ -32,6 +33,7 @@ DPointered(CopyTextDlg)
 CopyTextDlg::CopyTextDlg(const QString &content, const QString &description, QWidget *parent) : QDialog(parent)
 {
 	d->setupUi(this);
+	CommonGUI::setupDialog(*this);
 
 	connect(d->btnCopy, SIGNAL(clicked()), SLOT(copyContent()));
 

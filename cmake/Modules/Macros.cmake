@@ -152,3 +152,23 @@ macro(find_package_wadseeker)
 		endif()
 	endif()
 endmacro()
+
+# Qt5/6 compatibility
+
+set(Qt_PACKAGE "Qt5" CACHE STRING "Qt package name")
+
+macro(qtx_add_translation)
+	if(Qt_PACKAGE STREQUAL "Qt6")
+		qt6_add_translation(${ARGV})
+	else()
+		qt5_add_translation(${ARGV})
+	endif()
+endmacro()
+
+macro(qtx_create_translation)
+	if(Qt_PACKAGE STREQUAL "Qt6")
+		qt6_create_translation(${ARGV})
+	else()
+		qt5_create_translation(${ARGV})
+	endif()
+endmacro()

@@ -47,16 +47,16 @@ MantisBT issue tracker either.)
 
 ----
 
-The sources for development are available through Mercurial on Bitbucket:
+The sources for development are available through Git on Bitbucket:
 <https://bitbucket.org/Doomseeker/doomseeker>.
 
-A typical way to get started is to clone the Mercurial repository, using a
-Mercurial client from command line.
+A typical way to get started is to clone the Git repository, using a
+Git client from command line.
 
-`hg clone https://bitbucket.org/Doomseeker/doomseeker`
+`git clone https://bitbucket.org/Doomseeker/doomseeker.git`
 
 Refer to the manual of your client for information on interfacing with
-Mercurial.
+Git.
 
 A distribution of Doomseeker source code will most often include a copy of
 Wadseeker's source code at `src/wadseeker`.
@@ -138,10 +138,9 @@ Contributions are accepted for merging from issue attachments on [Zandronum
 issue tracker](https://zandronum.com/tracker/). This requires an account on the
 issue tracker.
 
-Export a [patch file](https://www.mercurial-scm.org/wiki/PatchFile) in [unified
-diff](https://www.mercurial-scm.org/wiki/UnifiedDiff) format (e.g. `hg export
-tip`) and attach the patch(es) to a reported issue. This should include a
-contributor's name and email address.
+Use git [format-patch](https://git-scm.com/docs/git-format-patch) to create
+patches which include contributor's name and email address. Attach the patches
+to a reported issue.
 
 ### External communication
 

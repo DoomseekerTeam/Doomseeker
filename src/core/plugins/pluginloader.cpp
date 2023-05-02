@@ -31,20 +31,8 @@
 #include "strings.hpp"
 #include <cassert>
 #include <QDir>
-
-#ifdef Q_OS_WIN32
-	#include <windows.h>
-#define dlopen(a, b) LoadLibrary(a)
-#define dlsym(a, b)  GetProcAddress(a, b)
-#define dlclose(a)   FreeLibrary(a)
-#define dlerror()    PluginLoader::Plugin::getDllWindowsErrorMessage()
-	#ifdef _MSC_VER
-		#pragma warning(disable: 4251)
-	#endif
-#else
-	#include <dirent.h>
-	#include <dlfcn.h>
-#endif
+#include <QLibrary>
+#include <QScopedPointer>
 
 ////////////////////////////////////////////////////////////////////////////////
 DClass<PluginLoader::Plugin>
@@ -52,11 +40,7 @@ DClass<PluginLoader::Plugin>
 public:
 	EnginePlugin *info;
 	QString file;
-	#ifdef Q_OS_WIN32
-	HMODULE library;
-	#else
-	void *library;
-	#endif
+	QScopedPointer<QLibrary> library;
 
 	static bool isForbiddenPlugin(QString file)
 	{
@@ -64,13 +48,12 @@ public:
 	}
 };
 
-DPointered(PluginLoader::Plugin)
+DPointeredNoCopy(PluginLoader::Plugin)
 
 PluginLoader::Plugin::Plugin(unsigned int type, QString file)
 {
 	Q_UNUSED(type); // THIS SHOULD BE REVIEWED. TYPE SEEMS USELESS.
 	d->file = file;
-	d->library = nullptr;
 	d->info = nullptr;
 	if (PrivData<PluginLoader::Plugin>::isForbiddenPlugin(file))
 	{
@@ -79,18 +62,10 @@ PluginLoader::Plugin::Plugin(unsigned int type, QString file)
 	}
 
 	// Load the library
-	#ifdef Q_OS_WIN32
-	UINT oldErrorMode = SetErrorMode(0);
-	SetErrorMode(oldErrorMode | SEM_FAILCRITICALERRORS);
-	#endif
-	d->library = dlopen(d->file.toUtf8().constData(), RTLD_NOW);
-	#ifdef Q_OS_WIN32
-	SetErrorMode(oldErrorMode);
-	#endif
-
-	if (d->library != nullptr)
+	d->library.reset(new QLibrary(file));
+	if (d->library->load())
 	{
-		auto doomSeekerABI = (unsigned int (*)())(dlsym(d->library, "doomSeekerABI"));
+		auto doomSeekerABI = (unsigned int (*)())(d->library->resolve("doomSeekerABI"));
 		if (!doomSeekerABI || doomSeekerABI() != DOOMSEEKER_ABI_VERSION)
 		{
 			// Unsupported version
@@ -110,7 +85,7 @@ PluginLoader::Plugin::Plugin(unsigned int type, QString file)
 			return;
 		}
 
-		auto doomSeekerInit = (EnginePlugin * (*)())(dlsym(d->library, "doomSeekerInit"));
+		auto doomSeekerInit = (EnginePlugin * (*)())(d->library->resolve("doomSeekerInit"));
 		if (doomSeekerInit == nullptr)
 		{ // This is not a valid plugin.
 			unload();
@@ -130,7 +105,7 @@ PluginLoader::Plugin::Plugin(unsigned int type, QString file)
 	else
 	{
 		gLog << QObject::tr("Failed to open plugin: %1").arg(file);
-		gLog << QString("Last error was: %1").arg(dlerror());
+		gLog << QString("Last error was: %1").arg(d->library->errorString());
 	}
 }
 
@@ -141,7 +116,7 @@ PluginLoader::Plugin::~Plugin()
 
 void *PluginLoader::Plugin::function(const char *func) const
 {
-	return (void *) dlsym(d->library, func);
+	return (void *) d->library->resolve(func);
 }
 
 EnginePlugin *PluginLoader::Plugin::info() const
@@ -160,54 +135,13 @@ void PluginLoader::Plugin::initConfig()
 
 bool PluginLoader::Plugin::isValid() const
 {
-	return d->library != nullptr;
+	return d->library != nullptr && d->library->isLoaded();
 }
 
 void PluginLoader::Plugin::unload()
 {
-	if (d->library != nullptr)
-	{
-		dlclose(d->library);
-		d->library = nullptr;
-	}
+	d->library.reset();
 }
-
-#ifdef Q_OS_WIN32
-QString PluginLoader::Plugin::getDllWindowsErrorMessage()
-{
-	QString baseErrorString("%1 (%2)");
-
-	DWORD errorId = GetLastError();
-
-	if (errorId == 127)
-	{
-		return baseErrorString.arg("Procedure not found. Perhaps this plugin is for a different Doomseeker version?",
-			QString::number(errorId));
-	}
-	if (errorId != 0)
-	{
-		LPVOID lpMsgBuf;
-		DWORD bufLen = FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM |
-			FORMAT_MESSAGE_IGNORE_INSERTS, NULL, errorId, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-			(LPWSTR) &lpMsgBuf, 0, NULL );
-
-		LPCWSTR lpMsgStr = (LPCWSTR)lpMsgBuf;
-		QString result = QString::fromWCharArray(lpMsgStr, bufLen);
-		if (result.contains("%1"))
-		{
-			// Try to cover the formatting placeholder in all WinAPI
-			// messages with a lowest common denominator fit.
-			result = result.arg("Plugin");
-		}
-		result = result.trimmed();
-
-		LocalFree(lpMsgBuf);
-
-		return baseErrorString.arg(result, QString::number(errorId));
-	}
-	return QString();
-}
-#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 DClass<PluginLoader>
@@ -218,7 +152,7 @@ public:
 	QList<PluginLoader::Plugin *> plugins;
 };
 
-DPointered(PluginLoader)
+DPointeredNoCopy(PluginLoader)
 
 PluginLoader *PluginLoader::staticInstance = nullptr;
 

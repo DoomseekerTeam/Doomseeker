@@ -27,6 +27,8 @@
 #include <QObject>
 #include <QString>
 
+#include <cstdarg>
+
 #include "dptr.h"
 #include "global.h"
 

@@ -36,6 +36,7 @@
 
 #include <cstdarg>
 #include <QPixmap>
+#include <QRegularExpression>
 
 EnginePlugin::Data::Data()
 {
@@ -267,7 +268,7 @@ void EnginePlugin::init(const char *name, const char *const icon[], ...)
 		case EP_GameFileSearchSuffixes:
 		{
 			QString suffixes = va_arg(va, const char *);
-			d->gameFileSearchSuffixes = suffixes.split(";", QString::SkipEmptyParts);
+			d->gameFileSearchSuffixes = suffixes.split(";", Qt::SkipEmptyParts);
 			break;
 		}
 		}
@@ -293,7 +294,7 @@ QString EnginePlugin::nameCanonical() const
 		// Derive.
 		QString name = data()->name;
 		name = name.toLower();
-		name = name.replace(QRegExp("\\s"), "_");
+		name = name.replace(QRegularExpression("\\s"), "_");
 		return name;
 	}
 }

@@ -18,7 +18,6 @@
 #------------------------------------------------------------------------------
 # Copyright (C) 2013 "Zalewa" <zalewapl@gmail.com>
 #------------------------------------------------------------------------------
-cmake_minimum_required(VERSION 2.8.12)
 
 set(PLUGIN_NAME fakeplugin)
 set(PLUGIN_VERSION 1)

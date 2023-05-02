@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------
-// ip2ccountryinfo.cpp
+// flagspagevaluecontroller.h
 //------------------------------------------------------------------------------
 //
 // This library is free software; you can redistribute it and/or
@@ -18,24 +18,30 @@
 // 02110-1301  USA
 //
 //------------------------------------------------------------------------------
-// Copyright (C) 2011 "Zalewa" <zalewapl@gmail.com>
+// Copyright (C) 2016 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
-#include "ip2ccountryinfo.h"
+#ifndef DOOMSEEKER_PLUGIN_ZANDRONUMQ_CREATESERVERDIALOGPAGES_FLAGSPAGEVALUECONTROLLER_H
+#define DOOMSEEKER_PLUGIN_ZANDRONUMQ_CREATESERVERDIALOGPAGES_FLAGSPAGEVALUECONTROLLER_H
 
-IP2CCountryInfo::IP2CCountryInfo()
+/**
+ * @brief Converts numerical flags values to widget representation
+ *        and vice-versa.
+ */
+class FlagsPageValueController
 {
-	flag = nullptr;
-}
+public:
+	FlagsPageValueController() {}
+	virtual ~FlagsPageValueController() {}
 
-IP2CCountryInfo::IP2CCountryInfo(const QPixmap *flag, QString name)
-{
-	this->flag = flag;
-	this->name = name;
-}
+	virtual void convertNumericalToWidgets() = 0;
+	virtual void convertWidgetsToNumerical() = 0;
+	virtual void setVisible(bool visible)
+	{
+		Q_UNUSED(visible);
+	}
 
-bool IP2CCountryInfo::isValid() const
-{
-	return flag != nullptr
-		&& !flag->isNull()
-		&& !name.isEmpty();
-}
+private:
+	FlagsPageValueController(const FlagsPageValueController &other) = delete;
+};
+
+#endif

@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 #include "checkwadsdlg.h"
 #include "configuration/doomseekerconfig.h"
+#include "gui/commongui.h"
 #include "pathfinder/pathfinder.h"
 #include "pathfinder/wadpathfinder.h"
 #include "serverapi/serverstructs.h"
@@ -51,6 +52,7 @@ CheckWadsDlg::CheckWadsDlg(const PathFinder *pathFinder, QWidget *parent) : QDia
 	d->showWindow.reset(new QTimer);
 
 	d->setupUi(this);
+	CommonGUI::setupDialog(*this);
 	connect(d->checkWadTimer.data(), SIGNAL(timeout()), this, SLOT(performCheckStep()));
 	connect(d->showWindow.data(), SIGNAL(timeout()), this, SLOT(openWindow()));
 	connect(d->buttonBox, SIGNAL(clicked(QAbstractButton*)), SLOT(abortCheck()));

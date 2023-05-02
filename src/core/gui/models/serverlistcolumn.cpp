@@ -27,22 +27,19 @@
 
 using namespace ServerListColumnId;
 
-#define HIDDEN true
 #define RESIZEABLE true
 
 const ServerListColumn ServerListColumns::columns[] =
 {
-	{ IDPort, 24, !HIDDEN, !RESIZEABLE, Qt::AscendingOrder },
-	{ IDPlayers, 60, !HIDDEN, RESIZEABLE, Qt::DescendingOrder },
-	{ IDPing, 50, !HIDDEN, RESIZEABLE, Qt::AscendingOrder },
-	{ IDServerName, 200, !HIDDEN, RESIZEABLE, Qt::AscendingOrder },
-	{ IDAddress, 120, !HIDDEN, RESIZEABLE, Qt::AscendingOrder },
-	{ IDIwad, 90, !HIDDEN, RESIZEABLE, Qt::AscendingOrder },
-	{ IDMap, 70, !HIDDEN, RESIZEABLE, Qt::AscendingOrder },
-	{ IDWads, 120, !HIDDEN, RESIZEABLE, Qt::AscendingOrder },
-	{ IDGametype, 150, !HIDDEN, RESIZEABLE, Qt::AscendingOrder },
-	{ IDHiddenGroup, 0, HIDDEN, !RESIZEABLE, Qt::DescendingOrder },
-	{ IDHiddenServerPointer, 0, HIDDEN, !RESIZEABLE, Qt::AscendingOrder }
+	{ IDPort, 24, !RESIZEABLE, Qt::AscendingOrder },
+	{ IDPlayers, 60, RESIZEABLE, Qt::DescendingOrder },
+	{ IDPing, 50, RESIZEABLE, Qt::AscendingOrder },
+	{ IDServerName, 200, RESIZEABLE, Qt::AscendingOrder },
+	{ IDAddress, 120, RESIZEABLE, Qt::AscendingOrder },
+	{ IDIwad, 90, RESIZEABLE, Qt::AscendingOrder },
+	{ IDMap, 70, RESIZEABLE, Qt::AscendingOrder },
+	{ IDWads, 120, RESIZEABLE, Qt::AscendingOrder },
+	{ IDGametype, 150, RESIZEABLE, Qt::AscendingOrder },
 };
 
 QString ServerListColumns::columnLabel(int columnId)
@@ -70,10 +67,6 @@ QString ServerListColumns::columnLabel(int columnId)
 		return tr("WADs");
 	case IDGametype:
 		return tr("Game Type");
-	case IDHiddenGroup:
-		return "SORT_GROUP";
-	case IDHiddenServerPointer:
-		return "SERVER_POINTER";
 	default:
 		return "UNKNOWN_COLUMN";
 	}
@@ -98,5 +91,5 @@ QList<QStandardItem *> ServerListColumns::generateListOfCells()
 bool ServerListColumns::isColumnVital(int columnId)
 {
 	// We assume that columnIndex == columnId.
-	return columns[columnId].bHidden || columnId == IDAddress || columnId == IDPort;
+	return columnId == IDAddress || columnId == IDPort;
 }

@@ -25,7 +25,7 @@
 #include "irc/configuration/ircconfig.h"
 
 #include <QFileInfo>
-#include <QSound>
+#include <QSoundEffect>
 
 void IRCSounds::loadFromConfig()
 {
@@ -44,30 +44,28 @@ void IRCSounds::loadFromConfig()
 	}
 }
 
-QSound *IRCSounds::loadIfExists(const QString &path)
+QSoundEffect *IRCSounds::loadIfExists(const QString &path)
 {
 	QFileInfo fileInfo(path);
 	if (fileInfo.isFile())
-		return new QSound(path);
-
+	{
+		auto sfx = new QSoundEffect();
+		sfx->setSource(QUrl::fromLocalFile(fileInfo.absoluteFilePath()));
+		return sfx;
+	}
 	return nullptr;
 }
 
 void IRCSounds::playIfAvailable(SoundType sound)
 {
-	QSound *pSound = sounds[sound];
+	auto pSound = sounds[sound];
 	if (pSound != nullptr)
 		pSound->play();
 }
 
 void IRCSounds::unload()
 {
-	QMap<SoundType, QSound *>::iterator it;
-	for (it = sounds.begin(); it != sounds.end(); ++it)
-	{
-		if (it.value() != nullptr)
-			delete it.value();
-	}
-
+	for (auto sfx : sounds)
+		delete sfx;
 	sounds.clear();
 }

@@ -23,8 +23,8 @@
 #include "idgamesreply.h"
 
 #include "protocols/idgames/idgamesresult.h"
-#include "protocols/json.h"
 #include <QDebug>
+#include <QJsonDocument>
 
 static const int MAX_REDIRECTS = 10;
 
@@ -75,9 +75,9 @@ void IdgamesReply::onNetworkFinished()
 			QString json = d->reply->readAll();
 			#ifndef NDEBUG
 			qDebug() << "idgames onNetworkFinished()" << json;
-			qDebug() << "idgames onNetworkFinished() parsed" << QtJson::Json::parse(json);
+			qDebug() << "idgames onNetworkFinished() parsed" << QJsonDocument::fromJson(json.toUtf8());
 			#endif
-			finish(IdgamesResult(QtJson::Json::parse(json)));
+			finish(IdgamesResult(QJsonDocument::fromJson(json.toUtf8()).toVariant()));
 		}
 	}
 	else

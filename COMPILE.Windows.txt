@@ -38,7 +38,7 @@ they linked against ICU (about 30MB of additional DLL dependency).
 
 Get Qt 5.7.1 for MinGW-w64 from Qt's official home page and install it.
 
-  https://download.qt.io/archive/qt/5.7/5.7.1/qt-opensource-windows-x86-mingw530-5.7.1.exe
+  https://download.qt.io/new_archive/qt/5.7/5.7.1/qt-opensource-windows-x86-mingw530-5.7.1.exe
 
 ================================================================================
 3.1. Extra Qt translation files.

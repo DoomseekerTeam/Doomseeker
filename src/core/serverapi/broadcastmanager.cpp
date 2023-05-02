@@ -82,5 +82,5 @@ void BroadcastManager::registerPlugin(const EnginePlugin *plugin)
 
 QList<ServerPtr> BroadcastManager::servers() const
 {
-	return d->servers.toList();
+	return d->servers.values();
 }

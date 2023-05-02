@@ -23,19 +23,21 @@
 #ifndef DOOMSEEKER_GUI_COMMONGUI_H
 #define DOOMSEEKER_GUI_COMMONGUI_H
 
+#include <QtContainerFwd>
+#include <QLineEdit>
 #include <QString>
 
 class QAbstractItemView;
 class QComboBox;
+class QDialog;
 class QListView;
-class QStringList;
 class QTableWidget;
 
 class CommonGUI
 {
 public:
 	/**
-	 * @brief Calls QInputDialog::getText().
+	 * @brief Calls getText().
 	 */
 	static QString askString(const QString &title, const QString &label,
 		bool *ok = nullptr, const QString &defaultString = "");
@@ -53,6 +55,14 @@ public:
 	 */
 	static QStringList listViewStandardItemsToStringList(QListView *listview);
 
+	/**
+	 * @brief Opens a QInputDialog for text input, but sets its flags so that
+	 * the '?' titlebar button doesn't appear.
+	 */
+	static QString getText(QWidget *parent, const QString &title, const QString &label,
+		QLineEdit::EchoMode mode = QLineEdit::Normal, const QString &text = QString(),
+		bool *ok = nullptr);
+
 	static void removeSelectedRowsFromQTableWidget(QTableWidget *table);
 
 	/**
@@ -66,6 +76,13 @@ public:
 	 */
 	static void removeSelectedRowsFromStandardItemView(
 		QAbstractItemView *view, bool bSelectNextItem = false);
+
+	/**
+	 * @brief Setup common properties for the dialog box.
+	 *
+	 * - Remove the '?' button from the title bar.
+	 */
+	static void setupDialog(QDialog &dialog);
 
 	/**
 	 * @brief Puts a list of strings into a QListView that uses

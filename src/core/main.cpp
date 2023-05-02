@@ -28,6 +28,7 @@
 #include <QLabel>
 #include <QMainWindow>
 #include <QMessageBox>
+#include <QMetaType>
 #include <QObject>
 #include <QSslConfiguration>
 #include <QThreadPool>
@@ -53,6 +54,7 @@
 #include "localization.h"
 #include "log.h"
 #include "main.h"
+#include "pattern.h"
 #include "plugins/engineplugin.h"
 #include "plugins/pluginloader.h"
 #include "refresher/refresher.h"
@@ -78,7 +80,7 @@ Main::Main(int argc, char *argv[])
 {
 	#ifdef Q_OS_OPENBSD
 	pledge ("stdio rpath wpath cpath tmppath inet mcast fattr chown flock unix "
-		"dns sendfd recvfd tape tty proc exec prot_exec ps audio video unveil",
+		"dns getpw sendfd recvfd tty proc exec prot_exec ps audio video unveil",
 		"");
 	#endif
 	bIsFirstRun = false;
@@ -88,8 +90,13 @@ Main::Main(int argc, char *argv[])
 	logVerbosity = LV_Default;
 	updateFailedCode = 0;
 
+	qRegisterMetaType<Pattern>("Pattern");
 	qRegisterMetaType<ServerPtr>("ServerPtr");
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+	qRegisterMetaTypeStreamOperators<Pattern>("Pattern");
 	qRegisterMetaType<ServerCPtr>("ServerCPtr");
+#endif
 }
 
 Main::~Main()
@@ -372,7 +379,7 @@ void Main::runRemoteConsole()
 		int pIndex = gPlugins->pluginIndexFromName(rconPluginName);
 		if (pIndex == -1)
 		{
-			gLog << tr("Couldn't find specified plugin: ") + rconPluginName;
+			gLog << tr("Couldn't find the specified plugin: ") + rconPluginName;
 			gApp->exit(2);
 			return;
 		}

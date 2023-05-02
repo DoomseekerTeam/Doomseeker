@@ -67,10 +67,9 @@ QString GameInfoTip::playersHTML()
 		canJoin = 0;
 	}
 
-	QString html = "<tr><td>" + PLAYERS + ":&nbsp;</td><td>%1 / %2 (%3 can join)</td></tr>";
-	html = html.arg(players.numClients()).arg(d->server->numTotalSlots()).arg(canJoin);
-
-	return html;
+	return"<tr><td>" + PLAYERS + ":&nbsp;</td><td>"
+		+ tr("%1 / %2 (%3 can join)").arg(players.numClients()).arg(d->server->numTotalSlots()).arg(canJoin)
+		+ "</td></tr>";
 }
 
 QString GameInfoTip::limitHTML(QString limitName, QString valueArgsTemplate, int value)

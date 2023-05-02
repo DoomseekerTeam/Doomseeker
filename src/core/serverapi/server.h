@@ -28,6 +28,7 @@
 #include "global.h"
 #include "serverapi/polymorphism.h"
 #include "serverapi/serverptr.h"
+#include "serverapi/serverstructs.h"
 
 #include <QColor>
 #include <QHostAddress>
@@ -45,12 +46,10 @@ class EnginePlugin;
 class ExeFile;
 class GameCVar;
 class GameHost;
-class GameMode;
 class GameClientRunner;
 class PathFinder;
 class Player;
 class PlayersList;
-class PWad;
 class RConProtocol;
 class TooltipGenerator;
 
@@ -292,6 +291,8 @@ public:
 	 * @brief <b>[Virtual]</b> Allows a plugin to provide custom server details.
 	 */
 	QString customDetails();
+
+	const QString &country() const;
 
 	/**
 	 * @brief dmflags used by this server.
@@ -542,6 +543,20 @@ public:
 	bool sendRefreshQuery(QUdpSocket *socket);
 
 	/**
+	 * @brief Set the server's location country.
+	 *
+	 * This should be the ISO 3166-1 alpha-3 country code. If set, it will
+	 * overrule IP2C - the country detected from the IP address.
+	 *
+	 * These are the possible values:
+	 *
+	 * - ISO 3166-1 alpha-3 code for an existing country
+	 * - "XUN" or a code of a not existing country - Doomseeker will
+	 *   consider the country as "Unknown"
+	 * - "XIP" or empty - force IP2C recognition
+	 */
+	void setCountry(const QString &country);
+	/**
 	 * @brief Set whether this server is custom, should be called
 	 *        by Doomseeker only.
 	 */
@@ -602,6 +617,11 @@ public:
 	void setWebSite(const QString &site);
 
 	/**
+	 * @brief Set additional web site URLs parsed from the response packet.
+	 */
+	void setAdditionalWebSites(const QStringList &list);
+
+	/**
 	 * @brief Amount of time until the round is over, expressed in minutes.
 	 */
 	unsigned short timeLeft() const;
@@ -644,6 +664,16 @@ public:
 	 * @brief Website URL provided by this server.
 	 */
 	const QString &webSite() const;
+
+	/**
+	 * @brief Additional website URLs provided by this server.
+	 */
+	const QStringList &additionalWebSites() const;
+
+	/**
+	 * @brief Get both webSite() and additionalWebSites().
+	 */
+	QStringList allWebSites() const;
 
 	/**
 	 * @brief Does this server come from LAN.
@@ -782,6 +812,9 @@ private slots:
 };
 
 Q_DECLARE_METATYPE(ServerPtr)
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+// Qt6 normalizes smart pointer meta types so we only need the non-const version
 Q_DECLARE_METATYPE(ServerCPtr)
+#endif
 
 #endif /* __SERVER_H__ */

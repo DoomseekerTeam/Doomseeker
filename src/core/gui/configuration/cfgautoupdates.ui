@@ -11,13 +11,31 @@
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <item>
     <widget class="QWidget" name="programUpdateArea" native="true">
      <layout class="QVBoxLayout" name="verticalLayout_2">
-      <property name="margin">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
        <number>0</number>
       </property>
       <item>
@@ -94,24 +112,7 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="Line" name="line">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
      </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="cbIp2cAutoUpdate">
-     <property name="toolTip">
-      <string>&lt;p&gt;New IP2C database will be downloaded if locally stored one is missing or has a different checksum than the one stored on Doomseeker's web page.&lt;/p&gt;</string>
-     </property>
-     <property name="text">
-      <string>IP2C auto update</string>
-     </property>
     </widget>
    </item>
   </layout>

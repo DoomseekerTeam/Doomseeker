@@ -54,7 +54,7 @@ public:
 	bool operator> (const ZandronumVersion &other) const;
 
 protected:
-	static const QRegExp versionExpression;
+	static const QRegularExpression versionExpression;
 	QString version;
 
 	unsigned short int major;
@@ -139,8 +139,9 @@ public:
 			SQF_OPTIONAL_WADS | SQF_DEH | SQF_EXTENDED_INFO,
 
 		SQF2_PWAD_HASHES = 0x00000001,
+		SQF2_COUNTRY = 0x00000002,
 
-		SQF2_STANDARDQUERY = SQF2_PWAD_HASHES
+		SQF2_STANDARDQUERY = SQF2_PWAD_HASHES | SQF2_COUNTRY
 	};
 
 	ZandronumServer(const QHostAddress &address, unsigned short port);

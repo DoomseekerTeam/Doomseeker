@@ -58,13 +58,6 @@ public:
 		SGFirstQuery = 50,
 	};
 
-	enum ServerListDataTypes
-	{
-		// Pointer to the server structure is always stored in the first column
-		DTPointerToServerStructure = Qt::UserRole + 1,
-		DTSort = Qt::UserRole + 2
-	};
-
 	ServerListRowHandler(ServerListModel *parentModel, int rowIndex, const ServerPtr &server);
 
 	/**
@@ -106,7 +99,7 @@ private:
 
 	void fillPlayerColumn();
 	void fillPortIconColumn();
-	void fillServerPointerColumn();
+	void fillServerPointer();
 
 	void prepareHeaders();
 

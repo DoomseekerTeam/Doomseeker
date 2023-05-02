@@ -172,8 +172,8 @@ ServerPtr ServerListModel::serverFromList(const QModelIndex &index) const
 
 ServerListModel::ServerGroup ServerListModel::serverGroup(int row)
 {
-	QStandardItem *qstdItem = item(row, IDHiddenGroup);
-	return static_cast<ServerListModel::ServerGroup>(qstdItem->data(SLDT_SORT).toInt());
+	QStandardItem *qstdItem = item(row, COL_META);
+	return static_cast<ServerListModel::ServerGroup>(qstdItem->data(SLDT_SERVER_GROUP).toInt());
 }
 
 void ServerListModel::setRefreshing(ServerPtr server)

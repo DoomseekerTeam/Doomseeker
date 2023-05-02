@@ -29,11 +29,12 @@
 
 #include <gui/createserver/iwadandwadspickerdialog.h>
 #include <ini/inisection.h>
-#include <QFileInfo>
 #include <serverapi/createserverdialogapi.h>
 #include <serverapi/gamefile.h>
 #include <serverapi/message.h>
 #include <serverapi/playerslist.h>
+#include <QFileInfo>
+#include <QRegularExpression>
 
 ChocolateDoomGameClientRunner::ChocolateDoomGameClientRunner(QSharedPointer<ChocolateDoomServer> server)
 	: GameClientRunner(server)
@@ -109,7 +110,7 @@ QStringList ChocolateDoomGameClientRunner::executables() const
 	{
 		paths << plugin()->data()->pConfig->value(file.configName()).toString();
 	}
-	paths = paths.filter(QRegExp("\\S+"));
+	paths = paths.filter(QRegularExpression("\\S+"));
 	paths.removeDuplicates();
 	return paths;
 }

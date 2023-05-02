@@ -34,9 +34,6 @@
 #include "wadseekerexportinfo.h"
 #include "wadseekermessagetype.h"
 
-#define WADSEEKER_CONNECT_TIMEOUT_SECONDS_DEFAULT 30
-#define WADSEEKER_DOWNLOAD_TIMEOUT_SECONDS_DEFAULT 120
-
 class Idgames;
 class WadArchiveClient;
 class WadRetriever;
@@ -173,10 +170,20 @@ public:
 	 *
 	 * Custom site can be set before the seek is started.
 	 *
+	 * Read about setCustomSites() for multiple sites
+	 *
 	 * @param url
 	 *     A valid, absolute URL.
 	 */
 	void setCustomSite(const QString &url);
+
+	/**
+	 * Equal to setCustomSite, but for multiple sites. Do note that you shall
+	 * only use one of these two.
+	 *
+	 * @param urls A list of valid, absolute URLs.
+	 */
+	void setCustomSites(const QStringList &urls);
 
 	/**
 	 * @brief Toggles Idgames enabled state.

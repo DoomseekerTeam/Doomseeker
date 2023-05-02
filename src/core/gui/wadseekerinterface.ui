@@ -19,7 +19,7 @@
      <item>
       <widget class="QLabel" name="lblTop">
        <property name="text">
-        <string>Seek WAD or multiple WADs, comma (',') separated:</string>
+        <string>Seek WADs, comma (',') separated:</string>
        </property>
       </widget>
      </item>

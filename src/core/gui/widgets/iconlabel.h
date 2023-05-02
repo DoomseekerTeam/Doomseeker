@@ -32,8 +32,8 @@ class IconLabel : public QWidget
 public:
 	IconLabel(QWidget *pParent = nullptr);
 
-	const QPixmap *pixmap() const;
 	QString text() const;
+	// Getter removed for now since implementation would differ between Qt < 5.15 and we're not using it
 	void setPixmap(const QPixmap &pixmap);
 	void setText(const QString &str);
 	void setWordWrap(bool wrap);

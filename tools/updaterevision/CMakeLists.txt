@@ -1,11 +1,9 @@
-cmake_minimum_required( VERSION 2.8.12 )
-
 if( WIN32 )
 	if( MSVC_VERSION GREATER 1399 )
 		# VC 8+ adds a manifest automatically to the executable. We need to
 		# merge ours with it.
 		set( MT_MERGE ON )
-	else( MSVC_VERSION GREATER 1399 )
+	else()
 		set( TRUSTINFO trustinfo.rc )
 	endif()
 endif()

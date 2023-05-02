@@ -53,6 +53,7 @@ MapListSelector::MapListSelector(QWidget *parent) : QDialog(parent)
 	d->checkWadTimer.reset(new QTimer);
 
 	d->setupUi(this);
+	CommonGUI::setupDialog(*this);
 
 	connect(d->checkWadTimer.data(), SIGNAL(timeout()), this, SLOT(performCheckStep()));
 }

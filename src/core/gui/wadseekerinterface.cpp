@@ -25,6 +25,7 @@
 
 #include "application.h"
 #include "configuration/doomseekerconfig.h"
+#include "gui/commongui.h"
 #include "gui/helpers/taskbarbutton.h"
 #include "gui/helpers/taskbarprogress.h"
 #include "mainwindow.h"
@@ -65,7 +66,7 @@ WadseekerInterface::WadseekerInterface(ServerPtr server, QWidget *parent)
 	setupAutomatic();
 	d->lblTop->show();
 	d->lblTop->setText(tr("Downloading WADs for server \"%1\"").arg(server->name()));
-	setCustomSite(server->webSite());
+	setCustomSites(server->allWebSites());
 }
 
 WadseekerInterface::~WadseekerInterface()
@@ -99,7 +100,7 @@ void WadseekerInterface::accept()
 		else
 		{
 			seekedWads.clear();
-			QStringList pwadNames = d->leWadName->text().split(',', QString::SkipEmptyParts);
+			QStringList pwadNames = d->leWadName->text().split(',', Qt::SkipEmptyParts);
 			for (QString pwadName : pwadNames)
 			{
 				seekedWads << pwadName.trimmed();
@@ -175,6 +176,7 @@ void WadseekerInterface::connectWadseekerObject()
 void WadseekerInterface::construct()
 {
 	d->setupUi(this);
+	CommonGUI::setupDialog(*this);
 	d->preventGame = false;
 	d->bCompletedSuccessfully = false;
 
@@ -481,7 +483,7 @@ void WadseekerInterface::startSeeking(const QList<PWad> &seekedFilesList)
 	setupIdgames();
 
 	wadseeker.setTargetDirectory(gConfig.wadseeker.targetDirectory);
-	wadseeker.setCustomSite(customSite);
+	wadseeker.setCustomSites(customSites);
 	wadseeker.setMaximumConcurrentSeeks(gConfig.wadseeker.maxConcurrentSiteDownloads);
 	wadseeker.setMaximumConcurrentDownloads(gConfig.wadseeker.maxConcurrentWadDownloads);
 	wadseeker.startSeek(listWads);

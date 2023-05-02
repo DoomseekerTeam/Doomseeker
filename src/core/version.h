@@ -35,7 +35,7 @@ class MAIN_EXPORT Version
 {
 public:
 	/**
-	 * Returns Mercurial changeset or an empty string if not available.
+	 * Returns Git changeset or an empty string if not available.
 	 */
 	static QString changeset();
 

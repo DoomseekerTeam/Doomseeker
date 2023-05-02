@@ -87,7 +87,7 @@ bool ChatLogs::renameNetwork(QWidget *parentUi, QString oldName, QString newName
 		if (dir.exists(newName))
 		{
 			error = tr("Won't transfer chat logs from \"%1\" to \"%2\" as directory \"%2\""
-				"already exists.").arg(oldName, newName);
+				" already exists.").arg(oldName, newName);
 		}
 		else if (!dir.rename(oldName, newName))
 			error = tr(R"(Failed to transfer chat from "%1" to "%2")").arg(oldName, newName);

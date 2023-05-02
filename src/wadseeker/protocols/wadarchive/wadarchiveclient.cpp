@@ -24,9 +24,9 @@
 
 #include "entities/checksum.h"
 #include "entities/waddownloadinfo.h"
-#include "protocols/json.h"
 #include <QCryptographicHash>
 #include <QDebug>
+#include <QJsonDocument>
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QUrl>
@@ -172,8 +172,8 @@ void WadArchiveClient::onQueryFinished()
 	if (d->replyName->isFinished() && d->replyChecksum->isFinished())
 	{
 		emit message(tr("Wad Archive query finished."), WadseekerLib::Notice);
-		QVariantList elementsName = QtJson::Json::parse(d->replyName->readAll()).toList();
-		QVariantMap elementsChecksum = QtJson::Json::parse(d->replyChecksum->readAll()).toMap();
+		QVariantList elementsName = QJsonDocument::fromJson(d->replyName->readAll()).toVariant().toList();
+		QVariantMap elementsChecksum = QJsonDocument::fromJson(d->replyChecksum->readAll()).toVariant().toMap();
 		if (elementsName.size() > 0)
 		{
 			parseWadArchiveStructure(elementsName[0].toMap(), elementsChecksum);

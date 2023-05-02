@@ -31,11 +31,11 @@ fi
 doxyfile=$1
 tmpdoxyfile="/tmp/doomseekerdoc.doxycfg"
 outputdir="/tmp/doomseekerdoc"
-versiondefs="src/core/versiondefs.h"
+versiondefs="src/core/versiondefs.cmake"
 project="doomseeker"
 if [[ $doxyfile == *"wadseeker"* ]]; then
 	project="wadseeker"
-	versiondefs="src/wadseeker/wadseekerversioninfo.cpp"
+	versiondefs="src/wadseeker/wadseekerversiondefs.cmake"
 fi
 debug=0
 
@@ -57,7 +57,7 @@ function strip_whitespace {
 }
 
 # final sed trims whitespace and quotation
-version=`cat "$versiondefs" | grep VERSION_STRING | tr -s " " | cut -d" " -f3- | sed -r 's/\"(.*?)\"/\1/'`
+version=`grep VERSION_STRING "$versiondefs" | cut -d'"' -f2`
 version=`strip_whitespace $version`
 cp "$1" "$tmpdoxyfile"
 sed -i -r 's/PROJECT_NUMBER\s*=.*/PROJECT_NUMBER = '"$version"'/' $tmpdoxyfile

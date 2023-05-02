@@ -1,15 +1,109 @@
 # Changelog
 
 Visit this file cleanly formatted in repository:
-<https://bitbucket.org/Doomseeker/doomseeker/src/default/CHANGELOG.md>
+<https://bitbucket.org/Doomseeker/doomseeker/src/master/CHANGELOG.md>
 
 This file follows the format of
 [Keep a Changelog 1.0.0](https://keepachangelog.com/en/1.0.0/),
 and this project does not adhere to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.3] - 2022-01-18
+### Added:
+- An IP2C option to toggle honoring of the countries received from
+the game servers; enabled by default. If enabled, display the country
+flags and the locations basing on this info. (#3939)
+- The game settings inputs in the "Rules" panel of the Create Game box can now
+be more elaborate than just "setters for numeric values". If a game requires it,
+these inputs can be rendered as checkboxes or text editors.
+- Odamex: Support for Odamex version 10.0 (#3909)
+- Zandronum: Add the new settings from Zandronum 3.1 to the Create
+Game box: DM and compat. flags, server country, voting permissions,
+respawn delay times. (#3938)
+- Zandronum: accept the country code sent by the game servers. (#3939)
+- Zandronum: accept the minplayers/maxplayers arguments on the maplist. (#3940)
 
-## [Unreleased]
+### Changed
+- Move the IP2C options to a separate configuration page.
+- Stick the description labels to the checkboxes in the appearance config.
+- Permit parameters on the map list, ignore them when checking if a map is
+on the map list. (#3940)
+- Doomseeker now knows the list of countries and their alpha-3 codes
+by heart (it's hardcoded), instead of drawing them from the IP2C
+database. The country names can now be translated. (#3957)
+- Remove the useless question mark button from the titlebars of the
+dialog boxes.
+- Make the UI more spacious by removing paddings in the main dockable
+windows and in the configuration box. (#3676)
+- Odamex: Adapt the game modes in the Create Game box to how Odamex wants
+them. The box will present only the selection of the 5 base modes: Coop,
+DM, Team DM, CTF and the Horde mode from Odamex 10.0. The other game
+modes can be activated by enabling the lives and the sides settings on
+the Rules page. (#3937)
+- Zandronum: Clean-up the layout of the "Zandronum" tab in the
+Create Game box.
+- Zandronum: Rename the "Disallow - Use custom GL lighting settings"
+to "Disallow - Use custom renderer settings" because this is what it
+actually does.
+- Under "Configuration", the "Wadseeker - General" config node has been moved
+to the "Wadseeker" config node. The "Games" node now also displays an empty
+configuration page. Previously, both of these nodes did nothing. (#3953)
+
+### Deprecated
+- SRB2: The Sonic Robo Blast 2 game plugin may be soon removed from the
+Doomseeker distribution. After removal, the core Doomseeker development team
+will no longer develop, maintain, or test compatibility with Sonic Robo Blast
+2. (#3958)
+- Windows XP support may soon be removed from the Doomseeker distribution.
+After removal, the core Doomseeker development team will no longer develop,
+maintain, or test compatibility with the Windows XP operating system. (#3964)
+
+### Fixed
+- The warning that warns about the current map not being on the map list
+wouldn't appear or disappear if the map entry was edited directly.
+- Minor text changes throughout Doomseeker and the plugins to improve on
+robotic or clumsy language, also (or primarily) in the Polish
+translation. (#3942, #3943)
+- Windows: Update the bundled "cacerts.pem" with the ISRG Root X1 root
+certificate which replaces DST Root CA X3 that expired in September 2021 (#3954)
+- Windows: Update OpenSSL to version 1.0.2u and remove OpenSSL's dependency on
+MSVC 2013, which really should not be there since the program's executable
+distribution is built in MinGW. (#3955)
+- Zandronum, QZandronum: fix a crash if server sends more PWAD hashes than
+it sent PWADs. (#3927)
+- Zandronum: dmflags and compatflags are signed integers, not unsigned. (#3944)
+
+## [1.3.2] - 2021-08-07
+### Added
+- Wadseeker: multiple custom sites can now be defined
+- Odamex: Support for Odamex version 0.9 (#3878)
+- Q-Zandronum: Plugin added (#3866)
+- SRB2: Support SRB2 version 2.2.6 (#3851)
+
+### Fixed
+- Windows: updater.exe is now linked statically with the runtime libs (#3759)
+
+## [1.3.1] - 2020-01-27
+### Fixed
+- Hidden server list columns would still become exposed if server name
+filter was used. Fix this by removing these columns altogether. (#3411, #3703)
+- Disable the ignore button in the WAD download prompt unless all the WADs
+are optional files, there are only incompatible WADs or the game can download
+the WADs instead. This prevents from using this ignore button in a state where
+it would lead to launching the game in a corrupted manner. (#3695)
+- Simplify a bit the IP2C update routine. The parser thread will no longer
+update the live IP2C data as it is being used. It now signals the main
+thread that the parsing has finished. The main thread can then take this
+parsed data and swap the IP2C database on its own convenient terms. Potential
+race conditions are mitigates by this, which may help with resolving IP2C
+update crashes. (#3395)
+- SRB2: it's possible that a server will not report any files loaded.
+This possibility was not anticipated and if encountered, resulted in
+an assertion causing the whole program to close. (#3728)
+- Windows: loading game plugins wouldn't work if the "engines" directory
+was in a path that had non-ASCII characters. (#3706)
+
+## [1.3] - 2019-07-27
 ### Added
 - WAD checksum verification when joining a game. The checksum verification
 is done for servers where the games provide the checksum info for the
@@ -40,11 +134,10 @@ Mantis ticket #3369.
       game config (#3645)
 - File (game mod, WAD) search paths can now be reordered in the config box
 by drag'n'drop. (#3669)
+- Catalan translation by Pol Marcet Sardà
 
 ### Changed
 - Completely dropped compilation support for Qt4. (#3514)
-- Remove "Allow servers to display my country" feature in Zandronum since
-it can be set from the game menu. (#3626)
 - On non-Windows systems don't seek mod files (WADs) in the executable
 directory, since it's usually somewhere like /usr/bin. (#3625)
 - Windows compiler change. Use MinGW-w64 to build Doomseeker instead of
@@ -112,7 +205,11 @@ config box and when pressing the "Apply" button for that table. (#3642)
 - Prevent empty wads from Zandronum servers, this was caused rarely by some
 servers that reported a non-existent wad. (#3624)
 - SRB2: Discard master server header replies that don't have the expected
-length declaration, thus preventing crashes when trying to read them. (#3660)
+length declaration, thus preventing crashes when trying to read them.
+The relevant
+[CVE Identifier](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-12968)
+has also been created. (#3660)
+
 
 
 ### Removed
@@ -497,7 +594,7 @@ archives. Fixes extraction of e1m4b.wad and e1m8b.wad. Thanks, John Romero!
 
 Copyright (this file)
 ---------------------
-Copyright (C) 2015, 2017, 2018 The Doomseeker Team
+Copyright (C) 2015, 2017 - 2022 The Doomseeker Team
 
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright
@@ -506,6 +603,10 @@ without any warranty.
 
 
 [unreleased]: https://bitbucket.org/Doomseeker/doomseeker/commits/all
+[1.3.3]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.3.3
+[1.3.2]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.3.2
+[1.3.1]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.3.1
+[1.3]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.3
 [1.2]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.2
 [1.1-p1]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.1-p1
 [1.1]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.1

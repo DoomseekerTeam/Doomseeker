@@ -65,7 +65,7 @@ RemoteConsole::RemoteConsole(QWidget *parent) : QMainWindow(parent)
 			ServerPtr server = dlg->selectedEngine()->server(QHostAddress(address), port);
 			if (!server->hasRcon())
 			{
-				QMessageBox::critical(this, RemoteConsole::tr("No RCon support"), RemoteConsole::tr("The selected source port has no RCon support."));
+				QMessageBox::critical(this, RemoteConsole::tr("No RCon support"), RemoteConsole::tr("The selected game has no RCon support."));
 				continue;
 			}
 			d->protocol = server->rcon();

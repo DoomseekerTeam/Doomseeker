@@ -7,14 +7,23 @@
     <x>0</x>
     <y>0</y>
     <width>519</width>
-    <height>306</height>
+    <height>332</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <item>
@@ -27,7 +36,16 @@
    <item>
     <widget class="QWidget" name="mainPanel" native="true">
      <layout class="QVBoxLayout" name="verticalLayout_2">
-      <property name="margin">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
        <number>0</number>
       </property>
       <item>
@@ -196,6 +214,33 @@
            </property>
           </widget>
          </item>
+         <item row="4" column="1">
+          <widget class="QCheckBox" name="cbFlagsVote">
+           <property name="text">
+            <string>flags</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0">
+          <widget class="QCheckBox" name="cbNextMapVote">
+           <property name="text">
+            <string>next map</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="1">
+          <widget class="QCheckBox" name="cbNextSecretVote">
+           <property name="text">
+            <string>next secret</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
         </layout>
        </widget>
       </item>
@@ -228,6 +273,7 @@
   </layout>
  </widget>
  <tabstops>
+  <tabstop>cbUseThisPage</tabstop>
   <tabstop>rbAllCanVote</tabstop>
   <tabstop>rbNoOneCanVote</tabstop>
   <tabstop>rbSpectatorsCantVote</tabstop>
@@ -240,6 +286,11 @@
   <tabstop>cbPointLimitVote</tabstop>
   <tabstop>cbTimeLimitVote</tabstop>
   <tabstop>cbWinLimitVote</tabstop>
+  <tabstop>cbForceSpectatorVote</tabstop>
+  <tabstop>cbFlagsVote</tabstop>
+  <tabstop>cbNextMapVote</tabstop>
+  <tabstop>cbNextSecretVote</tabstop>
+  <tabstop>cbVoteFloodingProtectionEnabled</tabstop>
  </tabstops>
  <resources/>
  <connections>

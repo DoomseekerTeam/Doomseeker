@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 #include "ircdelayedoperationignore.h"
 
+#include "gui/commongui.h"
 #include "irc/configuration/chatnetworkscfg.h"
 #include "irc/entities/ircnetworkentity.h"
 #include "irc/entities/ircuserprefix.h"
@@ -83,7 +84,7 @@ void IRCDelayedOperationIgnore::onWhoIsUser(const QString &nickname, const QStri
 	{
 		QString label = tr("Ignore user %1 (username=%2) on network %3:").arg(
 			nickname, user, d->networkDescription());
-		ignorePattern = QInputDialog::getText(d->parentWidget, tr("IRC - Ignore user"),
+		ignorePattern = CommonGUI::getText(d->parentWidget, tr("IRC - Ignore user"),
 			label, QLineEdit::Normal, ignorePattern);
 	}
 	if (!ignorePattern.trimmed().isEmpty())
@@ -91,7 +92,7 @@ void IRCDelayedOperationIgnore::onWhoIsUser(const QString &nickname, const QStri
 		ChatNetworksCfg cfg;
 		IRCNetworkEntity network = cfg.network(d->networkDescription());
 		PatternList patterns = network.ignoredUsers();
-		patterns << QRegExp(ignorePattern, Qt::CaseInsensitive, QRegExp::Wildcard);
+		patterns << Pattern(ignorePattern, QRegularExpression::CaseInsensitiveOption, Pattern::Wildcard);
 		network.setIgnoredUsers(patterns);
 		cfg.replaceNetwork(network.description(), network, d->parentWidget);
 		d->network->setNetworkEntity(network);

@@ -23,6 +23,7 @@
 #include "freedoomdialog.h"
 
 #include "configuration/doomseekerconfig.h"
+#include "gui/commongui.h"
 #include "fileutils.h"
 #include "pathfinder/filesearchpath.h"
 #include "pathfinder/pathfinder.h"
@@ -30,7 +31,11 @@
 #include "ui_freedoomdialog.h"
 #include <QCheckBox>
 #include <QCompleter>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#include <QFileSystemModel>
+#else
 #include <QDirModel>
+#endif
 #include <QMessageBox>
 #include <wadseeker/entities/checksum.h>
 #include <wadseeker/entities/modset.h>
@@ -50,6 +55,7 @@ FreedoomDialog::FreedoomDialog(QWidget *parent)
 	: QDialog(parent)
 {
 	d->setupUi(this);
+	CommonGUI::setupDialog(*this);
 
 	d->freedoom = new Freedoom(this);
 	this->connect(d->freedoom, SIGNAL(finished()), SLOT(applyFreedoomVersionInfo()));
@@ -227,7 +233,16 @@ ModSet FreedoomDialog::selectedModFiles() const
 void FreedoomDialog::setupInstallPaths()
 {
 	auto completer = new QCompleter(this);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+	// NOTE: Although QFileSystemModel is available since Qt 4, there were some
+	// issues with it and QCompleter until at least Qt 5.12 (i.e. QTBUG-38014).
+	// We'll conservatively use QFileSystemModel on Qt 6 only.
+	auto model = new QFileSystemModel(completer);
+	model->setRootPath(gConfig.wadseeker.targetDirectory);
+	completer->setModel(model);
+#else
 	completer->setModel(new QDirModel(completer));
+#endif
 	d->cboInstallPath->setCompleter(completer);
 
 	for (const FileSearchPath &path : gConfig.combinedWadseekPaths())

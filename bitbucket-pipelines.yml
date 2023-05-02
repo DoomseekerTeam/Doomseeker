@@ -1,5 +1,8 @@
 image: doomseeker/doomseeker-build:latest
 
+clone:
+  depth: full
+
 stepsDefined:
   - Qt5Build: &qt5Build
       name: Qt5 build
@@ -12,8 +15,8 @@ stepsDefined:
         - QT_QPA_PLATFORM=offscreen ./doomseeker --tests
 
 pipelines:
-  bookmarks:
-    \@:
+  branches:
+    master:
       - step: *qt5Build
   custom:
     Qt5Build:

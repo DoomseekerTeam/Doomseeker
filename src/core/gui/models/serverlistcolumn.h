@@ -32,7 +32,6 @@ struct ServerListColumn
 {
 	const int columnId;
 	const int width;
-	const bool bHidden;
 	const bool bResizable;
 	const Qt::SortOrder defaultSortOrder;
 };
@@ -50,11 +49,11 @@ enum ColumnId
 	IDMap,
 	IDWads,
 	IDGametype,
-	IDHiddenGroup,
-	IDHiddenServerPointer,
 
 	NUM_SERVERLIST_COLUMNS
 };
+
+const ColumnId COL_META = IDPort;
 }
 
 class ServerListColumns : public QObject

@@ -27,7 +27,11 @@
 #include "pathfinder/filesearchpath.h"
 #include <QCompleter>
 #include <QDebug>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#include <QFileSystemModel>
+#else
 #include <QDirModel>
+#endif
 #include <QMessageBox>
 
 DClass<CFGWadseekerGeneral> : public Ui::CFGWadseekerGeneral
@@ -50,7 +54,6 @@ CFGWadseekerGeneral::CFGWadseekerGeneral(QWidget *parent)
 	d->completerActive = false;
 
 	// Settings defined in this widget are ATM unused.
-	d->widgetTimeouts->setVisible(false);
 	d->lblDirectoryWarning->setPixmap(QPixmap(":/icons/exclamation_16.png"));
 	d->lblDirectoryWarning->hide();
 	d->lblDirectoryWarning->setWordWrap(true);
@@ -74,7 +77,18 @@ void CFGWadseekerGeneral::activateCompleter()
 	// (so, essentially, when user opens config box).
 	if (!d->completerActive)
 	{
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+		// NOTE: Although QFileSystemModel is available since Qt 4, there were
+		// some issues with it and QCompleter until at least Qt 5.12 (i.e.
+		// QTBUG-38014). We'll conservatively use QFileSystemModel on Qt 6 only.
+		auto completer = new QCompleter(this);
+		auto model = new QFileSystemModel(completer);
+		model->setRootPath(d->targetDirectory());
+		completer->setModel(model);
+		d->cbTargetDirectory->setCompleter(completer);
+#else
 		d->cbTargetDirectory->setCompleter(new QCompleter(new QDirModel()));
+#endif
 		d->completerActive = true;
 	}
 }
@@ -90,8 +104,6 @@ void CFGWadseekerGeneral::readSettings()
 	fillTargetDirectoryComboBox();
 
 	d->cbTargetDirectory->setEditText(gConfig.wadseeker.targetDirectory);
-	d->spinConnectTimeout->setValue(gConfig.wadseeker.connectTimeoutSeconds);
-	d->spinDownloadTimeout->setValue(gConfig.wadseeker.downloadTimeoutSeconds);
 	d->spinMaxConcurrentSiteSeeks->setValue(gConfig.wadseeker.maxConcurrentSiteDownloads);
 	d->spinMaxConcurrentWadDownloads->setValue(gConfig.wadseeker.maxConcurrentWadDownloads);
 }
@@ -99,8 +111,6 @@ void CFGWadseekerGeneral::readSettings()
 void CFGWadseekerGeneral::saveSettings()
 {
 	gConfig.wadseeker.targetDirectory = d->targetDirectory();
-	gConfig.wadseeker.connectTimeoutSeconds = d->spinConnectTimeout->value();
-	gConfig.wadseeker.downloadTimeoutSeconds = d->spinDownloadTimeout->value();
 	gConfig.wadseeker.maxConcurrentSiteDownloads = d->spinMaxConcurrentSiteSeeks->value();
 	gConfig.wadseeker.maxConcurrentWadDownloads = d->spinMaxConcurrentWadDownloads->value();
 }
@@ -115,7 +125,7 @@ ConfigPage::Validation CFGWadseekerGeneral::validate()
 {
 	QString error;
 
-	QFileInfo targetDirectory = d->targetDirectory();
+	QFileInfo targetDirectory(d->targetDirectory());
 	if (error.isEmpty() && d->targetDirectory().isEmpty())
 		error = tr("No path specified.");
 

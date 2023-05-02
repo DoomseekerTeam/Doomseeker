@@ -28,6 +28,8 @@
 
 #include "createserverdialogpages/flagspagevaluecontroller.h"
 
+#include <cstdint>
+
 class FlagsPage;
 
 namespace Zandronum3
@@ -46,25 +48,25 @@ public:
 	void setVisible(bool visible) override;
 
 private:
-	unsigned compatflags;
-	unsigned compatflags2;
-	unsigned zandronumCompatflags;
+	int32_t compatflags;
+	int32_t compatflags2;
+	int32_t zandronumCompatflags;
 
-	unsigned dmflags;
-	unsigned dmflags2;
-	unsigned zandronumDmflags;
+	int32_t dmflags;
+	int32_t dmflags2;
+	int32_t zandronumDmflags;
 
-	unsigned lmsAllowedWeapons;
-	unsigned lmsSpectatorSettings;
+	int32_t lmsAllowedWeapons;
+	int32_t lmsSpectatorSettings;
 
-	QMap<unsigned, QAbstractButton *> compatflagsCheckboxes;
-	QMap<unsigned, QAbstractButton *> compatflags2Checkboxes;
-	QMap<unsigned, QAbstractButton *> dmflagsCheckboxes;
-	QMap<unsigned, QAbstractButton *> dmflags2Checkboxes;
-	QMap<unsigned, QAbstractButton *> lmsAllowedWeaponsCheckboxes;
-	QMap<unsigned, QAbstractButton *> lmsSpectatorSettingsCheckboxes;
-	QMap<unsigned, QAbstractButton *> zandronumCompatflagsCheckboxes;
-	QMap<unsigned, QAbstractButton *> zandronumDmflagsCheckboxes;
+	QMap<int32_t, QAbstractButton *> compatflagsCheckboxes;
+	QMap<int32_t, QAbstractButton *> compatflags2Checkboxes;
+	QMap<int32_t, QAbstractButton *> dmflagsCheckboxes;
+	QMap<int32_t, QAbstractButton *> dmflags2Checkboxes;
+	QMap<int32_t, QAbstractButton *> lmsAllowedWeaponsCheckboxes;
+	QMap<int32_t, QAbstractButton *> lmsSpectatorSettingsCheckboxes;
+	QMap<int32_t, QAbstractButton *> zandronumCompatflagsCheckboxes;
+	QMap<int32_t, QAbstractButton *> zandronumDmflagsCheckboxes;
 
 	FlagsPage *flagsPage;
 
@@ -73,10 +75,10 @@ private:
 	void convertToNumericalCooperative();
 	void convertToNumericalDeathmatch();
 
-	void convertCheckboxesToNumerical(const QMap<unsigned, QAbstractButton *> &checkboxMap,
-		unsigned &flagsValue);
-	void convertNumericalToCheckboxes(QMap<unsigned, QAbstractButton *> &checkboxMap,
-		unsigned flagsValue);
+	void convertCheckboxesToNumerical(const QMap<int32_t, QAbstractButton *> &checkboxMap,
+		int32_t &flagsValue);
+	void convertNumericalToCheckboxes(QMap<int32_t, QAbstractButton *> &checkboxMap,
+		int32_t flagsValue);
 
 	void convertToWidgetGeneral();
 	void convertToWidgetPlayers();

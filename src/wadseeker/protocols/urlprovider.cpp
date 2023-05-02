@@ -224,7 +224,7 @@ void URLProvider::removeAllUrls(const MirrorStorage *pMirror)
 
 void URLProvider::removeUrl(const QUrl &url)
 {
-	for (int key : allUrlsPrioritized.uniqueKeys())
+	for (int key : allUrlsPrioritized.keys())
 	{
 		allUrlsPrioritized[key].removeAll(url);
 	}

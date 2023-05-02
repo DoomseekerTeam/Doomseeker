@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 #include "flagspage.h"
 
+#include <ip2c/ip2capi.h>
 #include <ini/ini.h>
 #include <ini/inisection.h>
 #include <log.h>
@@ -35,9 +36,10 @@
 #include "createserverdialogpages/flagspagevaluecontroller3.h"
 #include "createserverdialogpages/votingsetupwidget.h"
 #include "zandronumgameinfo.h"
+#include <cstdint>
 
-const unsigned DEFAULT_LMSALLOWEDWEAPONS = 1023;
-const unsigned DEFAULT_LMSSPECTATORSETTINGS = 3;
+const int32_t DEFAULT_LMSALLOWEDWEAPONS = 1023;
+const int32_t DEFAULT_LMSSPECTATORSETTINGS = 3;
 
 class DmflagsValidator : public QValidator
 {
@@ -53,13 +55,13 @@ public:
 	State validate(QString &input, int &pos) const override
 	{
 		Q_UNUSED(pos);
-		if (input.trimmed().isEmpty())
+		if (input.trimmed().isEmpty() || input.trimmed() == "-")
 		{
 			return QValidator::Intermediate;
 		}
 
 		bool bOk;
-		input.toUInt(&bOk);
+		input.toInt(&bOk);
 		return bOk ? QValidator::Acceptable : QValidator::Invalid;
 	}
 };
@@ -86,7 +88,7 @@ FlagsPage::FlagsPage(CreateServerDialog *pParentDialog)
 	flagsId.assign();
 
 	// The validator makes sure that the line edit will accept only
-	// 32-bit unsigned values.
+	// 32-bit signed values.
 	leDmflags->setValidator(&d->validator);
 	leDmflags2->setValidator(&d->validator);
 	leZandronumDmflags->setValidator(&d->validator);
@@ -113,6 +115,21 @@ FlagsPage::FlagsPage(CreateServerDialog *pParentDialog)
 	initJumpCrouchComboBoxes(cboJumping);
 	initJumpCrouchComboBoxes(cboCrouching);
 
+	cboPlayerBlock->addItem(tr("Players block each other normally"), PB_Block);
+	cboPlayerBlock->addItem(tr("Players can walk through each other"), PB_Noclip);
+	cboPlayerBlock->addItem(tr("Allies can walk through each other"), PB_AllyNoclip);
+
+	cboPrivateChat->addItem(tr("Allowed"), PrivChat_Allowed);
+	cboPrivateChat->addItem(tr("Only team"), PrivChat_Team);
+	cboPrivateChat->addItem(tr("Forbidden"), PrivChat_Forbidden);
+
+	cbServerCountry->addItem(tr("Automatic"), "automatic");
+	cbServerCountry->addItem(tr("Unknown"), "unknown");
+
+	QStringList countryCodes = ::countryCodes();
+	countryCodes.removeOne("EU"); // Zandronum just converts this to XUN.
+	cbServerCountry->addItems(countryCodes);
+
 	setGameVersion(ZandronumGameInfo::GV_Zandronum3);
 
 	// Widget states
@@ -134,15 +151,35 @@ void FlagsPage::fillInGameCreateParams(GameCreateParams &gameCreateParams)
 {
 	QStringList params;
 
-	params << "+dmflags" << leDmflags->text();
-	params << "+dmflags2" << leDmflags2->text();
-	params << "+zadmflags" << leZandronumDmflags->text();
-	params << "+compatflags" << leCompatflags->text();
+	QList<std::pair<QString, QString>> flags;
+	flags << std::make_pair("dmflags", leDmflags->text());
+	flags << std::make_pair("dmflags2", leDmflags2->text());
+	flags << std::make_pair("zadmflags", leZandronumDmflags->text());
+	flags << std::make_pair("compatflags", leCompatflags->text());
 	if (leCompatflags2->isEnabled() && leCompatflags2->isVisible())
-		params << "+compatflags2" << leCompatflags2->text();
-	params << "+zacompatflags" << leZandronumCompatflags->text();
-	params << "+lmsallowedweapons" << leLMSAllowedWeapons->text();
-	params << "+lmsspectatorsettings" << leLMSSpectatorSettings->text();
+		flags << std::make_pair("compatflags2", leCompatflags2->text());
+	flags << std::make_pair("zacompatflags", leZandronumCompatflags->text());
+	flags << std::make_pair("lmsallowedweapons", leLMSAllowedWeapons->text());
+	flags << std::make_pair("lmsspectatorsettings", leLMSSpectatorSettings->text());
+
+	for (auto flag : flags)
+	{
+		const QString name = flag.first;
+		const QString valueAsStr = flag.second;
+		bool ok = false;
+		const int32_t value = valueAsStr.toLong(&ok);
+		if (!ok)
+			continue;
+
+		if (value >= 0)
+		{
+			params << QString("+%1").arg(name) << valueAsStr;
+		}
+		else
+		{
+			params << QString("+%1 %2").arg(name).arg(value);
+		}
+	}
 
 	if (cbMonstersMustBeKilledToExit->isChecked())
 	{
@@ -154,7 +191,17 @@ void FlagsPage::fillInGameCreateParams(GameCreateParams &gameCreateParams)
 	params << "+sv_coop_damagefactor" <<
 		QString::number(spinMonstersDamageFactor->value());
 
+	if (cbRespawnDelayEnabled->isChecked())
+		params << "+sv_respawndelaytime" << QString::number(spinRespawnDelay->value());
+
 	params << "+sv_defaultdmflags" << (cbDefaultDmflags->isChecked() ? "1" : "0");
+	if (gameVersion() == ZandronumGameInfo::GV_Zandronum3)
+	{
+		params << "+sv_allowprivatechat" << cboPrivateChat->currentData().toString();
+	}
+
+	if (!country().isEmpty())
+		params << "+sv_country" << country();
 
 	params << votingPage->generateGameRunParameters();
 
@@ -169,7 +216,7 @@ void FlagsPage::initJumpCrouchComboBoxes(QComboBox *pComboBox)
 	pComboBox->insertItem(JCA_Yes, tr("Yes"));
 }
 
-void FlagsPage::insertFlagsIfValid(QLineEdit *dst, QString flags, unsigned valIfInvalid)
+void FlagsPage::insertFlagsIfValid(QLineEdit *dst, QString flags, int32_t valIfInvalid)
 {
 	int dummy;
 	if (d->validator.validate(flags, dummy) == QValidator::Acceptable)
@@ -211,10 +258,25 @@ bool FlagsPage::loadConfig(Ini &ini)
 	{
 		spinForceInactivePlayersSpectatingMins->setValue(varForceInactivePlayersSpectatingMins);
 	}
+	IniVariable varRespawnDelaySecs = section["respawn_delay_secs"];
+	cbRespawnDelayEnabled->setChecked(!varRespawnDelaySecs.value().isNull());
+	if (!varRespawnDelaySecs.value().isNull())
+	{
+		spinRespawnDelay->setValue(varRespawnDelaySecs);
+	}
 	IniVariable varMonstersDamageFactor = section["monsters_damage_factor"];
 	if (!varMonstersDamageFactor.value().isNull())
 	{
 		spinMonstersDamageFactor->setValue(varMonstersDamageFactor);
+	}
+	IniVariable varPrivateChat = section["private_chat"];
+	if (!varPrivateChat.value().isNull())
+	{
+		const int idx = cboPrivateChat->findData(varPrivateChat.value().toInt());
+		if (idx >= 0)
+		{
+			cboPrivateChat->setCurrentIndex(idx);
+		}
 	}
 
 	if (section.hasSetting("falling_damage_type"))
@@ -223,6 +285,8 @@ bool FlagsPage::loadConfig(Ini &ini)
 		cboJumping->setCurrentIndex(section["jump_ability"]);
 	if (section.hasSetting("crouch_ability"))
 		cboCrouching->setCurrentIndex(section["crouch_ability"]);
+	if (section.hasSetting("country"))
+		setCountry(section["country"]);
 	setPlayerBlock(static_cast<PlayerBlock>(section.value("player_block", PB_NotSet).toInt()));
 	setLevelExit(static_cast<LevelExit>(section.value("level_exit", EXIT_NotSet).toInt()));
 
@@ -270,8 +334,13 @@ bool FlagsPage::saveConfig(Ini &ini)
 	section["killmonsters_percentage"] = spinMonsterKillPercentage->value();
 	section["force_inactive_players_spectating_mins"] =
 		spinForceInactivePlayersSpectatingMins->value();
+	if (cbRespawnDelayEnabled->isChecked())
+		section["respawn_delay_secs"] = spinRespawnDelay->value();
 	section["monsters_damage_factor"] =
 		static_cast<float>(spinMonstersDamageFactor->value());
+	section["private_chat"] = cboPrivateChat->currentData().toInt();
+	if (!country().isEmpty())
+		section["country"] = country();
 
 	return votingPage->saveConfig(ini);
 }
@@ -339,34 +408,19 @@ ZandronumGameInfo::GameVersion FlagsPage::gameVersion() const
 
 FlagsPage::PlayerBlock FlagsPage::playerBlock() const
 {
-	if (rbPlayersCanWalkThroughEachOther->isChecked())
-		return PB_Noclip;
-	if (rbAlliesCanWalkThroughEachOther->isChecked())
-		return PB_AllyNoclip;
-	if (rbPlayersBlockEachOtherNormally->isChecked())
-		return PB_Block;
-	return PB_NotSet;
+	return static_cast<FlagsPage::PlayerBlock>(cboPlayerBlock->currentData().toInt());
 }
 
 void FlagsPage::setPlayerBlock(PlayerBlock playerBlock)
 {
-	switch (playerBlock)
+	const int idx = cboPlayerBlock->findData(static_cast<int>(playerBlock));
+	if (idx >= 0)
 	{
-	case PB_NotSet:
-		// do nothing
-		break;
-	case PB_Noclip:
-		rbPlayersCanWalkThroughEachOther->setChecked(true);
-		break;
-	case PB_AllyNoclip:
-		rbAlliesCanWalkThroughEachOther->setChecked(true);
-		break;
-	case PB_Block:
-		rbPlayersBlockEachOtherNormally->setChecked(true);
-		break;
-	default:
-		qDebug() << "FlagsPage::setPlayerBlock - unhandled PlayerBlock " << playerBlock;
-		break;
+		cboPlayerBlock->setCurrentIndex(idx);
+	}
+	else
+	{
+		cboPlayerBlock->setCurrentIndex(cboPlayerBlock->findData(PB_Block));
 	}
 }
 
@@ -400,5 +454,52 @@ void FlagsPage::setLevelExit(LevelExit levelExit)
 	default:
 		qDebug() << "FlagsPage::setLevelExit - unhandled LevelExit " << levelExit;
 		break;
+	}
+}
+
+QString FlagsPage::country() const
+{
+	if (cbServerCountry->currentData().isValid())
+	{
+		return cbServerCountry->currentData().toString();
+	}
+	else
+	{
+		const QString typedIn = cbServerCountry->currentText().trimmed();
+		// Case-insensitive find.
+		int idx = cbServerCountry->findText(typedIn, 0);
+		// If the text matches another text, case-insensitively, that
+		// already is in the box, then return the text that's already
+		// there.
+		if (idx >= 0)
+		{
+			const QVariant itemData = cbServerCountry->itemData(idx);
+			return itemData.isValid() ? itemData.toString()
+				: cbServerCountry->itemText(idx);
+		}
+		else
+		{
+			return typedIn;
+		}
+	}
+}
+
+void FlagsPage::setCountry(const QString &country)
+{
+	// Try hard to find the text in the box and select it. If not found
+	// just add the text as-is.
+	int idx = cbServerCountry->findData(country);
+	if (idx < 0)
+	{
+		// Case-insensitive find.
+		idx = cbServerCountry->findText(country, 0);
+	}
+	if (idx >= 0)
+	{
+		cbServerCountry->setCurrentIndex(idx);
+	}
+	else
+	{
+		cbServerCountry->setCurrentText(country);
 	}
 }

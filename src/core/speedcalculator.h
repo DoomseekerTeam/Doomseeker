@@ -23,7 +23,7 @@
 #ifndef __SPEEDCALCULATOR_H__
 #define __SPEEDCALCULATOR_H__
 
-#include <QTime>
+#include <QElapsedTimer>
 #include <QVector>
 
 class SpeedCalculator
@@ -126,7 +126,7 @@ private:
 
 	QVector<DataArrivalInfo> arrivalData;
 
-	QTime clock;
+	QElapsedTimer clock;
 	qint64 dataSizeExpected;
 
 	/**

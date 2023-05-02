@@ -22,11 +22,6 @@
 //------------------------------------------------------------------------------
 #include "odamexgameinfo.h"
 
-GameMode OdamexGameInfo::gameModeDuel()
-{
-	return GameMode::ffaGame(MODE_DUEL, tr("Duel"));
-}
-
 QList<DMFlagsSection> OdamexGameInfo::dmFlags()
 {
 	DMFlagsSection section("DMFlags");
@@ -51,21 +46,13 @@ QList<DMFlagsSection> OdamexGameInfo::dmFlags()
 	return result;
 }
 
-QList<GameMode> OdamexGameInfo::gameModes()
+QList<GameCVar> OdamexGameInfo::extraSettings()
 {
-	QList<GameMode> gameModesList;
-	gameModesList << GameMode::mkCooperative();
-	gameModesList << GameMode::mkDeathmatch();
-	gameModesList << GameMode::mkTeamDeathmatch();
-	gameModesList << GameMode::mkCaptureTheFlag();
-	return gameModesList;
-}
-
-QString OdamexAboutProvider::provide()
-{
-	QString aboutDescription = "Odamex (https://odamex.net/)\n\n";
-	aboutDescription += tr("This plugin is distributed under the terms of the LGPL v2.1 or later.\n\n");
-	return aboutDescription;
+	QList<GameCVar> settings;
+	settings << GameCVar(tr("Lives"), "+g_lives", 0);
+	settings << GameCVar(tr("Teams"), "+sv_teamsinplay", 2);
+	settings << GameCVar(tr("Attack && Defend"), "+g_sides", false);
+	return settings;
 }
 
 QString OdamexWarningInternalClientsProvider::provide()

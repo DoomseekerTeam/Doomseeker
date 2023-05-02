@@ -41,7 +41,7 @@ public:
 	}
 	QString name() const override
 	{
-		return tr("Auto Updates");
+		return tr("Auto updates");
 	}
 
 	void readSettings() override;

@@ -32,6 +32,7 @@
 #include "serverapi/mastermanager.h"
 #include "serverapi/server.h"
 
+#include <QElapsedTimer>
 #include <QHash>
 #include <QList>
 #include <QMutex>
@@ -46,7 +47,7 @@ class ServerRefreshTime
 {
 public:
 	QPointer<Server> server;
-	QTime time;
+	QElapsedTimer time;
 
 	ServerRefreshTime(QPointer<Server> server)
 	{
@@ -54,7 +55,7 @@ public:
 		time.start();
 	}
 
-	bool operator==(const ServerRefreshTime &other)
+	bool operator==(const ServerRefreshTime &other) const
 	{
 		return server == other.server;
 	}

@@ -45,7 +45,10 @@ MapListPanel::MapListPanel(QWidget *parent)
 	: QWidget(parent)
 {
 	d->setupUi(this);
-	d->lstMaplist->setModel(new QStandardItemModel(this));
+	auto model = new QStandardItemModel(this);
+	d->lstMaplist->setModel(model);
+	this->connect(model, SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &)),
+		SLOT(updateMapWarningVisibility()));
 	this->connect(QApplication::instance(), SIGNAL(focusChanged(QWidget*,QWidget*)),
 		SLOT(onFocusChanged(QWidget*,QWidget*)));
 
@@ -120,8 +123,13 @@ bool MapListPanel::isMapOnList(const QString &mapName) const
 {
 	for (const QString &candidate : CommonGUI::listViewStandardItemsToStringList(d->lstMaplist))
 	{
-		if (candidate.compare(mapName, Qt::CaseInsensitive) == 0)
-			return true;
+		const QStringList tokens = candidate.trimmed().split(" ");
+		if (!tokens.isEmpty())
+		{
+			const QString mapFromList = tokens[0];
+			if (mapFromList.compare(mapName, Qt::CaseInsensitive) == 0)
+				return true;
+		}
 	}
 	return false;
 }

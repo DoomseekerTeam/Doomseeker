@@ -97,7 +97,11 @@ void ImportantMessagesWidget::addMessage(const QString &message, const QDateTime
 
 void ImportantMessagesWidget::addMessage(const QString &message, unsigned timestamp)
 {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+	addMessage(message, QDateTime::fromSecsSinceEpoch(timestamp));
+#else
 	addMessage(message, QDateTime::fromTime_t(timestamp));
+#endif
 }
 
 void ImportantMessagesWidget::clear()

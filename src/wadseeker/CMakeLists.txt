@@ -19,12 +19,12 @@
 # Copyright (C) 2009 "Zalewa" <zalewapl@gmail.com>
 #------------------------------------------------------------------------------
 
-cmake_minimum_required(VERSION 2.8.12)
-project(Wadseeker)
-
-if(POLICY CMP0042)
-	cmake_policy(SET CMP0042 NEW)
+cmake_minimum_required(VERSION 3.5...3.21)
+if(CMAKE_VERSION VERSION_LESS 3.12)
+	cmake_policy(VERSION ${CMAKE_VERSION})
 endif()
+
+project(Wadseeker)
 
 if (MSVC)
 	set(CMAKE_SHARED_LIBRARY_PREFIX "lib")
@@ -41,28 +41,20 @@ if(NOT DEFINED CMAKE_INSTALL_LIBDIR)
 endif()
 
 # C++ standard
-if(CMAKE_VERSION VERSION_LESS "3.1")
-	if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
-	else()
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-	endif ()
-else ()
-		set(CMAKE_CXX_STANDARD 11)
-		set(CXX_STANDARD_REQUIRED ON)
-endif ()
+set(CMAKE_CXX_STANDARD 11)
+set(CXX_STANDARD_REQUIRED ON)
 
 add_subdirectory(lzma)
 
 include(${CMAKE_SOURCE_DIR}/cmake/Modules/Macros.cmake)
 
-find_package(Qt5 COMPONENTS Core)
+find_package(${Qt_PACKAGE} COMPONENTS Core)
 
-if(NOT Qt5_FOUND)
-	message(FATAL_ERROR "Qt5 not found. Please make sure to set the Qt5_DIR variable")
+if(NOT ${Qt_PACKAGE}_FOUND)
+	message(FATAL_ERROR "${Qt_PACKAGE} not found. Please make sure to set the ${Qt_PACKAGE}_DIR variable")
 else()
-	find_package(Qt5 COMPONENTS LinguistTools Network REQUIRED)
-	set(QT_LIBRARIES Qt5::Core Qt5::Network)
+	find_package(${Qt_PACKAGE} COMPONENTS LinguistTools Network REQUIRED)
+	set(QT_LIBRARIES ${Qt_PACKAGE}::Core ${Qt_PACKAGE}::Network)
 endif()
 
 if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
@@ -85,7 +77,7 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
 	if( ZLIB_FOUND AND NOT FORCE_INTERNAL_ZLIB )
 		message( STATUS "Using system zlib" )
-	else( ZLIB_FOUND AND NOT FORCE_INTERNAL_ZLIB )
+	else()
 		message( STATUS "Using internal zlib" )
 		set( ZLIB_INTERNAL YES )
 		set(SKIP_INSTALL_ALL ON)
@@ -99,7 +91,7 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
 	if( BZIP2_FOUND AND NOT FORCE_INTERNAL_BZIP2 )
 		message( STATUS "Using system bzip2 library" )
-	else( BZIP2_FOUND AND NOT FORCE_INTERNAL_BZIP2 )
+	else()
 		message( STATUS "Using internal bzip2 library" )
 		set( BZIP2_INTERNAL YES )
 		add_subdirectory( dependencies/bzip2 )
@@ -136,7 +128,6 @@ set(WADSEEKER_FILES
 	protocols/idgames/idgamesreply.cpp
 	protocols/idgames/idgamesresult.cpp
 	protocols/wadarchive/wadarchiveclient.cpp
-	protocols/json.cpp
 	protocols/http.cpp
 	protocols/networkreply.cpp
 	protocols/networkreplysignalwrapper.cpp
@@ -178,7 +169,6 @@ set(HEADER_FILES
 	protocols/idgames/idgamesreply.h
 	protocols/idgames/idgamesresult.h
 	protocols/wadarchive/wadarchiveclient.h
-	protocols/json.h
 	protocols/http.h
 	protocols/networkreply.h
 	protocols/networkreplysignalwrapper.h
@@ -251,7 +241,6 @@ if(NOT WIN32 AND NOT XCODE_VERSION)
 		EXPORT ${TARGETS_EXPORT_NAME}
 		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT wadseeker-dev NAMELINK_ONLY
 	)
-	install(FILES ${CMAKE_SOURCE_DIR}/LICENSE.json DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/doc/wadseeker COMPONENT wadseeker)
 elseif(WIN32)
 	install(
 		TARGETS wadseeker
@@ -263,7 +252,6 @@ elseif(WIN32)
 	# License files.
 	set(LICENSE_FILES
 		LICENSE
-		LICENSE.json
 	)
 	foreach (LICFILE ${LICENSE_FILES})
 		install(FILES "${CMAKE_SOURCE_DIR}/${LICFILE}" DESTINATION .

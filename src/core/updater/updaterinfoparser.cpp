@@ -22,10 +22,11 @@
 //------------------------------------------------------------------------------
 #include "updaterinfoparser.h"
 
-#include "json.h"
 #include "log.h"
 #include "updater/autoupdater.h"
 #include "updater/updatepackage.h"
+
+#include <QJsonDocument>
 
 DClass<UpdaterInfoParser>
 {
@@ -56,7 +57,7 @@ const QList<UpdatePackage> &UpdaterInfoParser::packages() const
 int UpdaterInfoParser::parse(const QByteArray &json)
 {
 	d->packages.clear();
-	QVariant var = QtJson::Json::parse(json);
+	auto var = QJsonDocument::fromJson(json).toVariant();
 	if (var.isValid())
 	{
 		QVariantMap metaData = var.toMap();

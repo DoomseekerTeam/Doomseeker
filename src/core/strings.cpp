@@ -34,6 +34,7 @@
 #include <QDataStream>
 #include <QDateTime>
 #include <QDir>
+#include <QRegularExpression>
 #include <QStringList>
 #include <QUrl>
 
@@ -456,19 +457,23 @@ QString Strings::wrapUrlsWithHtmlATags(const QString &str)
 				.arg(gPlugins->plugin(i)->info()->data()->scheme);
 	}
 
-	QRegExp pattern(QString("("
+	QRegularExpression pattern(QString("("
 		"("
 		"(http|https|ftp|%1)://"
 		"|(www\\.)"
 		")[\\w\\-\\.,@?^=%&amp;:/~\\+#\\(\\)]+"
-		")").arg(pluginSchemes), Qt::CaseInsensitive);
+		")").arg(pluginSchemes), QRegularExpression::CaseInsensitiveOption);
 	QString newString = str;
 
 	int offset = 0;
-	int index = -1;
-	while ((index = pattern.indexIn(newString, offset)) >= 0)
+	for (;;)
 	{
-		QString cap = pattern.cap(1);
+		auto match = pattern.match(newString, offset);
+		if (!match.hasMatch())
+			break;
+
+		int index = match.capturedStart(1);
+		QString cap = match.captured(1);
 		int capLength = cap.length();
 
 		QString replacement = cap;

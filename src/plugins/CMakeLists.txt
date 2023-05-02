@@ -36,6 +36,7 @@ add_opt_subdirectory(chocolate-doom)
 add_opt_subdirectory(odamex)
 add_opt_subdirectory(srb2)
 add_opt_subdirectory(zandronum)
+add_opt_subdirectory(zandronumq)
 add_opt_subdirectory(turok2ex)
 
 # For unmaintained source ports

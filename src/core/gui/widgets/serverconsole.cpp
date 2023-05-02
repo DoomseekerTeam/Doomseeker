@@ -26,7 +26,7 @@
 #include "strings.hpp"
 #include "ui_serverconsole.h"
 
-#include <QRegExp>
+#include <QRegularExpression>
 
 DClass<ServerConsole> : public Ui::ServerConsole
 {
@@ -62,7 +62,7 @@ void ServerConsole::appendMessage(const QString &message)
 		appendMessage = Strings::colorizeString(appendMessage);
 	else
 	{
-		static const QRegExp colorCode("\034(\\[[a-zA-Z0-9]*\\]|[a-v+\\-!*])");
+		static const QRegularExpression colorCode("\034(\\[[a-zA-Z0-9]*\\]|[a-v+\\-!*])");
 		appendMessage.remove(colorCode);
 	}
 

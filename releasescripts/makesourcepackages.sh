@@ -127,8 +127,8 @@ readonly wadseekerArchiveName="libwadseeker-$wadseekerVersion"
 echo "Doomseeker version: $doomseekerVersion"
 echo "wadseeker version: $wadseekerVersion"
 
-if ! hg archive "$doomseekerArchiveName"; then
-	echo 'Failed to call hg archive! Is this a mercurial clone?' >&2
+if ! (cd "$(git rev-parse --show-toplevel)" && git archive --prefix="$doomseekerArchiveName/" HEAD) | tar -x; then
+	echo 'Failed to call git archive! Is this a git clone?' >&2
 	exit 1
 fi
 
@@ -146,7 +146,6 @@ if ! tar -c "$doomseekerArchiveName" --owner=doomseeker --group=doomseeker | xz 
 else
 	echo 'Adding licence and dependencies for independent building...'
 	cp "$doomseekerArchiveName/LICENSE" "$doomseekerArchiveName/src/wadseeker"
-	cp "$doomseekerArchiveName/LICENSE.json" "$doomseekerArchiveName/src/wadseeker"
 	cp -r "$doomseekerArchiveName/cmake" "$doomseekerArchiveName/src/wadseeker"
 	cp -r "$doomseekerArchiveName/dependencies" "$doomseekerArchiveName/src/wadseeker"
 

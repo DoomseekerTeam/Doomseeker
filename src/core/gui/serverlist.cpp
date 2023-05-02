@@ -556,9 +556,3 @@ void ServerList::updateHeaderTitles()
 	}
 	model->setHorizontalHeaderLabels(labels);
 }
-
-void ServerList::updateSearch(const QString &search)
-{
-	QRegExp pattern(QString("*") + search + "*", Qt::CaseInsensitive, QRegExp::Wildcard);
-	proxyModel->setFilterRegExp(pattern);
-}

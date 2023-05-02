@@ -43,10 +43,8 @@ int main(int argc, char **argv)
 	int gotrev = 0, needupdate = 1;
 
 	// [BB]
-	char hgidentify[64];
 	time_t hgdate = 0;
 	int localchanges = 0;
-	hgidentify[0] = '\0';
 
 	vertag[0] = '\0';
 	lastlog[0] = '\0';
@@ -61,22 +59,19 @@ int main(int argc, char **argv)
 	// on a tag, it returns that tag. Otherwise it returns <most recent tag>-<number of
 	// commits since the tag>-<short hash>.
 	// Use git log to get the time of the latest commit in ISO 8601 format and its full hash.
-	// [BB] Changed to use hg instead of git.
-	stream = popen("hg log --template \"{latesttag}-{latesttagdistance}-{node|short}\\n\" --rev . && hg log -r. --template \"{date|isodatesec}*{node}?{date|hgdate}\\n\" && hg identify -n", "r");
+	stream = popen("git describe --tags --dirty=-m && git log -1 --format=%ai*%H?%at", "r");
 
 	if (NULL != stream)
 	{
 		if (fgets(vertag, sizeof vertag, stream) == vertag &&
-			fgets(lastlog, sizeof lastlog, stream) == lastlog
-			// [BB] Added to figure out if there are local changes.
-			&& fgets(hgidentify, sizeof hgidentify, stream) == hgidentify)
+			fgets(lastlog, sizeof lastlog, stream) == lastlog)
 		{
 			stripnl(vertag);
 			stripnl(lastlog);
 			gotrev = 1;
 
 			// [BB]
-			if ( strrchr ( hgidentify, '+' ) )
+			if ( vertag[strlen(vertag)-1] == 'm' )
 				localchanges = 1;
 
 			{

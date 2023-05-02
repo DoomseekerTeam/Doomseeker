@@ -29,12 +29,34 @@
 #include "odamexgameexefactory.h"
 #include "odamexgamehost.h"
 #include "odamexgameinfo.h"
+#include "odamexgamemode.h"
 #include "odamexmasterclient.h"
 #include "odamexserver.h"
 
 #include <datapaths.h>
 #include <ini/inisection.h>
 #include <ini/inivariable.h>
+
+namespace
+{
+
+/**
+ * @brief Provides a (translated) About text for Odamex.
+ */
+class OdamexAboutProvider : public TextProvider
+{
+	Q_OBJECT
+
+public:
+	QString provide() override
+	{
+		QString aboutDescription = "Odamex (https://odamex.net/)\n\n";
+		aboutDescription += tr("This plugin is distributed under the terms of the LGPL v2.1 or later.\n\n");
+		return aboutDescription;
+	}
+};
+}
+
 
 INSTALL_PLUGIN(OdamexEnginePlugin)
 
@@ -89,12 +111,17 @@ QList<DMFlagsSection> OdamexEnginePlugin::dmFlags() const
 
 QList<GameMode> OdamexEnginePlugin::gameModes() const
 {
-	return OdamexGameInfo::gameModes();
+	return OdamexGameMode::base();
 }
 
 GameHost *OdamexEnginePlugin::gameHost()
 {
 	return new OdamexGameHost();
+}
+
+QList<GameCVar> OdamexEnginePlugin::limits(const GameMode &mode) const
+{
+	return OdamexGameInfo::extraSettings();
 }
 
 ServerPtr OdamexEnginePlugin::mkServer(const QHostAddress &address, unsigned short port) const
@@ -107,3 +134,5 @@ void OdamexEnginePlugin::start()
 	EnginePlugin::start();
 	setGameExeFactory(QSharedPointer<GameExeFactory>(new OdamexGameExeFactory(this)));
 }
+
+#include "odamexengineplugin.moc"
