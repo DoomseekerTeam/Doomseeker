@@ -46,6 +46,7 @@ private:
 
 	bool areServerRespondersRunning();
 	void bindServer(ServerResponder *server, unsigned short port);
+	QList<QByteArray> buildBannedPackets();
 	QList<QByteArray> buildResponsePackets();
 	void startServerResponders();
 

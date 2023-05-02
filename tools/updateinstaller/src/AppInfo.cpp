@@ -7,11 +7,6 @@
 
 #include <iostream>
 
-std::string AppInfo::logFilePath()
-{
-	return StandardDirs::appDataPath(organizationName(),appName())  + '/' + "update-log.txt";
-}
-
 std::string AppInfo::updateErrorMessage(const std::string& details)
 {
 	std::string result = "There was a problem installing the update:\n\n";

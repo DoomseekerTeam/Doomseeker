@@ -270,7 +270,7 @@ if(NOT CMAKE_VERSION VERSION_LESS "3.6.0")
 	set(CPACK_PACKAGE_VERSION ${VERSION_STRING})
 
 	set(CPACK_DEBIAN_FILE_NAME "DEB-DEFAULT")
-	set(CPACK_DEBIAN_WADSEEKER_PACKAGE_NAME "libwadseeker1")
+	set(CPACK_DEBIAN_WADSEEKER_PACKAGE_NAME "libwadseeker${WADSEEKER_SOVERSION}")
 	set(CPACK_DEBIAN_WADSEEKER_PACKAGE_CONTROL_EXTRA "${CMAKE_CURRENT_SOURCE_DIR}/deb-extra/triggers;${CMAKE_CURRENT_BINARY_DIR}/shlibs")
 	set(CPACK_DEBIAN_WADSEEKER_PACKAGE_SECTION "libs")
 	set(CPACK_COMPONENT_WADSEEKER_DESCRIPTION "Library for locating and downloading Doom mods.\n Searching is done against a given list of common servers including the id\n games archive. Wadseeker is based around Qt core and does not provide a GUI\n itself.")

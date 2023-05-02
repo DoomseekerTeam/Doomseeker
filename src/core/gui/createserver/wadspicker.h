@@ -28,6 +28,15 @@
 #include <QtContainerFwd>
 #include <QWidget>
 
+struct PickedGameFile
+{
+	QString path;
+	bool optional = false;
+
+	PickedGameFile(QString path = QString(), bool optional = false)
+		: path(path), optional(optional) {}
+};
+
 class WadsPicker : public QWidget
 {
 	Q_OBJECT
@@ -36,9 +45,11 @@ public:
 	WadsPicker(QWidget *parent);
 	~WadsPicker() override;
 
-	QList<bool> fileOptional() const;
-	QStringList filePaths() const;
-	void setFilePaths(const QStringList &paths, const QList<bool> &optionals);
+	QList<PickedGameFile> files() const;
+	void setFiles(const QList<PickedGameFile> &files);
+
+protected:
+	bool eventFilter(QObject *obj, QEvent *event) override;
 
 private slots:
 	void addEmptyPath();

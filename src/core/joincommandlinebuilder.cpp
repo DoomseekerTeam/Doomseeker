@@ -225,6 +225,15 @@ void JoinCommandLineBuilder::obtainJoinCommandLine()
 	assert(d->server != nullptr);
 	d->cli = CommandLineInfo();
 
+	if (d->demo == GameDemo::Managed)
+	{
+		if (!GameDemo::ensureStorageExists(d->parentWidget))
+		{
+			failBuild();
+			return;
+		}
+	}
+
 	if (!checkServerStatus())
 	{
 		failBuild();

@@ -29,22 +29,21 @@
 #include "gui/helpers/datetablewidgetitem.h"
 #include <QMap>
 
-const int COL_PASS_PASSWORD = 0;
-const int COL_PASS_LAST_GAME = 1;
-const int COL_PASS_LAST_SERVER = 2;
-const int COL_PASS_LAST_TIME = 3;
+static const int COL_PASS_PASSWORD = 0;
+static const int COL_PASS_LAST_GAME = 1;
+static const int COL_PASS_LAST_SERVER = 2;
+static const int COL_PASS_LAST_TIME = 3;
 
-const int COL_SERV_GAME = 0;
-const int COL_SERV_NAME = 1;
-const int COL_SERV_ADDRESS = 2;
-const int COL_SERV_LAST_TIME = 3;
+static const int COL_SERV_GAME = 0;
+static const int COL_SERV_NAME = 1;
+static const int COL_SERV_ADDRESS = 2;
+static const int COL_SERV_LAST_TIME = 3;
 
-const QString HIDDEN_PASS = "***";
+static const QString HIDDEN_PASS = "***";
 
 DClass<CFGServerPasswords> : public Ui::CFGServerPasswords
 {
 public:
-	bool bHidingPasswordsMode;
 };
 
 DPointered(CFGServerPasswords)
@@ -53,12 +52,22 @@ CFGServerPasswords::CFGServerPasswords(QWidget *parent)
 	: ConfigPage(parent)
 {
 	d->setupUi(this);
-	d->bHidingPasswordsMode = true;
 	hidePasswords();
+
 	d->tablePasswords->sortItems(COL_PASS_LAST_TIME, Qt::DescendingOrder);
 	d->tablePasswords->setColumnWidth(COL_PASS_PASSWORD, 90);
+	d->tablePasswords->setColumnWidth(COL_PASS_LAST_TIME, 130);
+	QHeaderView *headerPasswords = d->tablePasswords->horizontalHeader();
+	headerPasswords->setSectionResizeMode(COL_PASS_LAST_SERVER, QHeaderView::Stretch);
+
 	d->tableServers->sortItems(COL_SERV_GAME, Qt::AscendingOrder);
 	d->tableServers->setColumnWidth(COL_SERV_GAME, 90);
+	d->tableServers->setColumnWidth(COL_SERV_ADDRESS, 120);
+	d->tableServers->setColumnWidth(COL_PASS_LAST_TIME, 130);
+	QHeaderView *headerServers = d->tableServers->horizontalHeader();
+	headerServers->setSectionResizeMode(COL_SERV_NAME, QHeaderView::Stretch);
+
+	d->selectedPasswordPanel->setEnabled(false);
 	d->lblServerLossWarning->setVisible(false);
 }
 
@@ -106,8 +115,7 @@ int CFGServerPasswords::findPassphraseInTable(const QString &phrase)
 
 void CFGServerPasswords::hidePasswords()
 {
-	d->btnRevealHideToggle->setText(tr("Reveal"));
-	d->bHidingPasswordsMode = true;
+	d->cbHide->setChecked(true);
 	d->lePassword->setEchoMode(QLineEdit::Password);
 	for (int i = 0; i < d->tablePasswords->rowCount(); ++i)
 	{
@@ -160,7 +168,7 @@ void CFGServerPasswords::setPasswordInRow(int row, const ServerPassword &passwor
 	d->tablePasswords->setSortingEnabled(false);
 
 	QString phrase;
-	if (d->bHidingPasswordsMode)
+	if (d->cbHide->isChecked())
 		phrase = HIDDEN_PASS;
 	else
 		phrase = password.phrase();
@@ -184,6 +192,10 @@ void CFGServerPasswords::setPasswordInRow(int row, const ServerPassword &passwor
 void CFGServerPasswords::setServersInTable(const ServerPassword &password)
 {
 	clearTable(d->tableServers);
+	d->selectedPasswordPanel->setEnabled(password.isValid());
+	if (!password.isValid())
+		return;
+
 	// Disable sorting or bad things may happen.
 	d->tableServers->setSortingEnabled(false);
 	for (const ServerPasswordSummary &server : password.servers())
@@ -252,9 +264,8 @@ void CFGServerPasswords::removeSelectedServers()
 
 void CFGServerPasswords::revealPasswords()
 {
-	d->btnRevealHideToggle->setText(tr("Hide"));
+	d->cbHide->setChecked(false);
 	d->lePassword->setEchoMode(QLineEdit::Normal);
-	d->bHidingPasswordsMode = false;
 	for (int i = 0; i < d->tablePasswords->rowCount(); ++i)
 	{
 		QTableWidgetItem *item = d->tablePasswords->item(i, COL_PASS_PASSWORD);
@@ -264,12 +275,12 @@ void CFGServerPasswords::revealPasswords()
 	}
 }
 
-void CFGServerPasswords::toggleRevealHide()
+void CFGServerPasswords::setPasswordsHidden(bool hidden)
 {
-	if (d->bHidingPasswordsMode)
-		revealPasswords();
-	else
+	if (hidden)
 		hidePasswords();
+	else
+		revealPasswords();
 }
 
 QTableWidgetItem *CFGServerPasswords::toolTipItem(const QString &contents)

@@ -27,7 +27,7 @@ QString StaticMessages::getMessage(unsigned messageType)
 	switch (messageType)
 	{
 	case Message::Type::BANNED_FROM_MASTERSERVER:
-		return tr("You have been banned from master server.");
+		return tr("You have been banned from the master server.");
 	default:
 		return QString("%1 IS NOT A VALID ERROR MESSAGE! FIX THIS!").arg(messageType);
 	}

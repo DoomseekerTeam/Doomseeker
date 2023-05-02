@@ -299,15 +299,11 @@ std::string FileUtils::fileName(const char* path)
 #else
 	char baseName[MAX_PATH];
 	char extension[MAX_PATH];
-	_splitpath_s(path,
+	_splitpath(path,
 	  0, /* drive */
-	  0, /* drive length */
 	  0, /* dir */
-	  0, /* dir length */
 	  baseName,
-	  MAX_PATH, /* baseName length */
-	  extension,
-	  MAX_PATH /* extension length */
+	  extension
 	  );
 	return std::string(baseName) + std::string(extension);
 #endif
@@ -324,15 +320,11 @@ std::string FileUtils::dirname(const char* path)
 	char drive[3];
 	char dir[MAX_PATH];
 
-	_splitpath_s(path,
+	_splitpath(path,
 	  drive, /* drive */ 
-	  3, /* drive length */
 	  dir,
-	  MAX_PATH, /* dir length */
 	  0, /* filename */
-	  0, /* filename length */
-	  0, /* extension */
-	  0  /* extension length */
+	  0  /* extension */
 	);
 
 	std::string result;

@@ -63,7 +63,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 	static const int REASONABLE_URL_LENGTH = 10240;
 	static const int REASONABLE_URL_DISPLAY_LENGTH = 120;
 	if (url.length() > REASONABLE_URL_LENGTH || url.trimmed().isEmpty() || !Strings::isUrlSafe(url)) {
-		d->linkIP2Cdatabase->setText(tr("<i>No URL available</i>"));
+		d->linkIP2Cdatabase->setText(AboutDialog::tr("<i>No URL available</i>"));
 	} else {
 		url = url.toHtmlEscaped();
 		QString displayUrl = Strings::middleEllipsis(url,

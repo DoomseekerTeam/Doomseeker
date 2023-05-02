@@ -20,6 +20,7 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2010 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
+#include "configuration/passwordscfg.h"
 #include "gui/commongui.h"
 #include "gui/configuration/irc/cfgircdefinenetworkdialog.h"
 #include "irc/configuration/chatnetworkscfg.h"
@@ -127,6 +128,9 @@ void IRCNetworkSelectionBox::initWidgets()
 	d->leRealName->setText(gIRCConfig.personal.fullName);
 	d->leUserName->setText(gIRCConfig.personal.userName);
 
+	PasswordsCfg passCfg;
+	setHidePassword(passCfg.isHidingPasswords());
+
 	fetchNetworks();
 }
 
@@ -167,6 +171,14 @@ IRCNetworkConnectionInfo IRCNetworkSelectionBox::networkConnectionInfo() const
 	outInfo.networkEntity = this->network();
 
 	return outInfo;
+}
+
+void IRCNetworkSelectionBox::setHidePassword(bool hide)
+{
+	d->cbHidePassword->blockSignals(true);
+	d->cbHidePassword->setChecked(hide);
+	d->cbHidePassword->blockSignals(false);
+	d->lePassword->setEchoMode(hide ? QLineEdit::Password : QLineEdit::Normal);
 }
 
 void IRCNetworkSelectionBox::setNetworkMatchingDescriptionAsCurrent(const QString &description)

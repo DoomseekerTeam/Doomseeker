@@ -75,7 +75,7 @@ private slots:
 	void removeSelectedPasswords();
 	void removeSelectedServers();
 	void showServerLossWarningIfNecessary();
-	void toggleRevealHide();
+	void setPasswordsHidden(bool hidden);
 };
 
 #endif

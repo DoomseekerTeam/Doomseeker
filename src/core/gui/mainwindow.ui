@@ -201,7 +201,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Restart &amp;&amp; Install Now</string>
+          <string>Restart &amp;&amp; Install now</string>
          </property>
         </widget>
        </item>
@@ -220,7 +220,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Restart &amp;&amp; Install Later</string>
+          <string>Restart &amp;&amp; Install later</string>
          </property>
         </widget>
        </item>
@@ -496,6 +496,9 @@
    <property name="text">
     <string>&amp;Demo manager</string>
    </property>
+   <property name="shortcut">
+    <string>F3</string>
+   </property>
   </action>
   <action name="menuActionCheckForUpdates">
    <property name="icon">
@@ -507,6 +510,10 @@
    </property>
   </action>
   <action name="menuActionProgramArgsHelp">
+   <property name="icon">
+    <iconset resource="../../../media/resources.qrc">
+     <normaloff>:/icons/terminal-32.png</normaloff>:/icons/terminal-32.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;Program args</string>
    </property>

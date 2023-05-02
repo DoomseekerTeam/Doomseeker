@@ -27,6 +27,14 @@ class ResponderCfg
 {
 public:
 	/**
+	 * @brief Every this many responses the master server will respond
+	 * with a banned status.
+	 *
+	 * Setting this to 0 will disable this.
+	 */
+	static unsigned masterBannedEvery();
+
+	/**
 	 * @brief UDP port on which the master server will be hosted.
 	 *
 	 * If you change this, it's probable that you will also have
@@ -56,11 +64,17 @@ public:
 	 */
 	static unsigned short serverPortBase();
 	/**
+	 * @brief Number of servers that the user was banned from.
+	 */
+	static unsigned short numBannedServers();
+	/**
 	 * @brief Number of servers that will never respond.
-	 *
-	 * Same rules apply as with numValidServers().
 	 */
 	static unsigned short numNotRespondingServers();
+	/**
+	 * @brief Number of servers that will always respond with "refreshed too soon".
+	 */
+	static unsigned short numTooSoonServers();
 	/**
 	 * @brief Number of fake game servers.
 	 *

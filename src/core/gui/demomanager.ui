@@ -64,6 +64,9 @@
         <iconset resource="../../../media/resources.qrc">
          <normaloff>:/icons/media-playback-start.png</normaloff>:/icons/media-playback-start.png</iconset>
        </property>
+       <property name="default">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item>
@@ -82,7 +85,7 @@
      <item>
       <widget class="QPushButton" name="btnDelete">
        <property name="text">
-        <string>Delete</string>
+        <string>Remove</string>
        </property>
        <property name="icon">
         <iconset resource="../../../media/resources.qrc">
@@ -198,11 +201,28 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>demoList</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>DemoManagerDlg</receiver>
+   <slot>itemDoubleClicked(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>113</x>
+     <y>127</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>204</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>performAction(QAbstractButton*)</slot>
   <slot>exportSelected()</slot>
   <slot>deleteSelected()</slot>
   <slot>playSelected()</slot>
+  <slot>itemDoubleClicked(QModelIndex)</slot>
  </slots>
 </ui>

@@ -232,7 +232,7 @@
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Be warned: in this mode correctly working servers may appear as &amp;quot;not responding&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
-           <string>Very Aggressive</string>
+           <string>Very aggressive</string>
           </property>
          </widget>
         </item>

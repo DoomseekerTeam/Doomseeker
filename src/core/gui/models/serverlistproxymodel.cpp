@@ -37,7 +37,6 @@ DClass<ServerListProxyModel>
 {
 public:
 	QList<ColumnSort> additionalSortColumns;
-	bool groupServersWithPlayersAtTop;
 	int mainSortColumn;
 	ServerList *parentHandler;
 	ServerListFilterInfo filterInfo;
@@ -70,7 +69,6 @@ DPointered(ServerListProxyModel)
 ServerListProxyModel::ServerListProxyModel(ServerList *serverListHandler)
 	: QSortFilterProxyModel(serverListHandler)
 {
-	d->groupServersWithPlayersAtTop = true;
 	d->mainSortColumn = -1;
 	d->parentHandler = serverListHandler;
 }
@@ -176,10 +174,29 @@ bool ServerListProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &so
 	if (!d->filterInfo.bEnabled)
 		return true;
 
+	if (!d->filterInfo.addresses.matches(s->address()))
+		return false;
+
 	if (!s->isKnown())
 	{
 		if (d->filterInfo.bShowOnlyValid)
 			return false;
+		if ((s->lastResponse() == Server::RESPONSE_BAD
+			|| s->lastResponse() == Server::RESPONSE_TIMEOUT)
+			&& !d->filterInfo.bShowNotRespondingServers)
+		{
+			return false;
+		}
+		if (s->lastResponse() == Server::RESPONSE_WAIT
+			&& !d->filterInfo.bShowTooSoonServers)
+		{
+			return false;
+		}
+		if (s->lastResponse() == Server::RESPONSE_BANNED
+			&& !d->filterInfo.bShowBannedServers)
+		{
+			return false;
+		}
 	}
 	else
 	{
@@ -298,7 +315,7 @@ bool ServerListProxyModel::lessThan(const QModelIndex &left, const QModelIndex &
 			return d->sortOrder == Qt::DescendingOrder;
 	}
 
-	if (d->groupServersWithPlayersAtTop)
+	if (d->filterInfo.bPopulatedServersOnTop)
 	{
 		// Using data stored in column will honor user settings declaring
 		// whether bots should be treated as players or not.
@@ -347,12 +364,6 @@ void ServerListProxyModel::removeAdditionalColumnSorting(int column)
 void ServerListProxyModel::setFilterInfo(const ServerListFilterInfo &filterInfo)
 {
 	d->filterInfo = filterInfo;
-	invalidate();
-}
-
-void ServerListProxyModel::setGroupServersWithPlayersAtTop(bool b)
-{
-	d->groupServersWithPlayersAtTop = b;
 	invalidate();
 }
 

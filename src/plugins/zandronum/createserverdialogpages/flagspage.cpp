@@ -156,7 +156,7 @@ void FlagsPage::fillInGameCreateParams(GameCreateParams &gameCreateParams)
 	flags << std::make_pair("dmflags2", leDmflags2->text());
 	flags << std::make_pair("zadmflags", leZandronumDmflags->text());
 	flags << std::make_pair("compatflags", leCompatflags->text());
-	if (leCompatflags2->isEnabled() && leCompatflags2->isVisible())
+	if (gameVersion() == ZandronumGameInfo::GV_Zandronum3)
 		flags << std::make_pair("compatflags2", leCompatflags2->text());
 	flags << std::make_pair("zacompatflags", leZandronumCompatflags->text());
 	flags << std::make_pair("lmsallowedweapons", leLMSAllowedWeapons->text());
@@ -468,7 +468,7 @@ QString FlagsPage::country() const
 	{
 		const QString typedIn = cbServerCountry->currentText().trimmed();
 		// Case-insensitive find.
-		int idx = cbServerCountry->findText(typedIn, 0);
+		int idx = cbServerCountry->findText(typedIn, Qt::MatchFixedString);
 		// If the text matches another text, case-insensitively, that
 		// already is in the box, then return the text that's already
 		// there.
@@ -493,7 +493,7 @@ void FlagsPage::setCountry(const QString &country)
 	if (idx < 0)
 	{
 		// Case-insensitive find.
-		idx = cbServerCountry->findText(country, 0);
+		idx = cbServerCountry->findText(country, Qt::MatchFixedString);
 	}
 	if (idx >= 0)
 	{

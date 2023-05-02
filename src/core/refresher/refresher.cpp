@@ -37,7 +37,9 @@
 #include <QList>
 #include <QMutex>
 #include <QMutexLocker>
-#include <QPointer>
+#if QT_VERSION >= 0x060000
+#include <QRandomGenerator>
+#endif
 #include <QRunnable>
 #include <QSet>
 #include <QThread>
@@ -46,10 +48,10 @@
 class ServerRefreshTime
 {
 public:
-	QPointer<Server> server;
+	QWeakPointer<Server> server;
 	QElapsedTimer time;
 
-	ServerRefreshTime(QPointer<Server> server)
+	ServerRefreshTime(ServerPtr server)
 	{
 		this->server = server;
 		time.start();
@@ -74,7 +76,7 @@ public:
 	QTimer flushPendingDatagramsTimer;
 	MasterHashtable registeredMasters;
 
-	QList<QPointer<Server> > unchallengedServers;
+	QList<QWeakPointer<Server> > unchallengedServers;
 	QList<ServerRefreshTime> refreshingServers;
 	UdpSocketPool socketPool;
 	QSet<MasterClient *> unchallengedMasters;
@@ -84,29 +86,34 @@ public:
 		return !unchallengedServers.isEmpty() || !refreshingServers.isEmpty();
 	}
 
-	bool isServerRegistered(Server *server) const
+	bool isServerRegistered(const ServerPtr &server) const
 	{
 		return unchallengedServers.contains(server) ||
 			refreshingServers.contains(ServerRefreshTime(server));
 	}
 
-	QPointer<Server> popNextUnchallengedServer()
+	ServerPtr popNextUnchallengedServer()
 	{
 		while (!unchallengedServers.isEmpty())
 		{
+			// Temporary fix #4083 to keep Qt 6 compiling
+			#if QT_VERSION >= 0x060000
+			#define qrand() QRandomGenerator::global()->generate()
+			#endif
+
 			// Take a random server so that they aren't favored by the order
 			// in which they were presented by the plugin.
 			quint32 index = static_cast<quint32>(qrand()) % unchallengedServers.size();
-			QPointer<Server> server = unchallengedServers.takeAt(index);
+			ServerPtr server = unchallengedServers.takeAt(index).toStrongRef();
 			if (!server.isNull())
 			{
 				return server;
 			}
 		}
-		return nullptr;
+		return ServerPtr();
 	}
 
-	QUdpSocket *socket(const Server *server)
+	QUdpSocket *socket(const ServerPtr &server)
 	{
 		return socketPool.acquire(server->address(), server->port());
 	}
@@ -209,21 +216,24 @@ void Refresher::deinstantiate()
 	}
 }
 
-Server *Refresher::findRefreshingServer(const QHostAddress &address,
+ServerPtr Refresher::findRefreshingServer(const QHostAddress &address,
 	unsigned short port)
 {
-	for (const ServerRefreshTime &refreshOp : d->refreshingServers)
+	for (auto it = d->refreshingServers.begin(); it != d->refreshingServers.end();)
 	{
-		if (refreshOp.server.isNull())
+		ServerPtr server = it->server.toStrongRef();
+		if (server.isNull())
 		{
+			it = d->refreshingServers.erase(it);
 			continue;
 		}
-		if (refreshOp.server->address().toIPv4Address() == address.toIPv4Address() && refreshOp.server->port() == port)
+		if (server->address().toIPv4Address() == address.toIPv4Address() && server->port() == port)
 		{
-			return refreshOp.server;
+			return server;
 		}
+		++it;
 	}
-	return nullptr;
+	return ServerPtr();
 }
 
 bool Refresher::isAnythingToRefresh() const
@@ -234,26 +244,17 @@ bool Refresher::isAnythingToRefresh() const
 void Refresher::masterFinishedRefreshing()
 {
 	auto pMaster = static_cast<MasterClient *>(sender());
-	const QList<ServerPtr> &servers = pMaster->servers();
-	for (ServerPtr pServer : servers)
-	{
-		registerServer(pServer.data());
-	}
-
 	unregisterMaster(pMaster);
 
-	if (servers.size() == 0 && !isAnythingToRefresh())
-	{
-		concludeRefresh();
-	}
+	QTimer::singleShot(0, this, [this]()
+		{
+			if (!isAnythingToRefresh())
+			{
+				concludeRefresh();
+			}
+		});
 
 	emit finishedQueryingMaster(pMaster);
-}
-
-void Refresher::purgeNullServers()
-{
-	d->refreshingServers.removeAll(ServerRefreshTime(nullptr));
-	d->unchallengedServers.removeAll(nullptr);
 }
 
 void Refresher::quit()
@@ -284,13 +285,12 @@ void Refresher::registerMaster(MasterClient *pMaster)
 	}
 }
 
-bool Refresher::registerServer(Server *server)
+bool Refresher::registerServer(ServerPtr server)
 {
 	bool hadAnyServers = d->hasAnyServers();
-	purgeNullServers();
 	if (!d->isServerRegistered(server))
 	{
-		CanRefreshServer refreshChecker(server);
+		CanRefreshServer refreshChecker(server.data());
 		if (!refreshChecker.shouldRefresh())
 		{
 			return false;
@@ -358,7 +358,6 @@ void Refresher::sendServerQueries()
 		return;
 	}
 
-	purgeNullServers();
 	if (d->hasAnyServers())
 	{
 		startNewServerRefresh();
@@ -392,7 +391,7 @@ void Refresher::startNewServerRefresh()
 {
 	// Copy the list as the original will be modified.
 	// We don't want to confuse the foreach.
-	QPointer<Server> server = d->popNextUnchallengedServer();
+	ServerPtr server = d->popNextUnchallengedServer();
 	if (!server.isNull())
 	{
 		if (server->sendRefreshQuery(d->socket(server)))
@@ -404,23 +403,29 @@ void Refresher::startNewServerRefresh()
 
 void Refresher::resendCurrentServerRefreshesIfTimeout()
 {
-	for (int i = 0; i < d->refreshingServers.size(); ++i)
+	for (auto it = d->refreshingServers.begin(); it != d->refreshingServers.end();)
 	{
-		ServerRefreshTime &refreshOp = d->refreshingServers[i];
+		ServerRefreshTime &refreshOp = *it;
+		ServerPtr server = refreshOp.server.toStrongRef();
+		if (server.isNull())
+		{
+			it = d->refreshingServers.erase(it);
+			continue;
+		}
+
 		if (refreshOp.time.elapsed() > d->delayBetweenResends)
 		{
-			if (refreshOp.server->sendRefreshQuery(d->socket(refreshOp.server)))
+			if (server->sendRefreshQuery(d->socket(server)))
 			{
 				refreshOp.time.start();
 			}
 			else
 			{
-				d->refreshingServers.removeOne(refreshOp);
-				// The collection on which we iterate just got shortened
-				// so let's back up by one step.
-				--i;
+				it = d->refreshingServers.erase(it);
+				continue;
 			}
 		}
+		++it;
 	}
 }
 
@@ -463,8 +468,8 @@ bool Refresher::tryReadDatagramByServer(const QHostAddress &address,
 	{
 		return true;
 	}
-	Server *server = findRefreshingServer(address, port);
-	if (server != nullptr)
+	ServerPtr server = findRefreshingServer(address, port);
+	if (!server.isNull())
 	{
 		// Store the state of request read.
 		int response = server->readRefreshQueryResponse(packet);

@@ -242,10 +242,11 @@ void ServerListRowHandler::setBackgroundColor()
 		color = gConfig.doomseeker.customServersColor;
 	else if (d->server->isLan())
 		color = gConfig.doomseeker.lanServersColor;
-	else if (gApp->mainWindow()->buddiesList()->hasBuddy(d->server))
+	else if (gConfig.doomseeker.bMarkServersWithBuddies &&
+		gApp->mainWindow() != nullptr &&
+		gApp->mainWindow()->buddiesList()->hasBuddy(d->server))
 	{
-		if (gConfig.doomseeker.bMarkServersWithBuddies)
-			color = gConfig.doomseeker.buddyServersColor;
+		color = gConfig.doomseeker.buddyServersColor;
 	}
 
 	for (int column = 0; column < NUM_SERVERLIST_COLUMNS; ++column)
@@ -366,6 +367,8 @@ void ServerListRowHandler::setWait()
 ServerPtr ServerListRowHandler::serverFromList(const ServerListModel *parentModel, int rowIndex)
 {
 	QStandardItem *pItem = parentModel->item(rowIndex, COL_META);
+	if (pItem == nullptr)
+		return ServerPtr();
 	QVariant pointer = pItem->data(ServerListModel::SLDT_POINTER_TO_SERVER_STRUCTURE);
 	if (!pointer.isValid())
 		return ServerPtr();

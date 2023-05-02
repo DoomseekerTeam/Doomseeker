@@ -1,1 +1,1 @@
-libwadseeker @WADSEEKER_SOVERSION@ libwadseeker1 (>= @VERSION_STRING@)
+libwadseeker @WADSEEKER_SOVERSION@ libwadseeker@WADSEEKER_SOVERSION@ (>= @VERSION_STRING@)

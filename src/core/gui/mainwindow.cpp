@@ -24,6 +24,7 @@
 #include "apprunner.h"
 #include "commandline.h"
 #include "configuration/doomseekerconfig.h"
+#include "configuration/gameconfigerrorbox.h"
 #include "configuration/queryspeed.h"
 #include "connectionhandler.h"
 #include "customservers.h"
@@ -196,6 +197,8 @@ public:
 
 	TaskbarProgress *taskbarProgress;
 	TaskbarButton *taskbarButton;
+
+	QList<QSharedPointer<ImportantMessagesWidget::Handler>> masterMessages;
 };
 
 DPointeredNoCopy(MainWindow)
@@ -313,6 +316,10 @@ MainWindow::~MainWindow()
 	// Window geometry settings
 	gConfig.doomseeker.mainWindowGeometry = saveGeometry();
 	gConfig.doomseeker.mainWindowState = saveState().toBase64();
+
+	for (auto handler : d->masterMessages)
+		handler->remove();
+	d->masterMessages.clear();
 
 	if (d->updateChannelOnUpdateStart != nullptr)
 		delete d->updateChannelOnUpdateStart;
@@ -540,8 +547,6 @@ void MainWindow::connectEntities()
 	connect(d->menuActionWadseeker, SIGNAL(triggered()), this, SLOT(menuWadSeeker()));
 	connect(d->serverFilterDock, SIGNAL(filterUpdated(const ServerListFilterInfo&)),
 		this, SLOT(updateServerFilter(const ServerListFilterInfo&)));
-	connect(d->serverFilterDock, SIGNAL(nonEmptyServerGroupingAtTopToggled(bool)),
-		d->serverList, SLOT(setGroupServersWithPlayersAtTop(bool)));
 	connect(d->serverList, SIGNAL(serverFilterModified(ServerListFilterInfo)),
 		d->serverFilterDock, SLOT(setFilterInfo(ServerListFilterInfo)));
 	connect(d->serverList, SIGNAL(serverDoubleClicked(ServerPtr)), this, SLOT(runGame(ServerPtr)));
@@ -736,6 +741,9 @@ void MainWindow::getServers()
 				"Check your Query menu or \"engines/\" directory.");
 	}
 
+	for (auto handler : d->masterMessages)
+		handler->remove();
+	d->masterMessages.clear();
 	d->masterManager->clearServers();
 	for (int i = 0; i < d->masterManager->numMasters(); ++i)
 	{
@@ -1006,7 +1014,7 @@ void MainWindow::masterManagerMessagesImportant(MasterClient *pSender, const Mes
 	QString strFullMessage = tr("%1: %2")
 		.arg(pSender->plugin()->data()->name)
 		.arg(objMessage.contents());
-	d->importantMessagesWidget->addMessage(strFullMessage, objMessage.timestamp());
+	d->masterMessages << d->importantMessagesWidget->addMessage(strFullMessage, objMessage.timestamp());
 }
 
 void MainWindow::menuBuddies()
@@ -1175,9 +1183,6 @@ void MainWindow::onAutoUpdaterOverallProgress(int current, int total,
 
 void MainWindow::postInitAppStartup()
 {
-	// Load server filter from config.
-	d->serverFilterDock->setFilterInfo(gConfig.serverFilter.info);
-
 	fixIconsDpi();
 
 	// Check query on statup
@@ -1248,7 +1253,7 @@ void MainWindow::refreshCustomServers()
 	for (const ServerPtr &server : d->serverList->servers())
 	{
 		if (server->isCustom())
-			gRefresher->registerServer(server.data());
+			gRefresher->registerServer(server);
 	}
 }
 
@@ -1256,7 +1261,7 @@ void MainWindow::refreshServersOnList()
 {
 	for (const ServerPtr &server : d->serverList->servers())
 	{
-		gRefresher->registerServer(server.data());
+		gRefresher->registerServer(server);
 	}
 }
 
@@ -1341,7 +1346,7 @@ void MainWindow::setDisplayUpdateInstallerError(int errorCode)
 
 void MainWindow::setupIcons()
 {
-	QStyle &style = *QApplication::style();
+	QStyle &style = *this->style();
 
 	// File menu.
 	d->menuActionQuit->setIcon(style.standardIcon(QStyle::SP_TitleBarCloseButton));
@@ -1462,8 +1467,10 @@ void MainWindow::showServerJoinCommandLineOnBuilderFinished()
 	{
 		if (!builder->error().isEmpty())
 		{
-			QMessageBox::critical(this, tr("Doomseeker - show join command line"),
-				tr("The command line cannot be built:\n%1").arg(builder->error()));
+			GameConfigErrorBox::show(builder->server()->plugin(),
+				tr("Doomseeker - show join command line"),
+				tr("Failed to build the command line:\n%1").arg(builder->error()),
+				true, this);
 		}
 	}
 	builder->deleteLater();

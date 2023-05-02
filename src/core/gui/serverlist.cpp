@@ -365,7 +365,6 @@ void ServerList::prepareServerTable()
 
 	connectTableModelProxySlots();
 	proxyModel->setAdditionalSortColumns(gConfig.doomseeker.additionalSortColumns());
-	proxyModel->setGroupServersWithPlayersAtTop(gConfig.doomseeker.bGroupServersWithPlayersAtTheTopOfTheList);
 }
 
 void ServerList::redraw()
@@ -377,7 +376,7 @@ void ServerList::refreshSelected()
 {
 	for (const ServerPtr &server : selectedServers())
 	{
-		gRefresher->registerServer(server.data());
+		gRefresher->registerServer(server);
 	}
 }
 
@@ -388,14 +387,18 @@ void ServerList::registerServer(ServerPtr server)
 	{
 		serverOnList->setCustom(server->isCustom() || serverOnList->isCustom());
 		model->redraw(serverOnList.data());
-		return;
+		gRefresher->registerServer(serverOnList);
 	}
-	this->connect(server.data(), SIGNAL(updated(ServerPtr,int)),
-		SLOT(onServerUpdated(ServerPtr)));
-	this->connect(server.data(), SIGNAL(begunRefreshing(ServerPtr)),
-		SLOT(onServerBegunRefreshing(ServerPtr)));
-	model->addServer(server);
-	emit serverRegistered(server);
+	else
+	{
+		this->connect(server.data(), SIGNAL(updated(ServerPtr,int)),
+			SLOT(onServerUpdated(ServerPtr)));
+		this->connect(server.data(), SIGNAL(begunRefreshing(ServerPtr)),
+			SLOT(onServerBegunRefreshing(ServerPtr)));
+		model->addServer(server);
+		emit serverRegistered(server);
+		gRefresher->registerServer(server);
+	}
 }
 
 void ServerList::removeServer(const ServerPtr &server)
@@ -492,11 +495,6 @@ void ServerList::setCountryFlagsIfNotPresent()
 	updateCountryFlags(!FORCE);
 }
 
-void ServerList::setGroupServersWithPlayersAtTop(bool b)
-{
-	proxyModel->setGroupServersWithPlayersAtTop(b);
-}
-
 void ServerList::sortAdditionally(const QModelIndex &modelIndex, Qt::SortOrder order)
 {
 	auto model = static_cast<ServerListProxyModel *>(table->model());
@@ -517,6 +515,9 @@ void ServerList::showContextMenu(const QPoint &position)
 {
 	const QModelIndex index = table->indexAt(position);
 	ServerPtr server = serverFromIndex(index);
+
+	if (server == nullptr)
+		return;
 
 	ServerListContextMenu *contextMenu = new ServerListContextMenu(server,
 		proxyModel->filterInfo(), index, selectedServers(), this);

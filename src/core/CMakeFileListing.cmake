@@ -101,6 +101,7 @@ set(HEADER_FILES
 	gui/configuration/configurationdialog.h
 	gui/configuration/doomseekerconfigurationdialog.h
 	gui/configuration/engineconfigpage.h
+	gui/configuration/gameconfigerrorbox.h
 	gui/configuration/irc/cfgchatlogspage.h
 	gui/configuration/irc/cfgircappearance.h
 	gui/configuration/irc/cfgircdefinenetworkdialog.h
@@ -124,6 +125,7 @@ set(HEADER_FILES
 	gui/createserverdialog.h
 	gui/demomanager.h
 	gui/dockBuddiesList.h
+	gui/entity/addressfilter.h
 	gui/entity/serverlistfilterinfo.h
 	gui/entity/showmode.h
 	gui/freedoomdialog.h
@@ -132,6 +134,7 @@ set(HEADER_FILES
 	gui/helpers/playersdiagram.h
 	gui/helpers/taskbarbutton.h
 	gui/helpers/taskbarprogress.h
+	gui/icons.h
 	gui/internalclientinstaller.h
 	gui/ip2cupdatebox.h
 	gui/irc/ircdock.h
@@ -228,6 +231,7 @@ set(HEADER_FILES
 	log.h
 	main.h
 	modreader.h
+	ntfsperm.h
 	pathfinder/caseinsensitivefsfileseeker.h
 	pathfinder/casesensitivefsfileseeker.h
 	pathfinder/filealias.h
@@ -284,7 +288,7 @@ set(HEADER_FILES
 	templatedpathresolver.h
 	tests/testbase.h
 	tests/testcore.h
-	tests/testdatapaths.h
+	tests/testfilesearchpath.h
 	tests/testini.h
 	tests/testircisupportparser.h
 	tests/testmodreader.h
@@ -345,6 +349,7 @@ set(SOURCE_FILES
 	gui/configuration/configurationdialog.cpp
 	gui/configuration/doomseekerconfigurationdialog.cpp
 	gui/configuration/engineconfigpage.cpp
+	gui/configuration/gameconfigerrorbox.cpp
 	gui/configuration/irc/cfgchatlogspage.cpp
 	gui/configuration/irc/cfgircappearance.cpp
 	gui/configuration/irc/cfgircdefinenetworkdialog.cpp
@@ -368,6 +373,7 @@ set(SOURCE_FILES
 	gui/createserverdialog.cpp
 	gui/demomanager.cpp
 	gui/dockBuddiesList.cpp
+	gui/entity/addressfilter.cpp
 	gui/entity/serverlistfilterinfo.cpp
 	gui/entity/showmode.cpp
 	gui/freedoomdialog.cpp
@@ -376,6 +382,7 @@ set(SOURCE_FILES
 	gui/helpers/playersdiagram.cpp
 	gui/helpers/taskbarbutton.cpp
 	gui/helpers/taskbarprogress.cpp
+	gui/icons.cpp
 	gui/internalclientinstaller.cpp
 	gui/ip2cupdatebox.cpp
 	gui/irc/ircdock.cpp
@@ -519,7 +526,7 @@ set(SOURCE_FILES
 	templatedpathresolver.cpp
 	tests/testbase.cpp
 	tests/testcore.cpp
-	tests/testdatapaths.cpp
+	tests/testfilesearchpath.cpp
 	tests/testini.cpp
 	tests/testircisupportparser.cpp
 	tests/testmodreader.cpp

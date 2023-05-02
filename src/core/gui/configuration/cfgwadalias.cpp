@@ -26,6 +26,7 @@
 #include "configuration/doomseekerconfig.h"
 #include "gui/commongui.h"
 #include "pathfinder/filealias.h"
+#include <QStyle>
 #include <QTimer>
 
 DClass<CFGWadAlias> : public Ui::CFGWadAlias
@@ -175,7 +176,7 @@ int CFGWadAlias::findRowWithWad(const QString &wadName)
 
 QIcon CFGWadAlias::icon() const
 {
-	return QApplication::style()->standardIcon(QStyle::SP_DirOpenIcon);
+	return style()->standardIcon(QStyle::SP_DirOpenIcon);
 }
 
 QComboBox *CFGWadAlias::mkMatchTypeComboBox(int row)

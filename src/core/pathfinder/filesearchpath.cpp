@@ -22,8 +22,10 @@
 //------------------------------------------------------------------------------
 #include "filesearchpath.h"
 
+#include "strings.hpp"
 #include "templatedpathresolver.h"
 
+#include <QDir>
 #include <QStringList>
 
 FileSearchPath::FileSearchPath()
@@ -125,4 +127,43 @@ bool FileSearchPath::hasCache()
 const QMap<QString, QString> &FileSearchPath::getCache()
 {
 	return cacheFiles_;
+}
+
+bool FileSearchPath::contains(const QString &other_) const
+{
+	QString self = QDir::cleanPath(this->path_);
+	QString other = QDir::cleanPath(other_);
+	self = Strings::trimr(self, "/");
+	other = Strings::trimr(other, "/");
+
+	#ifdef Q_OS_WIN
+	self = self.toLower();
+	other = other.toLower();
+	#endif
+
+	return self == other || (this->recursive_ && other.startsWith(self + '/'));
+}
+
+void FileSearchPath::merge(QList<FileSearchPath> &paths)
+{
+	for (int idx1 = 0; idx1 < paths.length(); ++idx1)
+	{
+		for (int idx2 = idx1 + 1; idx2 < paths.length(); ++idx2)
+		{
+			FileSearchPath &path1 = paths[idx1];
+			FileSearchPath &path2 = paths[idx2];
+
+			if (path2.contains(path1.path()))
+			{
+				std::swap(path1, path2);
+			}
+
+			if (path1.contains(path2.path()))
+			{
+				path1.setRecursive(path1.isRecursive() || path2.isRecursive());
+				paths.removeAt(idx2);
+				--idx2;
+			}
+		}
+	}
 }

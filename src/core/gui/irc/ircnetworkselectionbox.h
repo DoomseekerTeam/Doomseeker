@@ -75,6 +75,7 @@ private slots:
 	void editCurrentNetwork();
 	void networkChanged(int index);
 	void removeCurrentNetwork();
+	void setHidePassword(bool hide);
 };
 
 #endif

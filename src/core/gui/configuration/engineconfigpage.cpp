@@ -218,6 +218,11 @@ void EngineConfigPage::removeCurrentCustomParametersFromStorage()
 	updateCustomParametersSaveState();
 }
 
+void EngineConfigPage::resetMasterServerToDefault()
+{
+	d->leMasterserverAddress->setText(d->plugin->defaultMasterAddress());
+}
+
 void EngineConfigPage::removeStoredCustomParametersFromConfig(const QString &parameters)
 {
 	QStringList storedParameters = d->readStoredCustomParameters();
@@ -232,6 +237,7 @@ void EngineConfigPage::removeStoredCustomParametersFromWidget(const QString &par
 	{
 		d->cboCustomParameters->removeItem(indexInWidget);
 		d->cboCustomParameters->setEditText(parameters);
+		d->cboCustomParameters->setFocus();
 	}
 }
 
@@ -243,6 +249,7 @@ void EngineConfigPage::saveCustomParameters()
 		parameters << currentCustomParameters();
 		d->saveStoredCustomParameters(parameters);
 		d->cboCustomParameters->addItem(currentCustomParameters());
+		d->cboCustomParameters->setFocus();
 	}
 	updateCustomParametersSaveState();
 }
@@ -284,8 +291,9 @@ void EngineConfigPage::updateCustomParametersSaveState()
 {
 	bool paramExists = d->existsInStoredCustomParameters(currentCustomParameters());
 	bool isEmpty = currentCustomParameters().isEmpty();
-	d->btnSaveCustomParameters->setVisible(!isEmpty && !paramExists);
-	d->btnDeleteCustomParameters->setVisible(!isEmpty && paramExists);
+	d->btnSaveCustomParameters->setEnabled(!isEmpty);
+	d->btnSaveCustomParameters->setVisible(!paramExists);
+	d->btnDeleteCustomParameters->setVisible(paramExists);
 }
 
 ConfigPage::Validation EngineConfigPage::validate()

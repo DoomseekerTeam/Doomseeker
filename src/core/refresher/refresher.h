@@ -23,6 +23,7 @@
 #ifndef DOOMSEEKER_REFRESHER_REFRESHER_H
 #define DOOMSEEKER_REFRESHER_REFRESHER_H
 
+#include "serverapi/serverptr.h"
 #include <QMutex>
 #include <QObject>
 
@@ -46,21 +47,17 @@ public:
 	void quit();
 
 	/**
-	 * Registers a new master server to be queried. All masters are stored
-	 * in a hash table, therefore it's impossible to register the same
-	 * object twice.
+	 * Registers a new master server to be queried.
 	 */
 	void registerMaster(MasterClient *pMaster);
 
 	/**
-	 * Registers a new server to be queried. All servers are stored
-	 * in a hash table, therefore it's impossible to register the same
-	 * object twice.
+	 * Registers a new server to be queried.
 	 *
 	 * @return true if server was registered, false if it couldn't
 	 *         be refreshed at the moment.
 	 */
-	bool registerServer(Server *server);
+	bool registerServer(ServerPtr server);
 
 	/**
 	 * Sets delay between subsequent queries send to the servers.
@@ -108,9 +105,7 @@ private:
 
 	void concludeRefresh();
 	bool isAnythingToRefresh() const;
-	Server *findRefreshingServer(const QHostAddress &address, unsigned short port);
-
-	void purgeNullServers();
+	ServerPtr findRefreshingServer(const QHostAddress &address, unsigned short port);
 
 	void readPendingDatagram();
 

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Program arguments</string>
+   <string>Doomseeker - Program arguments</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

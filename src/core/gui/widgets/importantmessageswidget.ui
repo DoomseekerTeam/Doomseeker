@@ -11,7 +11,16 @@
    </rect>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout" stretch="10,0">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <item>
@@ -20,7 +29,7 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="btnClear">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -29,10 +38,6 @@
        </property>
        <property name="text">
         <string>Clear</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../../../../media/resources.qrc">
-         <normaloff>:/icons/x.png</normaloff>:/icons/x.png</iconset>
        </property>
       </widget>
      </item>
@@ -58,7 +63,7 @@
  </resources>
  <connections>
   <connection>
-   <sender>pushButton</sender>
+   <sender>btnClear</sender>
    <signal>clicked()</signal>
    <receiver>ImportantMessagesWidget</receiver>
    <slot>clear()</slot>

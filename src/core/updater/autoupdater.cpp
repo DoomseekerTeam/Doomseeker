@@ -536,6 +536,11 @@ void AutoUpdater::startPackageScriptDownload(const UpdatePackage &pkg)
 		SIGNAL(packageDownloadProgress(qint64,qint64)));
 }
 
+QString AutoUpdater::updaterLogPath()
+{
+	return gDefaultDataPaths->localDataLocationPath("updater.log");
+}
+
 QString AutoUpdater::updaterScriptPath()
 {
 	QString dirPath = gDefaultDataPaths->localDataLocationPath(DataPaths::UPDATE_PACKAGES_DIR_NAME);

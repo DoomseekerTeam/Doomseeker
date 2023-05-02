@@ -23,6 +23,7 @@
 #include "application.h"
 
 #include "gui/mainwindow.h"
+#include <QPointer>
 #include <cassert>
 
 const QString Application::NAME = "doomseeker";
@@ -30,8 +31,9 @@ const QString Application::NAME = "doomseeker";
 DClass<Application>
 {
 public:
-	MainWindow *mainWindow;
+	QPointer<MainWindow> mainWindow;
 	bool running;
+	QStringList originalArgs;
 };
 
 DPointered(Application)
@@ -82,7 +84,13 @@ bool Application::isInit()
 void Application::init(int &argc, char **argv)
 {
 	assert(staticInstance == nullptr && "Cannot initialize Application twice!");
+	// The argv must captured before it's passed to Application because
+	// Application calls Qt where the argc and argv may be modified.
+	QStringList args;
+	for (int i = 0; i < argc; ++i)
+		args << argv[i];
 	staticInstance = new Application(argc, argv);
+	staticInstance->d->originalArgs = args;
 }
 
 Application *Application::instance()
@@ -98,17 +106,22 @@ bool Application::isRunning() const
 
 MainWindow *Application::mainWindow() const
 {
-	return d->mainWindow;
+	return d->mainWindow.data();
 }
 
 QWidget *Application::mainWindowAsQWidget() const
 {
-	return d->mainWindow;
+	return d->mainWindow.data();
 }
 
 void Application::setMainWindow(MainWindow *mainWindow)
 {
 	d->mainWindow = mainWindow;
+}
+
+const QStringList &Application::originalArgs() const
+{
+	return d->originalArgs;
 }
 
 void Application::stopRunning()

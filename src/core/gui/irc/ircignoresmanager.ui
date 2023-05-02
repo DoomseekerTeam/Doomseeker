@@ -27,7 +27,7 @@
    <item>
     <widget class="QPushButton" name="btnDeleteSelected">
      <property name="text">
-      <string>Delete selected</string>
+      <string>Remove selected</string>
      </property>
      <property name="icon">
       <iconset resource="../../../../media/resources.qrc">

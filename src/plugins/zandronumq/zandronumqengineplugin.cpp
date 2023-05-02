@@ -59,6 +59,7 @@ ZandronumqEnginePlugin::ZandronumqEnginePlugin()
 	init("Q-Zandronum", zandronumq_xpm,
 		EP_Author, "geNia",
 		EP_Version, PLUGIN_VERSION,
+		EP_CanonicalName, "zandronumq",
 		EP_AboutProvider, new ZandronumqAboutProvider,
 
 		EP_AllowsURL,

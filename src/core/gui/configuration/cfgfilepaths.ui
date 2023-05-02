@@ -88,6 +88,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="btnBrowseWadPath">
+       <property name="toolTip">
+        <string>Browse for a file path.</string>
+       </property>
        <property name="text">
         <string>Browse</string>
        </property>
@@ -95,8 +98,11 @@
      </item>
      <item>
       <widget class="QPushButton" name="btnAddWadPath">
+       <property name="toolTip">
+        <string>Add an empty path to the list.</string>
+       </property>
        <property name="text">
-        <string>Add</string>
+        <string>Add empty</string>
        </property>
        <property name="icon">
         <iconset resource="../../../../media/resources.qrc">
@@ -106,6 +112,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="btnRemoveWadPath">
+       <property name="toolTip">
+        <string>Remove the selected paths from the list.</string>
+       </property>
        <property name="text">
         <string>Remove</string>
        </property>

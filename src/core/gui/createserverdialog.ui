@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>761</width>
-    <height>519</height>
+    <height>620</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -167,15 +167,15 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btnCancel">
+      <widget class="QDialogButtonBox" name="buttonBox">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="text">
-        <string>Close</string>
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Close</set>
        </property>
       </widget>
      </item>
@@ -221,7 +221,6 @@
  </customwidgets>
  <tabstops>
   <tabstop>tabWidget</tabstop>
-  <tabstop>btnCancel</tabstop>
  </tabstops>
  <resources>
   <include location="../../../media/resources.qrc"/>
@@ -260,22 +259,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>btnCancel</sender>
-   <signal>clicked()</signal>
-   <receiver>CreateServerDialog</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>750</x>
-     <y>508</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>305</x>
-     <y>259</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>btnCommandLine</sender>
    <signal>clicked()</signal>
    <receiver>CreateServerDialog</receiver>
@@ -303,6 +286,22 @@
     </hint>
     <hint type="destinationlabel">
      <x>305</x>
+     <y>259</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>CreateServerDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>714</x>
+     <y>497</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>380</x>
      <y>259</y>
     </hint>
    </hints>

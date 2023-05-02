@@ -75,6 +75,7 @@ public:
 	int numHumansInGame() const;
 	int numHumansOnTeam(int team) const;
 	int numHumansWithoutTeam() const;
+	int numPlayersInGame() const;
 	int numPlayersOnTeam(int team) const;
 	int numSpectators() const;
 

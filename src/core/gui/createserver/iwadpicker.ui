@@ -11,26 +11,35 @@
    </rect>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <item>
     <widget class="QComboBox" name="cboIwad">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="editable">
       <bool>true</bool>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="btnIwadBrowse">
-     <property name="maximumSize">
-      <size>
-       <width>32</width>
-       <height>16777215</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>...</string>
+    <widget class="QPushButton" name="btnBrowse">
+     <property name="toolTip">
+      <string>Browse</string>
      </property>
     </widget>
    </item>
@@ -39,7 +48,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>btnIwadBrowse</sender>
+   <sender>btnBrowse</sender>
    <signal>clicked()</signal>
    <receiver>IwadPicker</receiver>
    <slot>browse()</slot>

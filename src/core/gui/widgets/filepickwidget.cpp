@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 #include "filepickwidget.h"
 
+#include "datapaths.h"
 #include "filefilter.h"
 #include "ini/inisection.h"
 #include "ini/inivariable.h"
@@ -31,6 +32,7 @@
 #include "ui_filepickwidget.h"
 #include <QFileDialog>
 #include <QString>
+#include <QStyle>
 
 DClass<FilePickWidget> : public Ui::FilePickWidget
 {
@@ -48,6 +50,7 @@ FilePickWidget::FilePickWidget(QWidget *parent)
 	d->changed = false;
 	d->neighbourStrategy = QSharedPointer<NeighbourStrategy>(new NeighbourStrategy);
 	d->lblWarning->hide();
+	d->btnBrowse->setIcon(style()->standardIcon(QStyle::SP_DirOpenIcon));
 	this->connect(d->lePath, SIGNAL(editingFinished()), SLOT(emitPathChangedIfChanged()));
 	this->connect(d->lePath, SIGNAL(textEdited(QString)), SLOT(trackEdit()));
 }
@@ -63,7 +66,7 @@ void FilePickWidget::browsePath()
 		d->lePath->text(), FileFilter::executableFilesFilter());
 	if (!filepath.isEmpty())
 	{
-		d->lePath->setText(filepath);
+		d->lePath->setText(gDefaultDataPaths->portablizePath(filepath));
 		emit pathChanged();
 	}
 }
@@ -76,7 +79,7 @@ void FilePickWidget::findPath()
 	QString path = PathFind::findGameFile(d->neighbourStrategy->neighbours(), d->file);
 	if (!path.isEmpty())
 	{
-		d->lePath->setText(path);
+		d->lePath->setText(gDefaultDataPaths->portablizePath(path));
 		emit pathChanged();
 	}
 	else

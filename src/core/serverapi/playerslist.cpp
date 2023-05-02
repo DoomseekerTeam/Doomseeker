@@ -180,6 +180,21 @@ int PlayersList::numHumansWithoutTeam() const
 	return humans;
 }
 
+int PlayersList::numPlayersInGame() const
+{
+	int playersInGame = 0;
+
+	for (Player player : players())
+	{
+		if (!player.isSpectating())
+		{
+			++playersInGame;
+		}
+	}
+
+	return playersInGame;
+}
+
 int PlayersList::numPlayersOnTeam(int team) const
 {
 	int teamSize = 0;

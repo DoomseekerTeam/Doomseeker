@@ -124,8 +124,7 @@ public:
 	operator unsigned short() const;
 
 	/**
-	 * @brief Convert value to boolean, if possible. It's done by converting
-	 *        to numValue() first, then to bool.
+	 * @brief Convert the value to a boolean.
 	 */
 	operator bool() const;
 

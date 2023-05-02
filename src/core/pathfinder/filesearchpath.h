@@ -23,6 +23,7 @@
 #ifndef idD5CA37A7_5FD3_4151_8316AB0B1F9974E5
 #define idD5CA37A7_5FD3_4151_8316AB0B1F9974E5
 
+#include <QList>
 #include <QSet>
 #include <QString>
 #include <QVariant>
@@ -40,6 +41,13 @@ public:
 		const FileSearchPath &path);
 	static QList<FileSearchPath> resolveTemplated(TemplatedPathResolver &resolver,
 		const QList<FileSearchPath> &paths);
+
+	/**
+	 * @brief Merge paths that contain each other.
+	 *
+	 * The merge is performed in-place, modifying the passed in list.
+	 */
+	static void merge(QList<FileSearchPath> &paths);
 
 	FileSearchPath();
 	FileSearchPath(const QString &path);
@@ -76,6 +84,14 @@ public:
 	void setCache(const QMap<QString, QString> &files);
 	bool hasCache();
 	const QMap<QString, QString> &getCache();
+
+	/**
+	 * @brief Check if path is contained within this path.
+	 *
+	 * A path is contained within this path if the paths are equal or if
+	 * this path is recursive and the passed path is in its directory tree.
+	 */
+	bool contains(const QString &path) const;
 private:
 	QString path_;
 	bool recursive_;

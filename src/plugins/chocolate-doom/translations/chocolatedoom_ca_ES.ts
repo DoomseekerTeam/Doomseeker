@@ -16,7 +16,7 @@
 <context>
     <name>ChocolateDoomGameClientRunner</name>
     <message>
-        <location filename="../chocolatedoomgamerunner.cpp" line="97"/>
+        <location filename="../chocolatedoomgamerunner.cpp" line="100"/>
         <source>Join Chocolate Doom game</source>
         <translation>Unir-se al joc Chocolate Doom</translation>
     </message>

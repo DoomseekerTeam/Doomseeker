@@ -27,21 +27,22 @@ endmacro()
 # Permit redistribution of our source code without plugins which may violate
 # certain distribution polices (particularly in regards to use of trademarks).
 macro(add_opt_subdirectory PLUGIN_NAME)
-	if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${PLUGIN_NAME}")
+	option(BUILD_PLUGIN_${PLUGIN_NAME} "Enable ${PLUGIN_NAME} plugin" ON)
+	if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${PLUGIN_NAME}" AND BUILD_PLUGIN_${PLUGIN_NAME})
 		add_subdirectory(${PLUGIN_NAME})
 	endif()
 endmacro()
 
 add_opt_subdirectory(chocolate-doom)
 add_opt_subdirectory(odamex)
-add_opt_subdirectory(srb2)
 add_opt_subdirectory(zandronum)
 add_opt_subdirectory(zandronumq)
 add_opt_subdirectory(turok2ex)
 
 # For unmaintained source ports
-option(BUILD_LEGACY_PLUGINS "Build plugins for discontinued source ports." OFF)
+option(BUILD_LEGACY_PLUGINS "Build discontinued plugins." OFF)
 if(BUILD_LEGACY_PLUGINS)
+	add_opt_subdirectory(srb2)
 	add_opt_subdirectory(vavoom)
 endif()
 

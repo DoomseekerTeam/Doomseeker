@@ -23,6 +23,7 @@
 #include "gameexecutablepicker.h"
 
 #include "configuration/doomseekerconfig.h"
+#include "datapaths.h"
 #include "filefilter.h"
 #include "gui/commongui.h"
 #include "ini/ini.h"
@@ -33,6 +34,7 @@
 #include "templatedpathresolver.h"
 #include "ui_gameexecutablepicker.h"
 #include <QFileDialog>
+#include <QStyle>
 
 DClass<GameExecutablePicker> : public Ui::GameExecutablePicker
 {
@@ -48,6 +50,8 @@ GameExecutablePicker::GameExecutablePicker(QWidget *parent)
 	d->setupUi(this);
 	d->allowedExecs = 0;
 	d->plugin = nullptr;
+
+	d->btnBrowse->setIcon(style()->standardIcon(QStyle::SP_DirOpenIcon));
 
 	showWarning("");
 }
@@ -71,10 +75,9 @@ void GameExecutablePicker::browse()
 
 	if (!path.isEmpty())
 	{
-		QFileInfo fi(path);
-		gConfig.doomseeker.previousCreateServerExecDir = fi.absolutePath();
-
-		d->executableInput->setCurrentText(fi.absoluteFilePath());
+		path = gDefaultDataPaths->portablizePath(path);
+		gConfig.doomseeker.previousCreateServerExecDir = path;
+		d->executableInput->setCurrentText(path);
 		add(path);
 	}
 }
@@ -176,7 +179,7 @@ void GameExecutablePicker::reloadExecutables()
 	{
 		QFileInfo fileInfo(gDoomseekerTemplatedPathResolver().resolve(exe.path()));
 		if (fileInfo.isFile())
-			add(exe.path());
+			add(gDefaultDataPaths->portablizePath(exe.path()));
 	}
 
 	if (d->executableInput->findText(currentExec) >= 0)

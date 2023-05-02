@@ -38,6 +38,8 @@ namespace
 {
 class IP2CParserThread : public QThread
 {
+	Q_OBJECT
+
 public:
 	QString filePath;
 	IP2CParser parser;
@@ -277,3 +279,5 @@ void IP2CLoader::ip2cReadDatabase(const QString &filePath)
 		d->parserThread, &QObject::deleteLater);
 	d->parserThread->start();
 }
+
+#include "ip2cloader.moc"

@@ -78,9 +78,15 @@ const EnginePlugin *PluginMasterClient::plugin() const
 
 MasterClient::Response PluginMasterClient::readMasterResponse(const QByteArray &data)
 {
-	QStringList ports = QString(data).split(";");
+	QStringList tokens = QString(data).split(";");
 	// First element is amount of expected packets:
-	d->expectedPackets = ports.takeFirst().toUInt();
+	d->expectedPackets = tokens.takeFirst().toUInt();
+	QString status = tokens.takeFirst();
+	if (status == "BAN")
+	{
+		return RESPONSE_BANNED;
+	}
+	const QStringList &ports = tokens;
 	for (const QString &portEncoded : ports)
 	{
 		quint16 port = portEncoded.toUShort();

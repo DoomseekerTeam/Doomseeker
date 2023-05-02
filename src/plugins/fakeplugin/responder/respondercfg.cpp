@@ -22,6 +22,11 @@
 //------------------------------------------------------------------------------
 #include "respondercfg.h"
 
+unsigned ResponderCfg::masterBannedEvery()
+{
+	return 0;
+}
+
 unsigned short ResponderCfg::masterServerPort()
 {
 	return 32111;
@@ -37,9 +42,19 @@ unsigned short ResponderCfg::serverPortBase()
 	return 32112;
 }
 
+unsigned short ResponderCfg::numBannedServers()
+{
+	return 2;
+}
+
 unsigned short ResponderCfg::numNotRespondingServers()
 {
 	return 5;
+}
+
+unsigned short ResponderCfg::numTooSoonServers()
+{
+	return 2;
 }
 
 unsigned short ResponderCfg::numValidServers()

@@ -152,7 +152,7 @@ void ServerListContextMenu::createMembers()
 	if (d->serverAtIndex->hasRcon())
 	{
 		d->menu->addSeparator();
-		d->rcon = d->menu->addAction(tr("Remote Console"));
+		d->rcon = d->menu->addAction(tr("Remote console"));
 	}
 
 	// Sorts.

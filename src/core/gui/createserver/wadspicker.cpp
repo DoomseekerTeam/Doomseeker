@@ -24,9 +24,12 @@
 #include "wadspicker.h"
 
 #include "configuration/doomseekerconfig.h"
+#include "datapaths.h"
 #include "gui/commongui.h"
+#include "gui/icons.h"
 #include "templatedpathresolver.h"
 #include <QApplication>
+#include <QKeyEvent>
 #include <QFileDialog>
 #include <QStandardItemModel>
 #include <QStyle>
@@ -42,7 +45,10 @@ WadsPicker::WadsPicker(QWidget *parent)
 	Q_UNUSED(parent);
 	d->setupUi(this);
 	d->lstAdditionalFiles->setModel(new QStandardItemModel(this));
-	d->btnBrowsePwad->setIcon(QApplication::style()->standardIcon(QStyle::SP_DirOpenIcon));
+	d->lstAdditionalFiles->installEventFilter(this);
+
+	d->btnBrowsePwad->setIcon(style()->standardIcon(QStyle::SP_DirOpenIcon));
+	d->btnClearPwadList->setIcon(Icons::clear());
 }
 
 WadsPicker::~WadsPicker()
@@ -112,30 +118,59 @@ void WadsPicker::browseAndAdd()
 
 		for (const QString &strFile : filesNames)
 		{
-			addWadPath(strFile);
+			addWadPath(gDefaultDataPaths->portablizePath(strFile));
 		}
 	}
 }
 
-QList<bool> WadsPicker::fileOptional() const
+bool WadsPicker::eventFilter(QObject *obj, QEvent *event)
 {
-	QList<bool> checked = CommonGUI::listViewStandardItemsToBoolList(d->lstAdditionalFiles);
-	// We check required WADs and want to return optional wads.
-	for (bool &i : checked)
-		i = !i;
-	return checked;
+	if (obj == d->lstAdditionalFiles)
+	{
+		if (event->type() == QEvent::KeyPress)
+		{
+			QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+			switch (keyEvent->key())
+			{
+			case Qt::Key_Delete:
+			case Qt::Key_Minus:
+				removeSelected();
+				return true;
+			case Qt::Key_Plus:
+				addEmptyPath();
+				return true;
+			default:
+				// no-op
+				break;
+			}
+		}
+	}
+	return false;
 }
 
-QStringList WadsPicker::filePaths() const
+QList<PickedGameFile> WadsPicker::files() const
 {
-	return CommonGUI::listViewStandardItemsToStringList(d->lstAdditionalFiles);
+	QList<PickedGameFile> list;
+	auto model = static_cast<QStandardItemModel *>(
+		d->lstAdditionalFiles->model());
+	for (int i = 0; i < model->rowCount(); ++i)
+	{
+		auto item = model->item(i);
+		// Filter out all the empty entries from the list.
+		if (!item->text().trimmed().isEmpty())
+		{
+			list << PickedGameFile { item->text(), (item->checkState() == Qt::Unchecked) };
+		}
+	}
+
+	return list;
 }
 
-void WadsPicker::setFilePaths(const QStringList &paths, const QList<bool> &optionals)
+void WadsPicker::setFiles(const QList<PickedGameFile> &files)
 {
 	removeAll();
-	for (int i = 0; i < paths.size(); ++i)
-		addWadPath(paths[i], i >= optionals.size() || !optionals[i]);
+	for (auto file : files)
+		addWadPath(file.path, !file.optional);
 }
 
 void WadsPicker::removeAll()

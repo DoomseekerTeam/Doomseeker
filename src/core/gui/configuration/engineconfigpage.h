@@ -96,6 +96,7 @@ private slots:
 	void btnBrowseInternalClientPathClicked();
 	void updateSystemExecBoxOnInternalClientModeState(bool enabled);
 	void removeCurrentCustomParametersFromStorage();
+	void resetMasterServerToDefault();
 	void saveCustomParameters();
 	void showFindFailError();
 	void updateCustomParametersSaveState();

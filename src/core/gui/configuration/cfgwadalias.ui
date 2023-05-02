@@ -70,35 +70,13 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QPushButton" name="btnAdd">
-       <property name="text">
-        <string>Add</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../../../../media/resources.qrc">
-         <normaloff>:/icons/plus.png</normaloff>:/icons/plus.png</iconset>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QPushButton" name="btnAddDefaults">
        <property name="text">
-        <string>Add Defaults</string>
+        <string>Add defaults</string>
        </property>
        <property name="icon">
         <iconset resource="../../../../media/resources.qrc">
          <normaloff>:/icons/doomseeker_plus.png</normaloff>:/icons/doomseeker_plus.png</iconset>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="btnRemove">
-       <property name="text">
-        <string>Remove</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../../../../media/resources.qrc">
-         <normaloff>:/icons/x.png</normaloff>:/icons/x.png</iconset>
        </property>
       </widget>
      </item>
@@ -114,6 +92,28 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnAdd">
+       <property name="text">
+        <string>Add</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../../../../media/resources.qrc">
+         <normaloff>:/icons/plus.png</normaloff>:/icons/plus.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnRemove">
+       <property name="text">
+        <string>Remove</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../../../../media/resources.qrc">
+         <normaloff>:/icons/x.png</normaloff>:/icons/x.png</iconset>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

@@ -26,6 +26,7 @@
 #include "gui/commongui.h"
 #include "ui_iwadandwadspickerdialog.h"
 #include <QFileDialog>
+#include <QStyle>
 
 DClass<IwadAndWadsPickerDialog> : public Ui::IwadAndWadsPickerDialog
 {
@@ -38,6 +39,7 @@ IwadAndWadsPickerDialog::IwadAndWadsPickerDialog(QWidget *parent)
 {
 	d->setupUi(this);
 	CommonGUI::setupDialog(*this);
+	d->btnBrowseExecutable->setIcon(style()->standardIcon(QStyle::SP_DirOpenIcon));
 }
 
 IwadAndWadsPickerDialog::~IwadAndWadsPickerDialog()
@@ -72,7 +74,12 @@ void IwadAndWadsPickerDialog::browseExecutable()
 
 QStringList IwadAndWadsPickerDialog::filePaths() const
 {
-	return d->wadsPicker->filePaths();
+	QStringList paths;
+	for (const PickedGameFile &file : d->wadsPicker->files())
+	{
+		paths << file.path;
+	}
+	return paths;
 }
 
 QString IwadAndWadsPickerDialog::iwadPath() const

@@ -24,7 +24,19 @@
 
 QString CmdArgsHelp::argsHelp()
 {
+#ifdef Q_OS_WIN
+	const QString mountedWhere = tr("being assigned a different letter");
+	const QString dylibExtension = ".dll";
+#else
+	const QString mountedWhere = tr("being mounted on a different path");
+	const QString dylibExtension = ".so";
+#endif
 	QString help = "";
+	help += tr(
+		"--basedir <directory>\n"
+		"    Changes the default storage directory to the specified\n"
+		"    one (also in --portable mode). Doomseeker stores all of its\n"
+		"    settings, cache and managed files in this directory.\n");
 	help += tr(
 		"--connect <protocol://ip[:port]>\n"
 		"    Attempts to connect to the specified server.\n");
@@ -36,6 +48,17 @@ QString CmdArgsHelp::argsHelp()
 		"    Sets an explicit search location for\n"
 		"    IP2C data along with plugins.\n"
 		"    Can be specified multiple times.\n");
+	help += tr("--disable-plugin <plugin>\n"
+		"    Ban a <plugin> from loading even if it is normally loaded.\n"
+		"    Specify the plugin name without the 'lib' prefix or the file\n"
+		"    extension, for ex. 'vavoom', not 'libvavoom%1'.\n"
+		).arg(dylibExtension);
+	help += tr(
+		"--enable-plugin <plugin>\n"
+		"    Load a <plugin> even if it is normally disabled/banned.\n"
+		"    Specify the plugin name without the 'lib' prefix or the file\n"
+		"    extension, for ex. 'vavoom', not 'libvavoom%1'.\n"
+		).arg(dylibExtension);
 	help += tr(
 		"--help\n"
 		"    Prints this list of command line arguments.\n");
@@ -44,10 +67,15 @@ QString CmdArgsHelp::argsHelp()
 		"    Launch the rcon client for the specified ip.\n");
 	help += tr(
 		"--portable\n"
-		"    Starts application in portable mode.\n"
-		"    In portable mode Doomseeker saves all configuration files\n"
-		"    to the directory where its executable resides.\n"
-		"    Normally, configuration is saved to user's home directory.\n");
+		"    Starts the application in the portable mode:\n"
+		"    - Doomseeker saves all the configuration files to the directory\n"
+		"      where its executable resides. Normally, configuration is saved to\n"
+		"      user's home directory. This directory can be changed with --basedir.\n"
+		"    - The current working directory is forced to the directory where\n"
+		"      Doomseeker's executable resides.\n"
+		"    - Doomseeker will save in the configuration all paths as relative\n"
+		"      in anticipation that the absolute paths may change between the runs,\n"
+		"      for ex. due to the portable device %1.\n").arg(mountedWhere);
 	help += tr(
 		"--version-json [file|-]\n"
 		"    Prints version info on Doomseeker and all\n"

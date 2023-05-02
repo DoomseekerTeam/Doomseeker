@@ -38,6 +38,7 @@
 #include <QDirModel>
 #endif
 #include <QMessageBox>
+#include <QPushButton>
 #include <wadseeker/entities/checksum.h>
 #include <wadseeker/entities/modset.h>
 #include <wadseeker/freedoom.h>
@@ -46,6 +47,8 @@
 DClass<FreedoomDialog> : public Ui::FreedoomDialog
 {
 public:
+	QPushButton *btnInstall;
+	QPushButton *btnRetry;
 	Freedoom *freedoom;
 	ModInstall *modInstall;
 	QString targetDir;
@@ -66,7 +69,16 @@ FreedoomDialog::FreedoomDialog(QWidget *parent)
 	this->connect(d->modInstall, SIGNAL(fileDownloadProgress(QString,qint64,qint64)),
 		SLOT(showFileDownloadProgress(QString,qint64,qint64)));
 
+	d->btnInstall = d->buttonBox->button(QDialogButtonBox::Yes);
+	d->btnInstall->setDefault(true);
 	d->btnInstall->setEnabled(false);
+	d->btnInstall->setText(FreedoomDialog::tr("Install"));
+	connect(d->btnInstall, &QAbstractButton::clicked,
+		this, &QDialog::accept);
+	d->btnRetry = d->buttonBox->button(QDialogButtonBox::Retry);
+	connect(d->btnRetry, &QAbstractButton::clicked,
+		this, &FreedoomDialog::fetchInfo);
+
 	setupInstallPaths();
 	setupWadsTable();
 	fetchInfo();
@@ -150,6 +162,7 @@ void FreedoomDialog::showModInfo(const ModSet &modSet)
 	}
 	d->wadsTable->setSortingEnabled(true);
 	d->btnInstall->setEnabled(true);
+	d->btnInstall->setFocus();
 }
 
 void FreedoomDialog::insertModFile(const ModFile &file)
@@ -205,6 +218,7 @@ void FreedoomDialog::insertModFile(const ModFile &file)
 void FreedoomDialog::showError(const QString &text)
 {
 	d->btnRetry->setVisible(true);
+	d->btnRetry->setFocus();
 	showStatus(text);
 	d->progressBar->hide();
 }

@@ -10,8 +10,60 @@ and this project does not adhere to
 
 ## [unreleased]
 ### Added
-- Upgrade the IpToCountry.dat file format to version 3.
+- Server filtering by the IP address. (#4117)
+- A compilation option to make the IP2C auto-updates disabled by default:
+`DOOMSEEKER_IP2C_AUTOUPDATE_DEFAULT`. (#3732)
+
+## [1.4.1] - 2023-03-12
+### Added
+- Tooltips to the buttons in the file paths config page.
+
+### Changed
+- Rename "Add" buttons that would add empty path elements to lists to
+"Add empty". (#4102)
+- Wadseeker: allfearthesentinel is now a .com domain, not a .net. (#4099)
+- Zandronum: correct the appearance of the testing binary download
+progress dialog - fix the title and remove the `?` button.
+
+### Fixed
+- Avoid refreshing the same game server twice in a quick succession if
+the server is both pinned and returned from the master server. (#4093)
+- Siblings to a recursive file search path would be ignored if their basename
+would begin with the basename of the recursive path. (#4106)
+- The create game box will ignore the empty paths to additional files, thus it
+will avoid showing error boxes saying that an empty path doesn't exist. (#4102)
+- Updater: fix failure to update in `--portable` mode by passing the absolute
+paths to the updater.exe. (#4105)
+- Q-Zandronum, Zandronum: servers were queried with only a partially prepared
+challenge, which could result in the extended server information not being
+returned as expected.
+- Zandronum: the changes in 1.4.0 to the portable paths have broken the
+generation of the launcher scripts for the testing binaries. Fix that. (#4101)
+- Zandronum/Linux: the testing binaries come bundled with dynamic
+libraries. `LD_LIBRARY_PATH` needs to be set to the testing binary
+directory or else those libs won't be found.
+
+## [1.4] - 2023-01-21
+### Added
+- Upgrade the IpToCountry.dat file format to version 3. The license text
+with translations and the database's homepage URL are now embedded into
+the database itself.
+- Server filters can now be saved as presets. (#4079)
 - A tri-state filter for password-protected servers. (#4008)
+- A button to reset the game's master server back to default. (#3756)
+- New command line argument `--basedir` that changes the base directory
+where Doomseeker stores all of its managed files: settings, cache, managed
+data. (#3452)
+- New command line arguments `--enable-plugin` and `--disable-plugin` for
+users who wish to force allow or force deny loading of a plugin.
+- Check if the demo storage directory exists and is writable when demo recording
+is enabled. If there's something wrong, warn the user. (#3501)
+- Granular filters for banned, "refreshed too soon" and not responding
+game servers. (#4002)
+- The additional files list in the create game box now responds to plus
+(add empty), minus and delete (both remove selected) keys on the keyboard.
+- Demo manager now openable with the F3 keyboard shortcut.
+- Hide/reveal password checkboxes to all password inputs.
 - Wadseeker: add a bunch of websites to the WAD search list: (#4053)
     - https://doomshack.org/wadlist.php
     - https://wads.firestick.games/
@@ -22,6 +74,12 @@ and this project does not adhere to
 towards kills" checkbox to the Create Game box. (#4055)
 
 ### Changed
+- The portable mode adjusted to truly support carrying Doomseeker on
+a portable device. The configurable paths will be saved and stored in
+the configuration as relative to the location of Doomseeker's executable.
+If both the games and Doomseeker get placed on the same portable drive, it
+should no longer matter under which letter/path the portable device appears
+in the system. (#3354)
 - Refresh the servers in a randomized order rather than the order
 in which they were provided by the plugin (ergo: by the master
 server, ergo: sorted by IP). This should be more fair, as the previous
@@ -29,6 +87,7 @@ method favored servers that were in the lower IP ranges.
 - Updated Flag of Ukraine colors to DSTU 4512:2006. Previously, Doomseeker was
 displaying the flag of Post-Soviet Ukraine, a design with lighter blue color
 shade, from 1991-1992. (#3983)
+- DemoManager: demo playback can now be started with a double-click or enter.
 - In case if Doomseeker uses the old version 2 file format for IP2C,
 redirect the IP2C licensing info to a Doomseeker's webpage instead of
 displaying anything that was hardcoded at the time when Doomseeker was
@@ -36,9 +95,55 @@ compiled and could potentially not be accurate anymore at the time of
 viewing. (#3952)
 - Hide the IP2C update actions in the IP2C updater dialog box if the
 updater determines that the local DB is the same as the remote one. (#3731)
+- When user attempts to join a game without having the game configured,
+the error box will now have the "Configure game" button instead of just opening
+the config box indiscriminately. Also make the related error messages sound
+less robotic. (#4019)
+- Buttons for the custom parameters config stay in place, behave more
+predictably, have tooltip descriptions. (#3754, #3755)
+- The master server messages (about the user being banned) will be
+automatically cleared when the user starts a full server refresh. (#3584)
+- Don't count the spectators as joined players when showing how many players
+can still join a game. (#4038)
+- Doomseeker maintainers info in the about dialog is now labeled as such
+and the email links are clickable with the `mailto:` prefix. (#4069, #4070)
+- Correction of various inconsistencies in the UI (#3676):
+    - Use the standard dialog box buttons anywhere the custom "Close",
+      "Cancel" and etc. buttons were. This will also ensure that these
+      buttons are in-line with the current OS theme.
+    - Use natural capitalization for buttons, etc.
+    - All "Browse directory" buttons will now have the directory icon
+      and an apt tooltip and the title where appropriate. No more mixing
+      between "..." and "Browse".
+    - The "Default" buttons will have the Doomseeker 'D' icon.
+    - The "Clear" buttons will now use the "edit-clear" Freedesktop
+      icon, defaulting to a broom icon if "edit-clear" isn't available;
+      they don't use the same red X that the "Remove" buttons use.
+    - Toggle the visibility of the server passwords in the config
+      with a checkbox as in other places, not with a button.
+    - Make the "Add defaults"/Add/Remove layout the same in both cases.
+    - "Delete" text changed to "Remove" for consistency.
+    - The program arguments help box's title will now include the name
+      of the program. Also add the terminal icon to its main menu action.
+    - The labeled "extra settings" in the Create Game box will end with
+      colons (#4074).
+- The "Clear" button in the server filter renamed to "Reset filter". (#4078)
+- The additional files picker in the Create Game box reorganized to reclaim
+some vertical space and make it more clear that the buttons next to it
+belong to it. (#4072)
+- Hide the passwords by default!
+- UI improvements to the server passwords config box.
+- Plugin API: rewrite the documentation for `DataPaths`.
+- Wadseeker: make the "managed data" directory (Local) the default for
+WAD downloads.
 - Wadseeker: added `sigil_shreds` and `sigil_shreds_compat` to the
 list of forbidden downloads.
 - Wadseeker: upgrade LZMA SDK to version 22.01. (#3934)
+- Odamex, Zandronum, Q-Zandronum: untie the max. clients and max. players
+settings when creating a server. Previously if max. clients was lower than
+max. players, max. clients was increased to the max. players value. Now
+Doomseeker won't make that correction anymore and just pass both numbers
+to the games as-is. (#4038)
 - Q-Zandronum: adapt plugin to Q-Zandronum 1.3.
 - Zandronum, Q-Zandronum: rely on Doomseeker's internal mechanism to
 calculate the ping to the game server rather than using the port's
@@ -47,8 +152,11 @@ packet. (#3992)
 - Zandronum: remove the defunct IRC server.
 
 ### Deprecated
-- Wadseeker: Wadseeker::setWadArchiveEnabled(). (#4048)
-- Plugin API: Server::numTotalSlots(). (#4038)
+- Wadseeker: `Wadseeker::setWadArchiveEnabled()` (#4048)
+- Plugin API:
+    - `DataPaths::canWrite()`, `DataPaths::setWorkingDirectory()`,
+      `DataPaths::workingDirectory()`, `DataPaths::validateAppDataDirectory()`.
+    - `Server::numTotalSlots()` (#4038)
 
 ### Fixed
 - Use signed integers to display the dmflags in the server details. (#3944)
@@ -61,14 +169,48 @@ players to join the game than clients to connect to the server. (#4038)
 - Bring up the context menu for the server list and for Wadseeker's WADs
 table when the keyboard menu key is pressed. (#3671)
 - Fix the layouting issues with progress bars in Wadseeker's dialog box. (#3707)
+- When Doomseeker opened a config box for a specific plugin, it failed
+to show the config page for that plugin, showing a blank page instead. (#4019)
+- Create Game box: display a proper error message if the game executable
+path is empty. (#3839)
+- Create Game box, server page: fix the spacing of the form when various
+inputs are hidden.
+- Fix imprecise issue tracker hyperlinks in the documentation. (#4063)
+- Pass all the original command line arguments from the auto-updater
+back to Doomseeker after the update is installed.
+- Auto-updater will now create a log file in Doomseeker's current local
+data directory, as intended.
+- When showing the command line for offline play, the demo record
+command should use the unmanaged (relative) demo path, not the path
+to Doomseeker's managed data storage.
+- Prevent horizontal scrollbar in the server filter panel by enforcing
+a minimal width.
+- The `true` values in the config sometimes interpreted as `false`, leading
+to Zandronum's testing builds disabling themselves if user canceled the first
+time configuration. (#4080)
+- Sometimes the main window of the program was expected to exist even though the
+opposite could be the case, in which case the program would try to use the
+absent main window anyway and crash. One such case was if the configuration box
+was opened from the Create Game box after the main window was closed. Fixed that
+by adding some guards that check if the main window is gone. (#4087)
+- Wadseeker hyperlink in the about dialog made accessible with keyboard. (#4071)
 - Wadseeker: custom (server-provided) template URLs with the %WADNAME%
 placeholder wouldn't get the higher priority status that the plain
 custom URLs normally enjoy. (#3996)
+- Windows: updater.exe will use `_splitpath()` instead of `_splitpath_s()`,
+allowing it to run again in Windows XP where the MSVCRT doesn't have the
+`_s` variant of the function.
+- Turok 2 Ex: fix writing beyond the size of the buffer when encrypting the
+challenge packets. This used to work in Qt previously but is now deprecated.
+- Q-Zandronum: set the canonical name of the plugin to `zandronumq`, which
+fixes the loading of the translation files.
 - Zandronum, Q-Zandronum: servers that emitted empty PWAD names in their
 challenge reply would appear as errored because the plugins failed to
 parse the subsequent MD5 checksum hashes for these PWADs. The plugins
 will now sanitize such empty PWADs so that such servers can appear
 correctly on the list. (#3624)
+- Zandronum, Q-Zandronum: `+compatflags2` not set from the Create Game
+box if the (Q-)Zandronum tab was not selected. (#4088)
 - Zandronum: fix a failure to parse the version of the game for the
 servers, which resulted in the dmflags being displayed incorrectly
 in the server details and the game's beta builds from being
@@ -82,7 +224,9 @@ installed. (#4020, #4024)
 - Zandronum: update the game icon to Zandronum 3.1's.
 
 ### Removed
+- Config migration from Doomseeker 1.1. (#4081)
 - Wadseeker: Removed Wad Archive support due to the site shutdown. (#4048)
+- SRB2: plugin deprecated, discontinued and removed from Doomseeker. (#3958)
 
 ## [1.3.3] - 2022-01-18
 ### Added
@@ -670,7 +814,7 @@ archives. Fixes extraction of e1m4b.wad and e1m8b.wad. Thanks, John Romero!
 
 Copyright (this file)
 ---------------------
-Copyright (C) 2015, 2017 - 2022 The Doomseeker Team
+Copyright (C) 2015, 2017 - 2023 The Doomseeker Team
 
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright
@@ -679,6 +823,8 @@ without any warranty.
 
 
 [unreleased]: https://bitbucket.org/Doomseeker/doomseeker/commits/all
+[1.4.1]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.4.1
+[1.4]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.4
 [1.3.3]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.3.3
 [1.3.2]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.3.2
 [1.3.1]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.3.1

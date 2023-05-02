@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 #include "updateinstaller.h"
 
+#include "application.h"
 #include "configuration/doomseekerconfig.h"
 #include "datapaths.h"
 #include "log.h"
@@ -102,15 +103,18 @@ QString UpdateInstaller::errorCodeToStr(ErrorCode code)
 
 QString UpdateInstaller::getPercentEncodedCurrentProcessArgs()
 {
+	const QStringList &originalArgs = gApp->originalArgs();
 	QStringList argsEncoded;
-	if (gDefaultDataPaths->isPortableModeOn())
+	for (int i = 1; i < originalArgs.size(); ++i)
 	{
-		argsEncoded << QUrl::toPercentEncoding("--portable");
-	}
-	if (!Main::argDataDir.isEmpty())
-	{
-		argsEncoded << QUrl::toPercentEncoding("--datadir");
-		argsEncoded << QUrl::toPercentEncoding(Main::argDataDir);
+		const QString &arg = originalArgs[i];
+		// Skip this one because it is produced by the updater.
+		if (arg == "--update-failed")
+		{
+			i++; // also skip its value
+			continue;
+		}
+		argsEncoded << QUrl::toPercentEncoding(arg);
 	}
 	return argsEncoded.join(" ");
 }
@@ -122,11 +126,11 @@ QString UpdateInstaller::processErrorCodeToStr(ProcessErrorCode code)
 	case PEC_Ok:
 		return tr("Ok");
 	case PEC_UnableToReadUpdateScript:
-		return tr("Unable to read update script.");
+		return tr("Unable to read the update script.");
 	case PEC_NoInstallationDirectorySpecified:
 		return tr("No installation directory specified.");
 	case PEC_UnableToDeterminePathOfUpdater:
-		return tr("Unable to determine path of updater.");
+		return tr("Unable to determine the path of the updater.");
 	case PEC_GeneralFailure:
 		return tr("General failure.");
 	default:
@@ -186,8 +190,9 @@ bool UpdateInstaller::startUpdaterProcess(const QString &packagesDir,
 	#else
 	args << "--install-dir" << QCoreApplication::applicationDirPath();
 	#endif
-	args << "--package-dir" << packagesDir;
-	args << "--script" << scriptFilePath;
+	args << "--package-dir" << QFileInfo(packagesDir).absoluteFilePath();
+	args << "--script" << QFileInfo(scriptFilePath).absoluteFilePath();
+	args << "--log" << QDir::toNativeSeparators(AutoUpdater::updaterLogPath());
 	args << "--exec" << QDir::toNativeSeparators(programFileInfo.absoluteFilePath());
 	QString currentProcessArgs = getPercentEncodedCurrentProcessArgs();
 	if (!currentProcessArgs.isEmpty())

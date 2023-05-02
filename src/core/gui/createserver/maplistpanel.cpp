@@ -54,7 +54,7 @@ MapListPanel::MapListPanel(QWidget *parent)
 
 	d->parentDialog = nullptr;
 
-	d->lblWarning->setText(MapListPanel::tr("Current map isn't present on map list. Game may misbehave."));
+	d->lblWarning->setText(MapListPanel::tr("The current map isn't present on the map list. The game may misbehave."));
 	d->lblWarning->setPixmap(QPixmap(":/icons/exclamation.png"));
 	d->lblWarning->setWordWrap(true);
 }

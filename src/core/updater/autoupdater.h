@@ -138,6 +138,7 @@ public:
 	static const QString UPDATER_INFO_URL_BASE;
 
 	static QString errorCodeToString(ErrorCode code);
+	static QString updaterLogPath();
 	/**
 	 * @brief Path to updater script XML file.
 	 *

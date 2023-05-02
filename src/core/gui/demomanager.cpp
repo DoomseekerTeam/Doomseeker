@@ -175,7 +175,7 @@ void DemoManagerDlg::adjustDemoList()
 bool DemoManagerDlg::doRemoveDemo(const QString &file)
 {
 	if (!QFile::remove(file))
-		QMessageBox::critical(this, tr("Unable to delete"), tr("Could not delete the selected demo."));
+		QMessageBox::critical(this, tr("Unable to remove"), tr("Could not remove the selected demo."));
 	else
 	{
 		// Remove ini file as well, but don't bother warning if it can't be deleted for whatever reason
@@ -188,8 +188,8 @@ bool DemoManagerDlg::doRemoveDemo(const QString &file)
 
 void DemoManagerDlg::deleteSelected()
 {
-	if (QMessageBox::question(this, tr("Delete demo?"),
-		tr("Are you sure you want to delete the selected demo?"),
+	if (QMessageBox::question(this, tr("Remove demo?"),
+		tr("Are you sure you want to remove the selected demo?"),
 		QMessageBox::Yes | QMessageBox::Cancel) == QMessageBox::Yes)
 	{
 		QModelIndex index = d->demoList->selectionModel()->currentIndex();
@@ -250,6 +250,12 @@ void DemoManagerDlg::exportSelected()
 	}
 }
 
+void DemoManagerDlg::itemDoubleClicked(const QModelIndex &index)
+{
+	if (d->selectedDemo != nullptr)
+		playSelected();
+}
+
 void DemoManagerDlg::playSelected()
 {
 	if (d->selectedDemo == nullptr)
@@ -307,8 +313,8 @@ void DemoManagerDlg::playSelected()
 
 	// Play the demo
 	GameCreateParams params;
-	params.setDemoPath(gDefaultDataPaths->demosDirectoryPath()
-		+ QDir::separator() + d->selectedDemo->filename);
+	params.setDemoPath(QFileInfo(gDefaultDataPaths->demosDirectoryPath()
+		+ QDir::separator() + d->selectedDemo->filename).absoluteFilePath());
 	params.setIwadPath(wadPaths[0]);
 	params.setPwadsPaths(wadPaths.mid(1) + optionalWadPaths);
 	params.setHostMode(GameCreateParams::Demo);

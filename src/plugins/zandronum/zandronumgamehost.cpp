@@ -27,6 +27,7 @@
 #include "zandronumserver.h"
 #include <serverapi/gamecreateparams.h>
 
+#include <QFileInfo>
 #include <cstdint>
 
 ZandronumGameHost::ZandronumGameHost()
@@ -66,7 +67,7 @@ void ZandronumGameHost::addExtra()
 	if (!params().loggingPath().isEmpty())
 	{
 		// Zandronum suffixes a date plus a ".log" extension. We'll add a prefix.
-		args() << "+logfile" << params().loggingPath() + "/Zandronum";
+		args() << "+logfile" << QFileInfo(params().loggingPath()).absoluteFilePath() + "/Zandronum";
 	}
 
 	QString gameModeStr;
@@ -142,7 +143,7 @@ void ZandronumGameHost::addHostModeParams()
 
 	args() << "+sv_broadcast" << QString::number(static_cast<int>(params().isBroadcastToLan()));
 	args() << "+sv_updatemaster" << QString::number(static_cast<int>(params().isBroadcastToMaster()));
-	args() << "+sv_maxclients" << QString::number(params().maxTotalClientSlots());
+	args() << "+sv_maxclients" << QString::number(params().maxClients());
 	args() << "+sv_maxplayers" << QString::number(params().maxPlayers());
 
 	if (params().upnp())

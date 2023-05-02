@@ -25,6 +25,7 @@
 
 #include "dptr.h"
 
+#include <QSharedPointer>
 #include <QWidget>
 
 class QDateTime;
@@ -46,6 +47,14 @@ class ImportantMessagesWidget : public QWidget
 	Q_OBJECT
 
 public:
+	class Handler
+	{
+	public:
+		virtual ~Handler() = default;
+		virtual void remove() = 0;
+	};
+	friend class Handler;
+
 	ImportantMessagesWidget(QWidget *pParent = nullptr);
 	~ImportantMessagesWidget() override;
 
@@ -59,8 +68,10 @@ public:
 public slots:
 	/**
 	 * @brief Adds a new message without a timestamp.
+	 *
+	 * @return A Handler to this message.
 	 */
-	void addMessage(const QString &message);
+	QSharedPointer<Handler> addMessage(const QString &message);
 
 	/**
 	 * @brief Adds a message with a timestamp.
@@ -69,8 +80,10 @@ public slots:
 	 *      Message to add.
 	 * @param timestamp
 	 *      QDateTime object representing time.
+	 *
+	 * @return A Handler to this message.
 	 */
-	void addMessage(const QString &message, const QDateTime &dateTime);
+	QSharedPointer<Handler> addMessage(const QString &message, const QDateTime &dateTime);
 
 	/**
 	 * @brief Adds a message with a timestamp.
@@ -79,8 +92,10 @@ public slots:
 	 *      Message to add.
 	 * @param timestamp
 	 *      Time in seconds since the epoch.
+	 *
+	 * @return A Handler to this message.
 	 */
-	void addMessage(const QString &message, unsigned timestamp);
+	QSharedPointer<Handler> addMessage(const QString &message, unsigned timestamp);
 
 	/**
 	 * @brief Clears all messages from the widghet.
@@ -107,6 +122,8 @@ public slots:
 
 private:
 	DPtr<ImportantMessagesWidget> d;
+
+	void remove(QLabel *label);
 
 private slots:
 	/**

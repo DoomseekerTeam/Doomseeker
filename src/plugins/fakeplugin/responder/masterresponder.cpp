@@ -34,6 +34,7 @@ class MasterResponder::PrivData
 public:
 	QList<AwaitingClient> awaitingClients;
 	QList<ServerResponder *> serverResponders;
+	int responsesCount;
 	QUdpSocket *socket;
 };
 ///////////////////////////////////////////////////////////////////////////////
@@ -42,6 +43,7 @@ MasterResponder::MasterResponder(QObject *parent)
 {
 	d = new PrivData();
 	d->socket = new QUdpSocket();
+	d->responsesCount = 0;
 	this->connect(d->socket, SIGNAL(readyRead()),
 		SLOT(readPendingDatagrams()));
 }
@@ -80,6 +82,13 @@ void MasterResponder::bindServer(ServerResponder *server, unsigned short port)
 	}
 }
 
+QList<QByteArray> MasterResponder::buildBannedPackets()
+{
+	QList<QByteArray> result;
+	result.append(QByteArray("1;BAN;"));
+	return result;
+}
+
 QList<QByteArray> MasterResponder::buildResponsePackets()
 {
 	const unsigned short maxPortsListsLength = qMax((unsigned short)20,
@@ -107,7 +116,8 @@ QList<QByteArray> MasterResponder::buildResponsePackets()
 	for (const QByteArray &portsList : portsLists)
 	{
 		QString number = QString::number(portsLists.size()) + ";";
-		result.append(number.toUtf8() + portsList);
+		QString status = "OK;";
+		result.append(number.toUtf8() + status.toUtf8() + portsList);
 	}
 	return result;
 }
@@ -150,14 +160,24 @@ void MasterResponder::respond()
 	if (!areServerRespondersRunning())
 		startServerResponders();
 
+	++d->responsesCount;
 	AwaitingClient client = d->awaitingClients.takeFirst();
-	QList<QByteArray> packets = buildResponsePackets();
+	QList<QByteArray> packets;
+	if (ResponderCfg::masterBannedEvery() > 0 &&
+		(d->responsesCount % ResponderCfg::masterBannedEvery()) == 0)
+	{
+		packets = buildBannedPackets();
+	}
+	else
+	{
+		packets = buildResponsePackets();
+	}
 	gLog << QString("FakePlugin, sending master response now. "
 			"Packets count = %1, Target client: '%2:%3'").arg(packets.size())
 		.arg(client.address.toString()).arg(client.port);
 	for (const QByteArray &packet : packets)
 	{
-		gLog << QString("FakePlugin, Sending master packet, size: %1").arg(packet.size());
+		gLog << QString("FakePlugin, sending master packet, size: %1").arg(packet.size());
 		d->socket->writeDatagram(packet, client.address, client.port);
 	}
 }
@@ -169,6 +189,20 @@ void MasterResponder::startServerResponders()
 	for (int i = 0; i < ResponderCfg::numValidServers(); ++i)
 	{
 		ServerResponder *server = new ServerResponder();
+		bindServer(server, port);
+		++port;
+	}
+	for (int i = 0; i < ResponderCfg::numBannedServers(); ++i)
+	{
+		ServerResponder *server = new ServerResponder();
+		server->setBanChance(ServerResponder::MAX_CHANCE);
+		bindServer(server, port);
+		++port;
+	}
+	for (int i = 0; i < ResponderCfg::numTooSoonServers(); ++i)
+	{
+		ServerResponder *server = new ServerResponder();
+		server->setTooSoonChance(ServerResponder::MAX_CHANCE);
 		bindServer(server, port);
 		++port;
 	}

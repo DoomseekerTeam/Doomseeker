@@ -449,47 +449,47 @@ p, li { white-space: pre-wrap; }
         <translation>Mata a todos los monstruos generados por un cubo de jefe cuando el jefe muere</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="799"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="806"/>
         <source>On player death...</source>
         <translation>Quando el jugador muere...</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="805"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="812"/>
         <source>respawn where died</source>
         <translation>reaparecer donde murió</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="812"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="819"/>
         <source>lose all inventory</source>
         <translation>perder todo el inventario</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="819"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="826"/>
         <source>lose armor</source>
         <translation>perder armadura</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="826"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="833"/>
         <source>lose keys</source>
         <translation>perder llaves</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="833"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="840"/>
         <source>lose powerups</source>
         <translation>perder potenciadores</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="840"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="847"/>
         <source>lose weapons</source>
         <translation>perder armas</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="847"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="854"/>
         <source>lose all ammo</source>
         <translation>perder toda la munición</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="854"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="861"/>
         <source>lose half ammo</source>
         <translation>perder la mitad de la munición</translation>
     </message>
@@ -498,22 +498,22 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Afecta los modos de juego donde &amp;quot;max. vidas&amp;quot; puede ser usado. Si se establece, los jugadores que se conviertan en espectadores muertos (se queden sin vida) seguirán manteniendo el inventario de acuerdo con &amp;quot; Perder *&amp;quot; indicadores arriba. Si no se establece, los jugadores que pierdan todas las vidas perderán siempre el inventario completo.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="866"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="873"/>
         <source>Players who lose all lives can keep inventory</source>
         <translation>Los jugadores que pierdan todas las vidas pueden conservar el inventario</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="878"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="885"/>
         <source>Share keys between players</source>
         <translation>Compartir claves entre jugadores</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="885"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="892"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Players will be respawned with full lives but the map will not be reset. Inventory will be preserved in accordance to &amp;quot;Lose inventory&amp;quot; flags. Players will be able to continue from the point where they died.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Los jugadores serán reaparecidos con vidas completas pero el mapa no se reiniciará. El inventario se conservará de acuerdo con los indicadores de &amp;quot;Perder inventario&amp;quot;. Los jugadores podrán continuar desde el punto donde murieron.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="888"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="895"/>
         <source>Survival only: no map reset when all players die</source>
         <translation>Solo supervivencia: no se restablece el mapa cuando todos los jugadores mueren</translation>
     </message>
@@ -523,244 +523,244 @@ p, li { white-space: pre-wrap; }
         <translation>Cooperativo</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="915"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="922"/>
         <source>When players die, they...</source>
         <translation>Cuando los jugadores mueren, ellos...</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="921"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="928"/>
         <source>respawn automatically</source>
         <translation>reaparecer automáticamente</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="928"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="935"/>
         <source>drop their weapon</source>
         <translation>soltar su arma</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="935"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="942"/>
         <source>respawn farthest away from others</source>
         <translation>reaparecer lo más lejos posible de los demás</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="942"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="949"/>
         <source>lose a frag</source>
         <translation>perder un frag</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="949"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="956"/>
         <source>respawn with a shotgun</source>
         <translation>reaparecer con una escopeta</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="956"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="963"/>
         <source>don&apos;t get respawn protection</source>
         <translation>no obtener protección de reaparición</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="968"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="975"/>
         <source>When someone exits the level...</source>
         <translation>Cuando alguien sale del nivel...</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="974"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="981"/>
         <source>continue to the next map</source>
         <translation>continuar al siguiente mapa</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="984"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="991"/>
         <source>restart the current level</source>
         <translation>reiniciar el nivel actual</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="991"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="998"/>
         <source>kill the player</source>
         <translation>mata al jugador</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1014"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1021"/>
         <source>Keep frags after map change</source>
         <translation>Mantener frags después del cambio de mapa</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1026"/>
-        <source>Weapons &amp;&amp; Ammo</source>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1033"/>
+        <source>Weapons &amp;&amp; ammo</source>
         <translation>Armas y munición</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1032"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1039"/>
         <source>Weapons stay after pickup</source>
         <translation>Las armas permanecen después de recogerlas</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1039"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1053"/>
         <source>Double ammo</source>
         <translation>Doble munición</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1049"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1063"/>
         <source>Don&apos;t spawn...</source>
         <translation>No hacer aparecer...</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1055"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1069"/>
         <source>health</source>
         <translation>salud</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1062"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1076"/>
         <source>armor</source>
         <translation>armadura</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1069"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1083"/>
         <source>runes</source>
         <translation>runas</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="909"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="916"/>
         <source>Deathmatch</source>
         <translation>Combate a muerte</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1105"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1119"/>
         <source>Weapons</source>
         <translation>Armas</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1111"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1125"/>
         <source>Chainsaw</source>
         <translation>Motosierra</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1118"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1132"/>
         <source>Pistol</source>
         <translation>Pistola</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1125"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1139"/>
         <source>Shotgun</source>
         <translation>Escopeta</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1132"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1146"/>
         <source>Super shotgun</source>
         <translation>Súper escopeta</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1139"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1153"/>
         <source>Chaingun</source>
         <translation>Ametralladora</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1146"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1160"/>
         <source>Minigun</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1153"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1167"/>
         <source>Rocket launcher</source>
         <translation>Lanzacohetes</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1160"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1174"/>
         <source>Grenade launcher</source>
         <translation>Lanzagranadas</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1167"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1181"/>
         <source>Plasma rifle</source>
         <translation>Rifle de plasma</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1174"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1188"/>
         <source>Railgun</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1194"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1208"/>
         <source>lmsallowedweapons:</source>
         <translation>lmsallowedweapons:</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1207"/>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1230"/>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1857"/>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1881"/>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1898"/>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1915"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1221"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1244"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1901"/>
         <location filename="../createserverdialogpages/flagspage.ui" line="1925"/>
         <location filename="../createserverdialogpages/flagspage.ui" line="1942"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1959"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1969"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1986"/>
         <source>0</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1217"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1231"/>
         <source>lmsspectatorsettings:</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1242"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1256"/>
         <source>Spectators can...</source>
         <translation>Los espectadores pueden...</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1248"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1262"/>
         <source>talk to active players</source>
         <translation>hablar con jugadores activos</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1255"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1269"/>
         <source>view the game</source>
         <translation>ver el juego</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1097"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1111"/>
         <source>LMS</source>
         <translation>LMS</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1306"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1320"/>
         <source>Enable buggier wall clipping so players can wallrun.</source>
         <translation>Habilitar un atravesamiento de pared peor para que los jugadores puedan hacer wallrun.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1309"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1323"/>
         <source>Enable wall running</source>
         <translation>Activar wall running</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1316"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1330"/>
         <source>Pickups are only heard locally.</source>
         <translation>Las recogidas de objetos solo se escuchan localmente.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1319"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1333"/>
         <source>Don&apos;t let others hear pickups</source>
         <translation>No dejes que otros oigan la recogida de objetos</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1326"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1340"/>
         <source>Allow instant respawn</source>
         <translation>Permitir reaparición instantánea</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1333"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1347"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disable stealth monsters, since doom2.exe didn&apos;t have them.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Note: this handles ZDoom&apos;s invisible monsters.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;THIS DOESN&apos;T AFFECT THE PARTIAL INVISIBILITY SPHERE IN ANY WAY. See &amp;quot;Monsters see semi-invisible players&amp;quot; for that.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Deshabilita los monstruos sigilosos, ya que doom2.exe no los tenía.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Nota: esto maneja los monstruos invisibles de ZDoom.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;ESTO NO AFECTA LA ESFERA DE INVISIBILIDAD PARCIAL DE CUALQUIER FORMA. Ver &amp;quot;Los monstruos ven jugadores semiinvisibles&amp;quot; para eso.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1336"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1350"/>
         <source>Disable stealth monsters</source>
         <translation>Deshabilitar monstruos sigilosos</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1343"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1357"/>
         <source>Limit actors to one sound at a time.</source>
         <translation>Limitar los actores a un sonido a la vez.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1346"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1360"/>
         <source>Allow silent BFG trick</source>
         <translation>Permitir el truco del BFG silencioso</translation>
     </message>
@@ -769,172 +769,170 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">Los clientes usan el comportamiento original de Doom al recoger de armas.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1356"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1370"/>
         <source>Original weapon switch</source>
         <translation>Cambio de armas original</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1363"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1377"/>
         <source>Limited movement in the air</source>
         <translation>Movimiento limitado en el aire</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1370"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1384"/>
         <source>This affects the partial invisibility sphere.</source>
         <translation>Esto afecta la esfera de invisibilidad parcial.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1373"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1387"/>
         <source>Monsters see semi-invisible players</source>
         <translation>Los monstruos ven a los jugadores semi-invisibles</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1380"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1394"/>
         <source>Allow the map01 &quot;plasma bump&quot; bug.</source>
         <translation>Permitir error &quot;plasma bump&quot; en map01.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1383"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1397"/>
         <source>Plasma bump bug</source>
         <translation>Error plasma bump</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1390"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1404"/>
         <source>Any boss death activates map specials</source>
         <translation>Cualquier muerte de jefe activa especiales del mapa</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1397"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1411"/>
         <source>Friction/pushers/pullers affect Monsters</source>
         <translation>Fricción/empujones/tirones afectan los monstruos</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1404"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1418"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Crushed monsters are turned into gibs, rather than replaced by gibs.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Los monstruos aplastados se convierten en vísceras, en lugar de ser reemplazados por estas.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1407"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1421"/>
         <source>Crusher gibs by morphing, not replacement</source>
         <translation>Aplastar transforma en vísceras, en lugar de reemplazar por estas</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1414"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1428"/>
         <source>Block monster lines ignore friendly monsters</source>
         <translation>Las líneas de bloqueo de monstruos ignoran los monstruos amistosos</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1421"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1435"/>
         <source>Find neighboring light level like Doom</source>
         <translation>Encontrar el nivel de luz cercano como en Doom</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1432"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1446"/>
         <source>Use doom2.exe&apos;s original intermission screens/music.</source>
         <translation>Usar la pantalla/música originales del intermedio de misión de doom2.exe.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1435"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1449"/>
         <source>Use old intermission screens/music</source>
         <translation>Usar pantalla/música de intermedio de misión antiguas</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1442"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1456"/>
         <source>Scrolling sectors are additive like in Boom.</source>
         <translation>Los sectores de desplazamiento son aditivos como en Boom.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1445"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1459"/>
         <source>Scrolling sectors are additive</source>
         <translation>Los sectores de desplazamiento son aditivos</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1452"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1466"/>
         <source>Sector sounds use original method for sound origin.</source>
         <translation>Los sonidos del sector usan el método original para el origen del sonido.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1455"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1469"/>
         <source>Sector sounds use original method</source>
         <translation>Los sonidos del sector usan el método original</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1462"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1476"/>
         <source>Monsters cannot move when hanging over a dropoff.</source>
         <translation>Los monstruos no se pueden mover cuando están sobre un abismo.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1465"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1479"/>
         <source>No monsters dropoff move</source>
         <translation>Sin monstruos moverse en abismo</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1479"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1493"/>
         <source>Instantly moving floors are not silent.</source>
         <translation>Los pisos que se mueven al instante no son silenciosos.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1482"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1496"/>
         <source>Instantly moving floors aren&apos;t silent</source>
         <translation>Los pisos que se mueven al instante no son silenciosos</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1690"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bring back vanilla ZDoom shooting below the crosshair.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Revierte a los disparos de ZDoom &quot;vanilla&quot; bajo la cruceta.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Revierte a los disparos de ZDoom &quot;vanilla&quot; bajo la cruceta.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1693"/>
         <source>Disable shooting where crosshair is</source>
-        <translation>Desactivar los disparos donde se encuentra la cruceta</translation>
+        <translation type="vanished">Desactivar los disparos donde se encuentra la cruceta</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1489"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1503"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use Doom&apos;s random table instead of ZDoom&apos;s random number generator. Affects weapon damage among other things.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use la tabla aleatoria de Doom en lugar del generador de números aleatorios de ZDoom. Afecta el daño de las armas entre otras cosas.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1492"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1506"/>
         <source>Old random number generator</source>
         <translation>Antiguo generador de números aleatorios</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1472"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1486"/>
         <source>Monsters can&apos;t be pushed off cliffs</source>
         <translation>Los monstruos no pueden ser empujados a abismos</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1502"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1516"/>
         <source>Old damage radius (infinite height)</source>
         <translation>Radio de daño antiguo (altura infinita)</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1509"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1523"/>
         <source>Minotaur&apos;s floor flame explodes immediately when feet are clipped</source>
         <translation>El fuego del suelo del minotauro explota inmediatamente cuando los pies lo atraviesan</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1516"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1530"/>
         <source>Original velocity calc. for A_Mushroom in Dehacked</source>
         <translation>Calculo de velocidad original para A_Mushroom en Dehacked</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1523"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1537"/>
         <source>Sprite sort order inverted for sprites of equal distance</source>
         <translation>Orden de Sprites invertido para sprites en la misma distancia</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1530"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1544"/>
         <source>Hitscans use original blockmap and hit check code</source>
         <translation>Los Hitscans usan el mapa de bloques original y el código de verificación de impacto</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1537"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1551"/>
         <source>Draw polyobjects the old fashioned way</source>
         <translation>Dibujar poliobjetos a la antigua usanza</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1296"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1310"/>
         <source>Compatibility</source>
         <translation>Compatibilidad</translation>
     </message>
@@ -944,7 +942,12 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;p&gt;Genera elementos de mapas, monstruos y otros objetos en modo cooperativo como si el juego fuera para un solo jugador.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="861"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="791"/>
+        <source>Don&apos;t count monsters in the &quot;end level&quot; sector towards kills</source>
+        <translation>No cuentes como bajas los monstruos en el sector &quot;end level&quot;</translation>
+    </message>
+    <message>
+        <location filename="../createserverdialogpages/flagspage.ui" line="868"/>
         <source>&lt;p&gt;If set, players who lose all lives and become dead spectators will still keep inventory in accordance to the &amp;quot;Lose inventory&amp;quot; flags. When they will finally be able to play again, all their items will be returned to them.&lt;/p&gt;
 
 &lt;p&gt;If unset, players who lose all lives will always lose their entire inventory, regardless of the &amp;quot;Lose inventory&amp;quot; flags.&lt;/p&gt;</source>
@@ -953,253 +956,306 @@ p, li { white-space: pre-wrap; }
 &lt;p&gt;Si no, no se les devolverá nada, independientemente de &amp;quot;Perder inventario&amp;quot;.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1353"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1046"/>
+        <source>Weapons always refill ammo</source>
+        <translation>Las armas siempre proporcionan munición</translation>
+    </message>
+    <message>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1367"/>
         <source>When a weapon is picked up, the weapon switch behaves like in vanilla Doom.</source>
         <translation>Cuando se agarra una arma, se hace el cambio de armas del Doom vanilla.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1499"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1513"/>
         <source>&lt;p&gt;Shooting a rocket against a wall will damage the actors near this wall even if they are far below or above the explosion.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Disparar un cohete en una pared hará daño a todos los actores que están cerca, independientemente de la altura.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1572"/>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1748"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1586"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1772"/>
         <source>&lt;p&gt;This allows for decorations to be pass-through for projectiles as they were originally in Doom.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Esto permite que las decoraciones se puedan atravesar por los proyectiles, como en el Doom original.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1575"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1589"/>
         <source>Use original missile clipping height</source>
         <translation>Utilizar la altura original de atravesamiento de misiles</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1582"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1596"/>
         <source>Use sector based sound target code</source>
         <translation>Usar código de sonido objetivo basado en sectores</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1589"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1603"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Doom&apos;s hitscan tracing code ignores all lines with both sides in the same sector. ZDoom&apos;s does not. This option reverts to the original but less precise behavior. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;El código de escaneo de impactos de Doom ignora todas las líneas con ambos lados en el mismo sector. ZDoom no. Esta opción revierte al comportamiento original pero es menos preciso. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1592"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1606"/>
         <source>Trace ignore lines w/ same sector on both sides</source>
         <translation>El trazo ignora las líneas con el mismo sector en ambos lados</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1599"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1613"/>
         <source>Limit deh.MaxHealth to health bonus</source>
         <translation>Limitar deh.MaxHealth a la bonificación de salud</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1606"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1620"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The scrolling floor specials in Heretic and Hexen move the player much faster than the actual texture scrolling speed. Enable this option to restore this effect. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Los desplazamientos especiales del suelo en Heretic y Hexen mueven al jugador mucho más rápido que la velocidad de desplazamiento de la textura real. Habilita esta opción para restaurar este efecto.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1609"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1623"/>
         <source>Raven&apos;s scrollers use original speed</source>
         <translation>Los scrollers de Raven usan su velocidad original</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1616"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1630"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add NOGRAVITY to actors named InvulnerabilitySphere, Soulsphere, Megasphere and BlurSphere when spawned by the map.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Agregue NOGRAVITY a los actores llamados InvulnerabilitySphere, Soulsphere, Megasphere y BlurSphere cuando aparecen por el mapa.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1619"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1633"/>
         <source>Add NOGRAVITY flag to spheres</source>
         <translation>Agregar la bandera NOGRAVITY a las esferas</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1626"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1640"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When a player leaves the game, don&apos;t stop any scripts of that player that are still running.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cuando un jugador abandona el juego, no detener ningún script que ese jugador todavía esté ejecutando.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1629"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1643"/>
         <source>Don&apos;t stop player scripts on disconnect</source>
         <translation>No detener los scripts de los jugadores al desconectarse</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1636"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1650"/>
         <source>&lt;p&gt;If this is enabled, explosions cause a strong horizontal thrust like in old ZDoom versions.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Si esto está habilitado, las explosiones causan un fuerte empuje horizontal como en versiones antiguas de ZDoom.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1639"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1653"/>
         <source>Old ZDoom horizontal thrust</source>
         <translation>Empuje horizontal del antiguo ZDoom</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1646"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1660"/>
         <source>&lt;p&gt;If this is enabled, non-SOLID things like flags fall through bridges (as they used to do in old ZDoom versions).&lt;/p&gt;</source>
         <translation>&lt;p&gt;Si esto está habilitado, elementos no SÓLIDOS como banderas caen a través de puentes (como solían hacer en versiones antiguas de ZDoom).&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1649"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1663"/>
         <source>Old ZDoom bridge drops</source>
         <translation>Caídas de puente del antiguo ZDoom</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1656"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1670"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Uses old ZDoom jump physics, it&apos;s a minor bug in the gravity code that causes gravity application in the wrong place.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Usa la antigua física de salto ZDoom, es un error menor en el código de gravedad que causa la aplicación de la gravedad en el lugar equivocado.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1659"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1673"/>
         <source>ZDoom 1.23B33 jump physics</source>
         <translation>Físicas de salto de ZDoom 1.23B33</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1666"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1680"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;p&gt;Q-Zandronum uses more tracers to fill in the gaps, this reverts it to vanilla&apos;s 3 tracer behavior&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;p&gt;Q-Zandronum usa más trazadores para llenar los huecos, esto lo revierte al comportamiento original de 3 trazadores&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1669"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1683"/>
         <source>Use vanilla autoaim tracer behavior</source>
         <translation>Usar el comportamiento del trazador de autoapuntado original</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1676"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1690"/>
         <source>Ignore compositing when drawing masked midtextures</source>
         <translation>Ignore la composición mientras se dibuja texturas medias enmascaradas</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1683"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1697"/>
         <source>It is impossible to face directly NSEW</source>
         <translation>Es imposible mirar directamente en la dirección cardinal</translation>
     </message>
     <message>
         <location filename="../createserverdialogpages/flagspage.ui" line="1704"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Make weapons shoot where the crosshair is.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Haz que las armas disparen siempre en la cruzeta.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1707"/>
+        <source>Enable shooting where crosshair is</source>
+        <translation>Activar disparar siempre en la cruzeta</translation>
+    </message>
+    <message>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1714"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Make projectile hitbox work across entire sprite instead of only upper half.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Haz que la hitbox del proyectil funcione en todo el sprite en lugar de sólo en la mitad superior.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1717"/>
+        <source>Enable projectile hitbox fix</source>
+        <translation>Activar corrección de la hitbox de proyectil</translation>
+    </message>
+    <message>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1728"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use Doom&apos;s shortest texture find behavior. This is requied by some WADs in MAP07.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Usa el comportamiento de búsqueda de textura más corta de Doom. Esto es requerido por algunos WADs en MAP07.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1707"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1731"/>
         <source>Find shortest textures like Doom</source>
         <translation>Encuentra las texturas más cortas como en Doom</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1714"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1738"/>
         <source>Limit pain elementals to 20 lost souls</source>
         <translation>Limitar los elementales de dolor a 20 almas perdidas</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1721"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1745"/>
         <source>Spawned item drops on the floor</source>
         <translation>El elemento generado cae en el suelo</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1728"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1752"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Treat ACS scripts with the SCRIPTF_Net flag to be client side, i.e. executed on the clients, but not on the server.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Tratar los scripts ACS con el indicador SCRIPTF_Net para que se ejecuten en el lado del cliente, es decir, ejecutados en los clientes, pero no en el servidor.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1731"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1755"/>
         <source>NET scripts are clientside</source>
         <translation>Los scripts NET son del lado del cliente</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1738"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Don&apos;t execute predicted ACS scripts on client side. Turning this on can fix ACS teleports or jumppads on maps that are not using ACS_ExecuteWithResult.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;No ejecutar los scripts ACS predictivos en el cliente. Activar esto puede arreglar las teletransportaciones ACS o los puntos de salto en mapas que no usan ACS_ExecuteWithResult.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;No ejecutar los scripts ACS predictivos en el cliente. Activar esto puede arreglar las teletransportaciones ACS o los puntos de salto en mapas que no usan ACS_ExecuteWithResult.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1741"/>
         <source>Don&apos;t execute prediction ACS on client</source>
-        <translation>No ejecutar predicciones de ACS en el cliente</translation>
+        <translation type="vanished">No ejecutar predicciones de ACS en el cliente</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1751"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1775"/>
         <source>Actors are infinitely tall</source>
         <translation>Los actores son infinitamente altos</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1758"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1782"/>
         <source>Don&apos;t fix loop index for stair building.</source>
         <translation>No arreglar el índice del bucle para construir escaleras.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1761"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1785"/>
         <source>Use buggier stair building</source>
         <translation>Usar un constructor de escaleras con más errores</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1768"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1792"/>
         <source>Disable Boom door light effect</source>
         <translation>Deshabilitar el efecto de luz de puerta BOOM</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1775"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1799"/>
         <source>All special lines can drop use lines</source>
         <translation>Todas las líneas especiales pueden soltar líneas de uso</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1782"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1806"/>
         <source>Original sound curve</source>
         <translation>Curva de sonido original</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1789"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1813"/>
         <source>Disallow weapon change until fully drawn or hidden</source>
         <translation>No permitir el cambio de arma hasta que esté completamente dibujado u oculto</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1796"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1820"/>
         <source>West spawns are silent</source>
         <translation>Las apariciones &quot;West&quot; son silenciosas</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1803"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1827"/>
         <source>Use the same floor motion behavior as Doom</source>
         <translation>Usar el comportamiento de movimiento del piso como en Doom</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1562"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1576"/>
         <source>Compatibility 2</source>
         <translation>Compatibilidad 2</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1810"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1762"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When this option is ON, many Decorate and ACS functions will execute on clients without before receiving a command from the server. This can lead to smoother multiplayer, but can breaks mods that don&apos;t support it.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cuando esté activado, muchas funciones Decorate y ACS se ejecutarán en los clientes antes de recibir el orden del servidor. Esto puede llevar a una experiencia multijugador más fluida, pero puede romper algún mod que no soporte esto.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1765"/>
+        <source>Enable predicting Decorate and ACS functions on clients</source>
+        <translation>Activar predicció de funcions Decorate i ACS als clients</translation>
+    </message>
+    <message>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1834"/>
         <source>Disable wall friction</source>
         <translation>Desactivar fricción de pared</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1835"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1841"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The Quake thrust formula considers damage source and victim positions and applies thrust properly among all three axes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;La fórmula de empuje de Quake considera la fuente del daño, la posición de la vícitima, y aplica el empuje en 3 dimensiones.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1844"/>
+        <source>Use Quake thrust formula</source>
+        <translation>Usar la fórmula de empuje de Quake</translation>
+    </message>
+    <message>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1851"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Fix cases when there is an elevated floor with a special, but an actor is standing on it&apos;s edge so that actor&apos;s center is in the air and the special doesn&apos;t trigger.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Arregla casos donde hay un suelo elevado con &quot;especial&quot;, pero un actor está en su borde, así que el centro del actor está en el aire y el &quot;especial&quot; no se activa.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1854"/>
+        <source>Enable elevated sector special fix</source>
+        <translation>Activa la corrección del especial un sector elevado</translation>
+    </message>
+    <message>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1879"/>
         <source>Voting</source>
         <translation>Votaciones</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1850"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1894"/>
         <source>q-zandronum dmflags</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1867"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1911"/>
         <source>dmflags</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1874"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1918"/>
         <source>dmflags2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1891"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1935"/>
         <source>q-zandronum compatflags</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1908"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1952"/>
         <source>compatflags</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.ui" line="1935"/>
+        <location filename="../createserverdialogpages/flagspage.ui" line="1979"/>
         <source>compatflags2</source>
         <translation></translation>
     </message>
@@ -1207,32 +1263,32 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../zandronumqengineplugin.cpp" line="138"/>
+        <location filename="../zandronumqengineplugin.cpp" line="137"/>
         <source>Time limit:</source>
         <translation>Límite de tiempo:</translation>
     </message>
     <message>
-        <location filename="../zandronumqengineplugin.cpp" line="146"/>
+        <location filename="../zandronumqengineplugin.cpp" line="145"/>
         <source>Frag limit:</source>
         <translation>Límite de frags:</translation>
     </message>
     <message>
-        <location filename="../zandronumqengineplugin.cpp" line="157"/>
+        <location filename="../zandronumqengineplugin.cpp" line="156"/>
         <source>Point limit:</source>
         <translation>Límite de puntos:</translation>
     </message>
     <message>
-        <location filename="../zandronumqengineplugin.cpp" line="164"/>
+        <location filename="../zandronumqengineplugin.cpp" line="163"/>
         <source>Win limit:</source>
         <translation>Límite de victorias:</translation>
     </message>
     <message>
-        <location filename="../zandronumqengineplugin.cpp" line="169"/>
+        <location filename="../zandronumqengineplugin.cpp" line="168"/>
         <source>Duel limit:</source>
         <translation>Límite de duelos:</translation>
     </message>
     <message>
-        <location filename="../zandronumqengineplugin.cpp" line="172"/>
+        <location filename="../zandronumqengineplugin.cpp" line="171"/>
         <source>Max. lives:</source>
         <translation>Max. vidas:</translation>
     </message>
@@ -1250,94 +1306,118 @@ p, li { white-space: pre-wrap; }
         <translation>Formulario</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="23"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="32"/>
         <source>Use this page</source>
         <translation>Use esta página</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="36"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="54"/>
         <source>Who can vote</source>
         <translation>Quién puede votar</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="42"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="60"/>
         <source>All can vote</source>
         <translation>Todos pueden votar</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="52"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="70"/>
         <source>No one can vote</source>
         <translation>Nadie puede votar</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="59"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="77"/>
         <source>Spectators can&apos;t vote</source>
         <translation>Los espectadores no pueden votar</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="84"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="102"/>
         <source>Minimum number of players required to call a vote:</source>
         <translation>Número mínimo de jugadores necesarios para solicitar una votación:</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="106"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="128"/>
+        <source>Vote cooldown:</source>
+        <translation>Tiempo entre votos:</translation>
+    </message>
+    <message>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="149"/>
+        <source>&lt;p&gt;Cooldown for the same type of vote is the double of this value. Setting this to 0 disables it.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;El tiempo es el doble para votos del mismo tipo. Ponerlo a 0 lo desactiva.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="165"/>
+        <source>min.</source>
+        <translation>min.</translation>
+    </message>
+    <message>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="174"/>
+        <source>Time before client can vote after connecting:</source>
+        <translation>Tiempo antes de que un nuevo cliente pueda votar:</translation>
+    </message>
+    <message>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="208"/>
+        <source>sec.</source>
+        <translation>seg.</translation>
+    </message>
+    <message>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="219"/>
         <source>Allow specific votes</source>
         <translation>Permitir votos específicos</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="182"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="295"/>
         <source>duellimit</source>
         <translation>límite de duelo</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="192"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="305"/>
         <source>pointlimit</source>
         <translation>límite de puntos</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="152"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="265"/>
         <source>timelimit</source>
         <translation>límite de tiempo</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="202"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="315"/>
         <source>winlimit</source>
         <translation>límite de victorias</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="122"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="235"/>
         <source>changemap</source>
         <translation>Canviar mapa</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="142"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="255"/>
         <source>nextmap</source>
         <translation>Siguiente mapa</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="112"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="225"/>
         <source>kick</source>
         <translation>expulsar</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="132"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="245"/>
         <source>map</source>
         <translation>mapa</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="172"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="285"/>
         <source>fraglimit</source>
         <translation>límite de frags</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="162"/>
+        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="275"/>
         <source>force players to spectate</source>
         <translation>obligar a los jugadores al modo espectador</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/votingsetupwidget.ui" line="215"/>
         <source>Vote flooding protection enabled</source>
-        <translation>Protección contra inundaciones de votos habilitada</translation>
+        <translation type="vanished">Protección contra inundaciones de votos habilitada</translation>
     </message>
 </context>
 <context>
@@ -1368,9 +1448,8 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ZandronumqClientExeFile</name>
     <message>
-        <location filename="../zandronumqbinaries.cpp" line="83"/>
         <source>client</source>
-        <translation>cliente</translation>
+        <translation type="vanished">cliente</translation>
     </message>
 </context>
 <context>
@@ -1543,22 +1622,22 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ZandronumqServer</name>
     <message>
-        <location filename="../zandronumqserver.cpp" line="111"/>
+        <location filename="../zandronumqserver.cpp" line="110"/>
         <source>Blue</source>
         <translation>Azul</translation>
     </message>
     <message>
-        <location filename="../zandronumqserver.cpp" line="112"/>
+        <location filename="../zandronumqserver.cpp" line="111"/>
         <source>Red</source>
         <translation>Rojo</translation>
     </message>
     <message>
-        <location filename="../zandronumqserver.cpp" line="113"/>
+        <location filename="../zandronumqserver.cpp" line="112"/>
         <source>Green</source>
         <translation>Verde</translation>
     </message>
     <message>
-        <location filename="../zandronumqserver.cpp" line="114"/>
+        <location filename="../zandronumqserver.cpp" line="113"/>
         <source>Gold</source>
         <translation>Oro</translation>
     </message>
@@ -1846,294 +1925,298 @@ p, li { white-space: pre-wrap; }
         <translation>Forzar el cambio de arma</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="171"/>
         <source>Disable shooting where crosshair is</source>
-        <translation>Desactivar el disparo donde se encuentra la cruceta</translation>
+        <translation type="vanished">Desactivar el disparo donde se encuentra la cruceta</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="173"/>
+        <location filename="../zandronumq1dmflags.cpp" line="346"/>
         <source>Disable wall friction</source>
         <translation>Desactivar fricción de pared</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="181"/>
+        <location filename="../zandronumq1dmflags.cpp" line="177"/>
         <source>Do not spawn health items (DM)</source>
         <translation>No hacer aparecer items de salud (DM)</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="183"/>
+        <location filename="../zandronumq1dmflags.cpp" line="179"/>
         <source>Do not spawn powerups (DM)</source>
         <translation>No hacer aparecer potenciadores (DM)</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="185"/>
+        <location filename="../zandronumq1dmflags.cpp" line="181"/>
         <source>Weapons remain after pickup (DM)</source>
         <translation>Las armas permanecen después de recogerlas (DM)</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="187"/>
+        <location filename="../zandronumq1dmflags.cpp" line="183"/>
         <source>Falling damage (old ZDoom)</source>
         <translation>Daño de caída (antiguo ZDoom)</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="189"/>
+        <location filename="../zandronumq1dmflags.cpp" line="185"/>
         <source>Falling damage (Hexen)</source>
         <translation>Daño de caída (Hexen)</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="191"/>
+        <location filename="../zandronumq1dmflags.cpp" line="187"/>
         <source>Falling damage (Strife)</source>
         <translation>Daño de caída (Strife)</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="193"/>
+        <location filename="../zandronumq1dmflags.cpp" line="189"/>
         <source>Stay on same map when someone exits (DM)</source>
         <translation>Permanecer en el mapa cuando alguien lo termine (DM)</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="195"/>
+        <location filename="../zandronumq1dmflags.cpp" line="191"/>
         <source>Spawn players as far as possible (DM)</source>
         <translation>Hacer aparecer los jugadores lo más lejos posible (DM)</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="197"/>
+        <location filename="../zandronumq1dmflags.cpp" line="193"/>
         <source>Automatically respawn dead players (DM)</source>
         <translation>Reaparición automática de jugadores muertos (DM)</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="199"/>
+        <location filename="../zandronumq1dmflags.cpp" line="195"/>
         <source>Don&apos;t spawn armor (DM)</source>
         <translation>No hacer aparecer armadura (DM)</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="201"/>
+        <location filename="../zandronumq1dmflags.cpp" line="197"/>
         <source>Kill anyone who tries to exit the level (DM)</source>
         <translation>Mata a cualquiera que intente terminar el nivel (DM)</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="203"/>
+        <location filename="../zandronumq1dmflags.cpp" line="199"/>
         <source>Infinite ammo</source>
         <translation>Munición infinita</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="205"/>
+        <location filename="../zandronumq1dmflags.cpp" line="201"/>
         <source>No monsters</source>
         <translation>Sin monstruos</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="207"/>
+        <location filename="../zandronumq1dmflags.cpp" line="203"/>
         <source>Monsters respawn</source>
         <translation>Los monstruos reaparecen</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="209"/>
+        <location filename="../zandronumq1dmflags.cpp" line="205"/>
         <source>Items other than invuln. and invis. respawn</source>
         <translation>Los objetos (a excepción de invulnerabilidad e invisibilidad) reaparecen</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="211"/>
+        <location filename="../zandronumq1dmflags.cpp" line="207"/>
         <source>Fast monsters</source>
         <translation>Monstruos rápidos</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="213"/>
+        <location filename="../zandronumq1dmflags.cpp" line="209"/>
         <source>No jumping</source>
         <translation>Sin saltar</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="215"/>
+        <location filename="../zandronumq1dmflags.cpp" line="211"/>
         <source>No freelook</source>
         <translation>Sin cámara libre</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="217"/>
+        <location filename="../zandronumq1dmflags.cpp" line="213"/>
         <source>Respawn invulnerability and invisibility</source>
         <translation>Reaparición de invulnerabilidad e invisibilidad</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="219"/>
+        <location filename="../zandronumq1dmflags.cpp" line="215"/>
         <source>No multiplayer weapons in cooperative</source>
         <translation>Sin armas multijugador en cooperativo</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="221"/>
+        <location filename="../zandronumq1dmflags.cpp" line="217"/>
         <source>No crouching</source>
         <translation>Sin agachado</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="223"/>
+        <location filename="../zandronumq1dmflags.cpp" line="219"/>
         <source>Lose all old inventory on respawn (COOP)</source>
         <translation>Perder todo el inventario al reaparecer (COOP)</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="225"/>
+        <location filename="../zandronumq1dmflags.cpp" line="221"/>
         <source>Lose keys on respawn (COOP)</source>
         <translation>Perder llaves al reaparecer (COOP)</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="227"/>
+        <location filename="../zandronumq1dmflags.cpp" line="223"/>
         <source>Lose weapons on respawn (COOP)</source>
         <translation>Perder armas al reaparecer (COOP)</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="229"/>
+        <location filename="../zandronumq1dmflags.cpp" line="225"/>
         <source>Lose armor on respawn (COOP)</source>
         <translation>Perder armadura al reaparecer (COOP)</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="231"/>
+        <location filename="../zandronumq1dmflags.cpp" line="227"/>
         <source>Lose powerups on respawn (COOP)</source>
         <translation>Perder potenciadores al reaparecer (COOP)</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="233"/>
+        <location filename="../zandronumq1dmflags.cpp" line="229"/>
         <source>Lose ammo on respawn (COOP)</source>
         <translation>Perder munición al reaparecer (COOP)</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="235"/>
+        <location filename="../zandronumq1dmflags.cpp" line="231"/>
         <source>Lose half your ammo on respawn (COOP)</source>
         <translation>Perder la mitad de la munición al reaparecer (COOP)</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="237"/>
+        <location filename="../zandronumq1dmflags.cpp" line="233"/>
         <source>Jumping allowed</source>
         <translation>Saltar permitido</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="239"/>
+        <location filename="../zandronumq1dmflags.cpp" line="235"/>
         <source>Crouching allowed</source>
         <translation>Agachado permitido</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="247"/>
+        <location filename="../zandronumq1dmflags.cpp" line="243"/>
         <source>Drop weapons upon death</source>
         <translation>Soltar armas al morir</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="249"/>
+        <location filename="../zandronumq1dmflags.cpp" line="245"/>
         <source>Don&apos;t spawn runes</source>
         <translation>No generar runas</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="251"/>
+        <location filename="../zandronumq1dmflags.cpp" line="247"/>
         <source>Instantly return flags (ST/CTF)</source>
         <translation>Devolver banderas automáticamente (ST/CTF)</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="253"/>
+        <location filename="../zandronumq1dmflags.cpp" line="249"/>
         <source>Don&apos;t allow players to switch teams</source>
         <translation>No permitir que los jugadores cambien de equipo</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="255"/>
+        <location filename="../zandronumq1dmflags.cpp" line="251"/>
         <source>Players are automatically assigned teams</source>
         <translation>A los jugadores se les asignan equipos automáticamente</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="257"/>
+        <location filename="../zandronumq1dmflags.cpp" line="253"/>
         <source>Double the amount of ammo given</source>
         <translation>Duplicar la cantidad de munición</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="259"/>
+        <location filename="../zandronumq1dmflags.cpp" line="255"/>
         <source>Players slowly lose health over 100% like Quake</source>
         <translation>Los jugadores pierden lentamente la salud por encima del 100% como en Quake</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="261"/>
+        <location filename="../zandronumq1dmflags.cpp" line="257"/>
         <source>Allow BFG freeaiming</source>
         <translation>Permite apuntado libre de la BFG</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="263"/>
+        <location filename="../zandronumq1dmflags.cpp" line="259"/>
         <source>Barrels respawn</source>
         <translation>Los barriles reaparecen</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="265"/>
+        <location filename="../zandronumq1dmflags.cpp" line="261"/>
         <source>No respawn protection</source>
         <translation>No hay protección de reaparición</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="267"/>
+        <location filename="../zandronumq1dmflags.cpp" line="263"/>
         <source>All players start with a shotgun</source>
         <translation>Todos los jugadores comienzan con una escopeta</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="269"/>
+        <location filename="../zandronumq1dmflags.cpp" line="265"/>
         <source>Players respawn where they died (COOP)</source>
         <translation>Los jugadores reaparecen donde murieron (COOP)</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="271"/>
+        <location filename="../zandronumq1dmflags.cpp" line="267"/>
         <source>Don&apos;t clear frags after each level</source>
         <translation>No borrar indicadores después de cada nivel</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="273"/>
+        <location filename="../zandronumq1dmflags.cpp" line="269"/>
         <source>Player can&apos;t respawn</source>
         <translation>El jugador no puede reaparecer</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="275"/>
+        <location filename="../zandronumq1dmflags.cpp" line="271"/>
         <source>Lose a frag when killed</source>
         <translation>Perder un frag al morir</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="277"/>
+        <location filename="../zandronumq1dmflags.cpp" line="273"/>
         <source>Infinite inventory</source>
         <translation>Inventario infinito</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="279"/>
+        <location filename="../zandronumq1dmflags.cpp" line="275"/>
         <source>All monsters must be killed before exiting</source>
         <translation>Todos los monstruos deben ser asesinados antes de salir</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="281"/>
+        <location filename="../zandronumq1dmflags.cpp" line="277"/>
         <source>Players can&apos;t see the automap</source>
         <translation>Los jugadores no pueden ver el automap</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="283"/>
+        <location filename="../zandronumq1dmflags.cpp" line="279"/>
         <source>Allies can&apos;t be seen on the automap</source>
         <translation>Los aliados no se pueden ver en el automap</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="285"/>
+        <location filename="../zandronumq1dmflags.cpp" line="281"/>
         <source>You can&apos;t spy allies</source>
         <translation>No puedes espiar a tus aliados</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="287"/>
+        <location filename="../zandronumq1dmflags.cpp" line="283"/>
         <source>Players can use chase cam</source>
         <translation>Los jugadores pueden usar la cámara de persecución</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="289"/>
+        <location filename="../zandronumq1dmflags.cpp" line="285"/>
         <source>Players can&apos;t suicide</source>
         <translation>Los jugadores no pueden suicidarse</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="291"/>
+        <location filename="../zandronumq1dmflags.cpp" line="287"/>
         <source>Players can&apos;t use autoaim</source>
         <translation>Los jugadores no pueden usar autoapuntado</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="293"/>
+        <location filename="../zandronumq1dmflags.cpp" line="289"/>
         <source>Don&apos;t check ammo when switching weapons</source>
         <translation>No comprobar munición cuando se cambia de armas</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="295"/>
+        <location filename="../zandronumq1dmflags.cpp" line="291"/>
         <source>Kill all monsters spawned by a boss cube when the boss dies</source>
         <translation>Mata a todos los monstruos generados por un cubo de jefe cuando el jefe muere</translation>
     </message>
     <message>
-        <location filename="../zandronumq1dmflags.cpp" line="298"/>
+        <location filename="../zandronumq1dmflags.cpp" line="294"/>
         <source>Do not count monsters in &apos;end level when dying&apos; sectors towards kill count</source>
         <translation>No cuente los asesinatos de monstruos en los sectores de &apos;fin de nivel en caso de muerte&apos;</translation>
+    </message>
+    <message>
+        <location filename="../zandronumq1dmflags.cpp" line="296"/>
+        <source>Weapons always refill ammo (DM)</source>
+        <translation>Las armas siempre proporcionan munición (DM)</translation>
     </message>
     <message>
         <location filename="../zandronumq1dmflags.cpp" line="306"/>
@@ -2224,6 +2307,26 @@ p, li { white-space: pre-wrap; }
         <location filename="../zandronumq1dmflags.cpp" line="342"/>
         <source>Dead players can keep inventory</source>
         <translation>Los jugadores muertos pueden conservar el inventario</translation>
+    </message>
+    <message>
+        <location filename="../zandronumq1dmflags.cpp" line="344"/>
+        <source>Enable shooting where crosshair is</source>
+        <translation>Activar disparar siempre en la cruzeta</translation>
+    </message>
+    <message>
+        <location filename="../zandronumq1dmflags.cpp" line="348"/>
+        <source>Enable projectile hitbox fix</source>
+        <translation>Activar corrección de la hitbox de proyectil</translation>
+    </message>
+    <message>
+        <location filename="../zandronumq1dmflags.cpp" line="350"/>
+        <source>Use Quake thrust formula</source>
+        <translation>Usar la fórmula de empuje de Quake</translation>
+    </message>
+    <message>
+        <location filename="../zandronumq1dmflags.cpp" line="352"/>
+        <source>Enable elevated sector special fix</source>
+        <translation>Activa la corrección del especial un sector elevado</translation>
     </message>
 </context>
 </TS>

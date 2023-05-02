@@ -59,11 +59,6 @@ public slots:
 	void refreshStarts() override;
 
 signals:
-	/**
-	 * @brief Emitted for every MasterClient that emits listUpdated()
-	 * signal.
-	 */
-	void listUpdatedForMaster(MasterClient *pSender);
 	void masterMessage(MasterClient *pSender, const QString &title, const QString &content, bool isError);
 	void masterMessageImportant(MasterClient *pSender, const Message &objMessage);
 

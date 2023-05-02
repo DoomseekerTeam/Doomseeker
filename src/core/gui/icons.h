@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------
-// testdatapaths.h
+// icons.h
 //------------------------------------------------------------------------------
 //
 // This library is free software; you can redistribute it and/or
@@ -18,33 +18,31 @@
 // 02110-1301  USA
 //
 //------------------------------------------------------------------------------
-// Copyright (C) 2010 "Zalewa" <zalewapl@gmail.com>
+// Copyright (C) 2022 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
-#ifndef __TESTDATAPATHS_H__
-#define __TESTDATAPATHS_H__
+#ifndef DOOMSEEKER_GUI_ICONS_H
+#define DOOMSEEKER_GUI_ICONS_H
 
-#include "tests/testbase.h"
+#include <QIcon>
 
-class TestDataPathsAppDataDirectoryAccess : public TestUnitBase
+/**
+ * @brief Provide convoluted icons.
+ *
+ * Helps deal with cases where the icons may depend on the environment.
+ */
+class Icons
 {
 public:
-	TestDataPathsAppDataDirectoryAccess(bool bPortable);
+	/**
+	 * @brief An appropriate clear icon.
+	 *
+	 * Provided from the style if available, or falls back to the app's
+	 * built-in.
+	 */
+	static QIcon clear();
 
-	bool executeTest() override;
-
-protected:
-	bool bPortable;
-};
-
-class TestDataPathsAppDataDirectoryWrite : public TestUnitBase
-{
-public:
-	TestDataPathsAppDataDirectoryWrite(bool bPortable);
-
-	bool executeTest() override;
-
-protected:
-	bool bPortable;
+private:
+	Icons() = delete;
 };
 
 #endif

@@ -20,8 +20,7 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2009 Braden "Blzut3" Obrzut <admin@maniacsvault.net>
 //------------------------------------------------------------------------------
-#include "configuration/doomseekerconfig.h"
-
+#include "configuration/passwordscfg.h"
 #include "gui/commongui.h"
 #include "plugins/engineplugin.h"
 #include "plugins/pluginloader.h"
@@ -56,7 +55,8 @@ RconPasswordDialog::RconPasswordDialog(QWidget *parent, bool connection)
 	else
 		d->connectionBox->hide();
 
-	d->cbHidePassword->setChecked(gConfig.doomseeker.bHidePasswords);
+	PasswordsCfg passCfg;
+	setHidePassword(passCfg.isHidingPasswords());
 
 	// Adjust the size and prevent resizing.
 	adjustSize();
@@ -90,8 +90,8 @@ QString RconPasswordDialog::serverAddress() const
 
 void RconPasswordDialog::setHidePassword(bool hide)
 {
-	if (hide)
-		d->lePassword->setEchoMode(QLineEdit::Password);
-	else
-		d->lePassword->setEchoMode(QLineEdit::Normal);
+	d->cbHidePassword->blockSignals(true);
+	d->cbHidePassword->setChecked(hide);
+	d->cbHidePassword->blockSignals(false);
+	d->lePassword->setEchoMode(hide ? QLineEdit::Password : QLineEdit::Normal);
 }

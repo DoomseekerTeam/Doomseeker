@@ -24,6 +24,7 @@
 
 #include "configuration/queryspeed.h"
 #include "datapaths.h"
+#include "doomseeker_copts.h"
 #include "fileutils.h"
 #include "gui/models/serverlistproxymodel.h"
 #include "ini/ini.h"
@@ -272,10 +273,9 @@ DoomseekerConfig::DoomseekerCfg::DoomseekerCfg()
 	this->bCloseToTrayIcon = false;
 	this->bColorizeServerConsole = true;
 	this->bDrawGridInServerTable = false;
-	this->bHidePasswords = false;
+	this->bHidePasswords = true;
 	this->bHonorServerCountries = true;
-	this->bGroupServersWithPlayersAtTheTopOfTheList = true;
-	this->bIP2CountryAutoUpdate = true;
+	this->bIP2CountryAutoUpdate = (DOOMSEEKER_IP2C_AUTOUPDATE_DEFAULT ? true : false);
 	this->bLogCreatedServer = false;
 	this->bLookupHosts = true;
 	this->bQueryAutoRefreshDontIfActive = true;
@@ -342,7 +342,6 @@ void DoomseekerConfig::DoomseekerCfg::init(IniSection &section)
 	section.createSetting("DrawGridInServerTable", this->bDrawGridInServerTable);
 	section.createSetting("HidePasswords", this->bHidePasswords);
 	section.createSetting("HonorServerCountries", this->bHonorServerCountries);
-	section.createSetting("GroupServersWithPlayersAtTheTopOfTheList", this->bGroupServersWithPlayersAtTheTopOfTheList);
 	section.createSetting("IP2CAutoUpdate", this->bIP2CountryAutoUpdate);
 	section.createSetting("LogCreatedServers", this->bLogCreatedServer);
 	section.createSetting("LookupHosts", this->bLookupHosts);
@@ -385,7 +384,6 @@ void DoomseekerConfig::DoomseekerCfg::load(IniSection &section)
 	this->bDrawGridInServerTable = section["DrawGridInServerTable"];
 	this->bHidePasswords = section["HidePasswords"];
 	this->bHonorServerCountries = section["HonorServerCountries"];
-	this->bGroupServersWithPlayersAtTheTopOfTheList = section["GroupServersWithPlayersAtTheTopOfTheList"];
 	this->bIP2CountryAutoUpdate = section["IP2CAutoUpdate"];
 	this->bLogCreatedServer = section["LogCreatedServers"];
 	this->bLookupHosts = section["LookupHosts"];
@@ -484,7 +482,6 @@ void DoomseekerConfig::DoomseekerCfg::save(IniSection &section)
 	section["DrawGridInServerTable"] = this->bDrawGridInServerTable;
 	section["HidePasswords"] = this->bHidePasswords;
 	section["HonorServerCountries"] = this->bHonorServerCountries;
-	section["GroupServersWithPlayersAtTheTopOfTheList"] = this->bGroupServersWithPlayersAtTheTopOfTheList;
 	section["IP2CAutoUpdate"] = this->bIP2CountryAutoUpdate;
 	section["LogCreatedServers"] = this->bLogCreatedServer;
 	section["LookupHosts"] = this->bLookupHosts;
@@ -644,6 +641,9 @@ void DoomseekerConfig::ServerFilter::init(IniSection &section)
 	section.createSetting("bShowEmpty", true);
 	section.createSetting("bShowFull", true);
 	section.createSetting("bShowOnlyValid", false);
+	section.createSetting("bShowBannedServers", true);
+	section.createSetting("bShowTooSoonServers", true);
+	section.createSetting("bShowNotRespondingServers", true);
 	section.createSetting("GameModes", QStringList());
 	section.createSetting("GameModesExcluded", QStringList());
 	section.createSetting("MaxPing", 0);
@@ -652,6 +652,7 @@ void DoomseekerConfig::ServerFilter::init(IniSection &section)
 	section.createSetting("TestingServers", Doomseeker::Indifferent);
 	section.createSetting("WADs", QStringList());
 	section.createSetting("WADsExcluded", QStringList());
+	section.createSetting("bPopulatedServersOnTop", true);
 }
 
 void DoomseekerConfig::ServerFilter::load(IniSection &section)
@@ -660,14 +661,21 @@ void DoomseekerConfig::ServerFilter::load(IniSection &section)
 	info.bShowEmpty = section["bShowEmpty"];
 	info.bShowFull = section["bShowFull"];
 	info.bShowOnlyValid = section["bShowOnlyValid"];
+	info.bShowBannedServers = section["bShowBannedServers"];
+	info.bShowTooSoonServers = section["bShowTooSoonServers"];
+	info.bShowNotRespondingServers = section["bShowNotRespondingServers"];
+	info.addresses = AddressFilter::deserialize(section["Addresses"].value());
 	info.gameModes = section["GameModes"].value().toStringList();
 	info.gameModesExcluded = section["GameModesExcluded"].value().toStringList();
 	info.lockedServers = static_cast<Doomseeker::ShowMode>(section.value("LockedServers").toInt());
 	info.maxPing = section["MaxPing"];
-	info.serverName = (const QString &)section["ServerName"];
+	info.serverName = static_cast<const QString &>(section["ServerName"]);
 	info.testingServers = static_cast<Doomseeker::ShowMode>(section.value("TestingServers").toInt());
 	info.wads = section["WADs"].value().toStringList();
 	info.wadsExcluded = section["WADsExcluded"].value().toStringList();
+	info.bPopulatedServersOnTop = section["bPopulatedServersOnTop"];
+	currentPreset = static_cast<const QString &>(section["CurrentPreset"]);
+	presets = section["Presets"].value().toMap();
 }
 
 void DoomseekerConfig::ServerFilter::save(IniSection &section)
@@ -676,6 +684,10 @@ void DoomseekerConfig::ServerFilter::save(IniSection &section)
 	section["bShowEmpty"] = info.bShowEmpty;
 	section["bShowFull"] = info.bShowFull;
 	section["bShowOnlyValid"] = info.bShowOnlyValid;
+	section["bShowBannedServers"] = info.bShowBannedServers;
+	section["bShowTooSoonServers"] = info.bShowTooSoonServers;
+	section["bShowNotRespondingServers"] = info.bShowNotRespondingServers;
+	section["Addresses"].setValue(info.addresses.serialize());
 	section["GameModes"].setValue(info.gameModes);
 	section["GameModesExcluded"].setValue(info.gameModesExcluded);
 	section["LockedServers"] = info.lockedServers;
@@ -684,6 +696,9 @@ void DoomseekerConfig::ServerFilter::save(IniSection &section)
 	section["TestingServers"] = info.testingServers;
 	section["WADs"].setValue(info.wads);
 	section["WADsExcluded"].setValue(info.wadsExcluded);
+	section["bPopulatedServersOnTop"] = info.bPopulatedServersOnTop;
+	section["CurrentPreset"] = currentPreset;
+	section["Presets"].setValue(presets);
 }
 //////////////////////////////////////////////////////////////////////////////
 const QString DoomseekerConfig::WadseekerCfg::SECTION_NAME = "Wadseeker";
@@ -699,7 +714,7 @@ DoomseekerConfig::WadseekerCfg::WadseekerCfg()
 	this->idgamesURL = Wadseeker::defaultIdgamesUrl();
 	this->maxConcurrentSiteDownloads = 3;
 	this->maxConcurrentWadDownloads = 2;
-	this->targetDirectory = gDefaultDataPaths->programsDataDirectoryPath();
+	this->targetDirectory = gDefaultDataPaths->localDataLocationPath();
 
 	// Search URLs remains uninitialized here. It will be initialized
 	// by init() and then load() since Doomseeker always calls these

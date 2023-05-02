@@ -24,10 +24,12 @@
 #include "ui_logdirectorypicker.h"
 
 #include "configuration/doomseekerconfig.h"
+#include "datapaths.h"
 #include "templatedpathresolver.h"
 
 #include <QDir>
 #include <QFileDialog>
+#include <QStyle>
 
 DClass<LogDirectoryPicker> : public Ui::LogDirectoryPicker
 {
@@ -42,6 +44,8 @@ LogDirectoryPicker::LogDirectoryPicker(QWidget *parent)
 	: QWidget(parent)
 {
 	d->setupUi(this);
+
+	d->btnBrowse->setIcon(style()->standardIcon(QStyle::SP_DirOpenIcon));
 
 	d->loggingEnabled = gConfig.doomseeker.bLogCreatedServer;
 	d->dialogDir = gConfig.doomseeker.previousCreateServerLogDir;
@@ -72,7 +76,7 @@ void LogDirectoryPicker::browse()
 		tr("Doomseeker - select Log path"),
 		gDoomseekerTemplatedPathResolver().resolve(d->dialogDir));
 	if (!strPath.isEmpty())
-		setPathAndUpdate(QDir(strPath).absolutePath());
+		setPathAndUpdate(gDefaultDataPaths->portablizePath(strPath));
 }
 
 void LogDirectoryPicker::updateLoggingStatus(const QString &path)

@@ -29,6 +29,7 @@
 DClass<ServerFilterBuilderMenu>
 {
 public:
+	QHostAddress address;
 	ServerListFilterInfo filter;
 	QString gameMode;
 	unsigned maxPing;
@@ -47,6 +48,7 @@ ServerFilterBuilderMenu::ServerFilterBuilderMenu(const Server &server,
 	: QMenu(tr("Build server filter ..."), parent)
 {
 	d->filter = filter;
+	d->address = server.address();
 	d->gameMode = server.gameMode().name();
 	d->maxPing = server.ping();
 
@@ -79,6 +81,8 @@ ServerFilterBuilderMenu::ServerFilterBuilderMenu(const Server &server,
 		addMenu(excludeWads);
 	if (!includeWads->isEmpty())
 		addMenu(includeWads);
+
+	addAction(this, tr("Filter by address"), SLOT(applyAddressFilter()));
 }
 
 ServerFilterBuilderMenu::~ServerFilterBuilderMenu()
@@ -92,6 +96,14 @@ QAction *ServerFilterBuilderMenu::addAction(QMenu *menu, const QString &text, co
 	this->connect(action, SIGNAL(triggered()), slot);
 	menu->addAction(action);
 	return action;
+}
+
+void ServerFilterBuilderMenu::applyAddressFilter()
+{
+	const int mask = d->address.toIPv4Address() ? 32 : 128;
+	auto subnet = qMakePair(d->address, mask);
+	if (!d->filter.addresses.contains(subnet))
+		d->filter.addresses << subnet;
 }
 
 void ServerFilterBuilderMenu::applyGameModeExcludedFilter()

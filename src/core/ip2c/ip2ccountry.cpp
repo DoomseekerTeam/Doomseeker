@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 #include "ip2ccountry.h"
 
+#include <QHash>
 #include <QObject>
 
 IP2CCountry::IP2CCountry()

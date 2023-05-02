@@ -130,15 +130,15 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btnCancel">
+      <widget class="QDialogButtonBox" name="buttonBox">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="text">
-        <string>Cancel</string>
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Cancel</set>
        </property>
       </widget>
      </item>
@@ -165,22 +165,6 @@
    <hints>
     <hint type="sourcelabel">
      <x>289</x>
-     <y>233</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>212</x>
-     <y>128</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btnCancel</sender>
-   <signal>clicked()</signal>
-   <receiver>MapListSelector</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>375</x>
      <y>233</y>
     </hint>
     <hint type="destinationlabel">
@@ -234,6 +218,22 @@
     <hint type="destinationlabel">
      <x>211</x>
      <y>240</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>MapListSelector</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>337</x>
+     <y>235</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>212</x>
+     <y>128</y>
     </hint>
    </hints>
   </connection>

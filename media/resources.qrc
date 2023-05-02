@@ -13,7 +13,9 @@
 	<file>icons/create-server.png</file>
 	<file>icons/descending.png</file>
 	<file>icons/diskette.png</file>
+	<file alias="icons/doomseeker.png">icon.png</file>
 	<file>icons/doomseeker_plus.png</file>
+	<file alias="icons/edit-clear">icons/broom.png</file>
 	<file>icons/edit-redo.png</file>
 	<file>icons/edit-redo-red.png</file>
 	<file>icons/exclamation.png</file>

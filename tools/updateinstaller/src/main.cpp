@@ -106,8 +106,6 @@ int main(int argc, char** argv)
 #ifdef PLATFORM_MAC
 	void* pool = UpdateDialogCocoa::createAutoreleasePool();
 #endif
-	
-	Log::instance()->open(AppInfo::logFilePath());
 
 #ifdef PLATFORM_MAC
 	// when the updater is run for the first time, create a Mac app bundle
@@ -128,6 +126,15 @@ int main(int argc, char** argv)
 #endif
 		std::cout << "Update installer version " << UPDATER_VERSION << std::endl;
 		return 0;
+	}
+
+	if (!options.logFile.empty())
+	{
+		LOG(Info,"Opening log file: " + options.logFile);
+		if (!Log::instance()->open(options.logFile))
+		{
+			LOG(Error,"Failed to open the log file: " + options.logFile);
+		}
 	}
 
 	UpdateInstaller installer;

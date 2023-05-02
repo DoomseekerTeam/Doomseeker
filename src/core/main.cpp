@@ -45,6 +45,7 @@
 #include "connectionhandler.h"
 #include "datapaths.h"
 #include "doomseekerfilepaths.h"
+#include "fileutils.h"
 #include "gui/createserverdialog.h"
 #include "gui/mainwindow.h"
 #include "gui/remoteconsole.h"
@@ -70,7 +71,6 @@
 #include <unistd.h>
 #endif
 
-QString Main::argDataDir;
 bool Main::bInstallUpdatesAndRestart = false;
 
 
@@ -167,7 +167,8 @@ int Main::run()
 
 	initCaCerts();
 
-	PluginLoader::init(gDefaultDataPaths->pluginSearchLocationPaths());
+	PluginLoader::init(gDefaultDataPaths->pluginSearchLocationPaths(),
+		pluginsEnabled);
 	if (bVersionDump)
 	{
 		return runVersionDump();
@@ -421,15 +422,32 @@ void Main::initCaCerts()
 
 bool Main::initDataDirectories()
 {
+	if (bPortableMode)
+	{
+		gLog << tr("Running in the portable mode. Forcing current directory to: %1")
+			.arg(QCoreApplication::applicationDirPath());
+		if (!QDir::setCurrent(QCoreApplication::applicationDirPath()))
+		{
+			gLog << tr("Forcing the current directory failed! Path detection may misbehave.");
+		}
+	}
+
 	DataPaths::initDefault(bPortableMode);
+	if (!baseDir.isEmpty())
+		gDefaultDataPaths->setBaseDir(baseDir);
+
+	gLog << QString("Cache directory: %1").arg(gDefaultDataPaths->cacheLocationPath());
+	gLog << QString("Config directory: %1").arg(gDefaultDataPaths->programsDataDirectoryPath());
+	gLog << QString("Data directory: %1").arg(gDefaultDataPaths->localDataLocationPath());
+
 	DoomseekerFilePaths::pDataPaths = gDefaultDataPaths;
-	QList<DataPaths::DirErrno> failedDirsErrno = gDefaultDataPaths->createDirectories();
+	QList<DirErrno> failedDirsErrno = gDefaultDataPaths->createDirectories();
 	if (!failedDirsErrno.isEmpty())
 	{
 		// Inform the user which directories failed and QUIT.
 		// We give an accurate error message of what is going wrong, thanks to errno.
 		QString errorMessage = tr("Doomseeker will not run because some directories cannot be used properly.\n");
-		for (const DataPaths::DirErrno &failedDirErrno : failedDirsErrno)
+		for (const DirErrno &failedDirErrno : failedDirsErrno)
 		{
 			errorMessage += "\n[" + QString::number(failedDirErrno.errnoNum) + "] ";
 			errorMessage += failedDirErrno.directory.absolutePath() + ": ";
@@ -443,7 +461,7 @@ bool Main::initDataDirectories()
 	// I think this directory should take priority, if user, for example,
 	// wants to update the ip2country file.
 	dataDirectories << gDefaultDataPaths->localDataLocationPath();
-	dataDirectories << gDefaultDataPaths->workingDirectory();
+	dataDirectories << QCoreApplication::applicationDirPath();
 
 	// Continue with standard dirs:
 	dataDirectories << "./";
@@ -580,7 +598,19 @@ bool Main::interpretCommandLineParameters()
 	{
 		const char *arg = arguments[i];
 
-		if (strcmp(arg, "--connect") == 0)
+		if (strcmp(arg, "--basedir") == 0)
+		{
+			if (i + 1 < argumentsCount)
+			{
+				++i;
+				baseDir = arguments[i];
+			}
+			else
+			{
+				failure = CmdArgsHelp::missingArgs(1, arg);
+			}
+		}
+		else if (strcmp(arg, "--connect") == 0)
 		{
 			if (i + 1 < argumentsCount)
 			{
@@ -603,7 +633,30 @@ bool Main::interpretCommandLineParameters()
 			{
 				++i;
 				dataDirectories.prepend(arguments[i]);
-				argDataDir = arguments[i];
+			}
+			else
+			{
+				failure = CmdArgsHelp::missingArgs(1, arg);
+			}
+		}
+		else if (strcmp(arg, "--disable-plugin") == 0)
+		{
+			if (i + 1 < argumentsCount)
+			{
+				++i;
+				pluginsEnabled[QString(arguments[i]).toLower()] = false;
+			}
+			else
+			{
+				failure = CmdArgsHelp::missingArgs(1, arg);
+			}
+		}
+		else if (strcmp(arg, "--enable-plugin") == 0)
+		{
+			if (i + 1 < argumentsCount)
+			{
+				++i;
+				pluginsEnabled[QString(arguments[i]).toLower()] = true;
 			}
 			else
 			{

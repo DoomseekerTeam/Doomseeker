@@ -31,6 +31,7 @@
 #include "templatedpathresolver.h"
 
 #include <cstdlib>
+#include <QCoreApplication>
 #include <QDir>
 #include <QFileInfo>
 #include <QScopedPointer>
@@ -111,7 +112,7 @@ PathFinder::PathFinder()
 	d->searchPaths->append(
 		FileSearchPath::resolveTemplated(resolver,
 			gConfig.combinedWadseekPaths()));
-	removeUnneededPaths();
+	FileSearchPath::merge(*d->searchPaths);
 }
 
 PathFinder::PathFinder(const QStringList &paths)
@@ -119,7 +120,7 @@ PathFinder::PathFinder(const QStringList &paths)
 	d->searchPaths.reset(new QList<FileSearchPath>());
 	for (const QString &path : paths)
 		d->searchPaths->append(path);
-	removeUnneededPaths();
+	FileSearchPath::merge(*d->searchPaths);
 }
 
 PathFinder::~PathFinder()
@@ -131,14 +132,14 @@ PathFinder PathFinder::genericPathFinder(const QStringList &suffixes)
 	QStringList paths;
 	#if defined(Q_OS_WIN32)
 	paths << "." << ".."
-		<< gDefaultDataPaths->workingDirectory()
-		<< gDefaultDataPaths->workingDirectory() + "/.."
+		<< QCoreApplication::applicationDirPath()
+		<< QDir(QCoreApplication::applicationDirPath()).filePath("..")
 		<< DataPaths::programFilesDirectory(DataPaths::x64)
 		<< DataPaths::programFilesDirectory(DataPaths::x86);
 	#else
 	paths << "/usr/bin" << "/usr/local/bin" << "/usr/share/bin"
 		<< "/usr/games/" << "/usr/local/games/"
-		<< "/usr/share/games/" << gDefaultDataPaths->workingDirectory() << ".";
+		<< "/usr/share/games/" << QCoreApplication::applicationDirPath() << ".";
 	#endif
 	QStringList pathsCopy(paths);
 	for (const QString &path : pathsCopy)
@@ -154,13 +155,13 @@ PathFinder PathFinder::genericPathFinder(const QStringList &suffixes)
 void PathFinder::addPrioritySearchDir(const QString &dir)
 {
 	d->searchPaths->prepend(d->resolveDir(dir));
-	removeUnneededPaths();
+	FileSearchPath::merge(*d->searchPaths);
 }
 
 void PathFinder::addSearchDir(const QString &dir)
 {
 	d->searchPaths->append(d->resolveDir(dir));
-	removeUnneededPaths();
+	FileSearchPath::merge(*d->searchPaths);
 }
 
 QString PathFinder::findFile(const QString &fileName) const
@@ -189,51 +190,4 @@ PathFinderResult PathFinder::findFiles(const QStringList &files) const
 	}
 
 	return result;
-}
-
-void PathFinder::removeUnneededPaths() const
-{
-	Qt::CaseSensitivity caseSensitivity;
-	#ifdef Q_OS_WIN32
-	caseSensitivity = Qt::CaseInsensitive;
-	#else
-	caseSensitivity = Qt::CaseSensitive;
-	#endif
-
-	for (int mainIterator = 0; mainIterator < d->searchPaths->length(); ++mainIterator)
-	{
-		for (int subIterator = mainIterator + 1; subIterator < d->searchPaths->length(); ++subIterator)
-		{
-			const FileSearchPath &mainPath = d->searchPaths->at(mainIterator);
-			const FileSearchPath &subPath = d->searchPaths->at(subIterator);
-
-			// are they equal?
-			if (QDir(mainPath.path()).absolutePath().compare(QDir(subPath.path()).absolutePath(), caseSensitivity) == 0)
-			{
-				(*d->searchPaths.data())[mainIterator]
-					.setRecursive(mainPath.isRecursive() || subPath.isRecursive());
-				d->searchPaths->removeAt(subIterator);
-				--subIterator;
-				continue;
-			}
-
-			// is sub inside main and main is recursive?
-			if (mainPath.isRecursive() &&
-				QDir(subPath.path()).absolutePath().startsWith(QDir(mainPath.path()).absolutePath(), caseSensitivity))
-			{
-				d->searchPaths->removeAt(subIterator);
-				subIterator = mainIterator;
-				continue;
-			}
-
-			// is main inside sub and sub is recursive?
-			if (subPath.isRecursive() &&
-				QDir(mainPath.path()).absolutePath().startsWith(QDir(subPath.path()).absolutePath(), caseSensitivity))
-			{
-				d->searchPaths->removeAt(mainIterator);
-				mainIterator = 0;
-				break;
-			}
-		}
-	}
 }

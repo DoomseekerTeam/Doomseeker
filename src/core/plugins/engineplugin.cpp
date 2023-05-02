@@ -21,6 +21,7 @@
 // Copyright (C) 2011 Braden "Blzut3" Obrzut <admin@maniacsvault.net>
 //------------------------------------------------------------------------------
 
+#include "datapaths.h"
 #include "gui/configuration/engineconfigpage.h"
 #include "ini/ini.h"
 #include "irc/entities/ircnetworkentity.h"
@@ -97,6 +98,11 @@ EnginePlugin::~EnginePlugin()
 ConfigPage *EnginePlugin::configuration(QWidget *parent)
 {
 	return new EngineConfigPage(this, *d->pConfig, parent);
+}
+
+QString EnginePlugin::defaultMasterAddress() const
+{
+	return d->defaultMaster;
 }
 
 QList<DMFlagsSection> EnginePlugin::dmFlags() const
@@ -334,7 +340,7 @@ void EnginePlugin::findGameFiles(IniSection &ini)
 		if (!ini.hasSetting(file.configName()))
 		{
 			QString path = PathFind::findGameFile(collectKnownPaths(ini), file);
-			ini[file.configName()] = path;
+			ini[file.configName()] = gDefaultDataPaths->portablizePath(path);
 		}
 	}
 }

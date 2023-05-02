@@ -21,7 +21,9 @@
 // Copyright (C) 2009 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
 #include "cfgfilepaths.h"
+
 #include "configuration/doomseekerconfig.h"
+#include "datapaths.h"
 #include "pathfinder/filesearchpath.h"
 #include "templatedpathresolver.h"
 #include "ui_cfgfilepaths.h"
@@ -64,31 +66,31 @@ CFGFilePaths::CFGFilePaths(QWidget *parent)
 	header->setSectionResizeMode(COL_PATH, QHeaderView::Stretch);
 	header->setSectionResizeMode(COL_RECURSE, QHeaderView::ResizeToContents);
 
-	QString templatedPathsToolTip = QString("<p>%1</p>").arg(tr(
+	QString templatedPathsToolTip = QString("<p>%1</p>").arg(CFGFilePaths::tr(
 		"Doomseeker supports special characters in user-configurable "
 		"paths. This affects all paths everywhere, not only the file "
 		"paths configured on this page. The placeholders are:"));
 	templatedPathsToolTip += "<ul>";
 
-	templatedPathsToolTip += QString("<li>%1</li>").arg(
-		tr("<b>~</b> - if at the beginning of the path, resolved to "
-			"the home directory of the current user"));
+	templatedPathsToolTip += QString("<li>%1</li>").arg(CFGFilePaths::tr(
+		"<b>~</b> - if at the beginning of the path, resolved to "
+		"the home directory of the current user"));
 #ifdef DOOMSEEKER_TEMPLATED_PATH_RESOLVER_TILDEUSER
-	templatedPathsToolTip += QString("<li>%1</li>").arg(
-		tr("<b>~<i>user</i></b> - if at the beginning of the path, resolved to "
-			"the home directory of the specified <i>user</i>"));
+	templatedPathsToolTip += QString("<li>%1</li>").arg(CFGFilePaths::tr(
+		"<b>~<i>user</i></b> - if at the beginning of the path, resolved to "
+		"the home directory of the specified <i>user</i>"));
 #endif
-	templatedPathsToolTip += QString("<li>%1</li>").arg(
-		tr("<b>$PROGDIR</b> - resolved to the directory where Doomseeker's "
-			"executable is located; this may create invalid paths if "
-			"used in the middle of the path"));
-	templatedPathsToolTip += QString("<li>%1</li>").arg(
-		tr("<b>$<i>NAME</i></b> - any <i>NAME</i> is resolved to the environment "
-			"variable of the same <i>NAME</i>, or to empty if the environment "
-			"variable is absent"));
+	templatedPathsToolTip += QString("<li>%1</li>").arg(CFGFilePaths::tr(
+		"<b>$PROGDIR</b> - resolved to the directory where Doomseeker's "
+		"executable is located; this may create invalid paths if "
+		"used in the middle of the path"));
+	templatedPathsToolTip += QString("<li>%1</li>").arg(CFGFilePaths::tr(
+		"<b>$<i>NAME</i></b> - any <i>NAME</i> is resolved to the environment "
+		"variable of the same <i>NAME</i>, or to empty if the environment "
+		"variable is absent"));
 	templatedPathsToolTip += "</ul>";
 
-	templatedPathsToolTip += QString("<p>%1</p>").arg(tr(
+	templatedPathsToolTip += QString("<p>%1</p>").arg(CFGFilePaths::tr(
 		"This option controls whether the <b>$PROGDIR</b> "
 		"and <b>$<i>NAME</i></b> will be resolved or ignored. "
 		"If this option is <b>checked</b>, both are resolved as explained. "
@@ -96,7 +98,7 @@ CFGFilePaths::CFGFilePaths(QWidget *parent)
 		"The <b>~</b> placeholders are always resolved regardless."));
 
 	d->cbResolveTemplatedPathsPlaceholders->setToolTip(templatedPathsToolTip);
-	d->btnBrowseWadPath->setIcon(QApplication::style()->standardIcon(QStyle::SP_DirOpenIcon));
+	d->btnBrowseWadPath->setIcon(style()->standardIcon(QStyle::SP_DirOpenIcon));
 
 	connect(d->btnAddWadPath, SIGNAL(clicked()), this, SLOT(btnAddWadPath_Click()));
 	connect(d->btnBrowseWadPath, &QPushButton::clicked, this, &CFGFilePaths::btnBrowseWadPath_Click);
@@ -147,7 +149,7 @@ void CFGFilePaths::btnAddWadPath_Click()
 void CFGFilePaths::btnBrowseWadPath_Click()
 {
 	QString strDir = QFileDialog::getExistingDirectory(this, tr("Doomseeker - Add game mod path"));
-	addPath(strDir);
+	addPath(gDefaultDataPaths->portablizePath(strDir));
 	emit validationRequested();
 }
 
@@ -172,7 +174,7 @@ void CFGFilePaths::cbResolveTemplatedPathsPlaceholders_Toggled(bool state)
 
 QIcon CFGFilePaths::icon() const
 {
-	return QApplication::style()->standardIcon(QStyle::SP_DirOpenIcon);
+	return style()->standardIcon(QStyle::SP_DirOpenIcon);
 }
 
 bool CFGFilePaths::isPathAlreadyDefined(const QString &path) const

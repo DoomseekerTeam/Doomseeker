@@ -80,18 +80,30 @@ public:
 	/**
 	 * @brief MainWindow of the program.
 	 *
-	 * Might be nullptr if current run doesn't create a MainWindow.
+	 * Might be nullptr if the current run doesn't create a MainWindow or
+	 * the MainWindow was closed.
 	 */
 	MainWindow *mainWindow() const;
 	/**
 	 * @brief Returns MainWindow as a QWidget.
 	 *
-	 * Useful for plugins that need to specify parent widget for dialog
-	 * boxes or such, as MainWindow class itself is not exported.
+	 * Useful for plugins that need to specify a parent widget for dialog
+	 * boxes or such, as the MainWindow class itself is not exported.
 	 *
-	 * Might be nullptr if current run doesn't create a MainWindow.
+	 * Might be nullptr if current run doesn't create a MainWindow or
+	 * the MainWindow was closed.
 	 */
 	QWidget *mainWindowAsQWidget() const;
+
+	/**
+	 * @brief The unmodified list of arguments Doomseeker was
+	 * launched with.
+	 *
+	 * This list includes the arguments that can be "consumed" by Qt.
+	 *
+	 * This method was introduced in Doomseeker 1.4.
+	 */
+	const QStringList &originalArgs() const;
 
 	void setMainWindow(MainWindow *mainWindow);
 	/**

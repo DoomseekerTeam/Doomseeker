@@ -26,6 +26,7 @@
 
 #include <QApplication>
 #include <QObject>
+#include <QMap>
 #include <QStringList>
 #include <QUrl>
 
@@ -49,7 +50,6 @@ public:
 	 * Default: false.
 	 */
 	static bool bInstallUpdatesAndRestart;
-	static QString argDataDir;
 
 	Main(int argc, char *argv[]);
 	~Main() override;
@@ -115,6 +115,7 @@ private:
 
 	char **arguments;
 	int argumentsCount;
+	QString baseDir;
 	bool bIsFirstRun;
 	bool bTestMode;
 	bool bVersionDump;
@@ -129,6 +130,7 @@ private:
 	int updateFailedCode;
 	QUrl connectUrl;
 	bool bPortableMode;
+	QMap<QString, bool> pluginsEnabled;
 
 private slots:
 	void runCreateGame();

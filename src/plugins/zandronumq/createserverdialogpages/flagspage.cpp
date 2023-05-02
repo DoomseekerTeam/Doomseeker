@@ -135,8 +135,7 @@ void FlagsPage::fillInGameCreateParams(GameCreateParams &gameCreateParams)
 	params << "+dmflags2" << leDmflags2->text();
 	params << "+zadmflags" << leZandronumqDmflags->text();
 	params << "+compatflags" << leCompatflags->text();
-	if (leCompatflags2->isEnabled() && leCompatflags2->isVisible())
-		params << "+compatflags2" << leCompatflags2->text();
+	params << "+compatflags2" << leCompatflags2->text();
 	params << "+zacompatflags" << leZandronumqCompatflags->text();
 	params << "+lmsallowedweapons" << leLMSAllowedWeapons->text();
 	params << "+lmsspectatorsettings" << leLMSSpectatorSettings->text();

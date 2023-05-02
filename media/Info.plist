@@ -9,7 +9,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
-	<string>Doomseeker</string>
+	<string>doomseeker</string>
 	<key>CFBundleIconFile</key>
 	<string>icon-osx.icns</string>
 	<key>CFBundleName</key>
@@ -26,8 +26,6 @@
 	<string>r389</string>
 	<key>CFBundleGetInfoString</key>
 	<string>Doomseeker and its likeness © 2017 The Doomseeker Team.</string>
-	<key>CFBundleLongVersionString</key>
-	<string>r389</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Doomseeker and its likeness © 2017 The Doomseeker Team.</string>
 	<key>NSHighResolutionCapable</key>

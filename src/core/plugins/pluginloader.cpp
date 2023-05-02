@@ -34,18 +34,15 @@
 #include <QLibrary>
 #include <QScopedPointer>
 
-////////////////////////////////////////////////////////////////////////////////
+/*
+  PluginLoader::Plugin
+*/
 DClass<PluginLoader::Plugin>
 {
 public:
 	EnginePlugin *info;
 	QString file;
 	QScopedPointer<QLibrary> library;
-
-	static bool isForbiddenPlugin(QString file)
-	{
-		return QFileInfo(file).fileName().toLower().contains("vavoom");
-	}
 };
 
 DPointeredNoCopy(PluginLoader::Plugin)
@@ -55,11 +52,6 @@ PluginLoader::Plugin::Plugin(unsigned int type, QString file)
 	Q_UNUSED(type); // THIS SHOULD BE REVIEWED. TYPE SEEMS USELESS.
 	d->file = file;
 	d->info = nullptr;
-	if (PrivData<PluginLoader::Plugin>::isForbiddenPlugin(file))
-	{
-		gLog << QObject::tr("Skipping loading of forbidden plugin: %1").arg(file);
-		return;
-	}
 
 	// Load the library
 	d->library.reset(new QLibrary(file));
@@ -143,22 +135,40 @@ void PluginLoader::Plugin::unload()
 	d->library.reset();
 }
 
-////////////////////////////////////////////////////////////////////////////////
+/*
+  PluginLoader
+*/
+
 DClass<PluginLoader>
 {
 public:
 	unsigned int type;
+	QMap<QString, bool> pluginsEnabled;
 	QString pluginsDirectory;
 	QList<PluginLoader::Plugin *> plugins;
+
+	bool isForbiddenPlugin(const QString &file) const
+	{
+		static const QString PREFIX = "lib";
+		QString name = QFileInfo(file).baseName().toLower();
+		if (name.startsWith(PREFIX))
+			name = name.mid(PREFIX.size());
+		if (pluginsEnabled.contains(name))
+			return !pluginsEnabled[name];
+		return name.contains("srb2")
+			|| name.contains("vavoom");
+	}
 };
 
 DPointeredNoCopy(PluginLoader)
 
 PluginLoader *PluginLoader::staticInstance = nullptr;
 
-PluginLoader::PluginLoader(unsigned int type, const QStringList &directories)
+PluginLoader::PluginLoader(unsigned int type, const QStringList &directories,
+	const QMap<QString, bool> &pluginsEnabled)
 {
 	d->type = type;
+	d->pluginsEnabled = pluginsEnabled;
 	for (const QString &dir : directories)
 	{
 		d->pluginsDirectory = dir;
@@ -208,7 +218,13 @@ bool PluginLoader::filesInDir()
 	#endif
 	for (const QString &entry : dir.entryList(QDir::Files))
 	{
-		QString pluginFilePath = Strings::combinePaths(d->pluginsDirectory, entry);
+		QString pluginFilePath = dir.filePath(entry);
+		if (d->isForbiddenPlugin(pluginFilePath))
+		{
+			gLog << QObject::tr("Skipping loading of forbidden plugin: %1").arg(pluginFilePath);
+			continue;
+		}
+
 		Plugin *plugin = new Plugin(d->type, pluginFilePath);
 		if (plugin->isValid())
 			d->plugins << plugin;
@@ -228,7 +244,7 @@ EnginePlugin *PluginLoader::info(int pluginIndex) const
 	return nullptr;
 }
 
-void PluginLoader::init(const QStringList &directories)
+void PluginLoader::init(const QStringList &directories, const QMap<QString, bool> &pluginsEnabled)
 {
 	if (staticInstance != nullptr)
 	{
@@ -236,7 +252,7 @@ void PluginLoader::init(const QStringList &directories)
 		assert(false);
 		return;
 	}
-	staticInstance = new PluginLoader(MAKEID('E', 'N', 'G', 'N'), directories);
+	staticInstance = new PluginLoader(MAKEID('E', 'N', 'G', 'N'), directories, pluginsEnabled);
 }
 
 void PluginLoader::initConfig()

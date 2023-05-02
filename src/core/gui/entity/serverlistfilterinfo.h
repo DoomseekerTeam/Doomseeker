@@ -23,9 +23,12 @@
 #ifndef __SERVERLISTFILTERINFO_H__
 #define __SERVERLISTFILTERINFO_H__
 
+#include <QHostAddress>
 #include <QString>
 #include <QStringList>
+#include <QVariant>
 
+#include "gui/entity/addressfilter.h"
 #include "gui/entity/showmode.h"
 
 /**
@@ -34,10 +37,16 @@
 class ServerListFilterInfo
 {
 public:
+	QString name;
 	bool bEnabled;
 	bool bShowEmpty;
 	bool bShowFull;
 	bool bShowOnlyValid;
+	bool bShowBannedServers;
+	bool bShowTooSoonServers;
+	bool bShowNotRespondingServers;
+
+	AddressFilter addresses;
 	QStringList gameModes;
 	QStringList gameModesExcluded;
 
@@ -54,6 +63,9 @@ public:
 	QStringList wads;
 	QStringList wadsExcluded;
 	Doomseeker::ShowMode testingServers;
+
+	/// This is not a filter but a grouping option.
+	bool bPopulatedServersOnTop;
 
 	ServerListFilterInfo();
 	ServerListFilterInfo(const ServerListFilterInfo &other)
@@ -77,6 +89,17 @@ public:
 	 * server.
 	 */
 	bool isFilteringAnything() const;
+
+	/**
+	 * @brief Check if the two filters are equivalent in their filterings.
+	 *
+	 * The equivalent filter results in the same filtering, but can have
+	 * a different name.
+	 */
+	bool isFilteringEquivalent(const ServerListFilterInfo &other) const;
+
+	static ServerListFilterInfo deserialize(const QVariant &variant);
+	QVariant serialize() const;
 
 	QString toString() const;
 

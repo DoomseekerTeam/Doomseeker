@@ -44,6 +44,9 @@ else()
 	set(DEFAULT_NONFREE_INSTALL "no")
 endif()
 
+option(DOOMSEEKER_IP2C_AUTOUPDATE_DEFAULT "Configure if autoupdate of IP2C should be enabled by default in newly created configs" "yes")
+configure_file(doomseeker_copts.h.in doomseeker_copts.h)
+
 option(DOOMSEEKER_INSTALL_NONFREE "Install non-free resources?" ${DEFAULT_NONFREE_INSTALL})
 set(DOOMSEEKER_IP2C_DAT "" CACHE FILEPATH "Path to IpToCountry.dat; optional")
 

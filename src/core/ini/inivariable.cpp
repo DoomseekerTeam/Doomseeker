@@ -59,7 +59,7 @@ IniVariable::~IniVariable()
 
 IniVariable::operator bool() const
 {
-	return value().toInt() != 0;
+	return value().toBool();
 }
 
 IniVariable::operator int() const

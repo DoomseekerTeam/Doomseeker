@@ -67,17 +67,8 @@
        </item>
        <item>
         <widget class="QPushButton" name="btnBrowseNicknameUsed">
-         <property name="maximumSize">
-          <size>
-           <width>50</width>
-           <height>16777215</height>
-          </size>
-         </property>
          <property name="toolTip">
-          <string>Sound played when your nickname is used in a channel.</string>
-         </property>
-         <property name="text">
-          <string>...</string>
+          <string>Browse the sound played when your nickname is used in a channel.</string>
          </property>
         </widget>
        </item>
@@ -106,7 +97,7 @@
        <item>
         <widget class="QLineEdit" name="lePrivateMessage">
          <property name="toolTip">
-          <string>Sound played when private message is received.</string>
+          <string>Sound played when a private message is received.</string>
          </property>
         </widget>
        </item>
@@ -119,17 +110,8 @@
        </item>
        <item>
         <widget class="QPushButton" name="btnBrowsePrivateMessage">
-         <property name="maximumSize">
-          <size>
-           <width>50</width>
-           <height>16777215</height>
-          </size>
-         </property>
          <property name="toolTip">
-          <string>Sound played when private message is received.</string>
-         </property>
-         <property name="text">
-          <string>...</string>
+          <string>Browse the sound played when a private message is received.</string>
          </property>
         </widget>
        </item>
