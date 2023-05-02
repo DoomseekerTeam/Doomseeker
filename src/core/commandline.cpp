@@ -71,7 +71,7 @@ void CommandLine::escapeArg(QString &arg)
 
 void CommandLine::escapeExecutable(QString &arg)
 {
-	#ifdef Q_OS_MAC
+	#ifdef Q_OS_DARWIN
 	QFileInfo binary = arg;
 	if (binary.isBundle())
 		arg += AppRunner::findBundleBinary(binary);

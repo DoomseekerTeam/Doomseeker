@@ -307,5 +307,5 @@ int Localization::LocalizationLoader::obtainVersion(QIODevice &io)
 
 void Localization::LocalizationLoader::sort()
 {
-	qSort(localizations.begin(), localizations.end(), localizationInfoLessThan);
+	std::sort(localizations.begin(), localizations.end(), localizationInfoLessThan);
 }

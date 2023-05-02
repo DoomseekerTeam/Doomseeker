@@ -202,11 +202,33 @@ const void PathFinder::removeUnneededPaths() const
 		{
 			const FileSearchPath &mainPath = d->searchPaths->at(mainIterator);
 			const FileSearchPath &subPath = d->searchPaths->at(subIterator);
-			if (mainPath.path().compare(subPath.path(), caseSensitivity) == 0 ||
-				(mainPath.isRecursive() && subPath.path().startsWith(mainPath.path(), caseSensitivity)))
+
+			// are they equal?
+			if (QDir(mainPath.path()).absolutePath().compare(QDir(subPath.path()).absolutePath(), caseSensitivity) == 0)
 			{
+				(*d->searchPaths.data())[mainIterator]
+					.setRecursive(mainPath.isRecursive() || subPath.isRecursive());
 				d->searchPaths->removeAt(subIterator);
 				--subIterator;
+				continue;
+			}
+
+			// is sub inside main and main is recursive?
+			if (mainPath.isRecursive() &&
+				QDir(subPath.path()).absolutePath().startsWith(QDir(mainPath.path()).absolutePath(), caseSensitivity))
+			{
+				d->searchPaths->removeAt(subIterator);
+				subIterator = mainIterator;
+				continue;
+			}
+
+			// is main inside sub and sub is recursive?
+			if (subPath.isRecursive() &&
+				QDir(mainPath.path()).absolutePath().startsWith(QDir(subPath.path()).absolutePath(), caseSensitivity))
+			{
+				d->searchPaths->removeAt(mainIterator);
+				mainIterator = 0;
+				break;
 			}
 		}
 	}

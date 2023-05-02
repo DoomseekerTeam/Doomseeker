@@ -50,15 +50,14 @@ CFGWadAlias::CFGWadAlias(QWidget *parent)
 	d->setupUi(this);
 
 	d->resizeTimer.setSingleShot(true);
+	d->resizeTimer.setInterval(0);
 	connect(&d->resizeTimer, SIGNAL(timeout()), d->table, SLOT(resizeRowsToContents()));
 
 	QHeaderView *header = d->table->horizontalHeader();
+	connect(header, SIGNAL(sectionResized(int,int,int)), &d->resizeTimer, SLOT(start()));
+
 	header->resizeSection(PrivData<CFGWadAlias>::ColWad, 150);
-	#if QT_VERSION >= 0x050000
 	header->setSectionResizeMode(PrivData<CFGWadAlias>::ColAliases, QHeaderView::Stretch);
-	#else
-	header->setResizeMode(PrivData<CFGWadAlias>::ColAliases, QHeaderView::Stretch);
-	#endif
 	header->resizeSection(PrivData<CFGWadAlias>::ColMatchType, 110);
 
 	d->table->sortByColumn(PrivData<CFGWadAlias>::ColWad, Qt::AscendingOrder);
@@ -95,7 +94,6 @@ void CFGWadAlias::addAliasToTable(const FileAlias &alias)
 	}
 
 	d->table->setSortingEnabled(wasSortingEnabled);
-	resizeRowsToContents();
 }
 
 void CFGWadAlias::addDefaults()
@@ -119,7 +117,7 @@ void CFGWadAlias::addNewEntry()
 	mkMatchTypeComboBox(row);
 
 	d->table->setSortingEnabled(wasSortingEnabled);
-	resizeRowsToContents();
+	resizeRowToContents(row);
 }
 
 QList<FileAlias> CFGWadAlias::aliases() const
@@ -217,7 +215,20 @@ void CFGWadAlias::removeSelected()
 
 void CFGWadAlias::resizeRowsToContents()
 {
-	d->resizeTimer.start(0);
+	#ifdef Q_OS_WIN32
+	d->resizeTimer.start();
+	#else
+	d->table->resizeRowsToContents();
+	#endif
+}
+
+void CFGWadAlias::resizeRowToContents(int row)
+{
+	#ifdef Q_OS_WIN32
+	resizeRowsToContents(); // resizeRowToContents is not friendly on Windows.
+	#else
+	d->table->resizeRowToContents(row);
+	#endif
 }
 
 void CFGWadAlias::saveSettings()

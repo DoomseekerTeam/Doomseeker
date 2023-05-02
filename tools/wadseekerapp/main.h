@@ -35,7 +35,7 @@
 
 #include <QObject>
 
-#include <wadseeker.h>
+#include <wadseeker/wadseeker.h>
 
 class WadseekerInterface : public QObject
 {

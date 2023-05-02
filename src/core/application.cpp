@@ -45,10 +45,8 @@ Application::Application(int &argc, char **argv)
 	d->running = true;
 	setApplicationName(NAME);
 
-	#if QT_VERSION >= 0x050000
 	// http://blog.qt.io/blog/2013/04/25/retina-display-support-for-mac-os-ios-and-x11/
 	setAttribute(Qt::AA_UseHighDpiPixmaps);
-	#endif
 }
 
 

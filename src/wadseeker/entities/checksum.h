@@ -25,7 +25,7 @@
 #define WADSEEKER_CHECKSUM_H
 
 #include "../wadseekerexportinfo.h"
-#include "dptr.h"
+#include "../dptr.h"
 #include <QByteArray>
 #include <QCryptographicHash>
 

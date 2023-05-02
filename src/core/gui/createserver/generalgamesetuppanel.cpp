@@ -248,6 +248,7 @@ void GeneralGameSetupPanel::setupForEngine(EnginePlugin *engine)
 {
 	d->currentEngine = engine;
 
+	d->cboEngine->setPluginByName(engine->data()->name);
 	d->labelIwad->setVisible(engine->data()->hasIwad);
 	d->iwadPicker->setVisible(engine->data()->hasIwad);
 	d->labelLogging->setVisible(engine->data()->allowsLogging);

@@ -24,7 +24,7 @@
 #define __WADDOWNLOADINFO_H__
 
 #include "../wadseekerexportinfo.h"
-#include "dptr.h"
+#include "../dptr.h"
 
 #include <QByteArray>
 #include <QList>

@@ -47,7 +47,7 @@ public:
 	virtual ~CreateServerDialog();
 
 	bool commandLineArguments(QString &executable, QStringList &args, bool offline);
-	void makeRemoteGameSetupDialog(const EnginePlugin *plugin);
+	void makeRemoteGameSetupDialog(EnginePlugin *plugin);
 	MapListPanel *mapListPanel();
 	QString mapName() const;
 

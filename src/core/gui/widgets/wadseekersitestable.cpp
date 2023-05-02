@@ -31,10 +31,6 @@ WadseekerSitesTable::WadseekerSitesTable(QWidget *pParent)
 	: TableWidgetMouseAware(pParent)
 {
 	d.bAlreadyShownOnce = false;
-	this->connect(&d.urlAborter, SIGNAL(mapped(QString)),
-		SLOT(requestUrlAbort(QString)));
-	this->connect(&d.serviceAborter, SIGNAL(mapped(QString)),
-		SIGNAL(serviceAbortRequested(QString)));
 }
 
 void WadseekerSitesTable::addUrl(const QUrl &url)
@@ -53,8 +49,11 @@ void WadseekerSitesTable::addUrl(const QUrl &url)
 		pBar->setMaximum(0);
 
 		QPushButton *abortButton = new QPushButton(tr("Abort"));
-		d.urlAborter.connect(abortButton, SIGNAL(clicked()), SLOT(map()));
-		d.urlAborter.setMapping(abortButton, url.toString());
+
+		connect (abortButton, &QPushButton::clicked, [this, url]()
+		{
+			this->requestUrlAbort(url.toString());
+		});
 
 		setItem(rowIndex, IDX_URL_COLUMN, new QTableWidgetItem(url.toString()));
 		setCellWidget(rowIndex, IDX_PROGRESS_COLUMN, pBar);
@@ -101,8 +100,11 @@ void WadseekerSitesTable::addService(const QString &service)
 		pBar->setMaximum(0);
 
 		QPushButton *abortButton = new QPushButton(tr("Abort"));
-		d.serviceAborter.connect(abortButton, SIGNAL(clicked()), SLOT(map()));
-		d.serviceAborter.setMapping(abortButton, service);
+
+		connect (abortButton, &QPushButton::clicked, [this, service]()
+		{
+			this->serviceAbortRequested(service);
+		});
 
 		setItem(rowIndex, IDX_URL_COLUMN, new QTableWidgetItem(service));
 		setCellWidget(rowIndex, IDX_PROGRESS_COLUMN, pBar);
@@ -145,11 +147,7 @@ void WadseekerSitesTable::showEvent(QShowEvent *pEvent)
 		QHeaderView *pHeader = horizontalHeader();
 
 		// Setup resizing
-		#if QT_VERSION >= 0x050000
 		pHeader->setSectionResizeMode(IDX_URL_COLUMN, QHeaderView::Stretch);
-		#else
-		pHeader->setResizeMode(IDX_URL_COLUMN, QHeaderView::Stretch);
-		#endif
 
 		pHeader->resizeSection(IDX_PROGRESS_COLUMN, 85);
 	}

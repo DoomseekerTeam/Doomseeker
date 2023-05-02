@@ -73,7 +73,7 @@ void GameExecutablePicker::browse()
 		QFileInfo fi(path);
 		gConfig.doomseeker.previousCreateServerExecDir = fi.absolutePath();
 
-		CommonGUI::setCurrentText(d->executableInput, fi.absoluteFilePath());
+		d->executableInput->setCurrentText(fi.absoluteFilePath());
 		add(path);
 	}
 }
@@ -99,7 +99,7 @@ QString GameExecutablePicker::path() const
 
 void GameExecutablePicker::setPath(const QString &path)
 {
-	CommonGUI::setCurrentText(d->executableInput, path);
+	d->executableInput->setCurrentText(path);
 }
 
 void GameExecutablePicker::setExecutableToDefault()
@@ -124,7 +124,7 @@ void GameExecutablePicker::setExecutableToDefault()
 		QString path = cfg->value(candidate.configName()).toString();
 		if (!path.isEmpty())
 		{
-			CommonGUI::setCurrentText(d->executableInput, path);
+			d->executableInput->setCurrentText(path);
 			return;
 		}
 	}
@@ -162,7 +162,7 @@ void GameExecutablePicker::reloadExecutables()
 	IniSection *cfg = d->plugin->data()->pConfig;
 	if (cfg == nullptr)
 	{
-		CommonGUI::setCurrentText(d->executableInput, currentExec);
+		d->executableInput->setCurrentText(currentExec);
 		return;
 	}
 
@@ -179,7 +179,7 @@ void GameExecutablePicker::reloadExecutables()
 	}
 
 	if (d->executableInput->findText(currentExec) >= 0)
-		CommonGUI::setCurrentText(d->executableInput, currentExec);
+		d->executableInput->setCurrentText(currentExec);
 	else
 		setExecutableToDefault();
 }

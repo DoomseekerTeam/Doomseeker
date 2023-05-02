@@ -34,62 +34,12 @@
 
 using namespace Srb2Master;
 
-struct Srb2Master::Header
-{
-	enum Type
-	{
-		GET_SHORT_SERVER = 205,
-		ASK_SERVER = 206, /// Reply to GET_SHORT_SERVER
-		ASK_SERVER_ALT = -838860800 /// Little-Endian ASK_SERVER (lol?)
-	};
-
-	qint32 id;
-	qint32 type;
-	qint32 room;
-	quint32 length;
-
-	Header()
-	{
-		memset(this, 0, sizeof(Header));
-		this->id = MAKEID('D', 'O', 'O', 'M');
-	}
-
-	bool isGetShortServerReply() const
-	{
-		return (type == ASK_SERVER || type == ASK_SERVER_ALT) && length >= 84;
-	}
-
-	bool isValid() const
-	{
-		Header invalid;
-		return memcmp(this, &invalid, sizeof(Header)) != 0;
-	}
-};
-
-QDataStream &operator<<(QDataStream &stream, const Header &header)
-{
-	stream << header.id;
-	stream << header.type;
-	stream << header.room;
-	stream << header.length;
-	return stream;
-}
-
-QDataStream &operator>>(QDataStream &stream, Header &header)
-{
-	stream >> header.id;
-	stream >> header.type;
-	stream >> header.room;
-	stream >> header.length;
-	return stream;
-}
-
-///////////////////////////////////////////////////////////////////////////
-
 struct Srb2Master::ServerPayload
 {
 	friend QDataStream &::operator>>(QDataStream &stream, ServerPayload &server);
 
+	// This defines the current size in bytes that the operator >> requires.
+	static constexpr char SIZE = 84;
 	QHostAddress address;
 	quint16 port;
 	QString name;
@@ -149,6 +99,58 @@ QDataStream &operator>>(QDataStream &stream, ServerPayload &server)
 
 ///////////////////////////////////////////////////////////////////////////
 
+struct Srb2Master::Header
+{
+	enum Type
+	{
+		GET_SHORT_SERVER = 205,
+		ASK_SERVER = 206, /// Reply to GET_SHORT_SERVER
+		ASK_SERVER_ALT = -838860800 /// Little-Endian ASK_SERVER (lol?)
+	};
+
+	qint32 id;
+	qint32 type;
+	qint32 room;
+	quint32 length;
+
+	Header()
+	{
+		memset(this, 0, sizeof(Header));
+		this->id = MAKEID('D', 'O', 'O', 'M');
+	}
+
+	bool isGetShortServerReply() const
+	{
+		return (type == ASK_SERVER || type == ASK_SERVER_ALT) && length >= ServerPayload::SIZE;
+	}
+
+	bool isValid() const
+	{
+		Header invalid;
+		return memcmp(this, &invalid, sizeof(Header)) != 0;
+	}
+};
+
+QDataStream &operator<<(QDataStream &stream, const Header &header)
+{
+	stream << header.id;
+	stream << header.type;
+	stream << header.room;
+	stream << header.length;
+	return stream;
+}
+
+QDataStream &operator>>(QDataStream &stream, Header &header)
+{
+	stream >> header.id;
+	stream >> header.type;
+	stream >> header.room;
+	stream >> header.length;
+	return stream;
+}
+
+///////////////////////////////////////////////////////////////////////////
+
 Srb2MasterClient::Srb2MasterClient() : MasterClient()
 {
 	this->connect(&socket, SIGNAL(readyRead()), SLOT(readResponse()));
@@ -182,7 +184,7 @@ void Srb2MasterClient::readResponse()
 	{
 		Header header = readHeader();
 
-		if (header.length == 0 || header.length > 0x0FFFFFFF)
+		if (header.length != ServerPayload::SIZE)
 		{
 			socket.close();
 			emit listUpdated();

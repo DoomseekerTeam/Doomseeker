@@ -20,7 +20,7 @@
 #------------------------------------------------------------------------------
 message(STATUS "    ${PLUGIN_NAME} provides translations")
 if (UPDATE_TRANSLATIONS)
-	qt4_create_translation(TS_FILES
+	qt5_create_translation(TS_FILES
 		${FILES_TO_TRANSLATE}
 		${TRANSLATIONS_FILES}
 	)
@@ -30,4 +30,4 @@ else ()
 	add_custom_target(${PLUGIN_NAME}_translations_target)
 endif ()
 
-qt4_add_translation(QM_FILES ${TRANSLATIONS_FILES})
+qt5_add_translation(QM_FILES ${TRANSLATIONS_FILES})

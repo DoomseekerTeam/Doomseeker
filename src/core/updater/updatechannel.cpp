@@ -26,7 +26,7 @@
 
 #if defined(Q_OS_WIN32)
 #define UPDATE_PLATFORM "win32"
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_DARWIN)
 #define UPDATE_PLATFORM "macosx"
 #else
 #ifdef WITH_AUTOUPDATES

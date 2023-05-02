@@ -72,7 +72,7 @@ ServersStatusWidget::ServersStatusWidget(const EnginePlugin *plugin, const Serve
 	iconDisabled = QPixmap::fromImage(iconImage);
 
 	// Have an inset frame unless we're on the Mac
-	#ifndef Q_OS_MAC
+	#ifndef Q_OS_DARWIN
 	setFrameShape(QFrame::Panel);
 	setFrameShadow(QFrame::Sunken);
 	#else

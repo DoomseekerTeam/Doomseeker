@@ -63,7 +63,7 @@ void IwadAndWadsPickerDialog::browseExecutable()
 		executable(), FileFilter::executableFilesFilter());
 	if (!path.isEmpty())
 	{
-		CommonGUI::setCurrentText(d->executableInput, path);
+		d->executableInput->setCurrentText(path);
 		if (d->executableInput->findText(path) < 0)
 			d->executableInput->addItem(path);
 	}

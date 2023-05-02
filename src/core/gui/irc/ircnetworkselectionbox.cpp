@@ -101,7 +101,7 @@ void IRCNetworkSelectionBox::fetchNetworks()
 {
 	ChatNetworksCfg cfg;
 	QList<IRCNetworkEntity> networks = cfg.networks();
-	qSort(networks);
+	std::sort(networks.begin(), networks.end());
 	d->cboNetwork->blockSignals(true);
 	d->cboNetwork->clear();
 

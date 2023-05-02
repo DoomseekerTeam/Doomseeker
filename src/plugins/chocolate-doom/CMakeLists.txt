@@ -21,7 +21,7 @@
 cmake_minimum_required(VERSION 2.8.12)
 
 set(PLUGIN_NAME chocolatedoom)
-set(PLUGIN_VERSION 27)
+set(PLUGIN_VERSION 28)
 include(../PluginHeader.cmake)
 
 set(CHOCOLATEDOOM_FILES

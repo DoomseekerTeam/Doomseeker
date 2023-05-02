@@ -144,7 +144,7 @@ bool UpdatePackageFilter::isDifferentThanInstalled(UpdatePackage &pkg) const
 		// the version of Qt5 we're launching with requires Lion or
 		// higher.  Thus only 64-bit Intel Macs need to even bother
 		// checking this package.
-		#if !defined(Q_OS_MAC) || defined(__x86_64__)
+		#if !defined(Q_OS_DARWIN) || defined(__x86_64__)
 		if (QString(Version::qtPackageVersion()) != pkg.revision)
 		{
 			pkg.currentlyInstalledDisplayVersion = Version::qtPackageVersion();

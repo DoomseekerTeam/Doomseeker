@@ -66,6 +66,7 @@ private slots:
 	void addDefaults();
 	void addNewEntry();
 	void removeSelected();
+	void resizeRowToContents(int row);
 };
 
 #endif

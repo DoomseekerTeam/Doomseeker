@@ -23,6 +23,8 @@
 #include "version.h"
 #include "versiondefs.h"
 
+#include <QSysInfo>
+
 QString Version::changeset()
 {
 	return HG_REVISION_HASH_STRING;
@@ -39,7 +41,7 @@ QString Version::operatingSystem()
 	return QString("Windows");
 	#elif defined(Q_OS_LINUX)
 	return QString("Linux");
-	#elif defined(Q_OS_MAC)
+	#elif defined(Q_OS_DARWIN)
 	return QString("MAC");
 	#else
 	return QSysInfo::prettyProductName();

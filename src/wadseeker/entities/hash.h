@@ -25,7 +25,7 @@
 #define WADSEEKER_HASH_H
 
 #include "../wadseekerexportinfo.h"
-#include "dptr.h"
+#include "../dptr.h"
 #include <QCryptographicHash>
 #include <QFile>
 #include <QString>

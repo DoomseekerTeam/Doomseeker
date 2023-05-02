@@ -24,7 +24,6 @@
 #define __WADSEEKERSITESTABLE_H__
 
 #include "gui/widgets/tablewidgetmouseaware.h"
-#include <QSignalMapper>
 
 class WadseekerSitesTable : public TableWidgetMouseAware
 {
@@ -57,8 +56,6 @@ private:
 	{
 	public:
 		bool bAlreadyShownOnce;
-		QSignalMapper serviceAborter;
-		QSignalMapper urlAborter;
 	};
 
 	PrivData d;

@@ -217,13 +217,7 @@ void CFGCustomServers::prepareTable()
 	QList<ColumnIndices> fixedSizeColumns;
 	fixedSizeColumns << EngineColumnIndex << EnabledIndex;
 	for (ColumnIndices columnIdx : fixedSizeColumns)
-	{
-		#if QT_VERSION >= 0x050000
 		d->tvServers->horizontalHeader()->setSectionResizeMode(columnIdx, QHeaderView::Fixed);
-		#else
-		d->tvServers->horizontalHeader()->setResizeMode(columnIdx, QHeaderView::Fixed);
-		#endif
-	}
 	d->tvServers->horizontalHeader()->setHighlightSections(false);
 
 	d->tvServers->verticalHeader()->hide();

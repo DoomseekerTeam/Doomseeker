@@ -30,7 +30,7 @@ using namespace ServerListColumnId;
 #define HIDDEN true
 #define RESIZEABLE true
 
-ServerListColumn ServerListColumns::columns[] =
+const ServerListColumn ServerListColumns::columns[] =
 {
 	{ IDPort, 24, !HIDDEN, !RESIZEABLE, Qt::AscendingOrder },
 	{ IDPlayers, 60, !HIDDEN, RESIZEABLE, Qt::DescendingOrder },

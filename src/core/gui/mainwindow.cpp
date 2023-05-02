@@ -263,6 +263,7 @@ MainWindow::MainWindow(QApplication *application, int argc, char **argv)
 
 	// Get the master
 	d->masterManager = new MasterManager();
+	d->masterManager->setBroadcastManager(d->broadcastManager);
 	d->buddiesList->scan(d->masterManager);
 	connect(d->masterManager, SIGNAL(masterMessage(MasterClient*,const QString&,const QString&,bool)),
 		this, SLOT(masterManagerMessages(MasterClient*,const QString&,const QString&,bool)));
@@ -1406,10 +1407,8 @@ void MainWindow::showAndLogStatusMessage(const QString &message)
 
 void MainWindow::showEvent(QShowEvent *event)
 {
-	#if QT_VERSION >= 0x050000
 	// http://stackoverflow.com/a/26910648/1089357
 	d->taskbarButton->setWindow(windowHandle());
-	#endif
 }
 
 void MainWindow::showInstallFreedoomDialog()

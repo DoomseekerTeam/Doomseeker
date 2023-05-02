@@ -127,8 +127,8 @@ void MapListSelector::setMapsOfCheckableList(const QList<MapEntry> &list)
 		item->setCheckState(Qt::Checked);
 		if (mapEntry.isIwad)
 		{
-			item->setBackgroundColor(Qt::lightGray);
-			item->setTextColor(Qt::black);
+			item->setBackground(Qt::lightGray);
+			item->setForeground(Qt::black);
 		}
 		item->setToolTip("File: " + mapEntry.originalFile);
 	}

@@ -25,6 +25,7 @@
 #include "mastermanager.h"
 
 #include "customservers.h"
+#include "serverapi/broadcastmanager.h"
 #include "serverapi/message.h"
 #include "serverapi/server.h"
 
@@ -63,13 +64,20 @@ void MasterManager::addMaster(MasterClient *master)
 
 QList<ServerPtr> MasterManager::allServers() const
 {
-	QList<ServerPtr> result;
+	QSet<ServerPtr> result;
 	for (MasterClient *master : masters)
 	{
-		result << master->servers();
+		for (ServerPtr server : master->servers())
+			result.insert(server);
 	}
-	result << customServers->servers();
-	return result;
+	for (ServerPtr server : customServers->servers())
+		result.insert(server);
+	if (broadcastManager != nullptr)
+	{
+		for (ServerPtr server : broadcastManager->servers())
+			result.insert(server);
+	}
+	return result.toList();
 }
 
 void MasterManager::masterListUpdated()
@@ -120,4 +128,9 @@ void MasterManager::timeoutRefreshEx()
 	}
 
 	mastersBeingRefreshed.clear();
+}
+
+void MasterManager::setBroadcastManager(BroadcastManager *broadcastManagerPtr)
+{
+	broadcastManager = broadcastManagerPtr;
 }

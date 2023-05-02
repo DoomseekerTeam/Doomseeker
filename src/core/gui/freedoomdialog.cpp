@@ -234,32 +234,15 @@ void FreedoomDialog::setupInstallPaths()
 	{
 		d->cboInstallPath->addItem(path.path());
 	}
-	#if QT_VERSION >= 0x050000
 	d->cboInstallPath->setCurrentText(gConfig.wadseeker.targetDirectory);
-	#else
-	// This is basically what the Qt5 function above does.  Could use it there
-	// but I figured I would #if it for when we eventually drop Qt4 we won't be
-	// reinventing the wheel.
-	const int item = d->cboInstallPath->findText(gConfig.wadseeker.targetDirectory);
-	if (item >= 0)
-		d->cboInstallPath->setCurrentIndex(item);
-	else
-		d->cboInstallPath->setEditText(gConfig.wadseeker.targetDirectory);
-	#endif
 }
 
 void FreedoomDialog::setupWadsTable()
 {
 	QHeaderView *header = d->wadsTable->horizontalHeader();
-	#if QT_VERSION >= 0x050000
 	header->setSectionResizeMode(ColName, QHeaderView::Stretch);
 	header->setSectionResizeMode(ColStatus, QHeaderView::ResizeToContents);
 	header->setSectionResizeMode(ColInstall, QHeaderView::ResizeToContents);
-	#else
-	header->setResizeMode(ColName, QHeaderView::Stretch);
-	header->setResizeMode(ColStatus, QHeaderView::ResizeToContents);
-	header->setResizeMode(ColInstall, QHeaderView::ResizeToContents);
-	#endif
 	d->wadsTable->setColumnWidth(ColName, 150);
 }
 

@@ -35,13 +35,13 @@
 #include <QTextDocument>
 
 /**
- * Custom delegate class.  This allows us to right align the decoration images.
+ * Custom delegate class. This allows us to right align the decoration images.
  * To do this the UserRole needs to be set to USERROLE_RIGHTALIGNDECORATION.
  */
 class CustomItemDelegate : public QItemDelegate
 {
 public:
-	void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
+	void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override
 	{
 		// First we're going to check for our new right aligned image
 		// option.
@@ -54,6 +54,10 @@ public:
 			opt.decorationAlignment = Qt::AlignRight | Qt::AlignVCenter;
 			rightAligned = true;
 		}
+
+		// Hide the focus rectangle in picture cells.
+		if (ServerListColumns::isPictureColumn(index.column()))
+			opt.state &= ~QStyle::State_HasFocus;
 
 		// Now we draw the table as usual.
 		QItemDelegate::paint(painter, opt, index);
@@ -82,7 +86,7 @@ public:
 	}
 
 protected:
-	void drawDecoration(QPainter *painter, const QStyleOptionViewItem &option, const QRect &rect, const QPixmap &pixmap) const
+	void drawDecoration(QPainter *painter, const QStyleOptionViewItem &option, const QRect &rect, const QPixmap &pixmap) const override
 	{
 		if (pixmap.isNull() || !rect.isValid())
 			return;
@@ -103,11 +107,7 @@ ServerListView::ServerListView(QWidget *parent) : QTableView(parent)
 {
 	// Prevent the fat rows problem.
 	verticalHeader()->setDefaultSectionSize(fontMetrics().height() + 6);
-	#if QT_VERSION >= 0x050000
 	verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
-	#else
-	verticalHeader()->setResizeMode(QHeaderView::Fixed);
-	#endif
 	setShowGrid(gConfig.doomseeker.bDrawGridInServerTable);
 
 	setItemDelegate(new CustomItemDelegate());
@@ -176,18 +176,10 @@ void ServerListView::setupTableColumnWidths()
 	{
 		setColumnHidden(colIdx, columns[colIdx].bHidden);
 		QHeaderView::ResizeMode resizeMode = columns[colIdx].bResizable ?
-			QHeaderView::Interactive : QHeaderView::Fixed;
-		#if QT_VERSION >= 0x050000
+			QHeaderView::Interactive : QHeaderView::ResizeToContents;
 		horizontalHeader()->setSectionResizeMode(colIdx, resizeMode);
-		#else
-		horizontalHeader()->setResizeMode(colIdx, resizeMode);
-		#endif
 	}
 
 	// General settings.
-	#if QT_VERSION >= 0x050000
 	horizontalHeader()->setSectionsMovable(true);
-	#else
-	horizontalHeader()->setMovable(true);
-	#endif
 }

@@ -38,9 +38,7 @@
 #include <QProcessEnvironment>
 #include <QSet>
 
-#if QT_VERSION >= 0x050000
 #include <QStandardPaths>
-#endif
 
 // Sanity check for INSTALL_PREFIX and INSTALL_LIBDIR
 #if !defined(INSTALL_PREFIX) || !defined(INSTALL_LIBDIR)
@@ -125,35 +123,23 @@ DataPaths::DataPaths(bool bPortableModeOn)
 
 	if (bPortableModeOn)
 	{
-		d->cacheDirectory = systemAppDataDirectory(".cache");
-		d->configDirectory = systemAppDataDirectory(LEGACY_APPDATA_DIR_NAME);
-		d->dataDirectory = systemAppDataDirectory(".static");
+		d->cacheDirectory.setPath(systemAppDataDirectory(".cache"));
+		d->configDirectory.setPath(systemAppDataDirectory(LEGACY_APPDATA_DIR_NAME));
+		d->dataDirectory.setPath(systemAppDataDirectory(".static"));
 	}
 	else
 	{
-		#if QT_VERSION >= 0x050000
-		d->cacheDirectory = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+		d->cacheDirectory.setPath(QStandardPaths::writableLocation(QStandardPaths::CacheLocation));
 		#if QT_VERSION >= 0x050500
 		// QStandardPaths::AppConfigLocation was added in Qt 5.5.
-		d->configDirectory = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
+		d->configDirectory.setPath(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation));
 		#else
 		// In older 5.x versions we need to construct the config path ourselves.
-		d->configDirectory = Strings::combinePaths(
+		d->configDirectory.setPath(Strings::combinePaths(
 			QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation),
-			Application::NAME);
+			Application::NAME));
 		#endif
-		d->dataDirectory = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
-		#else
-		d->cacheDirectory = QDesktopServices::storageLocation(QDesktopServices::CacheLocation);
-		d->dataDirectory = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
-
-		#ifdef Q_OS_MAC
-		d->configDirectory = systemAppDataDirectory("Library/Preferences/Doomseeker");
-		#else
-		d->configDirectory = systemAppDataDirectory(LEGACY_APPDATA_DIR_NAME);
-		#endif
-
-		#endif
+		d->dataDirectory.setPath(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
 	}
 
 	gLog << QString("Cache directory: %1").arg(d->cacheDirectory.absolutePath());
@@ -201,7 +187,7 @@ QList<DataPaths::DirErrno> DataPaths::createDirectories()
 		if (configDirError.isError())
 			failedDirs << configDirError;
 
-		#if !defined(Q_OS_MAC)
+		#if !defined(Q_OS_DARWIN)
 		else if (appDataDir.exists(".doomseeker"))
 		{
 			// Migrate config from old versions of Doomseeker (pre 1.2)
@@ -223,7 +209,7 @@ QList<DataPaths::DirErrno> DataPaths::createDirectories()
 	// ask about existence of a subdirectory inside the data directory.
 	if (!d->dataDirectory.exists(DEMOS_DIR_NAME))
 	{
-		#ifdef Q_OS_MAC
+		#ifdef Q_OS_DARWIN
 		const QString legacyPrefDirectory = "Library/Preferences/Doomseeker";
 		#else
 		const QString legacyPrefDirectory = ".doomseeker";
@@ -293,11 +279,7 @@ QString DataPaths::documentsLocationPath(const QString &subpath) const
 	QString rootPath;
 	if (!isPortableModeOn())
 	{
-		#if QT_VERSION >= 0x050000
 		rootPath = QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation).first();
-		#else
-		rootPath = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
-		#endif
 		rootPath = Strings::combinePaths(rootPath, QCoreApplication::applicationName());
 	}
 	else
@@ -345,7 +327,7 @@ QStringList DataPaths::pluginSearchLocationPaths() const
 	paths.append(workingDirectory());
 	paths.append("./");
 
-	#if !defined(Q_OS_MAC) && !defined(Q_OS_WIN32)
+	#if !defined(Q_OS_DARWIN) && !defined(Q_OS_WIN32)
 	// On systems where we install to a fixed location, if we see that we are
 	// running an installed binary, then we should only load plugins from the
 	// expected location.  Otherwise use it only as a last resort.

@@ -42,7 +42,7 @@ bool DateTableWidgetItem::operator<(const QTableWidgetItem &other) const
 
 void DateTableWidgetItem::setDisplayFormat(const QString &format)
 {
-	this->displayFormat = displayFormat;
+	this->displayFormat = format;
 	updateInternalData();
 }
 

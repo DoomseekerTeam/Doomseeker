@@ -20,20 +20,13 @@
 #------------------------------------------------------------------------------
 project(WadseekerApp)
 
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.5.1)  # Ubuntu 16.04
 
-find_package(Qt4 COMPONENTS QtCore REQUIRED)
+find_package(Qt5 COMPONENTS Core REQUIRED)
+find_package(wadseeker CONFIG REQUIRED)
 
-find_library(WADSEEKER_LIBRARY wadseeker)
-if(WADSEEKER_LIBRARY-NOTFOUND)
-	message(SEND_ERROR "Wadseeker was not found.")
-else(WADSEEKER_LIBRARY-NOTFOUND)
-	message(STATUS "Wadseeker located at ${WADSEEKER_LIBRARY}")
-endif()
-
-include_directories(${QT_INCLUDES})
-
-qt4_wrap_cpp(QtMocFiles main.h)
-add_executable(wadseeker ${QtMocFiles} main.cpp)
-
-target_link_libraries(wadseeker ${QT_QTCORE_LIBRARY} ${WADSEEKER_LIBRARY})
+add_executable(wadseeker main.cpp)
+set_target_properties(wadseeker PROPERTIES
+	CXX_STANDARD 11
+	AUTOMOC 1)
+target_link_libraries(wadseeker Qt5::Core Wadseeker::wadseeker)

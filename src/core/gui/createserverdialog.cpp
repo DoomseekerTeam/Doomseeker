@@ -331,8 +331,9 @@ bool CreateServerDialog::loadConfig(const QString &filename, bool loadingPreviou
 	return true;
 }
 
-void CreateServerDialog::makeRemoteGameSetupDialog(const EnginePlugin *plugin)
+void CreateServerDialog::makeRemoteGameSetupDialog(EnginePlugin *plugin)
 {
+	initEngineSpecific(plugin);
 	d->hostMode = GameCreateParams::Remote;
 	applyModeToUi();
 }

@@ -43,7 +43,7 @@ void AppRunner::cleanArguments(QStringList &args)
 	}
 }
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_DARWIN
 QString AppRunner::findBundleBinary(const QFileInfo &file)
 {
 	// Scan the plist file for where the real binary is in a bundle.  We have
@@ -86,7 +86,7 @@ Message AppRunner::runExecutable(const CommandLineInfo &cmdInfo)
 
 	int result;
 
-	#ifdef Q_OS_MAC
+	#ifdef Q_OS_DARWIN
 	if ( cmdInfo.executable.isBundle())
 		result = QProcess::startDetached(cmdInfo.executable.absoluteFilePath() + AppRunner::findBundleBinary(cmdInfo.executable), args, cmdInfo.applicationDir.absolutePath());
 	else

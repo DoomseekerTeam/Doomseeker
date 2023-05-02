@@ -56,37 +56,67 @@ add_subdirectory(lzma)
 
 include(${CMAKE_SOURCE_DIR}/cmake/Modules/Macros.cmake)
 
-if(NOT FORCE_QT4)
-	find_package(Qt5 COMPONENTS Core)
-endif()
+find_package(Qt5 COMPONENTS Core)
 
 if(NOT Qt5_FOUND)
-	find_package(Qt4 COMPONENTS QtCore QtNetwork REQUIRED)
-	set(QT_LIBRARIES Qt4::QtCore Qt4::QtNetwork)
+	message(FATAL_ERROR "Qt5 not found. Please make sure to set the Qt5_DIR variable")
 else()
 	find_package(Qt5 COMPONENTS LinguistTools Network REQUIRED)
-	macro(qt4_add_resources)
-		qt5_add_resources(${ARGV})
-	endmacro()
-	macro(qt4_wrap_ui)
-		qt5_wrap_ui(${ARGV})
-	endmacro()
-	macro(qt4_add_translation)
-		qt5_add_translation(${ARGV})
-	endmacro()
-	macro(qt4_create_translation)
-		qt5_create_translation(${ARGV})
-	endmacro()
 	set(QT_LIBRARIES Qt5::Core Qt5::Network)
 endif()
 
-if(NOT TARGET ZLIB::ZLIB)
-	find_package_ZLIB(REQUIRED)
+if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+	if(WIN32)
+		set(FORCE_INTERNAL_ZLIB YES)
+		set(FORCE_INTERNAL_BZIP2 YES)
+	else()
+		option(FORCE_INTERNAL_ZLIB "Use internal zlib" OFF)
+		option(FORCE_INTERNAL_BZIP2 "Use internal bzip2" OFF)
+
+		include(${CMAKE_SOURCE_DIR}/cmake/Modules/Macros.cmake)
+
+		if(NOT FORCE_INTERNAL_ZLIB)
+			find_package_ZLIB()
+		endif()
+		if(NOT FORCE_INTERNAL_BZIP2)
+			find_package_BZip2()
+		endif()
+	endif()
+
+	if( ZLIB_FOUND AND NOT FORCE_INTERNAL_ZLIB )
+		message( STATUS "Using system zlib" )
+	else( ZLIB_FOUND AND NOT FORCE_INTERNAL_ZLIB )
+		message( STATUS "Using internal zlib" )
+		set( ZLIB_INTERNAL YES )
+		set(SKIP_INSTALL_ALL ON)
+		add_subdirectory( dependencies/zlib )
+		unset(SKIP_INSTALL_ALL)
+		set( ZLIB_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/zlib" )
+		set( ZLIB_INCLUDE_DIR "${ZLIB_INCLUDE_DIRS}" )
+		set( ZLIB_LIBRARIES ZLIB::ZLIB )
+		set( ZLIB_LIBRARY ZLIB::ZLIB )
+	endif()
+
+	if( BZIP2_FOUND AND NOT FORCE_INTERNAL_BZIP2 )
+		message( STATUS "Using system bzip2 library" )
+	else( BZIP2_FOUND AND NOT FORCE_INTERNAL_BZIP2 )
+		message( STATUS "Using internal bzip2 library" )
+		set( BZIP2_INTERNAL YES )
+		add_subdirectory( dependencies/bzip2 )
+		set( BZIP2_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/bzip2" )
+		set( BZIP2_INCLUDE_DIR "${BZIP2_INCLUDE_DIRS}" )
+		set( BZIP2_LIBRARIES bz2 )
+		set( BZIP2_LIBRARY bz2 )
+	endif()
+else()
+	if(NOT TARGET ZLIB::ZLIB)
+		find_package_ZLIB(REQUIRED)
+	endif()
+	if(NOT TARGET BZip2::BZip2)
+		find_package_BZip2(REQUIRED)
+	endif()
+	find_package(Threads REQUIRED)
 endif()
-if(NOT TARGET BZip2::BZip2)
-	find_package_BZip2(REQUIRED)
-endif()
-find_package(Threads REQUIRED)
 
 include("wadseekerversiondefs.cmake")
 configure_file(wadseekerversiondefs.h.in wadseekerversiondefs.h)
@@ -178,6 +208,9 @@ set(HEADER_FILES
 )
 
 add_library(wadseeker SHARED ${WADSEEKER_FILES} ${HEADER_FILES})
+if(NOT CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+	add_library(Wadseeker::wadseeker ALIAS wadseeker)
+endif()
 
 target_include_directories(wadseeker
 PRIVATE
@@ -188,9 +221,8 @@ INTERFACE
 )
 
 target_link_libraries(wadseeker
-LINK_PUBLIC
-	${QT_LIBRARIES}
 LINK_PRIVATE
+	${QT_LIBRARIES}
 	${CMAKE_THREAD_LIBS_INIT}
 	BZip2::BZip2
 	lzma
@@ -206,13 +238,13 @@ if(DEFINED Doomseeker_BINARY_DIR)
 	set_target_properties(wadseeker PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${Doomseeker_BINARY_DIR} RUNTIME_OUTPUT_DIRECTORY ${Doomseeker_BINARY_DIR})
 endif()
 
-set(TARGETS_EXPORT_NAME "${PROJECT_NAME}Targets")
+set(TARGETS_EXPORT_NAME "wadseekerTargets")
 if(NOT WIN32 AND NOT XCODE_VERSION)
 	install(
 		TARGETS wadseeker
 		EXPORT ${TARGETS_EXPORT_NAME}
 		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT wadseeker NAMELINK_SKIP
-		INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/wadseeker
+		INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 	)
 	install(
 		TARGETS wadseeker
@@ -225,7 +257,8 @@ elseif(WIN32)
 		TARGETS wadseeker
 		EXPORT ${TARGETS_EXPORT_NAME}
 		RUNTIME DESTINATION . COMPONENT wadseeker
-		INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/wadseeker
+		ARCHIVE DESTINATION ./lib COMPONENT wadseeker
+		INCLUDES DESTINATION ${CMAKE_INSTALL_PREFIX}/include
 	)
 	# License files.
 	set(LICENSE_FILES
@@ -276,8 +309,8 @@ if(NOT CMAKE_VERSION VERSION_LESS "3.6.0")
 		set(CONFIG_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/wadseeker")
 
 		set(generated_dir "${CMAKE_CURRENT_BINARY_DIR}/generated")
-		set(VERSION_CONFIG "${generated_dir}/${PROJECT_NAME}ConfigVersion.cmake")
-		set(PROJECT_CONFIG "${generated_dir}/${PROJECT_NAME}Config.cmake")
+		set(VERSION_CONFIG "${generated_dir}/wadseekerConfigVersion.cmake")
+		set(PROJECT_CONFIG "${generated_dir}/wadseekerConfig.cmake")
 		configure_package_config_file(wadseekerConfig.cmake.in
 			${PROJECT_CONFIG}
 			INSTALL_DESTINATION ${CONFIG_INSTALL_DIR}

@@ -67,7 +67,7 @@ bool CreateServerDialogApi::fillInCommandLineArguments(QString &executable, QStr
 void CreateServerDialogApi::makeRemoteGameSetup(const EnginePlugin *plugin)
 {
 	assert(d->dialog);
-	d->dialog->makeRemoteGameSetupDialog(plugin);
+	d->dialog->makeRemoteGameSetupDialog(const_cast<EnginePlugin*>(plugin));
 }
 
 void CreateServerDialogApi::setIwadByName(const QString &iwad)

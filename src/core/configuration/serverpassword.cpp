@@ -104,7 +104,7 @@ ServerPasswordSummary ServerPassword::mostSimilarServer(const ServerPasswordSumm
 	}
 	if (!similarities.empty())
 	{
-		qSort(similarities);
+		std::sort(similarities.begin(), similarities.end());
 		if (outSimilarity != nullptr)
 			*outSimilarity = similarities.last().similarity;
 		return similarities.last().server;

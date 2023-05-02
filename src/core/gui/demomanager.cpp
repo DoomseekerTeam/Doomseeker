@@ -193,7 +193,7 @@ void DemoManagerDlg::deleteSelected()
 		if (d->selectedDemo == nullptr)
 		{
 			int dateRow = index.row();
-			for (int timeRow = 0; index.child(timeRow, 0).isValid(); ++timeRow)
+			for (int timeRow = 0; index.model()->index(timeRow, 0).isValid(); ++timeRow)
 			{
 				if (doRemoveDemo(gDefaultDataPaths->demosDirectoryPath() + QDir::separator() + d->demoTree[dateRow][timeRow].filename))
 				{

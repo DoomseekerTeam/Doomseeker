@@ -70,7 +70,7 @@ ZandronumEnginePlugin::ZandronumEnginePlugin()
 		EP_AllowsMOTD,
 		EP_AllowsUpnp,
 		EP_AllowsUpnpPort,
-		#ifndef Q_OS_DARWIN
+		#ifndef Q_OS_MAC
 		EP_AllowsInternalClients,
 		#endif
 		#if defined(Q_OS_WIN32) || defined(Q_OS_MAC)

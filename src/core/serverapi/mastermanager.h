@@ -25,7 +25,9 @@
 
 #include "serverapi/masterclient.h"
 #include "serverapi/message.h"
+#include <QSharedPointer>
 
+class BroadcastManager;
 class CustomServers;
 class MasterClientSignalProxy;
 
@@ -48,7 +50,7 @@ public:
 	CustomServers *customServs() { return customServers; }
 
 	int numMasters() const { return masters.size(); }
-
+	void setBroadcastManager(BroadcastManager *broadcastManagerPtr);
 	const EnginePlugin *plugin() const { return nullptr; }
 
 	MasterClient *operator[](int index) { return masters[index]; }
@@ -69,6 +71,8 @@ private:
 	CustomServers *customServers;
 	QList<MasterClient *> masters;
 	QSet<MasterClient *> mastersBeingRefreshed;
+
+	BroadcastManager *broadcastManager;
 
 	QByteArray createServerListRequest() { return QByteArray(); }
 	Response readMasterResponse(const QByteArray &data);

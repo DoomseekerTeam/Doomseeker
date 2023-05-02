@@ -1,15 +1,6 @@
 image: doomseeker/doomseeker-build:latest
 
 stepsDefined:
-  - Qt4Build: &qt4Build
-      name: Qt4 build
-      script:
-        - mkdir -p build_qt4
-        - cd build_qt4
-        - cmake -DCMAKE_CXX_FLAGS="-Wall -Werror=return-type" -DFORCE_QT4=true ..
-        - make -j$(nproc)
-        - make install
-        - QT_QPA_PLATFORM=offscreen ./doomseeker --tests
   - Qt5Build: &qt5Build
       name: Qt5 build
       script:
@@ -25,11 +16,8 @@ pipelines:
     \@:
       - step: *qt5Build
   custom:
-    Qt4Build:
-      - step: *qt4Build
     Qt5Build:
       - step: *qt5Build
     AllBuilds:
       - parallel:
-        - step: *qt4Build
         - step: *qt5Build

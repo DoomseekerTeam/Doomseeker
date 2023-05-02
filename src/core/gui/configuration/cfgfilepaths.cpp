@@ -25,10 +25,10 @@
 #include "pathfinder/filesearchpath.h"
 #include "ui_cfgfilepaths.h"
 #include <QFileDialog>
-#include <QStandardItem>
 
-const int COL_PATH = 0;
-const int COL_RECURSE = 1;
+static const int COL_PATH = 0;
+static const int COL_RECURSE = 1;
+static const int NUM_COLS = 2;
 
 DClass<CFGFilePaths> : public Ui::CFGFilePaths
 {
@@ -41,27 +41,23 @@ CFGFilePaths::CFGFilePaths(QWidget *parent)
 {
 	d->setupUi(this);
 
-	QStandardItemModel *model = new QStandardItemModel(this);
-	d->lstIwadAndPwadPaths->setModel(model);
-
 	QStringList labels;
 	labels << CFGFilePaths::tr("Path") << CFGFilePaths::tr("Recurse");
-	model->setHorizontalHeaderLabels(labels);
+	d->tblFilePaths->setColumnCount(NUM_COLS);
+	d->tblFilePaths->setHorizontalHeaderLabels(labels);
 
-	QHeaderView *header = d->lstIwadAndPwadPaths->horizontalHeader();
-	#if QT_VERSION >= 0x050000
+	QHeaderView *header = d->tblFilePaths->horizontalHeader();
 	header->setSectionResizeMode(COL_PATH, QHeaderView::Stretch);
 	header->setSectionResizeMode(COL_RECURSE, QHeaderView::ResizeToContents);
-	#else
-	header->setResizeMode(COL_PATH, QHeaderView::Stretch);
-	header->setResizeMode(COL_RECURSE, QHeaderView::ResizeToContents);
-	#endif
 
 	connect(d->btnAddWadPath, SIGNAL(clicked()), this, SLOT(btnAddWadPath_Click()));
 	connect(d->btnRemoveWadPath, SIGNAL(clicked()), this, SLOT(btnRemoveWadPath_Click()));
-	this->connect(d->lstIwadAndPwadPaths->itemDelegate(),
+	this->connect(d->tblFilePaths->itemDelegate(),
 		SIGNAL(closeEditor(QWidget*,QAbstractItemDelegate::EndEditHint)),
 		SIGNAL(validationRequested()));
+	d->tblFilePaths->connect(d->tblFilePaths,
+		&TableWidgetReorderable::rowsReordered,
+		&QTableWidget::resizeRowsToContents);
 }
 
 CFGFilePaths::~CFGFilePaths()
@@ -73,21 +69,21 @@ void CFGFilePaths::addPath(const FileSearchPath &fileSearchPath)
 	if (fileSearchPath.isValid())
 		return;
 
-	QStandardItemModel *model = static_cast<QStandardItemModel *>(d->lstIwadAndPwadPaths->model());
-
 	if (!isPathAlreadyDefined(fileSearchPath.path()))
 	{
-		QStandardItem *path = new QStandardItem(fileSearchPath.path());
-		path->setData(fileSearchPath.path(), Qt::ToolTipRole);
-		QStandardItem *recurse = new QStandardItem();
-		recurse->setCheckable(true);
+		d->tblFilePaths->setSortingEnabled(false);
+		int newRow = d->tblFilePaths->rowCount();
+		d->tblFilePaths->insertRow(newRow);
+		QTableWidgetItem *path = new QTableWidgetItem(fileSearchPath.path());
+		path->setData(Qt::ToolTipRole, fileSearchPath.path());
+		QTableWidgetItem *recurse = new QTableWidgetItem();
 		recurse->setCheckState(fileSearchPath.isRecursive() ? Qt::Checked : Qt::Unchecked);
-		recurse->setData(Qt::AlignCenter, Qt::TextAlignmentRole);
-		QList<QStandardItem *> items;
-		items << path;
-		items << recurse;
-		model->appendRow(items);
-		d->lstIwadAndPwadPaths->resizeRowsToContents();
+		recurse->setData(Qt::TextAlignmentRole, Qt::AlignCenter);
+
+		d->tblFilePaths->setItem(newRow, COL_PATH, path);
+		d->tblFilePaths->setItem(newRow, COL_RECURSE, recurse);
+		d->tblFilePaths->resizeRowsToContents();
+		d->tblFilePaths->setSortingEnabled(true);
 	}
 }
 
@@ -100,20 +96,14 @@ void CFGFilePaths::btnAddWadPath_Click()
 
 void CFGFilePaths::btnRemoveWadPath_Click()
 {
-	QItemSelectionModel *selModel = d->lstIwadAndPwadPaths->selectionModel();
-	QModelIndexList indexList = selModel->selectedRows();
-	selModel->clear();
-
-	QStandardItemModel *model = static_cast<QStandardItemModel *>(d->lstIwadAndPwadPaths->model());
-	QList<QStandardItem *> itemList;
-	for (int i = 0; i < indexList.count(); ++i)
-		itemList << model->itemFromIndex(indexList[i]);
-
-	for (int i = 0; i < itemList.count(); ++i)
-	{
-		QModelIndex index = model->indexFromItem(itemList[i]);
-		model->removeRow(index.row());
-	}
+	QSet<int> uniqueRows;
+	for (auto *item : d->tblFilePaths->selectedItems())
+		uniqueRows.insert(item->row());
+	QList<int> rows = uniqueRows.toList();
+	// Reverse the order of rows.
+	std::sort(rows.begin(), rows.end(), [](int a, int b) { return b < a; });
+	for (int row : rows)
+		d->tblFilePaths->removeRow(row);
 	emit validationRequested();
 }
 
@@ -124,8 +114,6 @@ QIcon CFGFilePaths::icon() const
 
 bool CFGFilePaths::isPathAlreadyDefined(const QString &path)
 {
-	QStandardItemModel *model = static_cast<QStandardItemModel *>(d->lstIwadAndPwadPaths->model());
-
 	Qt::CaseSensitivity caseSensitivity;
 
 	#ifdef Q_OS_WIN32
@@ -134,9 +122,9 @@ bool CFGFilePaths::isPathAlreadyDefined(const QString &path)
 	caseSensitivity = Qt::CaseSensitive;
 	#endif
 
-	for (int i = 0; i < model->rowCount(); ++i)
+	for (int i = 0; i < d->tblFilePaths->rowCount(); ++i)
 	{
-		QStandardItem *item = model->item(i);
+		QTableWidgetItem *item = d->tblFilePaths->item(i, COL_PATH);
 		QString dir = item->text();
 
 		if (dir.compare(path, caseSensitivity) == 0)
@@ -160,11 +148,10 @@ void CFGFilePaths::saveSettings()
 {
 	QList<FileSearchPath> wadPaths;
 
-	QStandardItemModel *model = static_cast<QStandardItemModel *>(d->lstIwadAndPwadPaths->model());
-	for (int i = 0; i < model->rowCount(); ++i)
+	for (int i = 0; i < d->tblFilePaths->rowCount(); ++i)
 	{
-		QStandardItem *itemPath = model->item(i, COL_PATH);
-		QStandardItem *itemRecurse = model->item(i, COL_RECURSE);
+		QTableWidgetItem *itemPath = d->tblFilePaths->item(i, COL_PATH);
+		QTableWidgetItem *itemRecurse = d->tblFilePaths->item(i, COL_RECURSE);
 		FileSearchPath fileSearchPath(itemPath->text());
 		fileSearchPath.setRecursive(itemRecurse->checkState() == Qt::Checked);
 		wadPaths << fileSearchPath;
@@ -178,10 +165,9 @@ void CFGFilePaths::saveSettings()
 ConfigPage::Validation CFGFilePaths::validate()
 {
 	bool allPathsValid = true;
-	QStandardItemModel *model = static_cast<QStandardItemModel *>(d->lstIwadAndPwadPaths->model());
-	for (int i = 0; i < model->rowCount(); ++i)
+	for (int i = 0; i < d->tblFilePaths->rowCount(); ++i)
 	{
-		QStandardItem *itemPath = model->item(i, COL_PATH);
+		QTableWidgetItem *itemPath = d->tblFilePaths->item(i, COL_PATH);
 
 		QString validationError = validatePath(itemPath->text());
 		bool valid = validationError.isEmpty();

@@ -180,7 +180,7 @@ bool UpdateInstaller::startUpdaterProcess(const QString &packagesDir,
 	QFile updaterProgramFile(updaterProgramPath);
 	QFileInfo programFileInfo(QCoreApplication::applicationFilePath());
 	QStringList args;
-	#ifdef Q_OS_MAC
+	#ifdef Q_OS_DARWIN
 	// On Mac we're updating the bundle, but we get the location of the binary (<stuff>/Contents/MacOS/)
 	args << "--install-dir" << (QCoreApplication::applicationDirPath() + "/../..");
 	#else

@@ -38,8 +38,11 @@ Mantis ticket #3369.
       them. (addresses #3599)
     - CTRL+S and CTRL+O keyboard shortcuts can be used to save/load
       game config (#3645)
+- File (game mod, WAD) search paths can now be reordered in the config box
+by drag'n'drop. (#3669)
 
 ### Changed
+- Completely dropped compilation support for Qt4. (#3514)
 - Remove "Allow servers to display my country" feature in Zandronum since
 it can be set from the game menu. (#3626)
 - On non-Windows systems don't seek mod files (WADs) in the executable
@@ -86,9 +89,12 @@ Plugin's actual version is now a single number. (#3644)
     - On case-sensitive systems (non-windows systems) the search now caches the
     results in each file search iteration, meaning that in servers with lots of
     wads the search will last less. (#3638)
-    - Also, now we no longer check for wads on the binary folder on those systems.
-    Overall, the time that it takes to find a set of wads on the tested Linux
-    environment was around 48 times less. (#3640)
+    - Also, now we no longer check for wads on the binary folder on those
+    systems. (#3640)
+    - Recognize duplicate search dirs and subdirs of recursive paths and don't
+    search in them more than once.
+    - Overall, the time that it takes to find a set of wads on the tested Linux
+    environment was around 48 times less.
 
 ### Fixed
 - If no plugins are loaded only one notification will now appear instead
@@ -96,8 +102,18 @@ of two notifications that said the same thing only with different
 phrasing. (#3401)
 - Manually bind client UDP sockets to address "0.0.0.0" which fixes
 problem with the sockets not working on OpenBSD system. (#3494)
+- Fix minor visual problems with the server tables. Enforce the size of the
+fixed-width columns even if configuration tries to load a different size.
+Don't display the focus rectangles in the game icon and player slots columns.
+This fixes tickets #3461 and #3463.
+- Buddies not being detected in LAN servers. (#3397)
+- Fix visual glitches when modifying contents of the WAD alias table in the
+config box and when pressing the "Apply" button for that table. (#3642)
 - Prevent empty wads from Zandronum servers, this was caused rarely by some
 servers that reported a non-existent wad. (#3624)
+- SRB2: Discard master server header replies that don't have the expected
+length declaration, thus preventing crashes when trying to read them. (#3660)
+
 
 ### Removed
 - The "Allow servers to display my country" option in the zandronum's config

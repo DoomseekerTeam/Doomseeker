@@ -2,9 +2,7 @@ Quick Start
 ===========
 
 Doomseeker has the following dependencies:
-* Qt4 or Qt5:
-** Qt4 - Version 4.5 or later, requires the QtCore, QtGui, QtNetwork and QtXml modules.
-** Qt5 - QtCore, QtGui, QtLinguistTools, QtMultimedia, QtNetwork and QtXml modules.
+* Qt5: QtCore, QtGui, QtLinguistTools, QtMultimedia, QtNetwork and QtXml modules.
 * Optionally zlib and libbz2
 
 You will also need CMake to generate the Makefile and/or project files.
@@ -68,15 +66,6 @@ to /usr. Here are some examples:
 
 The resulting 'doomseeker' executable will differ depending
 on this #define.
-
-----------------------------------------
-
-Building against Qt4
-====================
-
-FORCE_QT4 option, when set to true, will enable compiling with Qt4.
-
-  cmake -DFORCE_QT4=true
 
 
 IP2C

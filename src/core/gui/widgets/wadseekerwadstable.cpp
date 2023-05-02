@@ -222,11 +222,7 @@ void WadseekerWadsTable::showEvent(QShowEvent *pEvent)
 		QHeaderView *pHeader = horizontalHeader();
 
 		// Setup resizing
-		#if QT_VERSION >= 0x050000
 		pHeader->setSectionResizeMode(IDX_URL_COLUMN, QHeaderView::Stretch);
-		#else
-		pHeader->setResizeMode(IDX_URL_COLUMN, QHeaderView::Stretch);
-		#endif
 
 		pHeader->resizeSection(IDX_NAME_COLUMN, 140);
 		pHeader->resizeSection(IDX_PROGRESS_COLUMN, 85);

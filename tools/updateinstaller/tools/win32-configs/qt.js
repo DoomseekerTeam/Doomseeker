@@ -11,7 +11,7 @@
         "Qt5WinExtras.dll",
         "Qt5Xml.dll",
         "libgcc_s_dw2-1.dll",
-        "libstdc++-6.dll",
+        "libstdc\\+\\+-6.dll",
         "libwinpthread-1.dll",
         "libeay32.dll",
         "ssleay32.dll"

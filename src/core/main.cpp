@@ -147,7 +147,7 @@ int Main::run()
 	applyLogVerbosity();
 
 	Application::init(argumentsCount, arguments);
-	#ifdef Q_OS_MAC
+	#ifdef Q_OS_DARWIN
 	// In Mac OS X it is abnormal to have menu icons unless it's a shortcut to a file of some kind.
 	gApp->setAttribute(Qt::AA_DontShowIconsInMenus);
 	#endif

@@ -115,27 +115,6 @@ void CommonGUI::removeSelectedRowsFromStandardItemView(QAbstractItemView *view,
 	}
 }
 
-void CommonGUI::setCurrentText(QComboBox *box, const QString &text)
-{
-	#if QT_VERSION >= 0x050000
-	box->setCurrentText(text);
-	#else
-	if (box->isEditable())
-		box->setEditText(text);
-	else
-	{
-		for (int i = 0; i < box->count(); ++i)
-		{
-			if (box->itemText(i) == text)
-			{
-				box->setCurrentIndex(i);
-				break;
-			}
-		}
-	}
-	#endif
-}
-
 void CommonGUI::stringListToStandardItemsListView(QListView *targetListview,
 	const QStringList &stringList)
 {

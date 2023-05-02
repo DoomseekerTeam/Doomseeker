@@ -73,7 +73,7 @@ void PasswordsCfg::cutServers(QList<ServerPassword> &passwords) const
 	{
 		ServerPassword &password = it.next();
 		QList<ServerPasswordSummary> sortedServers = password.servers();
-		qSort(sortedServers.begin(), sortedServers.end(), serverDateDescending);
+		std::sort(sortedServers.begin(), sortedServers.end(), serverDateDescending);
 		password.setServers(sortedServers.mid(0, maxNumberOfServersPerPassword()));
 	}
 }

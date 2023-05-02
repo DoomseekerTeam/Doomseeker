@@ -634,7 +634,7 @@ void GameClientRunner::setExecutable(const QString &path)
 
 void GameClientRunner::setWorkingDir(const QString &path)
 {
-	d->cli->applicationDir = path;
+	d->cli->applicationDir.setPath(path);
 }
 
 JoinError GameClientRunner::joinError() const

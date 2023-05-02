@@ -27,9 +27,6 @@
 #include <QHostAddress>
 #include <QUdpSocket>
 
-// Qt4 compatilbity, not really be the best place for this but the days of Qt4
-// support should be numbered.
-
 class UdpSocketPool : public QObject
 {
 	Q_OBJECT

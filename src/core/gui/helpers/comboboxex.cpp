@@ -74,7 +74,7 @@ void ComboBoxEx::setCurrentOrAddNewAndSelect(const QString &item)
 
 void ComboBoxEx::setItemsSorted(QStringList items)
 {
-	qSort(items.begin(), items.end(), caseInsensitiveLessThan);
+	std::sort(items.begin(), items.end(), caseInsensitiveLessThan);
 	box.clear();
 	for (const QString &item : items)
 	{

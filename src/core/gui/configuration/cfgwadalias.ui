@@ -178,10 +178,27 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>table</sender>
+   <signal>cellChanged(int,int)</signal>
+   <receiver>CFGWadAlias</receiver>
+   <slot>resizeRowToContents(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>213</x>
+     <y>100</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>191</x>
+     <y>-15</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addNewEntry()</slot>
   <slot>removeSelected()</slot>
   <slot>addDefaults()</slot>
+  <slot>resizeRowToContents(int)</slot>
  </slots>
 </ui>

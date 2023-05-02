@@ -100,17 +100,10 @@ ConfigurationDialog::ConfigurationDialog(QWidget *parent)
 	}
 	d->tvOptionsList->setModel(model);
 
-	#if QT_VERSION >= 0x050000
 	d->tvOptionsList->header()->setSectionResizeMode(
 		PrivData<ConfigurationDialog>::COL_NAME, QHeaderView::Stretch);
 	d->tvOptionsList->header()->setSectionResizeMode(
 		PrivData<ConfigurationDialog>::COL_VALIDATION, QHeaderView::Fixed);
-	#else
-	d->tvOptionsList->header()->setResizeMode(
-		PrivData<ConfigurationDialog>::COL_NAME, QHeaderView::Stretch);
-	d->tvOptionsList->header()->setResizeMode(
-		PrivData<ConfigurationDialog>::COL_VALIDATION, QHeaderView::Fixed);
-	#endif
 
 	d->currentlyDisplayedPage = nullptr;
 	connect(d->buttonBox, SIGNAL(clicked(QAbstractButton*)), this, SLOT (btnClicked(QAbstractButton*)));

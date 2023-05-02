@@ -67,7 +67,7 @@ public:
 	 */
 	static void cleanArguments(QStringList &args);
 
-	#ifdef Q_OS_MAC
+	#ifdef Q_OS_DARWIN
 	static QString findBundleBinary(const QFileInfo &file);
 	#endif
 

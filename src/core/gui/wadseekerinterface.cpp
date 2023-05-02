@@ -423,9 +423,7 @@ void WadseekerInterface::showEvent(QShowEvent *event)
 {
 	if (!bFirstShown)
 	{
-		#if QT_VERSION >= 0x050000
 		d->taskbarButton->setWindow(windowHandle());
-		#endif
 		bFirstShown = true;
 
 		if (isAutomatic())

@@ -53,11 +53,7 @@ QList<Link> UrlParser::directLinks(const QStringList &wantedFilenames, const QUr
 
 bool UrlParser::hasFileReferenceSomewhere(const QStringList &wantedFilenames, const Link &link)
 {
-	#if QT_VERSION >= 0x050000
 	QString strQuery = link.url.query(QUrl::FullyDecoded);
-	#else
-	QString strQuery = QUrl::fromPercentEncoding(link.url.encodedQuery());
-	#endif
 
 	for (const QString &filename : wantedFilenames)
 	{
@@ -78,14 +74,10 @@ bool UrlParser::hasSameHost(const QUrl &url1, const QUrl &url2)
 
 bool UrlParser::isDirectLinkToFile(const QStringList &wantedFilenames, const QUrl &url)
 {
-	// In both cases we want path to match raw filename. This means no
+	// We want path to match raw filename. This means no
 	// special percent encoding for characters that are valid on file
 	// system.
-	#if QT_VERSION >= 0x050000
 	QString urlPath = url.path(QUrl::FullyDecoded);
-	#else
-	QString urlPath = url.path();
-	#endif
 	QFileInfo fi(urlPath);
 
 	for (const QString &filename : wantedFilenames)
