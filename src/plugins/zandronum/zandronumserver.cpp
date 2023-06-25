@@ -34,6 +34,8 @@
 #include "zandronumgamerunner.h"
 #include "zandronumrconprotocol.h"
 #include "zandronumserverdmflagsparser.h"
+
+#include <application.h>
 #include <templatedpathresolver.h>
 #include <serverapi/message.h>
 #include <serverapi/playerslist.h>
@@ -45,6 +47,8 @@
 #include <QDateTime>
 #include <QFileInfo>
 #include <QRegularExpression>
+
+#include <cstdint>
 #include <utility>
 
 #define SERVER_CHALLENGE    0xC7, 0x00, 0x00, 0x00
@@ -670,15 +674,19 @@ void ZandronumServer::resetPwadsList(const QList<PWad> &wads)
 
 QByteArray ZandronumServer::createSendRequest()
 {
-	unsigned int standard_query = SQF_STANDARDQUERY;
-	unsigned int extended_query = SQF2_STANDARDQUERY;
+	uint32_t standardQuery = SQF_STANDARDQUERY;
+	uint32_t extendedQuery = SQF2_STANDARDQUERY;
+	if (!gApp->isGameFileIntegrityCheckEnabled())
+	{
+		extendedQuery &= ~SQF2_PWAD_HASHES;
+	}
 #define CHALLENGE_SIZE 16
 #define ENCODED_CHALLENGE_BUFFER_SIZE (CHALLENGE_SIZE*2)
 	const unsigned char challenge[CHALLENGE_SIZE] = {
 		SERVER_CHALLENGE,
-		WRITEINT32_DIRECT(unsigned char, standard_query),
+		WRITEINT32_DIRECT(unsigned char, standardQuery),
 		WRITEINT32_DIRECT(unsigned char, millisecondTime()),
-		WRITEINT32_DIRECT(unsigned char, extended_query)
+		WRITEINT32_DIRECT(unsigned char, extendedQuery)
 	};
 	char challengeOut[ENCODED_CHALLENGE_BUFFER_SIZE];
 	int out = ENCODED_CHALLENGE_BUFFER_SIZE;

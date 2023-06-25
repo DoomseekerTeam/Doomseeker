@@ -14,6 +14,11 @@ and this project does not adhere to
 - A compilation option to make the IP2C auto-updates disabled by default:
 `DOOMSEEKER_IP2C_AUTOUPDATE_DEFAULT`. (#3732)
 
+### Changed
+- Doomseeker won't request from the game servers the checksums of loaded
+files if the file integrity validation is turned off. This relieves some
+network traffic when refreshing the servers. (#4130)
+
 ## [1.4.1] - 2023-03-12
 ### Added
 - Tooltips to the buttons in the file paths config page.

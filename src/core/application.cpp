@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 #include "application.h"
 
+#include "configuration/doomseekerconfig.h"
 #include "gui/mainwindow.h"
 #include <QPointer>
 #include <cassert>
@@ -97,6 +98,11 @@ Application *Application::instance()
 {
 	assert(staticInstance != nullptr);
 	return staticInstance;
+}
+
+bool Application::isGameFileIntegrityCheckEnabled() const
+{
+	return gConfig.doomseeker.bCheckTheIntegrityOfWads;
 }
 
 bool Application::isRunning() const

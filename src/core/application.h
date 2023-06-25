@@ -113,6 +113,17 @@ public:
 	 */
 	void stopRunning();
 
+	/**
+	 * @brief Do we verify the locally stored game files?
+	 *
+	 * Tell if the checksum verification of locally stored game files
+	 * is enabled. If it's disabled, plugins may optimize to not ask
+	 * for the checksums of remote files.
+	 *
+	 * This method was introduced in Doomseeker 1.5.
+	 */
+	bool isGameFileIntegrityCheckEnabled() const;
+
 private:
 	DPtr<Application> d;
 

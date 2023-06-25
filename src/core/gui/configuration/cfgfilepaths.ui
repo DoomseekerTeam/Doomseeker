@@ -139,7 +139,7 @@
    <item>
     <widget class="QCheckBox" name="cbCheckTheIntegrityOfWads">
      <property name="toolTip">
-      <string>&lt;p&gt;If selected Doomseeker will attempt to check the integrity of the local WADs, compared to the ones used on a particular server. This requires a hard drive access to read the entirety of the WADs. If it takes too long to join servers, you may want to disable this feature.&lt;/p&gt;
+      <string>&lt;p&gt;If selected Doomseeker will attempt to check the integrity of the local WADs, compared to the ones used on a particular server. This requires a hard drive access to read the entirety of the WADs. It also requires the checksums to be downloaded from the servers, causing more network traffic. If it takes too long to join servers, or there are problems with the server refresh, you may want to disable this feature.&lt;/p&gt;
 &lt;p&gt;This setting is used when joining a server and when clicking the &amp;quot;Find missing WADs&amp;quot; button in the context menu.&lt;/p&gt;</string>
      </property>
      <property name="text">
