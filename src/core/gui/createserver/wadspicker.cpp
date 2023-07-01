@@ -56,6 +56,12 @@ WadsPicker::WadsPicker(QWidget *parent)
 
 	d->btnBrowsePwad->setIcon(style()->standardIcon(QStyle::SP_DirOpenIcon));
 	d->btnClearPwadList->setIcon(Icons::clear());
+
+	auto *checkPathsAction = new QAction(QIcon(":/icons/refresh.png"), tr("Check paths"), this);
+	d->lstAdditionalFiles->addAction(checkPathsAction);
+	connect(checkPathsAction, &QAction::triggered,
+		this, &WadsPicker::checkAllItemsPathsExist);
+	d->lstAdditionalFiles->setContextMenuPolicy(Qt::ActionsContextMenu);
 }
 
 WadsPicker::~WadsPicker()
