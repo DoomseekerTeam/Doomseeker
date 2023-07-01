@@ -18,6 +18,7 @@ and this project does not adhere to
 - Doomseeker won't request from the game servers the checksums of loaded
 files if the file integrity validation is turned off. This relieves some
 network traffic when refreshing the servers. (#4130)
+- Wadseeker: website dudoomers.com changed to audrealms.com. (#4131)
 
 ## [1.4.1] - 2023-03-12
 ### Added
