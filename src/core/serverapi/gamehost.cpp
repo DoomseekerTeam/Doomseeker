@@ -456,9 +456,9 @@ bool GameHost::verifyPwadPaths()
 	for (const QString &pwad : params().pwadsPaths())
 	{
 		QFileInfo fi(gDoomseekerTemplatedPathResolver().resolve(pwad));
-		if (!fi.isFile())
+		if (!fi.exists())
 		{
-			QString error = tr("PWAD path error:\n\"%1\" doesn't exist or is a directory!").arg(pwad);
+			QString error = tr("PWAD path error:\n\"%1\" doesn't exist!").arg(pwad);
 			setMessage(Message::customError(error));
 			return false;
 		}

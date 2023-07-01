@@ -3128,9 +3128,9 @@ nie istnieje lub nie jest plikiem.</translation>
     <message>
         <location filename="../serverapi/gamehost.cpp" line="461"/>
         <source>PWAD path error:
-&quot;%1&quot; doesn&apos;t exist or is a directory!</source>
+&quot;%1&quot; doesn&apos;t exist!</source>
         <translation>Błąd ścieżki do PWADa:
-&quot;%1&quot; nie istnieje lub jest katalogiem!</translation>
+&quot;%1&quot; nie istnieje!</translation>
     </message>
 </context>
 <context>

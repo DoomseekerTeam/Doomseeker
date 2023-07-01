@@ -21,6 +21,8 @@ network traffic when refreshing the servers. (#4130)
 - Create game: allow paths to missing files in the files/WADs box; show
 which files are missing, allow to store them in the saved game setup and
 bring them back when this setup is loaded. (#4127)
+- Allow paths to directories in the WADs/files box, just in case some
+game decides that it can handle that.
 - Wadseeker: website dudoomers.com changed to audrealms.com. (#4131)
 
 ## [1.4.1] - 2023-03-12
