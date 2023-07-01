@@ -26,6 +26,8 @@
 #include "dptr.h"
 
 #include <QtContainerFwd>
+#include <QStandardItem>
+#include <QString>
 #include <QWidget>
 
 struct PickedGameFile
@@ -56,11 +58,18 @@ private slots:
 	void addWadPath(const QString &wadPath, bool required = true);
 	void addPathToTable(const QString &path, bool required);
 	void browseAndAdd();
+	void checkItemPathExists(QStandardItem *item);
 	void removeAll();
 	void removeSelected();
 
 private:
 	DPtr<WadsPicker> d;
+
+	void checkAllItemsPathsExist();
+	/**
+	 * Find path on the list or return `nullptr` if not found.
+	 */
+	QStandardItem *findPath(const QString &path);
 };
 
 #endif

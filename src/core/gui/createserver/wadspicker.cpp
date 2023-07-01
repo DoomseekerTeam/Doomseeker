@@ -31,11 +31,15 @@
 #include <QApplication>
 #include <QKeyEvent>
 #include <QFileDialog>
+#include <QIcon>
+#include <QSignalBlocker>
 #include <QStandardItemModel>
 #include <QStyle>
 
 DClass<WadsPicker> : public Ui::WadsPicker
 {
+public:
+	QStandardItemModel *model;
 };
 
 DPointered(WadsPicker)
@@ -44,7 +48,10 @@ WadsPicker::WadsPicker(QWidget *parent)
 {
 	Q_UNUSED(parent);
 	d->setupUi(this);
-	d->lstAdditionalFiles->setModel(new QStandardItemModel(this));
+	d->model = new QStandardItemModel(this);
+	connect(d->model, &QStandardItemModel::itemChanged,
+		this, &WadsPicker::checkItemPathExists);
+	d->lstAdditionalFiles->setModel(d->model);
 	d->lstAdditionalFiles->installEventFilter(this);
 
 	d->btnBrowsePwad->setIcon(style()->standardIcon(QStyle::SP_DirOpenIcon));
@@ -65,28 +72,16 @@ void WadsPicker::addWadPath(const QString &wadPath, bool required)
 	if (wadPath.isEmpty())
 		return;
 	QFileInfo fileInfo(gDoomseekerTemplatedPathResolver().resolve(wadPath));
-	if (!fileInfo.isFile())
-		return;
-
-	auto model = static_cast<QStandardItemModel *>(d->lstAdditionalFiles->model());
-
-	// Check if this path exists already, if so - do nothing.
-	for (int i = 0; i < model->rowCount(); ++i)
+	QStandardItem *existing = findPath(wadPath);
+	if (existing != nullptr)
 	{
-		QStandardItem *item = model->item(i);
-		QString existing = item->text();
-		Qt::CaseSensitivity cs;
-
-		#ifdef Q_OS_WIN32
-		cs = Qt::CaseInsensitive;
-		#else
-		cs = Qt::CaseSensitive;
-		#endif
-
-		if (existing.compare(wadPath, cs) == 0)
-			return;
+		// Update the path check if it's re-added.
+		checkItemPathExists(existing);
 	}
-	addPathToTable(wadPath, required);
+	else
+	{
+		addPathToTable(wadPath, required);
+	}
 }
 
 void WadsPicker::addPathToTable(const QString &path, bool required)
@@ -98,9 +93,10 @@ void WadsPicker::addPathToTable(const QString &path, bool required)
 	it->setToolTip(path);
 	it->setCheckable(true);
 	it->setCheckState(required ? Qt::Checked : Qt::Unchecked);
+	it->setData(path, Qt::EditRole);
+	checkItemPathExists(it);
 
-	auto model = static_cast<QStandardItemModel *>(d->lstAdditionalFiles->model());
-	model->appendRow(it);
+	d->model->appendRow(it);
 }
 
 void WadsPicker::browseAndAdd()
@@ -121,6 +117,47 @@ void WadsPicker::browseAndAdd()
 			addWadPath(gDefaultDataPaths->portablizePath(strFile));
 		}
 	}
+}
+
+void WadsPicker::checkAllItemsPathsExist()
+{
+	for (int i = 0; i < d->model->rowCount(); ++i)
+	{
+		checkItemPathExists(d->model->item(i));
+	}
+}
+
+void WadsPicker::checkItemPathExists(QStandardItem *item)
+{
+	QFont font = item->font();
+	QString path = item->data(Qt::EditRole).toString().trimmed();
+	QFileInfo fileInfo(gDoomseekerTemplatedPathResolver().resolve(path));
+	// Squelch the model signals because this check is triggered by
+	// item edit, but it also does an item edit, which triggers the
+	// signal again, which causes an infinite loop. Also I **hope** this
+	// will never break anything in any version of Qt because who the
+	// hell knows how the internals of the model and widgets are
+	// implemented and if some future widget will come to rely on these
+	// signals and if they're blocked, then the changes will not be
+	// displayed, even though blocking the signals on the model is the
+	// way to do this as suggested by everyone on the net
+	// roflmao-through-tears.
+	QSignalBlocker signalBlocker(d->model);
+	if (fileInfo.exists())
+	{
+		font.setItalic(false);
+		item->setToolTip(path);
+		item->setIcon(QIcon());
+	}
+	else
+	{
+		font.setItalic(true);
+		item->setToolTip(QString("<font color=\"#ff0000\">")
+			+ tr("%1 MISSING").arg(path)
+			+ QString("</font>"));
+		item->setIcon(QIcon(":/icons/exclamation_16.png"));
+	}
+	item->setFont(font);
 }
 
 bool WadsPicker::eventFilter(QObject *obj, QEvent *event)
@@ -144,6 +181,10 @@ bool WadsPicker::eventFilter(QObject *obj, QEvent *event)
 				break;
 			}
 		}
+		else if (event->type() == QEvent::Show)
+		{
+			checkAllItemsPathsExist();
+		}
 	}
 	return false;
 }
@@ -151,19 +192,34 @@ bool WadsPicker::eventFilter(QObject *obj, QEvent *event)
 QList<PickedGameFile> WadsPicker::files() const
 {
 	QList<PickedGameFile> list;
-	auto model = static_cast<QStandardItemModel *>(
-		d->lstAdditionalFiles->model());
-	for (int i = 0; i < model->rowCount(); ++i)
+	for (int i = 0; i < d->model->rowCount(); ++i)
 	{
-		auto item = model->item(i);
+		auto item = d->model->item(i);
 		// Filter out all the empty entries from the list.
-		if (!item->text().trimmed().isEmpty())
+		if (!item->data(Qt::EditRole).toString().trimmed().isEmpty())
 		{
 			list << PickedGameFile { item->text(), (item->checkState() == Qt::Unchecked) };
 		}
 	}
 
 	return list;
+}
+
+QStandardItem *WadsPicker::findPath(const QString &path)
+{
+	#ifdef Q_OS_WIN32
+	static const Qt::CaseSensitivity cs = Qt::CaseInsensitive;
+	#else
+	static const Qt::CaseSensitivity cs = Qt::CaseSensitive;
+	#endif
+
+	for (int i = 0; i < d->model->rowCount(); ++i)
+	{
+		QStandardItem *item = d->model->item(i);
+		if (item->text().compare(path, cs) == 0)
+			return item;
+	}
+	return nullptr;
 }
 
 void WadsPicker::setFiles(const QList<PickedGameFile> &files)
@@ -175,8 +231,7 @@ void WadsPicker::setFiles(const QList<PickedGameFile> &files)
 
 void WadsPicker::removeAll()
 {
-	auto pModel = (QStandardItemModel *)d->lstAdditionalFiles->model();
-	pModel->clear();
+	d->model->clear();
 }
 
 void WadsPicker::removeSelected()

@@ -18,6 +18,9 @@ and this project does not adhere to
 - Doomseeker won't request from the game servers the checksums of loaded
 files if the file integrity validation is turned off. This relieves some
 network traffic when refreshing the servers. (#4130)
+- Create game: allow paths to missing files in the files/WADs box; show
+which files are missing, allow to store them in the saved game setup and
+bring them back when this setup is loaded. (#4127)
 - Wadseeker: website dudoomers.com changed to audrealms.com. (#4131)
 
 ## [1.4.1] - 2023-03-12
