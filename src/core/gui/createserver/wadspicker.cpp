@@ -28,6 +28,7 @@
 #include "gui/commongui.h"
 #include "gui/icons.h"
 #include "templatedpathresolver.h"
+#include <QAction>
 #include <QApplication>
 #include <QKeyEvent>
 #include <QFileDialog>
