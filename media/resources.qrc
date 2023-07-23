@@ -122,6 +122,7 @@
 	<file alias="flags/country/LTU">flags/LTU.png</file> <!-- Lithuania -->
 	<file alias="flags/country/LUX">flags/LUX.png</file> <!-- Luxembourg -->
 	<file alias="flags/country/LVA">flags/LVA.png</file> <!-- Latvia -->
+	<file alias="flags/country/MAC">flags/MAC.png</file> <!-- Macao -->
 	<file alias="flags/country/MAR">flags/MAR.png</file> <!-- Morocco -->
 	<file alias="flags/country/MDA">flags/MDA.png</file> <!-- Moldova -->
 	<file alias="flags/country/MEX">flags/MEX.png</file> <!-- Mexico -->
@@ -150,6 +151,7 @@
 	<file alias="flags/country/RUS">flags/RUS.png</file> <!-- Russian Federation -->
 	<file alias="flags/country/SAU">flags/SAU.png</file> <!-- Saudi Arabia -->
 	<file alias="flags/country/SGP">flags/SGP.png</file> <!-- Singapore -->
+	<file alias="flags/country/SLV">flags/SLV.png</file> <!-- El Salvador -->
 	<file alias="flags/country/SRB">flags/SRB.png</file> <!-- Serbia -->
 	<file alias="flags/country/SVK">flags/SVK.png</file> <!-- Slovakia -->
 	<file alias="flags/country/SVN">flags/SVN.png</file> <!-- Slovenia -->

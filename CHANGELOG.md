@@ -13,6 +13,7 @@ and this project does not adhere to
 - Server filtering by the IP address. (#4117)
 - A compilation option to make the IP2C auto-updates disabled by default:
 `DOOMSEEKER_IP2C_AUTOUPDATE_DEFAULT`. (#3732)
+- El Salvador and Macao country flags.
 - Zandronum: query the game servers with a segmented challenge, where
 the servers can reply with more than one packet. This should help with
 servers that need to send a lot of data in their replies and this data
