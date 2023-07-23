@@ -37,6 +37,8 @@
 
 #include <application.h>
 #include <templatedpathresolver.h>
+#include <ini/inisection.h>
+#include <ini/inivariable.h>
 #include <serverapi/message.h>
 #include <serverapi/playerslist.h>
 #include <strings.hpp>
@@ -836,6 +838,9 @@ QByteArray ZandronumServer::createSendRequest()
 	testingArchive = QString();
 
 	// Prepare the challenge query packet.
+	IniSection &config = *ZandronumEnginePlugin::staticInstance()->data()->pConfig;
+	const bool useSegmentedQuery = static_cast<bool>(config["SegmentedQueryBETA"]);
+
 	uint32_t standardQuery = SQF_STANDARDQUERY;
 	uint32_t extendedQuery = SQF2_STANDARDQUERY;
 	if (!gApp->isGameFileIntegrityCheckEnabled())
@@ -852,8 +857,9 @@ QByteArray ZandronumServer::createSendRequest()
 		WRITEINT8_DIRECT(unsigned char, 1), // ask for the segmented reply if the server supports it
 	};
 	char challengeOut[ENCODED_CHALLENGE_BUFFER_SIZE];
+	const int segmentationOffset = useSegmentedQuery ? 0 : 1;
 	int out = ENCODED_CHALLENGE_BUFFER_SIZE;
-	HUFFMAN_Encode(challenge, reinterpret_cast<unsigned char *>(challengeOut), CHALLENGE_SIZE, &out);
+	HUFFMAN_Encode(challenge, reinterpret_cast<unsigned char *>(challengeOut), CHALLENGE_SIZE - segmentationOffset, &out);
 	return QByteArray(challengeOut, out);
 #undef CHALLENGE_SIZE
 #undef ENCODED_CHALLENGE_BUFFER_SIZE

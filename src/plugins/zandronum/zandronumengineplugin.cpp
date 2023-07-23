@@ -96,6 +96,9 @@ void ZandronumEnginePlugin::setupConfig(IniSection &config)
 	config.createSetting("EnableTesting", true);
 	config.createSetting("TestingPath",
 		DataPaths::defaultInstance()->pluginLocalDataLocationPath(*this));
+	// TODO this needs to be renamed to just SegmentedQuery and set
+	// to true before the next release of Doomseeker.
+	config.createSetting("SegmentedQueryBETA", false);
 }
 
 ConfigPage *ZandronumEnginePlugin::configuration(QWidget *parent)

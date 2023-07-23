@@ -47,6 +47,7 @@ protected:
 
 	void saveSettings() override;
 
+	QCheckBox *cbSegmentedQuery;
 	QGroupBox *groupTesting;
 	QLineEdit *leTestingPath;
 	QPushButton *btnBrowseTestingPath;
