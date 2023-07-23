@@ -24,10 +24,14 @@
 #ifndef DOOMSEEKER_PLUGIN_ZANDRONUMSERVER_H
 #define DOOMSEEKER_PLUGIN_ZANDRONUMSERVER_H
 
-#include <QColor>
-#include <QString>
+#include "zandronumgameinfo.h"
 
 #include "serverapi/server.h"
+
+#include <QByteArray>
+#include <QColor>
+#include <QString>
+#include <QVector>
 
 #define NUM_ZANDRONUM_GAME_MODES 16
 #define NUM_ZANDRONUM_GAME_MODIFIERS 2
@@ -88,13 +92,73 @@ private:
 	unsigned int teamScore;
 };
 
+enum class ChallengeResponse
+{
+	UNKNOWN,
+	SINGLE,
+	SEGMENTED,
+};
+
+struct Challenge
+{
+	/**
+	 * Prevent DoS by accepting too many too big segments.
+	 */
+	static const int MAX_SIZE_SAFEGUARD = 1 * 1024 * 1024;
+
+	QByteArray raw;
+	ChallengeResponse responseType;
+	QVector<QByteArray> segments;
+	int endSegment;
+	ZandronumGameInfo::ZandronumGameMode gameMode;
+
+	Challenge() : responseType(ChallengeResponse::UNKNOWN), endSegment(-1),
+				  gameMode(ZandronumGameInfo::GAMEMODE_COOPERATIVE)
+	{
+	}
+
+	bool hasAllSegments() const
+	{
+		if (endSegment < 0)
+			return false;
+		for (const QByteArray &segment : segments)
+		{
+			if (segment.isEmpty())
+				return false;
+		}
+		return true;
+	}
+
+	void insertSegment(int no, QByteArray data)
+	{
+		if (no <= segments.size())
+		{
+			segments.resize(no + 1);
+		}
+		segments[no] = data;
+	}
+
+	int totalSegmentsSize() const
+	{
+		int total = 0;
+		for (const QByteArray &segment : segments)
+		{
+			total += segment.size();
+		}
+		return total;
+	}
+
+	int spaceRemaining() const
+	{
+		return MAX_SIZE_SAFEGUARD - totalSegmentsSize();
+	}
+};
+
 class ZandronumServer : public Server
 {
 	Q_OBJECT
 
 public:
-
-
 	enum ZandronumQueryFlags
 	{
 		SQF_NAME = 0x00000001,
@@ -174,8 +238,6 @@ protected:
 
 	unsigned short botSkill;
 
-	QByteArray lastReadRequest;
-
 	unsigned short duelLimit;
 	unsigned short fragLimit;
 	unsigned short pointLimit;
@@ -191,6 +253,17 @@ protected:
 	Response readRequest(const QByteArray &data);
 
 private:
+	Challenge currentChallenge;
+
+	Server::Response readSingleReply(QDataStream &stream);
+	Server::Response readSegmentedReply(QDataStream &stream);
+
+	Server::Response readAccumulatedSegments();
+
+	Server::Response readSqf(QDataStream &stream);
+	Server::Response readSqf1(QDataStream &stream);
+	Server::Response readSqf2(QDataStream &stream);
+
 	void resetPwadsList(const QList<PWad> &wads);
 };
 
