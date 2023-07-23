@@ -132,7 +132,7 @@ struct Challenge
 
 	void insertSegment(int no, QByteArray data)
 	{
-		if (no <= segments.size())
+		if (no >= segments.size())
 		{
 			segments.resize(no + 1);
 		}
