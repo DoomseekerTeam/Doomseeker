@@ -20,7 +20,7 @@
 #------------------------------------------------------------------------------
 
 set(PLUGIN_NAME zandronum)
-set(PLUGIN_VERSION 59)
+set(PLUGIN_VERSION 60)
 include(../PluginHeader.cmake)
 
 set(ZANDRONUM_FILES
