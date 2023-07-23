@@ -598,51 +598,51 @@ Server::Response ZandronumServer::readSqf1(QDataStream &stream)
 	if ((flags & SQF_NUMPLAYERS) == SQF_NUMPLAYERS)
 	{
 		RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
-		int numPlayers = in.readQUInt8();
+		this->currentChallenge.numPlayers = in.readQUInt8();
 		flags ^= SQF_NUMPLAYERS;
+	}
 
-		if ((flags & SQF_PLAYERDATA) == SQF_PLAYERDATA)
+	if ((flags & SQF_PLAYERDATA) == SQF_PLAYERDATA)
+	{
+		// The explicit flag for team info is sent in the segmented
+		// reply. If the reply isn't segmented, it must be deduced
+		// from the game mode. Team isn't sent in non-team modes.
+		bool hasTeamData = gameMode().isTeamGame();
+		if (this->currentChallenge.responseType == ChallengeResponse::SEGMENTED)
 		{
-			// The explicit flag for team info is sent in the segmented
-			// reply. If the reply isn't segmented, it must be deduced
-			// from the game mode. Team isn't sent in non-team modes.
-			bool hasTeamData = gameMode().isTeamGame();
-			if (this->currentChallenge.responseType == ChallengeResponse::SEGMENTED)
+			RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
+			hasTeamData = (in.readQInt8() != 0);
+		}
+
+		flags ^= SQF_PLAYERDATA;
+		for (int i = 0; i < this->currentChallenge.numPlayers; i++)
+		{
+			RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
+			QString name = in.readRawUntilByte('\0');
+
+			RETURN_BAD_IF_NOT_ENOUGH_DATA(2 + 2 + 1 + 1);
+			int score = in.readQInt16();
+			int ping = in.readQUInt16();
+			bool spectating = in.readQUInt8() != 0;
+			bool bot = in.readQUInt8() != 0;
+
+			int team;
+			if (hasTeamData)
 			{
 				RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
-				hasTeamData = (in.readQInt8() != 0);
+				team = in.readQUInt8();
 			}
-
-			flags ^= SQF_PLAYERDATA;
-			for (int i = 0; i < numPlayers; i++)
+			else
 			{
-				RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
-				QString name = in.readRawUntilByte('\0');
-
-				RETURN_BAD_IF_NOT_ENOUGH_DATA(2 + 2 + 1 + 1);
-				int score = in.readQInt16();
-				int ping = in.readQUInt16();
-				bool spectating = in.readQUInt8() != 0;
-				bool bot = in.readQUInt8() != 0;
-
-				int team;
-				if (hasTeamData)
-				{
-					RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
-					team = in.readQUInt8();
-				}
-				else
-				{
-					team = Player::TEAM_NONE;
-				}
-				// Now there is info on time that the player is
-				// on the server. We'll skip it.
-				RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
-				in.skipRawData(1);
-
-				Player player(name, score, ping, static_cast<Player::PlayerTeam>(team), spectating, bot);
-				addPlayer(player);
+				team = Player::TEAM_NONE;
 			}
+			// Now there is info on time that the player is
+			// on the server. We'll skip it.
+			RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
+			in.skipRawData(1);
+
+			Player player(name, score, ping, static_cast<Player::PlayerTeam>(team), spectating, bot);
+			addPlayer(player);
 		}
 	}
 
@@ -947,6 +947,7 @@ void ZandronumServer::updatedSlot(ServerPtr server, int response)
 		}
 		fprintf(stderr, "-- End of response for %s:%u --\n\n",
 			address().toString().toUtf8().constData(), port());
+		fflush(stderr);
 	}
 
 	// Challenge is complete, so drop its tracker.

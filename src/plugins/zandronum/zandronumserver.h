@@ -111,9 +111,10 @@ struct Challenge
 	QVector<QByteArray> segments;
 	int endSegment;
 	ZandronumGameInfo::ZandronumGameMode gameMode;
+	int numPlayers;
 
 	Challenge() : responseType(ChallengeResponse::UNKNOWN), endSegment(-1),
-				  gameMode(ZandronumGameInfo::GAMEMODE_COOPERATIVE)
+		gameMode(ZandronumGameInfo::GAMEMODE_COOPERATIVE), numPlayers(0)
 	{
 	}
 
