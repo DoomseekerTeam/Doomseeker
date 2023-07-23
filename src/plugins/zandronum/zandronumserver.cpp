@@ -479,9 +479,9 @@ Server::Response ZandronumServer::readSqf1(QDataStream &stream)
 		RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
 		qint8 modeCode = in.readQInt8();
 
-		if (modeCode > NUM_ZANDRONUM_GAME_MODES)
+		if (modeCode < 0 || modeCode > NUM_ZANDRONUM_GAME_MODES)
 		{
-			modeCode = NUM_ZANDRONUM_GAME_MODES; // this will set game mode to unknown
+			modeCode = NUM_ZANDRONUM_GAME_MODES; // this will set the game mode to unknown
 		}
 
 		this->currentChallenge.gameMode = static_cast<ZandronumGameInfo::ZandronumGameMode>(modeCode);
