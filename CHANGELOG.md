@@ -29,6 +29,9 @@ which files are missing, allow to store them in the saved game setup and
 bring them back when this setup is loaded. (#4127)
 - Allow paths to directories in the WADs/files box, just in case some
 game decides that it can handle that.
+- Updated the internal zlib library to 1.2.13.
+- Updated the internal bzip2 library to version 1.0.8.
+- Wadseeker: upgrade the LZMA SDK to version 23.01.
 - Wadseeker: website dudoomers.com changed to audrealms.com. (#4131)
 
 ## [1.4.1] - 2023-03-12
