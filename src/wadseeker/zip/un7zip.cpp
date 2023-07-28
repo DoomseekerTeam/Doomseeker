@@ -167,7 +167,7 @@ void Un7Zip::Init()
 	lookStream.realStream = &byteStream->stream;
 	lookStream.bufSize = 1 * 1024 * 1024;
 	lookStream.buf = new Byte[lookStream.bufSize];
-	LookToRead2_Init(&lookStream);
+	LookToRead2_INIT(&lookStream);
 
 	SzArEx_Init(&db);
 	SRes tmp;

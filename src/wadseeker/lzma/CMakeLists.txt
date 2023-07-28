@@ -34,6 +34,7 @@ set( LZMA_FILES
 	C/Sha256.c
 	C/Sha256Opt.c
 	C/Sort.c
+	C/SwapBytes.c
 	C/Xz.c
 	C/XzCrc64.c
 	C/XzCrc64Opt.c
