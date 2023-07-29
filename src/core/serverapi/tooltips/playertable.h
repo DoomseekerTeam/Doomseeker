@@ -42,20 +42,12 @@ public:
 private:
 	DPtr<PlayerTable> d;
 
-	/**
-	 * @brief Sets numOfColumns based on pServer states.
-	 */
-	void setNumberOfColumns();
+	QString createPlayerRows(const PlayersList &playerList) const;
+	QString createPlayerRow(const Player &player) const;
 
-	/**
-	 * This will return absolutely nothing if the list in the first
-	 * argument is empty.
-	 */
-	QString spawnPartOfPlayerTable(const PlayersList &list, bool bAppendEmptyRowAtBeginning);
-	QString spawnPlayersRows(const PlayersByTeams &playersByTeams);
-
-	QString tableContent();
-	QString tableHeader();
+	QString tableHeader() const;
+	QString teamHeader(const QString &teamName);
+	QString sectionHeader(const QString &title);
 };
 
 #endif

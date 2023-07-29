@@ -29,10 +29,21 @@ which files are missing, allow to store them in the saved game setup and
 bring them back when this setup is loaded. (#4127)
 - Allow paths to directories in the WADs/files box, just in case some
 game decides that it can handle that.
+- Players table appearance changed:
+    - The header row is now stylized with a bold font.
+    - Also, there is a dashed border between the columns.
+    - As previously, the table is divided into sections: players, bots,
+      spectators, but the title of each section is now displayed.
+    - For team games, each team has its own section now and the name of the team
+      appears as the respective section's title. Players don't have the name of
+      the team repeated in each row anymore.
 - Updated the internal zlib library to 1.2.13.
 - Updated the internal bzip2 library to version 1.0.8.
 - Wadseeker: upgrade the LZMA SDK to version 23.01.
 - Wadseeker: website dudoomers.com changed to audrealms.com. (#4131)
+
+### Fixed
+- Players table getting squished horizontally in the server details dock.
 
 ## [1.4.1] - 2023-03-12
 ### Added

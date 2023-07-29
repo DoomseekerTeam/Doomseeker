@@ -25,20 +25,27 @@
 #include "serverapi/serverstructs.h"
 #include <climits>
 
+#define PLAYERTABLE_COLSPAN "4"
+
+// Games can come up with their own team names; don't trust them too much.
+static const int MAX_TEAMNAME_SIZE = 100;
+
 DClass<PlayerTable>
 {
 public:
-	int numOfColumns;
 	ServerCPtr server;
+
+	bool isTeamGame() const
+	{
+		return server->gameMode().isTeamGame();
+	}
 };
 
 DPointered(PlayerTable)
 
 PlayerTable::PlayerTable(const ServerCPtr &server)
 {
-	d->numOfColumns = 0;
 	d->server = server;
-	setNumberOfColumns();
 }
 
 PlayerTable::~PlayerTable()
@@ -47,136 +54,146 @@ PlayerTable::~PlayerTable()
 
 QString PlayerTable::generateHTML()
 {
-	QString tableStyle = "background-color: #FFFFFF; color: #000000";
-	QString table = R"(<table cellspacing="4" style=")" + tableStyle + R"(">)";
-	table += tableHeader();
-	table += tableContent();
-	table += "</table>";
-	return table;
-}
+	static const QString css = "<style>"
+		".player-table {"
+		"    background-color: #FFFFFF;"
+		"    color: #000000;"
+		"}\n"
+		".header-row th {"
+		"    border-bottom: 1px solid black;"
+		"    padding-bottom: 2px;"
+		"}\n"
+		".section-header-row th {"
+		"    padding-left: 20px;"
+		"    padding-top: 4px;"
+		"    text-align: left;"
+		"}\n"
+		"th {"
+		"    text-align: left;"
+		"    white-space: nowrap;"
+		"}\n"
+		"th, td {"
+		"    border-right: 1px dashed gray;"
+		"    padding: 0px 4px;"
+		"}\n"
+		".number-cell {"
+		"    text-align: right;"
+		"}\n"
+		"</style>";
 
-void PlayerTable::setNumberOfColumns()
-{
-	if (d->server->gameMode().isTeamGame())
-	{
-		d->numOfColumns = 5;
-	}
-	else
-	{
-		d->numOfColumns = 4;
-	}
-}
+	const bool isTeamGame = d->isTeamGame();
+	const PlayersList &players = d->server->players();
 
-QString PlayerTable::spawnPartOfPlayerTable(const PlayersList &list, bool bAppendEmptyRowAtBeginning)
-{
-	QString ret;
-	if (list.count() != 0)
-	{
-		if (bAppendEmptyRowAtBeginning)
-		{
-			ret = QString("<tr><td colspan=\"%1\">&nbsp;</td></tr>").arg(d->numOfColumns);
-		}
-
-		for (int i = 0; i < list.count(); ++i)
-		{
-			const Player &player = list[i];
-
-			QString status = "";
-			if (player.isBot())
-			{
-				status = tr("BOT");
-			}
-			else if (player.isSpectating())
-			{
-				status = tr("SPECTATOR");
-			}
-
-			QString strPlayer = "<tr>";
-			if (d->server->gameMode().isTeamGame())
-			{
-				strPlayer += QString("<td>%1</td>").arg(d->server->teamName(player.teamNum()));
-			}
-			strPlayer += R"(<td>%1</td><td align="right">%2</td><td align="right">%3</td><td>%4</td></tr>)";
-			QString ping;
-			if (player.ping() != USHRT_MAX)
-			{
-				ping =  QString::number(player.ping());
-			}
-			strPlayer = strPlayer.arg(player.nameFormatted()).arg(player.score()).arg(ping);
-			strPlayer = strPlayer.arg(status);
-
-			ret += strPlayer;
-		}
-	}
-
-	return ret;
-}
-
-QString PlayerTable::spawnPlayersRows(const PlayersByTeams &playersByTeams)
-{
-	QString playersRows;
-
-	bool bAppendEmptyRowAtBeginning = false;
-	for (const PlayersList &playersList : playersByTeams.values())
-	{
-		playersRows += spawnPartOfPlayerTable(playersList, bAppendEmptyRowAtBeginning);
-		if (!bAppendEmptyRowAtBeginning)
-		{
-			bAppendEmptyRowAtBeginning = true;
-		}
-	}
-
-	return playersRows;
-}
-
-QString PlayerTable::tableContent()
-{
 	PlayersByTeams playersByTeams;
 	PlayersList bots, spectators;
-
-	const PlayersList &players = d->server->players();
 
 	players.inGamePlayersByTeams(playersByTeams);
 	players.botsWithoutTeam(bots);
 	players.spectators(spectators);
 
-	bool bAppendEmptyRowAtBeginning = false;
-	QString playersRows = spawnPlayersRows(playersByTeams);
-
-	bAppendEmptyRowAtBeginning = !playersRows.isEmpty();
-	QString botsRows = spawnPartOfPlayerTable(bots, bAppendEmptyRowAtBeginning);
-
-	bAppendEmptyRowAtBeginning = !(botsRows.isEmpty() && playersRows.isEmpty());
-	QString spectatorsRows = spawnPartOfPlayerTable(spectators, bAppendEmptyRowAtBeginning);
-
-	QString content = playersRows + botsRows + spectatorsRows;
-
-	return content;
+	QString table = R"(<table class="player-table" cellspacing="0" width="100%">)";
+	table += tableHeader();
+	bool separator = false;
+	for (int i : playersByTeams.keys())
+	{
+		const PlayersList &playersList = playersByTeams[i];
+		if (isTeamGame)
+		{
+			table += teamHeader(d->server->teamName(i));
+		}
+		table += createPlayerRows(playersList);
+	}
+	if (bots.count() > 0)
+	{
+		table += sectionHeader(tr("Bots"));
+		table += createPlayerRows(bots);
+	}
+	if (spectators.count() > 0)
+	{
+		table += sectionHeader(tr("Spectators"));
+		table += createPlayerRows(spectators);
+	}
+	table += "</table>";
+	return css + table;
 }
 
-QString PlayerTable::tableHeader()
+QString PlayerTable::createPlayerRows(const PlayersList &playerList) const
 {
-	const QString TEAM = tr("Team");
+	QString rows;
+	for (const Player &player : playerList.players())
+	{
+		rows += createPlayerRow(player);
+	}
+	return rows;
+}
+
+QString PlayerTable::createPlayerRow(const Player &player) const
+{
+	QString status = "";
+	if (player.isBot())
+	{
+		status = tr("BOT");
+	}
+	else if (player.isSpectating())
+	{
+		status = tr("SPECTATOR");
+	}
+
+	QString ping;
+	if (player.ping() != USHRT_MAX)
+	{
+		ping = QString::number(player.ping());
+	}
+
+	return QString(
+		"<tr>"
+		R"(<td>%1</td>)"
+		R"(<td class="number-cell" width="60">%2</td>)"
+		R"(<td class="number-cell" width="60">%3</td>)"
+		R"(<td width="100">%4</td>)"
+		"</tr>")
+			.arg(player.nameFormatted())
+			.arg(player.score())
+			.arg(ping)
+			.arg(status);
+}
+
+QString PlayerTable::tableHeader() const
+{
 	const QString PLAYER = tr("Player");
 	const QString SCORE = tr("Score");
 	const QString PING = tr("Ping");
 	const QString STATUS = tr("Status");
 
-	QString teamHeader;
-	QString header = "<tr>";
+	return QString(
+		R"(<tr class="header-row">)"
+		R"(<th>%1</th>)"
+		R"(<th class="number-cell" width="60">&nbsp;%2</th>)"
+		R"(<th class="number-cell" width="60">&nbsp;%3</th>)"
+		R"(<th width="100">%4</th>)"
+		"</tr>")
+			.arg(PLAYER)
+			.arg(SCORE)
+			.arg(PING)
+			.arg(STATUS);
+}
 
-	if (d->server->gameMode().isTeamGame())
-	{
-		teamHeader = "<td>" + TEAM + "</td>";
-	}
+QString PlayerTable::teamHeader(const QString &teamName)
+{
+	// Don't trust the team name and sanitize it because
+	// it can be procured by the game.
+	return sectionHeader(tr("Team %1").arg(
+		teamName.toHtmlEscaped().left(MAX_TEAMNAME_SIZE)));
+}
 
-	header += teamHeader;
-	header += "<td>" + PLAYER + "</td>";
-	header += "<td align=\"right\">&nbsp;" + SCORE + "</td>";
-	header += "<td align=\"right\">&nbsp;" + PING + "</td>";
-	header += "<td>" + STATUS + "</td>";
-	header += "</tr>";
-	header += QString(R"(<tr><td colspan="%1"><hr width="100%"></td></tr>)").arg(d->numOfColumns);
-
-	return header;
+QString PlayerTable::sectionHeader(const QString &title)
+{
+	return QString(
+		R"(<tr class="section-header-row">)"
+		"<th>%1</th>"
+		"<th>&nbsp;</th>"
+		"<th>&nbsp;</th>"
+		"<th>&nbsp;</th>"
+		"</tr>")
+			.arg(title);
 }
