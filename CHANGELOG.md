@@ -37,6 +37,8 @@ game decides that it can handle that.
     - For team games, each team has its own section now and the name of the team
       appears as the respective section's title. Players don't have the name of
       the team repeated in each row anymore.
+- Server details: when there are no players on the selected server, say it,
+  instead of displaying an empty text area.
 - Updated the internal zlib library to 1.2.13.
 - Updated the internal bzip2 library to version 1.0.8.
 - Wadseeker: upgrade the LZMA SDK to version 23.01.

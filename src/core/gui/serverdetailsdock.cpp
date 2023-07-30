@@ -53,7 +53,7 @@ ServerDetailsDock::~ServerDetailsDock()
 void ServerDetailsDock::clear()
 {
 	d->lblServer->setText("");
-	d->sbArea->setText("");
+	d->playersArea->setText("");
 	d->detailsArea->setText("");
 }
 
@@ -68,10 +68,18 @@ void ServerDetailsDock::displaySelection(QList<ServerPtr> &selectedServers)
 
 	d->lblServer->setText(server->name());
 	TooltipGenerator *tooltipGenerator = server->tooltipGenerator();
+
+	QString playerTable;
 	if (server->players().numClients() != 0)
-		d->sbArea->setText(tooltipGenerator->playerTableHTML());
+	{
+		playerTable = tooltipGenerator->playerTableHTML();
+	}
 	else
-		d->sbArea->setText(QString());
+	{
+		playerTable = QString("<b>%1</b>").arg(tr("No players on this server."));
+	}
+
+	d->playersArea->setText(playerTable);
 	d->detailsArea->setText(QString("<div>%1</div>%2").arg(server->customDetails()).arg(tooltipGenerator->dmflagsHTML()));
 	delete tooltipGenerator;
 }

@@ -67,7 +67,7 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QTextEdit" name="sbArea">
+          <widget class="QTextEdit" name="playersArea">
            <property name="readOnly">
             <bool>true</bool>
            </property>
