@@ -164,6 +164,10 @@ add_library(ZLIB::ZLIB ALIAS zlibstatic)  # [Doomseeker]
 set_target_properties(zlib PROPERTIES DEFINE_SYMBOL ZLIB_DLL)
 set_target_properties(zlib PROPERTIES SOVERSION 1)
 
+# [Doomseeker] Other targets need to find the includes
+target_include_directories(zlib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+target_include_directories(zlibstatic PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+
 # [Doomseeker] doomseeker.exe in Visual Studio needs /MD, but updater.exe needs /MT.
 if(MSVC)
     add_library(zlibstatic_mt ${ZLIB_SRCS} ${ZLIB_ASMS} ${ZLIB_PUBLIC_HDRS} ${ZLIB_PRIVATE_HDRS})
