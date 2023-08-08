@@ -21,6 +21,8 @@
 // Copyright (C) 2010 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
 #include "playertable.h"
+
+#include "capsqt.h"
 #include "serverapi/server.h"
 #include "serverapi/serverstructs.h"
 #include <climits>
@@ -160,12 +162,14 @@ QString PlayerTable::createPlayerRow(const Player &player) const
 
 QString PlayerTable::tableHeader() const
 {
+	static const bool canCssBorders = CapsQt::canCssCellBorders();
+
 	const QString PLAYER = tr("Player");
 	const QString SCORE = tr("Score");
 	const QString PING = tr("Ping");
 	const QString STATUS = tr("Status");
 
-	return QString(
+	QString header = QString(
 		R"(<tr class="header-row">)"
 		R"(<th>%1</th>)"
 		R"(<th class="number-cell" width="60">&nbsp;%2</th>)"
@@ -176,6 +180,13 @@ QString PlayerTable::tableHeader() const
 			.arg(SCORE)
 			.arg(PING)
 			.arg(STATUS);
+	if (!canCssBorders)
+	{
+		// If borders can't be drawn, add a horizontal line separator
+		// to imitate them.
+		header += R"(<tr><th colspan="4"><hr width="100%"></th></tr>)";
+	}
+	return header;
 }
 
 QString PlayerTable::teamHeader(const QString &teamName)

@@ -31,7 +31,7 @@ bring them back when this setup is loaded. (#4127)
 game decides that it can handle that.
 - Players table appearance changed:
     - The header row is now stylized with a bold font.
-    - Also, there is a dashed border between the columns.
+    - Also, there is a dashed border between the columns (needs Qt >=5.14).
     - As previously, the table is divided into sections: players, bots,
       spectators, but the title of each section is now displayed.
     - For team games, each team has its own section now and the name of the team
