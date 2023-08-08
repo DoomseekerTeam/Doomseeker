@@ -167,11 +167,21 @@ void DockBuddiesList::followBuddy(const QModelIndex &index)
 	emit joinServer(server);
 }
 
-bool DockBuddiesList::hasBuddy(const ServerPtr &server)
+bool DockBuddiesList::hasBuddy(const ServerPtr &server) const
 {
 	for (const BuddyLocationInfo &location : d->buddies)
 	{
 		if (location.location() == server)
+			return true;
+	}
+	return false;
+}
+
+bool DockBuddiesList::isBuddy(const Player &player) const
+{
+	for (const BuddyLocationInfo &location : d->buddies)
+	{
+		if (location.buddy() == player)
 			return true;
 	}
 	return false;

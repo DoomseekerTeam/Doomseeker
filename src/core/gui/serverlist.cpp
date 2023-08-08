@@ -23,6 +23,7 @@
 #include "serverlist.h"
 
 #include "configuration/doomseekerconfig.h"
+#include "gui/commongui.h"
 #include "gui/mainwindow.h"
 #include "gui/models/serverlistcolumn.h"
 #include "gui/models/serverlistmodel.h"
@@ -33,9 +34,14 @@
 #include "refresher/refresher.h"
 #include "serverapi/server.h"
 #include "serverapi/tooltips/servertooltip.h"
+#include "serverapi/tooltips/tooltiprenderhint.h"
 #include "urlopener.h"
+
+#include <QCursor>
+#include <QFont>
 #include <QHeaderView>
 #include <QMessageBox>
+#include <QScreen>
 #include <QToolTip>
 
 using namespace ServerListColumnId;
@@ -310,6 +316,15 @@ void ServerList::mouseEntered(const QModelIndex &index)
 	ServerPtr server = model->serverFromList(realIndex);
 	QString tooltip;
 
+	TooltipRenderHint renderHint;
+	renderHint.setFont(QToolTip::font());
+
+	QScreen *screen = CommonGUI::screenAt(QCursor::pos());
+	if (screen != nullptr)
+	{
+		renderHint.setBoundingRect(screen->geometry());
+	}
+
 	// Functions inside cases perform checks on the server structure
 	// to see if any tooltip should be generated. Empty string is returned
 	// in case if it should be not.
@@ -324,7 +339,7 @@ void ServerList::mouseEntered(const QModelIndex &index)
 		break;
 
 	case IDPlayers:
-		tooltip = ServerTooltip::createPlayersToolTip(server);
+		tooltip = ServerTooltip::createPlayersToolTip(renderHint, server);
 		break;
 
 	case IDServerName:

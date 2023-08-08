@@ -31,6 +31,8 @@ class QAbstractItemView;
 class QComboBox;
 class QDialog;
 class QListView;
+class QPoint;
+class QScreen;
 class QTableWidget;
 
 class CommonGUI
@@ -76,6 +78,13 @@ public:
 	 */
 	static void removeSelectedRowsFromStandardItemView(
 		QAbstractItemView *view, bool bSelectNextItem = false);
+
+	/**
+	 * @brief Get the screen at point.
+	 *
+	 * Same as `QGuiApplication::screenAt()` but works in Qt older than 5.10.
+	 */
+	static QScreen *screenAt(const QPoint &point);
 
 	/**
 	 * @brief Setup common properties for the dialog box.

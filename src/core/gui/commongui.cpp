@@ -23,8 +23,10 @@
 #include "commongui.h"
 #include <QComboBox>
 #include <QDialog>
+#include <QGuiApplication>
 #include <QInputDialog>
 #include <QListView>
+#include <QScreen>
 #include <QStandardItemModel>
 #include <QStringList>
 #include <QTableWidget>
@@ -131,6 +133,18 @@ void CommonGUI::removeSelectedRowsFromStandardItemView(QAbstractItemView *view,
 			selModel->select(newIdx, QItemSelectionModel::ClearAndSelect);
 		}
 	}
+}
+
+QScreen *CommonGUI::screenAt(const QPoint &point)
+{
+	if (qGuiApp == nullptr)
+		return nullptr;
+	for (QScreen *screen : qGuiApp->screens())
+	{
+		if (screen->geometry().contains(point))
+			return screen;
+	}
+	return nullptr;
 }
 
 void CommonGUI::setupDialog(QDialog &dialog)

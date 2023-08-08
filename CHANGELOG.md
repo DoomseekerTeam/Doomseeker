@@ -14,6 +14,7 @@ and this project does not adhere to
 - A compilation option to make the IP2C auto-updates disabled by default:
 `DOOMSEEKER_IP2C_AUTOUPDATE_DEFAULT`. (#3732)
 - El Salvador and Macao country flags.
+- Plugin API: `TooltipRenderHint` and `TooltipGenerator::renderHint()`.
 - Zandronum: query the game servers with a segmented challenge, where
 the servers can reply with more than one packet. This should help with
 servers that need to send a lot of data in their replies and this data
@@ -46,6 +47,11 @@ game decides that it can handle that.
 
 ### Fixed
 - Players table getting squished horizontally in the server details dock.
+- Limit the height of players tooltip for very populated servers. Doomseeker
+will attempt to calculate the height needed by the players table and if it
+exceeds a certain percentage of the available screen space, it will trim the
+player list displaying only that there are `<N>` more players on the server.
+This should prevent the tooltip from stretching beyond the screen. (#4149)
 
 ## [1.4.1] - 2023-03-12
 ### Added

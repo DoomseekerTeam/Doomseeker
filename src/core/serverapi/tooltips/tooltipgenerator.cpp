@@ -27,10 +27,12 @@
 #include "serverapi/tooltips/gameinfotip.h"
 #include "serverapi/tooltips/generalinfotip.h"
 #include "serverapi/tooltips/playertable.h"
+#include "serverapi/tooltips/tooltiprenderhint.h"
 
 DClass<TooltipGenerator>
 {
 public:
+	TooltipRenderHint renderHint;
 	ServerCPtr server;
 };
 
@@ -65,8 +67,18 @@ QString TooltipGenerator::generalInfoHTML()
 
 QString TooltipGenerator::playerTableHTML()
 {
-	PlayerTable table(server());
+	PlayerTable table(renderHint(), server());
 	return table.generateHTML();
+}
+
+const TooltipRenderHint &TooltipGenerator::renderHint() const
+{
+	return d->renderHint;
+}
+
+void TooltipGenerator::setRenderHint(const TooltipRenderHint &hint)
+{
+	d->renderHint = hint;
 }
 
 ServerCPtr TooltipGenerator::server() const

@@ -29,6 +29,8 @@
 #include <QObject>
 #include <QString>
 
+class TooltipRenderHint;
+
 /**
  * @ingroup group_pluginapi
  */
@@ -59,6 +61,9 @@ public:
 	 *        hovers over players column.
 	 */
 	virtual QString playerTableHTML();
+
+	const TooltipRenderHint &renderHint() const;
+	void setRenderHint(const TooltipRenderHint &);
 
 protected:
 	ServerCPtr server() const;

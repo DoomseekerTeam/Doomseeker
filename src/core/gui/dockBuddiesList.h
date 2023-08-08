@@ -32,6 +32,7 @@
 
 class MasterManager;
 class Pattern;
+class Player;
 class QAbstractButton;
 class QModelIndex;
 
@@ -52,7 +53,8 @@ public:
 	DockBuddiesList(QWidget *parent = nullptr);
 	~DockBuddiesList() override;
 
-	bool hasBuddy(const ServerPtr &server);
+	bool hasBuddy(const ServerPtr &server) const;
+	bool isBuddy(const Player &player) const;
 
 public slots:
 	void addBuddy();

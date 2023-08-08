@@ -29,12 +29,14 @@
 #include <QObject>
 #include <QString>
 
+class TooltipRenderHint;
+
 class PlayerTable : public QObject
 {
 	Q_OBJECT
 
 public:
-	PlayerTable(const ServerCPtr &server);
+	PlayerTable(const TooltipRenderHint &renderHint, const ServerCPtr &server);
 	~PlayerTable() override;
 
 	QString generateHTML();
@@ -42,8 +44,9 @@ public:
 private:
 	DPtr<PlayerTable> d;
 
-	QString createPlayerRows(const PlayersList &playerList) const;
+	QString createPlayerRows(const PlayersList &playerList, int maxShown) const;
 	QString createPlayerRow(const Player &player) const;
+	QString createMoreRow(int count) const;
 
 	QString tableHeader() const;
 	QString teamHeader(const QString &teamName);

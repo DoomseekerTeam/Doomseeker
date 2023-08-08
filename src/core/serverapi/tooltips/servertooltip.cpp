@@ -68,7 +68,7 @@ QString ServerTooltip::createIwadToolTip(ServerPtr server)
 	return QString();
 }
 
-QString ServerTooltip::createPlayersToolTip(ServerCPtr server)
+QString ServerTooltip::createPlayersToolTip(const TooltipRenderHint &renderHint, ServerCPtr server)
 {
 	if (server == nullptr || !server->isKnown())
 	{
@@ -76,6 +76,7 @@ QString ServerTooltip::createPlayersToolTip(ServerCPtr server)
 	}
 
 	TooltipGenerator *tooltipGenerator = server->tooltipGenerator();
+	tooltipGenerator->setRenderHint(renderHint);
 
 	QString ret;
 	ret = "<div style='white-space: pre'>";
