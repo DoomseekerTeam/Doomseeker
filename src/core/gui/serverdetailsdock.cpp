@@ -20,20 +20,37 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2014 Braden "Blzut3" Obrzut <admin@maniacsvault.net>
 //------------------------------------------------------------------------------
-
-#include <QAction>
-#include <QBoxLayout>
+#include "serverdetailsdock.h"
+#include "ui_serverdetailsdock.h"
 
 #include "serverapi/playerslist.h"
 #include "serverapi/server.h"
 #include "serverapi/serverptr.h"
 #include "serverapi/serverstructs.h"
+#include "serverapi/tooltips/servertooltip.h"
 #include "serverapi/tooltips/tooltipgenerator.h"
-#include "serverdetailsdock.h"
-#include "ui_serverdetailsdock.h"
+
+#include <QAction>
+#include <QScopedPointer>
 
 DClass<ServerDetailsDock> : public Ui::ServerDetailsDock
 {
+public:
+	QString bold(const QString &inner) const
+	{
+		return QString("<b>%1</b>").arg(inner);
+	}
+
+	QString div(const QString &inner) const
+	{
+		return QString(R"(<div style="white-space: pre;">%1</div>)")
+			.arg(inner);
+	}
+
+	QString italic(const QString &inner) const
+	{
+		return QString("<i>%1</i>").arg(inner);
+	}
 };
 
 DPointered(ServerDetailsDock)
@@ -52,9 +69,10 @@ ServerDetailsDock::~ServerDetailsDock()
 
 void ServerDetailsDock::clear()
 {
-	d->lblServer->setText("");
+	d->lblServer->setText(d->italic(tr("No server selected.")));
+	d->generalArea->setText("");
 	d->playersArea->setText("");
-	d->detailsArea->setText("");
+	d->dmflagsArea->setText("");
 }
 
 void ServerDetailsDock::displaySelection(QList<ServerPtr> &selectedServers)
@@ -66,37 +84,32 @@ void ServerDetailsDock::displaySelection(QList<ServerPtr> &selectedServers)
 		return;
 	}
 
-	d->lblServer->setText(server->name());
-	TooltipGenerator *tooltipGenerator = server->tooltipGenerator();
+	d->lblServer->setText(server->name().toHtmlEscaped());
+	QScopedPointer<TooltipGenerator> tooltipGenerator(server->tooltipGenerator());
 
-	QString playerTable;
+	QString generalHtml;
+	generalHtml += tooltipGenerator->generalInfoHTML();
+	generalHtml += tr("<b>Address:</b> %1\n").arg(server->addressWithPort());
+	const QString portInfo = ServerTooltip::createPortToolTip(server);
+	if (!portInfo.isEmpty())
+		generalHtml += "\n" + portInfo + "\n";
+	generalHtml = d->div(generalHtml);
+	generalHtml += d->div(server->customDetails());
+	d->generalArea->setText(generalHtml);
+
+	QString playersHtml;
+	playersHtml += d->div(tooltipGenerator->gameInfoTableHTML());
 	if (server->players().numClients() != 0)
-	{
-		playerTable = tooltipGenerator->playerTableHTML();
-	}
+		playersHtml += d->div(tooltipGenerator->playerTableHTML());
 	else
-	{
-		playerTable = QString("<b>%1</b>").arg(tr("No players on this server."));
-	}
+		playersHtml += d->bold(tr("No players on this server."));
 
-	d->playersArea->setText(playerTable);
-	d->detailsArea->setText(QString("<div>%1</div>%2").arg(server->customDetails()).arg(tooltipGenerator->dmflagsHTML()));
-	delete tooltipGenerator;
-}
+	d->playersArea->setText(playersHtml);
 
-void ServerDetailsDock::reorientContentsBasingOnDimensions()
-{
-	const int TOPTOBOTTOM_PREFERENCE_THRESHOLD = 100;
-	if (height() + TOPTOBOTTOM_PREFERENCE_THRESHOLD > width())
-		static_cast<QBoxLayout *>(d->dataLayout)->setDirection(QBoxLayout::TopToBottom);
-	else
-		static_cast<QBoxLayout *>(d->dataLayout)->setDirection(QBoxLayout::LeftToRight);
-}
-
-void ServerDetailsDock::resizeEvent(QResizeEvent *event)
-{
-	Q_UNUSED(event);
-	reorientContentsBasingOnDimensions();
+	QString dmflagsHtml = tooltipGenerator->dmflagsHTML();
+	if (dmflagsHtml.isEmpty())
+		dmflagsHtml = d->bold(tr("DMFlags unknown or no DMFlags set."));
+	d->dmflagsArea->setText(dmflagsHtml);
 }
 
 ServerPtr ServerDetailsDock::selectServer(QList<ServerPtr> &selectedServers)

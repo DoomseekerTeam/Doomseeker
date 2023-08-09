@@ -85,8 +85,9 @@ QString PlayerTable::generateHTML()
 		"    color: #000000;"
 		"}\n"
 		".header-row th {"
+		"    border-top: 1px solid black;"
 		"    border-bottom: 1px solid black;"
-		"    padding-bottom: 2px;"
+		"    padding: 2px 4px;"
 		"}\n"
 		".section-header-row th {"
 		"    padding-left: 20px;"
@@ -255,7 +256,14 @@ QString PlayerTable::tableHeader() const
 	const QString PING = tr("Ping");
 	const QString STATUS = tr("Status");
 
-	QString header = QString(
+	QString header;
+	if (!canCssBorders)
+	{
+		// If borders can't be drawn, add a horizontal line separator
+		// to imitate them.
+		header += R"(<tr><th colspan="4"><hr width="100%"></th></tr>)";
+	}
+	header += QString(
 		R"(<tr class="header-row">)"
 		R"(<th>%1</th>)"
 		R"(<th class="number-cell" width="60">&nbsp;%2</th>)"
@@ -268,8 +276,6 @@ QString PlayerTable::tableHeader() const
 			.arg(STATUS);
 	if (!canCssBorders)
 	{
-		// If borders can't be drawn, add a horizontal line separator
-		// to imitate them.
 		header += R"(<tr><th colspan="4"><hr width="100%"></th></tr>)";
 	}
 	return header;

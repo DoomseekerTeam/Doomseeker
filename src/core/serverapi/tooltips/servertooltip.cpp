@@ -52,10 +52,10 @@ QString ServerTooltip::createIwadToolTip(ServerPtr server)
 		WadFindResult path = findWad(server, server->iwad());
 		if (path.isValid())
 		{
-			QString msg = path.path();
+			QString msg = path.path().toHtmlEscaped();
 			if (path.isAlias())
 			{
-				msg += " " + L10n::tr("(alias of: %1)").arg(server->iwad());
+				msg += " " + L10n::tr("(alias of: %1)").arg(server->iwad().toHtmlEscaped());
 			}
 			return FORMAT_TEMPLATE.arg(FONT_COLOR_FOUND, msg);
 		}
@@ -141,7 +141,7 @@ QString ServerTooltip::createPwadsToolTip(ServerPtr server)
 	{
 		for (const PWad &wad : pwads)
 		{
-			content += wad.name() + "\n";
+			content += wad.name().toHtmlEscaped() + "\n";
 		}
 		content.chop(1); // Get rid of extra \n.
 	}
@@ -156,11 +156,11 @@ QString ServerTooltip::createPwadToolTipInfo(const PWad &pwad, WadPathFinder &wa
 	QString fontColor = "#777777";
 	QStringList cells;
 
-	cells << pwad.name();
+	cells << pwad.name().toHtmlEscaped();
 	if (findResult.isValid())
 	{
 		fontColor = FONT_COLOR_FOUND;
-		cells << findResult.path();
+		cells << findResult.path().toHtmlEscaped();
 	}
 	else
 	{

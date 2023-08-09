@@ -46,14 +46,20 @@ GameInfoTip::~GameInfoTip()
 
 QString GameInfoTip::generateHTML()
 {
-	QString table = "<table>";
+	static const QString css = "<style>"
+		".game-info-table th {"
+		"    text-align: left;"
+		"}\n"
+		"</style>";
+
+	QString table = R"(<table class="game-info-table">)";
 	table += timelimitHTML();
 	table += scorelimitHTML();
 	table += teamScoresHTML();
 	table += playersHTML();
 	table += "</table>";
 
-	return table;
+	return css + table;
 }
 
 QString GameInfoTip::playersHTML()
@@ -62,14 +68,16 @@ QString GameInfoTip::playersHTML()
 
 	const PlayersList &players = d->server->players();
 	const int canJoin = qMax(0, d->server->numFreeJoinSlots());
-	return "<tr><td>" + PLAYERS + ":&nbsp;</td><td>"
+	return QString("<tr><th>%1:&nbsp;</th><td>").arg(PLAYERS)
 		+ tr("%1 / %2 (%3 can join)").arg(players.numClients()).arg(d->server->maxClients()).arg(canJoin)
 		+ "</td></tr>";
 }
 
 QString GameInfoTip::limitHTML(QString limitName, QString valueArgsTemplate, int value)
 {
-	QString row = "<tr><td>" + limitName + ":&nbsp;</td><td>" + valueArgsTemplate + "</td></tr>";
+	QString row = QString("<tr><th>%1:&nbsp;</th><td>%2</td></tr>")
+		.arg(limitName.toHtmlEscaped())
+		.arg(valueArgsTemplate);
 
 	if (value == 0)
 	{
@@ -107,7 +115,8 @@ QString GameInfoTip::teamScoresHTML()
 				{
 					teams += " | ";
 				}
-				teams += d->server->teamName(i) + ": " + QString::number(d->server->score(i));
+				teams += d->server->teamName(i).toHtmlEscaped()
+					+ ": " + QString::number(d->server->score(i));
 				bPrependBar = true;
 			}
 		}

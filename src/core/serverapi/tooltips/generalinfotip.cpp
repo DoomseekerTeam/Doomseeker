@@ -47,7 +47,7 @@ QString GeneralInfoTip::generateHTML()
 	QString ret;
 	if (d->server->isKnown())
 	{
-		ret += QString(d->server->name()).replace('>', "&gt;").replace('<', "&lt;") + "\n";
+		ret += d->server->name().toHtmlEscaped() + "\n\n";
 		ret += labelString(tr("Version"), d->server->gameVersion());
 		ret += labelString(tr("E-mail"), d->server->email());
 		ret += labelString(tr("URL"), d->server->webSite());
@@ -56,12 +56,7 @@ QString GeneralInfoTip::generateHTML()
 	IP2CCountry countryInfo = IP2C::instance()->countryInfoForServer(*d->server);
 	if (countryInfo.isValid())
 	{
-		if (!ret.isEmpty())
-		{
-			ret += "\n";
-		}
-
-		ret += tr("Location: %1\n").arg(countryInfo.name);
+		ret += labelString(tr("Location"), countryInfo.name);
 	}
 
 	return ret;
@@ -75,6 +70,8 @@ QString GeneralInfoTip::labelString(QString label, QString valueString)
 	}
 	else
 	{
-		return label + ": " + valueString + "\n";
+		return QString("<b>%1:</b> %2\n")
+			.arg(label)
+			.arg(valueString.toHtmlEscaped());
 	}
 }

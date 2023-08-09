@@ -40,9 +40,6 @@ public:
 public slots:
 	void displaySelection(QList<ServerPtr> &);
 
-protected:
-	void resizeEvent(QResizeEvent *event) override;
-
 private:
 	void clear();
 	void reorientContentsBasingOnDimensions();
