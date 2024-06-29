@@ -1442,7 +1442,7 @@ void MainWindow::showServerJoinCommandLine(const ServerPtr &server)
 {
 	CommandLineInfo cli;
 	ConnectionHandler connectionHandler(server, this);
-	GameDemo demo = gConfig.doomseeker.bRecordDemo ? GameDemo::Unmanaged : GameDemo::NoDemo;
+	DemoRecord demo = gConfig.doomseeker.bRecordDemo ? DemoRecord::Unmanaged : DemoRecord::NoDemo;
 	JoinCommandLineBuilder *builder = new JoinCommandLineBuilder(server, demo, this);
 	this->connect(builder, SIGNAL(commandLineBuildFinished()), SLOT(showServerJoinCommandLineOnBuilderFinished()));
 	builder->obtainJoinCommandLine();

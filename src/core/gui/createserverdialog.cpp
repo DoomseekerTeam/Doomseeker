@@ -229,17 +229,17 @@ bool CreateServerDialog::createHostInfoDemoRecord(GameCreateParams &params, bool
 {
 	if (gConfig.doomseeker.bRecordDemo && offline)
 	{
-		const GameDemo::Control demoMode = purpose == CommandLinePurpose::Run
-			? GameDemo::Managed : GameDemo::Unmanaged;
-		if (demoMode == GameDemo::Managed)
+		const DemoRecord::Control demoMode = purpose == CommandLinePurpose::Run
+			? DemoRecord::Managed : DemoRecord::Unmanaged;
+		if (demoMode == DemoRecord::Managed)
 		{
-			if (!GameDemo::ensureStorageExists(this))
+			if (!DemoRecord::ensureStorageExists(this))
 			{
 				return false;
 			}
 		}
 
-		params.setDemoPath(GameDemo::mkDemoFullPath(demoMode, *d->currentEngine));
+		params.setDemoPath(DemoRecord::mkDemoFullPath(demoMode, *d->currentEngine));
 		params.setDemoRecord(demoMode);
 	}
 	return true;

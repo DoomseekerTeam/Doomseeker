@@ -29,7 +29,7 @@
 #include <QObject>
 
 class CommandLineInfo;
-class GameDemo;
+class DemoRecord;
 class JoinError;
 class Server;
 class ServerConnectParams;
@@ -45,7 +45,7 @@ class JoinCommandLineBuilder : public QObject
 	Q_OBJECT
 
 public:
-	JoinCommandLineBuilder(ServerPtr server, GameDemo demo, QWidget *parentWidget);
+	JoinCommandLineBuilder(ServerPtr server, DemoRecord demo, QWidget *parentWidget);
 	~JoinCommandLineBuilder() override;
 
 	const CommandLineInfo &builtCommandLine() const;

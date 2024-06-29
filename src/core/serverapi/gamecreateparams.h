@@ -31,7 +31,7 @@
 
 class DMFlagsSection;
 class GameCVar;
-class GameDemo;
+class DemoRecord;
 class GameMode;
 class PWad;
 
@@ -85,7 +85,7 @@ public:
 	 * demo for playback.
 	 *
 	 * When hostMode() is HostMode::Offline and demoRecord() is
-	 * not GameDemo::NoDemo then this points to a new demo to
+	 * not DemoRecord::NoDemo then this points to a new demo to
 	 * record.
 	 *
 	 * @see hostMode()
@@ -98,10 +98,10 @@ public:
 	 * @brief Type of demo to record; applicable only in Offline game.
 	 *
 	 * If set to record a demo, then demoPath() must also be set.
-	 * Default is GameDemo::NoDemo.
+	 * Default is DemoRecord::NoDemo.
 	 */
-	const GameDemo &demoRecord() const;
-	void setDemoRecord(const GameDemo &demo);
+	const DemoRecord &demoRecord() const;
+	void setDemoRecord(const DemoRecord &demo);
 
 
 	QList<DMFlagsSection> &dmFlags();

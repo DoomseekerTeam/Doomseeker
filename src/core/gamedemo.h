@@ -25,6 +25,7 @@
 
 #include "dptr.h"
 
+#include <QDateTime>
 #include <QList>
 #include <QString>
 #include <QWidget>
@@ -32,7 +33,16 @@
 class EnginePlugin;
 class PWad;
 
-class GameDemo
+struct GameDemo
+{
+	QString filepath;
+	QString port;
+	QDateTime time;
+	QStringList wads;
+	QStringList optionalWads;
+};
+
+class DemoRecord
 {
 public:
 	enum Control
@@ -42,13 +52,33 @@ public:
 		Unmanaged
 	};
 
-	GameDemo();
-	GameDemo(Control control);
+	DemoRecord();
+	DemoRecord(Control control);
 
 	static bool ensureStorageExists(QWidget *parent);
 	static QString mkDemoFullPath(Control control, const EnginePlugin &plugin);
 	static void saveDemoMetaData(const QString &demoName, const EnginePlugin &plugin,
 		const QString &iwad, const QList<PWad> &pwads);
+
+	/**
+	 * Populate GameDemo struct with the demo metadata at path.
+	 *
+	 * Try to parse some of the metadata from the filename first. Then,
+	 * look for the .ini file with the same name and try to read more
+	 * metadata from that. If these fail, the returned GameDemo may be
+	 * partially populated only.
+	 *
+	 * If GameDemo::port in the returned struct is empty, the path may
+	 * not be pointing to a demo file at all, or it's a demo but lacks
+	 * the Doomseeker metadata. The GameDemo::filepath is guaranteed to
+	 * be populated at least (it's set to the path param).
+	 *
+	 * @param path
+	 *     Direct path to demo file.
+	 *
+	 * @return GameDemo struct populated with info about the demo at path.
+	 */
+	static GameDemo loadGameDemo(const QString &path);
 
 	operator Control() const;
 
@@ -56,7 +86,7 @@ private:
 	class PrivData
 	{
 	public:
-		GameDemo::Control control;
+		DemoRecord::Control control;
 	};
 	PrivData d;
 

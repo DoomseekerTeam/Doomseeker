@@ -53,7 +53,7 @@ public:
 	bool configurationError;
 	QString connectPassword;
 	QString error;
-	GameDemo demo;
+	DemoRecord demo;
 	QString demoName;
 	QString inGamePassword;
 	ServerPtr server;
@@ -68,11 +68,11 @@ public:
 DPointered(JoinCommandLineBuilder)
 
 JoinCommandLineBuilder::JoinCommandLineBuilder(ServerPtr server,
-	GameDemo demo, QWidget *parentWidget)
+	DemoRecord demo, QWidget *parentWidget)
 {
 	d->configurationError = false;
 	d->demo = demo;
-	d->demoName = GameDemo::mkDemoFullPath(demo, *server->plugin());
+	d->demoName = DemoRecord::mkDemoFullPath(demo, *server->plugin());
 	d->parentWidget = parentWidget;
 	d->passwordsAlreadySet = false;
 	d->server = server;
@@ -224,9 +224,9 @@ void JoinCommandLineBuilder::obtainJoinCommandLine()
 	assert(d->server != nullptr);
 	d->cli = CommandLineInfo();
 
-	if (d->demo == GameDemo::Managed)
+	if (d->demo == DemoRecord::Managed)
 	{
-		if (!GameDemo::ensureStorageExists(d->parentWidget))
+		if (!DemoRecord::ensureStorageExists(d->parentWidget))
 		{
 			failBuild();
 			return;
@@ -298,9 +298,9 @@ void JoinCommandLineBuilder::obtainJoinCommandLine()
 	}
 
 	case JoinError::NoError:
-		if (d->demo == GameDemo::Managed)
+		if (d->demo == DemoRecord::Managed)
 		{
-			GameDemo::saveDemoMetaData(d->demoName, *d->server->plugin(),
+			DemoRecord::saveDemoMetaData(d->demoName, *d->server->plugin(),
 				d->server->iwad(), d->server->wads());
 		}
 		break;

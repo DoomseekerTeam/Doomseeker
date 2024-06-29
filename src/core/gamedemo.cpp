@@ -67,17 +67,17 @@ private:
 	GameDemoTr() = delete;
 };
 
-GameDemo::GameDemo()
+DemoRecord::DemoRecord()
 {
 	d.control = NoDemo;
 }
 
-GameDemo::GameDemo(Control control)
+DemoRecord::DemoRecord(Control control)
 {
 	d.control = control;
 }
 
-bool GameDemo::ensureStorageExists(QWidget *parent)
+bool DemoRecord::ensureStorageExists(QWidget *parent)
 {
 	auto popup = [parent](const QString &message) -> bool
 	{
@@ -107,7 +107,7 @@ bool GameDemo::ensureStorageExists(QWidget *parent)
 	return true;
 }
 
-QString GameDemo::mkDemoFullPath(Control control, const EnginePlugin &plugin)
+QString DemoRecord::mkDemoFullPath(Control control, const EnginePlugin &plugin)
 {
 	switch (control)
 	{
@@ -125,7 +125,7 @@ QString GameDemo::mkDemoFullPath(Control control, const EnginePlugin &plugin)
 	}
 }
 
-QString GameDemo::mkDemoName(const EnginePlugin &plugin)
+QString DemoRecord::mkDemoName(const EnginePlugin &plugin)
 {
 	QString demoName = "";
 	demoName += QString("%1_%2").
@@ -136,7 +136,7 @@ QString GameDemo::mkDemoName(const EnginePlugin &plugin)
 	return demoName;
 }
 
-void GameDemo::saveDemoMetaData(const QString &demoName, const EnginePlugin &plugin,
+void DemoRecord::saveDemoMetaData(const QString &demoName, const EnginePlugin &plugin,
 	const QString &iwad, const QList<PWad> &pwads)
 {
 	QString metaFileName;
@@ -170,7 +170,74 @@ void GameDemo::saveDemoMetaData(const QString &demoName, const EnginePlugin &plu
 	metaSection.createSetting("optionalPwads", optionalPwads);
 }
 
-GameDemo::operator GameDemo::Control() const
+static void loadDemoMetadataFromFilename(const QString &path, GameDemo &demo)
+{
+	QString metaData = QFileInfo(path).completeBaseName();
+
+	// We need to split manually to handle escaping.
+	QStringList demoData;
+	for (int i = 0; i < metaData.length(); ++i)
+	{
+		if (metaData[i] == '_')
+		{
+			// If our underscore is followed by another just continue on...
+			if (i + 1 < metaData.length() && metaData[i + 1] == '_')
+			{
+				++i;
+				continue;
+			}
+
+			// Split the meta data and then restart from the beginning.
+			demoData << metaData.left(i).replace("__", "_");
+			metaData = metaData.mid(i + 1);
+			i = 0;
+		}
+	}
+	// Whatever is left is a part of our data.
+	demoData << metaData.replace("__", "_");
+	// Should have at least 3 elements port, date, time[, iwad[, pwads]]
+	if (demoData.size() < 3)
+		return;
+
+	QDate date = QDate::fromString(demoData[1], "dd.MM.yyyy");
+	QTime time = QTime::fromString(demoData[2], "hh.mm.ss");
+
+	demo.port = demoData[0];
+	demo.time = QDateTime(date, time);
+	if (demoData.size() >= 4)
+	{
+		demo.wads << demoData.mid(3);
+	}
+}
+
+static void loadDemoMetadataFromIni(const QString &path, GameDemo &demo)
+{
+	QFileInfo iniFile(path + ".ini");
+	if (!iniFile.exists())
+		return;
+
+	QSettings settings(iniFile.filePath(), QSettings::IniFormat);
+	SettingsProviderQt settingsProvider(&settings);
+	Ini metaData(&settingsProvider);
+
+	demo.wads << metaData.retrieveSetting("meta", "iwad");
+	QString pwads = metaData.retrieveSetting("meta", "pwads");
+	if (pwads.length() > 0)
+		demo.wads << pwads.split(";");
+
+	demo.optionalWads = metaData.retrieveSetting("meta", "optionalPwads").value().toStringList();
+}
+
+GameDemo DemoRecord::loadGameDemo(const QString &path)
+{
+	GameDemo demo;
+	demo.filepath = path;
+	loadDemoMetadataFromFilename(path, demo);
+	loadDemoMetadataFromIni(path, demo);
+	return demo;
+}
+
+DemoRecord::operator DemoRecord::Control() const
 {
 	return d.control;
 }

@@ -117,7 +117,7 @@ void GameHost::addDemoPlaybackIfApplicable()
 void GameHost::addDemoRecordIfApplicable()
 {
 	if (params().hostMode() == GameCreateParams::Offline
-		&& params().demoRecord() != GameDemo::NoDemo)
+		&& params().demoRecord() != DemoRecord::NoDemo)
 	{
 		args() << argForDemoRecord();
 		args() << gDoomseekerTemplatedPathResolver().resolve(params().demoPath());
@@ -373,9 +373,9 @@ EnginePlugin *GameHost::plugin() const
 
 void GameHost::saveDemoMetaData()
 {
-	if (params().demoRecord() == GameDemo::Managed)
+	if (params().demoRecord() == DemoRecord::Managed)
 	{
-		GameDemo::saveDemoMetaData(params().demoPath(), *plugin(),
+		DemoRecord::saveDemoMetaData(params().demoPath(), *plugin(),
 			params().iwadName(), params().pwads());
 	}
 }

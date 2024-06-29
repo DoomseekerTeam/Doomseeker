@@ -145,7 +145,7 @@ void ConnectionHandler::finish(int response)
 void ConnectionHandler::buildJoinCommandLine()
 {
 	JoinCommandLineBuilder *builder = new JoinCommandLineBuilder(d->server,
-		gConfig.doomseeker.bRecordDemo ? GameDemo::Managed : GameDemo::NoDemo,
+		gConfig.doomseeker.bRecordDemo ? DemoRecord::Managed : DemoRecord::NoDemo,
 		d->parentWidget);
 	this->connect(builder, SIGNAL(commandLineBuildFinished()), SLOT(onCommandLineBuildFinished()));
 	builder->obtainJoinCommandLine();

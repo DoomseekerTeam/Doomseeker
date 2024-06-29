@@ -23,6 +23,7 @@
 #include "demomanager.h"
 
 #include "datapaths.h"
+#include "gamedemo.h"
 #include "gui/commongui.h"
 #include "ini/ini.h"
 #include "ini/settingsproviderqt.h"
@@ -45,22 +46,12 @@
 #include <QPushButton>
 #include <QStandardItemModel>
 
-class Demo
-{
-public:
-	QString filename;
-	QString port;
-	QDateTime time;
-	QStringList wads;
-	QStringList optionalWads;
-};
-
 DClass<DemoManagerDlg> : public Ui::DemoManagerDlg
 {
 public:
-	Demo *selectedDemo;
+	GameDemo *selectedDemo;
 	QStandardItemModel *demoModel;
-	QList<QList<Demo> > demoTree;
+	QList<QList<GameDemo> > demoTree;
 };
 
 DPointered(DemoManagerDlg)
@@ -99,59 +90,12 @@ void DemoManagerDlg::adjustDemoList()
 	QTime referenceTime(23, 59, 59);
 	QDir demosDirectory(gDefaultDataPaths->demosDirectoryPath());
 	QStringList demos = demosDirectory.entryList(demoExtensions, QDir::Files);
-	typedef QMap<int, Demo> DemoMap;
+	typedef QMap<int, GameDemo> DemoMap;
 	QMap<int, DemoMap> demoMap;
 	for (const QString &demoName : demos)
 	{
-		QStringList demoData;
-		QString metaData = demoName.left(demoName.lastIndexOf("."));
-		// We need to split manually to handle escaping.
-		for (int i = 0; i < metaData.length(); ++i)
-		{
-			if (metaData[i] == '_')
-			{
-				// If our underscore is followed by another just continue on...
-				if (i + 1 < metaData.length() && metaData[i + 1] == '_')
-				{
-					++i;
-					continue;
-				}
-
-				// Split the meta data and then restart from the beginning.
-				demoData << metaData.left(i).replace("__", "_");
-				metaData = metaData.mid(i + 1);
-				i = 0;
-			}
-		}
-		// Whatever is left is a part of our data.
-		demoData << metaData.replace("__", "_");
-		if (demoData.size() < 3) // Should have at least 3 elements port, date, time[, iwad[, pwads]]
-			continue;
-
-		QDate date = QDate::fromString(demoData[1], "dd.MM.yyyy");
-		QTime time = QTime::fromString(demoData[2], "hh.mm.ss");
-		Demo demo;
-		demo.filename = demoName;
-		demo.port = demoData[0];
-		demo.time = QDateTime(date, time);
-		if (demoData.size() >= 4)
-			demo.wads = demoData.mid(3);
-		else
-		{
-			// New format, read meta data from file!
-			QSettings settings(
-				gDefaultDataPaths->demosDirectoryPath() + QDir::separator() + demoName + ".ini",
-				QSettings::IniFormat);
-			SettingsProviderQt settingsProvider(&settings);
-			Ini metaData(&settingsProvider);
-			demo.wads << metaData.retrieveSetting("meta", "iwad");
-			QString pwads = metaData.retrieveSetting("meta", "pwads");
-			if (pwads.length() > 0)
-				demo.wads << pwads.split(";");
-			demo.optionalWads = metaData.retrieveSetting("meta", "optionalPwads").value().toStringList();
-		}
-
-		demoMap[date.daysTo(today)][time.secsTo(referenceTime)] = demo;
+		GameDemo demo = DemoRecord::loadGameDemo(demosDirectory.filePath(demoName));
+		demoMap[demo.time.date().daysTo(today)][demo.time.time().secsTo(referenceTime)] = demo;
 	}
 
 	// Convert to a model
@@ -160,8 +104,8 @@ void DemoManagerDlg::adjustDemoList()
 	for (const DemoMap &demoDate : demoMap)
 	{
 		QStandardItem *item = new QStandardItem(demoDate.begin().value().time.toString("ddd. MMM d, yyyy"));
-		QList<Demo> demoDateList;
-		for (const Demo &demo : demoDate)
+		QList<GameDemo> demoDateList;
+		for (const GameDemo &demo : demoDate)
 		{
 			demoDateList << demo;
 			item->appendRow(new QStandardItem(demo.time.toString("hh:mm:ss")));
@@ -198,7 +142,7 @@ void DemoManagerDlg::deleteSelected()
 			int dateRow = index.row();
 			for (int timeRow = 0; index.model()->index(timeRow, 0).isValid(); ++timeRow)
 			{
-				if (doRemoveDemo(gDefaultDataPaths->demosDirectoryPath() + QDir::separator() + d->demoTree[dateRow][timeRow].filename))
+				if (doRemoveDemo(d->demoTree[dateRow][timeRow].filepath))
 				{
 					d->demoModel->removeRow(timeRow, index);
 					d->demoTree[dateRow].removeAt(timeRow);
@@ -216,7 +160,7 @@ void DemoManagerDlg::deleteSelected()
 		}
 		else
 		{
-			if (doRemoveDemo(gDefaultDataPaths->demosDirectoryPath() + QDir::separator() + d->selectedDemo->filename))
+			if (doRemoveDemo(d->selectedDemo->filepath))
 			{
 				// Adjust the tree
 				int dateRow = index.parent().row();
@@ -241,11 +185,11 @@ void DemoManagerDlg::exportSelected()
 
 	QFileDialog saveDialog(this);
 	saveDialog.setAcceptMode(QFileDialog::AcceptSave);
-	saveDialog.selectFile(d->selectedDemo->filename);
+	saveDialog.selectFile(QFileInfo(d->selectedDemo->filepath).fileName());
 	if (saveDialog.exec() == QDialog::Accepted)
 	{
 		// Copy the demo to the new location.
-		if (!QFile::copy(gDefaultDataPaths->demosDirectoryPath() + QDir::separator() + d->selectedDemo->filename, saveDialog.selectedFiles().first()))
+		if (!QFile::copy(d->selectedDemo->filepath, saveDialog.selectedFiles().first()))
 			QMessageBox::critical(this, tr("Unable to save"), tr("Could not write to the specified location."));
 	}
 }
@@ -313,8 +257,7 @@ void DemoManagerDlg::playSelected()
 
 	// Play the demo
 	GameCreateParams params;
-	params.setDemoPath(QFileInfo(gDefaultDataPaths->demosDirectoryPath()
-		+ QDir::separator() + d->selectedDemo->filename).absoluteFilePath());
+	params.setDemoPath(QFileInfo(d->selectedDemo->filepath).absoluteFilePath());
 	params.setIwadPath(wadPaths[0]);
 	params.setPwadsPaths(wadPaths.mid(1) + optionalWadPaths);
 	params.setHostMode(GameCreateParams::Demo);

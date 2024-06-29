@@ -36,7 +36,7 @@ public:
 	QList<GameCVar> cvars;
 	QString executablePath;
 	QString demoPath;
-	GameDemo demoRecord;
+	DemoRecord demoRecord;
 	QList<DMFlagsSection> dmFlags;
 	QString email;
 	GameMode gameMode;
@@ -111,12 +111,12 @@ const QString &GameCreateParams::demoPath() const
 	return d->demoPath;
 }
 
-const GameDemo &GameCreateParams::demoRecord() const
+const DemoRecord &GameCreateParams::demoRecord() const
 {
 	return d->demoRecord;
 }
 
-void GameCreateParams::setDemoRecord(const GameDemo &demo)
+void GameCreateParams::setDemoRecord(const DemoRecord &demo)
 {
 	d->demoRecord = demo;
 }
