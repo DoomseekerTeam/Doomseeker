@@ -33,7 +33,7 @@ Doomseeker's maintainers may be contacted personally via email:
 Copyright
 ---------
 
-Doomseeker, Wadseeker - Copyright (C) 2009 - 2023 The Doomseeker Team
+Doomseeker, Wadseeker - Copyright (C) 2009 - 2024 The Doomseeker Team
 
 This file: Copyright (C) 2012 The Doomseeker Team
 
