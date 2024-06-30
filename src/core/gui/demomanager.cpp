@@ -65,7 +65,9 @@ DemoManagerDlg::DemoManagerDlg()
 	d->demoModel = new QStandardItemModel();
 	adjustDemoList();
 
-	connect(d->demoList->selectionModel(), SIGNAL(currentChanged(const QModelIndex&,const QModelIndex&)), this, SLOT(updatePreview(const QModelIndex&)));
+	updateUiSelectionState();
+	connect(d->demoList->selectionModel(), &QItemSelectionModel::currentChanged,
+		this, &DemoManagerDlg::itemSelected);
 }
 
 DemoManagerDlg::~DemoManagerDlg()
@@ -125,6 +127,7 @@ bool DemoManagerDlg::doRemoveDemo(const QString &file)
 		// Remove ini file as well, but don't bother warning if it can't be deleted for whatever reason
 		QFile::remove(file + ".ini");
 		d->selectedDemo = nullptr;
+		updateUiSelectionState();
 		return true;
 	}
 	return false;
@@ -279,18 +282,36 @@ void DemoManagerDlg::performAction(QAbstractButton *button)
 		reject();
 }
 
-void DemoManagerDlg::updatePreview(const QModelIndex &index)
+void DemoManagerDlg::itemSelected(const QModelIndex &index)
 {
 	if (!index.isValid() || !index.parent().isValid())
 	{
-		d->preview->setText("");
 		d->selectedDemo = nullptr;
+	}
+	else
+	{
+		int dateRow = index.parent().row();
+		int timeRow = index.row();
+		d->selectedDemo = &d->demoTree[dateRow][timeRow];
+	}
+	updateUiSelectionState();
+}
+
+void DemoManagerDlg::updateUiSelectionState()
+{
+	updatePreview();
+	d->btnPlay->setEnabled(d->selectedDemo != nullptr);
+	d->btnDelete->setEnabled(d->selectedDemo != nullptr);
+	d->btnExport->setEnabled(d->selectedDemo != nullptr);
+}
+
+void DemoManagerDlg::updatePreview()
+{
+	if (d->selectedDemo == nullptr)
+	{
+		d->preview->setText("");
 		return;
 	}
-
-	int dateRow = index.parent().row();
-	int timeRow = index.row();
-	d->selectedDemo = &d->demoTree[dateRow][timeRow];
 
 	QString text = "<b>" + tr("Port") + ":</b><p style=\"margin: 0px 0px 0px 10px\">" + d->selectedDemo->port + "</p>" +
 		"<b>" + tr("WADs") + ":</b><p style=\"margin: 0px 0px 0px 10px\">";

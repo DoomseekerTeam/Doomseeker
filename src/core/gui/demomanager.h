@@ -46,13 +46,15 @@ private slots:
 	void deleteSelected();
 	void exportSelected();
 	void itemDoubleClicked(const QModelIndex &index);
+	void itemSelected(const QModelIndex &index);
 	void playSelected();
 	void performAction(QAbstractButton *button);
-	void updatePreview(const QModelIndex &index);
 
 private:
 	void adjustDemoList();
 	bool doRemoveDemo(const QString &file);
+	void updatePreview();
+	void updateUiSelectionState();
 
 	DPtr<DemoManagerDlg> d;
 };
