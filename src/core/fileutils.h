@@ -76,6 +76,15 @@ public:
 	static Qt::CaseSensitivity comparisonSensitivity();
 
 	/**
+	 * Get a QDir to the preferred path if it's valid and exists.
+	 *
+	 * If the `preferred` is a non empty string and it points to a directory
+	 * that exists, get the QDir pointing to it. If not, get a QDir that points
+	 * to `fallback` instead, regardless if `fallback` exists or not.
+	 */
+	static QDir dirOrDir(const QString &preferred, const QString &fallback = QString());
+
+	/**
 	 * @brief Try to create a directory and provide a detailed error
 	 * message if it fails.
 	 *

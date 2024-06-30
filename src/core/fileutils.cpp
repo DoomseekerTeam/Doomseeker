@@ -102,6 +102,17 @@ bool FileUtils::containsPath(const QStringList &candidates, const QString &path)
 	return false;
 }
 
+QDir FileUtils::dirOrDir(const QString &preferred, const QString &fallback)
+{
+	if (!preferred.isEmpty())
+	{
+		QDir dir(preferred);
+		if (dir.exists())
+			return dir;
+	}
+	return QDir(fallback);
+}
+
 DirErrno FileUtils::mkpath(const QDir &dir)
 {
 	// We need to reset errno to prevent false positives

@@ -44,6 +44,7 @@ info is missing.
 - The server tooltips restyled to separate the labels (in bold) from values.
 - Demo manager's Play, Remove and Export buttons will now be disabled when
 no demo is selected.
+- Remember the previous export dir in demo manager.
 - Updated the internal zlib library to 1.2.13.
 - Updated the internal bzip2 library to version 1.0.8.
 - Wadseeker: upgrade the LZMA SDK to version 23.01.

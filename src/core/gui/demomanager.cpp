@@ -22,7 +22,9 @@
 //------------------------------------------------------------------------------
 #include "demomanager.h"
 
+#include "configuration/doomseekerconfig.h"
 #include "datapaths.h"
+#include "fileutils.h"
 #include "gamedemo.h"
 #include "gui/commongui.h"
 #include "ini/ini.h"
@@ -45,6 +47,7 @@
 #include <QMessageBox>
 #include <QPushButton>
 #include <QStandardItemModel>
+#include <QStandardPaths>
 
 DClass<DemoManagerDlg> : public Ui::DemoManagerDlg
 {
@@ -186,11 +189,19 @@ void DemoManagerDlg::exportSelected()
 	if (d->selectedDemo == nullptr)
 		return;
 
+	// Omit Doomseeker's path portablization here, because the feature
+	// is explicitly called "export".
+	QDir dir = FileUtils::dirOrDir(
+		gConfig.doomseeker.previousDemoExportDir,
+		QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation).first());
+
 	QFileDialog saveDialog(this);
 	saveDialog.setAcceptMode(QFileDialog::AcceptSave);
 	saveDialog.selectFile(QFileInfo(d->selectedDemo->filepath).fileName());
+	saveDialog.setDirectory(dir);
 	if (saveDialog.exec() == QDialog::Accepted)
 	{
+		gConfig.doomseeker.previousDemoExportDir = QFileInfo(saveDialog.selectedFiles().first()).path();
 		// Copy the demo to the new location.
 		if (!QFile::copy(d->selectedDemo->filepath, saveDialog.selectedFiles().first()))
 			QMessageBox::critical(this, tr("Unable to save"), tr("Could not write to the specified location."));

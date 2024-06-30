@@ -91,6 +91,7 @@ public:
 		QString previousCreateServerExecDir;
 		QString previousCreateServerLogDir;
 		QString previousCreateServerWadDir;
+		QString previousDemoExportDir;
 		QString serverListColumnState;
 		int serverListSortIndex;
 		int serverListSortDirection;

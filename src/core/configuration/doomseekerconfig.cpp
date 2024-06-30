@@ -410,6 +410,7 @@ void DoomseekerConfig::DoomseekerCfg::load(IniSection &section)
 	this->previousCreateServerExecDir = (const QString &)section["PreviousCreateServerExecDir"];
 	this->previousCreateServerLogDir = (const QString &)section["PreviousCreateServerLogDir"];
 	this->previousCreateServerWadDir = (const QString &)section["PreviousCreateServerWadDir"];
+	this->previousDemoExportDir = (const QString &)section["PreviousDemoExportDir"];
 	this->serverListColumnState = (const QString &)section["ServerListColumnState"];
 	this->serverListSortIndex = section["ServerListSortIndex"];
 	this->serverListSortDirection = section["ServerListSortDirection"];
@@ -508,6 +509,7 @@ void DoomseekerConfig::DoomseekerCfg::save(IniSection &section)
 	section["PreviousCreateServerExecDir"] = this->previousCreateServerExecDir;
 	section["PreviousCreateServerLogDir"] = this->previousCreateServerLogDir;
 	section["PreviousCreateServerWadDir"] = this->previousCreateServerWadDir;
+	section["PreviousDemoExportDir"] = this->previousDemoExportDir;
 	section["ServerListColumnState"] = this->serverListColumnState;
 	section["ServerListSortIndex"] = this->serverListSortIndex;
 	section["ServerListSortDirection"] = this->serverListSortDirection;
