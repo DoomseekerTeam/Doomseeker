@@ -107,16 +107,16 @@ bool DemoRecord::ensureStorageExists(QWidget *parent)
 	return true;
 }
 
-QString DemoRecord::mkDemoFullPath(Control control, const EnginePlugin &plugin)
+QString DemoRecord::mkDemoFullPath(Control control, const EnginePlugin &plugin, const bool isMultiplayer)
 {
 	switch (control)
 	{
 	case Managed:
 		return QFileInfo(gDoomseekerTemplatedPathResolver().resolve(
 			gDefaultDataPaths->demosDirectoryPath()) + QDir::separator()
-			+ mkDemoName(plugin)).absoluteFilePath();
+			+ mkDemoName(plugin, isMultiplayer)).absoluteFilePath();
 	case Unmanaged:
-		return mkDemoName(plugin);
+		return mkDemoName(plugin, isMultiplayer);
 	case NoDemo:
 		return QString();
 	default:
@@ -125,23 +125,35 @@ QString DemoRecord::mkDemoFullPath(Control control, const EnginePlugin &plugin)
 	}
 }
 
-QString DemoRecord::mkDemoName(const EnginePlugin &plugin)
+QString DemoRecord::mkDemoName(const EnginePlugin &plugin, const bool isMultiplayer)
 {
 	QString demoName = "";
 	demoName += QString("%1_%2").
 		arg(plugin.data()->name).
 		arg(QDateTime::currentDateTime().toString("dd.MM.yyyy_hh.mm.ss"));
-	if (!plugin.data()->demoExtensionAutomatic)
-		demoName += QString(".%1").arg(plugin.data()->demoExtension);
+	if (isMultiplayer)
+	{
+		if (!plugin.data()->multiplayerDemoExtensionAutomatic)
+			demoName += QString(".%1").arg(plugin.data()->multiplayerDemoExtension);
+	}
+	else
+	{
+		if (!plugin.data()->demoExtensionAutomatic)
+			demoName += QString(".%1").arg(plugin.data()->demoExtension);
+	}
 	return demoName;
 }
 
 void DemoRecord::saveDemoMetaData(const QString &demoName, const EnginePlugin &plugin,
-	const QString &iwad, const QList<PWad> &pwads)
+	const QString &iwad, const QList<PWad> &pwads, const bool isMultiplayer)
 {
 	QString metaFileName;
 	// If the extension is automatic we need to add it here
-	if (plugin.data()->demoExtensionAutomatic)
+	bool isDemoExtensionAutomatic = isMultiplayer ?
+		plugin.data()->multiplayerDemoExtensionAutomatic : plugin.data()->demoExtensionAutomatic;
+	QString demoExtension = isMultiplayer ?
+		plugin.data()->multiplayerDemoExtension : plugin.data()->demoExtension;
+	if (isDemoExtensionAutomatic)
 	{
 		metaFileName = QString("%1.%2.ini").arg(demoName)
 			.arg(plugin.data()->demoExtension);

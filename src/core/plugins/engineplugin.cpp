@@ -59,6 +59,8 @@ EnginePlugin::Data::Data()
 	defaultServerPort = 10666;
 	demoExtensionAutomatic = true;
 	demoExtension = "lmp";
+	multiplayerDemoExtensionAutomatic = true;
+	multiplayerDemoExtension = "lmp";
 	hasIwad = true;
 	hasMapList = true;
 	icon = nullptr;
@@ -203,6 +205,10 @@ void EnginePlugin::init(const char *name, const char *const icon[], ...)
 		case EP_DemoExtension:
 			d->demoExtensionAutomatic = va_arg(va, unsigned int);
 			d->demoExtension = va_arg(va, const char *);
+			break;
+		case EP_MultiplayerDemoExtension:
+			d->multiplayerDemoExtensionAutomatic = va_arg(va, unsigned int);
+			d->multiplayerDemoExtension = va_arg(va, const char *);
 			break;
 		case EP_DifficultyProvider:
 			d->difficulty = QSharedPointer<GameCVarProvider>(va_arg(va, GameCVarProvider *));

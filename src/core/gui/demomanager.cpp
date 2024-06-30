@@ -83,10 +83,13 @@ void DemoManagerDlg::adjustDemoList()
 	QStringList demoExtensions;
 	for (unsigned i = 0; i < gPlugins->numPlugins(); ++i)
 	{
-		QString ext = QString("*.%1").arg(gPlugins->info(i)->data()->demoExtension);
+		QString spExt = QString("*.%1").arg(gPlugins->info(i)->data()->demoExtension);
+		if (!demoExtensions.contains(spExt))
+			demoExtensions << spExt;
 
-		if (!demoExtensions.contains(ext))
-			demoExtensions << ext;
+		QString mpExt = QString("*.%1").arg(gPlugins->info(i)->data()->multiplayerDemoExtension);
+		if (!demoExtensions.contains(mpExt))
+			demoExtensions << mpExt;
 	}
 
 	// In order to index the demos we'll convert the dates to integers by calculating the days until today.

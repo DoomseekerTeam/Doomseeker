@@ -56,9 +56,9 @@ public:
 	DemoRecord(Control control);
 
 	static bool ensureStorageExists(QWidget *parent);
-	static QString mkDemoFullPath(Control control, const EnginePlugin &plugin);
+	static QString mkDemoFullPath(Control control, const EnginePlugin &plugin, const bool isMultiplayer);
 	static void saveDemoMetaData(const QString &demoName, const EnginePlugin &plugin,
-		const QString &iwad, const QList<PWad> &pwads);
+		const QString &iwad, const QList<PWad> &pwads, const bool isMultiplayer);
 
 	/**
 	 * Populate GameDemo struct with the demo metadata at path.
@@ -90,7 +90,7 @@ private:
 	};
 	PrivData d;
 
-	static QString mkDemoName(const EnginePlugin &plugin);
+	static QString mkDemoName(const EnginePlugin &plugin, const bool isMultiplayer);
 };
 
 #endif

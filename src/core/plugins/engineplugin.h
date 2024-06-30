@@ -102,6 +102,7 @@ protected:
 		EP_RefreshThreshold, ///< (quint8) The amount of time (in seconds) that must pass before a server can be requeried.
 		EP_URLScheme, ///< (const char*) Overrides the URL scheme which Doomseeker sets for this plugin. By default it is the port's name without spaces.
 		EP_DemoExtension, ///< (bool)auto, (const char*)extension Sets the extension that will be used for demos (default is true and lmp).
+		EP_MultiplayerDemoExtension, ///< (bool)auto, (const char*)extension Sets the extension that will be used for multiplayer demos (default is true and lmp).
 
 		/**
 		 * (bool)
@@ -291,6 +292,8 @@ public:
 		unsigned int version;
 		bool demoExtensionAutomatic;
 		QString demoExtension;
+		bool multiplayerDemoExtensionAutomatic;
+		QString multiplayerDemoExtension;
 		/**
 		 * @brief Description of the plugin, intended to be displayed in
 		 * the "About" dialog.

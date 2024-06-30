@@ -239,7 +239,7 @@ bool CreateServerDialog::createHostInfoDemoRecord(GameCreateParams &params, bool
 			}
 		}
 
-		params.setDemoPath(DemoRecord::mkDemoFullPath(demoMode, *d->currentEngine));
+		params.setDemoPath(DemoRecord::mkDemoFullPath(demoMode, *d->currentEngine, false));
 		params.setDemoRecord(demoMode);
 	}
 	return true;

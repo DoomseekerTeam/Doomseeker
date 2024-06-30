@@ -72,7 +72,7 @@ JoinCommandLineBuilder::JoinCommandLineBuilder(ServerPtr server,
 {
 	d->configurationError = false;
 	d->demo = demo;
-	d->demoName = DemoRecord::mkDemoFullPath(demo, *server->plugin());
+	d->demoName = DemoRecord::mkDemoFullPath(demo, *server->plugin(), true);
 	d->parentWidget = parentWidget;
 	d->passwordsAlreadySet = false;
 	d->server = server;
@@ -301,7 +301,7 @@ void JoinCommandLineBuilder::obtainJoinCommandLine()
 		if (d->demo == DemoRecord::Managed)
 		{
 			DemoRecord::saveDemoMetaData(d->demoName, *d->server->plugin(),
-				d->server->iwad(), d->server->wads());
+				d->server->iwad(), d->server->wads(), true);
 		}
 		break;
 
