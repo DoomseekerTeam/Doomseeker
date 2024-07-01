@@ -57,6 +57,8 @@ will attempt to calculate the height needed by the players table and if it
 exceeds a certain percentage of the available screen space, it will trim the
 player list displaying only that there are `<N>` more players on the server.
 This should prevent the tooltip from stretching beyond the screen. (#4149)
+- Q-Zandronum, Zandronum: single-player demos will now be recorded with
+the correct `.lmp` extension.
 
 ## [1.4.1] - 2023-03-12
 ### Added
