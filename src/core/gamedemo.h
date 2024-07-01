@@ -38,8 +38,8 @@ struct GameDemo
 	QString filepath;
 	QString port;
 	QDateTime time;
-	QStringList wads;
-	QStringList optionalWads;
+	QString iwad;
+	QList<PWad> wads;
 };
 
 class DemoRecord

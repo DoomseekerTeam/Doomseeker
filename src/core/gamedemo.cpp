@@ -35,6 +35,8 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QMessageBox>
+#include <QVariant>
+#include <QVariantList>
 
 class GameDemoTr : public QObject
 {
@@ -66,6 +68,11 @@ public:
 private:
 	GameDemoTr() = delete;
 };
+
+static const int DOOMSEEKER_METADATA_VERSION = 2;
+
+static const QString SECTION_DOOMSEEKER = "doomseeker";
+static const QString SECTION_META = "meta";
 
 DemoRecord::DemoRecord()
 {
@@ -164,11 +171,24 @@ void DemoRecord::saveDemoMetaData(const QString &demoName, const EnginePlugin &p
 	QSettings settings(metaFileName, QSettings::IniFormat);
 	SettingsProviderQt settingsProvider(&settings);
 	Ini metaFile(&settingsProvider);
-	IniSection metaSection = metaFile.section("meta");
+	IniSection doomseekerSection = metaFile.section(SECTION_DOOMSEEKER);
+	doomseekerSection.createSetting("version", DOOMSEEKER_METADATA_VERSION);
 
+	IniSection metaSection = metaFile.section(SECTION_META);
+
+	metaSection.createSetting("iwad", iwad.toLower());
+	QVariantList modfiles;
+	for (const PWad &wad : pwads)
+	{
+		QVariantList serializedModfile;
+		serializedModfile << wad.name() << wad.isOptional();
+		modfiles << QVariant(serializedModfile);
+	}
+	metaSection.createSetting("modFiles", QVariant(modfiles));
+
+	// Backward-compatibility with Doomseeker <1.5 (V1).
 	QStringList requiredPwads;
 	QStringList optionalPwads;
-
 	for (const PWad &wad : pwads)
 	{
 		if (wad.isOptional())
@@ -176,8 +196,6 @@ void DemoRecord::saveDemoMetaData(const QString &demoName, const EnginePlugin &p
 		else
 			requiredPwads << wad.name();
 	}
-
-	metaSection.createSetting("iwad", iwad.toLower());
 	metaSection.createSetting("pwads", requiredPwads.join(";"));
 	metaSection.createSetting("optionalPwads", optionalPwads);
 }
@@ -218,7 +236,46 @@ static void loadDemoMetadataFromFilename(const QString &path, GameDemo &demo)
 	demo.time = QDateTime(date, time);
 	if (demoData.size() >= 4)
 	{
-		demo.wads << demoData.mid(3);
+		for (QString wad : demoData.mid(3))
+		{
+			if (!wad.isEmpty())
+				demo.wads << PWad(wad);
+		}
+	}
+}
+
+static void loadDemoMetadataFromIniV1(Ini &metaData, GameDemo &demo)
+{
+	demo.iwad = metaData.retrieveSetting(SECTION_META, "iwad").valueString();
+	QString pwads = metaData.retrieveSetting(SECTION_META, "pwads");
+	if (pwads.length() > 0)
+	{
+		for (QString wad : pwads.split(";"))
+		{
+			if (!wad.isEmpty())
+				demo.wads << PWad(wad);
+		}
+	}
+
+	for (QString wad : metaData.retrieveSetting(SECTION_META, "optionalPwads").value().toStringList())
+	{
+		demo.wads << PWad(wad, true) ;
+	}
+}
+
+static void loadDemoMetadataFromIniV2(Ini &metaData, GameDemo &demo)
+{
+	demo.iwad = metaData.retrieveSetting(SECTION_META, "iwad").valueString();
+	QVariantList modfiles = metaData.retrieveSetting(SECTION_META, "modFiles").value().toList();
+	for (const QVariant &modfile : modfiles)
+	{
+		QVariantList modfileTokens = modfile.toList();
+		if (modfileTokens.size() >= 2)
+		{
+			QString name = modfileTokens[0].toString();
+			bool optional = modfileTokens[1].toBool();
+			demo.wads << PWad(name, optional);
+		}
 	}
 }
 
@@ -231,13 +288,16 @@ static void loadDemoMetadataFromIni(const QString &path, GameDemo &demo)
 	QSettings settings(iniFile.filePath(), QSettings::IniFormat);
 	SettingsProviderQt settingsProvider(&settings);
 	Ini metaData(&settingsProvider);
+	int version = metaData.section(SECTION_DOOMSEEKER)["version"].value().toInt();
 
-	demo.wads << metaData.retrieveSetting("meta", "iwad");
-	QString pwads = metaData.retrieveSetting("meta", "pwads");
-	if (pwads.length() > 0)
-		demo.wads << pwads.split(";");
-
-	demo.optionalWads = metaData.retrieveSetting("meta", "optionalPwads").value().toStringList();
+	if (version >= 2) {
+		// Try to load any version greater than V2 as V2, assuming that
+		// future versions will maintain backward-compatibility with the
+		// most recent previous version.
+		loadDemoMetadataFromIniV2(metaData, demo);
+	} else {
+		loadDemoMetadataFromIniV1(metaData, demo);
+	}
 }
 
 GameDemo DemoRecord::loadGameDemo(const QString &path)

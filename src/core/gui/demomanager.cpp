@@ -249,13 +249,16 @@ void DemoManagerDlg::playSelected()
 	QStringList missingWads;
 	QStringList wadPaths;
 
-	for (const QString &wad : d->selectedDemo->wads)
+	QList<PWad> wads = d->selectedDemo->wads;
+	wads.prepend(PWad(d->selectedDemo->iwad));
+
+	for (const PWad &wad : wads)
 	{
-		WadFindResult findResult = wadFinder.find(wad);
+		WadFindResult findResult = wadFinder.find(wad.name());
 		if (findResult.isValid())
 			wadPaths << findResult.path();
-		else
-			missingWads << wad;
+		else if (!wad.isOptional())
+			missingWads << wad.name();
 	}
 
 	if (!missingWads.isEmpty())
@@ -264,19 +267,12 @@ void DemoManagerDlg::playSelected()
 			tr("The following files could not be located: ") + missingWads.join(", "));
 		return;
 	}
-	QStringList optionalWadPaths;
-	for (const QString &wad : d->selectedDemo->optionalWads)
-	{
-		WadFindResult findResult = wadFinder.find(wad);
-		if (findResult.isValid())
-			optionalWadPaths << findResult.path();
-	}
 
 	// Play the demo
 	GameCreateParams params;
 	params.setDemoPath(QFileInfo(d->selectedDemo->filepath).absoluteFilePath());
 	params.setIwadPath(wadPaths[0]);
-	params.setPwadsPaths(wadPaths.mid(1) + optionalWadPaths);
+	params.setPwadsPaths(wadPaths.mid(1));
 	params.setHostMode(GameCreateParams::Demo);
 	params.setExecutablePath(binPath);
 
@@ -329,13 +325,14 @@ void DemoManagerDlg::updatePreview()
 
 	QString text = "<b>" + tr("Port") + ":</b><p style=\"margin: 0px 0px 0px 10px\">" + d->selectedDemo->port + "</p>" +
 		"<b>" + tr("WADs") + ":</b><p style=\"margin: 0px 0px 0px 10px\">";
-	for (const QString &wad : d->selectedDemo->wads)
+	text += d->selectedDemo->iwad + "<br />";
+	for (const PWad &wad : d->selectedDemo->wads)
 	{
-		text += wad + "<br />";
-	}
-	for (const QString &wad : d->selectedDemo->optionalWads)
-	{
-		text += "[" + wad + "]<br />";
+		if (wad.isOptional())
+			text += "[" + wad.name() + "]";
+		else
+			text += wad.name();
+		text += "<br />";
 	}
 	text += "</p>";
 	d->preview->setText(text);
