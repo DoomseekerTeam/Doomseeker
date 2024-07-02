@@ -46,7 +46,7 @@ const QString Wadseeker::defaultSites[] =
 	QString("https://doomshack.org/wadlist.php"),
 	QString("https://wads.firestick.games/"), // approved by DrinkyBird on 2022-11-07
 	QString("https://euroboros.net/zandronum/wads/"), // approved by Iko on 2022-11-07
-	QString("https://static.audrealms.com/wads/"), // approved by DoomJoshuaBoy on 2023-05-01
+	QString("https://static.audrealms.org/wads/"), // approved by DoomJoshuaBoy on 2023-05-01
 	QString("") // empty url is treated here like an '\0' in a string
 };
 

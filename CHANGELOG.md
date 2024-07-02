@@ -50,7 +50,7 @@ no demo is selected.
 - Updated the internal zlib library to 1.2.13.
 - Updated the internal bzip2 library to version 1.0.8.
 - Wadseeker: upgrade the LZMA SDK to version 23.01.
-- Wadseeker: website dudoomers.com changed to audrealms.com. (#4131)
+- Wadseeker: website dudoomers.com changed to audrealms.org. (#4131)
 
 ### Fixed
 - Players table getting squished horizontally in the server details dock.
