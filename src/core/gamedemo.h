@@ -26,6 +26,7 @@
 #include "dptr.h"
 
 #include <QDateTime>
+#include <QDir>
 #include <QList>
 #include <QString>
 #include <QWidget>
@@ -40,6 +41,16 @@ struct GameDemo
 	QDateTime time;
 	QString iwad;
 	QList<PWad> wads;
+
+	/**
+	 * The name of the file when stored in Doomseeker's managed demos directory.
+	 */
+	QString managedName() const;
+
+	bool isEmpty() const
+	{
+		return filepath.isEmpty();
+	}
 };
 
 class DemoRecord
@@ -55,8 +66,50 @@ public:
 	DemoRecord();
 	DemoRecord(Control control);
 
+	/**
+	 * Demo filename filters in format applicable for QFileDialog.
+	 */
+	static QStringList demoFileFilters();
+
 	static bool ensureStorageExists(QWidget *parent);
+
+	/**
+	 * Import demo described by GameDemo to the managed demos store.
+	 *
+	 * GameDemo::filepath must point to a valid demo file and it's
+	 * also expected that the other attributes of GameDemo will be
+	 * filled with proper info about the demo.
+	 *
+	 * The demo file is copied to Doomseeker's store and the metadata
+	 * is saved next to it. Such imported demo then becomes
+	 * indistinguishable from a normally recorded demo.
+	 *
+	 * If it happens that a demo with the exactly same filename already
+	 * exists in the store, then the existing demo is *REMOVED*.
+	 */
+	static bool importDemo(const GameDemo &demo);
+
+	/**
+	 * Given the path to a demo, return the path to the metadata file.
+	 *
+	 * Either path may not exist.
+	 */
+	static QString metafile(const QString &path);
+
 	static QString mkDemoFullPath(Control control, const EnginePlugin &plugin, const bool isMultiplayer);
+
+	/**
+	 * List all the unique demo filename extensions known by the loaded engines.
+	 */
+	static QStringList listDemoExtensions();
+
+	/**
+	 * List all the demo files managed by Doomseeker.
+	 */
+	static QStringList listManagedDemos();
+
+	static bool removeManagedDemo(const QString &name);
+
 	static void saveDemoMetaData(const QString &demoName, const EnginePlugin &plugin,
 		const QString &iwad, const QList<PWad> &pwads, const bool isMultiplayer);
 
@@ -74,11 +127,25 @@ public:
 	 * be populated at least (it's set to the path param).
 	 *
 	 * @param path
-	 *     Direct path to demo file.
+	 *     Direct path to either the demo file or its metadata file.
 	 *
 	 * @return GameDemo struct populated with info about the demo at path.
 	 */
 	static GameDemo loadGameDemo(const QString &path);
+
+	/**
+	 * Load the GameDemo metadata for a managed demo by its name.
+	 *
+	 * Managed demos can be listed with listManagedDemos(). If demo
+	 * is not found, an empty GameDemo struct is returned -- the
+	 * GameDemo::filepath attribute will also be empty.
+	 *
+	 * @param name
+	 *     Name of the demo as returned by listManagedDemos().
+	 *
+	 * @return GameDemo struct populated with info about the demo.
+	 */
+	static GameDemo loadManagedGameDemo(const QString &name);
 
 	operator Control() const;
 
@@ -90,7 +157,9 @@ private:
 	};
 	PrivData d;
 
+	static QDir demosDir();
 	static QString mkDemoName(const EnginePlugin &plugin, const bool isMultiplayer);
+	static void saveDemoMetaData(const GameDemo &demo, const QString &path);
 };
 
 #endif

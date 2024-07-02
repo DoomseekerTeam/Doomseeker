@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>409</width>
-    <height>300</height>
+    <width>499</width>
+    <height>302</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -107,9 +107,16 @@
       </spacer>
      </item>
      <item>
+      <widget class="QPushButton" name="btnImport">
+       <property name="text">
+        <string>Import</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="btnExport">
        <property name="text">
-        <string>Export</string>
+        <string>Export ...</string>
        </property>
       </widget>
      </item>
@@ -144,28 +151,12 @@
    <slot>performAction(QAbstractButton*)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>380</x>
-     <y>278</y>
+     <x>488</x>
+     <y>291</y>
     </hint>
     <hint type="destinationlabel">
      <x>379</x>
      <y>298</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btnExport</sender>
-   <signal>clicked()</signal>
-   <receiver>DemoManagerDlg</receiver>
-   <slot>exportSelected()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>272</x>
-     <y>274</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>400</x>
-     <y>295</y>
     </hint>
    </hints>
   </connection>
@@ -217,6 +208,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>btnImport</sender>
+   <signal>clicked()</signal>
+   <receiver>DemoManagerDlg</receiver>
+   <slot>importDemo()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>268</x>
+     <y>278</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>302</x>
+     <y>262</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>performAction(QAbstractButton*)</slot>
@@ -224,5 +231,6 @@
   <slot>deleteSelected()</slot>
   <slot>playSelected()</slot>
   <slot>itemDoubleClicked(QModelIndex)</slot>
+  <slot>importDemo()</slot>
  </slots>
 </ui>

@@ -27,6 +27,7 @@
 #include "fileutils.h"
 #include "gamedemo.h"
 #include "gui/commongui.h"
+#include "gui/demometadatadialog.h"
 #include "ini/ini.h"
 #include "ini/settingsproviderqt.h"
 #include "pathfinder/pathfinder.h"
@@ -44,6 +45,7 @@
 #include <QDir>
 #include <QFileDialog>
 #include <QLabel>
+#include <QMenu>
 #include <QMessageBox>
 #include <QPushButton>
 #include <QStandardItemModel>
@@ -65,6 +67,13 @@ DemoManagerDlg::DemoManagerDlg()
 	CommonGUI::setupDialog(*this);
 	d->selectedDemo = nullptr;
 
+	auto *menu = new QMenu(this);
+	menu->addAction(tr("Export plain demo file"),
+		this, SLOT(exportSelectedPlain()));
+	menu->addAction(tr("Export with Doomseeker metadata ..."),
+		this, SLOT(exportSelectedDoomseeker()));
+	d->btnExport->setMenu(menu);
+
 	d->demoModel = new QStandardItemModel();
 	adjustDemoList();
 
@@ -79,31 +88,20 @@ DemoManagerDlg::~DemoManagerDlg()
 
 void DemoManagerDlg::adjustDemoList()
 {
-	// Get valid extensions
-	QStringList demoExtensions;
-	for (unsigned i = 0; i < gPlugins->numPlugins(); ++i)
-	{
-		QString spExt = QString("*.%1").arg(gPlugins->info(i)->data()->demoExtension);
-		if (!demoExtensions.contains(spExt))
-			demoExtensions << spExt;
-
-		QString mpExt = QString("*.%1").arg(gPlugins->info(i)->data()->multiplayerDemoExtension);
-		if (!demoExtensions.contains(mpExt))
-			demoExtensions << mpExt;
-	}
-
 	// In order to index the demos we'll convert the dates to integers by calculating the days until today.
 	// Also we need to convert double underscores to a single underscore
 	QDate today = QDate::currentDate();
 	QTime referenceTime(23, 59, 59);
-	QDir demosDirectory(gDefaultDataPaths->demosDirectoryPath());
-	QStringList demos = demosDirectory.entryList(demoExtensions, QDir::Files);
+	QStringList demos = DemoRecord::listManagedDemos();
 	typedef QMap<int, GameDemo> DemoMap;
 	QMap<int, DemoMap> demoMap;
 	for (const QString &demoName : demos)
 	{
-		GameDemo demo = DemoRecord::loadGameDemo(demosDirectory.filePath(demoName));
-		demoMap[demo.time.date().daysTo(today)][demo.time.time().secsTo(referenceTime)] = demo;
+		GameDemo demo = DemoRecord::loadManagedGameDemo(demoName);
+		if (!demo.isEmpty())
+		{
+			demoMap[demo.time.date().daysTo(today)][demo.time.time().secsTo(referenceTime)] = demo;
+		}
 	}
 
 	// Convert to a model
@@ -126,12 +124,10 @@ void DemoManagerDlg::adjustDemoList()
 
 bool DemoManagerDlg::doRemoveDemo(const QString &file)
 {
-	if (!QFile::remove(file))
+	if (!DemoRecord::removeManagedDemo(file))
 		QMessageBox::critical(this, tr("Unable to remove"), tr("Could not remove the selected demo."));
 	else
 	{
-		// Remove ini file as well, but don't bother warning if it can't be deleted for whatever reason
-		QFile::remove(file + ".ini");
 		d->selectedDemo = nullptr;
 		updateUiSelectionState();
 		return true;
@@ -151,7 +147,7 @@ void DemoManagerDlg::deleteSelected()
 			int dateRow = index.row();
 			for (int timeRow = 0; index.model()->index(timeRow, 0).isValid(); ++timeRow)
 			{
-				if (doRemoveDemo(d->demoTree[dateRow][timeRow].filepath))
+				if (doRemoveDemo(d->demoTree[dateRow][timeRow].managedName()))
 				{
 					d->demoModel->removeRow(timeRow, index);
 					d->demoTree[dateRow].removeAt(timeRow);
@@ -169,7 +165,7 @@ void DemoManagerDlg::deleteSelected()
 		}
 		else
 		{
-			if (doRemoveDemo(d->selectedDemo->filepath))
+			if (doRemoveDemo(d->selectedDemo->managedName()))
 			{
 				// Adjust the tree
 				int dateRow = index.parent().row();
@@ -187,7 +183,79 @@ void DemoManagerDlg::deleteSelected()
 	}
 }
 
-void DemoManagerDlg::exportSelected()
+void DemoManagerDlg::exportSelectedDoomseeker()
+{
+	if (d->selectedDemo == nullptr)
+		return;
+
+	// Omit Doomseeker's path portablization here, because the feature
+	// is explicitly called "export".
+	QDir proposedDir = FileUtils::dirOrDir(
+		gConfig.doomseeker.previousDemoExportDir,
+		QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation).first());
+
+	const QString dirPath = QFileDialog::getExistingDirectory(this,
+		tr("Select demo export directory"), proposedDir.path());
+	if (dirPath.isEmpty())
+		return;
+
+	gConfig.doomseeker.previousDemoExportDir = dirPath;
+	const QDir dir(dirPath);
+
+	QFile demoFile(d->selectedDemo->filepath);
+	QFile metaFile(DemoRecord::metafile(d->selectedDemo->filepath));
+
+	// Check if the files exist at target location and ask to overwrite.
+	QFile destDemo(dir.filePath(QFileInfo(demoFile).fileName()));
+	QFile destMeta(dir.filePath(QFileInfo(metaFile).fileName()));
+
+	bool demoExists = destDemo.exists();
+	bool metaExists = destMeta.exists();
+	if (demoExists || metaExists)
+	{
+		QStringList existingPaths;
+		if (demoExists)
+			existingPaths << destDemo.fileName();
+		if (metaExists)
+			existingPaths << destMeta.fileName();
+		auto answer = QMessageBox::question(this, tr("Demo export"),
+			tr("The exported files already exist at the specified "
+				"directory. Overwrite?\n\n%1").arg(existingPaths.join("\n")));
+		if (answer == QMessageBox::No)
+			return;
+
+		if (demoExists)
+			destDemo.remove();
+		if (metaExists)
+			destMeta.remove();
+	}
+
+	// Copy the demo to the new location.
+	bool fail = false;
+	if (!demoFile.copy(destDemo.fileName()))
+	{
+		fail = true;
+	}
+
+	// Copy the metadata file to the new location.
+	if (!fail && metaFile.exists())
+	{
+		if (!metaFile.copy(destMeta.fileName()))
+		{
+			fail = true;
+			// Delete the already copied demo file to clean-up after an unsuccessful export.
+			destDemo.remove();
+		}
+	}
+
+	if (fail)
+	{
+		QMessageBox::critical(this, tr("Unable to save"), tr("Could not write to the specified location."));
+	}
+	return;
+}
+
+void DemoManagerDlg::exportSelectedPlain()
 {
 	if (d->selectedDemo == nullptr)
 		return;
@@ -209,6 +277,89 @@ void DemoManagerDlg::exportSelected()
 		if (!QFile::copy(d->selectedDemo->filepath, saveDialog.selectedFiles().first()))
 			QMessageBox::critical(this, tr("Unable to save"), tr("Could not write to the specified location."));
 	}
+}
+
+void DemoManagerDlg::importDemo()
+{
+	// Get valid extensions
+	QStringList demoExtensions = DemoRecord::demoFileFilters();
+	demoExtensions << "*.ini";
+
+	QDir proposedDir = FileUtils::dirOrDir(
+		gConfig.doomseeker.previousDemoExportDir,
+		QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation).first());
+
+	QString selectedFile = QFileDialog::getOpenFileName(this, tr("Import demo"),
+		proposedDir.path(),
+		tr("Demo files (%1)").arg(demoExtensions.join(" ")));
+	if (selectedFile.isEmpty())
+		return;
+
+	gConfig.doomseeker.previousDemoExportDir = QFileInfo(selectedFile).path();
+
+	GameDemo demo = DemoRecord::loadGameDemo(selectedFile);
+	do
+	{
+		DemoMetadataDialog importDialog(this, demo);
+		importDialog.setWindowTitle(tr("Import game demo"));
+		if (importDialog.exec() == QDialog::Accepted)
+		{
+			GameDemo importedDemo = importDialog.gameDemo();
+			importedDemo.filepath = demo.filepath;
+
+			GameDemo existingDemo = DemoRecord::loadManagedGameDemo(importedDemo.managedName());
+			if (!existingDemo.isEmpty())
+			{
+				QFileInfo existingDemoFile(existingDemo.filepath);
+				QFileInfo importedDemoFile(importedDemo.filepath);
+
+				QByteArray existingMd5 = FileUtils::md5(existingDemo.filepath);
+				QByteArray importedMd5 = FileUtils::md5(importedDemo.filepath);
+
+				QString question;
+				if (existingDemoFile.size() == importedDemoFile.size()
+					&& existingMd5 == importedMd5)
+				{
+					question = tr("It looks like this demo is already imported. Overwrite anyway?");
+				}
+				else
+				{
+					question = tr("Another demo with this metadata already exists. Overwrite?");
+				}
+				QString comparison = tr(
+					"Existing: %1\n"
+					"New: %2\n")
+						.arg(labelDemoFile(existingDemoFile, existingMd5))
+						.arg(labelDemoFile(importedDemoFile, importedMd5));
+
+				auto answer = QMessageBox::question(this, tr("Demo import"),
+					tr("%1\n\n%2").arg(question, comparison));
+				if (answer == QMessageBox::No)
+				{
+					demo = importedDemo;
+					continue;
+				}
+			}
+			if (!DemoRecord::importDemo(importedDemo))
+			{
+				QMessageBox::critical(this, tr("Demo import"),
+					tr("Could not import the selected demo."));
+			}
+			else
+
+			{
+				adjustDemoList();
+			}
+		}
+	} while(false);
+}
+
+QString DemoManagerDlg::labelDemoFile(QFileInfo &file, const QByteArray &md5)
+{
+	return tr("%1 %L2 B (MD5: %3)")
+		.arg(file.fileName())
+		.arg(file.size())
+		.arg(QString::fromLatin1(md5.toHex().toLower()));
 }
 
 void DemoManagerDlg::itemDoubleClicked(const QModelIndex &index)

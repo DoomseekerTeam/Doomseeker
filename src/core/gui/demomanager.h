@@ -29,6 +29,8 @@
 #include <QDialog>
 
 class QAbstractButton;
+class QByteArray;
+class QFileInfo;
 class QModelIndex;
 
 /**
@@ -44,7 +46,9 @@ public:
 
 private slots:
 	void deleteSelected();
-	void exportSelected();
+	void exportSelectedDoomseeker();
+	void exportSelectedPlain();
+	void importDemo();
 	void itemDoubleClicked(const QModelIndex &index);
 	void itemSelected(const QModelIndex &index);
 	void playSelected();
@@ -53,6 +57,7 @@ private slots:
 private:
 	void adjustDemoList();
 	bool doRemoveDemo(const QString &file);
+	QString labelDemoFile(QFileInfo &file, const QByteArray &md5);
 	void updatePreview();
 	void updateUiSelectionState();
 

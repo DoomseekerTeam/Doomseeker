@@ -35,12 +35,24 @@ public:
 	EnginePluginComboBox(QWidget *parent);
 
 	EnginePlugin *currentPlugin() const;
+
+	/**
+	 * Allow setting an unknown plugin in setPluginByName().
+	 *
+	 * If unknown plugin is allowed, the combo box will display
+	 * its name together with an "(unknown)" label. currentPlugin()
+	 * will return `nullptr` while such plugin is selected.
+	 */
+	void setAllowUnknown(bool allow);
+
 	bool setPluginByName(const QString &name);
 
 signals:
 	void currentPluginChanged(EnginePlugin *plugin);
 
 private:
+	bool allowUnknown;
+
 	void loadPlugins();
 
 private slots:

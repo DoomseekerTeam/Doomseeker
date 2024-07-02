@@ -29,6 +29,7 @@
 #include "ntfsperm.h"
 #include "templatedpathresolver.h"
 #include "plugins/engineplugin.h"
+#include "plugins/pluginloader.h"
 #include "serverapi/serverstructs.h"
 #include <cassert>
 #include <QDateTime>
@@ -69,8 +70,26 @@ private:
 	GameDemoTr() = delete;
 };
 
+/*
+  GameDemo
+*/
+QString GameDemo::managedName() const
+{
+	return QString("%1_%2.%3").arg(
+		this->port,
+		this->time.toString("dd.MM.yyyy_hh.mm.ss"),
+		QFileInfo(this->filepath).suffix());
+}
+
+/*
+  DemoRecord
+*/
+static void loadDemoMetadataFromFilename(const QString &path, GameDemo &demo);
+
 static const int DOOMSEEKER_METADATA_VERSION = 2;
 
+/// Filename suffix without the dot, just like QFileInfo::suffix().
+static const QString METAFILE_SUFFIX = "ini";
 static const QString SECTION_DOOMSEEKER = "doomseeker";
 static const QString SECTION_META = "meta";
 
@@ -82,6 +101,19 @@ DemoRecord::DemoRecord()
 DemoRecord::DemoRecord(Control control)
 {
 	d.control = control;
+}
+
+QStringList DemoRecord::demoFileFilters()
+{
+	QStringList extensionFilters;
+	for (const QString &ext : listDemoExtensions())
+		extensionFilters << QString("*.%1").arg(ext);
+	return extensionFilters;
+}
+
+QDir DemoRecord::demosDir()
+{
+	return QDir(gDefaultDataPaths->demosDirectoryPath());
 }
 
 bool DemoRecord::ensureStorageExists(QWidget *parent)
@@ -112,6 +144,52 @@ bool DemoRecord::ensureStorageExists(QWidget *parent)
 	}
 
 	return true;
+}
+
+QStringList DemoRecord::listDemoExtensions()
+{
+	QStringList demoExtensions;
+	for (unsigned i = 0; i < gPlugins->numPlugins(); ++i)
+	{
+		QString spExt = gPlugins->info(i)->data()->demoExtension;
+		if (!demoExtensions.contains(spExt))
+			demoExtensions << spExt;
+
+		QString mpExt = gPlugins->info(i)->data()->multiplayerDemoExtension;
+		if (!demoExtensions.contains(mpExt))
+			demoExtensions << mpExt;
+	}
+	return demoExtensions;
+}
+
+QStringList DemoRecord::listManagedDemos()
+{
+	return demosDir().entryList(demoFileFilters(), QDir::Files);
+}
+
+bool DemoRecord::importDemo(const GameDemo &demo)
+{
+	QDir demosDir = DemoRecord::demosDir();
+	QFile importedDemo(demo.filepath);
+	if (!importedDemo.exists())
+		return false;
+
+	QFile managedDemo(demosDir.filePath(demo.managedName()));
+	QFile metafile(DemoRecord::metafile(managedDemo.fileName()));
+	if (managedDemo.exists())
+		managedDemo.remove();
+	if (metafile.exists())
+		metafile.remove();
+
+	if (!importedDemo.copy(managedDemo.fileName()))
+		return false;
+	saveDemoMetaData(demo, metafile.fileName());
+	return metafile.exists();
+}
+
+QString DemoRecord::metafile(const QString &path)
+{
+	return path + "." + METAFILE_SUFFIX;
 }
 
 QString DemoRecord::mkDemoFullPath(Control control, const EnginePlugin &plugin, const bool isMultiplayer)
@@ -151,34 +229,61 @@ QString DemoRecord::mkDemoName(const EnginePlugin &plugin, const bool isMultipla
 	return demoName;
 }
 
+bool DemoRecord::removeManagedDemo(const QString &name)
+{
+	QFile demoFile(demosDir().filePath(name));
+	if (demoFile.exists())
+	{
+		if (!demoFile.remove())
+			return false;
+	}
+
+	// Remove the metadata file as well, but don't bother warning
+	// if it can't be deleted for whatever reason.
+	QFile metaFile(metafile(demoFile.fileName()));
+	metaFile.remove();
+	return true;
+}
+
 void DemoRecord::saveDemoMetaData(const QString &demoName, const EnginePlugin &plugin,
 	const QString &iwad, const QList<PWad> &pwads, const bool isMultiplayer)
 {
-	QString metaFileName;
 	// If the extension is automatic we need to add it here
 	bool isDemoExtensionAutomatic = isMultiplayer ?
 		plugin.data()->multiplayerDemoExtensionAutomatic : plugin.data()->demoExtensionAutomatic;
 	QString demoExtension = isMultiplayer ?
 		plugin.data()->multiplayerDemoExtension : plugin.data()->demoExtension;
-	if (isDemoExtensionAutomatic)
-	{
-		metaFileName = QString("%1.%2.ini").arg(demoName)
-			.arg(plugin.data()->demoExtension);
-	}
-	else
-		metaFileName = demoName + ".ini";
 
-	QSettings settings(metaFileName, QSettings::IniFormat);
+	QString demoFileName = demoName;
+	if (isDemoExtensionAutomatic)
+		demoFileName += "." + plugin.data()->demoExtension;
+	QString metaFileName = metafile(demoFileName);
+
+	GameDemo demo;
+	loadDemoMetadataFromFilename(demoFileName, demo);
+	demo.filepath = demoFileName;
+	demo.iwad = iwad;
+	demo.wads = pwads;
+
+	saveDemoMetaData(demo, metaFileName);
+}
+
+void DemoRecord::saveDemoMetaData(const GameDemo &demo, const QString &path)
+{
+	QSettings settings(path, QSettings::IniFormat);
 	SettingsProviderQt settingsProvider(&settings);
 	Ini metaFile(&settingsProvider);
+
 	IniSection doomseekerSection = metaFile.section(SECTION_DOOMSEEKER);
 	doomseekerSection.createSetting("version", DOOMSEEKER_METADATA_VERSION);
 
 	IniSection metaSection = metaFile.section(SECTION_META);
 
-	metaSection.createSetting("iwad", iwad.toLower());
+	// TODO the meta info needs to also have the recorder's name
+	// and other meta data that is normally parsed from the filename.
+	metaSection.createSetting("iwad", demo.iwad.toLower());
 	QVariantList modfiles;
-	for (const PWad &wad : pwads)
+	for (const PWad &wad : demo.wads)
 	{
 		QVariantList serializedModfile;
 		serializedModfile << wad.name() << wad.isOptional();
@@ -189,7 +294,7 @@ void DemoRecord::saveDemoMetaData(const QString &demoName, const EnginePlugin &p
 	// Backward-compatibility with Doomseeker <1.5 (V1).
 	QStringList requiredPwads;
 	QStringList optionalPwads;
-	for (const PWad &wad : pwads)
+	for (const PWad &wad : demo.wads)
 	{
 		if (wad.isOptional())
 			optionalPwads << wad.name();
@@ -303,9 +408,20 @@ static void loadDemoMetadataFromIni(const QString &path, GameDemo &demo)
 GameDemo DemoRecord::loadGameDemo(const QString &path)
 {
 	GameDemo demo;
-	demo.filepath = path;
-	loadDemoMetadataFromFilename(path, demo);
-	loadDemoMetadataFromIni(path, demo);
+	demo.filepath = path.endsWith("." + METAFILE_SUFFIX)
+		? path.left(path.length() - (1 + METAFILE_SUFFIX.length()))
+		: path;
+	loadDemoMetadataFromFilename(demo.filepath, demo);
+	loadDemoMetadataFromIni(demo.filepath, demo);
+	return demo;
+}
+
+GameDemo DemoRecord::loadManagedGameDemo(const QString &name)
+{
+	GameDemo demo;
+	QFile demoFile(demosDir().filePath(name));
+	if (demoFile.exists())
+		demo = loadGameDemo(demoFile.fileName());
 	return demo;
 }
 

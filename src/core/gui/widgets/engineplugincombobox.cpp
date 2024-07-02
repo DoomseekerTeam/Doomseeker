@@ -26,7 +26,7 @@
 #include "plugins/pluginloader.h"
 
 EnginePluginComboBox::EnginePluginComboBox(QWidget *parent)
-	: QComboBox(parent)
+	: QComboBox(parent), allowUnknown(false)
 {
 	this->connect(this, SIGNAL(currentIndexChanged(int)), SLOT(onIndexChanged()));
 	loadPlugins();
@@ -62,11 +62,36 @@ void EnginePluginComboBox::onIndexChanged()
 	emit currentPluginChanged(currentPlugin());
 }
 
+void EnginePluginComboBox::setAllowUnknown(bool allow)
+{
+	this->allowUnknown = allow;
+	if (!allow && this->count() > gPlugins->numPlugins())
+	{
+		this->removeItem(gPlugins->numPlugins());
+	}
+}
+
 bool EnginePluginComboBox::setPluginByName(const QString &name)
 {
 	int engIndex = gPlugins->pluginIndexFromName(name);
 	if (engIndex < 0)
+	{
+		if (this->allowUnknown)
+		{
+			QString label = tr("%1 (unknown)").arg(name);
+			if (this->count() > gPlugins->numPlugins())
+			{
+				// There already is an unknown plugin selected.
+				this->setItemText(gPlugins->numPlugins(), label);
+			}
+			else
+			{
+				this->addItem(label);
+			}
+			this->setCurrentIndex(gPlugins->numPlugins());
+		}
 		return false;
+	}
 	setCurrentIndex(engIndex);
 	return true;
 }

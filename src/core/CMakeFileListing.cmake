@@ -36,6 +36,7 @@ set(UI_FILES
 	gui/createserver/wadspicker.ui
 	gui/createserverdialog.ui
 	gui/demomanager.ui
+	gui/demometadatadialog.ui
 	gui/dockBuddiesList.ui
 	gui/freedoomdialog.ui
 	gui/ip2cupdatebox.ui
@@ -123,6 +124,7 @@ set(HEADER_FILES
 	gui/createserver/wadspicker.h
 	gui/createserverdialog.h
 	gui/demomanager.h
+	gui/demometadatadialog.h
 	gui/dockBuddiesList.h
 	gui/entity/addressfilter.h
 	gui/entity/serverlistfilterinfo.h
@@ -371,6 +373,7 @@ set(SOURCE_FILES
 	gui/createserver/wadspicker.cpp
 	gui/createserverdialog.cpp
 	gui/demomanager.cpp
+	gui/demometadatadialog.cpp
 	gui/dockBuddiesList.cpp
 	gui/entity/addressfilter.cpp
 	gui/entity/serverlistfilterinfo.cpp
