@@ -76,9 +76,9 @@ private:
 QString GameDemo::managedName() const
 {
 	return QString("%1_%2.%3").arg(
-		this->port,
+		this->game,
 		this->time.toString("dd.MM.yyyy_hh.mm.ss"),
-		QFileInfo(this->filepath).suffix());
+		QFileInfo(this->demopath).suffix());
 }
 
 /*
@@ -170,7 +170,7 @@ QStringList DemoRecord::listManagedDemos()
 bool DemoRecord::importDemo(const GameDemo &demo)
 {
 	QDir demosDir = DemoRecord::demosDir();
-	QFile importedDemo(demo.filepath);
+	QFile importedDemo(demo.demopath);
 	if (!importedDemo.exists())
 		return false;
 
@@ -261,7 +261,7 @@ void DemoRecord::saveDemoMetaData(const QString &demoName, const EnginePlugin &p
 
 	GameDemo demo;
 	loadDemoMetaDataFromFilename(demoFileName, demo);
-	demo.filepath = demoFileName;
+	demo.demopath = demoFileName;
 	demo.iwad = iwad;
 	demo.wads = pwads;
 
@@ -282,14 +282,14 @@ void DemoRecord::saveDemoMetaData(const GameDemo &demo, const QString &path)
 	// TODO the meta info needs to also have the recorder's name
 	// and other meta data that is normally parsed from the filename.
 	metaSection.createSetting("iwad", demo.iwad.toLower());
-	QVariantList modfiles;
+	QVariantList wads;
 	for (const PWad &wad : demo.wads)
 	{
-		QVariantList serializedModfile;
-		serializedModfile << wad.name() << wad.isOptional();
-		modfiles << QVariant(serializedModfile);
+		QVariantList serializedWad;
+		serializedWad << wad.name() << wad.isOptional();
+		wads << QVariant(serializedWad);
 	}
-	metaSection.createSetting("modFiles", QVariant(modfiles));
+	metaSection.createSetting("modFiles", QVariant(wads));
 
 	// Backward-compatibility with Doomseeker <1.5 (V1).
 	QStringList requiredPwads;
@@ -330,14 +330,14 @@ static void loadDemoMetaDataFromFilename(const QString &path, GameDemo &demo)
 	}
 	// Whatever is left is a part of our data.
 	demoData << metaData.replace("__", "_");
-	// Should have at least 3 elements port, date, time[, iwad[, pwads]]
+	// Should have at least 3 elements game, date, time[, iwad[, pwads]]
 	if (demoData.size() < 3)
 		return;
 
 	QDate date = QDate::fromString(demoData[1], "dd.MM.yyyy");
 	QTime time = QTime::fromString(demoData[2], "hh.mm.ss");
 
-	demo.port = demoData[0];
+	demo.game = demoData[0];
 	demo.time = QDateTime(date, time);
 	if (demoData.size() >= 4)
 	{
@@ -371,14 +371,14 @@ static void loadDemoMetaDataFromIniV1(Ini &metaData, GameDemo &demo)
 static void loadDemoMetaDataFromIniV2(Ini &metaData, GameDemo &demo)
 {
 	demo.iwad = metaData.retrieveSetting(SECTION_META, "iwad").valueString();
-	QVariantList modfiles = metaData.retrieveSetting(SECTION_META, "modFiles").value().toList();
-	for (const QVariant &modfile : modfiles)
+	QVariantList wads = metaData.retrieveSetting(SECTION_META, "modFiles").value().toList();
+	for (const QVariant &wad : wads)
 	{
-		QVariantList modfileTokens = modfile.toList();
-		if (modfileTokens.size() >= 2)
+		QVariantList wadTokens = wad.toList();
+		if (wadTokens.size() >= 2)
 		{
-			QString name = modfileTokens[0].toString();
-			bool optional = modfileTokens[1].toBool();
+			QString name = wadTokens[0].toString();
+			bool optional = wadTokens[1].toBool();
 			demo.wads << PWad(name, optional);
 		}
 	}
@@ -408,11 +408,11 @@ static void loadDemoMetaDataFromIni(const QString &path, GameDemo &demo)
 GameDemo DemoRecord::loadGameDemo(const QString &path)
 {
 	GameDemo demo;
-	demo.filepath = path.endsWith("." + METAFILE_SUFFIX)
+	demo.demopath = path.endsWith("." + METAFILE_SUFFIX)
 		? path.left(path.length() - (1 + METAFILE_SUFFIX.length()))
 		: path;
-	loadDemoMetaDataFromFilename(demo.filepath, demo);
-	loadDemoMetaDataFromIni(demo.filepath, demo);
+	loadDemoMetaDataFromFilename(demo.demopath, demo);
+	loadDemoMetaDataFromIni(demo.demopath, demo);
 	return demo;
 }
 

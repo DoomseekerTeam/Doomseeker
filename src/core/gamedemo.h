@@ -34,12 +34,24 @@
 class EnginePlugin;
 class PWad;
 
+/**
+ * The extra metadata that describes a recorded game demo.
+ *
+ * Conveys the file path to the actual demo (`demopath`) plus other
+ * information that help describe this demo: when it was recorded,
+ * what game it was, what files were loaded.
+ */
 struct GameDemo
 {
-	QString filepath;
-	QString port;
+	/// Path to the demo file this metadata describes.
+	QString demopath;
+	/// Name of the game (port, engine) from which the demo was recorded.
+	QString game;
+	/// Date and time when the demo was recorded.
 	QDateTime time;
+	/// IWAD used to record this demo.
 	QString iwad;
+	/// PWADs and other game mod files used to record this demo.
 	QList<PWad> wads;
 
 	/**
@@ -47,9 +59,12 @@ struct GameDemo
 	 */
 	QString managedName() const;
 
-	bool isEmpty() const
+	/**
+	 * True if this metadata relates to a file found somewhere on the disk.
+	 */
+	bool hasDemoFile() const
 	{
-		return filepath.isEmpty();
+		return !demopath.isEmpty();
 	}
 };
 

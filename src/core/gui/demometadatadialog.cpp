@@ -36,7 +36,7 @@ DClass<DemoMetaDataDialog> : public Ui::DemoMetaDataDialog
 {
 public:
 	GameDemo demo;
-	QStandardItemModel *model;
+	QStandardItemModel *wadsModel;
 };
 
 DPointeredNoCopy(DemoMetaDataDialog);
@@ -49,35 +49,35 @@ DemoMetaDataDialog::DemoMetaDataDialog(QWidget *parent, const GameDemo &demo)
 
 	d->cboGame->setAllowUnknown(true);
 
-	d->model = new QStandardItemModel(this);
-	d->modFilesList->setModel(d->model);
-	d->modFilesList->installEventFilter(this);
+	d->wadsModel = new QStandardItemModel(this);
+	d->wadsList->setModel(d->wadsModel);
+	d->wadsList->installEventFilter(this);
 
-	d->cboGame->setPluginByName(demo.port);
+	d->cboGame->setPluginByName(demo.game);
 	d->dteCreatedTime->setDateTime(demo.time);
 	d->leIwad->setText(demo.iwad);
 
-	for (const PWad &modFile : demo.wads)
-		addModFile(modFile);
+	for (const PWad &wad : demo.wads)
+		addWad(wad);
 }
 
-void DemoMetaDataDialog::addEmptyModFile()
+void DemoMetaDataDialog::addEmptyWad()
 {
-	addModFile(PWad(""));
+	addWad(PWad(""));
 }
 
-void DemoMetaDataDialog::addModFile(const PWad &modFile)
+void DemoMetaDataDialog::addWad(const PWad &wad)
 {
-	auto it = new QStandardItem(modFile.name());
+	auto it = new QStandardItem(wad.name());
 	it->setDragEnabled(true);
 	it->setCheckable(true);
-	it->setCheckState(modFile.isOptional() ? Qt::Unchecked : Qt::Checked);
-	d->model->appendRow(it);
+	it->setCheckState(wad.isOptional() ? Qt::Unchecked : Qt::Checked);
+	d->wadsModel->appendRow(it);
 }
 
 bool DemoMetaDataDialog::eventFilter(QObject *obj, QEvent *event)
 {
-	if (obj == d->modFilesList)
+	if (obj == d->wadsList)
 	{
 		if (event->type() == QEvent::KeyPress)
 		{
@@ -86,10 +86,10 @@ bool DemoMetaDataDialog::eventFilter(QObject *obj, QEvent *event)
 			{
 			case Qt::Key_Delete:
 			case Qt::Key_Minus:
-				removeSelectedModFiles();
+				removeSelectedWads();
 				return true;
 			case Qt::Key_Plus:
-				addEmptyModFile();
+				addEmptyWad();
 				return true;
 			default:
 				// no-op
@@ -105,16 +105,16 @@ GameDemo DemoMetaDataDialog::gameDemo() const
 	EnginePlugin *game = d->cboGame->currentPlugin();
 	const QString gameName = game != nullptr
 		? game->data()->name
-		: d->demo.port;
+		: d->demo.game;
 
 	GameDemo demo;
-	demo.filepath = d->demo.filepath;
-	demo.port = gameName;
+	demo.demopath = d->demo.demopath;
+	demo.game = gameName;
 	demo.time = d->dteCreatedTime->dateTime();
 	demo.iwad = d->leIwad->text();
-	for (int i = 0; i < d->model->rowCount(); ++i)
+	for (int i = 0; i < d->wadsModel->rowCount(); ++i)
 	{
-		auto item = d->model->item(i);
+		auto item = d->wadsModel->item(i);
 		QString filename = item->text().trimmed();
 		if (filename.isEmpty())
 			continue;
@@ -125,8 +125,8 @@ GameDemo DemoMetaDataDialog::gameDemo() const
 	return demo;
 }
 
-void DemoMetaDataDialog::removeSelectedModFiles()
+void DemoMetaDataDialog::removeSelectedWads()
 {
 	const bool bSelectNextLowest = true;
-	CommonGUI::removeSelectedRowsFromStandardItemView(d->modFilesList, bSelectNextLowest);
+	CommonGUI::removeSelectedRowsFromStandardItemView(d->wadsList, bSelectNextLowest);
 }

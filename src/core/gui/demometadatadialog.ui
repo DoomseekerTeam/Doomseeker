@@ -58,12 +58,12 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QListView" name="modFilesList"/>
+      <widget class="QListView" name="wadsList"/>
      </item>
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QPushButton" name="btnAddModFile">
+        <widget class="QPushButton" name="btnAddWad">
          <property name="icon">
           <iconset resource="../../../media/resources.qrc">
            <normaloff>:/icons/plus.png</normaloff>:/icons/plus.png</iconset>
@@ -71,7 +71,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="btnRemoveModFiles">
+        <widget class="QPushButton" name="btnRemoveWads">
          <property name="icon">
           <iconset resource="../../../media/resources.qrc">
            <normaloff>:/icons/x.png</normaloff>:/icons/x.png</iconset>
@@ -151,10 +151,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>btnAddModFile</sender>
+   <sender>btnAddWad</sender>
    <signal>clicked()</signal>
    <receiver>DemoMetaDataDialog</receiver>
-   <slot>addEmptyModFile()</slot>
+   <slot>addEmptyWad()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>370</x>
@@ -167,10 +167,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>btnRemoveModFiles</sender>
+   <sender>btnRemoveWads</sender>
    <signal>clicked()</signal>
    <receiver>DemoMetaDataDialog</receiver>
-   <slot>removeSelectedModFiles()</slot>
+   <slot>removeSelectedWads()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>370</x>
@@ -184,7 +184,7 @@
   </connection>
  </connections>
  <slots>
-  <slot>addEmptyModFile()</slot>
-  <slot>removeSelectedModFiles()</slot>
+  <slot>addEmptyWad()</slot>
+  <slot>removeSelectedWads()</slot>
  </slots>
 </ui>

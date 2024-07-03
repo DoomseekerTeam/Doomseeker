@@ -98,8 +98,9 @@ void DemoManagerDlg::adjustDemoList()
 	for (const QString &demoName : demos)
 	{
 		GameDemo demo = DemoRecord::loadManagedGameDemo(demoName);
-		if (!demo.isEmpty())
+		if (demo.hasDemoFile())
 		{
+			// TODO when there are two demos recorded at the same time... we're in trouble.
 			demoMap[demo.time.date().daysTo(today)][demo.time.time().secsTo(referenceTime)] = demo;
 		}
 	}
@@ -202,8 +203,8 @@ void DemoManagerDlg::exportSelectedDoomseeker()
 	gConfig.doomseeker.previousDemoExportDir = dirPath;
 	const QDir dir(dirPath);
 
-	QFile demoFile(d->selectedDemo->filepath);
-	QFile metaFile(DemoRecord::metafile(d->selectedDemo->filepath));
+	QFile demoFile(d->selectedDemo->demopath);
+	QFile metaFile(DemoRecord::metafile(d->selectedDemo->demopath));
 
 	// Check if the files exist at target location and ask to overwrite.
 	QFile destDemo(dir.filePath(QFileInfo(demoFile).fileName()));
@@ -268,13 +269,13 @@ void DemoManagerDlg::exportSelectedPlain()
 
 	QFileDialog saveDialog(this);
 	saveDialog.setAcceptMode(QFileDialog::AcceptSave);
-	saveDialog.selectFile(QFileInfo(d->selectedDemo->filepath).fileName());
+	saveDialog.selectFile(QFileInfo(d->selectedDemo->demopath).fileName());
 	saveDialog.setDirectory(dir);
 	if (saveDialog.exec() == QDialog::Accepted)
 	{
 		gConfig.doomseeker.previousDemoExportDir = QFileInfo(saveDialog.selectedFiles().first()).path();
 		// Copy the demo to the new location.
-		if (!QFile::copy(d->selectedDemo->filepath, saveDialog.selectedFiles().first()))
+		if (!QFile::copy(d->selectedDemo->demopath, saveDialog.selectedFiles().first()))
 			QMessageBox::critical(this, tr("Unable to save"), tr("Could not write to the specified location."));
 	}
 }
@@ -305,16 +306,16 @@ void DemoManagerDlg::importDemo()
 		if (importDialog.exec() == QDialog::Accepted)
 		{
 			GameDemo importedDemo = importDialog.gameDemo();
-			importedDemo.filepath = demo.filepath;
+			importedDemo.demopath = demo.demopath;
 
 			GameDemo existingDemo = DemoRecord::loadManagedGameDemo(importedDemo.managedName());
-			if (!existingDemo.isEmpty())
+			if (existingDemo.hasDemoFile())
 			{
-				QFileInfo existingDemoFile(existingDemo.filepath);
-				QFileInfo importedDemoFile(importedDemo.filepath);
+				QFileInfo existingDemoFile(existingDemo.demopath);
+				QFileInfo importedDemoFile(importedDemo.demopath);
 
-				QByteArray existingMd5 = FileUtils::md5(existingDemo.filepath);
-				QByteArray importedMd5 = FileUtils::md5(importedDemo.filepath);
+				QByteArray existingMd5 = FileUtils::md5(existingDemo.demopath);
+				QByteArray importedMd5 = FileUtils::md5(importedDemo.demopath);
 
 				QString question;
 				if (existingDemoFile.size() == importedDemoFile.size()
@@ -377,13 +378,13 @@ void DemoManagerDlg::playSelected()
 	EnginePlugin *plugin = nullptr;
 	for (unsigned i = 0; i < gPlugins->numPlugins(); i++)
 	{
-		if (d->selectedDemo->port == gPlugins->info(i)->data()->name)
+		if (d->selectedDemo->game == gPlugins->info(i)->data()->name)
 			plugin = gPlugins->info(i);
 	}
 	if (plugin == nullptr)
 	{
 		QMessageBox::critical(this, tr("No plugin"),
-			tr("The \"%1\" plugin does not appear to be loaded.").arg(d->selectedDemo->port));
+			tr("The \"%1\" plugin does not appear to be loaded.").arg(d->selectedDemo->game));
 		return;
 	}
 
@@ -421,7 +422,7 @@ void DemoManagerDlg::playSelected()
 
 	// Play the demo
 	GameCreateParams params;
-	params.setDemoPath(QFileInfo(d->selectedDemo->filepath).absoluteFilePath());
+	params.setDemoPath(QFileInfo(d->selectedDemo->demopath).absoluteFilePath());
 	params.setIwadPath(wadPaths[0]);
 	params.setPwadsPaths(wadPaths.mid(1));
 	params.setHostMode(GameCreateParams::Demo);
@@ -474,8 +475,8 @@ void DemoManagerDlg::updatePreview()
 		return;
 	}
 
-	QString text = "<b>" + tr("Port") + ":</b><p style=\"margin: 0px 0px 0px 10px\">" + d->selectedDemo->port + "</p>" +
-		"<b>" + tr("WADs") + ":</b><p style=\"margin: 0px 0px 0px 10px\">";
+	QString text = "<b>" + tr("Game") + ":</b><p style=\"margin: 0px 0px 0px 10px\">" + d->selectedDemo->game + "</p>" +
+		"<b>" + tr("WADs / mods") + ":</b><p style=\"margin: 0px 0px 0px 10px\">";
 	text += d->selectedDemo->iwad + "<br />";
 	for (const PWad &wad : d->selectedDemo->wads)
 	{

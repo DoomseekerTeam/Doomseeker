@@ -45,11 +45,11 @@ protected:
 private:
 	DPtr<DemoMetaDataDialog> d;
 
-	void addModFile(const PWad &modFile);
+	void addWad(const PWad &wad);
 
 private slots:
-	void addEmptyModFile();
-	void removeSelectedModFiles();
+	void addEmptyWad();
+	void removeSelectedWads();
 };
 
 #endif
