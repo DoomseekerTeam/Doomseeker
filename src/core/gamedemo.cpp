@@ -35,6 +35,7 @@
 #include <QDateTime>
 #include <QDir>
 #include <QFileInfo>
+#include <QJsonDocument>
 #include <QMessageBox>
 #include <QVariant>
 #include <QVariantList>
@@ -275,13 +276,13 @@ void DemoRecord::saveDemoMetaData(const GameDemo &demo, const QString &path)
 	Ini metaFile(&settingsProvider);
 
 	IniSection doomseekerSection = metaFile.section(SECTION_DOOMSEEKER);
-	doomseekerSection.createSetting("version", DOOMSEEKER_METADATA_VERSION);
+	doomseekerSection.setValue("version", DOOMSEEKER_METADATA_VERSION);
 
 	IniSection metaSection = metaFile.section(SECTION_META);
 
 	// TODO the meta info needs to also have the recorder's name
 	// and other meta data that is normally parsed from the filename.
-	metaSection.createSetting("iwad", demo.iwad.toLower());
+	metaSection.setValue("iwad", demo.iwad.toLower());
 	QVariantList wads;
 	for (const PWad &wad : demo.wads)
 	{
@@ -289,7 +290,11 @@ void DemoRecord::saveDemoMetaData(const GameDemo &demo, const QString &path)
 		serializedWad << wad.name() << wad.isOptional();
 		wads << QVariant(serializedWad);
 	}
-	metaSection.createSetting("modFiles", QVariant(wads));
+
+	// Convert the WAD objects to JSON to have them saved in a format
+	// that is at least somewhat human-readable.
+	metaSection.setValue("wads", QString::fromUtf8(
+		QJsonDocument::fromVariant(wads).toJson(QJsonDocument::Compact)));
 
 	// Backward-compatibility with Doomseeker <1.5 (V1).
 	QStringList requiredPwads;
@@ -301,8 +306,8 @@ void DemoRecord::saveDemoMetaData(const GameDemo &demo, const QString &path)
 		else
 			requiredPwads << wad.name();
 	}
-	metaSection.createSetting("pwads", requiredPwads.join(";"));
-	metaSection.createSetting("optionalPwads", optionalPwads);
+	metaSection.setValue("pwads", requiredPwads.join(";"));
+	metaSection.setValue("optionalPwads", optionalPwads);
 }
 
 static void loadDemoMetaDataFromFilename(const QString &path, GameDemo &demo)
@@ -371,7 +376,7 @@ static void loadDemoMetaDataFromIniV1(Ini &metaData, GameDemo &demo)
 static void loadDemoMetaDataFromIniV2(Ini &metaData, GameDemo &demo)
 {
 	demo.iwad = metaData.retrieveSetting(SECTION_META, "iwad").valueString();
-	QVariantList wads = metaData.retrieveSetting(SECTION_META, "modFiles").value().toList();
+	QVariantList wads = QJsonDocument::fromJson(metaData.retrieveSetting(SECTION_META, "wads").valueString().toUtf8()).toVariant().toList();
 	for (const QVariant &wad : wads)
 	{
 		QVariantList wadTokens = wad.toList();
