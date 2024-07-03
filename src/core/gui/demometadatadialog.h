@@ -29,13 +29,13 @@
 struct GameDemo;
 class PWad;
 
-class DemoMetadataDialog : public QDialog
+class DemoMetaDataDialog : public QDialog
 {
 	Q_OBJECT;
-	Q_DISABLE_COPY(DemoMetadataDialog);
+	Q_DISABLE_COPY(DemoMetaDataDialog);
 
 public:
-	DemoMetadataDialog(QWidget *parent, const GameDemo &demo);
+	DemoMetaDataDialog(QWidget *parent, const GameDemo &demo);
 
 	GameDemo gameDemo() const;
 
@@ -43,7 +43,7 @@ protected:
 	bool eventFilter(QObject *obj, QEvent *event) override;
 
 private:
-	DPtr<DemoMetadataDialog> d;
+	DPtr<DemoMetaDataDialog> d;
 
 	void addModFile(const PWad &modFile);
 

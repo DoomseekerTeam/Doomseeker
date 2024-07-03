@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DemoMetadataDialog</class>
- <widget class="QDialog" name="DemoMetadataDialog">
+ <class>DemoMetaDataDialog</class>
+ <widget class="QDialog" name="DemoMetaDataDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -121,7 +121,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>DemoMetadataDialog</receiver>
+   <receiver>DemoMetaDataDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -137,7 +137,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>DemoMetadataDialog</receiver>
+   <receiver>DemoMetaDataDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -153,7 +153,7 @@
   <connection>
    <sender>btnAddModFile</sender>
    <signal>clicked()</signal>
-   <receiver>DemoMetadataDialog</receiver>
+   <receiver>DemoMetaDataDialog</receiver>
    <slot>addEmptyModFile()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -169,7 +169,7 @@
   <connection>
    <sender>btnRemoveModFiles</sender>
    <signal>clicked()</signal>
-   <receiver>DemoMetadataDialog</receiver>
+   <receiver>DemoMetaDataDialog</receiver>
    <slot>removeSelectedModFiles()</slot>
    <hints>
     <hint type="sourcelabel">

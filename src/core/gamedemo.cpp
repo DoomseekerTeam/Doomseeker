@@ -84,7 +84,7 @@ QString GameDemo::managedName() const
 /*
   DemoRecord
 */
-static void loadDemoMetadataFromFilename(const QString &path, GameDemo &demo);
+static void loadDemoMetaDataFromFilename(const QString &path, GameDemo &demo);
 
 static const int DOOMSEEKER_METADATA_VERSION = 2;
 
@@ -260,7 +260,7 @@ void DemoRecord::saveDemoMetaData(const QString &demoName, const EnginePlugin &p
 	QString metaFileName = metafile(demoFileName);
 
 	GameDemo demo;
-	loadDemoMetadataFromFilename(demoFileName, demo);
+	loadDemoMetaDataFromFilename(demoFileName, demo);
 	demo.filepath = demoFileName;
 	demo.iwad = iwad;
 	demo.wads = pwads;
@@ -305,7 +305,7 @@ void DemoRecord::saveDemoMetaData(const GameDemo &demo, const QString &path)
 	metaSection.createSetting("optionalPwads", optionalPwads);
 }
 
-static void loadDemoMetadataFromFilename(const QString &path, GameDemo &demo)
+static void loadDemoMetaDataFromFilename(const QString &path, GameDemo &demo)
 {
 	QString metaData = QFileInfo(path).completeBaseName();
 
@@ -349,7 +349,7 @@ static void loadDemoMetadataFromFilename(const QString &path, GameDemo &demo)
 	}
 }
 
-static void loadDemoMetadataFromIniV1(Ini &metaData, GameDemo &demo)
+static void loadDemoMetaDataFromIniV1(Ini &metaData, GameDemo &demo)
 {
 	demo.iwad = metaData.retrieveSetting(SECTION_META, "iwad").valueString();
 	QString pwads = metaData.retrieveSetting(SECTION_META, "pwads");
@@ -368,7 +368,7 @@ static void loadDemoMetadataFromIniV1(Ini &metaData, GameDemo &demo)
 	}
 }
 
-static void loadDemoMetadataFromIniV2(Ini &metaData, GameDemo &demo)
+static void loadDemoMetaDataFromIniV2(Ini &metaData, GameDemo &demo)
 {
 	demo.iwad = metaData.retrieveSetting(SECTION_META, "iwad").valueString();
 	QVariantList modfiles = metaData.retrieveSetting(SECTION_META, "modFiles").value().toList();
@@ -384,7 +384,7 @@ static void loadDemoMetadataFromIniV2(Ini &metaData, GameDemo &demo)
 	}
 }
 
-static void loadDemoMetadataFromIni(const QString &path, GameDemo &demo)
+static void loadDemoMetaDataFromIni(const QString &path, GameDemo &demo)
 {
 	QFileInfo iniFile(path + ".ini");
 	if (!iniFile.exists())
@@ -399,9 +399,9 @@ static void loadDemoMetadataFromIni(const QString &path, GameDemo &demo)
 		// Try to load any version greater than V2 as V2, assuming that
 		// future versions will maintain backward-compatibility with the
 		// most recent previous version.
-		loadDemoMetadataFromIniV2(metaData, demo);
+		loadDemoMetaDataFromIniV2(metaData, demo);
 	} else {
-		loadDemoMetadataFromIniV1(metaData, demo);
+		loadDemoMetaDataFromIniV1(metaData, demo);
 	}
 }
 
@@ -411,8 +411,8 @@ GameDemo DemoRecord::loadGameDemo(const QString &path)
 	demo.filepath = path.endsWith("." + METAFILE_SUFFIX)
 		? path.left(path.length() - (1 + METAFILE_SUFFIX.length()))
 		: path;
-	loadDemoMetadataFromFilename(demo.filepath, demo);
-	loadDemoMetadataFromIni(demo.filepath, demo);
+	loadDemoMetaDataFromFilename(demo.filepath, demo);
+	loadDemoMetaDataFromIni(demo.filepath, demo);
 	return demo;
 }
 

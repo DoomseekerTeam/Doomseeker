@@ -300,7 +300,7 @@ void DemoManagerDlg::importDemo()
 	GameDemo demo = DemoRecord::loadGameDemo(selectedFile);
 	do
 	{
-		DemoMetadataDialog importDialog(this, demo);
+		DemoMetaDataDialog importDialog(this, demo);
 		importDialog.setWindowTitle(tr("Import game demo"));
 		if (importDialog.exec() == QDialog::Accepted)
 		{

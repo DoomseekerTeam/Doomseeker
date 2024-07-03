@@ -32,16 +32,16 @@
 #include <QKeyEvent>
 #include <QStandardItemModel>
 
-DClass<DemoMetadataDialog> : public Ui::DemoMetadataDialog
+DClass<DemoMetaDataDialog> : public Ui::DemoMetaDataDialog
 {
 public:
 	GameDemo demo;
 	QStandardItemModel *model;
 };
 
-DPointeredNoCopy(DemoMetadataDialog);
+DPointeredNoCopy(DemoMetaDataDialog);
 
-DemoMetadataDialog::DemoMetadataDialog(QWidget *parent, const GameDemo &demo)
+DemoMetaDataDialog::DemoMetaDataDialog(QWidget *parent, const GameDemo &demo)
 	: QDialog(parent)
 {
 	d->setupUi(this);
@@ -61,12 +61,12 @@ DemoMetadataDialog::DemoMetadataDialog(QWidget *parent, const GameDemo &demo)
 		addModFile(modFile);
 }
 
-void DemoMetadataDialog::addEmptyModFile()
+void DemoMetaDataDialog::addEmptyModFile()
 {
 	addModFile(PWad(""));
 }
 
-void DemoMetadataDialog::addModFile(const PWad &modFile)
+void DemoMetaDataDialog::addModFile(const PWad &modFile)
 {
 	auto it = new QStandardItem(modFile.name());
 	it->setDragEnabled(true);
@@ -75,7 +75,7 @@ void DemoMetadataDialog::addModFile(const PWad &modFile)
 	d->model->appendRow(it);
 }
 
-bool DemoMetadataDialog::eventFilter(QObject *obj, QEvent *event)
+bool DemoMetaDataDialog::eventFilter(QObject *obj, QEvent *event)
 {
 	if (obj == d->modFilesList)
 	{
@@ -100,7 +100,7 @@ bool DemoMetadataDialog::eventFilter(QObject *obj, QEvent *event)
 	return false;
 }
 
-GameDemo DemoMetadataDialog::gameDemo() const
+GameDemo DemoMetaDataDialog::gameDemo() const
 {
 	EnginePlugin *game = d->cboGame->currentPlugin();
 	const QString gameName = game != nullptr
@@ -125,7 +125,7 @@ GameDemo DemoMetadataDialog::gameDemo() const
 	return demo;
 }
 
-void DemoMetadataDialog::removeSelectedModFiles()
+void DemoMetaDataDialog::removeSelectedModFiles()
 {
 	const bool bSelectNextLowest = true;
 	CommonGUI::removeSelectedRowsFromStandardItemView(d->modFilesList, bSelectNextLowest);
