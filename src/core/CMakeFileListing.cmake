@@ -6,6 +6,7 @@ set(UI_FILES
 	gui/configuration/cfgautoupdates.ui
 	gui/configuration/cfgcustomservers.ui
 	gui/configuration/cfgfilepaths.ui
+	gui/configuration/cfggames.ui
 	gui/configuration/cfgip2c.ui
 	gui/configuration/cfgquery.ui
 	gui/configuration/cfgserverpasswords.ui
@@ -90,6 +91,7 @@ set(HEADER_FILES
 	gui/configuration/cfgautoupdates.h
 	gui/configuration/cfgcustomservers.h
 	gui/configuration/cfgfilepaths.h
+	gui/configuration/cfggames.h
 	gui/configuration/cfgip2c.h
 	gui/configuration/cfgquery.h
 	gui/configuration/cfgserverpasswords.h
@@ -233,6 +235,7 @@ set(HEADER_FILES
 	main.h
 	modreader.h
 	ntfsperm.h
+	osinfo.h
 	pathfinder/caseinsensitivefsfileseeker.h
 	pathfinder/casesensitivefsfileseeker.h
 	pathfinder/filealias.h
@@ -341,6 +344,7 @@ set(SOURCE_FILES
 	gui/configuration/cfgautoupdates.cpp
 	gui/configuration/cfgcustomservers.cpp
 	gui/configuration/cfgfilepaths.cpp
+	gui/configuration/cfggames.cpp
 	gui/configuration/cfgip2c.cpp
 	gui/configuration/cfgquery.cpp
 	gui/configuration/cfgserverpasswords.cpp
@@ -479,6 +483,7 @@ set(SOURCE_FILES
 	log.cpp
 	main.cpp
 	modreader.cpp
+	osinfo.cpp
 	pathfinder/caseinsensitivefsfileseeker.cpp
 	pathfinder/casesensitivefsfileseeker.cpp
 	pathfinder/filealias.cpp

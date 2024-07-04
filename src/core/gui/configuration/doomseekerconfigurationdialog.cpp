@@ -27,6 +27,7 @@
 #include "gui/configuration/cfgautoupdates.h"
 #include "gui/configuration/cfgcustomservers.h"
 #include "gui/configuration/cfgfilepaths.h"
+#include "gui/configuration/cfggames.h"
 #include "gui/configuration/cfgip2c.h"
 #include "gui/configuration/cfgquery.h"
 #include "gui/configuration/cfgserverpasswords.h"
@@ -115,8 +116,7 @@ void DoomseekerConfigurationDialog::doSaveSettings()
 
 void DoomseekerConfigurationDialog::initOptionsList()
 {
-	enginesRoot = addLabel(nullptr, tr("Games"));
-	enginesRoot->setIcon(QIcon(":/icons/joystick.png"));
+	enginesRoot = addConfigPage(nullptr, new CFGGames(this));
 
 	addConfigPage(nullptr, new CFGAppearance(this));
 	#ifdef WITH_AUTOUPDATES

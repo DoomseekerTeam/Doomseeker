@@ -13,6 +13,11 @@ and this project does not adhere to
 - Server filtering by the IP address. (#4117)
 - Export demos with Doomseeker metadata. (#4110)
 - Import external demos to Doomseeker's demo manager. (#4110)
+- Save the demo's created time in the metadata file with timezone info. (#4110)
+- The recorded demos will now have their author's name saved in their
+metadata. The name can be configured in Doomseeker's config box in the
+new "Games" page (the tree section for Games was already there since
+forever, but now it finally has an actual page). (#4110)
 - A compilation option to make the IP2C auto-updates disabled by default:
 `DOOMSEEKER_IP2C_AUTOUPDATE_DEFAULT`. (#3732)
 - El Salvador and Macao country flags.
@@ -47,6 +52,8 @@ info is missing.
 - Demo manager's Play, Remove and Export buttons will now be disabled when
 no demo is selected.
 - Remember the previous export dir in demo manager.
+- Demo metadata format altered. Doomseeker calls this metadata format V2, but
+it will continue to read the previous format. (#4110)
 - Updated the internal zlib library to 1.2.13.
 - Updated the internal bzip2 library to version 1.0.8.
 - Wadseeker: upgrade the LZMA SDK to version 23.01.
@@ -59,8 +66,8 @@ will attempt to calculate the height needed by the players table and if it
 exceeds a certain percentage of the available screen space, it will trim the
 player list displaying only that there are `<N>` more players on the server.
 This should prevent the tooltip from stretching beyond the screen. (#4149)
-- Remember the order in which the required and optional WADs were loaded
-if they were interleaved during demo recording.
+- Demo metadata: remember the order in which the required and optional WADs
+were loaded if they were interleaved during demo recording. (#4110)
 - Q-Zandronum, Zandronum: single-player demos will now be recorded with
 the correct `.lmp` extension.
 

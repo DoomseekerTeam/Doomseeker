@@ -33,6 +33,7 @@
 #include "ini/settingsproviderqt.h"
 #include "localizationinfo.h"
 #include "log.h"
+#include "osinfo.h"
 #include "pathfinder/filealias.h"
 #include "pathfinder/filesearchpath.h"
 #include "plugins/engineplugin.h"
@@ -265,6 +266,7 @@ public:
 
 DPointered(DoomseekerConfig::DoomseekerCfg)
 
+const QString DoomseekerConfig::DoomseekerCfg::OS_USERNAME_TMPL = "$USERNAME";
 const QString DoomseekerConfig::DoomseekerCfg::SECTION_NAME = "Doomseeker";
 
 DoomseekerConfig::DoomseekerCfg::DoomseekerCfg()
@@ -296,6 +298,7 @@ DoomseekerConfig::DoomseekerCfg::DoomseekerCfg()
 	this->mainWindowGeometry = "";
 	this->queryAutoRefreshEverySeconds = 180;
 	setQuerySpeed(QuerySpeed::aggressive());
+	this->playerName = OS_USERNAME_TMPL;
 	this->previousCreateServerConfigDir = "";
 	this->previousCreateServerExecDir = "";
 	this->previousCreateServerLogDir = "";
@@ -357,6 +360,7 @@ void DoomseekerConfig::DoomseekerCfg::init(IniSection &section)
 	section.createSetting("BuddyServersColor", this->buddyServersColor);
 	section.createSetting("CustomServersColor", this->customServersColor);
 	section.createSetting("LanServersColor", this->lanServersColor);
+	section.createSetting("PlayerName", this->playerName);
 	section.createSetting("QueryAutoRefreshEverySeconds", this->queryAutoRefreshEverySeconds);
 	section.createSetting("QueryServerInterval", this->querySpeed().intervalBetweenServers);
 	section.createSetting("QueryServerTimeout", this->querySpeed().delayBetweenSingleServerAttempts);
@@ -406,6 +410,7 @@ void DoomseekerConfig::DoomseekerCfg::load(IniSection &section)
 	d->querySpeed.intervalBetweenServers = section["QueryServerInterval"];
 	d->querySpeed.delayBetweenSingleServerAttempts = section["QueryServerTimeout"];
 	d->querySpeed.attemptsPerServer = section["QueryAttemptsPerServer"];
+	this->playerName = (const QString &)section["PlayerName"];
 	this->previousCreateServerConfigDir = (const QString &)section["PreviousCreateServerConfigDir"];
 	this->previousCreateServerExecDir = (const QString &)section["PreviousCreateServerExecDir"];
 	this->previousCreateServerLogDir = (const QString &)section["PreviousCreateServerLogDir"];
@@ -505,6 +510,7 @@ void DoomseekerConfig::DoomseekerCfg::save(IniSection &section)
 	section["QueryServerInterval"] = this->querySpeed().intervalBetweenServers;
 	section["QueryServerTimeout"] = this->querySpeed().delayBetweenSingleServerAttempts;
 	section["QueryAttemptsPerServer"] = this->querySpeed().attemptsPerServer;
+	section["PlayerName"] = this->playerName;
 	section["PreviousCreateServerConfigDir"] = this->previousCreateServerConfigDir;
 	section["PreviousCreateServerExecDir"] = this->previousCreateServerExecDir;
 	section["PreviousCreateServerLogDir"] = this->previousCreateServerLogDir;
@@ -550,6 +556,17 @@ const QuerySpeed &DoomseekerConfig::DoomseekerCfg::querySpeed() const
 void DoomseekerConfig::DoomseekerCfg::setQuerySpeed(const QuerySpeed &val)
 {
 	d->querySpeed = val;
+}
+
+QString DoomseekerConfig::DoomseekerCfg::realPlayerName() const
+{
+	if (this->playerName == OS_USERNAME_TMPL)
+	{
+		QString osUser = OsInfo::username();
+		if (!osUser.isEmpty())
+			return osUser;
+	}
+	return this->playerName;
 }
 
 QList<FileAlias> DoomseekerConfig::DoomseekerCfg::wadAliases() const

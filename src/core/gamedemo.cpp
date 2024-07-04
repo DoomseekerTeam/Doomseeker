@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 #include "gamedemo.h"
 
+#include "configuration/doomseekerconfig.h"
 #include "datapaths.h"
 #include "datetime.h"
 #include "fileutils.h"
@@ -264,6 +265,7 @@ void DemoRecord::saveDemoMetaData(const QString &demoName, const EnginePlugin &p
 
 	GameDemo demo;
 	loadDemoMetaDataFromFilename(demoFileName, demo);
+	demo.author = gConfig.doomseeker.realPlayerName();
 	demo.demopath = demoFileName;
 	demo.iwad = iwad;
 	demo.wads = pwads;
@@ -282,8 +284,7 @@ void DemoRecord::saveDemoMetaData(const GameDemo &demo, const QString &path)
 
 	IniSection metaSection = metaFile.section(SECTION_META);
 
-	// TODO the meta info needs to also have the recorder's name
-	// and other meta data that is normally parsed from the filename.
+	metaSection.setValue("author", demo.author);
 	metaSection.setValue("game", demo.game);
 	metaSection.setValue("createdtime", DateTime::toISO8601(demo.time));
 
@@ -380,6 +381,7 @@ static void loadDemoMetaDataFromIniV1(Ini &metaData, GameDemo &demo)
 
 static void loadDemoMetaDataFromIniV2(Ini &metaData, GameDemo &demo)
 {
+	demo.author = metaData.retrieveSetting(SECTION_META, "author").valueString();
 	demo.game = metaData.retrieveSetting(SECTION_META, "game").valueString();
 	demo.time = QDateTime::fromString(metaData.retrieveSetting(SECTION_META, "createdtime").valueString(), Qt::ISODate);
 	demo.iwad = metaData.retrieveSetting(SECTION_META, "iwad").valueString();

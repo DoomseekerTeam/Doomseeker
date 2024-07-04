@@ -56,8 +56,8 @@ public:
 	class DoomseekerCfg
 	{
 	public:
+		static const QString OS_USERNAME_TMPL;
 		static const QString SECTION_NAME;
-
 
 		bool bBotsAreNotPlayers;
 		bool bCloseToTrayIcon;
@@ -87,6 +87,7 @@ public:
 		QString mainWindowState;
 		QByteArray mainWindowGeometry;
 		unsigned queryAutoRefreshEverySeconds;
+		QString playerName;
 		QString previousCreateServerConfigDir;
 		QString previousCreateServerExecDir;
 		QString previousCreateServerLogDir;
@@ -108,6 +109,15 @@ public:
 
 		const QuerySpeed &querySpeed() const;
 		void setQuerySpeed(const QuerySpeed &val);
+
+		/**
+		 * Return the player name as configured and resolved.
+		 *
+		 * If player name is set to OS_USERNAME_TMPL, it returns
+		 * the name of the OS user. Otherwise, it returns the
+		 * name as configured.
+		 */
+		QString realPlayerName() const;
 
 		QList<FileAlias> wadAliases() const;
 		void setWadAliases(const QList<FileAlias> &val);
@@ -279,7 +289,6 @@ public:
 	bool setIniFile(const QString &filePath);
 
 	QList<FileSearchPath> combinedWadseekPaths() const;
-
 
 private:
 	static DoomseekerConfig *instance;

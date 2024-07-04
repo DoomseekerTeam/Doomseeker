@@ -45,6 +45,8 @@ struct GameDemo
 {
 	/// Path to the demo file this metadata describes.
 	QString demopath;
+	/// Who recorded this demo.
+	QString author;
 	/// Name of the game (port, engine) from which the demo was recorded.
 	QString game;
 	/// Date and time when the demo was recorded.

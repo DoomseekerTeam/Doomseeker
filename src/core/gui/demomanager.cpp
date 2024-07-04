@@ -475,8 +475,15 @@ void DemoManagerDlg::updatePreview()
 		return;
 	}
 
-	QString text = "<b>" + tr("Game") + ":</b><p style=\"margin: 0px 0px 0px 10px\">" + d->selectedDemo->game + "</p>" +
-		"<b>" + tr("WADs / mods") + ":</b><p style=\"margin: 0px 0px 0px 10px\">";
+	static const QString PAR = "<p style=\"margin: 0px 0px 0px 10px\">";
+	static const QString ENDPAR = "</p>";
+
+	QString text = "<b>" + tr("Game") + ":</b>" + PAR + d->selectedDemo->game + ENDPAR;
+	if (!d->selectedDemo->author.isEmpty())
+	{
+		text += "<b>" + tr("Author") + ":</b>" + PAR + d->selectedDemo->author + ENDPAR;
+	}
+	text += "<b>" + tr("WADs / mods") + ":</b>" + PAR;
 	text += d->selectedDemo->iwad + "<br />";
 	for (const PWad &wad : d->selectedDemo->wads)
 	{
@@ -486,6 +493,6 @@ void DemoManagerDlg::updatePreview()
 			text += wad.name();
 		text += "<br />";
 	}
-	text += "</p>";
+	text += ENDPAR;
 	d->preview->setText(text);
 }
