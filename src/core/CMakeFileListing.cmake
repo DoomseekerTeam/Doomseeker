@@ -75,6 +75,7 @@ set(HEADER_FILES
 	customservers.h
 	datapaths.h
 	datastreamoperatorwrapper.h
+	datetime.h
 	doomseekerfilepaths.h
 	dptr.h
 	filefilter.h
@@ -289,6 +290,7 @@ set(HEADER_FILES
 	templatedpathresolver.h
 	tests/testbase.h
 	tests/testcore.h
+	tests/testdatetime.h
 	tests/testfilesearchpath.h
 	tests/testini.h
 	tests/testircisupportparser.h
@@ -327,6 +329,7 @@ set(SOURCE_FILES
 	customservers.cpp
 	datapaths.cpp
 	datastreamoperatorwrapper.cpp
+	datetime.cpp
 	doomseekerfilepaths.cpp
 	filefilter.cpp
 	fileutils.cpp
@@ -528,6 +531,7 @@ set(SOURCE_FILES
 	templatedpathresolver.cpp
 	tests/testbase.cpp
 	tests/testcore.cpp
+	tests/testdatetime.cpp
 	tests/testfilesearchpath.cpp
 	tests/testini.cpp
 	tests/testircisupportparser.cpp

@@ -23,6 +23,7 @@
 #include "gamedemo.h"
 
 #include "datapaths.h"
+#include "datetime.h"
 #include "fileutils.h"
 #include "ini/ini.h"
 #include "ini/settingsproviderqt.h"
@@ -36,6 +37,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QJsonDocument>
+#include <QTimeZone>
 #include <QMessageBox>
 #include <QVariant>
 #include <QVariantList>
@@ -282,6 +284,9 @@ void DemoRecord::saveDemoMetaData(const GameDemo &demo, const QString &path)
 
 	// TODO the meta info needs to also have the recorder's name
 	// and other meta data that is normally parsed from the filename.
+	metaSection.setValue("game", demo.game);
+	metaSection.setValue("createdtime", DateTime::toISO8601(demo.time));
+
 	metaSection.setValue("iwad", demo.iwad.toLower());
 	QVariantList wads;
 	for (const PWad &wad : demo.wads)
@@ -343,7 +348,7 @@ static void loadDemoMetaDataFromFilename(const QString &path, GameDemo &demo)
 	QTime time = QTime::fromString(demoData[2], "hh.mm.ss");
 
 	demo.game = demoData[0];
-	demo.time = QDateTime(date, time);
+	demo.time = QDateTime(date, time, QTimeZone::systemTimeZone());
 	if (demoData.size() >= 4)
 	{
 		for (QString wad : demoData.mid(3))
@@ -375,6 +380,8 @@ static void loadDemoMetaDataFromIniV1(Ini &metaData, GameDemo &demo)
 
 static void loadDemoMetaDataFromIniV2(Ini &metaData, GameDemo &demo)
 {
+	demo.game = metaData.retrieveSetting(SECTION_META, "game").valueString();
+	demo.time = QDateTime::fromString(metaData.retrieveSetting(SECTION_META, "createdtime").valueString(), Qt::ISODate);
 	demo.iwad = metaData.retrieveSetting(SECTION_META, "iwad").valueString();
 	QVariantList wads = QJsonDocument::fromJson(metaData.retrieveSetting(SECTION_META, "wads").valueString().toUtf8()).toVariant().toList();
 	for (const QVariant &wad : wads)

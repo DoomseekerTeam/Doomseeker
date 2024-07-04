@@ -21,6 +21,7 @@
 // Copyright (C) 2010 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
 #include "testruns.h"
+#include "tests/testdatetime.h"
 #include "tests/testfilesearchpath.h"
 #include "tests/testini.h"
 #include "tests/testircisupportparser.h"
@@ -34,20 +35,26 @@ TestCore *TestRuns::pTestCore = nullptr;
 
 void TestRuns::callTests()
 {
+	// DateTime
+	pTestCore->executeTest(new TestDateTimeISO8601());
+
 	// INI
 	// Note: All of these tests may fail if TestReadINI fails.
 	pTestCore->executeTest(new TestReadINI());
 	pTestCore->executeTest(new TestReadINIVariable());
 	pTestCore->executeTest(new TestDeleteINISection());
 	pTestCore->executeTest(new TestDeleteINIVariable());
-	pTestCore->executeTest(new TestStringsWrapUrls());
 
+	// IRC
 	pTestCore->executeTest(new TestIRCISupportPrefix());
 	pTestCore->executeTest(new TestIRCISupportNoPrefix());
 
 	// FileSearchPath
 	pTestCore->executeTest(new TestFileSearchPathContains);
 	pTestCore->executeTest(new TestFileSearchPathMerge);
+
+	// Strings
+	pTestCore->executeTest(new TestStringsWrapUrls());
 
 	// Templated Path Resolver
 	pTestCore->executeTest(new TestTemplatedPathResolver());
