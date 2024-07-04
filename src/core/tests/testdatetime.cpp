@@ -41,8 +41,22 @@ bool TestDateTimeISO8601::executeTest()
 	T_ASSERT_EQUAL("1970-01-01T00:00:00Z", DateTime::toISO8601(
 		QDateTime::fromMSecsSinceEpoch(0, Qt::UTC)));
 
-	QDateTime warsaw = QDateTime(QDate(2024, 07, 04), QTime(17, 00, 00), QTimeZone("Europe/Warsaw"));
-	T_ASSERT_EQUAL("2024-07-04T17:00:00+02:00", DateTime::toISO8601(warsaw));
+	// Getting the timezone by its name may fail on its own,
+	// but it's not what we're testing here, so try to recover
+	// on a fall-back, and skip the test if altogether if the
+	// timezone cannot be defined.
+	QTimeZone warsawZone("Europe/Warsaw");
+	if (!warsawZone.isValid())
+		warsawZone = QTimeZone("UTC+02:00");
+	if (warsawZone.isValid())
+	{
+		QDateTime warsaw = QDateTime(QDate(2024, 07, 04), QTime(17, 00, 00), warsawZone);
+		T_ASSERT_EQUAL("2024-07-04T17:00:00+02:00", DateTime::toISO8601(warsaw));
+	}
+	else
+	{
+		testLog << "skipped Europe/Warsaw test because couldn't resolve the timezone";
+	}
 
 	QDateTime offsetM1 = QDateTime(QDate(2024, 07, 04), QTime(17, 00, 00), QTimeZone(-1 * 60 * 60));
 	T_ASSERT_EQUAL("2024-07-04T17:00:00-01:00", DateTime::toISO8601(offsetM1));
