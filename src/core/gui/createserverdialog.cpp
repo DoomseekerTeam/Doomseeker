@@ -53,6 +53,7 @@ public:
 	QList<CreateServerDialogPage *> currentCustomPages;
 	EnginePlugin *currentEngine;
 	GameCreateParams::HostMode hostMode;
+	DemoStore demoStore;
 
 	QMenu *modeMenu;
 	QAction *hostModeAction;
@@ -102,6 +103,7 @@ CreateServerDialog::CreateServerDialog(GameCreateParams::HostMode hostMode, QWid
 
 	d->currentEngine = nullptr;
 	d->hostMode = hostMode;
+	d->demoStore = DemoStore();
 
 	d->setupUi(this);
 	setupMenu();
@@ -233,13 +235,13 @@ bool CreateServerDialog::createHostInfoDemoRecord(GameCreateParams &params, bool
 			? DemoRecord::Managed : DemoRecord::Unmanaged;
 		if (demoMode == DemoRecord::Managed)
 		{
-			if (!DemoRecord::ensureStorageExists(this))
+			if (!d->demoStore.ensureStorageExists(this))
 			{
 				return false;
 			}
 		}
 
-		params.setDemoPath(DemoRecord::mkDemoFullPath(demoMode, *d->currentEngine, false));
+		params.setDemoPath(d->demoStore.mkDemoFullPath(demoMode, *d->currentEngine, false));
 		params.setDemoRecord(demoMode);
 	}
 	return true;

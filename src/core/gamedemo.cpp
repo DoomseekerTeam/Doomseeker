@@ -87,15 +87,6 @@ QString GameDemo::managedName() const
 /*
   DemoRecord
 */
-static void loadDemoMetaDataFromFilename(const QString &path, GameDemo &demo);
-
-static const int DOOMSEEKER_METADATA_VERSION = 2;
-
-/// Filename suffix without the dot, just like QFileInfo::suffix().
-static const QString METAFILE_SUFFIX = "ini";
-static const QString SECTION_DOOMSEEKER = "doomseeker";
-static const QString SECTION_META = "meta";
-
 DemoRecord::DemoRecord()
 {
 	d.control = NoDemo;
@@ -106,7 +97,42 @@ DemoRecord::DemoRecord(Control control)
 	d.control = control;
 }
 
-QStringList DemoRecord::demoFileFilters()
+DemoRecord::operator DemoRecord::Control() const
+{
+	return d.control;
+}
+
+/*
+  DemoStore
+*/
+static void loadDemoMetaDataFromFilename(const QString &path, GameDemo &demo);
+
+static const int DOOMSEEKER_METADATA_VERSION = 2;
+
+/// Filename suffix without the dot, just like QFileInfo::suffix().
+static const QString METAFILE_SUFFIX = "ini";
+static const QString SECTION_DOOMSEEKER = "doomseeker";
+static const QString SECTION_META = "meta";
+
+DClass<DemoStore>
+{
+public:
+	QDir root;
+};
+
+DPointered(DemoStore);
+
+DemoStore::DemoStore()
+{
+	d->root = QDir(gDefaultDataPaths->demosDirectoryPath());
+}
+
+DemoStore::DemoStore(QDir root)
+{
+	d->root = root;
+}
+
+QStringList DemoStore::demoFileFilters()
 {
 	QStringList extensionFilters;
 	for (const QString &ext : listDemoExtensions())
@@ -114,13 +140,11 @@ QStringList DemoRecord::demoFileFilters()
 	return extensionFilters;
 }
 
-QDir DemoRecord::demosDir()
+bool DemoStore::ensureStorageExists(QWidget *parent)
 {
-	return QDir(gDefaultDataPaths->demosDirectoryPath());
-}
-
-bool DemoRecord::ensureStorageExists(QWidget *parent)
-{
+	// This is not the proper place for UI code, but it's the convenient
+	// one because two different UI items need to call it. Yes, this also
+	// means this has the anti-pattern of knowing things about the callers.
 	auto popup = [parent](const QString &message) -> bool
 	{
 		return QMessageBox::Ignore ==
@@ -128,14 +152,13 @@ bool DemoRecord::ensureStorageExists(QWidget *parent)
 				QMessageBox::Abort | QMessageBox::Ignore);
 	};
 
-	QDir demoDir(gDefaultDataPaths->demosDirectoryPath());
-	DirErrno mkResult = FileUtils::mkpath(demoDir);
+	DirErrno mkResult = FileUtils::mkpath(d->root);
 	if (mkResult.isError())
 	{
-		return popup(GameDemoTr::pathDoesntExist(demoDir.path(), mkResult.errnoString));
+		return popup(GameDemoTr::pathDoesntExist(d->root.path(), mkResult.errnoString));
 	}
 
-	QFileInfo demoDirInfo(demoDir.path());
+	QFileInfo demoDirInfo(d->root.path());
 	++qt_ntfs_permission_lookup;
 	bool permissions = demoDirInfo.isReadable()
 		&& demoDirInfo.isWritable()
@@ -143,13 +166,13 @@ bool DemoRecord::ensureStorageExists(QWidget *parent)
 	--qt_ntfs_permission_lookup;
 	if (!permissions)
 	{
-		return popup(GameDemoTr::pathMissingPermissions(demoDir.path()));
+		return popup(GameDemoTr::pathMissingPermissions(d->root.path()));
 	}
 
 	return true;
 }
 
-QStringList DemoRecord::listDemoExtensions()
+QStringList DemoStore::listDemoExtensions()
 {
 	QStringList demoExtensions;
 	for (unsigned i = 0; i < gPlugins->numPlugins(); ++i)
@@ -165,20 +188,19 @@ QStringList DemoRecord::listDemoExtensions()
 	return demoExtensions;
 }
 
-QStringList DemoRecord::listManagedDemos()
+QStringList DemoStore::listManagedDemos()
 {
-	return demosDir().entryList(demoFileFilters(), QDir::Files);
+	return d->root.entryList(demoFileFilters(), QDir::Files);
 }
 
-bool DemoRecord::importDemo(const GameDemo &demo)
+bool DemoStore::importDemo(const GameDemo &demo)
 {
-	QDir demosDir = DemoRecord::demosDir();
 	QFile importedDemo(demo.demopath);
 	if (!importedDemo.exists())
 		return false;
 
-	QFile managedDemo(demosDir.filePath(demo.managedName()));
-	QFile metafile(DemoRecord::metafile(managedDemo.fileName()));
+	QFile managedDemo(d->root.filePath(demo.managedName()));
+	QFile metafile(DemoStore::metafile(managedDemo.fileName()));
 	if (managedDemo.exists())
 		managedDemo.remove();
 	if (metafile.exists())
@@ -190,21 +212,21 @@ bool DemoRecord::importDemo(const GameDemo &demo)
 	return metafile.exists();
 }
 
-QString DemoRecord::metafile(const QString &path)
+QString DemoStore::metafile(const QString &path)
 {
 	return path + "." + METAFILE_SUFFIX;
 }
 
-QString DemoRecord::mkDemoFullPath(Control control, const EnginePlugin &plugin, const bool isMultiplayer)
+QString DemoStore::mkDemoFullPath(DemoRecord::Control control, const EnginePlugin &plugin, const bool isMultiplayer)
 {
 	switch (control)
 	{
-	case Managed:
-		return QFileInfo(demosDir().filePath(mkDemoName(plugin, isMultiplayer)))
+	case DemoRecord::Managed:
+		return QFileInfo(d->root.filePath(mkDemoName(plugin, isMultiplayer)))
 			.absoluteFilePath();
-	case Unmanaged:
+	case DemoRecord::Unmanaged:
 		return mkDemoName(plugin, isMultiplayer);
-	case NoDemo:
+	case DemoRecord::NoDemo:
 		return QString();
 	default:
 		assert(0 && "Unknown demo control type");
@@ -212,7 +234,7 @@ QString DemoRecord::mkDemoFullPath(Control control, const EnginePlugin &plugin, 
 	}
 }
 
-QString DemoRecord::mkDemoName(const EnginePlugin &plugin, const bool isMultiplayer)
+QString DemoStore::mkDemoName(const EnginePlugin &plugin, const bool isMultiplayer)
 {
 	QString demoName = "";
 	demoName += QString("%1_%2").
@@ -231,9 +253,9 @@ QString DemoRecord::mkDemoName(const EnginePlugin &plugin, const bool isMultipla
 	return demoName;
 }
 
-bool DemoRecord::removeManagedDemo(const QString &name)
+bool DemoStore::removeManagedDemo(const QString &name)
 {
-	QFile demoFile(demosDir().filePath(name));
+	QFile demoFile(d->root.filePath(name));
 	if (demoFile.exists())
 	{
 		if (!demoFile.remove())
@@ -247,7 +269,7 @@ bool DemoRecord::removeManagedDemo(const QString &name)
 	return true;
 }
 
-void DemoRecord::saveDemoMetaData(const QString &demoName, const EnginePlugin &plugin,
+void DemoStore::saveDemoMetaData(const QString &demoName, const EnginePlugin &plugin,
 	const QString &iwad, const QList<PWad> &pwads, const bool isMultiplayer)
 {
 	// If the extension is automatic we need to add it here
@@ -271,7 +293,7 @@ void DemoRecord::saveDemoMetaData(const QString &demoName, const EnginePlugin &p
 	saveDemoMetaData(demo, metaFileName);
 }
 
-void DemoRecord::saveDemoMetaData(const GameDemo &demo, const QString &path)
+void DemoStore::saveDemoMetaData(const GameDemo &demo, const QString &path)
 {
 	QSettings settings(path, QSettings::IniFormat);
 	SettingsProviderQt settingsProvider(&settings);
@@ -417,7 +439,7 @@ static void loadDemoMetaDataFromIni(const QString &path, GameDemo &demo)
 	}
 }
 
-GameDemo DemoRecord::loadGameDemo(const QString &path)
+GameDemo DemoStore::loadGameDemo(const QString &path)
 {
 	GameDemo demo;
 	demo.demopath = path.endsWith("." + METAFILE_SUFFIX)
@@ -428,18 +450,13 @@ GameDemo DemoRecord::loadGameDemo(const QString &path)
 	return demo;
 }
 
-GameDemo DemoRecord::loadManagedGameDemo(const QString &name)
+GameDemo DemoStore::loadManagedGameDemo(const QString &name)
 {
 	GameDemo demo;
-	QFile demoFile(demosDir().filePath(name));
+	QFile demoFile(d->root.filePath(name));
 	if (demoFile.exists())
 		demo = loadGameDemo(demoFile.fileName());
 	return demo;
-}
-
-DemoRecord::operator DemoRecord::Control() const
-{
-	return d.control;
 }
 
 #include "gamedemo.moc"

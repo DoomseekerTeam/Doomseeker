@@ -59,6 +59,7 @@ public:
 	QString argDemoRecord;
 	QString argServerLaunch;
 
+	DemoStore demoStore;
 	CommandLineInfo *currentCmdLine;
 	Message message;
 	GameCreateParams params;
@@ -84,6 +85,7 @@ GameHost::GameHost(EnginePlugin *plugin)
 	d->argDemoRecord = "-record";
 	d->currentCmdLine = nullptr;
 	d->plugin = plugin;
+	d->demoStore = DemoStore();
 
 	set_addIwad(&GameHost::addIwad_default);
 	set_addPwads(&GameHost::addPwads_default);
@@ -375,7 +377,7 @@ void GameHost::saveDemoMetaData()
 {
 	if (params().demoRecord() == DemoRecord::Managed)
 	{
-		DemoRecord::saveDemoMetaData(params().demoPath(), *plugin(),
+		d->demoStore.saveDemoMetaData(params().demoPath(), *plugin(),
 			params().iwadName(), params().pwads(), false);
 	}
 }

@@ -54,6 +54,7 @@
 DClass<DemoManagerDlg> : public Ui::DemoManagerDlg
 {
 public:
+	DemoStore demoStore;
 	GameDemo *selectedDemo;
 	QStandardItemModel *demoModel;
 	QList<QList<GameDemo> > demoTree;
@@ -65,6 +66,7 @@ DemoManagerDlg::DemoManagerDlg()
 {
 	d->setupUi(this);
 	CommonGUI::setupDialog(*this);
+	d->demoStore = DemoStore();
 	d->selectedDemo = nullptr;
 
 	auto *menu = new QMenu(this);
@@ -92,12 +94,12 @@ void DemoManagerDlg::adjustDemoList()
 	// Also we need to convert double underscores to a single underscore
 	QDate today = QDate::currentDate();
 	QTime referenceTime(23, 59, 59);
-	QStringList demos = DemoRecord::listManagedDemos();
+	QStringList demos = d->demoStore.listManagedDemos();
 	typedef QMap<int, GameDemo> DemoMap;
 	QMap<int, DemoMap> demoMap;
 	for (const QString &demoName : demos)
 	{
-		GameDemo demo = DemoRecord::loadManagedGameDemo(demoName);
+		GameDemo demo = d->demoStore.loadManagedGameDemo(demoName);
 		if (demo.hasDemoFile())
 		{
 			// TODO when there are two demos recorded at the same time... we're in trouble.
@@ -125,7 +127,7 @@ void DemoManagerDlg::adjustDemoList()
 
 bool DemoManagerDlg::doRemoveDemo(const QString &file)
 {
-	if (!DemoRecord::removeManagedDemo(file))
+	if (!d->demoStore.removeManagedDemo(file))
 		QMessageBox::critical(this, tr("Unable to remove"), tr("Could not remove the selected demo."));
 	else
 	{
@@ -204,7 +206,7 @@ void DemoManagerDlg::exportSelectedDoomseeker()
 	const QDir dir(dirPath);
 
 	QFile demoFile(d->selectedDemo->demopath);
-	QFile metaFile(DemoRecord::metafile(d->selectedDemo->demopath));
+	QFile metaFile(DemoStore::metafile(d->selectedDemo->demopath));
 
 	// Check if the files exist at target location and ask to overwrite.
 	QFile destDemo(dir.filePath(QFileInfo(demoFile).fileName()));
@@ -283,7 +285,7 @@ void DemoManagerDlg::exportSelectedPlain()
 void DemoManagerDlg::importDemo()
 {
 	// Get valid extensions
-	QStringList demoExtensions = DemoRecord::demoFileFilters();
+	QStringList demoExtensions = DemoStore::demoFileFilters();
 	demoExtensions << "*.ini";
 
 	QDir proposedDir = FileUtils::dirOrDir(
@@ -298,7 +300,7 @@ void DemoManagerDlg::importDemo()
 
 	gConfig.doomseeker.previousDemoExportDir = QFileInfo(selectedFile).path();
 
-	GameDemo demo = DemoRecord::loadGameDemo(selectedFile);
+	GameDemo demo = DemoStore::loadGameDemo(selectedFile);
 	do
 	{
 		DemoMetaDataDialog importDialog(this, demo);
@@ -308,7 +310,7 @@ void DemoManagerDlg::importDemo()
 			GameDemo importedDemo = importDialog.gameDemo();
 			importedDemo.demopath = demo.demopath;
 
-			GameDemo existingDemo = DemoRecord::loadManagedGameDemo(importedDemo.managedName());
+			GameDemo existingDemo = d->demoStore.loadManagedGameDemo(importedDemo.managedName());
 			if (existingDemo.hasDemoFile())
 			{
 				QFileInfo existingDemoFile(existingDemo.demopath);
@@ -341,7 +343,7 @@ void DemoManagerDlg::importDemo()
 					continue;
 				}
 			}
-			if (!DemoRecord::importDemo(importedDemo))
+			if (!d->demoStore.importDemo(importedDemo))
 			{
 				QMessageBox::critical(this, tr("Demo import"),
 					tr("Could not import the selected demo."));

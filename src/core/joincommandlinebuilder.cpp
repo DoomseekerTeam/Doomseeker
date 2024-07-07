@@ -60,6 +60,8 @@ public:
 	QWidget *parentWidget;
 	bool passwordsAlreadySet;
 
+	DemoStore demoStore;
+
 	// For missing wads dialog
 	QDialogButtonBox *buttonBox;
 	QDialogButtonBox::StandardButton lastButtonClicked;
@@ -70,9 +72,10 @@ DPointered(JoinCommandLineBuilder)
 JoinCommandLineBuilder::JoinCommandLineBuilder(ServerPtr server,
 	DemoRecord demo, QWidget *parentWidget)
 {
+	d->demoStore = DemoStore();
 	d->configurationError = false;
 	d->demo = demo;
-	d->demoName = DemoRecord::mkDemoFullPath(demo, *server->plugin(), true);
+	d->demoName = d->demoStore.mkDemoFullPath(demo, *server->plugin(), true);
 	d->parentWidget = parentWidget;
 	d->passwordsAlreadySet = false;
 	d->server = server;
@@ -226,7 +229,7 @@ void JoinCommandLineBuilder::obtainJoinCommandLine()
 
 	if (d->demo == DemoRecord::Managed)
 	{
-		if (!DemoRecord::ensureStorageExists(d->parentWidget))
+		if (!d->demoStore.ensureStorageExists(d->parentWidget))
 		{
 			failBuild();
 			return;
@@ -300,7 +303,7 @@ void JoinCommandLineBuilder::obtainJoinCommandLine()
 	case JoinError::NoError:
 		if (d->demo == DemoRecord::Managed)
 		{
-			DemoRecord::saveDemoMetaData(d->demoName, *d->server->plugin(),
+			d->demoStore.saveDemoMetaData(d->demoName, *d->server->plugin(),
 				d->server->iwad(), d->server->wads(), true);
 		}
 		break;

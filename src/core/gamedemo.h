@@ -70,25 +70,67 @@ struct GameDemo
 	}
 };
 
+/**
+ * Control how the demo should be recorded.
+ */
 class DemoRecord
 {
 public:
 	enum Control
 	{
+		/// Don't record any demo at all.
 		NoDemo,
+		/// Record Doomseeker's managed demo to DemoStore.
 		Managed,
-		Unmanaged
+		/// Record an unmanaged (normal) demo.
+		Unmanaged,
 	};
 
 	DemoRecord();
 	DemoRecord(Control control);
+
+	operator Control() const;
+
+private:
+	class PrivData
+	{
+	public:
+		DemoRecord::Control control;
+	};
+	PrivData d;
+};
+
+/**
+ * Managed demo storage, organizes the demos and decorates them with metadata.
+ */
+class DemoStore
+{
+public:
+	/**
+	 * Create a DemoStore pointing to the program's default managed demo storage.
+	 */
+	DemoStore();
+
+	/**
+	 * Create a DemoStore where demos are stored in the passed-in directory.
+	 */
+	DemoStore(QDir root);
 
 	/**
 	 * Demo filename filters in format applicable for QFileDialog.
 	 */
 	static QStringList demoFileFilters();
 
-	static bool ensureStorageExists(QWidget *parent);
+	/**
+	 * Create the managed store for the DemoStore.
+	 *
+	 * This method shows UI error pop-ups if something fails that informs the
+	 * user about what was the cause of the failure. That's why it accepts
+	 * a `QWidget` to use as a parent for the `QMessageBox`.
+	 *
+	 * @return `true` if it was created, `false` if creation failed.
+	 */
+	bool ensureStorageExists(QWidget *parent);
 
 	/**
 	 * Import demo described by GameDemo to the managed demos store.
@@ -104,7 +146,7 @@ public:
 	 * If it happens that a demo with the exactly same filename already
 	 * exists in the store, then the existing demo is *REMOVED*.
 	 */
-	static bool importDemo(const GameDemo &demo);
+	bool importDemo(const GameDemo &demo);
 
 	/**
 	 * Given the path to a demo, return the path to the metadata file.
@@ -113,21 +155,70 @@ public:
 	 */
 	static QString metafile(const QString &path);
 
-	static QString mkDemoFullPath(Control control, const EnginePlugin &plugin, const bool isMultiplayer);
-
 	/**
-	 * List all the unique demo filename extensions known by the loaded engines.
+	 * Create a demo name, with optional full path, basing on the passed-in
+	 * parameters.
+	 *
+	 * @param control
+	 *     Decides if the demo is to be stored in DemoStore and affects if
+	 *     DemoStore's root path is prepended to the returned filename. This
+	 *     happens when control is DemoRecord::Control::Managed.
+	 * @param plugin
+	 *     The game with which this demo is recorded.
+	 * @param isMultiplayer
+	 *     Is the game running in the multiplayer mode (`true`), or
+	 *     singleplayer (`false`).
+	 *
+	 * @return The path (or just the filename) to where the recorded demo
+	 * should be saved.
+	 *
+	 * @see saveDemoMetaData()
 	 */
-	static QStringList listDemoExtensions();
+	QString mkDemoFullPath(DemoRecord::Control control, const EnginePlugin &plugin,
+		const bool isMultiplayer);
 
 	/**
 	 * List all the demo files managed by Doomseeker.
+	 *
+	 * The returned elements should be treated as names that exist and are
+	 * unique within the DemoStore. If the managed demos need to be removed
+	 * or otherwise manipulated, they should be referred to by the names
+	 * returned here.
+	 *
+	 * @return All names/paths to the demos within the DemoStore.
 	 */
-	static QStringList listManagedDemos();
+	QStringList listManagedDemos();
 
-	static bool removeManagedDemo(const QString &name);
+	/**
+	 * Remove the managed demo by its name.
+	 *
+	 * It also removes the metadata file if it exists.
+	 *
+	 * @param name
+	 *     Name of the demo as returned by listManagedDemos().
+	 *
+	 * @return `true` if the demo was removed successfully (or if it
+	 * didn't exist in the first place). `false` if removal failed.
+	 */
+	bool removeManagedDemo(const QString &name);
 
-	static void saveDemoMetaData(const QString &demoName, const EnginePlugin &plugin,
+	/**
+	 * Save the demo's metadata in the store basing on the passed-in parameters.
+	 *
+	 * @param demoName
+	 *     Name of the demo, previously generated with mkDemoFullPath().
+	 * @param plugin
+	 *     The game with which this demo is recorded.
+	 * @param iwad
+	 *     The IWAD used in the demo recording.
+	 * @param pwads
+	 *     List of PWADs and other mod files used in the demo recording,
+	 *     provided in the game-load order.
+	 * @param isMultiplayer
+	 *     Is the game running in the multiplayer mode (`true`), or
+	 *     singleplayer (`false`).
+	 */
+	void saveDemoMetaData(const QString &demoName, const EnginePlugin &plugin,
 		const QString &iwad, const QList<PWad> &pwads, const bool isMultiplayer);
 
 	/**
@@ -142,6 +233,9 @@ public:
 	 * not be pointing to a demo file at all, or it's a demo but lacks
 	 * the Doomseeker metadata. The GameDemo::filepath is guaranteed to
 	 * be populated at least (it's set to the path param).
+	 *
+	 * The demo doesn't need to be in the managed demo storage (hence
+	 * the method is `static`).
 	 *
 	 * @param path
 	 *     Direct path to either the demo file or its metadata file.
@@ -162,21 +256,18 @@ public:
 	 *
 	 * @return GameDemo struct populated with info about the demo.
 	 */
-	static GameDemo loadManagedGameDemo(const QString &name);
-
-	operator Control() const;
+	GameDemo loadManagedGameDemo(const QString &name);
 
 private:
-	class PrivData
-	{
-	public:
-		DemoRecord::Control control;
-	};
-	PrivData d;
+	DPtr<DemoStore> d;
 
-	static QDir demosDir();
+	/**
+	 * List all the unique demo filename extensions known by the loaded engines.
+	 */
+	static QStringList listDemoExtensions();
+
 	static QString mkDemoName(const EnginePlugin &plugin, const bool isMultiplayer);
-	static void saveDemoMetaData(const GameDemo &demo, const QString &path);
+	void saveDemoMetaData(const GameDemo &demo, const QString &path);
 };
 
 #endif
