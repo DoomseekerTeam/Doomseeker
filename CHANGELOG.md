@@ -115,13 +115,13 @@ where Doomseeker stores all of its managed files: settings, cache, managed
 data. (#3452)
 - User-configurable paths now accept some template placeholders that are
 dynamically replaced when the path is resolved (#3262):
-  - `~` is resolved to user's home directory,
-  - Linux only: `~username` is resolved to user's `username` home directory,
-  - `$[ENVVAR]` (without the `[]`), if placed at the beginning of the path,
-  gets resolved to the environment variable `[ENVVAR]`,
-  - `$PROGDIR`, if placed at the beginning of the path, gets resolved to the
-  directory where the Doomseeker's executable is stored (yes, it may be `/bin`
-  on Linux or app bundle on macOS).
+    - `~` is resolved to user's home directory,
+    - Linux only: `~username` is resolved to user's `username` home directory,
+    - `$[ENVVAR]` (without the `[]`), if placed at the beginning of the path,
+    gets resolved to the environment variable `[ENVVAR]`,
+    - `$PROGDIR`, if placed at the beginning of the path, gets resolved to the
+    directory where the Doomseeker's executable is stored (yes, it may be `/bin`
+    on Linux or app bundle on macOS).
 The `$[ENVVAR]` and `$PROGDIR` resolution happens only when the user enables
 it in the config box.
 - New command line arguments `--enable-plugin` and `--disable-plugin` for
