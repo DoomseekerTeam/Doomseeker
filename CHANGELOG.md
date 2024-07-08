@@ -68,6 +68,8 @@ player list displaying only that there are `<N>` more players on the server.
 This should prevent the tooltip from stretching beyond the screen. (#4149)
 - Demo metadata: remember the order in which the required and optional WADs
 were loaded if they were interleaved during demo recording. (#4110)
+- Paths to the managed demos store should not be template-resolved, because
+it's not user-configurable (#3262).
 - Q-Zandronum, Zandronum: single-player demos will now be recorded with
 the correct `.lmp` extension.
 
@@ -111,6 +113,17 @@ the database itself.
 - New command line argument `--basedir` that changes the base directory
 where Doomseeker stores all of its managed files: settings, cache, managed
 data. (#3452)
+- User-configurable paths now accept some template placeholders that are
+dynamically replaced when the path is resolved (#3262):
+  - `~` is resolved to user's home directory,
+  - Linux only: `~username` is resolved to user's `username` home directory,
+  - `$[ENVVAR]` (without the `[]`), if placed at the beginning of the path,
+  gets resolved to the environment variable `[ENVVAR]`,
+  - `$PROGDIR`, if placed at the beginning of the path, gets resolved to the
+  directory where the Doomseeker's executable is stored (yes, it may be `/bin`
+  on Linux or app bundle on macOS).
+The `$[ENVVAR]` and `$PROGDIR` resolution happens only when the user enables
+it in the config box.
 - New command line arguments `--enable-plugin` and `--disable-plugin` for
 users who wish to force allow or force deny loading of a plugin.
 - Check if the demo storage directory exists and is writable when demo recording

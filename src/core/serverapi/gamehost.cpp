@@ -110,7 +110,7 @@ void GameHost::addDemoPlaybackIfApplicable()
 	if (params().hostMode() == GameCreateParams::Demo)
 	{
 		args() << argForDemoPlayback();
-		args() << gDoomseekerTemplatedPathResolver().resolve(params().demoPath());
+		args() << params().demoPath();
 	}
 }
 
@@ -120,7 +120,7 @@ void GameHost::addDemoRecordIfApplicable()
 		&& params().demoRecord() != DemoRecord::NoDemo)
 	{
 		args() << argForDemoRecord();
-		args() << gDoomseekerTemplatedPathResolver().resolve(params().demoPath());
+		args() << params().demoPath();
 	}
 }
 
