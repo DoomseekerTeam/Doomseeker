@@ -285,6 +285,7 @@ void DemoStore::saveDemoMetaData(const QString &demoName, const EnginePlugin &pl
 
 	GameDemo demo;
 	loadDemoMetaDataFromFilename(demoFileName, demo);
+	demo.game = plugin.data()->canonicalName;
 	demo.author = gConfig.doomseeker.realPlayerName();
 	demo.demopath = demoFileName;
 	demo.iwad = iwad;

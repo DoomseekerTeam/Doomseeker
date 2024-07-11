@@ -286,22 +286,50 @@ const PluginLoader::Plugin *PluginLoader::plugin(unsigned int index) const
 
 int PluginLoader::pluginIndexFromName(const QString &name) const
 {
+	// Try the canonical name first.
+	for (int i = 0; i < d->plugins.size(); ++i)
+	{
+		if (d->plugins[i]->info()->data()->canonicalName == name)
+			return i;
+	}
+
 	// Why the mangling?
-	// Ever since version 0.8.1b there was a bug that removed all spacebars
+	//
+	// 1. Ever since version 0.8.1b there was a bug that removed all spacebars
 	// from plugin names. This bug is fixed in a commit made on 2013-11-01,
 	// but the fix breaks at least some parts of configuration for plugins
 	// that have spacebars in their names. For example, all server
 	// configurations for Chocolate Doom won't load anymore. To prevent that,
 	// we need to treat spacebars as non-existent here. Simply put:
 	// "Chocolate Doom" == "ChocolateDoom"
-	QString mangledName = QString(name).replace(" ", "");
+	//
+	// 2. Sometimes various /special/ characters are path-unfriendly or
+	// semi-friendly, like the '_', which is used in encoding metadata
+	// into filenames.
+	QString mangledName = QString(name)
+		.replace(" ", "")
+		.replace("_", "")
+		.toLower();
+
+	// Try a mangled canonical name second.
 	for (int i = 0; i < d->plugins.size(); ++i)
 	{
-		QString mangledCandidate = QString(d->plugins[i]->info()->data()->name).replace(" ", "");
-		if (mangledName.compare(mangledCandidate) == 0)
-		{
+		QString mangledCanonical = QString(d->plugins[i]->info()->data()->canonicalName)
+			.replace(" ", "")
+			.replace("_", "")
+			.toLower();
+		if (mangledCanonical == name)
 			return i;
-		}
+	}
+
+	// Try to match the plugin's display name as a last resort.
+	for (int i = 0; i < d->plugins.size(); ++i)
+	{
+		QString mangledCandidate = QString(d->plugins[i]->info()->data()->name)
+			.replace(" ", "")
+			.toLower();
+		if (mangledName == mangledCandidate)
+			return i;
 	}
 
 	return -1;

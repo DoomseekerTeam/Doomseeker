@@ -377,12 +377,7 @@ void DemoManagerDlg::playSelected()
 		return;
 
 	// Look for the plugin used to record.
-	EnginePlugin *plugin = nullptr;
-	for (unsigned i = 0; i < gPlugins->numPlugins(); i++)
-	{
-		if (d->selectedDemo->game == gPlugins->info(i)->data()->name)
-			plugin = gPlugins->info(i);
-	}
+	EnginePlugin *plugin = gPlugins->info(d->selectedDemo->game);
 	if (plugin == nullptr)
 	{
 		QMessageBox::critical(this, tr("No plugin"),
@@ -480,7 +475,11 @@ void DemoManagerDlg::updatePreview()
 	static const QString PAR = "<p style=\"margin: 0px 0px 0px 10px\">";
 	static const QString ENDPAR = "</p>";
 
-	QString text = "<b>" + tr("Game") + ":</b>" + PAR + d->selectedDemo->game + ENDPAR;
+	// Try to get the "display" name of the plugin.
+	EnginePlugin *plugin = gPlugins->info(d->selectedDemo->game);
+	QString gameName = plugin != nullptr ? plugin->data()->name : d->selectedDemo->game;
+
+	QString text = "<b>" + tr("Game") + ":</b>" + PAR + gameName + ENDPAR;
 	if (!d->selectedDemo->author.isEmpty())
 	{
 		text += "<b>" + tr("Author") + ":</b>" + PAR + d->selectedDemo->author + ENDPAR;

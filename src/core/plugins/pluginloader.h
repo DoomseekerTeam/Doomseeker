@@ -122,6 +122,21 @@ public:
 	EnginePlugin *info(int pluginIndex) const;
 
 	/**
+	 * @brief Get info() by pluginIndexFromName().
+	 *
+	 * Even bigger convenience method: find a plugin by its name,
+	 * and return its EnginePlugin, or nullptr if not found.
+	 *
+	 * @return nullptr can be returned if plugin with given name was not
+	 * found.
+	 */
+	EnginePlugin *info(const QString &name) const
+	{
+		auto idx = pluginIndexFromName(name);
+		return idx >= 0 ? info(idx) : nullptr;
+	}
+
+	/**
 	 * @brief Inits configuration for plugins.
 	 */
 	void initConfig();
@@ -135,6 +150,14 @@ public:
 
 	/**
 	 * @brief Looks for a plugin which name equals to parameter.
+	 *
+	 * This tries to match the plugin name by several variants:
+	 *
+	 * 1. Match to EnginePlugin::nameCanonical() as-is.
+	 * 2. Match to a mangled canonical name, by removing spaces,
+	 *    underscores, and comparing case-insensitively.
+	 * 3. Match to plugin's displayed name, applying the same
+	 *    mangling as before.
 	 *
 	 * @param name
 	 *     Name to look for.

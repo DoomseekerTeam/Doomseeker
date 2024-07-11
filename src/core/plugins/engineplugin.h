@@ -468,7 +468,9 @@ public:
 	void masterHost(QString &host, unsigned short &port) const;
 
 	/**
-	 * @brief Either specified explicitly by plugin or derived from
+	 * @brief Plugin's "program-friendly", stable name.
+	 *
+	 * Either specified explicitly by plugin or derived from
 	 * the actual plugin name.
 	 *
 	 * If plugin specifies a canonical name, it's taken as-is.
@@ -477,8 +479,11 @@ public:
 	 * - All characters are lower-cased.
 	 * - All whitespace is replaced with underscores.
 	 *
-	 * Doomseeker uses this name when loading translation files
-	 * for plugins.
+	 * Doomseeker assumes this name is set once in history and doesn't
+	 * change afterwards for a given plugin, and that it's unique among
+	 * all plugins. It also assumes it's path-friendly. It uses it for
+	 * varying filesystem-related tasks or to store settings, e.g. this
+	 * name is used when loading translation files for plugins.
 	 */
 	QString nameCanonical() const;
 
