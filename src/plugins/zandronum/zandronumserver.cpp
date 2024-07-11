@@ -839,7 +839,7 @@ QByteArray ZandronumServer::createSendRequest()
 
 	// Prepare the challenge query packet.
 	IniSection &config = *ZandronumEnginePlugin::staticInstance()->data()->pConfig;
-	const bool useSegmentedQuery = static_cast<bool>(config["SegmentedQueryBETA"]);
+	const bool useSegmentedQuery = static_cast<bool>(config["SegmentedQuery"]);
 
 	uint32_t standardQuery = SQF_STANDARDQUERY;
 	uint32_t extendedQuery = SQF2_STANDARDQUERY;

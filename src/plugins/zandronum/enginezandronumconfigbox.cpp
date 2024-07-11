@@ -60,7 +60,7 @@ EngineZandronumConfigBox::EngineZandronumConfigBox(EnginePlugin *plugin, IniSect
 
 	connect(btnBrowseTestingPath, SIGNAL(clicked()), this, SLOT(btnBrowseTestingPathClicked()));
 
-	cbSegmentedQuery = new QCheckBox(tr("[BETA] Segmented server query (requires Zandronum 3.2-alpha)"), this);
+	cbSegmentedQuery = new QCheckBox(tr("Segmented server query (requires Zandronum 3.2-alpha)"), this);
 	cbSegmentedQuery->setToolTip(tr(
 		"<p>When enabled, the servers will be asked to provide their info in "
 		"segments. Enable this if you experience problems when refreshing "
@@ -68,9 +68,7 @@ EngineZandronumConfigBox::EngineZandronumConfigBox(EnginePlugin *plugin, IniSect
 		"lot of data, and enabling this asks them to send this data split "
 		"between several packets.</p>"
 		"<p>This feature requires the server to host at least a Zandronum "
-		"3.2-alpha version.</p>"
-		"<p><b>This feature is currently experimental.</b> Disable it if "
-		"servers fail to refresh.</p>"));
+		"3.2-alpha version.</p>"));
 	addWidget(cbSegmentedQuery);
 }
 
@@ -89,7 +87,7 @@ void EngineZandronumConfigBox::readSettings()
 
 	groupTesting->setChecked(config["EnableTesting"]);
 	leTestingPath->setText(config["TestingPath"]);
-	cbSegmentedQuery->setChecked(config["SegmentedQueryBETA"]);
+	cbSegmentedQuery->setChecked(config["SegmentedQuery"]);
 }
 
 void EngineZandronumConfigBox::saveSettings()
@@ -105,5 +103,5 @@ void EngineZandronumConfigBox::saveSettings()
 	strVal = leTestingPath->text();
 	config["TestingPath"] = strVal;
 
-	config["SegmentedQueryBETA"] = cbSegmentedQuery->isChecked();
+	config["SegmentedQuery"] = cbSegmentedQuery->isChecked();
 }

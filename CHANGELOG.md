@@ -27,8 +27,8 @@ forever, but now it finally has an actual page). (#4110)
 - Zandronum: query the game servers with a segmented challenge, where
 the servers can reply with more than one packet. This should help with
 servers that need to send a lot of data in their replies and this data
-would get lost on the network due to oversized packets. This is currently
-an opt-in feature; it must be enabled from the Zandronum config box. (#4142)
+would get lost on the network due to oversized packets. This feature is
+enabled by default, but can be disabled from the Zandronum config box. (#4142)
 
 ### Changed
 - Doomseeker won't request from the game servers the checksums of loaded
