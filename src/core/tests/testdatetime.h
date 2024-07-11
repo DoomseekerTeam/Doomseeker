@@ -34,4 +34,22 @@ public:
 	bool executeTest() override;
 };
 
+class TestDateTimeToPathFriendlyUTCISO8601 : public TestUnitBase
+{
+public:
+	TestDateTimeToPathFriendlyUTCISO8601()
+		: TestUnitBase("Test path-friendly ISO 8601 UTC formatter") {}
+
+	bool executeTest() override;
+};
+
+class TestDateTimeParsePathFriendlyUTCISO8601 : public TestUnitBase
+{
+public:
+	TestDateTimeParsePathFriendlyUTCISO8601()
+		: TestUnitBase("Test parse path-friendly ISO 8601 in UTC") {}
+
+	bool executeTest() override;
+};
+
 #endif

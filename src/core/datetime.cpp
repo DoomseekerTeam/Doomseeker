@@ -27,3 +27,16 @@ QString DateTime::toISO8601(const QDateTime &datetime)
 	// https://stackoverflow.com/questions/21976264/qt-isodate-formatted-date-time-including-timezone
 	return datetime.toOffsetFromUtc(datetime.offsetFromUtc()).toString(Qt::ISODate);
 }
+
+QString DateTime::toPathFriendlyUTCISO8601(const QDateTime &datetime)
+{
+	return datetime.toUTC().toString("yyyy-MM-ddThhmmssZ");
+}
+
+QDateTime DateTime::fromPathFriendlyUTCISO8601(const QString &datetime)
+{
+	auto result = QDateTime::fromString(datetime, "yyyy-MM-ddThhmmssZ");
+	if (result.isValid())
+		result.setTimeSpec(Qt::UTC);
+	return result;
+}

@@ -54,6 +54,7 @@ DemoMetaDataDialog::DemoMetaDataDialog(QWidget *parent, const GameDemo &demo)
 	d->wadsList->installEventFilter(this);
 
 	d->cboGame->setPluginByName(demo.game);
+	d->leAuthor->setText(demo.author);
 	d->dteCreatedTime->setDateTime(demo.time.isValid() ? demo.time : QDateTime::currentDateTime());
 	d->leIwad->setText(demo.iwad);
 
@@ -110,8 +111,9 @@ GameDemo DemoMetaDataDialog::gameDemo() const
 	GameDemo demo;
 	demo.demopath = d->demo.demopath;
 	demo.game = gameName;
+	demo.author = d->leAuthor->text().trimmed();
 	demo.time = d->dteCreatedTime->dateTime();
-	demo.iwad = d->leIwad->text();
+	demo.iwad = d->leIwad->text().trimmed();
 	for (int i = 0; i < d->wadsModel->rowCount(); ++i)
 	{
 		auto item = d->wadsModel->item(i);

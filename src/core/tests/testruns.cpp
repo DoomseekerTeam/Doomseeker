@@ -23,6 +23,7 @@
 #include "testruns.h"
 #include "tests/testdatetime.h"
 #include "tests/testfilesearchpath.h"
+#include "tests/testgamedemo.h"
 #include "tests/testini.h"
 #include "tests/testircisupportparser.h"
 #include "tests/testmodreader.h"
@@ -37,6 +38,13 @@ void TestRuns::callTests()
 {
 	// DateTime
 	pTestCore->executeTest(new TestDateTimeISO8601());
+	pTestCore->executeTest(new TestDateTimeToPathFriendlyUTCISO8601());
+	pTestCore->executeTest(new TestDateTimeParsePathFriendlyUTCISO8601());
+
+	// GameDemo
+	pTestCore->executeTest(new TestGameDemoExportedName());
+	pTestCore->executeTest(new TestGameDemoImprintPath());
+	pTestCore->executeTest(new TestGameDemoManagedName());
 
 	// INI
 	// Note: All of these tests may fail if TestReadINI fails.

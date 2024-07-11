@@ -109,6 +109,14 @@ bool JoinCommandLineBuilder::buildServerConnectParams(ServerConnectParams &param
 	{
 		params.setDemoName(d->demoName);
 	}
+	else if (d->demo != DemoRecord::NoDemo)
+	{
+		// If demo is set for recording, but the path is not set, then
+		// something went wrong.
+		d->error = tr("Demo set for recording, but couldn't prepare its save path.\n\n%1")
+			.arg(d->demoStore.root().absolutePath());
+		return false;
+	}
 	return true;
 }
 

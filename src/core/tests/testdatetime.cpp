@@ -20,21 +20,14 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2024 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
-#include "datetime.h"
 #include "testdatetime.h"
+
+#include "datetime.h"
+#include "tests/asserts.h"
 
 #include <QDate>
 #include <QTime>
 #include <QTimeZone>
-
-#define T_ASSERT_EQUAL(expected, result) { \
-	auto _expected = (expected); \
-	auto _result = (result); \
-	if (!(_expected == _result)) \
-	{ \
-		testLog << QString("expected: %1, got %2").arg(_expected).arg(_result); \
-		return false; \
-	}}
 
 bool TestDateTimeISO8601::executeTest()
 {
@@ -60,6 +53,45 @@ bool TestDateTimeISO8601::executeTest()
 
 	QDateTime offsetM1 = QDateTime(QDate(2024, 07, 04), QTime(17, 00, 00), QTimeZone(-1 * 60 * 60));
 	T_ASSERT_EQUAL("2024-07-04T17:00:00-01:00", DateTime::toISO8601(offsetM1));
+
+	return true;
+}
+
+bool TestDateTimeToPathFriendlyUTCISO8601::executeTest()
+{
+	T_ASSERT_EQUAL("1970-01-01T000000Z", DateTime::toPathFriendlyUTCISO8601(
+		QDateTime::fromMSecsSinceEpoch(0, Qt::UTC)));
+
+	QTimeZone warsawZone("Europe/Warsaw");
+	if (!warsawZone.isValid())
+		warsawZone = QTimeZone("UTC+02:00");
+	if (warsawZone.isValid())
+	{
+		QDateTime warsaw = QDateTime(QDate(2024, 07, 04), QTime(17, 00, 00), warsawZone);
+		T_ASSERT_EQUAL("2024-07-04T150000Z", DateTime::toPathFriendlyUTCISO8601(warsaw));
+	}
+	else
+	{
+		testLog << "skipped Europe/Warsaw test because couldn't resolve the timezone";
+	}
+
+	QDateTime offsetM1 = QDateTime(QDate(2024, 07, 04), QTime(12, 37, 21), QTimeZone(-1 * 60 * 60));
+	T_ASSERT_EQUAL("2024-07-04T133721Z", DateTime::toPathFriendlyUTCISO8601(offsetM1));
+
+	return true;
+}
+
+bool TestDateTimeParsePathFriendlyUTCISO8601::executeTest()
+{
+	T_ASSERT_DATETIME_EQUAL(QDateTime(QDate(1970, 01, 01), QTime(0, 0, 0), Qt::UTC),
+		DateTime::fromPathFriendlyUTCISO8601("1970-01-01T000000Z"));
+
+	T_ASSERT_DATETIME_EQUAL(QDateTime(QDate(2024, 07, 04), QTime(13, 37, 21), Qt::UTC),
+		DateTime::fromPathFriendlyUTCISO8601("2024-07-04T133721Z"));
+
+	T_ASSERT_FALSE(DateTime::fromPathFriendlyUTCISO8601("doomseeker").isValid());
+	T_ASSERT_FALSE(DateTime::fromPathFriendlyUTCISO8601("20240704T133721Z").isValid());
+	T_ASSERT_FALSE(DateTime::fromPathFriendlyUTCISO8601("2024-07-04T13:37:21Z").isValid());
 
 	return true;
 }

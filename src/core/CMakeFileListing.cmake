@@ -291,10 +291,12 @@ set(HEADER_FILES
 	speedcalculator.h
 	strings.hpp
 	templatedpathresolver.h
+	tests/asserts.h
 	tests/testbase.h
 	tests/testcore.h
 	tests/testdatetime.h
 	tests/testfilesearchpath.h
+	tests/testgamedemo.h
 	tests/testini.h
 	tests/testircisupportparser.h
 	tests/testmodreader.h
@@ -538,6 +540,7 @@ set(SOURCE_FILES
 	tests/testcore.cpp
 	tests/testdatetime.cpp
 	tests/testfilesearchpath.cpp
+	tests/testgamedemo.cpp
 	tests/testini.cpp
 	tests/testircisupportparser.cpp
 	tests/testmodreader.cpp

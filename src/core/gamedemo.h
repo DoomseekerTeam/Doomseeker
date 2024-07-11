@@ -43,12 +43,14 @@ class PWad;
  */
 struct GameDemo
 {
+	static const unsigned MAX_AUTHOR_FILENAME_LEN = 32;
+
 	/// Path to the demo file this metadata describes.
 	QString demopath;
 	/// Who recorded this demo.
 	QString author;
-	/// Name of the game (port, engine) from which the demo was recorded.
-	QString game;
+	/// The canonical name of the plugin for the game (port, engine) from which the demo was recorded.
+	QString game; // TODO make it canonical
 	/// Date and time when the demo was recorded.
 	QDateTime time;
 	/// IWAD used to record this demo.
@@ -57,9 +59,35 @@ struct GameDemo
 	QList<PWad> wads;
 
 	/**
+	 * The proposed demo name when exporting.
+	 *
+	 * It's derived from `game`, `author` and `time`, with some mangling done to
+	 * them to ensure everything can be safely used in paths. The name doesn't
+	 * contain path separators. The extension (suffix) is derived from
+	 * `demopath`.
+	 */
+	QString exportedName() const;
+
+	/**
+	 * The same as exportedName() but without the file extension.
+	 */
+	QString exportedNameNoExtension() const;
+
+	/**
 	 * The name of the file when stored in Doomseeker's managed demos directory.
+	 *
+	 * The name is for the use in DemoStore. It's derived from `game`, `author`
+	 * and `time`, with some mangling done to them to ensure everything can be
+	 * safely used in paths. The name may contain some path separators that
+	 * DemoStore uses for better organization. The extension (suffix) is derived
+	 * from `demopath`.
 	 */
 	QString managedName() const;
+
+	/**
+	 * The same as managedName() but without the file extension.
+	 */
+	QString managedNameNoExtension() const;
 
 	/**
 	 * True if this metadata relates to a file found somewhere on the disk.
@@ -68,6 +96,24 @@ struct GameDemo
 	{
 		return !demopath.isEmpty();
 	}
+
+	/**
+	 * Parse the path for metadata, addding any info that was found.
+	 *
+	 * There are two filename formats for managed demos:
+	 *
+	 * - V1 : `Game_03.07.2024_21.54.06[_wad1_wad2...].lmp`
+	 * - V2 : `Player/2024/Game_2024-02-01T113721Z.lmp`
+	 *
+	 * And also there's an exported filename format that looks like this:
+	 *
+	 * - EX : `Player_Game_2024-02-01T113721.lmp`
+	 *
+	 * We shall do our best to read the information off them, but failing
+	 * to do so is not the end of the world. Missing information is just
+	 * that -- missing. It's just not imprinted.
+	 */
+	void imprintPath(const QString &path);
 };
 
 /**
@@ -203,6 +249,11 @@ public:
 	bool removeManagedDemo(const QString &name);
 
 	/**
+	 * The dir where demos are saved.
+	 */
+	const QDir &root() const;
+
+	/**
 	 * Save the demo's metadata in the store basing on the passed-in parameters.
 	 *
 	 * @param demoName
@@ -266,7 +317,6 @@ private:
 	 */
 	static QStringList listDemoExtensions();
 
-	static QString mkDemoName(const EnginePlugin &plugin, const bool isMultiplayer);
 	void saveDemoMetaData(const GameDemo &demo, const QString &path);
 };
 

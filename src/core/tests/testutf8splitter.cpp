@@ -23,14 +23,7 @@
 #include "testutf8splitter.h"
 
 #include "utf8splitter.h"
-#include <QDebug>
-
-#define T_ASSERT_EQUAL(a, b) \
-	if ((a) != (b)) \
-	{ \
-		qDebug() << "a:" << (a) << ", b:" << (b); \
-		return false; \
-	}
+#include "tests/asserts.h"
 
 bool TestUtf8Splitter::executeTest()
 {

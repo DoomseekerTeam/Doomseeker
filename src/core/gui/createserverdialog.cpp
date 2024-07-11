@@ -240,8 +240,13 @@ bool CreateServerDialog::createHostInfoDemoRecord(GameCreateParams &params, bool
 				return false;
 			}
 		}
+		const QString demoPath = d->demoStore.mkDemoFullPath(demoMode, *d->currentEngine, false);
+		if (demoPath.isEmpty())
+		{
+			return false;
+		}
 
-		params.setDemoPath(d->demoStore.mkDemoFullPath(demoMode, *d->currentEngine, false));
+		params.setDemoPath(demoPath);
 		params.setDemoRecord(demoMode);
 	}
 	return true;

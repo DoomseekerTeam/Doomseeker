@@ -14,6 +14,8 @@ and this project does not adhere to
 - Export demos with Doomseeker metadata. (#4110)
 - Import external demos to Doomseeker's demo manager. (#4110)
 - Save the demo's created time in the metadata file with timezone info. (#4110)
+- Also save the demo's game as plugin's canonical name in the metadata
+file. (#4110)
 - The recorded demos will now have their author's name saved in their
 metadata. The name can be configured in Doomseeker's config box in the
 new "Games" page (the tree section for Games was already there since
@@ -54,6 +56,9 @@ no demo is selected.
 - Remember the previous export dir in demo manager.
 - Demo metadata format altered. Doomseeker calls this metadata format V2, but
 it will continue to read the previous format. (#4110)
+- Managed demos storage format altered. Demos are now also organized by
+author and by recording year in subdirectories, avoiding demos from
+multiple authors colliding with each other. (#4110)
 - Updated the internal zlib library to 1.2.13.
 - Updated the internal bzip2 library to version 1.0.8.
 - Wadseeker: upgrade the LZMA SDK to version 23.01.

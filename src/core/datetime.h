@@ -39,6 +39,34 @@ public:
 	 * converter ensures that the timezone offset is in the returned string.
 	 */
 	static QString toISO8601(const QDateTime &);
+
+	/**
+	 * Format QDateTime in the almost-ISO 8601 format with UTC timezone.
+	 *
+	 * Produce a formatted datetime that can be used as a path name.
+	 *
+	 * - The QDateTime is converted to UTC.
+	 * - The date is saved in the expanded ISO 8601 format.
+	 * - The time is saved in the basic ISO 8601 format to avoid `:`.
+	 *
+	 * The output format is `YYYY-MM-DDThhmmssZ`.
+	 *
+	 * This is meant to produce a datetime that is readable, doesn't use
+	 * characters that may collide with filesystem rules (`:` is used to
+	 * delimit `$PATH`), sorts naturally in chronological order, and...
+	 * pretends to be ISO 8601, while its not.
+	 *
+	 * One could argue that the basic ISO 8601 format (`YYYYMMDDThhmmssZ`)
+	 * would be sufficient here, but that's not readable.
+	 */
+	static QString toPathFriendlyUTCISO8601(const QDateTime &);
+
+	/**
+	 * Parse the output of toPathFriendlyUTCISO8601() into a QDateTime.
+	 *
+	 * @return The QDateTime is returned in the UTC timezone.
+	 */
+	static QDateTime fromPathFriendlyUTCISO8601(const QString &);
 };
 
 #endif

@@ -35,6 +35,7 @@
 #include <cassert>
 #include <QDateTime>
 #include <QDir>
+#include <QDirIterator>
 #include <QFileInfo>
 #include <QJsonDocument>
 #include <QTimeZone>
@@ -76,12 +77,177 @@ private:
 /*
   GameDemo
 */
+/**
+ * Parse: `Game_03.07.2024_21.54.06[_wad1_wad2...].lmp`
+ */
+static void loadDemoMetaDataFromFilenameV1(const QString &path, GameDemo &demo)
+{
+	QString metaData = QFileInfo(path).completeBaseName();
+	// We need to split manually to handle escaping.
+	QStringList demoData;
+	for (int i = 0; i < metaData.length(); ++i)
+	{
+		if (metaData[i] == '_')
+		{
+			// If our underscore is followed by another just continue on...
+			if (i + 1 < metaData.length() && metaData[i + 1] == '_')
+			{
+				++i;
+				continue;
+			}
+
+			// Split the meta data and then restart from the beginning.
+			demoData << metaData.left(i).replace("__", "_");
+			metaData = metaData.mid(i + 1);
+			i = 0;
+		}
+	}
+	// Whatever is left is a part of our data.
+	demoData << metaData.replace("__", "_");
+	// Should have at least 3 elements game, date, time[, iwad[, pwads]]
+	if (demoData.size() < 3)
+		return;
+
+	QDate date = QDate::fromString(demoData[1], "dd.MM.yyyy");
+	QTime time = QTime::fromString(demoData[2], "hh.mm.ss");
+
+	demo.game = demoData[0];
+	demo.time = QDateTime(date, time, QTimeZone::systemTimeZone());
+	if (demoData.size() >= 4)
+	{
+		bool hasIwad = false;
+		QStringList wadnames = demoData.mid(3);
+		for (QString wad : wadnames)
+		{
+			if (!wad.isEmpty())
+			{
+				if (!hasIwad)
+				{
+					demo.iwad = wad;
+					hasIwad = true;
+				}
+				else
+				{
+					demo.wads << PWad(wad);
+				}
+			}
+		}
+	}
+}
+
+/**
+ * Parse: `Player/2024/Game_2024-02-01T113721Z.lmp`
+ */
+static void loadDemoMetaDataFromFilenameV2(const QString &path, GameDemo &demo)
+{
+	QFileInfo fileinfo = path;
+
+	// Get the player info from the directory.
+	QDir yearDir = fileinfo.dir();
+	if (yearDir.path() != ".")
+	{
+		QDir playerDir = QFileInfo(yearDir.path()).dir();
+		if (playerDir.path() != ".")
+		{
+			demo.author = playerDir.dirName();
+		}
+	}
+
+	QStringList tokens = fileinfo.baseName().split("_");
+	demo.time = DateTime::fromPathFriendlyUTCISO8601(tokens.takeLast());
+	demo.game = tokens.join("_");
+}
+
+/**
+ * Parse: `Player_Game_2024-02-01T113721.lmp`
+ */
+static void loadDemoMetaDataFromExportedFilename(const QString &path, GameDemo &demo)
+{
+	QStringList tokens = QFileInfo(path).baseName().split("_");
+	demo.time = DateTime::fromPathFriendlyUTCISO8601(tokens.takeLast());
+	if (tokens.size() >= 1)
+		demo.game = tokens.takeLast();
+	if (tokens.size() >= 1)
+		demo.author = tokens.join("_");
+}
+
+QString GameDemo::exportedName() const
+{
+	const QString suffix = QFileInfo(this->demopath).suffix();
+	return QString("%1.%2").arg(exportedNameNoExtension(), suffix);
+}
+
+QString GameDemo::exportedNameNoExtension() const
+{
+	static const QRegularExpression mangler("[^A-Za-z0-9-]");
+
+	const QString mangledAuthor = !this->author.isEmpty()
+		? QString(this->author)
+			.replace(mangler, "")
+			.left(MAX_AUTHOR_FILENAME_LEN)
+		: "unknownplayer";
+	const QString mangledGame = !this->game.isEmpty()
+		? QString(this->game).replace(mangler, "")
+		: "unknowngame";
+	const QString formattedDate = this->time.isValid()
+		? DateTime::toPathFriendlyUTCISO8601(this->time)
+		: "unknowntime";
+	return QString("%1_%2_%3")
+		.arg(mangledAuthor)
+		.arg(mangledGame)
+		.arg(formattedDate);
+}
+
 QString GameDemo::managedName() const
 {
-	return QString("%1_%2.%3").arg(
-		this->game,
-		this->time.toString("dd.MM.yyyy_hh.mm.ss"),
-		QFileInfo(this->demopath).suffix());
+	const QString suffix = QFileInfo(this->demopath).suffix();
+	return QString("%1.%2").arg(managedNameNoExtension(), suffix);
+}
+
+QString GameDemo::managedNameNoExtension() const
+{
+	static const QRegularExpression mangler("[^A-Za-z0-9-]");
+
+	QString mangledAuthor = QString(this->author)
+		.replace(mangler, "")
+		.left(MAX_AUTHOR_FILENAME_LEN);
+	if (mangledAuthor.isEmpty())
+		mangledAuthor = "_";
+	const QString year = this->time.isValid() ? QString("%1").arg(this->time.date().year(), 4, 10, QChar('0')) : "_";
+	const QString mangledGame = QString(this->game)
+		.replace(mangler, "");
+	const QString formattedDate = this->time.isValid()
+		? DateTime::toPathFriendlyUTCISO8601(this->time)
+		: "unknown";
+	return QString("%1/%2/%3_%4")
+		.arg(mangledAuthor)
+		.arg(year)
+		.arg(mangledGame)
+		.arg(formattedDate);
+}
+
+void GameDemo::imprintPath(const QString &path)
+{
+	// Detect the filename format
+	static const QRegularExpression detectV1(R"(\d{2}\.\d{2}.\d{4}_\d{2}\.\d{2}\.\d{2})");
+	static const QRegularExpression detectV2(R"(\d{4}-\d{2}-\d{2}T\d{6}Z)");
+
+	QString metaData = QFileInfo(path).completeBaseName();
+	if (detectV2.match(metaData).hasMatch())
+	{
+		if (metaData.count("_") > 1)
+		{
+			loadDemoMetaDataFromExportedFilename(path, *this);
+		}
+		else
+		{
+			loadDemoMetaDataFromFilenameV2(path, *this);
+		}
+	}
+	else if (detectV1.match(metaData).hasMatch())
+	{
+		loadDemoMetaDataFromFilenameV1(path, *this);
+	}
 }
 
 /*
@@ -105,8 +271,6 @@ DemoRecord::operator DemoRecord::Control() const
 /*
   DemoStore
 */
-static void loadDemoMetaDataFromFilename(const QString &path, GameDemo &demo);
-
 static const int DOOMSEEKER_METADATA_VERSION = 2;
 
 /// Filename suffix without the dot, just like QFileInfo::suffix().
@@ -190,7 +354,16 @@ QStringList DemoStore::listDemoExtensions()
 
 QStringList DemoStore::listManagedDemos()
 {
-	return d->root.entryList(demoFileFilters(), QDir::Files);
+	const QString rootpath = d->root.path();
+	QDirIterator dirit(rootpath, demoFileFilters(),
+		QDir::Files, QDirIterator::Subdirectories);
+	QStringList result;
+	while (dirit.hasNext())
+	{
+		QString path = dirit.next();
+		result << path.mid(rootpath.length() + 1);
+	}
+	return result;
 }
 
 bool DemoStore::importDemo(const GameDemo &demo)
@@ -201,6 +374,11 @@ bool DemoStore::importDemo(const GameDemo &demo)
 
 	QFile managedDemo(d->root.filePath(demo.managedName()));
 	QFile metafile(DemoStore::metafile(managedDemo.fileName()));
+
+	QDir managedDemoDir = QFileInfo(managedDemo).dir();
+	if (FileUtils::mkpath(managedDemoDir).isError())
+		return false;
+
 	if (managedDemo.exists())
 		managedDemo.remove();
 	if (metafile.exists())
@@ -219,38 +397,39 @@ QString DemoStore::metafile(const QString &path)
 
 QString DemoStore::mkDemoFullPath(DemoRecord::Control control, const EnginePlugin &plugin, const bool isMultiplayer)
 {
+	GameDemo demo;
+	demo.demopath = QString("demo.%1").arg(isMultiplayer
+		? plugin.data()->multiplayerDemoExtension
+		: plugin.data()->demoExtension);
+	demo.author = gConfig.doomseeker.realPlayerName();
+	demo.time = QDateTime::currentDateTime();
+	demo.game = plugin.data()->canonicalName;
+
+	const bool hasExtension = isMultiplayer
+		? plugin.data()->multiplayerDemoExtensionAutomatic
+		: plugin.data()->demoExtensionAutomatic;
+
 	switch (control)
 	{
 	case DemoRecord::Managed:
-		return QFileInfo(d->root.filePath(mkDemoName(plugin, isMultiplayer)))
-			.absoluteFilePath();
+	{
+		QFileInfo demoPath(d->root.filePath(hasExtension
+			? demo.managedName()
+			: demo.managedNameNoExtension()));
+		if (FileUtils::mkpath(demoPath.dir()).isError())
+			return QString();
+		return demoPath.absoluteFilePath();
+	}
 	case DemoRecord::Unmanaged:
-		return mkDemoName(plugin, isMultiplayer);
+		return hasExtension
+			? demo.exportedName()
+			: demo.exportedNameNoExtension();
 	case DemoRecord::NoDemo:
 		return QString();
 	default:
 		assert(0 && "Unknown demo control type");
 		return QString();
 	}
-}
-
-QString DemoStore::mkDemoName(const EnginePlugin &plugin, const bool isMultiplayer)
-{
-	QString demoName = "";
-	demoName += QString("%1_%2").
-		arg(plugin.data()->name).
-		arg(QDateTime::currentDateTime().toString("dd.MM.yyyy_hh.mm.ss"));
-	if (isMultiplayer)
-	{
-		if (!plugin.data()->multiplayerDemoExtensionAutomatic)
-			demoName += QString(".%1").arg(plugin.data()->multiplayerDemoExtension);
-	}
-	else
-	{
-		if (!plugin.data()->demoExtensionAutomatic)
-			demoName += QString(".%1").arg(plugin.data()->demoExtension);
-	}
-	return demoName;
 }
 
 bool DemoStore::removeManagedDemo(const QString &name)
@@ -269,6 +448,11 @@ bool DemoStore::removeManagedDemo(const QString &name)
 	return true;
 }
 
+const QDir &DemoStore::root() const
+{
+	return d->root;
+}
+
 void DemoStore::saveDemoMetaData(const QString &demoName, const EnginePlugin &plugin,
 	const QString &iwad, const QList<PWad> &pwads, const bool isMultiplayer)
 {
@@ -284,7 +468,7 @@ void DemoStore::saveDemoMetaData(const QString &demoName, const EnginePlugin &pl
 	QString metaFileName = metafile(demoFileName);
 
 	GameDemo demo;
-	loadDemoMetaDataFromFilename(demoFileName, demo);
+	demo.imprintPath(demoFileName);
 	demo.game = plugin.data()->canonicalName;
 	demo.author = gConfig.doomseeker.realPlayerName();
 	demo.demopath = demoFileName;
@@ -335,50 +519,6 @@ void DemoStore::saveDemoMetaData(const GameDemo &demo, const QString &path)
 	}
 	metaSection.setValue("pwads", requiredPwads.join(";"));
 	metaSection.setValue("optionalPwads", optionalPwads);
-}
-
-static void loadDemoMetaDataFromFilename(const QString &path, GameDemo &demo)
-{
-	QString metaData = QFileInfo(path).completeBaseName();
-
-	// We need to split manually to handle escaping.
-	QStringList demoData;
-	for (int i = 0; i < metaData.length(); ++i)
-	{
-		if (metaData[i] == '_')
-		{
-			// If our underscore is followed by another just continue on...
-			if (i + 1 < metaData.length() && metaData[i + 1] == '_')
-			{
-				++i;
-				continue;
-			}
-
-			// Split the meta data and then restart from the beginning.
-			demoData << metaData.left(i).replace("__", "_");
-			metaData = metaData.mid(i + 1);
-			i = 0;
-		}
-	}
-	// Whatever is left is a part of our data.
-	demoData << metaData.replace("__", "_");
-	// Should have at least 3 elements game, date, time[, iwad[, pwads]]
-	if (demoData.size() < 3)
-		return;
-
-	QDate date = QDate::fromString(demoData[1], "dd.MM.yyyy");
-	QTime time = QTime::fromString(demoData[2], "hh.mm.ss");
-
-	demo.game = demoData[0];
-	demo.time = QDateTime(date, time, QTimeZone::systemTimeZone());
-	if (demoData.size() >= 4)
-	{
-		for (QString wad : demoData.mid(3))
-		{
-			if (!wad.isEmpty())
-				demo.wads << PWad(wad);
-		}
-	}
 }
 
 static void loadDemoMetaDataFromIniV1(Ini &metaData, GameDemo &demo)
@@ -446,7 +586,7 @@ GameDemo DemoStore::loadGameDemo(const QString &path)
 	demo.demopath = path.endsWith("." + METAFILE_SUFFIX)
 		? path.left(path.length() - (1 + METAFILE_SUFFIX.length()))
 		: path;
-	loadDemoMetaDataFromFilename(demo.demopath, demo);
+	demo.imprintPath(demo.demopath);
 	loadDemoMetaDataFromIni(demo.demopath, demo);
 	return demo;
 }

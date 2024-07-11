@@ -24,12 +24,7 @@
 
 #include "irc/entities/ircuserprefix.h"
 #include "irc/ircisupportparser.h"
-
-#define T_ASSERT_EQUAL(a, b) \
-	if ((a) != (b)) \
-	{ \
-		return false; \
-	}
+#include "tests/asserts.h"
 
 bool TestIRCISupportPrefix::executeTest()
 {
