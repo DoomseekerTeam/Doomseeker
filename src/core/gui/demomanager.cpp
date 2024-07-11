@@ -197,20 +197,20 @@ void DemoManagerDlg::exportSelectedDoomseeker()
 		gConfig.doomseeker.previousDemoExportDir,
 		QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation).first());
 
-	const QString dirPath = QFileDialog::getExistingDirectory(this,
-		tr("Select demo export directory"), proposedDir.path());
-	if (dirPath.isEmpty())
+	const QString exportPath = QFileDialog::getSaveFileName(this,
+		tr("Select demo export directory"),
+		proposedDir.filePath(d->selectedDemo->exportedName()));
+	if (exportPath.isEmpty())
 		return;
 
-	gConfig.doomseeker.previousDemoExportDir = dirPath;
-	const QDir dir(dirPath);
+	gConfig.doomseeker.previousDemoExportDir = QFileInfo(exportPath).path();
 
 	QFile demoFile(d->selectedDemo->demopath);
 	QFile metaFile(DemoStore::metafile(d->selectedDemo->demopath));
 
 	// Check if the files exist at target location and ask to overwrite.
-	QFile destDemo(dir.filePath(QFileInfo(demoFile).fileName()));
-	QFile destMeta(dir.filePath(QFileInfo(metaFile).fileName()));
+	QFile destDemo(exportPath);
+	QFile destMeta(DemoStore::metafile(exportPath));
 
 	bool demoExists = destDemo.exists();
 	bool metaExists = destMeta.exists();
@@ -271,7 +271,7 @@ void DemoManagerDlg::exportSelectedPlain()
 
 	QFileDialog saveDialog(this);
 	saveDialog.setAcceptMode(QFileDialog::AcceptSave);
-	saveDialog.selectFile(QFileInfo(d->selectedDemo->demopath).fileName());
+	saveDialog.selectFile(d->selectedDemo->exportedName());
 	saveDialog.setDirectory(dir);
 	if (saveDialog.exec() == QDialog::Accepted)
 	{
