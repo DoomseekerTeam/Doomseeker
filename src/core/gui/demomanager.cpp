@@ -23,15 +23,13 @@
 #include "demomanager.h"
 
 #include "configuration/doomseekerconfig.h"
-#include "datapaths.h"
 #include "fileutils.h"
 #include "gamedemo.h"
 #include "gui/commongui.h"
 #include "gui/demometadatadialog.h"
-#include "ini/ini.h"
-#include "ini/settingsproviderqt.h"
 #include "pathfinder/pathfinder.h"
 #include "pathfinder/wadpathfinder.h"
+#include "plugins/enginedefaults.h"
 #include "plugins/engineplugin.h"
 #include "plugins/pluginloader.h"
 #include "serverapi/gamecreateparams.h"
@@ -44,20 +42,146 @@
 
 #include <QDir>
 #include <QFileDialog>
-#include <QLabel>
 #include <QMenu>
 #include <QMessageBox>
-#include <QPushButton>
+#include <QModelIndex>
 #include <QStandardItemModel>
 #include <QStandardPaths>
+#include <QString>
+#include <cstdint>
+
+namespace
+{
+class DemoModel : public QStandardItemModel
+{
+	Q_OBJECT;
+
+public:
+	enum Column : int8_t
+	{
+		ColData = 0,
+		ColGame = 0,
+		ColCreatedTime,
+		ColAuthor,
+		ColIwad,
+		ColWads,
+	};
+
+	enum Role : int
+	{
+		ManagedNameRole = Qt::UserRole + 1,
+		FilePathRole = Qt::UserRole + 2,
+	};
+
+	DemoModel(QObject *parent) : QStandardItemModel(parent)
+	{
+		setHorizontalHeaderLabels({"", tr("Created Time"), tr("Author"), tr("IWAD"), tr("WADs")});
+	}
+
+	void addGameDemo(const GameDemo &demo)
+	{
+		auto gameinfo = this->gameInfo(demo.game);
+		auto *itemGame = new QStandardItem;
+		itemGame->setIcon(gameinfo.icon);
+		itemGame->setToolTip(gameinfo.name);
+
+		auto *itemCreatedTime = new QStandardItem;
+		itemCreatedTime->setData(demo.time, Qt::EditRole);
+		itemCreatedTime->setToolTip(demo.time.toString());
+
+		auto *itemAuthor = new QStandardItem(demo.author);
+		itemAuthor->setToolTip(demo.author);
+
+		auto *itemIwad = new QStandardItem(demo.iwad);
+		itemIwad->setToolTip(demo.iwad);
+
+		QStringList wads;
+		for (const PWad &wad : demo.wads)
+		{
+			wads << (wad.isOptional()
+				? ("[" + wad.name() + "]")
+				: wad.name());
+		}
+		auto *itemWads = new QStandardItem(wads.join("; "));
+		itemWads->setToolTip(wads.join("\n"));
+
+		QStandardItem *itemData = itemGame;
+		itemData->setData(demo.managedName(), ManagedNameRole);
+		itemData->setData(demo.demopath, FilePathRole);
+
+		appendRow(QList<QStandardItem *> {itemGame, itemCreatedTime, itemAuthor, itemIwad, itemWads});
+	}
+
+	QString demoNameFromIndex(const QModelIndex &index) const
+	{
+		return index.isValid() ? demoNameFromRow(index.row()) : QString();
+	}
+
+	QString demoNameFromRow(int row) const
+	{
+		if (row >= this->rowCount())
+			return QString();
+		auto *item = this->item(row, ColData);
+		return item->data(FilePathRole).toString();
+	}
+
+	void removeAll()
+	{
+		this->removeRows(0, this->rowCount());
+	}
+
+private:
+	struct GameInfo
+	{
+		QIcon icon;
+		QString name;
+
+		static GameInfo unknown(QString name)
+		{
+			return GameInfo {gUnknownEngineIcon(), name};
+		}
+	};
+
+	/// A beyond-reasonable limit of games Doomseeker will support.
+	static const int GAMES_LIMIT = 10000;
+
+	mutable QMap<QString, GameInfo> games;
+
+	GameInfo gameInfo(const QString &name) const
+	{
+		if (this->games.contains(name))
+			return this->games[name];
+		if (this->games.size() > GAMES_LIMIT)
+		{
+			// Something fishy is going on if we went beyond this limit.
+			// Protect against DoS.
+			return GameInfo::unknown(name);
+		}
+		GameInfo gameinfo = gameInfoFromPlugin(name);
+		this->games[name] = gameinfo;
+		return gameinfo;
+	}
+
+	static GameInfo gameInfoFromPlugin(const QString &name)
+	{
+		EnginePlugin *plugin = gPlugins->info(name);
+		return plugin != nullptr
+			? GameInfo {plugin->icon(), plugin->data()->name}
+			: GameInfo::unknown(name);
+	}
+};
+}
 
 DClass<DemoManagerDlg> : public Ui::DemoManagerDlg
 {
 public:
 	DemoStore demoStore;
-	GameDemo *selectedDemo;
-	QStandardItemModel *demoModel;
-	QList<QList<GameDemo> > demoTree;
+	DemoModel *demoModel;
+
+	QModelIndex currentIndex() const
+	{
+		return this->demoTable->selectionModel()->currentIndex();
+	}
 };
 
 DPointered(DemoManagerDlg)
@@ -67,7 +191,6 @@ DemoManagerDlg::DemoManagerDlg()
 	d->setupUi(this);
 	CommonGUI::setupDialog(*this);
 	d->demoStore = DemoStore();
-	d->selectedDemo = nullptr;
 
 	auto *menu = new QMenu(this);
 	menu->addAction(tr("Export plain demo file"),
@@ -76,11 +199,18 @@ DemoManagerDlg::DemoManagerDlg()
 		this, SLOT(exportSelectedDoomseeker()));
 	d->btnExport->setMenu(menu);
 
-	d->demoModel = new QStandardItemModel();
+	d->demoModel = new DemoModel(this);
+	d->demoTable->setModel(d->demoModel);
+	d->demoTable->setColumnWidth(DemoModel::ColGame, 24);
+
+	auto *header = d->demoTable->horizontalHeader();
+	header->setSectionResizeMode(DemoModel::ColGame, QHeaderView::ResizeToContents);
+
 	adjustDemoList();
+	d->demoTable->sortByColumn(DemoModel::ColCreatedTime, Qt::DescendingOrder);
 
 	updateUiSelectionState();
-	connect(d->demoList->selectionModel(), &QItemSelectionModel::currentChanged,
+	connect(d->demoTable->selectionModel(), &QItemSelectionModel::currentChanged,
 		this, &DemoManagerDlg::itemSelected);
 }
 
@@ -90,39 +220,16 @@ DemoManagerDlg::~DemoManagerDlg()
 
 void DemoManagerDlg::adjustDemoList()
 {
-	// In order to index the demos we'll convert the dates to integers by calculating the days until today.
-	// Also we need to convert double underscores to a single underscore
-	QDate today = QDate::currentDate();
-	QTime referenceTime(23, 59, 59);
+	d->demoModel->removeAll();
 	QStringList demos = d->demoStore.listManagedDemos();
-	typedef QMap<int, GameDemo> DemoMap;
-	QMap<int, DemoMap> demoMap;
+	d->demoTable->setSortingEnabled(false);
 	for (const QString &demoName : demos)
 	{
 		GameDemo demo = d->demoStore.loadManagedGameDemo(demoName);
-		if (demo.hasDemoFile())
-		{
-			// TODO when there are two demos recorded at the same time... we're in trouble.
-			demoMap[demo.time.date().daysTo(today)][demo.time.time().secsTo(referenceTime)] = demo;
-		}
+		d->demoModel->addGameDemo(demo);
 	}
-
-	// Convert to a model
-	d->demoModel->clear();
-	d->demoTree.clear();
-	for (const DemoMap &demoDate : demoMap)
-	{
-		QStandardItem *item = new QStandardItem(demoDate.begin().value().time.toString("ddd. MMM d, yyyy"));
-		QList<GameDemo> demoDateList;
-		for (const GameDemo &demo : demoDate)
-		{
-			demoDateList << demo;
-			item->appendRow(new QStandardItem(demo.time.toString("hh:mm:ss")));
-		}
-		d->demoTree << demoDateList;
-		d->demoModel->appendRow(item);
-	}
-	d->demoList->setModel(d->demoModel);
+	d->demoTable->setSortingEnabled(true);
+	d->demoTable->resizeRowsToContents();
 }
 
 bool DemoManagerDlg::doRemoveDemo(const QString &file)
@@ -131,7 +238,6 @@ bool DemoManagerDlg::doRemoveDemo(const QString &file)
 		QMessageBox::critical(this, tr("Unable to remove"), tr("Could not remove the selected demo."));
 	else
 	{
-		d->selectedDemo = nullptr;
 		updateUiSelectionState();
 		return true;
 	}
@@ -144,43 +250,13 @@ void DemoManagerDlg::deleteSelected()
 		tr("Are you sure you want to remove the selected demo?"),
 		QMessageBox::Yes | QMessageBox::Cancel) == QMessageBox::Yes)
 	{
-		QModelIndex index = d->demoList->selectionModel()->currentIndex();
-		if (d->selectedDemo == nullptr)
+		QModelIndex index = d->currentIndex();
+		if (index.isValid())
 		{
-			int dateRow = index.row();
-			for (int timeRow = 0; index.model()->index(timeRow, 0).isValid(); ++timeRow)
+			const QString &demoName = d->demoModel->demoNameFromIndex(index);
+			if (doRemoveDemo(demoName))
 			{
-				if (doRemoveDemo(d->demoTree[dateRow][timeRow].managedName()))
-				{
-					d->demoModel->removeRow(timeRow, index);
-					d->demoTree[dateRow].removeAt(timeRow);
-					if (d->demoTree[dateRow].size() == 0)
-					{
-						d->demoModel->removeRow(dateRow);
-						d->demoTree.removeAt(dateRow);
-						break;
-					}
-
-					// We deleted the top row, so decrement our pointer
-					--timeRow;
-				}
-			}
-		}
-		else
-		{
-			if (doRemoveDemo(d->selectedDemo->managedName()))
-			{
-				// Adjust the tree
-				int dateRow = index.parent().row();
-				int timeRow = index.row();
-
-				d->demoModel->removeRow(timeRow, index.parent());
-				d->demoTree[dateRow].removeAt(timeRow);
-				if (d->demoTree[dateRow].size() == 0)
-				{
-					d->demoModel->removeRow(dateRow);
-					d->demoTree.removeAt(dateRow);
-				}
+				d->demoModel->removeRow(index.row());
 			}
 		}
 	}
@@ -188,8 +264,10 @@ void DemoManagerDlg::deleteSelected()
 
 void DemoManagerDlg::exportSelectedDoomseeker()
 {
-	if (d->selectedDemo == nullptr)
+	QString demoName = d->demoModel->demoNameFromIndex(d->demoTable->currentIndex());
+	if (demoName.isEmpty())
 		return;
+	GameDemo selectedDemo = d->demoStore.loadManagedGameDemo(demoName);
 
 	// Omit Doomseeker's path portablization here, because the feature
 	// is explicitly called "export".
@@ -199,14 +277,14 @@ void DemoManagerDlg::exportSelectedDoomseeker()
 
 	const QString exportPath = QFileDialog::getSaveFileName(this,
 		tr("Select demo export directory"),
-		proposedDir.filePath(d->selectedDemo->exportedName()));
+		proposedDir.filePath(selectedDemo.exportedName()));
 	if (exportPath.isEmpty())
 		return;
 
 	gConfig.doomseeker.previousDemoExportDir = QFileInfo(exportPath).path();
 
-	QFile demoFile(d->selectedDemo->demopath);
-	QFile metaFile(DemoStore::metafile(d->selectedDemo->demopath));
+	QFile demoFile(selectedDemo.demopath);
+	QFile metaFile(DemoStore::metafile(selectedDemo.demopath));
 
 	// Check if the files exist at target location and ask to overwrite.
 	QFile destDemo(exportPath);
@@ -260,8 +338,10 @@ void DemoManagerDlg::exportSelectedDoomseeker()
 
 void DemoManagerDlg::exportSelectedPlain()
 {
-	if (d->selectedDemo == nullptr)
+	QString demoName = d->demoModel->demoNameFromIndex(d->demoTable->currentIndex());
+	if (demoName.isEmpty())
 		return;
+	GameDemo selectedDemo = d->demoStore.loadManagedGameDemo(demoName);
 
 	// Omit Doomseeker's path portablization here, because the feature
 	// is explicitly called "export".
@@ -271,13 +351,13 @@ void DemoManagerDlg::exportSelectedPlain()
 
 	QFileDialog saveDialog(this);
 	saveDialog.setAcceptMode(QFileDialog::AcceptSave);
-	saveDialog.selectFile(d->selectedDemo->exportedName());
+	saveDialog.selectFile(selectedDemo.exportedName());
 	saveDialog.setDirectory(dir);
 	if (saveDialog.exec() == QDialog::Accepted)
 	{
 		gConfig.doomseeker.previousDemoExportDir = QFileInfo(saveDialog.selectedFiles().first()).path();
 		// Copy the demo to the new location.
-		if (!QFile::copy(d->selectedDemo->demopath, saveDialog.selectedFiles().first()))
+		if (!QFile::copy(selectedDemo.demopath, saveDialog.selectedFiles().first()))
 			QMessageBox::critical(this, tr("Unable to save"), tr("Could not write to the specified location."));
 	}
 }
@@ -367,21 +447,28 @@ QString DemoManagerDlg::labelDemoFile(QFileInfo &file, const QByteArray &md5)
 
 void DemoManagerDlg::itemDoubleClicked(const QModelIndex &index)
 {
-	if (d->selectedDemo != nullptr)
-		playSelected();
+	QString demoName = d->demoModel->demoNameFromIndex(index);
+	if (!demoName.isEmpty())
+		playDemo(demoName);
 }
 
 void DemoManagerDlg::playSelected()
 {
-	if (d->selectedDemo == nullptr)
-		return;
+	QString demoName = d->demoModel->demoNameFromIndex(d->demoTable->currentIndex());
+	if (!demoName.isEmpty())
+		playDemo(demoName);
+}
+
+void DemoManagerDlg::playDemo(const QString &demoName)
+{
+	GameDemo demo = d->demoStore.loadManagedGameDemo(demoName);
 
 	// Look for the plugin used to record.
-	EnginePlugin *plugin = gPlugins->info(d->selectedDemo->game);
+	EnginePlugin *plugin = gPlugins->info(demo.game);
 	if (plugin == nullptr)
 	{
 		QMessageBox::critical(this, tr("No plugin"),
-			tr("The \"%1\" plugin does not appear to be loaded.").arg(d->selectedDemo->game));
+			tr("The \"%1\" plugin does not appear to be loaded.").arg(demo.game));
 		return;
 	}
 
@@ -398,8 +485,8 @@ void DemoManagerDlg::playSelected()
 	QStringList missingWads;
 	QStringList wadPaths;
 
-	QList<PWad> wads = d->selectedDemo->wads;
-	wads.prepend(PWad(d->selectedDemo->iwad));
+	QList<PWad> wads = demo.wads;
+	wads.prepend(PWad(demo.iwad));
 
 	for (const PWad &wad : wads)
 	{
@@ -419,7 +506,7 @@ void DemoManagerDlg::playSelected()
 
 	// Play the demo
 	GameCreateParams params;
-	params.setDemoPath(QFileInfo(d->selectedDemo->demopath).absoluteFilePath());
+	params.setDemoPath(QFileInfo(demo.demopath).absoluteFilePath());
 	params.setIwadPath(wadPaths[0]);
 	params.setPwadsPaths(wadPaths.mid(1));
 	params.setHostMode(GameCreateParams::Demo);
@@ -434,59 +521,46 @@ void DemoManagerDlg::playSelected()
 	delete gameRunner;
 }
 
-
-void DemoManagerDlg::performAction(QAbstractButton *button)
-{
-	if (button == d->buttonBox->button(QDialogButtonBox::Close))
-		reject();
-}
-
 void DemoManagerDlg::itemSelected(const QModelIndex &index)
 {
-	if (!index.isValid() || !index.parent().isValid())
-	{
-		d->selectedDemo = nullptr;
-	}
-	else
-	{
-		int dateRow = index.parent().row();
-		int timeRow = index.row();
-		d->selectedDemo = &d->demoTree[dateRow][timeRow];
-	}
 	updateUiSelectionState();
 }
 
 void DemoManagerDlg::updateUiSelectionState()
 {
 	updatePreview();
-	d->btnPlay->setEnabled(d->selectedDemo != nullptr);
-	d->btnDelete->setEnabled(d->selectedDemo != nullptr);
-	d->btnExport->setEnabled(d->selectedDemo != nullptr);
+
+	bool selected = d->demoTable->currentIndex().isValid();
+	d->btnPlay->setEnabled(selected);
+	d->btnDelete->setEnabled(selected);
+	d->btnExport->setEnabled(selected);
 }
 
 void DemoManagerDlg::updatePreview()
 {
-	if (d->selectedDemo == nullptr)
+	QString demoName = d->demoModel->demoNameFromIndex(d->demoTable->currentIndex());
+	if (demoName.isEmpty())
 	{
 		d->preview->setText("");
 		return;
 	}
+	GameDemo selectedDemo = d->demoStore.loadManagedGameDemo(demoName);
 
 	static const QString PAR = "<p style=\"margin: 0px 0px 0px 10px\">";
 	static const QString ENDPAR = "</p>";
 
 	// Try to get the "display" name of the plugin.
-	EnginePlugin *plugin = gPlugins->info(d->selectedDemo->game);
-	QString gameName = plugin != nullptr ? plugin->data()->name : d->selectedDemo->game;
+	EnginePlugin *plugin = gPlugins->info(selectedDemo.game);
+	QString gameName = plugin != nullptr ? plugin->data()->name : selectedDemo.game;
 
 	QString text = "<b>" + tr("Game") + ":</b>" + PAR + gameName + ENDPAR;
-	if (!d->selectedDemo->author.isEmpty())
+	if (!selectedDemo.author.isEmpty())
 	{
-		text += "<b>" + tr("Author") + ":</b>" + PAR + d->selectedDemo->author + ENDPAR;
+		text += "<b>" + tr("Author") + ":</b>" + PAR + selectedDemo.author + ENDPAR;
 	}
 	text += "<b>" + tr("WADs / mods") + ":</b>" + PAR;
-	text += d->selectedDemo->iwad + "<br />";
-	for (const PWad &wad : d->selectedDemo->wads)
+	text += selectedDemo.iwad + "<br />";
+	for (const PWad &wad : selectedDemo.wads)
 	{
 		if (wad.isOptional())
 			text += "[" + wad.name() + "]";
@@ -497,3 +571,5 @@ void DemoManagerDlg::updatePreview()
 	text += ENDPAR;
 	d->preview->setText(text);
 }
+
+#include "demomanager.moc"

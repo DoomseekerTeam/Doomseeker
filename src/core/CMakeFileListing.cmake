@@ -497,6 +497,7 @@ set(SOURCE_FILES
 	pattern.cpp
 	patternlist.cpp
 	patternwildcard.cpp
+	plugins/enginedefaults.cpp
 	plugins/engineplugin.cpp
 	plugins/pluginloader.cpp
 	random.cpp

@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 #include "cfgcustomservers.h"
 #include "configuration/doomseekerconfig.h"
+#include "plugins/enginedefaults.h"
 #include "plugins/engineplugin.h"
 #include "plugins/pluginloader.h"
 #include "ui_cfgcustomservers.h"
@@ -29,9 +30,6 @@
 #include <QMessageBox>
 #include <QStandardItemModel>
 #include <QUrl>
-
-const // clear warnings
-#include "unknownengine.xpm"
 
 DClass<CFGCustomServers> : public Ui::CFGCustomServers
 {
@@ -281,7 +279,7 @@ void CFGCustomServers::setEngineOnItem(QStandardItem *item, const QString &engin
 		item->setIcon(plugin->icon());
 	}
 	else
-		item->setIcon(QPixmap(unknownengine_xpm));
+		item->setIcon(gUnknownEngineIcon());
 
 	item->setEditable(false);
 	item->setText("");

@@ -25,6 +25,10 @@
 
 #include "serverapi/serverstructs.h"
 
+#include <QList>
+#include <QPixmap>
+#include <QVariant>
+
 class DefaultDifficultyProvider : public GameCVarProvider
 {
 	Q_OBJECT
@@ -42,5 +46,7 @@ public:
 		return list;
 	}
 };
+
+const QPixmap &gUnknownEngineIcon();
 
 #endif

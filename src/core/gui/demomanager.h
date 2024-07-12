@@ -52,12 +52,12 @@ private slots:
 	void itemDoubleClicked(const QModelIndex &index);
 	void itemSelected(const QModelIndex &index);
 	void playSelected();
-	void performAction(QAbstractButton *button);
 
 private:
 	void adjustDemoList();
 	bool doRemoveDemo(const QString &file);
 	QString labelDemoFile(QFileInfo &file, const QByteArray &md5);
+	void playDemo(const QString &demoName);
 	void updatePreview();
 	void updateUiSelectionState();
 

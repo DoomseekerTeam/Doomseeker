@@ -51,6 +51,8 @@ game decides that it can handle that.
 previously only available through the tooltips, and say it explicitly when said
 info is missing.
 - The server tooltips restyled to separate the labels (in bold) from values.
+- Present demos in a table instead of a date-time list. There's more metadata
+stored for the demos now, and the table displays it all. (#4110)
 - Demo manager's Play, Remove and Export buttons will now be disabled when
 no demo is selected.
 - Remember the previous export dir in demo manager.
