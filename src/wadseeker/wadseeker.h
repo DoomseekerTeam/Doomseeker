@@ -20,8 +20,8 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2009 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
-#ifndef __WADSEEKER_H_
-#define __WADSEEKER_H_
+#ifndef WADSEEKER_H
+#define WADSEEKER_H
 
 #include <QList>
 #include <QObject>
@@ -34,10 +34,6 @@
 #include "wadseekerexportinfo.h"
 #include "wadseekermessagetype.h"
 
-class Idgames;
-class WadArchiveClient;
-class WadRetriever;
-class WWWSeeker;
 class ModSet;
 class ModFile;
 
@@ -449,37 +445,6 @@ signals:
 
 private:
 	DPtr<Wadseeker> d;
-
-	void abortSeekers();
-	void abortWwwSeeker();
-	void cleanUpAfterFinish();
-	bool isAllFinished() const;
-
-	/**
-	 * @brief Spawns WWWSeeker and WadRetriever instances.
-	 */
-	void prepareSeekObjects();
-
-	void setupIdgamesClients(const QList<WadDownloadInfo> &wadDownloadInfoList);
-	void setupSitesUrls();
-
-	void startNextIdgamesClient();
-	void startIdgames();
-	void stopIdgames();
-
-private slots:
-	void cleanUpIfAllFinished();
-	void fileLinkFound(const QString &filename, const QUrl &url);
-	void fileMirrorLinksFound(const QString &filename, const QList<QUrl> &urls);
-	void idgamesClientFinished(Idgames *pEmitter);
-	void reportBadUrl(const QUrl &url);
-	void wadRetrieverDownloadFinished(WadDownloadInfo wadDownloadInfo);
-	void wadRetrieverDownloadProgress(WadDownloadInfo wadDownloadInfo, qint64 current, qint64 total);
-	void wadRetrieverDownloadStarted(WadDownloadInfo wadDownloadInfo, const QUrl &url);
-	void wadRetrieverFinished();
-	void wadRetrieverMessage(const QString &message, WadseekerLib::MessageType type);
-	void wadRetrieverWadInstalled(WadDownloadInfo wadDownloadInfo);
-	void wwwSeekerFinished();
 };
 
 #endif

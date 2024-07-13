@@ -148,6 +148,7 @@ set(WADSEEKER_FILES
 	freedoom.cpp
 	ioutils.cpp
 	modinstall.cpp
+	seeksession.cpp
 	wadseeker.cpp
 	wadseekerversioninfo.cpp
 )
@@ -188,6 +189,7 @@ set(HEADER_FILES
 	freedoom.h
 	ioutils.h
 	modinstall.h
+	seeksession.h
 	wadseeker.h
 	wadseekerexportinfo.h
 	wadseekermessagetype.h
