@@ -723,7 +723,7 @@ bool WadRetriever::wasUrlUsed(const QUrl &url) const
 
 WadRetriever::WadRetrieverInfo::WadRetrieverInfo(const WadDownloadInfo &wad)
 {
-	this->downloadUrls = new URLProvider();
+	this->downloadUrls = new UrlProvider();
 	this->pNetworkReply = nullptr;
 	this->wad = new WadDownloadInfo(wad);
 }

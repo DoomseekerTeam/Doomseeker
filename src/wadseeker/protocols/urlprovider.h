@@ -27,7 +27,17 @@
 #include <QMap>
 #include <QUrl>
 
-class MirrorStorage;
+class MirrorStorage
+{
+public:
+	QList<QUrl> urls;
+
+	bool hasUrl(const QUrl &url) const;
+	bool isEmpty() const
+	{
+		return urls.isEmpty();
+	}
+};
 
 /**
  * @brief URL provider prepared to work with WWWSeeker and WadRetriever.
@@ -43,11 +53,11 @@ class MirrorStorage;
  * remove the URL and all its mirrors at once, for example when user decides
  * that the mirrors do not contain the requested file.
  */
-class URLProvider
+class UrlProvider
 {
 public:
-	URLProvider();
-	~URLProvider();
+	UrlProvider();
+	~UrlProvider();
 
 	/**
 	 * @brief Adds mirror URL to the specified original URL.
@@ -111,7 +121,7 @@ public:
 	/**
 	 * @brief Same as addUrl()
 	 */
-	URLProvider &operator<<(const QUrl &url);
+	UrlProvider &operator<<(const QUrl &url);
 
 	/**
 	 * @brief Removes single URL from the available URLs list.
@@ -149,12 +159,12 @@ private:
 	// results in idgames providing last (worst) mirrors first,
 	// for example.
 	QMap<int, QList<QUrl> > allUrlsPrioritized;
-	QList<MirrorStorage *> mirrors;
+	QList<MirrorStorage> mirrors;
 
-	QList<MirrorStorage *> mirrorsWithUrl(const QUrl &url);
+	QList<MirrorStorage> mirrorsWithUrl(const QUrl &url);
 
 	void insertUrlPrioritized(const QUrl &url);
-	void removeAllUrls(const MirrorStorage *pMirror);
+	void removeAllUrls(const MirrorStorage &mirror);
 };
 
 #endif

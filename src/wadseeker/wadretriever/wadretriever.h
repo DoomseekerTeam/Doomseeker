@@ -34,7 +34,7 @@
 #include "wadseekermessagetype.h"
 
 class NetworkReply;
-class URLProvider;
+class UrlProvider;
 class WadDownloadInfo;
 
 /**
@@ -270,7 +270,7 @@ private:
 	class WadRetrieverInfo
 	{
 	public:
-		URLProvider *downloadUrls;
+		UrlProvider *downloadUrls;
 		NetworkReply *pNetworkReply;
 		WadDownloadInfo *wad;
 
