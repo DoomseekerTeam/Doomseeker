@@ -20,8 +20,8 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2011 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
-#ifndef __URLPARSER_H__
-#define __URLPARSER_H__
+#ifndef WADSEEKER_WWW_URLPARSER_H
+#define WADSEEKER_WWW_URLPARSER_H
 
 #include <QList>
 #include <QStringList>
@@ -75,21 +75,18 @@ public:
 	 */
 	QList<Link> directLinks(const QStringList &wantedFilenames, const QUrl &baseUrl);
 
+	static bool isFtpUrl(const QUrl &url);
+
 	/**
-	 * @brief Extracts a list of URLs leading to subsites that may contain
-	 *        any of the wanted files.
+	 * Check if the URL scheme points to a WWW resource.
 	 *
-	 * @param wantedFilenames
-	 *      A list of filenames we wish to extract from the URLs specified
-	 *      in the constructor.
-	 * @param baseUrl
-	 *      Relative URLs will be converted to absolute
-	 *      URLs using this URL as a base
+	 * In truth, the allowed schemes are narrowed down to "http",
+	 * "https" and "ftp". The web has technically more protocols, but
+	 * Wadseeker is not interested in them.
 	 *
-	 * @return A list of URLs that match one or more of the filenames
-	 *         on the wantedFiles list.
+	 * We definitely aren't interested in "mailto" or "file" schemes, oh no.
 	 */
-	QList<Link> siteLinks(const QStringList &wantedFilenames, const QUrl &baseUrl);
+	static bool isWwwUrl(const QUrl &url);
 
 private:
 	class PrivData
@@ -100,7 +97,6 @@ private:
 
 	PrivData d;
 
-	static bool hasFileReferenceSomewhere(const QStringList &wantedFilenames, const Link &link);
 	static bool isDirectLinkToFile(const QStringList &wantedFilenames, const Link &link);
 };
 

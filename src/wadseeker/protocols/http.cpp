@@ -21,12 +21,12 @@
 // Copyright (C) 2011 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
 #include "http.h"
-#include "protocols/networkreply.h"
 #include "wwwseeker/htmlparser.h"
 
 #include <QFileInfo>
+#include <QNetworkReply>
 
-Http::Http(const NetworkReply *pReply)
+Http::Http(const QNetworkReply *pReply)
 {
 	this->pReply = pReply;
 }

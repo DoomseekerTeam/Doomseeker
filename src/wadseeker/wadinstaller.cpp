@@ -25,18 +25,77 @@
 #include "entities/waddownloadinfo.h"
 #include "filefind.h"
 #include "ioutils.h"
+#include "protocols/http.h"
 #include "zip/unarchive.h"
 
-#include <QDebug>
 #include <QDir>
 #include <QFile>
+#include <QList>
+#include <QNetworkReply>
+#include <QTemporaryFile>
 
-WadInstaller::WadInstaller(const QString &installPath)
+WadInstaller::WadInstaller(const QString &installPath, const QList<WadDownloadInfo> &wads)
 {
 	d.installPath = installPath;
+	d.wads = wads;
 }
 
-WadInstaller::WadInstallerResult WadInstaller::installArchive(UnArchive &archive, const QList<WadDownloadInfo *> &requestedWads)
+WadInstallerResult WadInstaller::install(const WadDownloadInfo &wad, QNetworkReply &reply)
+{
+	// If the stream is sequential, save the contents
+	// to a temporary file so it can be seeked freely.
+	QTemporaryFile tempFile;
+	QIODevice *stream = &reply;
+	if (stream->isSequential())
+	{
+		tempFile.open();
+		// We need to be able to seek the IO device because it needs
+		// to be reusable. If the current IO device cannot be seeked,
+		// we need to copy its contents into a temp file.
+		IOUtils::copy(*stream, tempFile);
+		tempFile.flush();
+		tempFile.seek(0);
+		stream = &tempFile;
+	}
+
+	// We need to determine the correct filename.
+	QString filename = wad.name();
+	Http http(&reply);
+	const QString attachmentName = http.attachmentName().trimmed();
+	if (!attachmentName.isEmpty())
+	{
+		filename = attachmentName;;
+	}
+	else
+	{
+		QFileInfo urlInfo(reply.url().path());
+		const QString urlFilename = urlInfo.fileName().trimmed();
+		if (!urlFilename.isEmpty())
+		{
+			filename = urlFilename;
+		}
+	}
+
+	// Now try to install the file under the downloaded filename.
+	if (filename == wad.name())
+	{
+		return installFile(wad, stream);
+	}
+	else
+	{
+		// ... or try to unpack it from the archive.
+		QFileInfo fileInfo(filename);
+		QScopedPointer<UnArchive> archive(UnArchive::openArchive(fileInfo, stream));
+		if (archive == nullptr)
+		{
+			return WadInstallerResult::makeError(
+				tr("It's not the desired file nor an archive."));
+		}
+		return installArchive(*archive);
+	}
+}
+
+WadInstallerResult WadInstaller::installArchive(UnArchive &archive)
 {
 	QDir installDir(d.installPath);
 	WadInstallerResult dirResult = makeSureDirPathExists(installDir);
@@ -49,26 +108,18 @@ WadInstaller::WadInstallerResult WadInstaller::installArchive(UnArchive &archive
 	FileFind fileFinder(archive.files());
 
 	// We will try to find all requested WADs in the single archive.
-	for (const WadDownloadInfo *pWadInfo : requestedWads)
+	for (const WadDownloadInfo &wad : d.wads)
 	{
-		const QString &name = pWadInfo->name();
-		#ifndef NDEBUG
-		qDebug() << "requestedWad " << name;
-		#endif
+		const QString &name = wad.name();
 
 		int entryIndex = fileFinder.findFilename(name);
-		#ifndef NDEBUG
-		qDebug() << "requestedWad index in the archive " << entryIndex;
-		#endif
 		if (entryIndex >= 0)
 		{
 			// File was found in the archive. Attempt extraction.
 			QString filePath = installDir.absoluteFilePath(name);
-			#ifndef NDEBUG
-			qDebug() << "extracting requestedWad to path " << filePath;
-			#endif
 			if (archive.extract(entryIndex, filePath))
 			{
+				// TODO implement the file checksum verification here!
 				result.installedWads << QFileInfo(filePath);
 			}
 		}
@@ -77,7 +128,7 @@ WadInstaller::WadInstallerResult WadInstaller::installArchive(UnArchive &archive
 	return result;
 }
 
-WadInstaller::WadInstallerResult WadInstaller::installFile(const QString &fileName, QIODevice *stream)
+WadInstallerResult WadInstaller::installFile(const WadDownloadInfo &wad, QIODevice *stream)
 {
 	// Check for problems.
 	QDir installDir(d.installPath);
@@ -88,7 +139,7 @@ WadInstaller::WadInstallerResult WadInstaller::installFile(const QString &fileNa
 	}
 
 	// Save the file from input stream to the media storage device.
-	QString filePath = installDir.absoluteFilePath(fileName);
+	QString filePath = installDir.absoluteFilePath(wad.name());
 	QFile file(filePath);
 
 	if (!file.open(QFile::WriteOnly))
@@ -122,11 +173,18 @@ WadInstaller::WadInstallerResult WadInstaller::installFile(const QString &fileNa
 	}
 
 	file.close();
+	if (!wad.validFile(filePath))
+	{
+		file.remove();
+		return WadInstallerResult::makeError(
+			tr("The checksum of the installed file \"%1\" didn't "
+				"match the expected one.").arg(wad.name()));
+	}
 
 	return WadInstallerResult::makeSuccess(QFileInfo(filePath));
 }
 
-WadInstaller::WadInstallerResult WadInstaller::makeSureDirPathExists(QDir &dir)
+WadInstallerResult WadInstaller::makeSureDirPathExists(QDir &dir)
 {
 	if (!dir.exists())
 	{

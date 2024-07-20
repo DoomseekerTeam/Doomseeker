@@ -20,14 +20,15 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2011 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
-#ifndef __FILESEEKINFO_H__
-#define __FILESEEKINFO_H__
+#ifndef WADSEEKER_WWWSEEKER_FILESEEKINFO_H
+#define WADSEEKER_WWWSEEKER_FILESEEKINFO_H
 
 #include <QString>
 #include <QStringList>
 
+// TODO revise!
 /**
- * @brief Seek information for WWWSeeker
+ * @brief Define the details of looking for a given file.
  *
  * The same seeked file can be listed under different filenames. Objects of
  * this class group a list of filenames under a single key value.

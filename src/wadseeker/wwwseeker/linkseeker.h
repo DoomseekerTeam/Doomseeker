@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------
-// link.h
+// linkseeker.h
 //------------------------------------------------------------------------------
 //
 // This library is free software; you can redistribute it and/or
@@ -18,41 +18,50 @@
 // 02110-1301  USA
 //
 //------------------------------------------------------------------------------
-// Copyright (C) 2009 "Zalewa" <zalewapl@gmail.com>
+// Copyright (C) 2024 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
-#ifndef __LINK_H_
-#define __LINK_H_
+#ifndef WADSEEKER_WWWSEEKER_LINKSEEKER_H
+#define WADSEEKER_WWWSEEKER_LINKSEEKER_H
 
-#include <QUrl>
+#include "dptr.h"
 
-class Link
+#include <QObject>
+
+class Link;
+class QIODevice;
+class WebCrawl;
+
+/**
+ * A collector for seek links in the incoming QIODevices.
+ *
+ * This object is asynchronous. It accepts a QIODevice and returns
+ * immediately. Each QIODevice is identified by its source URL, which
+ * can be anything really, but should be unique within a single LinkSeeker.
+ *
+ * Found links are emitted over time via the linkFound() signal, and
+ * when the seeker is done with a given device, it emits finished().
+ */
+class LinkSeeker : public QObject
 {
+	Q_OBJECT
+	Q_DISABLE_COPY(LinkSeeker)
+
 public:
-	QUrl url;
-	QString text;
+	LinkSeeker();
+	~LinkSeeker();
 
-	Link();
-	Link(const QUrl &url, const QString &text);
+	void acceptHtml(const WebCrawl &src, QIODevice *io);
+	bool isWorking() const;
 
-	bool pathEndsWith(const QStringList &ends);
-	/**
-	 * @param comparePage
-	 *       If not empty checks if URL refers to the same host as
-	 *       this param.
-	 * @return True if URL points to another server
-	 */
-	bool isRemote(const QUrl &comparePage);
+public slots:
+	void conclude(const QIODevice *io);
 
-	/**
-	 * @return True if the URL refers to the same page
-	 *         (for example URLs with '#')
-	 */
-	bool isTheSamePage(const QUrl &comparePage);
+signals:
+	void finished(const WebCrawl &src);
+	void linkFound(const WebCrawl &src, const Link &link);
 
-	/**
-	 * @return True if URL begins from javascript: phrase
-	 */
-	bool isJavascriptURL();
+private:
+	DPtr<LinkSeeker> d;
 };
 
 #endif

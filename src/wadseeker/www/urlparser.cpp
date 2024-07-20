@@ -22,9 +22,9 @@
 //------------------------------------------------------------------------------
 #include "urlparser.h"
 
-#include <QFileInfo>
+#include "wwwseeker/link.h"
 
-#include "entities/link.h"
+#include <QFileInfo>
 
 UrlParser::UrlParser(const QList<Link> &links)
 {
@@ -49,22 +49,6 @@ QList<Link> UrlParser::directLinks(const QStringList &wantedFilenames, const QUr
 	}
 
 	return linksList;
-}
-
-bool UrlParser::hasFileReferenceSomewhere(const QStringList &wantedFilenames, const Link &link)
-{
-	QString strQuery = link.url.query(QUrl::FullyDecoded);
-
-	for (const QString &filename : wantedFilenames)
-	{
-		if (strQuery.contains(filename, Qt::CaseInsensitive)
-			|| link.text.contains(filename, Qt::CaseInsensitive))
-		{
-			return true;
-		}
-	}
-
-	return false;
 }
 
 bool UrlParser::hasSameHost(const QUrl &url1, const QUrl &url2)
@@ -96,6 +80,20 @@ bool UrlParser::isDirectLinkToFile(const QStringList &wantedFilenames, const Lin
 	return isDirectLinkToFile(wantedFilenames, link.url);
 }
 
+bool UrlParser::isFtpUrl(const QUrl &url)
+{
+	return !url.isRelative() && url.scheme().toLower() == "ftp";
+}
+
+bool UrlParser::isWwwUrl(const QUrl &url)
+{
+	const QString scheme = url.scheme().toLower();
+	return !url.isRelative()
+		&& (scheme == "http"
+			|| scheme == "https"
+			|| scheme == "ftp");
+}
+
 bool UrlParser::isWadnameTemplateUrl(const QString &url)
 {
 	return url.contains("%WADNAME%") || url.contains("%s");
@@ -113,28 +111,6 @@ QUrl UrlParser::resolveWadnameTemplateUrl(QString url, const QString &wadname)
 		url = url.replace("%s", wadnameEncoded);
 	}
 	return url;
-}
-
-QList<Link> UrlParser::siteLinks(const QStringList &wantedFilenames, const QUrl &baseUrl)
-{
-	QList<Link> linksList;
-
-	for (Link link : d.links)
-	{
-		// Make sure direct links are not listed here.
-		if (hasFileReferenceSomewhere(wantedFilenames, link)
-			&& !isDirectLinkToFile(wantedFilenames, link))
-		{
-			if (link.url.isRelative())
-			{
-				link.url = baseUrl.resolved(link.url);
-			}
-
-			linksList << link;
-		}
-	}
-
-	return linksList;
 }
 
 bool UrlParser::urlEqualsCaseInsensitive(QUrl url1, QUrl url2)

@@ -20,8 +20,8 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2009 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
-#ifndef __IDGAMES_H_
-#define __IDGAMES_H_
+#ifndef WADSEEKER_PROTOCOLS_IDGAMES_IDGAMES_H
+#define WADSEEKER_PROTOCOLS_IDGAMES_IDGAMES_H
 
 #include <QByteArray>
 #include <QNetworkAccessManager>

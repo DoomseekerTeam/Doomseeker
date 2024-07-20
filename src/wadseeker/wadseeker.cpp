@@ -23,10 +23,20 @@
 #include "wadseeker.h"
 
 #include "seeksession.h"
-#include "wwwseeker/idgames.h"
-#include <QDir>
+#include "protocols/idgames/idgames.h"
+#include "wadseekermessagetype.h"
+
 #include <QFileInfo>
+#include <QNetworkAccessManager>
 #include <memory>
+
+#ifndef NDEBUG
+#define WADSEEKER_DEBUG_MESSAGES 1
+#endif
+
+#ifdef WADSEEKER_DEBUG_MESSAGES
+#include <QDebug>
+#endif
 
 const QString Wadseeker::defaultSites[] =
 {
@@ -53,6 +63,8 @@ const QString Wadseeker::forbiddenWads[] =
 DClass<Wadseeker>
 {
 public:
+	QNetworkAccessManager *net;
+
 	/**
 	 * The configuration for the next seek Session.
 	 */
@@ -69,6 +81,31 @@ DPointeredNoCopy(Wadseeker)
 
 Wadseeker::Wadseeker()
 {
+	d->net = new QNetworkAccessManager(this);
+
+	#ifdef WADSEEKER_DEBUG_MESSAGES
+	connect(this, &Wadseeker::message,
+		this, [](QString msg, WadseekerLib::MessageType level)
+		{
+			QString slvl = "    ";
+			switch (level)
+			{
+			case WadseekerLib::CriticalError:
+				slvl = "CRIT"; break;
+			case WadseekerLib::Error:
+				slvl = " ERR"; break;
+			case WadseekerLib::Notice:
+				slvl = "INFO"; break;
+			case WadseekerLib::NoticeImportant:
+				slvl = "NOTI"; break;
+			default:
+				slvl = "????"; break;
+			}
+			QDebug debug = qDebug();
+			debug.noquote();
+			debug << "Wadseeker" << "|" << slvl << "|" << msg;
+		}, Qt::DirectConnection);
+	#endif
 }
 
 Wadseeker::~Wadseeker()
@@ -198,16 +235,7 @@ void Wadseeker::setPrimarySitesToDefault()
 
 void Wadseeker::setTargetDirectory(const QString &dir)
 {
-	QString targetDir = dir;
-	if (!dir.isEmpty())
-	{
-		if (dir[dir.length() - 1] != QDir::separator())
-		{
-			targetDir += '/';
-		}
-	}
-
-	d->seekParameters.saveDirectoryPath = targetDir;
+	d->seekParameters.saveDirectoryPath = dir;
 }
 
 void Wadseeker::setWadArchiveEnabled(bool enabled)
@@ -241,9 +269,15 @@ bool Wadseeker::startSeek(const ModSet &wads)
 			WadseekerLib::CriticalError);
 		return false;
 	}
+	if (d->net == nullptr)
+	{
+		emit message(tr("Failed to allocate a network access manager. Wadseeker won't work."),
+			WadseekerLib::CriticalError);
+		return false;
+	}
 
 	d->seekParameters.seekedWads = wads;
-	d->session.reset(new SeekSession(d->seekParameters));
+	d->session.reset(new SeekSession(d->net, d->seekParameters));
 	if (d->session == nullptr)
 	{
 		emit message(tr("Unable to allocate memory for the seek session."),

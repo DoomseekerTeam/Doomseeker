@@ -28,6 +28,7 @@
 #include <QObject>
 #include <QString>
 
+class ModFile;
 class ModSet;
 class WadDownloadInfo;
 
@@ -50,12 +51,9 @@ signals:
 private:
 	DPtr<ModInstall> d;
 
+	void abort();
 	void errorOut(const QString &msg);
-
-private slots:
-	void failInstallation();
-	void onWadDownloadProgress(const WadDownloadInfo &wadDownloadInfo,
-		qint64 current, qint64 total);
+	void getFile(const ModFile &modFile, const QUrl &url);
 };
 
 #endif

@@ -25,15 +25,24 @@
 
 #include "dptr.h"
 #include "entities/modset.h"
-#include "entities/waddownloadinfo.h"
 #include "wadseekermessagetype.h"
+#include "www/webquery.h"
 
 #include <QList>
 #include <QObject>
+#include <QSharedPointer>
 #include <QStringList>
 #include <QString>
 
+class QNetworkAccessManager;
+
+class Link;
 class Idgames;
+class NetworkReply;
+class WebCrawl;
+class WadDownloadInfo;
+
+struct Inflight;
 
 /**
  * Result of a SeekSession's work.
@@ -66,7 +75,19 @@ struct SeekParameters
 };
 
 /**
- * An active seek session.
+ * Wadseeker's seek session that crawls the Web looking for files.
+ *
+ * The SeekSession is a long-living, asynchronous object. It's used like this:
+ *
+ * 1. Prepare session's configuration with SeekParameters.
+ * 2. Create it and connect its signals.
+ * 3. Run startSeek() to kick off the session.
+ * 4. SeekSession notifies of its progress with various signals.
+ *
+ * When the session emits the seekFinished() signal, it means it's done
+ * everything it was asked to do, and can be disposed of. There are no
+ * more running jobs at this point. If you need to abort the session
+ * early, call abort() first, but you still need to await seekFinished().
  */
 class SeekSession : public QObject
 {
@@ -74,16 +95,37 @@ class SeekSession : public QObject
 	Q_DISABLE_COPY(SeekSession);
 
 public:
-	SeekSession(SeekParameters params);
+	/**
+	 * @param net QNAM that will be used to send the outgoing queries.
+	 * @param params Session's configuration; immutable.
+	 */
+	SeekSession(QNetworkAccessManager *net, SeekParameters params);
 	~SeekSession();
 
+	// Flow control.
+
+	/**
+	 * Abort the seek completely, leaving the job uncompleted.
+	 *
+	 * The abort is asynchronous and the session may continue to work
+	 * for an unspecified amount of time, even if it will take care to
+	 * make this time as short as possible. The seekFinished() signal
+	 * is emitted once the abort is complete.
+	 */
 	void abort();
+
+	/**
+	 * SeekSession's entry-point; call this when you're ready to go.
+	 */
+	void startSeek();
+
+	// Seek state mutators / retrievers.
+
 	bool isDownloadingFile(const ModFile &file) const;
 	bool isWorking() const;
 	void skipFileCurrentUrl(const QString &fileName);
 	void skipService(const QString &service);
 	void skipSiteSeek(const QUrl &url);
-	void startSeek();
 
 signals:
 	void badUrlDetected(QUrl);
@@ -109,27 +151,37 @@ signals:
 private:
 	DPtr<SeekSession> d;
 
-	void abortSeekers();
-	void cleanUpAfterFinish();
-	void cleanUpIfAllFinished();
+	void conclude();
+	void concludeIfAllFinished();
+	void finish(SeekResult result);
 	bool isAllFinished() const;
+	bool isEverythingFound() const;
 	void setupIdgamesClients(const QList<WadDownloadInfo> &wadDownloadInfoList);
-	void setupSitesUrls();
+	void startFlight(const Inflight &flight);
 	void startNextIdgamesClient();
+	void startNextCrawl();
+	void startNextDownload();
+	void startNextUrl();
 	void startIdgames();
+	void stopAll();
 	void stopIdgames();
 
 private slots:
+	void crawl();
+
 	void fileLinkFound(const QString &filename, const QUrl &url);
 	void fileMirrorLinksFound(const QString &filename, const QList<QUrl> &urls);
 	void idgamesClientFinished(Idgames *pEmitter);
-	void wadRetrieverDownloadFinished(WadDownloadInfo wadDownloadInfo);
-	void wadRetrieverDownloadProgress(WadDownloadInfo wadDownloadInfo, qint64 current, qint64 total);
-	void wadRetrieverDownloadStarted(WadDownloadInfo wadDownloadInfo, const QUrl &url);
-	void wadRetrieverFinished();
-	void wadRetrieverMessage(const QString &message, WadseekerLib::MessageType type);
-	void wadRetrieverWadInstalled(WadDownloadInfo wadDownloadInfo);
-	void wwwSeekerFinished();
+
+	void onLinkSeekFinished();
+	void onLinkSeekFound(const WebCrawl &crawl, const Link &link);
+
+	void onMessage(const QString &msg, WadseekerLib::MessageType type);
+
+	void onWwwError(WebQuery *query);
+	void onWwwFinished(WebQuery *query);
+	void onWwwFoundType(WebQuery *query, WebResourceType);
+	void onWwwProgress(WebQuery *query, qint64 bytesReceived, qint64 bytesTotal);
 };
 
 #endif

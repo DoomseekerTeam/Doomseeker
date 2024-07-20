@@ -29,7 +29,7 @@
 #include "protocols/idgames/idgamesreply.h"
 #include "protocols/idgames/idgamesresult.h"
 #include "wwwseeker/htmlparser.h"
-#include "wwwseeker/urlparser.h"
+#include "www/urlparser.h"
 
 #include <QDebug>
 

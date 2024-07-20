@@ -116,29 +116,30 @@ configure_file(wadseekerversiondefs.h.in wadseekerversiondefs.h)
 set(WADSEEKER_FILES
 	entities/checksum.cpp
 	entities/hash.cpp
-	entities/link.cpp
 	entities/modfile.cpp
 	entities/modset.cpp
 	entities/waddownloadinfo.cpp
 	protocols/freedoom/freedoominfoparser.cpp
 	protocols/freedoom/freedoomquery.cpp
+	protocols/idgames/idgames.cpp
 	protocols/idgames/idgamesclient.cpp
 	protocols/idgames/idgamesfile.cpp
 	protocols/idgames/idgamesfilematcher.cpp
 	protocols/idgames/idgamesreply.cpp
 	protocols/idgames/idgamesresult.cpp
 	protocols/http.cpp
-	protocols/networkreply.cpp
-	protocols/networkreplysignalwrapper.cpp
-	protocols/networkreplytimeouter.cpp
-	protocols/urlprovider.cpp
-	wadretriever/wadinstaller.cpp
-	wadretriever/wadretriever.cpp
-	wwwseeker/entities/fileseekinfo.cpp
+	www/urlmirror.cpp
+	www/urlqueue.cpp
+	www/urlparser.cpp
+	www/webcrawl.cpp
+	www/webquery.cpp
+	www/www.cpp
+	wwwseeker/fileseekinfo.cpp
 	wwwseeker/htmlparser.cpp
-	wwwseeker/idgames.cpp
-	wwwseeker/urlparser.cpp
-	wwwseeker/wwwseeker.cpp
+	wwwseeker/link.cpp
+	wwwseeker/linkresourcematcher.cpp
+	wwwseeker/linkseeker.cpp
+	wwwseeker/linksieve.cpp
 	zip/unarchive.cpp
 	zip/un7zip.cpp
 	zip/untar.cpp
@@ -149,6 +150,7 @@ set(WADSEEKER_FILES
 	ioutils.cpp
 	modinstall.cpp
 	seeksession.cpp
+	wadinstaller.cpp
 	wadseeker.cpp
 	wadseekerversioninfo.cpp
 )
@@ -157,29 +159,30 @@ set(WADSEEKER_FILES
 set(HEADER_FILES
 	entities/checksum.h
 	entities/hash.h
-	entities/link.h
 	entities/modfile.h
 	entities/modset.h
 	entities/waddownloadinfo.h
 	protocols/freedoom/freedoominfoparser.h
 	protocols/freedoom/freedoomquery.h
+	protocols/idgames/idgames.h
 	protocols/idgames/idgamesclient.h
 	protocols/idgames/idgamesfile.h
 	protocols/idgames/idgamesfilematcher.h
 	protocols/idgames/idgamesreply.h
 	protocols/idgames/idgamesresult.h
 	protocols/http.h
-	protocols/networkreply.h
-	protocols/networkreplysignalwrapper.h
-	protocols/networkreplytimeouter.h
-	protocols/urlprovider.h
-	wadretriever/wadinstaller.h
-	wadretriever/wadretriever.h
-	wwwseeker/entities/fileseekinfo.h
+	www/urlmirror.h
+	www/urlqueue.h
+	www/urlparser.h
+	www/webcrawl.h
+	www/webquery.h
+	www/www.cpp
+	wwwseeker/fileseekinfo.h
 	wwwseeker/htmlparser.h
-	wwwseeker/idgames.h
-	wwwseeker/urlparser.h
-	wwwseeker/wwwseeker.h
+	wwwseeker/link.h
+	wwwseeker/linkresourcematcher.h
+	wwwseeker/linkseeker.h
+	wwwseeker/linksieve.h
 	zip/unarchive.h
 	zip/un7zip.h
 	zip/untar.h
@@ -190,6 +193,7 @@ set(HEADER_FILES
 	ioutils.h
 	modinstall.h
 	seeksession.h
+	wadinstaller.h
 	wadseeker.h
 	wadseekerexportinfo.h
 	wadseekermessagetype.h

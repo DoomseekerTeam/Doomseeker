@@ -25,7 +25,7 @@
 
 #include <QStringList>
 
-class NetworkReply;
+class QNetworkReply;
 
 /**
  * @brief Extracts information from QNetworkReply assuming it's a HTTP reply.
@@ -40,7 +40,7 @@ public:
 		Redirect = 302,
 	};
 
-	Http(const NetworkReply *pReply);
+	Http(const QNetworkReply *pReply);
 
 	/**
 	 * @brief Extracts attachment name form contentDisposition() list.
@@ -94,7 +94,7 @@ public:
 	QString urlFilename() const;
 
 private:
-	const NetworkReply *pReply;
+	const QNetworkReply *pReply;
 };
 
 #endif

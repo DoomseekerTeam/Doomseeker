@@ -63,6 +63,8 @@ author and by recording year in subdirectories, avoiding demos from
 multiple authors colliding with each other. (#4110)
 - Updated the internal zlib library to 1.2.13.
 - Updated the internal bzip2 library to version 1.0.8.
+- Wadseeker: rewrite the internals of the lib so that it becomes
+a better netizen.
 - Wadseeker: upgrade the LZMA SDK to version 23.01.
 - Wadseeker: website dudoomers.com changed to audrealms.org. (#4131)
 
@@ -77,8 +79,16 @@ This should prevent the tooltip from stretching beyond the screen. (#4149)
 were loaded if they were interleaved during demo recording. (#4110)
 - Paths to the managed demos store should not be template-resolved, because
 it's not user-configurable (#3262).
+- Wadseeker: it would sometimes get the same URL twice if it at first thought
+it would be a HTML website, but it turned out to be a WAD, PK3, or an archive
+instead. This was causing unnecessary downloads, unnecessary traffic, and
+complaints from server owners that Wadseeker strains their servers. This was
+fixed by completely rewriting the Wadseeker's internals.
 - Q-Zandronum, Zandronum: single-player demos will now be recorded with
 the correct `.lmp` extension.
+
+### Removed
+- Wadseeker: `WADSEEKER_API` `NetworkReplyTimeouter` -- unused in Doomseeker.
 
 ## [1.4.1] - 2023-03-12
 ### Added
