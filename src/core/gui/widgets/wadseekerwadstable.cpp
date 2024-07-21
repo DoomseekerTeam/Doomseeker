@@ -108,6 +108,9 @@ QString WadseekerWadsTable::fileNameAtRow(int row) const
 
 int WadseekerWadsTable::findFileRow(const QString &filename)
 {
+	if (filename.isEmpty())
+		return -1;
+
 	QList<QTableWidgetItem *> list = findItems(filename, Qt::MatchFixedString);
 	if (!list.isEmpty())
 		return list.first()->row();

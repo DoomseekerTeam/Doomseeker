@@ -79,6 +79,8 @@ This should prevent the tooltip from stretching beyond the screen. (#4149)
 were loaded if they were interleaved during demo recording. (#4110)
 - Paths to the managed demos store should not be template-resolved, because
 it's not user-configurable (#3262).
+- Wadseeker GUI: in a hypothetical situation where the lib would inform about
+a progress on an empty filename, the program would crash. Protect against that.
 - Wadseeker: it would sometimes get the same URL twice if it at first thought
 it would be a HTML website, but it turned out to be a WAD, PK3, or an archive
 instead. This was causing unnecessary downloads, unnecessary traffic, and
