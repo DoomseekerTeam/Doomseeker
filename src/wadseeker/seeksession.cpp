@@ -1010,7 +1010,6 @@ void SeekSession::startSeek()
 		possibleFilenames << wadDownloadInfo.name();
 
 		fileSeekInfosList << FileSeekInfo(wad.fileName(), possibleFilenames);
-		emit message(tr("WAD %1: %2").arg(wad.fileName(), fileSeekInfosList.last().possibleFilenames().join(", ")), WadseekerLib::Notice);
 	}
 	d->seekedFiles = fileSeekInfosList;
 	d->wads = wadDownloadInfoList;
@@ -1023,6 +1022,21 @@ void SeekSession::startSeek()
 	// Start doing the job.
 	d->status = SeekStatus::Running;
 	emit seekStarted(filteredWadsList);
+	for (const ModFile &wad : d->wads)
+	{
+		auto seeked = d->seekedFiles.findByName(wad.fileName());
+		if (seeked != d->seekedFiles.end())
+		{
+			emit message(tr("WAD %1: %2")
+				.arg(wad.fileName())
+				.arg(seeked->possibleFilenames().join(", ")), WadseekerLib::Notice);
+		}
+		else
+		{
+			emit message(tr("WAD %1").arg(wad.fileName()), WadseekerLib::Notice);
+		}
+	}
+
 	if (d->params.bIdgamesEnabled)
 	{
 		startIdgames();
