@@ -452,8 +452,18 @@ void SeekSession::onLinkSeekFound(const WebCrawl &crawl, const Link &link)
 
 void SeekSession::onWwwError(WebQuery *query)
 {
-	emit message(tr("Site \"%1\": network error occurred: %2")
-		.arg(query->url().toString(), query->errorString()), WadseekerLib::Error);
+	if (query->error() == QNetworkReply::OperationCanceledError)
+	{
+		emit message(tr("Site aborted: %1").arg(query->url().toString()),
+			WadseekerLib::Notice);
+	}
+	else
+	{
+		emit message(tr("Site failed \"%1\": %2")
+			.arg(query->url().toString())
+			.arg(query->errorString()),
+			WadseekerLib::Error);
+	}
 }
 
 void SeekSession::onWwwFinished(WebQuery *query)
@@ -480,18 +490,6 @@ void SeekSession::onWwwFinished(WebQuery *query)
 		// Check if the query finished properly before we process it.
 		if (!slurped && query->error() != QNetworkReply::NoError)
 		{
-			if (query->error() == QNetworkReply::OperationCanceledError)
-			{
-				emit message(tr("URL aborted: %1").arg(query->url().toString()),
-					WadseekerLib::Notice);
-			}
-			else
-			{
-				emit message(tr("URL failed \"%1\": %2")
-					.arg(query->url().toString())
-					.arg(query->errorString()),
-					WadseekerLib::Error);
-			}
 			slurped = true;
 		}
 
