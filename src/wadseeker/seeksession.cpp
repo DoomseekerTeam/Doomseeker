@@ -860,22 +860,35 @@ void SeekSession::startNextCrawl(CrawlGoal goal)
 			continue;
 		}
 
-		// Start the query, but only if the URL's hostname is not being
-		// queried already. If it is being queried -- pause.
-		if (!d->www->isHostInflight(crawl.url()))
-		{
-			QSharedPointer<WebQuery> query = d->www->get(crawl.url());
-			startFlight(Inflight {
-				goal,
-				crawl,
-				query
-			});
-			it = d->crawls.erase(it);
-		}
-		else
+		// Don't start a query if there's another query running on this host.
+		// Some WWW servers limit simultaneous connections from one client.
+		if (d->www->isHostInflight(crawl.url()))
 		{
 			++it;
+			continue;
 		}
+
+		// If this is a crawl with a resource, don't run it if another query is
+		// running with that resource already. We may unnecessarily download the
+		// same file more than once.
+		if (!crawl.resource().isEmpty())
+		{
+			auto otherInflight = d->inflight.findByResource(crawl.resource());
+			if (otherInflight != d->inflight.end())
+			{
+				++it;
+				continue;
+			}
+		}
+
+		// Finally, we can start the query.
+		QSharedPointer<WebQuery> query = d->www->get(crawl.url());
+		startFlight(Inflight {
+			goal,
+			crawl,
+			query
+		});
+		it = d->crawls.erase(it);
 	}
 }
 
