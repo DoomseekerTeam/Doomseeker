@@ -528,6 +528,7 @@ void SeekSession::onWwwFinished(WebQuery *query)
 				// of the resources we seek.
 				if (!resource.isEmpty() && d->seekedFiles.contains(resource))
 				{
+					emit fileDownloadFinished(resource);
 					// Are we still looking for this resource?
 					//
 					// TODO even if we don't, but the downloaded item is an
