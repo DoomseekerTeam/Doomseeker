@@ -156,6 +156,8 @@ private:
 	QNetworkReply::NetworkError m_error;
 	QString m_errorString;
 
+	void copyErrorOver();
+
 private slots:
 	void onError(QNetworkReply::NetworkError code);
 	void onFinished();

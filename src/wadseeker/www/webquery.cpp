@@ -68,6 +68,21 @@ WebQuery::~WebQuery()
 	this->m_reply->deleteLater();
 }
 
+void WebQuery::copyErrorOver()
+{
+	switch (this->m_state)
+	{
+	case WebQuery::TimedOut:
+		this->m_error = QNetworkReply::TimeoutError;
+		this->m_errorString = tr("Timed out");
+		break;
+	default:
+		this->m_error = this->m_reply->error();
+		this->m_errorString = this->m_reply->errorString();
+		break;
+	}
+}
+
 bool WebQuery::isRedirected() const
 {
 	QUrl redirect = this->m_reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toUrl();
@@ -82,26 +97,14 @@ QUrl WebQuery::redirectUrl() const
 
 void WebQuery::onError(QNetworkReply::NetworkError code)
 {
+	this->copyErrorOver();
 	emit errorOccurred();
 }
 
 void WebQuery::onFinished()
 {
 	d->timeout.stop();
-
-	// Extra error handling.
-	switch (this->m_state)
-	{
-	case WebQuery::TimedOut:
-		this->m_error = QNetworkReply::TimeoutError;
-		this->m_errorString = tr("timed out");
-		break;
-	default:
-		this->m_error = this->m_reply->error();
-		this->m_errorString = this->m_reply->errorString();
-		break;
-	}
-
+	this->copyErrorOver();
 	this->m_state = WebQuery::Finished;
 	emit finished();
 }
@@ -159,6 +162,7 @@ void WebQuery::onProgress()
 
 void WebQuery::onSslErrors(const QList<QSslError> &errors)
 {
+	this->copyErrorOver();
 	emit errorOccurred();
 }
 
