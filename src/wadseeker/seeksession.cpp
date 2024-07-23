@@ -592,7 +592,7 @@ void SeekSession::onWwwFinished(WebQuery *query)
 								emit message(tr("Installed WAD: %1 [%2 bytes]")
 									.arg(wadInfo.fileName())
 									.arg(wadInfo.size()),
-									WadseekerLib::Notice);
+									WadseekerLib::NoticeImportant);
 								emit fileInstalled(wadInfo.fileName());
 							}
 						}
