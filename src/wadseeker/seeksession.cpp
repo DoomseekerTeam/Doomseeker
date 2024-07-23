@@ -789,6 +789,14 @@ void SeekSession::startNextCrawl(CrawlGoal goal)
 			continue;
 		}
 
+		// Also silently skip all crawls for files that have already been found.
+		if (!crawl.resource().isEmpty() &&
+			d->seekedFiles.findByName(crawl.resource()) == d->seekedFiles.end())
+		{
+			it = d->crawls.erase(it);
+			continue;
+		}
+
 		// Don't let the servers lead us on a goose chase.
 		if (crawl.historySize() >= MAX_CRAWL_LENGTH)
 		{
