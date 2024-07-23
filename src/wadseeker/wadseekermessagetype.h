@@ -20,32 +20,33 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2011 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
-#ifndef WADSEEKERMESSAGETYPE_H
-#define WADSEEKERMESSAGETYPE_H
+#ifndef WADSEEKER_WADSEEKERMESSAGETYPE_H
+#define WADSEEKER_WADSEEKERMESSAGETYPE_H
 
 // WADSEEKER_API - Include in wadseeker dev package
 
 namespace WadseekerLib
 {
 /**
- * Wadseeker library uses a message system that contains
- * a type of message together with a string representing it's
- * content. Types should be treated as follows:
+ * The kind of message that is transferred.
  *
- * - Notice - this is just an information of what Wadseeker
- *            is currently doing
- * - NoticeImportant - an information on an important event
- * - Error - something bad happened but Wadseeker is able to continue
- *           by itself.
- * - CriticalError - Wadseeker stops working after such error.
- *                   Programmer should return control to the main application.
+ * Wadseeker library emits messages as strings accompanied with this
+ * type enum. The message type should be treated as a log level,
+ * although its numerical values are meaningless and should not be used
+ * for sorting.
  */
 enum MessageType
 {
+	/// Regular info message.
 	Notice = 0,
+	/// A more important information.
 	NoticeImportant = 1,
+	/// Something bad happened, but Wadseeker can recover and continue.
 	Error = 2,
-	CriticalError = 3
+	/// Wadseeker can't continue after this message and will stop the current seek.
+	CriticalError = 3,
+	/// Verbose information about URL fetches and redirects.
+	Navigation = 4,
 };
 }
 

@@ -729,6 +729,7 @@ DoomseekerConfig::WadseekerCfg::WadseekerCfg()
 	this->colorMessageCriticalError = "#ff0000";
 	this->colorMessageError = "#ff0000";
 	this->colorMessageNotice = "#000000";
+	this->colorMessageNavigation = "#444444";
 ;
 	this->idgamesURL = Wadseeker::defaultIdgamesUrl();
 	this->maxConcurrentSiteDownloads = 3;
@@ -747,6 +748,7 @@ void DoomseekerConfig::WadseekerCfg::init(IniSection &section)
 	section.createSetting("ColorMessageCriticalError", this->colorMessageCriticalError);
 	section.createSetting("ColorMessageError", this->colorMessageError);
 	section.createSetting("ColorMessageNotice", this->colorMessageNotice);
+	section.createSetting("ColorMessageNavigation", this->colorMessageNavigation);
 	section.createSetting("IdgamesApiURL", this->idgamesURL);
 	section.createSetting("MaxConcurrentSiteDownloads", this->maxConcurrentSiteDownloads);
 	section.createSetting("MaxConcurrentWadDownloads", this->maxConcurrentWadDownloads);
@@ -761,6 +763,7 @@ void DoomseekerConfig::WadseekerCfg::load(IniSection &section)
 	this->colorMessageCriticalError = (const QString &)section["ColorMessageCriticalError"];
 	this->colorMessageError = (const QString &)section["ColorMessageError"];
 	this->colorMessageNotice = (const QString &)section["ColorMessageNotice"];
+	this->colorMessageNavigation = (const QString &)section["ColorMessageNavigation"];
 	this->idgamesURL = (const QString &)section["IdgamesApiURL"];
 	this->maxConcurrentSiteDownloads = section["MaxConcurrentSiteDownloads"];
 	this->maxConcurrentWadDownloads = section["MaxConcurrentWadDownloads"];
@@ -782,6 +785,7 @@ void DoomseekerConfig::WadseekerCfg::save(IniSection &section)
 	section["ColorMessageCriticalError"] = this->colorMessageCriticalError;
 	section["ColorMessageError"] = this->colorMessageError;
 	section["ColorMessageNotice"] = this->colorMessageNotice;
+	section["ColorMessageNavigation"] = this->colorMessageNavigation;
 	section["IdgamesApiURL"] = this->idgamesURL;
 	section["MaxConcurrentSiteDownloads"] = this->maxConcurrentSiteDownloads;
 	section["MaxConcurrentWadDownloads"] = this->maxConcurrentWadDownloads;

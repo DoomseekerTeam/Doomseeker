@@ -97,6 +97,7 @@ private:
 	QString colorHtmlMessageFatalError;
 	QString colorHtmlMessageError;
 	QString colorHtmlMessageNotice;
+	QString colorHtmlMessageNavigation;
 
 	QStringList customSites;
 

@@ -24,6 +24,7 @@ forever, but now it finally has an actual page). (#4110)
 `DOOMSEEKER_IP2C_AUTOUPDATE_DEFAULT`. (#3732)
 - El Salvador and Macao country flags.
 - Plugin API: `TooltipRenderHint` and `TooltipGenerator::renderHint()`.
+- Wadseeker: `Navigation` message type, to inform about visited URLs.
 - Zandronum: query the game servers with a segmented challenge, where
 the servers can reply with more than one packet. This should help with
 servers that need to send a lot of data in their replies and this data

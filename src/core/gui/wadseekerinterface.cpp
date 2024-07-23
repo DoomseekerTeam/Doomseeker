@@ -267,18 +267,14 @@ void WadseekerInterface::displayMessage(const QString &message, WadseekerLib::Me
 	case WadseekerLib::CriticalError:
 		htmlStyle = QString("color: %1; font-weight: bold;").arg(colorHtmlMessageFatalError);
 		bPrependWithNewline = true;
-
 		if (bPrependErrorsWithMessageType)
 			strProcessedMessage = tr("CRITICAL ERROR: %1").arg(message);
 		else
 			strProcessedMessage = message;
-
-		setStateWaiting();
 		break;
 
 	case WadseekerLib::Error:
 		htmlStyle = QString("color: %1;").arg(colorHtmlMessageError);
-
 		if (bPrependErrorsWithMessageType)
 			strProcessedMessage = tr("Error: %1").arg(message);
 		else
@@ -286,15 +282,19 @@ void WadseekerInterface::displayMessage(const QString &message, WadseekerLib::Me
 		break;
 
 	case WadseekerLib::Notice:
+	default:
 		htmlStyle = QString("color: %1;").arg(colorHtmlMessageNotice);
-
 		strProcessedMessage = message;
 		break;
 
 	case WadseekerLib::NoticeImportant:
 		htmlStyle = QString("color: %1; font-weight: bold;").arg(colorHtmlMessageNotice);
 		bPrependWithNewline = true;
+		strProcessedMessage = message;
+		break;
 
+	case WadseekerLib::Navigation:
+		htmlStyle = QString("color: %1;").arg(colorHtmlMessageNavigation);
 		strProcessedMessage = message;
 		break;
 	}
@@ -317,9 +317,10 @@ void WadseekerInterface::fileDownloadSuccessful(const ModFile &filename)
 
 void WadseekerInterface::initMessageColors()
 {
-	colorHtmlMessageNotice = gConfig.wadseeker.colorMessageNotice;
-	colorHtmlMessageError = gConfig.wadseeker.colorMessageError;
-	colorHtmlMessageFatalError = gConfig.wadseeker.colorMessageCriticalError;
+	this->colorHtmlMessageNotice = gConfig.wadseeker.colorMessageNotice;
+	this->colorHtmlMessageError = gConfig.wadseeker.colorMessageError;
+	this->colorHtmlMessageFatalError = gConfig.wadseeker.colorMessageCriticalError;
+	this->colorHtmlMessageNavigation = gConfig.wadseeker.colorMessageNavigation;
 }
 
 bool WadseekerInterface::isInstantiated()
@@ -369,7 +370,7 @@ void WadseekerInterface::seekStarted(const ModSet &filenames)
 	d->teWadseekerOutput->clear();
 	d->pbOverallProgress->setValue(0);
 	d->taskbarProgress->setValue(0);
-	displayMessage("Seek started on filenames: " + names.join(", "), WadseekerLib::Notice, false);
+	displayMessage("Seek started on filenames: " + names.join(", "), WadseekerLib::NoticeImportant, false);
 
 	seekedWads = wads;
 	successfulWads.clear();
@@ -455,7 +456,6 @@ void WadseekerInterface::serviceFinished(const QString &service)
 void WadseekerInterface::siteFinished(const QUrl &site)
 {
 	d->twSites->removeUrl(site);
-	displayMessage("Site finished: " + site.toString(), WadseekerLib::Notice, false);
 }
 
 void WadseekerInterface::siteProgress(const QUrl &site, qint64 bytes, qint64 total)
@@ -467,13 +467,11 @@ void WadseekerInterface::siteRedirect(const QUrl &oldUrl, const QUrl &newUrl)
 {
 	d->twSites->removeUrl(oldUrl);
 	d->twSites->addUrl(newUrl);
-	displayMessage("Site redirect: " + oldUrl.toString() + " -> " + newUrl.toString(), WadseekerLib::Notice, false);
 }
 
 void WadseekerInterface::siteStarted(const QUrl &site)
 {
 	d->twSites->addUrl(site);
-	displayMessage("Site started: " + site.toString(), WadseekerLib::Notice, false);
 }
 
 void WadseekerInterface::startSeeking(const QList<PWad> &seekedFilesList)

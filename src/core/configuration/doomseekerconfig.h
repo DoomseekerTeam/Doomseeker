@@ -205,6 +205,7 @@ public:
 		QString colorMessageCriticalError;
 		QString colorMessageError;
 		QString colorMessageNotice;
+		QString colorMessageNavigation;
 		int maxConcurrentSiteDownloads;
 		int maxConcurrentWadDownloads;
 		QString idgamesURL;

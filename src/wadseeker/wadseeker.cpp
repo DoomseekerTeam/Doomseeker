@@ -98,6 +98,8 @@ Wadseeker::Wadseeker()
 				slvl = "INFO"; break;
 			case WadseekerLib::NoticeImportant:
 				slvl = "NOTI"; break;
+			case WadseekerLib::Navigation:
+				slvl = "NAVI"; break;
 			default:
 				slvl = "????"; break;
 			}

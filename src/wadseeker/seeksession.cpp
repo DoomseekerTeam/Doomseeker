@@ -233,6 +233,29 @@ SeekSession::SeekSession(QNetworkAccessManager *net, SeekParameters params)
 	d->crawler.setSingleShot(true);
 	connect(&d->crawler, &QTimer::timeout,
 		this, &SeekSession::crawl);
+
+	// Connect self to emit navigation messages.
+	connect(this, &SeekSession::siteStarted,
+		this, [this](const QUrl &url)
+		{ emit message(tr("Site started: %1").arg(url.toString()), WadseekerLib::Navigation); });
+	connect(this, &SeekSession::siteFinished,
+		this, [this](const QUrl &url)
+		{ emit message(tr("Site finished: %1").arg(url.toString()), WadseekerLib::Navigation); });
+	connect(this, &SeekSession::siteRedirect,
+		this, [this](const QUrl &oldUrl, const QUrl &newUrl)
+		{ emit message(tr("Site redirect: %1 -> %2")
+			.arg(oldUrl.toString())
+			.arg(newUrl.toString()), WadseekerLib::Navigation); });
+	connect(this, &SeekSession::fileDownloadStarted,
+		this, [this](const ModFile &file, const QUrl &url)
+		{ emit message(tr("File \"%1\" download started: %2")
+			.arg(file.fileName())
+			.arg(url.toString()), WadseekerLib::Navigation); });
+	connect(this, &SeekSession::fileDownloadFinished,
+		this, [this](const ModFile &file)
+		{ emit message(tr("File \"%1\" download finished")
+			.arg(file.fileName()), WadseekerLib::Navigation); });
+
 }
 
 SeekSession::~SeekSession()

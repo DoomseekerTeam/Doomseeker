@@ -45,6 +45,7 @@ void CFGWadseekerAppearance::readSettings()
 	d->btnNoticeMessageColor->setColorHtml(gConfig.wadseeker.colorMessageNotice);
 	d->btnErrorMessageColor->setColorHtml(gConfig.wadseeker.colorMessageError);
 	d->btnCriticalErrorMessageColor->setColorHtml(gConfig.wadseeker.colorMessageCriticalError);
+	d->btnNavigationMessageColor->setColorHtml(gConfig.wadseeker.colorMessageNavigation);
 }
 
 void CFGWadseekerAppearance::saveSettings()
@@ -52,4 +53,5 @@ void CFGWadseekerAppearance::saveSettings()
 	gConfig.wadseeker.colorMessageNotice = d->btnNoticeMessageColor->colorHtml();
 	gConfig.wadseeker.colorMessageError = d->btnErrorMessageColor->colorHtml();
 	gConfig.wadseeker.colorMessageCriticalError = d->btnCriticalErrorMessageColor->colorHtml();
+	gConfig.wadseeker.colorMessageNavigation = d->btnNavigationMessageColor->colorHtml();
 }

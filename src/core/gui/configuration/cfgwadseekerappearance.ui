@@ -75,6 +75,16 @@
      <item row="2" column="1">
       <widget class="ColorButton" name="btnCriticalErrorMessageColor"/>
      </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Navigation:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="ColorButton" name="btnNavigationMessageColor"/>
+     </item>
     </layout>
    </item>
    <item>
