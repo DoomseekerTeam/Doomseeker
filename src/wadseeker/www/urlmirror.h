@@ -52,4 +52,13 @@ public:
 	}
 };
 
+class UrlMirrorList : public QList<UrlMirror>
+{
+public:
+	void addMirrorUrls(const QList<QUrl> &urls, const QString &resource = QString());
+	void addUrl(const QUrl &url, const QString &resource = QString());
+
+	QList<UrlMirror> mirrorsWithUrl(const QUrl &url) const;
+};
+
 #endif

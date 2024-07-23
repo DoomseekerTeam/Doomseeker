@@ -27,8 +27,9 @@
 #include "wadseeker.h"
 #include "wadseekermessagetype.h"
 #include "wadseekerversioninfo.h"
+#include "www/urlmirror.h"
 #include "www/urlparser.h"
-#include "www/urlqueue.h"
+#include "www/urlset.h"
 #include "www/webcrawl.h"
 #include "www/webquery.h"
 #include "www/www.h"
@@ -75,12 +76,7 @@ SeekParameters::SeekParameters()
 */
 struct Inflight
 {
-	enum Goal
-	{
-		Seek, Download
-	};
-
-	Goal goal;
+	CrawlGoal goal;
 	WebCrawl crawl;
 	QSharedPointer<WebQuery> query;
 
@@ -91,24 +87,6 @@ struct Inflight
 namespace
 {
 static const QString SITE_RESOURCE = "";
-
-class CrawlList : public QList<WebCrawl>
-{
-public:
-	CrawlList::iterator findByQuery(WebQuery *query)
-	{
-		auto it = this->begin();
-		for (; it != this->end() && it->url() != query->url(); ++it);
-		return it;
-	}
-
-	CrawlList::iterator findByUrl(const QUrl &url)
-	{
-		auto it = this->begin();
-		for (; it != this->end() && it->url() != url; ++it);
-		return it;
-	}
-};
 
 class FileSeekInfoList : public QList<FileSeekInfo>
 {
@@ -124,7 +102,7 @@ public:
 class InflightList : public QList<Inflight>
 {
 public:
-	unsigned countByGoal(Inflight::Goal goal) const
+	unsigned countByGoal(CrawlGoal goal) const
 	{
 		unsigned total = 0;
 		for (const auto &item : *this)
@@ -221,12 +199,13 @@ public:
 	QTimer crawler;
 
 	// The seeked items.
-	UrlQueue urlQueue;
 	FileSeekInfoList seekedFiles;
 	WadDownloadInfoList wads;
 
 	// The seeks in motion.
-	CrawlList crawls;
+	UrlSet urlHistory;
+	UrlMirrorList mirrors;
+	WebCrawlList crawls;
 	InflightList inflight;
 };
 DPointeredNoCopy(SeekSession);
@@ -310,22 +289,16 @@ void SeekSession::crawl()
 		stopAll();
 	}
 
-	if (d->inflight.countByGoal(Inflight::Download) < d->params.maxConcurrentDownloads
-		&& !isEverythingFound())
+	if (!isEverythingFound())
 	{
-		startNextDownload();
-	}
-
-	if (d->inflight.countByGoal(Inflight::Seek) < d->params.maxConcurrentSeeks
-		&& !isEverythingFound())
-	{
-		startNextCrawl();
-	}
-
-	if (d->inflight.countByGoal(Inflight::Seek) < d->params.maxConcurrentSeeks
-		&& !isEverythingFound())
-	{
-		startNextUrl();
+		if (d->inflight.countByGoal(CrawlGoal::Download) < d->params.maxConcurrentDownloads)
+		{
+			startNextCrawl(CrawlGoal::Download);
+		}
+		if (d->inflight.countByGoal(CrawlGoal::Seek) < d->params.maxConcurrentSeeks)
+		{
+			startNextCrawl(CrawlGoal::Seek);
+		}
 	}
 
 	// It's possible that all crawling attempts have failed and all
@@ -334,24 +307,29 @@ void SeekSession::crawl()
 	concludeIfAllFinished();
 }
 
-void SeekSession::fileLinkFound(const QString &filename, const QUrl &url)
+void SeekSession::fileMirrorLinksFound(const QString &filename, QList<QUrl> urls)
 {
-	emit message(tr("Found link to file \"%1\": %2").arg(filename)
-		.arg(url.toEncoded().constData()), WadseekerLib::Notice);
+	urls = d->urlHistory.sieve(urls);
 
-	d->urlQueue.addUrl(url, filename, PRIORITY_SITE_URL);
-}
-
-void SeekSession::fileMirrorLinksFound(const QString &filename, const QList<QUrl> &urls)
-{
-	emit message(tr("Found mirror links to file \"%1\":").arg(filename), WadseekerLib::Notice);
-	for (const QUrl &url : urls)
+	if (!urls.isEmpty())
 	{
-		QString strUrl = url.toEncoded().constData();
-		emit message(tr("    %2").arg(strUrl), WadseekerLib::Notice);
-	}
+		emit message(tr("Found mirror links to file \"%1\":").arg(filename), WadseekerLib::Notice);
+		for (const QUrl &url : urls)
+		{
+			QString strUrl = url.toEncoded().constData();
+			emit message(tr("    %2").arg(strUrl), WadseekerLib::Notice);
+		}
 
-	d->urlQueue.addMirrorUrls(urls, filename, PRIORITY_SITE_URL);
+		d->mirrors.addMirrorUrls(urls, filename);
+		for (const QUrl &url : urls)
+		{
+			// Technically these WebCrawls also have some history, but currently
+			// they are only called from the Idgames clients, so I suppose we
+			// can treat them as "starting from scratch".
+			d->crawls << WebCrawl(url, filename, PRIORITY_DOWNLOAD_URL);
+		}
+		d->crawler.start(0);
+	}
 }
 
 void SeekSession::finish(SeekResult result)
@@ -412,8 +390,7 @@ bool SeekSession::isWorking() const
 	if (d->aborting || this->isEverythingFound())
 		return false;
 
-	return !d->urlQueue.isEmpty()
-		|| !d->crawls.isEmpty()
+	return !d->crawls.isEmpty()
 		|| d->linkSeeker->isWorking();
 }
 
@@ -710,7 +687,7 @@ void SeekSession::skipService(const QString &service)
 
 void SeekSession::skipSiteSeek(const QUrl &url)
 {
-	d->urlQueue.takenOut(url);
+	d->urlHistory << url;
 
 	auto crawl = d->crawls.findByUrl(url);
 	if (crawl != d->crawls.end())
@@ -757,7 +734,7 @@ void SeekSession::stopIdgames()
 	current->abort();
 }
 
-void SeekSession::startNextCrawl()
+void SeekSession::startNextCrawl(CrawlGoal goal)
 {
 	// Sort the crawls by priority before going through them.
 	std::sort(d->crawls.begin(), d->crawls.end(),
@@ -766,6 +743,13 @@ void SeekSession::startNextCrawl()
 	for (auto it = d->crawls.begin(); it != d->crawls.end();)
 	{
 		WebCrawl &crawl = *it;
+
+		// Silently skip already visited URLs.
+		if (d->urlHistory.contains(crawl.url()))
+		{
+			it = d->crawls.erase(it);
+			continue;
+		}
 
 		// Don't let the servers lead us on a goose chase.
 		if (crawl.historySize() >= MAX_CRAWL_LENGTH)
@@ -814,8 +798,30 @@ void SeekSession::startNextCrawl()
 		}
 
 		// If we're running too many seeks at the moment, pause.
-		if (d->inflight.countByGoal(Inflight::Seek) >= d->params.maxConcurrentSeeks)
+		int maxConcurrent = 1;
+		switch (goal)
+		{
+		case CrawlGoal::Download:
+			maxConcurrent = d->params.maxConcurrentDownloads;
 			break;
+		case CrawlGoal::Seek:
+			maxConcurrent = d->params.maxConcurrentSeeks;
+			break;
+		default:
+			maxConcurrent = 1;
+			break;
+		}
+		if (d->inflight.countByGoal(goal) >= maxConcurrent)
+			break;
+
+		// Check if the current WebCrawl is appropriate for the current crawling
+		// goal. Download crawls operate on resources with names.
+		if ((goal == CrawlGoal::Download && crawl.resource().isEmpty())
+			|| (goal == CrawlGoal::Seek && !crawl.resource().isEmpty()))
+		{
+			++it;
+			continue;
+		}
 
 		// Start the query, but only if the URL's hostname is not being
 		// queried already. If it is being queried -- pause.
@@ -823,7 +829,7 @@ void SeekSession::startNextCrawl()
 		{
 			QSharedPointer<WebQuery> query = d->www->get(crawl.url());
 			startFlight(Inflight {
-				Inflight::Seek,
+				goal,
 				crawl,
 				query
 			});
@@ -836,95 +842,12 @@ void SeekSession::startNextCrawl()
 	}
 }
 
-void SeekSession::startNextDownload()
-{
-	for (const FileSeekInfo &seek : d->seekedFiles)
-	{
-		// If we're running too many downloads at the moment, pause.
-		if (d->inflight.countByGoal(Inflight::Download) >= d->params.maxConcurrentDownloads)
-			break;
-
-		// If we're already downloading this file (using some other URL,
-		// perhaps) -- pause, and try another file.
-		if (d->inflight.findByResource(seek.file()) != d->inflight.end())
-			continue;
-
-		// Go through all the URLs on the queue for this file.
-		QList<UrlQueue::PrioUrl> pendingUrls = d->urlQueue.peek(seek.file());
-		for (auto pendingUrl : pendingUrls)
-		{
-			// Check if the URL is /kosher/.
-			if (!UrlParser::isWwwUrl(pendingUrl.url))
-			{
-				emit message(tr("Ignoring URL to file \"%1\": \"%2\"; "
-						"Wadseeker is not handling URLs with scheme \"%3\".")
-					.arg(seek.file())
-					.arg(pendingUrl.url.toString())
-					.arg(pendingUrl.url.scheme()),
-					WadseekerLib::Error);
-				d->urlQueue.takenOut(pendingUrl.url);
-				continue;
-			}
-
-			// If we're running too many downloads at the moment, pause.
-			if (d->inflight.countByGoal(Inflight::Download) >= d->params.maxConcurrentDownloads)
-				break;
-
-			// Start the query, but only if the URL's hostname is not being
-			// queried already.
-			if (!d->www->isHostInflight(pendingUrl.url))
-			{
-				QSharedPointer<WebQuery> query = d->www->get(pendingUrl.url);
-				startFlight(Inflight {
-					Inflight::Download,
-					WebCrawl(pendingUrl.url, seek.file(), PRIORITY_DOWNLOAD_URL),
-					query
-				});
-				break; // skip all other URLs for this file and go to the next file
-			}
-		}
-	}
-}
-
-void SeekSession::startNextUrl()
-{
-	QList<UrlQueue::PrioUrl> pendingUrls = d->urlQueue.peek();
-	for (const auto &pendingUrl : pendingUrls)
-	{
-		// Check if the URL is /kosher/.
-		if (!UrlParser::isWwwUrl(pendingUrl.url))
-		{
-			emit message(tr("Ignoring site URL: \"%1\"; "
-					"Wadseeker is not handling URLs with scheme \"%2\".")
-				.arg(pendingUrl.url.toString())
-				.arg(pendingUrl.url.scheme()),
-				WadseekerLib::Error);
-			d->urlQueue.takenOut(pendingUrl.url);
-			continue;
-		}
-
-		// If we're running too many seeks, pause.
-		if (d->inflight.countByGoal(Inflight::Seek) >= d->params.maxConcurrentSeeks)
-			break;
-
-		// Start the query, but only if the URL's hostname is not being
-		// queried already.
-		if (!d->www->isHostInflight(pendingUrl.url))
-		{
-			// Start new crawl.
-			WebCrawl crawl(pendingUrl.url, UrlQueue::UNNAMED_RESOURCE, pendingUrl.priority);
-			d->crawls << crawl;
-			startNextCrawl();
-		}
-	}
-}
-
 void SeekSession::startFlight(const Inflight &flight)
 {
 	using namespace std::placeholders;
 
 	d->inflight << flight;
-	d->urlQueue.takenOut(flight.query->url());
+	d->urlHistory << flight.query->url();
 
 	WebQuery *query = flight.query.data();
 	connect(query, &WebQuery::errorOccurred,
@@ -936,7 +859,7 @@ void SeekSession::startFlight(const Inflight &flight)
 	connect(query, &WebQuery::progress,
 		this, std::bind(&SeekSession::onWwwProgress, this, query, _1, _2));
 
-	if (flight.resource() != UrlQueue::UNNAMED_RESOURCE)
+	if (flight.resource() != WebCrawl::UNNAMED_RESOURCE)
 		emit fileDownloadStarted(flight.resource(), flight.query->url());
 	emit siteStarted(query->url());
 
@@ -1011,30 +934,29 @@ void SeekSession::startSeek()
 	d->params.seekedWads = filteredWadsList;
 
 	// Setup the initial URLs.
-	// TODO ugly code, refactor
-	auto addUrls = [&](QStringList urls, int priority)
+	auto addUrl = [&](QString urlStr, int priority)
 	{
-		for (QString urlStr : urls)
+		if (UrlParser::isWadnameTemplateUrl(urlStr))
 		{
-			if (UrlParser::isWadnameTemplateUrl(urlStr))
+			for (const ModFile &wad : d->params.seekedWads.modFiles())
 			{
-				for (const ModFile &wad : d->params.seekedWads.modFiles())
-				{
-					QUrl url = UrlParser::resolveWadnameTemplateUrl(urlStr, wad.fileName());
-					if (url.isValid())
-						d->urlQueue.addUrl(url, wad.fileName(), priority);
-				}
-			}
-			else
-			{
-				QUrl url(urlStr);
+				QUrl url = UrlParser::resolveWadnameTemplateUrl(urlStr, wad.fileName());
 				if (url.isValid())
-					d->urlQueue.addUrl(url, UrlQueue::UNNAMED_RESOURCE, priority);
+					d->crawls << WebCrawl(url, wad.fileName(), priority);
 			}
 		}
+		else
+		{
+			QUrl url(urlStr);
+			if (url.isValid())
+				d->crawls << WebCrawl(url, WebCrawl::UNNAMED_RESOURCE, priority);
+		}
 	};
-	addUrls(d->params.customSiteUrls, PRIORITY_CUSTOM_URL);
-	addUrls(d->params.sitesUrls, PRIORITY_SITE_URL);
+
+	for (QString url : d->params.customSiteUrls)
+		addUrl(url, PRIORITY_CUSTOM_URL);
+	for (QString url : d->params.sitesUrls)
+		addUrl(url, PRIORITY_SITE_URL);
 
 	// TODO see if we need both structures
 	FileSeekInfoList fileSeekInfosList;

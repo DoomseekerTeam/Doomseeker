@@ -24,6 +24,8 @@
 
 #include "www/www.h"
 
+const QString WebCrawl::UNNAMED_RESOURCE;
+
 WebCrawl::WebCrawl(const QUrl &url, const QString &resource, int priority, QList<QUrl> history)
 	: m_resource(resource), m_priority(priority), m_history(history)
 {

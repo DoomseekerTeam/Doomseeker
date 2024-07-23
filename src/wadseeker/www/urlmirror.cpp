@@ -24,6 +24,10 @@
 
 #include "www/urlparser.h"
 
+/*
+  UrlMirror
+*/
+
 bool UrlMirror::hasUrl(const QUrl &url) const
 {
 	for (const QUrl &urlOnList : urls)
@@ -34,4 +38,36 @@ bool UrlMirror::hasUrl(const QUrl &url) const
 		}
 	}
 	return false;
+}
+
+/*
+  UrlMirrorList
+*/
+
+void UrlMirrorList::addMirrorUrls(const QList<QUrl> &urls, const QString &resource)
+{
+	UrlMirror mirror;
+	mirror.resource = resource;
+	mirror.urls = urls;
+	*this << mirror;
+}
+
+void UrlMirrorList::addUrl(const QUrl &url, const QString &resource)
+{
+	QList<QUrl> urls;
+	urls << url;
+	addMirrorUrls(urls, resource);
+}
+
+QList<UrlMirror> UrlMirrorList::mirrorsWithUrl(const QUrl &url) const
+{
+	QList<UrlMirror> mirrorsWithUrls;
+	for (const UrlMirror &mirror : *this)
+	{
+		if (mirror.hasUrl(url))
+		{
+			mirrorsWithUrls << mirror;
+		}
+	}
+	return mirrorsWithUrls;
 }

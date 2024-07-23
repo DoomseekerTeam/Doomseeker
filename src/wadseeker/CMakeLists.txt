@@ -129,8 +129,8 @@ set(WADSEEKER_FILES
 	protocols/idgames/idgamesresult.cpp
 	protocols/http.cpp
 	www/urlmirror.cpp
-	www/urlqueue.cpp
 	www/urlparser.cpp
+	www/urlset.cpp
 	www/webcrawl.cpp
 	www/webquery.cpp
 	www/www.cpp
@@ -172,8 +172,8 @@ set(HEADER_FILES
 	protocols/idgames/idgamesresult.h
 	protocols/http.h
 	www/urlmirror.h
-	www/urlqueue.h
 	www/urlparser.h
+	www/urlset.h
 	www/webcrawl.h
 	www/webquery.h
 	www/www.cpp

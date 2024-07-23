@@ -75,6 +75,14 @@ struct SeekParameters
 };
 
 /**
+ * What is the expected outcome of getting a given URL?
+ */
+enum class CrawlGoal
+{
+	Seek, Download,
+};
+
+/**
  * Wadseeker's seek session that crawls the Web looking for files.
  *
  * The SeekSession is a long-living, asynchronous object. It's used like this:
@@ -159,9 +167,7 @@ private:
 	void setupIdgamesClients(const QList<WadDownloadInfo> &wadDownloadInfoList);
 	void startFlight(const Inflight &flight);
 	void startNextIdgamesClient();
-	void startNextCrawl();
-	void startNextDownload();
-	void startNextUrl();
+	void startNextCrawl(CrawlGoal goal);
 	void startIdgames();
 	void stopAll();
 	void stopIdgames();
@@ -169,8 +175,7 @@ private:
 private slots:
 	void crawl();
 
-	void fileLinkFound(const QString &filename, const QUrl &url);
-	void fileMirrorLinksFound(const QString &filename, const QList<QUrl> &urls);
+	void fileMirrorLinksFound(const QString &filename, QList<QUrl> urls);
 	void idgamesClientFinished(Idgames *pEmitter);
 
 	void onLinkSeekFinished();

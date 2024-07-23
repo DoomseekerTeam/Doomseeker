@@ -36,8 +36,10 @@ class WebQuery;
 class WebCrawl
 {
 public:
+	static const QString UNNAMED_RESOURCE;
+
 	WebCrawl(const QUrl &url,
-		const QString &resource = QString(),
+		const QString &resource = UNNAMED_RESOURCE,
 		int priority = 0,
 		QList<QUrl> history = QList<QUrl>());
 
@@ -52,6 +54,17 @@ private:
 	QString m_resource;
 	int m_priority;
 	QList<QUrl> m_history;
+};
+
+class WebCrawlList : public QList<WebCrawl>
+{
+public:
+	WebCrawlList::iterator findByUrl(const QUrl &url)
+	{
+		auto it = this->begin();
+		for (; it != this->end() && it->url() != url; ++it);
+		return it;
+	}
 };
 
 #endif
