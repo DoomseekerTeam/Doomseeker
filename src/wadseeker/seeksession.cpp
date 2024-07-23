@@ -537,6 +537,22 @@ void SeekSession::onWwwFinished(WebQuery *query)
 						WadInstallerResult result = installer.install(*wad, query->reply());
 						if (result.isError())
 						{
+							// The file was downloaded just fine, but failed
+							// to install, so we should assume that all mirrors
+							// have the same file with the same exact problem.
+							// That's what mirrors are for, after all.
+							QList<UrlMirror> mirrors = d->mirrors.mirrorsWithUrl(query->url());
+							for (const UrlMirror &mirror : mirrors)
+							{
+								for (const QUrl &url : mirror.urls)
+								{
+									d->urlHistory.insert(url);
+									auto crawl = d->crawls.findByUrl(url);
+									if (crawl != d->crawls.end())
+										d->crawls.erase(crawl);
+								}
+							}
+
 							emit message(tr("Failed to install file \"%1\" from URL %2: %3")
 								.arg(resource)
 								.arg(query->url().toString())
