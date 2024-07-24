@@ -120,9 +120,9 @@ private:
 	WadseekerInterface(QWidget *parent = nullptr);
 	WadseekerInterface(ServerPtr server, QWidget *parent = nullptr);
 
+	void appendLog(const QString &message, WadseekerLib::MessageType type, const QString &source);
 	void connectWadseekerObject();
 	void construct();
-	void displayMessage(const QString &message, WadseekerLib::MessageType type, bool bPrependErrorsWithMessageType);
 	void initMessageColors();
 
 	/**
@@ -152,7 +152,6 @@ private slots:
 	void allDone(bool bSuccess);
 	void fileDownloadSuccessful(const ModFile &filename);
 	void reject() override;
-	void message(const QString &message, WadseekerLib::MessageType type);
 	void registerUpdateRequest();
 	void seekStarted(const ModSet &filenames);
 	void serviceStarted(const QString &service);

@@ -64,6 +64,9 @@ author and by recording year in subdirectories, avoiding demos from
 multiple authors colliding with each other. (#4110)
 - Updated the internal zlib library to 1.2.13.
 - Updated the internal bzip2 library to version 1.0.8.
+- Wadseeker GUI: show Wadseeker logs more like actual logs: use a fixed-width
+font, present the logging level and who wrote a given log line (Doomseeker or
+Wadseeker).
 - Wadseeker: rewrite the internals of the lib so that it becomes
 a better netizen.
 - Wadseeker: upgrade the LZMA SDK to version 23.01.

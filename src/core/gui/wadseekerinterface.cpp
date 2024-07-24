@@ -37,8 +37,55 @@
 #include "wadseeker/entities/modfile.h"
 #include "wadseeker/entities/modset.h"
 
+#include <QFontDatabase>
 #include <QMessageBox>
 #include <QPushButton>
+
+#include <algorithm>
+
+namespace
+{
+struct LogLevel
+{
+	QString tag;
+	QString style;
+};
+
+class LogLevelMap
+{
+public:
+	LogLevelMap() {}
+
+	LogLevel operator[](const WadseekerLib::MessageType type) const
+	{
+		return this->map.value(type, this->unknown);
+	}
+
+	void insert(WadseekerLib::MessageType type, LogLevel level)
+	{
+		this->map.insert(type, level);
+	}
+
+	void refit()
+	{
+		for (LogLevel &lvl : this->map)
+			lvl.tag = lvl.tag.trimmed();
+		int longest = 0;
+		for (const LogLevel &lvl : this->map)
+			longest = std::max<int>(lvl.tag.length(), longest);
+		for (LogLevel &lvl : this->map)
+		{
+			while (lvl.tag.length() < longest)
+				lvl.tag.prepend(' ');
+		}
+		this->unknown = LogLevel{ QString(longest, '?'), QString() };
+	}
+
+private:
+	QMap<WadseekerLib::MessageType, LogLevel> map;
+	LogLevel unknown;
+};
+};
 
 const int WadseekerInterface::UPDATE_INTERVAL_MS = 500;
 WadseekerInterface *WadseekerInterface::currentInstance = nullptr;
@@ -48,6 +95,9 @@ DClass<WadseekerInterface> : public Ui::WadseekerInterface
 public:
 	QPushButton *btnAbort;
 	QPushButton *btnClose;
+
+	QString name;
+	LogLevelMap loglevels;
 
 	bool bCompletedSuccessfully;
 	bool preventGame;
@@ -81,13 +131,13 @@ WadseekerInterface::~WadseekerInterface()
 
 void WadseekerInterface::abortService(const QString &service)
 {
-	message(tr("Aborting service: %1").arg(service), WadseekerLib::Notice);
+	appendLog(tr("Aborting service: %1").arg(service), WadseekerLib::Notice, d->name);
 	wadseeker.skipService(service);
 }
 
 void WadseekerInterface::abortSite(const QUrl &url)
 {
-	message(tr("Aborting site: %1").arg(url.toString()), WadseekerLib::Notice);
+	appendLog(tr("Aborting site: %1").arg(url.toString()), WadseekerLib::Notice, d->name);
 	wadseeker.skipSiteSeek(url);
 }
 
@@ -115,6 +165,25 @@ void WadseekerInterface::accept()
 	}
 }
 
+void WadseekerInterface::appendLog(const QString &message, WadseekerLib::MessageType type, const QString &source)
+{
+	static const int MAX_SOURCE_LEN = QString("Doomseeker").length();
+	static const QString lineStart = "<span style=\"%1; white-space: pre-wrap;\">";
+	static const QString lineEnd = "</span><br>\n";
+	const LogLevel level = d->loglevels[type];
+
+	QString log;
+	for (const QString &line : message.split("\n"))
+	{
+		log += lineStart.arg(level.style)
+			+ QString("%1|%2| %3").arg(source.left(MAX_SOURCE_LEN), -MAX_SOURCE_LEN).arg(level.tag, line)
+			+ lineEnd;
+	}
+
+	d->teWadseekerOutput->moveCursor(QTextCursor::End);
+	d->teWadseekerOutput->insertHtml(log);
+}
+
 void WadseekerInterface::allDone(bool bSuccess)
 {
 	setStateWaiting();
@@ -122,7 +191,7 @@ void WadseekerInterface::allDone(bool bSuccess)
 	QApplication::alert(this);
 	if (bSuccess)
 	{
-		displayMessage(tr("All done. Success."), WadseekerLib::NoticeImportant, false);
+		appendLog(tr("All done. Success."), WadseekerLib::NoticeImportant, d->name);
 
 		if (isAutomatic() && !d->preventGame)
 		{
@@ -141,47 +210,51 @@ void WadseekerInterface::allDone(bool bSuccess)
 			d->twWads->setFileFailed(failure.name());
 		}
 
-		displayMessage(tr("All done. Fail."), WadseekerLib::CriticalError, false);
+		appendLog(tr("All done. Fail."), WadseekerLib::CriticalError, d->name);
 	}
 }
 
 void WadseekerInterface::connectWadseekerObject()
 {
 	// Connect Wadseeker to the dialog box.
-	this->connect(&wadseeker, SIGNAL(allDone(bool)),
-		SLOT(allDone(bool)));
-	this->connect(&wadseeker, SIGNAL(message(const QString&,WadseekerLib::MessageType)),
-		SLOT(message(const QString&,WadseekerLib::MessageType)));
-	this->connect(&wadseeker, SIGNAL(seekStarted(const ModSet&)),
-		SLOT(seekStarted(const ModSet&)));
-	this->connect(&wadseeker, SIGNAL(fileInstalled(const ModFile&)),
-		SLOT(fileDownloadSuccessful(const ModFile&)));
-	this->connect(&wadseeker, SIGNAL(siteFinished(const QUrl&)),
-		SLOT(siteFinished(const QUrl&)));
-	this->connect(&wadseeker, SIGNAL(siteProgress(const QUrl&,qint64,qint64)),
-		SLOT(siteProgress(const QUrl&,qint64,qint64)));
-	this->connect(&wadseeker, SIGNAL(siteRedirect(const QUrl&,const QUrl&)),
-		SLOT(siteRedirect(const QUrl&,const QUrl&)));
-	this->connect(&wadseeker, SIGNAL(siteStarted(const QUrl&)),
-		SLOT(siteStarted(const QUrl&)));
-	this->connect(&wadseeker, SIGNAL(serviceStarted(QString)),
-		SLOT(serviceStarted(QString)));
-	this->connect(&wadseeker, SIGNAL(serviceFinished(QString)),
-		SLOT(serviceFinished(QString)));
+	connect(&wadseeker, &Wadseeker::allDone,
+		this, &WadseekerInterface::allDone);
+	connect(&wadseeker, &Wadseeker::message,
+		this, [this](const QString &msg, WadseekerLib::MessageType type)
+		{ this->appendLog(msg, type, tr("Wadseeker")); });
+	connect(&wadseeker, &Wadseeker::seekStarted,
+		this, &WadseekerInterface::seekStarted);
+	connect(&wadseeker, &Wadseeker::fileInstalled,
+		this, &WadseekerInterface::fileDownloadSuccessful);
+	connect(&wadseeker, &Wadseeker::siteFinished,
+		this, &WadseekerInterface::siteFinished);
+	connect(&wadseeker, &Wadseeker::siteProgress,
+		this, &WadseekerInterface::siteProgress);
+	connect(&wadseeker, &Wadseeker::siteRedirect,
+		this, &WadseekerInterface::siteRedirect);
+	connect(&wadseeker, &Wadseeker::siteStarted,
+		this, &WadseekerInterface::siteStarted);
+	connect(&wadseeker, &Wadseeker::serviceStarted,
+		this, &WadseekerInterface::serviceStarted);
+	connect(&wadseeker, &Wadseeker::serviceFinished,
+		this, &WadseekerInterface::serviceFinished);
 
 	// Connect Wadseeker to the WADs table widget.
-	d->twWads->connect(&wadseeker, SIGNAL(fileDownloadFinished(const ModFile&)),
-		SLOT(setFileDownloadFinished(const ModFile&)));
-	d->twWads->connect(&wadseeker, SIGNAL(fileDownloadProgress(const ModFile&,qint64,qint64)),
-		SLOT(setFileProgress(const ModFile&,qint64,qint64)));
-	d->twWads->connect(&wadseeker, SIGNAL(fileDownloadStarted(const ModFile&,const QUrl&)),
-		SLOT(setFileUrl(const ModFile&,const QUrl&)));
+	connect(&wadseeker, &Wadseeker::fileDownloadFinished,
+		d->twWads, &WadseekerWadsTable::setFileDownloadFinished);
+	connect(&wadseeker, &Wadseeker::fileDownloadProgress,
+		d->twWads, &WadseekerWadsTable::setFileProgress);
+	connect(&wadseeker, &Wadseeker::fileDownloadStarted,
+		d->twWads, &WadseekerWadsTable::setFileUrl);
 }
 
 void WadseekerInterface::construct()
 {
 	d->setupUi(this);
 	CommonGUI::setupDialog(*this);
+	d->name = "Doomseeker";
+
+	d->teWadseekerOutput->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
 	d->preventGame = false;
 	d->bCompletedSuccessfully = false;
 	d->btnAbort = d->buttonBox->button(QDialogButtonBox::Abort);
@@ -192,13 +265,14 @@ void WadseekerInterface::construct()
 	d->taskbarProgress = d->taskbarButton->progress();
 	d->taskbarProgress->setMaximum(d->pbOverallProgress->maximum());
 
-	setStateWaiting();
-
 	initMessageColors();
+
+	setStateWaiting();
 
 	this->setWindowIcon(QIcon(":/icon.png"));
 	d->btnStartGame->hide();
-	this->connect(&updateTimer, SIGNAL(timeout()), SLOT(registerUpdateRequest()));
+	connect(&this->updateTimer, &QTimer::timeout,
+		this, &WadseekerInterface::registerUpdateRequest);
 
 	connectWadseekerObject();
 
@@ -253,62 +327,6 @@ WadseekerInterface *WadseekerInterface::createAutoNoGame(QWidget *parent)
 	return interface;
 }
 
-void WadseekerInterface::displayMessage(const QString &message, WadseekerLib::MessageType type, bool bPrependErrorsWithMessageType)
-{
-	QString strProcessedMessage;
-
-	bool bPrependWithNewline = false;
-	QString wrapHtmlLeft = "<div style=\"%1\">";
-	QString wrapHtmlRight = "</div>";
-	QString htmlStyle;
-
-	switch (type)
-	{
-	case WadseekerLib::CriticalError:
-		htmlStyle = QString("color: %1; font-weight: bold;").arg(colorHtmlMessageFatalError);
-		bPrependWithNewline = true;
-		if (bPrependErrorsWithMessageType)
-			strProcessedMessage = tr("CRITICAL ERROR: %1").arg(message);
-		else
-			strProcessedMessage = message;
-		break;
-
-	case WadseekerLib::Error:
-		htmlStyle = QString("color: %1;").arg(colorHtmlMessageError);
-		if (bPrependErrorsWithMessageType)
-			strProcessedMessage = tr("Error: %1").arg(message);
-		else
-			strProcessedMessage = message;
-		break;
-
-	case WadseekerLib::Notice:
-	default:
-		htmlStyle = QString("color: %1;").arg(colorHtmlMessageNotice);
-		strProcessedMessage = message;
-		break;
-
-	case WadseekerLib::NoticeImportant:
-		htmlStyle = QString("color: %1; font-weight: bold;").arg(colorHtmlMessageNotice);
-		bPrependWithNewline = true;
-		strProcessedMessage = message;
-		break;
-
-	case WadseekerLib::Navigation:
-		htmlStyle = QString("color: %1;").arg(colorHtmlMessageNavigation);
-		strProcessedMessage = message;
-		break;
-	}
-
-	if (bPrependWithNewline && !d->teWadseekerOutput->toPlainText().isEmpty())
-		strProcessedMessage = "<br>" + strProcessedMessage;
-
-	wrapHtmlLeft = wrapHtmlLeft.arg(htmlStyle);
-
-	strProcessedMessage = wrapHtmlLeft + strProcessedMessage + wrapHtmlRight;
-
-	d->teWadseekerOutput->append(strProcessedMessage);
-}
-
 void WadseekerInterface::fileDownloadSuccessful(const ModFile &filename)
 {
 	successfulWads << filename;
@@ -321,16 +339,38 @@ void WadseekerInterface::initMessageColors()
 	this->colorHtmlMessageError = gConfig.wadseeker.colorMessageError;
 	this->colorHtmlMessageFatalError = gConfig.wadseeker.colorMessageCriticalError;
 	this->colorHtmlMessageNavigation = gConfig.wadseeker.colorMessageNavigation;
+
+	d->loglevels = LogLevelMap();
+	// The tags are translatable, but they should be kept short
+	// regardless of the translation. 5 characters max is best.
+	// Doomseeker refits all the tags to the same length, padding
+	// them with spaces from the left.
+	d->loglevels.insert(WadseekerLib::CriticalError, {
+		tr("CRIT"),
+		QString("color: %1; font-weight: bold;").arg(colorHtmlMessageFatalError),
+	});
+	d->loglevels.insert(WadseekerLib::Error, {
+		tr("ERROR"),
+		QString("color: %1;").arg(colorHtmlMessageError),
+	});
+	d->loglevels.insert(WadseekerLib::Notice, {
+		tr("INFO"),
+		QString("color: %1;").arg(colorHtmlMessageNotice),
+	});
+	d->loglevels.insert(WadseekerLib::NoticeImportant, {
+		tr("NOTI"),
+		QString("color: %1; font-weight: bold;").arg(colorHtmlMessageNotice),
+	});
+	d->loglevels.insert(WadseekerLib::Navigation, {
+		tr("NAVI"),
+		QString("color: %1;").arg(colorHtmlMessageNavigation),
+	});
+	d->loglevels.refit();
 }
 
 bool WadseekerInterface::isInstantiated()
 {
 	return currentInstance != nullptr;
-}
-
-void WadseekerInterface::message(const QString &message, WadseekerLib::MessageType type)
-{
-	displayMessage(message, type, true);
 }
 
 void WadseekerInterface::registerUpdateRequest()
@@ -370,7 +410,7 @@ void WadseekerInterface::seekStarted(const ModSet &filenames)
 	d->teWadseekerOutput->clear();
 	d->pbOverallProgress->setValue(0);
 	d->taskbarProgress->setValue(0);
-	displayMessage("Seek started on filenames: " + names.join(", "), WadseekerLib::NoticeImportant, false);
+	appendLog("Seek started on filenames: " + names.join(", "), WadseekerLib::NoticeImportant, d->name);
 
 	seekedWads = wads;
 	successfulWads.clear();
