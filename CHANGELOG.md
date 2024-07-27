@@ -72,6 +72,9 @@ a better netizen.
 - Wadseeker: upgrade the LZMA SDK to version 23.01.
 - Wadseeker: website dudoomers.com changed to audrealms.org. (#4131)
 
+### Deprecated
+- Wadseeker: `WADSEEKER_API` `NetworkReplyTimeouter` -- unused in Doomseeker.
+
 ### Fixed
 - Players table getting squished horizontally in the server details dock.
 - Limit the height of players tooltip for very populated servers. Doomseeker
@@ -92,9 +95,6 @@ complaints from server owners that Wadseeker strains their servers. This was
 fixed by completely rewriting the Wadseeker's internals.
 - Q-Zandronum, Zandronum: single-player demos will now be recorded with
 the correct `.lmp` extension.
-
-### Removed
-- Wadseeker: `WADSEEKER_API` `NetworkReplyTimeouter` -- unused in Doomseeker.
 
 ## [1.4.1] - 2023-03-12
 ### Added

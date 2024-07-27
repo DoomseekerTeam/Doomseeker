@@ -128,6 +128,7 @@ set(WADSEEKER_FILES
 	protocols/idgames/idgamesreply.cpp
 	protocols/idgames/idgamesresult.cpp
 	protocols/http.cpp
+	protocols/networkreplytimeouter.cpp
 	www/urlmirror.cpp
 	www/urlparser.cpp
 	www/urlset.cpp
@@ -171,6 +172,7 @@ set(HEADER_FILES
 	protocols/idgames/idgamesreply.h
 	protocols/idgames/idgamesresult.h
 	protocols/http.h
+	protocols/networkreplytimeouter.h
 	www/urlmirror.h
 	www/urlparser.h
 	www/urlset.h
