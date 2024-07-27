@@ -54,22 +54,33 @@
 #include <cstdint>
 #include <utility>
 
-#define SERVER_CHALLENGE      0xC7, 0x00, 0x00, 0x00
+#define SERVER_CHALLENGE       0xC7, 0x00, 0x00, 0x00
+#define SERVER_SEGMENTED_QUERY 0x02
+
+/*
+  Server reply codes
+*/
+
+/// Accepted; server information follows.
 #define SERVER_GOOD_SINGLE    5660023
-#define SERVER_GOOD_SEGMENTED 5660031
+/// Accepted; segmented information follows.
+#define SERVER_GOOD_SEGMENTED 5660032
+/// Denied; you are banned.
 #define SERVER_BANNED         5660025
+/// Denied; your IP has made a request in the past sv_queryignoretime seconds.
 #define SERVER_WAIT           5660024
 
 static const quint8 SQF1 = 0;
 static const quint8 SQF2 = 1;
 
-/// Including the size field.
-static const quint16 SEGMENT_SIZE_UNTIL_SIZE_FIELD = 7;
-
 #define CHK_REMAINING(in, size) \
 	{ if (in.remaining() < size) { return RESPONSE_BAD; } }
 
 #define RETURN_BAD_IF_NOT_ENOUGH_DATA(size) CHK_REMAINING(in, size)
+
+/*
+  ZandronumVersion
+*/
 
 /**
  * Compares versions of Zandronum.
@@ -104,14 +115,44 @@ bool ZandronumVersion::operator> (const ZandronumVersion &other) const
 
 const QRegularExpression ZandronumVersion::versionExpression(R"(^(\d+).(\d+)(?:.(\d+)(?:.(\d+))?)?(?:-([a-zA-Z]*)?)?(?:-r(\d+)(?:-(\d+))?)?)");
 
-////////////////////////////////////////////////////////////////////////////////
+/*
+  TeamInfo
+*/
 
 TeamInfo::TeamInfo(QString name, QColor color, unsigned int score) :
 	teamName(std::move(name)), teamColor(std::move(color)), teamScore(score)
 {
 }
 
-////////////////////////////////////////////////////////////////////////////////
+/*
+  SegmentedReply
+*/
+
+SegmentedReply::SegmentedReply(const QByteArray &data)
+	:bytes(data), segments(1, true)
+{
+}
+
+SegmentedReply::SegmentedReply(unsigned totalSegments, unsigned totalSize)
+	: bytes(totalSize, 0), segments(totalSegments, false)
+{
+}
+
+bool SegmentedReply::insertSegment(unsigned no, unsigned offset, const QByteArray &data)
+{
+	if (no >= this->segments.size() || offset + data.size() > this->bytes.size())
+	{
+		return false;
+	}
+
+	this->segments[no] = true;
+	this->bytes.replace(offset, data.size(), data);
+	return true;
+}
+
+/*
+  ZandronumServer
+*/
 
 ZandronumServer::ZandronumServer(const QHostAddress &address, unsigned short port)
 	: Server(address, port),
@@ -163,44 +204,19 @@ EnginePlugin *ZandronumServer::plugin() const
 
 Server::Response ZandronumServer::readRequest(const QByteArray &data)
 {
-	const int BUFFER_SIZE = 6000;
-	QByteArray rawReadBuffer;
+	static const int BUFFER_SIZE = 6000;
 
 	// Decompress the response.
-	const char *huffmanPacket = data.data();
-
 	int decodedSize = BUFFER_SIZE + data.size();
-	char *packetDecodedBuffer = new char[decodedSize];
-
-	HUFFMAN_Decode(reinterpret_cast<const unsigned char *>(huffmanPacket),
-		reinterpret_cast<unsigned char *>(packetDecodedBuffer), data.size(),
+	QByteArray packetDecoded(decodedSize, 0);
+	HUFFMAN_Decode(reinterpret_cast<const unsigned char *>(data.data()),
+		reinterpret_cast<unsigned char *>(packetDecoded.data()), data.size(),
 		&decodedSize);
-
+	// Check for decoding errors.
 	if (decodedSize <= 0)
-	{
-		delete [] packetDecodedBuffer;
 		return RESPONSE_BAD;
-	}
 
-	// Prepare reading interface.
-	QByteArray packetDecoded(packetDecodedBuffer, decodedSize);
-	this->currentChallenge.raw += packetDecoded;
-
-	delete [] packetDecodedBuffer;
-
-	QBuffer packetDecodedIo(&packetDecoded);
-
-	packetDecodedIo.open(QIODevice::ReadOnly);
-	packetDecodedIo.seek(0);
-
-	QDataStream inStream(&packetDecodedIo);
-	inStream.setByteOrder(QDataStream::LittleEndian);
-
-	DataStreamOperatorWrapper in(&inStream);
-
-	// Read and parse.
-
-	// Do the initial sanity check. All packets must be at least 8 bytes big,
+	// A sanity check. All packets must be at least 8 bytes big,
 	// regardless if the segmented or single-packet response is received.
 	if (decodedSize < 8)
 	{
@@ -210,11 +226,19 @@ Server::Response ZandronumServer::readRequest(const QByteArray &data)
 			data.size(), decodedSize);
 		return RESPONSE_BAD;
 	}
+	// Resize the buffer to the actual size.
+	packetDecoded.resize(decodedSize);
 
-	// Check the response code
+	// Prepare the reader.
+	QDataStream inStream(packetDecoded);
+	inStream.setByteOrder(QDataStream::LittleEndian);
+	DataStreamOperatorWrapper in(&inStream);
+
+	// The server first replies with a Long response code that denotes
+	// the type of the response. In a segmented reply, each segment
+	// has this code, because the protocol is UDP and the segments
+	// may arrive out of order.
 	qint32 response = in.readQInt32();
-
-	// Act according to the response
 	Server::Response challengeResponse = RESPONSE_NO_RESPONSE_YET;
 	switch (response)
 	{
@@ -225,12 +249,10 @@ Server::Response ZandronumServer::readRequest(const QByteArray &data)
 		return RESPONSE_WAIT;
 
 	case SERVER_GOOD_SINGLE:
-		this->currentChallenge.responseType = ChallengeResponse::SINGLE;
 		challengeResponse = readSingleReply(inStream);
 		break;
 
 	case SERVER_GOOD_SEGMENTED:
-		this->currentChallenge.responseType = ChallengeResponse::SEGMENTED;
 		challengeResponse = readSegmentedReply(inStream);
 		break;
 
@@ -264,24 +286,31 @@ Server::Response ZandronumServer::readRequest(const QByteArray &data)
 
 Server::Response ZandronumServer::readSingleReply(QDataStream &stream)
 {
-	DataStreamOperatorWrapper in(&stream);
-
-	// Drop the "response timestamp" field.
-	RETURN_BAD_IF_NOT_ENOUGH_DATA(4);
-	in.readQInt32();
-
-	RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
-	setGameVersion(in.readRawUntilByte('\0'));
-
-	return readSqf1(stream);
+	QByteArray segment = stream.device()->readAll();
+	this->currentChallenge.segments = SegmentedReply(segment);
+	return this->readAccumulatedSegments();
 }
 
 Server::Response ZandronumServer::readSegmentedReply(QDataStream &stream)
 {
+	/*
+	  +-------+-------------+------------------------------------------------+
+	  | Type  | Value       | Description                                    |
+	  +-------+-------------+------------------------------------------------+
+	  | Byte  | Segment     | Segment number. If the most significant bit is |
+	  |       |             | set, then this is the last segment.            |
+	  +-------+-------------+------------------------------------------------+
+	  | Byte  | NumSegments | Total number of segments that will be sent.    |
+	  +-------+-------------+------------------------------------------------+
+	  | Short | Offset      | Offset into the full packet this packet        |
+	  |       |             | contains.                                      |
+	  +-------+-------------+------------------------------------------------+
+	  | Short | Size        | The size of this.                              |
+	  +-------+-------------+------------------------------------------------+
+	  | Short | TotalSize   | Total size of the data to be sent.             |
+	  +-------+-------------+------------------------------------------------+
+	*/
 	DataStreamOperatorWrapper in(&stream);
-
-	// All segments have at least 3 bytes.
-	RETURN_BAD_IF_NOT_ENOUGH_DATA(3);
 
 	// Collect all segments.
 	//
@@ -290,124 +319,108 @@ Server::Response ZandronumServer::readSegmentedReply(QDataStream &stream)
 	// there can.
 	while (in.hasRemaining())
 	{
-		quint8 segmentNo = in.readQUInt8();
-		if (0x80 & segmentNo)
-		{
-			segmentNo &= 0x7f;
-			this->currentChallenge.endSegment = segmentNo;
-		}
+		// All segments have at least 8 bytes.
+		RETURN_BAD_IF_NOT_ENOUGH_DATA(8);
 
-		RETURN_BAD_IF_NOT_ENOUGH_DATA(2);
-		quint16 segmentSize = in.readQUInt16();
+		const quint8 segmentNo = 0x7f & in.readQUInt8();
+		const quint8 numSegments = in.readQUInt8();
+		const quint16 offset = in.readQUInt16();
+		const quint16 segmentSize = in.readQUInt16();
+		const quint16 totalSize = in.readQUInt16();
 
-		// The segmentSize also includes all the fields that are before.
-		if (segmentSize < SEGMENT_SIZE_UNTIL_SIZE_FIELD)
-		{
-			fprintf(stderr, "Server '%s:%u' sent a segment with too small size"
-					"(segment size=%d < minimum=%d).\n",
-				address().toString().toUtf8().constData(), port(),
-				(int) segmentSize, (int) SEGMENT_SIZE_UNTIL_SIZE_FIELD);
-			return RESPONSE_BAD;
-		}
+#if 0 // Debugging
+		fprintf(stderr, "Server '%s:%u' sent segment %d/%d (offset=%d, size=%d, total=%d).\n",
+			address().toString().toUtf8().constData(), port(),
+			(int) segmentNo, (int) numSegments, (int) offset,
+			(int) segmentSize, (int) totalSize);
+#endif
 
-		segmentSize -= SEGMENT_SIZE_UNTIL_SIZE_FIELD;
-
-		if (segmentSize > in.remaining())
+		// Do some sanity checks.
+		if (numSegments < 1)
 		{
-			fprintf(stderr, "Server '%s:%u' sent a truncated segment "
-					"(segment size=%d > remaining=%d).\n",
-				address().toString().toUtf8().constData(), port(),
-				(int) segmentSize, (int) in.remaining());
-			return RESPONSE_BAD;
-		}
-		if (segmentSize > this->currentChallenge.spaceRemaining())
-		{
-			fprintf(stderr, "Server '%s:%u' sent too much challenge data.\n",
+			fprintf(stderr, "Server '%s:%u' is about to send less than 1 segment, "
+				"which is not possible, so something went wrong.\n",
 				address().toString().toUtf8().constData(), port());
 			return RESPONSE_BAD;
 		}
-		this->currentChallenge.insertSegment(segmentNo, in.readRaw(segmentSize));
+		if (static_cast<quint32>(offset) + static_cast<quint32>(segmentSize) > static_cast<quint32>(totalSize))
+		{
+			fprintf(stderr, "Server '%s:%u' sent a segment with offset/size "
+					"going beyond the total size of the response "
+					"(offset=%d, size=%d, total=%d).\n",
+				address().toString().toUtf8().constData(), port(),
+				(int) offset, (int) segmentSize, (int) totalSize);
+			return RESPONSE_BAD;
+		}
+
+		// Read the payload.
+		QByteArray data = in.readRaw(segmentSize);
+
+		// Insert it into the segmented reply container.
+		if (numSegments == 1)
+		{
+			this->currentChallenge.segments = SegmentedReply(data);
+		}
+		else
+		{
+			if (!this->currentChallenge.segments.isValid())
+			{
+				// The first segment has just arrived.
+				this->currentChallenge.segments = SegmentedReply(numSegments, totalSize);
+			}
+			// The total size should be the same in all segments.
+			else if (this->currentChallenge.segments.size() != totalSize)
+			{
+				fprintf(stderr, "Server '%s:%u' sent a segment with a different total size "
+					"than the previous segments (total=%d, previous=%d).\n",
+					address().toString().toUtf8().constData(), port(),
+					(int) totalSize, (int) this->currentChallenge.segments.size());
+				return RESPONSE_BAD;
+			}
+			// The segment count should also be the same in all segments.
+			else if (this->currentChallenge.segments.totalSegments() != numSegments)
+			{
+				fprintf(stderr, "Server '%s:%u' sent a segment with a different total segment count "
+					"than the previous segments (segments=%d, previous=%d).\n",
+					address().toString().toUtf8().constData(), port(),
+					(int) numSegments, (int) this->currentChallenge.segments.totalSegments());
+				return RESPONSE_BAD;
+			}
+
+			bool segmentOk = this->currentChallenge.segments.insertSegment(segmentNo, offset, data);
+			if (!segmentOk)
+			{
+				fprintf(stderr, "Server '%s:%u': couldn't reassemble segments.\n",
+					address().toString().toUtf8().constData(), port());
+				return RESPONSE_BAD;
+			}
+		}
 	}
 
-	if (this->currentChallenge.hasAllSegments())
-	{
-		// Once all segments have arrived, parse them.
-		return readAccumulatedSegments();
-	}
-	else
-	{
-		// If we don't have all segments yet, wait for more.
-		return RESPONSE_PENDING;
-	}
+	return readAccumulatedSegments();
 }
 
 Server::Response ZandronumServer::readAccumulatedSegments()
 {
-	assert(this->currentChallenge.hasAllSegments());
-	for (int segmentIdx = 0;
-		 segmentIdx < this->currentChallenge.segments.size();
-		 ++segmentIdx)
-	{
-		QByteArray &segment = this->currentChallenge.segments[segmentIdx];
+	if (!this->currentChallenge.segments.hasAllSegments())
+		return RESPONSE_PENDING;
 
-		QBuffer segmentIo(&segment);
-		segmentIo.open(QIODevice::ReadOnly);
-
-		QDataStream segmentStream(&segmentIo);
-		segmentStream.setByteOrder(QDataStream::LittleEndian);
-
-		DataStreamOperatorWrapper segmentIn(&segmentStream);
-
-		if (segmentIdx == 0)
-		{
-			// Segment 0 contains the additional "timestamp" and game version fields.
-
-			// Drop the "response timestamp" field.
-			CHK_REMAINING(segmentIn, 4);
-			segmentIn.readQInt32();
-
-			CHK_REMAINING(segmentIn, 1);
-			setGameVersion(segmentIn.readRawUntilByte('\0'));
-		}
-
-		// Now parse the flags fields.
-		Server::Response sqfResult = readSqf(segmentStream);
-		if (sqfResult != RESPONSE_GOOD)
-		{
-			return sqfResult;
-		}
-	}
-
-	return RESPONSE_GOOD;
-}
-
-Server::Response ZandronumServer::readSqf(QDataStream &stream)
-{
+	const QByteArray &packet = this->currentChallenge.segments.data();
+	QDataStream stream(packet);
+	stream.setByteOrder(QDataStream::LittleEndian);
 	DataStreamOperatorWrapper in(&stream);
-	while (in.hasRemaining())
-	{
-		const quint8 sqfSet = in.readQUInt8();
-		Server::Response sqfResult = RESPONSE_NO_RESPONSE_YET;
-		switch (sqfSet)
-		{
-		case SQF1:
-			sqfResult = readSqf1(stream);
-			break;
-		case SQF2:
-			sqfResult = readSqf2(stream);
-			break;
-		default:
-			fprintf(stderr, "Server '%s:%u' sent an unknown SQF set %d.\n",
-				address().toString().toUtf8().constData(), port(),
-				(int) sqfSet);
-			return RESPONSE_BAD;
-		}
-		if (sqfResult != RESPONSE_GOOD)
-			return sqfResult;
-	}
-	// If there's nothing more to read from the packet at this point,
-	// we conclude that the read was successful.
-	return RESPONSE_GOOD;
+
+	// Drop the "response timestamp" field.
+	CHK_REMAINING(in, 4);
+	in.readQInt32();
+
+	CHK_REMAINING(in, 1);
+	setGameVersion(in.readRawUntilByte('\0'));
+
+	// Now parse the flags fields. Regardless of the response type, SQF1 always
+	// follows the initial packet info. The packet may contain more SQF types
+	// afterwards.
+	return readSqf1(stream);
 }
 
 Server::Response ZandronumServer::readSqf1(QDataStream &stream)
@@ -604,16 +617,6 @@ Server::Response ZandronumServer::readSqf1(QDataStream &stream)
 
 	if ((flags & SQF_PLAYERDATA) == SQF_PLAYERDATA)
 	{
-		// The explicit flag for team info is sent in the segmented
-		// reply. If the reply isn't segmented, it must be deduced
-		// from the game mode. Team isn't sent in non-team modes.
-		bool hasTeamData = gameMode().isTeamGame();
-		if (this->currentChallenge.responseType == ChallengeResponse::SEGMENTED)
-		{
-			RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
-			hasTeamData = (in.readQInt8() != 0);
-		}
-
 		flags ^= SQF_PLAYERDATA;
 		for (int i = 0; i < this->currentChallenge.numPlayers; i++)
 		{
@@ -627,7 +630,7 @@ Server::Response ZandronumServer::readSqf1(QDataStream &stream)
 			bool bot = in.readQUInt8() != 0;
 
 			int team;
-			if (hasTeamData)
+			if (gameMode().isTeamGame())
 			{
 				RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
 				team = in.readQUInt8();
@@ -759,8 +762,7 @@ Server::Response ZandronumServer::readSqf1(QDataStream &stream)
 		resetPwadsList(pwads);
 	}
 
-	if (this->currentChallenge.responseType == ChallengeResponse::SINGLE
-		&& (flags & SQF_EXTENDED_INFO) == SQF_EXTENDED_INFO)
+	if ((flags & SQF_EXTENDED_INFO) == SQF_EXTENDED_INFO)
 	{
 		return readSqf2(stream);
 	}
@@ -849,12 +851,33 @@ QByteArray ZandronumServer::createSendRequest()
 	}
 #define CHALLENGE_SIZE 17
 #define ENCODED_CHALLENGE_BUFFER_SIZE (CHALLENGE_SIZE*2)
+	/*
+	  Challenge packet format:
+
+	  +------+-----------+------------------------------------------------+
+	  | Type | Value     | Description                                    |
+	  +------+-----------+------------------------------------------------+
+	  | Long | 199       | Launcher challenge                             |
+	  +------+-----------+------------------------------------------------+
+	  | Long | Flags     | Desired information                            |
+	  +------+-----------+------------------------------------------------+
+	  | Long | Time      | Current time, this will be sent back to you so |
+	  |      |           | you can determine ping.                        |
+	  +------+-----------+------------------------------------------------+
+	  | Long | Flags2    | Optional. The extended information you want.   |
+	  |      |           | Ensure you specify SQF_EXTENDED_INFO in the    |
+	  |      |           | normal Flags field as well.                    |
+	  +------+-----------+------------------------------------------------+
+	  | Byte | Segmented | Optional. Set this to 2 to indicate that you   |
+	  |      |           | want a segmented response.                     |
+	  +------+-----------+------------------------------------------------+
+	 */
 	const unsigned char challenge[CHALLENGE_SIZE] = {
 		SERVER_CHALLENGE,
 		WRITEINT32_DIRECT(unsigned char, standardQuery),
 		WRITEINT32_DIRECT(unsigned char, millisecondTime()),
 		WRITEINT32_DIRECT(unsigned char, extendedQuery),
-		WRITEINT8_DIRECT(unsigned char, 1), // ask for the segmented reply if the server supports it
+		SERVER_SEGMENTED_QUERY,
 	};
 	char challengeOut[ENCODED_CHALLENGE_BUFFER_SIZE];
 	const int segmentationOffset = useSegmentedQuery ? 0 : 1;
@@ -928,23 +951,9 @@ void ZandronumServer::updatedSlot(ServerPtr server, int response)
 
 		fprintf(stderr, "Bad response from server: %s:%u\n",
 			address().toString().toUtf8().constData(), port());
-		if (s->currentChallenge.responseType == ChallengeResponse::SEGMENTED)
-		{
-			for (int segmentIdx = 0;
-				 segmentIdx < s->currentChallenge.segments.size();
-				++segmentIdx)
-			{
-				fprintf(stderr, ">> Segment %d:\n", segmentIdx);
-				logBytes(s->currentChallenge.segments[segmentIdx]);
-			}
-			fprintf(stderr, ">> Raw (in arrival order):\n");
-			logBytes(s->currentChallenge.raw);
-		}
-		else
-		{
-			fprintf(stderr, ">> Single packet:\n");
-			logBytes(s->currentChallenge.raw);
-		}
+		fprintf(stderr, " >> Num segments: %u\n",
+			s->currentChallenge.segments.totalSegments());
+		logBytes(s->currentChallenge.segments.data());
 		fprintf(stderr, "-- End of response for %s:%u --\n\n",
 			address().toString().toUtf8().constData(), port());
 		fflush(stderr);

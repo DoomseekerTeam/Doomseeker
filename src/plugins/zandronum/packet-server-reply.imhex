@@ -3,16 +3,10 @@
 // This file is to be used with ImHex editor to analyze the replies
 // of the game servers.
 //
-// Supports:
-//
-// - Zandronum 3.0 unsegmented packet  (SEGMENTED = false)
-// - Zandronum 3.2 segmented packet v2 (SEGMENTED = true )
-//
-// Switch the SEGMENTED boolean to change between the packet formats.
+// This doesn't handle the Zandronum 3.2's segmented packets. It assumes
+// that the segments were already reassembled into the full packet.
 //
 // See: https://imhex.werwolv.net/
-const bool SEGMENTED = true;
-
 enum SQFlag : u32 {
     SQF_NAME = 0x00000001,
     SQF_URL = 0x00000002,
@@ -178,23 +172,17 @@ struct SQF<auto flags> {
         u16 redscore;
     }
     if (flags & SQFlag::SQF_NUMPLAYERS)
-    {
         u8 numplayers;
-
-        // SQF_PLAYERDATA is as independent as any flag, but without
-        // SQF_NUMPLAYERS, we don't know how many PLAYERDATA structs
-        // there is.
-        if (flags & SQFlag::SQF_PLAYERDATA)
-        {
-            if (SEGMENTED)
-                bool hasteams;
-            else
-                bool hasteams = false;
-            if (is_teamgame(gametype) || hasteams)
-                TeamPlayer players[numplayers];
-            else
-                SoloPlayer players[numplayers];
-        }
+    // SQF_PLAYERDATA is as independent as any other flag, but without
+    // SQF_NUMPLAYERS, we don't know how many PLAYERDATA structs there
+    // is, and without SQF_GAMETYPE we don't know if this is a team game
+    // or not.
+    if (flags & SQFlag::SQF_PLAYERDATA)
+    {
+        if (is_teamgame(gametype))
+            TeamPlayer players[numplayers];
+        else
+            SoloPlayer players[numplayers];
     }
     if (flags & SQFlag::SQF_TEAMINFO_NUMBER)
     {
@@ -248,31 +236,14 @@ struct SQF2<auto flags> {
         bool voicechat;
 };
 
-struct SQFExtendedInfo {
-    u8 flagset;
-    u32 flags;
-    match (flagset)
-    {
-        (0): SQF<flags> sqf;
-        (1): SQF2<flags> sqf2;
-    }
-};
-
 struct Packet {
     PacketHeader header;
 
     SQF<header.flags> sqf;
     if (header.flags & SQFlag::SQF_EXTENDED_INFO)
     {
-        if (SEGMENTED)
-        {
-            SQFExtendedInfo extended;
-        }
-        else
-        {
-            u32 flags;
-            SQF2<flags> sqf2;
-        }
+        u32 sqf2flags;
+        SQF2<sqf2flags> sqf2;
     }
 };
 

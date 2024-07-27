@@ -92,66 +92,92 @@ private:
 	unsigned int teamScore;
 };
 
-enum class ChallengeResponse
+/**
+ * @brief Container for game server's optionally-segmented challenge reply.
+ *
+ * Zandronum servers can reply to the browser's challenge with more than one UDP
+ * datagram. Such reply is called a segmented reply. This class is a container
+ * for the incoming segments, that may arrive in any order.
+ */
+class SegmentedReply
 {
-	UNKNOWN,
-	SINGLE,
-	SEGMENTED,
+public:
+	/**
+	 * Invalid SegmentedReply constructor.
+	 */
+	SegmentedReply() {}
+
+	/**
+	 * Un-segmented constructor.
+	 *
+	 * If the reply has only one segment, use this constructor for
+	 * efficiency. SegmentedReply will already return true on hasAllSegments().
+	 */
+	SegmentedReply(const QByteArray &data);
+
+	/**
+	 * Segmented constructor, preparing space for totalSize and totalSegments.
+	 */
+	SegmentedReply(unsigned totalSegments, unsigned totalSize);
+
+	const QByteArray &data() const { return bytes; }
+
+	/**
+	 * Were all segments inserted already?
+	 */
+	bool hasAllSegments() const
+	{
+		QVector<bool>::const_iterator it = std::find(segments.begin(), segments.end(), false);
+		return it == segments.end();
+	}
+
+	/**
+	 * Returns true if the SegmentedReply anticipates or already contains actual
+	 * data.
+	 */
+	bool isValid() const { return !segments.isEmpty(); }
+
+	/**
+	 * Insert a segment into the SegmentedReply.
+	 *
+	 * Each inserted segment flips a flag in the segments vector basing on the
+	 * segment's `no`. If all segments are inserted, the SegmentedReply will
+	 * return true on hasAllSegments().
+	 *
+	 * Because the bounds of the reply are already known before the first
+	 * segment is inserted, this method checks if the insert goes outside
+	 * those bounds and, if yes, returns `false` without doing anything.
+	 *
+	 * @param no The segment number, starting from 0.
+	 * @param offset The byte offset of the segment into the whole data.
+	 * @param data The data to insert at the offset.
+	 *
+	 * @return true if the insert was within bounds.
+	 */
+	bool insertSegment(unsigned no, unsigned offset, const QByteArray &data);
+
+	unsigned totalSegments() const { return segments.size(); }
+
+	/**
+	 * Returns the total size of the SegmentedReply, either already contained or
+	 * anticipated. This is defined at constructor and doesn't change
+	 * afterwards.
+	 */
+	qint64 size() const { return bytes.size(); }
+
+private:
+	QByteArray bytes;
+	QVector<bool> segments;
 };
 
 struct Challenge
 {
-	/**
-	 * Prevent DoS by accepting too many too big segments.
-	 */
-	static const int MAX_SIZE_SAFEGUARD = 1 * 1024 * 1024;
-
-	QByteArray raw;
-	ChallengeResponse responseType;
-	QVector<QByteArray> segments;
-	int endSegment;
+	SegmentedReply segments;
 	ZandronumGameInfo::ZandronumGameMode gameMode;
 	int numPlayers;
 
-	Challenge() : responseType(ChallengeResponse::UNKNOWN), endSegment(-1),
-		gameMode(ZandronumGameInfo::GAMEMODE_COOPERATIVE), numPlayers(0)
+	Challenge() : gameMode(ZandronumGameInfo::GAMEMODE_COOPERATIVE), numPlayers(0)
 	{
-	}
-
-	bool hasAllSegments() const
-	{
-		if (endSegment < 0)
-			return false;
-		for (const QByteArray &segment : segments)
-		{
-			if (segment.isEmpty())
-				return false;
-		}
-		return true;
-	}
-
-	void insertSegment(int no, QByteArray data)
-	{
-		if (no >= segments.size())
-		{
-			segments.resize(no + 1);
-		}
-		segments[no] = data;
-	}
-
-	int totalSegmentsSize() const
-	{
-		int total = 0;
-		for (const QByteArray &segment : segments)
-		{
-			total += segment.size();
-		}
-		return total;
-	}
-
-	int spaceRemaining() const
-	{
-		return MAX_SIZE_SAFEGUARD - totalSegmentsSize();
 	}
 };
 
@@ -261,7 +287,6 @@ private:
 
 	Server::Response readAccumulatedSegments();
 
-	Server::Response readSqf(QDataStream &stream);
 	Server::Response readSqf1(QDataStream &stream);
 	Server::Response readSqf2(QDataStream &stream);
 
