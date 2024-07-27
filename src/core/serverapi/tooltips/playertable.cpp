@@ -118,8 +118,8 @@ QString PlayerTable::generateHTML()
 	players.spectators(spectators);
 
 	const int maxShownPlayers = d->maxShownPlayers();
-	const int numSections = playersByTeams.size()
-		+ qMin(spectators.size(), 1);
+	const int numSections = qMax(1, playersByTeams.size()
+		+ qMin(spectators.size(), 1));
 	int totalPlayers = bots.count() + spectators.count();
 	for (const PlayersList &players : playersByTeams.values())
 	{
