@@ -153,14 +153,14 @@ void Idgames::onIdgamesApiQueryFinished()
 		}
 		else
 		{
-			QString msg = tr("Idgames - no file found");
+			QString msg = tr("/idgames - no file found");
 			emit message(msg, WadseekerLib::Error);
 			emit finished(this);
 		}
 	}
 	else
 	{
-		QString msg = tr("Idgames - %1: %2").arg(result.errorType(), result.errorMessage());
+		QString msg = tr("/idgames - %1: %2").arg(result.errorType(), result.errorMessage());
 		emit message(msg, WadseekerLib::Error);
 		emit finished(this);
 	}
@@ -183,7 +183,7 @@ void Idgames::startSearch()
 {
 	if (!QUrl(d->idgamesBaseUrl).isValid())
 	{
-		emit message(tr("Idgames error: invalid base URL:\n%1").arg(d->idgamesBaseUrl),
+		emit message(tr("/idgames error: invalid base URL:\n%1").arg(d->idgamesBaseUrl),
 			WadseekerLib::Error);
 		emit finished(this);
 		return;
@@ -191,13 +191,13 @@ void Idgames::startSearch()
 
 	if (d->seekedFile.name().isEmpty())
 	{
-		emit message(tr("Idgames error: Specified search filename is empty or invalid."),
+		emit message(tr("/idgames error: Specified search filename is empty or invalid."),
 			WadseekerLib::Error);
 		emit finished(this);
 		return;
 	}
 
-	emit message(tr("Searching Idgames archive for file: %1").arg(zipName()),
+	emit message(tr("Searching the /idgames Archive for file: %1").arg(zipName()),
 		WadseekerLib::NoticeImportant);
 	queryIdgamesApi();
 }

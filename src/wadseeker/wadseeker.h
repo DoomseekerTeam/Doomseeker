@@ -99,7 +99,7 @@ public:
 	static const QString forbiddenWads[];
 
 	/**
-	 * @return Default URL of Idgames archive, hardcoded into the library.
+	 * @return Default URL of the /idgames Archive, hardcoded into the library.
 	 */
 	static const QString defaultIdgamesUrl();
 
@@ -182,10 +182,10 @@ public:
 	void setCustomSites(const QStringList &urls);
 
 	/**
-	 * @brief Toggles Idgames enabled state.
+	 * @brief Toggles /idgames enabled state.
 	 *
-	 * If true, Idgames search will be performed.
-	 * If false, Idgames archive will be skipped.
+	 * If true, /idgames search will be performed.
+	 * If false, the /idgames Archive will be skipped.
 	 */
 	void setIdgamesEnabled(bool bEnabled);
 

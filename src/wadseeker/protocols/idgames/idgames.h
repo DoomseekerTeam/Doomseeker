@@ -41,8 +41,8 @@ public:
 	static QString defaultIdgamesUrl();
 
 	/**
-	 * Creates object to handle Idgames archive.
-	 * @param idgamesPage - base address of idgames archive.
+	 * Creates object to handle the /idgames Archive.
+	 * @param idgamesPage - base address of the /idgames Archive.
 	 */
 	Idgames(const QString &idgamesPage);
 	~Idgames() override;
@@ -63,7 +63,7 @@ public:
 
 signals:
 	/**
-	 * @brief Emitted once Idgames client finishes its search.
+	 * @brief Emitted once idgames client finishes its search.
 	 *
 	 * @param pThis - Pointer to the emitter object.
 	 */

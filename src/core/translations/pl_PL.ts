@@ -1735,13 +1735,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/configuration/cfgwadseekeridgames.ui" line="35"/>
-        <source>Use Idgames archive</source>
-        <translation>Używaj archiwum Idgames</translation>
+        <source>Use the /idgames Archive</source>
+        <translation>Używaj Archiwum /idgames</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgwadseekeridgames.ui" line="63"/>
-        <source>Idgames archive URL (changing this is NOT recommended):</source>
-        <translation>Adres archiwum Idgames (zmienianie tego NIE jest zalecane):</translation>
+        <source>The /idgames Archive URL (changing this is NOT recommended):</source>
+        <translation>Adres Archiwum /idgames (zmienianie tego NIE jest zalecane):</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfgwadseekeridgames.ui" line="75"/>

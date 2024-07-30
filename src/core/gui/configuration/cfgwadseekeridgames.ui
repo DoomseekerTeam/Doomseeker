@@ -32,7 +32,7 @@
       <item>
        <widget class="QCheckBox" name="cbUseIdgames">
         <property name="text">
-         <string>Use Idgames archive</string>
+         <string>Use the /idgames Archive</string>
         </property>
        </widget>
       </item>
@@ -60,7 +60,7 @@
          <item>
           <widget class="QLabel" name="label_7">
            <property name="text">
-            <string>Idgames archive URL (changing this is NOT recommended):</string>
+            <string>The /idgames Archive URL (changing this is NOT recommended):</string>
            </property>
           </widget>
          </item>

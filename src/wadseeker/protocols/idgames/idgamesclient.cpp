@@ -57,7 +57,7 @@ IdgamesReply *IdgamesClient::search(const QString &filename)
 	QString url = d->baseUrl.toString().trimmed();
 	url += QString("?out=json&action=search&query=%1&dir=desc").arg(filename);
 	#ifndef NDEBUG
-	qDebug() << "idgames search:" << url;
+	qDebug() << "/idgames search:" << url;
 	#endif
 	QNetworkRequest request;
 	request.setUrl(url);

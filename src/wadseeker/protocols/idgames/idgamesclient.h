@@ -30,7 +30,7 @@
 class IdgamesReply;
 
 /**
- * @brief Client for idgames archive public API.
+ * @brief Client for the /idgames Archive public API.
  *
  * Ownership of all IdgamesReply objects is returned to the caller and
  * caller is responsible for destroying these objects.

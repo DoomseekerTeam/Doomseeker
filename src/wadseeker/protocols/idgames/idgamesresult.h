@@ -26,7 +26,7 @@
 #include <QVariant>
 
 /**
- * @brief General result of idgames archive public API query.
+ * @brief General result of the /idgames Archive public API query.
  */
 class IdgamesResult
 {

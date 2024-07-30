@@ -66,7 +66,7 @@ void IdgamesReply::onNetworkFinished()
 		if (possibleRedirect.isValid())
 		{
 			#ifndef NDEBUG
-			qDebug() << "idgames redirect: " << possibleRedirect;
+			qDebug() << "/idgames redirect: " << possibleRedirect;
 			#endif
 			redirect(possibleRedirect.toUrl());
 		}
@@ -74,8 +74,8 @@ void IdgamesReply::onNetworkFinished()
 		{
 			QString json = d->reply->readAll();
 			#ifndef NDEBUG
-			qDebug() << "idgames onNetworkFinished()" << json;
-			qDebug() << "idgames onNetworkFinished() parsed" << QJsonDocument::fromJson(json.toUtf8());
+			qDebug() << "/idgames onNetworkFinished()" << json;
+			qDebug() << "/idgames onNetworkFinished() parsed" << QJsonDocument::fromJson(json.toUtf8());
 			#endif
 			finish(IdgamesResult(QJsonDocument::fromJson(json.toUtf8()).toVariant()));
 		}

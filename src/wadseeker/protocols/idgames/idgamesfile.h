@@ -27,7 +27,7 @@
 #include <QVariant>
 
 /**
- * @brief File entry in idgames database.
+ * @brief File entry in the /idgames Archive.
  */
 class IdgamesFile
 {

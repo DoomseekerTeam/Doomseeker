@@ -163,9 +163,9 @@ public:
 	 * @brief Idgames objects that will handle each file
 	 *        separately.
 	 *
-	 * Each file is probed one-at-a-time on the IDGames page. This
+	 * Each file is probed one-at-a-time on the idgames page. This
 	 * was designed to prevent creating too many request to the
-	 * IDGames page.
+	 * idgamesx page.
 	 */
 	QList<QSharedPointer<Idgames>> idgamesClients;
 
@@ -351,7 +351,7 @@ void SeekSession::finish(SeekResult result)
 
 void SeekSession::idgamesClientFinished(Idgames *pEmitter)
 {
-	emit message(tr("IDGames client for file \"%1\" has finished->").arg(pEmitter->file().name()),
+	emit message(tr("/idgames client for file \"%1\" has finished.").arg(pEmitter->file().name()),
 		WadseekerLib::NoticeImportant);
 
 	for (auto idgames : d->idgamesClients)

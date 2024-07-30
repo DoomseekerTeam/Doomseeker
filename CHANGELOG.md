@@ -90,6 +90,8 @@ were loaded if they were interleaved during demo recording. (#4110)
 it's not user-configurable (#3262).
 - Wadseeker GUI: in a hypothetical situation where the lib would inform about
 a progress on an empty filename, the program would crash. Protect against that.
+- Wadseeker: spell "the /idgames Archive" correctly, like the Archive itself
+does.
 - Wadseeker: it would sometimes get the same URL twice if it at first thought
 it would be a HTML website, but it turned out to be a WAD, PK3, or an archive
 instead. This was causing unnecessary downloads, unnecessary traffic, and
@@ -894,7 +896,7 @@ as the menu action should always be disabled while parser/updater is working.
 files are installed.
 - Wadseeker: Problems with URLs containing '%' character or non-ASCII
 characters.
-- Wadseeker: idgames archive now forcibly redirects HTTP to HTTPS.
+- Wadseeker: the /idgames Archive now forcibly redirects HTTP to HTTPS.
 Wadseeker didn't handle this properly and this functionality stopped working.
 - Wadseeker: fixed ZIP extraction to gather info from central directory rather
 than from local file headers, which is the correct approach for not corrupted
