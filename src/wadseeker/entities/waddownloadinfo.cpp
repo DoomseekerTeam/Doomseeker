@@ -150,6 +150,14 @@ QStringList WadDownloadInfo::possibleArchiveNames() const
 	return names;
 }
 
+QStringList WadDownloadInfo::possibleFilenames() const
+{
+	QStringList names = this->possibleArchiveNames();
+	names << this->name();
+	names.removeDuplicates();
+	return names;
+}
+
 void WadDownloadInfo::setSize(qint64 size)
 {
 	d->size = size;

@@ -35,6 +35,9 @@ class Checksum;
 
 /**
  * @brief Holds information about unique WAD download.
+ *
+ * @deprecated This class is not useful outside the Wadseeker library,
+ * and will be unexported in Wadseeker 3.0.
  */
 class WADSEEKER_API WadDownloadInfo
 {
@@ -103,6 +106,13 @@ public:
 	 *         extension will replace the extension from name().
 	 */
 	QStringList possibleArchiveNames() const;
+
+	/**
+	 * @brief Return all possible names under which these file could be found.
+	 *
+	 * This includes possibleArchiveNames() and the name(), without duplicates.
+	 */
+	QStringList possibleFilenames() const;
 
 	/**
 	 * @brief Size of the file.

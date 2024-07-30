@@ -22,7 +22,7 @@
 //------------------------------------------------------------------------------
 #include "linkresourcematcher.h"
 
-#include "wwwseeker/fileseekinfo.h"
+#include "entities/waddownloadinfo.h"
 
 #include <QFileInfo>
 #include <QString>
@@ -34,14 +34,7 @@ static bool isDirectLinkToFile(const QStringList &seekedFilenames, const Link &l
 	// system.
 	QString urlPath = link.url.path(QUrl::FullyDecoded);
 	QFileInfo fi(urlPath);
-	for (const QString &filename : seekedFilenames)
-	{
-		if (fi.fileName().compare(filename, Qt::CaseInsensitive) == 0)
-		{
-			return true;
-		}
-	}
-	return false;
+	return seekedFilenames.contains(fi.fileName(), Qt::CaseInsensitive);
 }
 
 static bool hasFileReferenceSomewhere(const QStringList &seekedFilenames, const Link &link)
@@ -71,7 +64,7 @@ QList<LinkResourceMatch> LinkResourceMatcher::matchLink(
 			|| hasFileReferenceSomewhere(possibleFilenames, link))
 		{
 			LinkResourceMatch match;
-			match.resource = seekedFile.file();
+			match.resource = seekedFile.name();
 			match.link = link;
 			matches << match;
 		}

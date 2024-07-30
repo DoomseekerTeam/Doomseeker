@@ -73,7 +73,9 @@ a better netizen.
 - Wadseeker: website dudoomers.com changed to audrealms.org. (#4131)
 
 ### Deprecated
-- Wadseeker: `WADSEEKER_API` `NetworkReplyTimeouter` -- unused in Doomseeker.
+- Wadseeker: `WADSEEKER_API` unused in Doomseeker:
+    - `NetworkReplyTimeouter`
+    - `WadDownloadInfo`
 
 ### Fixed
 - Players table getting squished horizontally in the server details dock.

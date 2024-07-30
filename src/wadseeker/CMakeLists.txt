@@ -135,7 +135,6 @@ set(WADSEEKER_FILES
 	www/webcrawl.cpp
 	www/webquery.cpp
 	www/www.cpp
-	wwwseeker/fileseekinfo.cpp
 	wwwseeker/htmlparser.cpp
 	wwwseeker/link.cpp
 	wwwseeker/linkresourcematcher.cpp
@@ -179,7 +178,6 @@ set(HEADER_FILES
 	www/webcrawl.h
 	www/webquery.h
 	www/www.cpp
-	wwwseeker/fileseekinfo.h
 	wwwseeker/htmlparser.h
 	wwwseeker/link.h
 	wwwseeker/linkresourcematcher.h

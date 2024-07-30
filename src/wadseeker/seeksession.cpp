@@ -33,7 +33,6 @@
 #include "www/webcrawl.h"
 #include "www/webquery.h"
 #include "www/www.h"
-#include "wwwseeker/fileseekinfo.h"
 #include "wwwseeker/linkseeker.h"
 #include "wwwseeker/linkresourcematcher.h"
 
@@ -87,17 +86,6 @@ struct Inflight
 namespace
 {
 static const QString SITE_RESOURCE = "";
-
-class FileSeekInfoList : public QList<FileSeekInfo>
-{
-public:
-	FileSeekInfoList::iterator findByName(const QString &name)
-	{
-		auto it = this->begin();
-		for (; it != this->end() && it->file() != name; ++it);
-		return it;
-	}
-};
 
 class InflightList : public QList<Inflight>
 {
@@ -199,7 +187,7 @@ public:
 	QTimer crawler;
 
 	// The seeked items.
-	FileSeekInfoList seekedFiles;
+	WadDownloadInfoList seekedFiles;
 	WadDownloadInfoList wads;
 
 	// The seeks in motion.
@@ -586,7 +574,7 @@ void SeekSession::onWwwFinished(WebQuery *query)
 							// All files that were successfully installed are removed from the seek.
 							for (QFileInfo wadInfo : result.installedWads)
 							{
-								FileSeekInfoList::iterator seekedFile = d->seekedFiles.findByName(wadInfo.fileName());
+								WadDownloadInfoList::iterator seekedFile = d->seekedFiles.findByName(wadInfo.fileName());
 								if (seekedFile != d->seekedFiles.end())
 									d->seekedFiles.erase(seekedFile);
 								emit message(tr("Installed WAD: %1 [%2 bytes]")
@@ -1017,23 +1005,10 @@ void SeekSession::startSeek()
 	for (QString url : d->params.sitesUrls)
 		addUrl(url, PRIORITY_SITE_URL);
 
-	// TODO see if we need both structures
-	FileSeekInfoList fileSeekInfosList;
 	WadDownloadInfoList wadDownloadInfoList;
 	for (const ModFile &wad : filteredWadsList.modFiles())
-	{
-		// Create download info object for this WAD.
-		WadDownloadInfo wadDownloadInfo(wad);
-		wadDownloadInfoList << wadDownloadInfo;
-
-		// Generate all possible filenames.
-		QStringList possibleFilenames;
-		possibleFilenames << wadDownloadInfo.possibleArchiveNames();
-		possibleFilenames << wadDownloadInfo.name();
-
-		fileSeekInfosList << FileSeekInfo(wad.fileName(), possibleFilenames);
-	}
-	d->seekedFiles = fileSeekInfosList;
+		wadDownloadInfoList << WadDownloadInfo(wad);
+	d->seekedFiles = wadDownloadInfoList;
 	d->wads = wadDownloadInfoList;
 
 	if (d->params.bIdgamesEnabled)

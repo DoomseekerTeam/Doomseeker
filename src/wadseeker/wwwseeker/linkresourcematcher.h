@@ -29,7 +29,8 @@
 #include <QStringList>
 #include <QUrl>
 
-class FileSeekInfo;
+class WadDownloadInfo;
+using FileSeekInfo = WadDownloadInfo;
 
 struct LinkResourceMatch
 {
