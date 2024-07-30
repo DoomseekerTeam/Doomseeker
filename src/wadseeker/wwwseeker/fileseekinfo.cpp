@@ -27,33 +27,21 @@ FileSeekInfo::FileSeekInfo()
 }
 
 FileSeekInfo::FileSeekInfo(const QString &file, const QStringList &possibleFilenames)
+	: m_file(file)
 {
-	d.file = file;
 	for (QString filename : possibleFilenames)
 	{
-		if (!filename.trimmed().isEmpty() && !isFilenameListed(filename))
+		filename = filename.trimmed();
+		if (!filename.isEmpty() && !isFilenameListed(filename))
 		{
-			d.possibleFilenames << filename.trimmed();
+			m_possibleFilenames << filename;
 		}
-	}
-}
-
-void FileSeekInfo::addPossibleFilename(const QString &filename)
-{
-	if (!isValid())
-	{
-		return;
-	}
-
-	if (!filename.trimmed().isEmpty() && !isFilenameListed(filename))
-	{
-		d.possibleFilenames << filename;
 	}
 }
 
 bool FileSeekInfo::isFilenameListed(const QString &filename) const
 {
-	for (const QString &listFilename : d.possibleFilenames)
+	for (const QString &listFilename : m_possibleFilenames)
 	{
 		if (filename.compare(listFilename, Qt::CaseInsensitive) == 0)
 		{

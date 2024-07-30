@@ -26,68 +26,52 @@
 #include <QString>
 #include <QStringList>
 
-// TODO revise!
 /**
  * @brief Define the details of looking for a given file.
  *
- * The same seeked file can be listed under different filenames. Objects of
- * this class group a list of filenames under a single key value.
+ * The same seeked file can be listed under different filenames. This class
+ * wraps itself around the seeked filename and provides the list of variant
+ * filenames.
+ *
+ * For the sake of containers, the `operator==` and `operator!=` are implemented
+ * but check for equality of the seeked filename only, case-insensitively.
  */
 class FileSeekInfo
 {
 public:
 	/**
-	 * @brief Creates invalid FileSeekInfo object.
+	 * @brief Creates an invalid FileSeekInfo object.
 	 */
 	FileSeekInfo();
 
 	/**
-	 * @brief Creates a FileSeekInfo object with file name and optional
+	 * @brief Creates a FileSeekInfo object with a file name and optional
 	 *        possibleFilenames list.
 	 *
 	 * @param file
-	 *      Unique name of the file. Comparison operators for this value are
-	 *      case-insensitive.
+	 *     The name of the file that interests us. Two FileSeekInfo objects that
+	 *     share the same file are considered equal. Comparison operators for
+	 *     this value are case-insensitive.
 	 * @param possibleFilenames
-	 *      Optional. List of possible filenames for the file. If list is
-	 *      empty, the object is treated as empty - isEmpty() returns true.
-	 *      Empty and whitespace values are dropped from the list.
-	 *      Duplicates are dropped.
+	 *     Optional. List of possible filenames for the file. If list is
+	 *     empty, the object is treated as empty; isEmpty() returns true.
+	 *     Empty and whitespace values are dropped from the list.
+	 *     Duplicates are dropped.
 	 */
 	FileSeekInfo(const QString &file, const QStringList &possibleFilenames = QStringList());
 
 	/**
-	 * @brief Adds a new filename to possibleFilenames() list.
-	 *
-	 * Duplicate values are dropped. Duplicate check is case-insensitive.
-	 * A no-op if isValid() returns false.
-	 *
-	 * @param filename
-	 *      Possible name of the file. If empty or whitespaced this is
-	 *      a no-op.
-	 */
-	void addPossibleFilename(const QString &filename);
-
-	/**
-	 * @brief Name under which this file will be identified.
+	 * @brief Name under which this file is identified.
 	 */
 	const QString &file() const
 	{
-		return d.file;
-	}
-
-	/**
-	 * @brief True if possibleFilenames() is empty.
-	 */
-	bool isEmpty() const
-	{
-		return possibleFilenames().isEmpty();
+		return m_file;
 	}
 
 	/**
 	 * @brief Compares passed string against possibleFilenames() list.
 	 *
-	 * Compare is case-insensitive. Will @b NOT compare against file().
+	 * Compare is case-insensitive. Doesn't compare against file().
 	 */
 	bool isFilenameListed(const QString &filename) const;
 
@@ -131,25 +115,18 @@ public:
 	 */
 	const QStringList &possibleFilenames() const
 	{
-		return d.possibleFilenames;
+		return m_possibleFilenames;
 	}
 
 private:
-	class PrivData
-	{
-	public:
-		/**
-		 * @brief Name under which the file will be identified.
-		 */
-		QString file;
-
-		/**
-		 * @brief List of possible filenames for this file.
-		 */
-		QStringList possibleFilenames;
-	};
-
-	PrivData d;
+	/**
+	 * @brief Name under which the file is identified.
+	 */
+	QString m_file;
+	/**
+	 * @brief List of possible filenames for this file.
+	 */
+	QStringList m_possibleFilenames;
 };
 
 #endif
