@@ -30,13 +30,13 @@
 #include <QFile>
 #include <QString>
 /**
- * @brief Handles the required algorithms to hash files
+ * @brief Checksum hash calculator.
  */
 class WADSEEKER_API Hash
 {
 public:
 	/**
-	 * @brief Hashes files
+	 * @brief Calculate the file content checksum.
 	 *
 	 * @param path - Path to the desired file to hash
 	 * @param algorithm - Algorithm to use

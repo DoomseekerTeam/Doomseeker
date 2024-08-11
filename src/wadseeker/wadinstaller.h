@@ -121,12 +121,12 @@ public:
 	WadInstallerResult install(const WadDownloadInfo &wad, QNetworkReply &reply);
 
 	/**
-	 * @brief Extracts contents of an archive.
+	 * @brief Extract contents of an archive.
 	 *
-	 * It archives everything that was passed into
+	 * It extracts everything that was passed into
 	 * the constructor as `wads`.
 	 *
-	 * @param pArchive
+	 * @param archive
 	 *      UnArchive from which files will be extracted.
 	 *
 	 * @return WadInstallerResult.
@@ -134,7 +134,7 @@ public:
 	WadInstallerResult installArchive(UnArchive &archive);
 
 	/**
-	 * @brief Installs the specified file directly.
+	 * @brief Install the specified file directly.
 	 *
 	 * This may perform a checksum check if checksums are available.
 	 * The install will fail if checksums mismatch, because that's
@@ -143,7 +143,8 @@ public:
 	 * @param wad
 	 *      WAD (or any other file, really) to install.
 	 * @param stream
-	 *      QIODevice ready for read operations.
+	 *      QIODevice ready for reading, from which the file's
+	 *      bytes will be read.
 	 *
 	 * @return WadInstallerResult.
 	 */
@@ -160,7 +161,7 @@ private:
 	PrivData d;
 
 	/**
-	 * @brief Checks if dir path exists. If not, creates it.
+	 * @brief Check if dir path exists. If not, create it.
 	 *
 	 * @return WadInstallerResult object will carry an error if path
 	 *         creation fails.

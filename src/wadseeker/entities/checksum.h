@@ -30,7 +30,7 @@
 #include <QCryptographicHash>
 
 /**
- * @brief Class to store a hash and the algorithm used.
+ * @brief The checksum hash and the algorithm used.
  */
 class WADSEEKER_API Checksum
 {

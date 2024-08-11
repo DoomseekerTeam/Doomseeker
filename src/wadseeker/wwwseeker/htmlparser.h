@@ -32,7 +32,7 @@ class HtmlParser
 {
 public:
 	/**
-	 * @brief Creates a new HtmlParser.
+	 * @brief Construct a HtmlParser.
 	 *
 	 * HtmlParser creates a copy of passed data and then performs all
 	 * operations on that copy.
@@ -43,11 +43,11 @@ public:
 	HtmlParser(const QByteArray &siteContents);
 
 	/**
-	 * @brief Finds any HTML tag starting from index in the byte array.
+	 * @brief Find any HTML tag starting from index in the byte array.
 	 *
-	 * Search is performed by finding the first occurence of '&lt' character
+	 * Search is performed by finding the first occurence of '&lt;' character
 	 * and then continuing the search from that point until the first
-	 * occurence of '&gt' character is found.
+	 * occurence of '&gt;' character is found.
 	 *
 	 * @param beginAt
 	 *      Index from which to begin the search.
@@ -59,6 +59,8 @@ public:
 	int findTag(int beginAt, int *end);
 
 	/**
+	 * @brief Extract tag attribute's value at specific location.
+	 *
 	 * You put something like HREF="http://127.0.0.1" and
 	 * it retrieves the thing after '=' without the "".
 	 *
@@ -72,17 +74,19 @@ public:
 	QString htmlValue(int beginIndex, int endIndex);
 
 	/**
+	 * @brief Extract tag attribute's value.
+	 *
 	 * You put a string of values, for example
 	 * <A HREF="http://127.0.0.1/" TARGET="_blank"> and it
-	 * retrieves the value after specified key.
+	 * retrieves the value for the specified attribute.
 
-	 * @param key
-	 *      Key that will be searched for (for example: HREF)
+	 * @param attribute
+	 *      Attribute that will be searched for (for example: HREF)
 	 */
-	QString htmlValue(const QString &key);
+	QString htmlValue(const QString &attribute);
 
 	/**
-	 * @brief Extracts links from HTML file.
+	 * @brief Extract all links from the HTML.
 	 */
 	QList<Link> linksFromHtml();
 
@@ -90,7 +94,7 @@ private:
 	QByteArray data;
 
 	/**
-	 * @brief Captializes HTML tags in HTML data array.
+	 * @brief Captialize HTML tags in HTML data array.
 	 *
 	 * This is required to perform uniform searches for HTML tags.
 	 */

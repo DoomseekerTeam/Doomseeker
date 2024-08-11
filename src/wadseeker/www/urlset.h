@@ -30,7 +30,9 @@ class UrlSet : public QSet<QUrl>
 {
 public:
 	/**
-	 * Add all QUrl from the list to the set, return a list of those
+	 * @brief Let the unknown URLs through.
+	 *
+	 * Add all QUrl from the list to the set. Return a list of those
 	 * that weren't on the set, yet.
 	 */
 	QList<QUrl> sieve(QList<QUrl> urls);

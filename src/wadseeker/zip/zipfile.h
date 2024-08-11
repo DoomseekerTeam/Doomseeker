@@ -110,11 +110,13 @@ struct LocalFileHeader
 	LocalFileHeader();
 
 	/**
-	 * @brief Size of entire file entry. Header size + data size.
+	 * @brief Size of the entire file entry. Header size + data size.
 	 */
 	unsigned long fileEntrySize() const;
 
 	/**
+	 * @brief Deserialize and fill-in the structure from the byte array.
+	 *
 	 * @param data - byte array
 	 * @param dataSize - size of the byte array, function will return true if this is equal to 30.
 	 * @return If incorrect data is passed (this could happen if the zip file is corrupted)

@@ -31,7 +31,7 @@ class Link;
 class QIODevice;
 
 /**
- * Seek for links to files in a HTML QIODevice.
+ * @brief Seek for links to files in a HTML QIODevice.
  *
  * This object is asynchronous. It accepts a QIODevice and connects to
  * its signals. Each encountered Link is emitted via link(). When it's

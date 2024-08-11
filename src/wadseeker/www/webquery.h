@@ -39,7 +39,7 @@ enum class WebResourceType
 };
 
 /**
- * Tracking object for a single URL query.
+ * @brief Tracking object for a single URL query.
  *
  * It functions as a wrapper on a previously created `QNetworkReply` and
  * its corresponding `QNetworkRequest`.
@@ -63,7 +63,7 @@ class WebQuery : public QObject
 
 public:
 	/**
-	 * Default timeout for connection establishment.
+	 * @brief Default timeout for connection establishment.
 	 *
 	 * This is the timeout between the construction of WebQuery and
 	 * a first reception of `downloadProgress()` signal.
@@ -71,7 +71,7 @@ public:
 	static const unsigned DEFAULT_CONNECTION_TIMEOUT_MSECS = 15 * 1000;
 
 	/**
-	 * Default timeout for data transfer.
+	 * @brief Default timeout for data transfer.
 	 *
 	 * This is the timeout between the subsequent receptions of
 	 * `downloadProgress()` signals.
@@ -97,14 +97,15 @@ public:
 	}
 
 	/**
-	 * Is the query being redirected to another URL?
+	 * @brief Is the query being redirected to another URL?
 	 *
 	 * @see redirectUrl()
 	 */
 	bool isRedirected() const;
 
 	/**
-	 * The redirect URL, if any, already resolved to the base url() if relative.
+	 * @brief The redirect URL, if any, already resolved to the base url() if
+	 * relative.
 	 */
 	QUrl redirectUrl() const;
 

@@ -44,7 +44,7 @@ public:
 	QStringList files() override;
 
 	/**
-	 * @brief true if the QIODevice specified in the constructor
+	 * @brief True if the QIODevice specified in the constructor
 	 *        is a valid ZIP file.
 	 */
 	bool isValid() override
@@ -53,7 +53,7 @@ public:
 	}
 
 	/**
-	 * @brief true if the QIODevice specified in the constructor
+	 * @brief True if the QIODevice specified in the constructor
 	 *        is a valid ZIP file.
 	 */
 	bool isZip();
@@ -61,20 +61,7 @@ public:
 private:
 	ZipFile::CentralDirectory centralDirectory;
 
-	/**
-	 * @brief This method expects the iodevice to be already open
-	 *        and it won't close it.
-	 *
-	 * @return ZipLocalFileHeader::HeaderError value
-	 */
 	ZipFile::HeaderError readHeader(qint64 pos, ZipFile::LocalFileHeader &zip);
-
-	/**
-	 * @brief This method expects the iodevice to be already open
-	 *        and it won't close it.
-	 *
-	 * @return ZipLocalFileHeader::HeaderError value
-	 */
 	ZipFile::HeaderError readHeaderFromFileIndex(int file, ZipFile::LocalFileHeader &zip);
 
 	int uncompress(QIODevice &streamIn, QIODevice &streamOut, unsigned long compressedSize);

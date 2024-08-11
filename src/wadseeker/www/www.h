@@ -33,7 +33,7 @@ class QUrl;
 class WebQuery;
 
 /**
- * Wadseeker's gateway to World-Wide-Web.
+ * @brief Wadseeker's gateway to World-Wide-Web.
  *
  * Sends out URL queries and wraps them in a WebQuery tracking object.
  * It tracks all WebQuery objects that are still in-flight.
@@ -48,19 +48,19 @@ public:
 	~WWW();
 
 	/**
-	 * Start a QNetworkAccessManager::get() query for this URL.
+	 * @brief Start a QNetworkAccessManager::get() query for this URL.
 	 */
 	QSharedPointer<WebQuery> get(const QUrl &url);
 	/**
-	 * How many queries are currently running?
+	 * @brief How many queries are currently running?
 	 */
 	unsigned inFlightCount() const;
 	/**
-	 * Is a query to the host denoted by this URL is running?
+	 * @brief Is a query to the host denoted by this URL running?
 	 */
 	bool isHostInflight(const QUrl &url) const;
 	/**
-	 * Set the User-Agent for all the outgoing queries.
+	 * @brief Set the User-Agent for all the outgoing queries.
 	 */
 	void setUserAgent(const QString &userAgent);
 

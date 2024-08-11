@@ -26,9 +26,9 @@
 #include "../wadseekerexportinfo.h"
 #include "../dptr.h"
 #include "modfile.h"
+
 /**
- * @brief Stores a list of ModFile classes. Adds convenience functions to
- * operate on the whole list.
+ * @brief A collection for ModFile objects.
  */
 class WADSEEKER_API ModSet
 {
@@ -37,32 +37,34 @@ public:
 	~ModSet();
 
 	/**
-	 * @brief Adds a ModFile class to the list.
+	 * @brief Add a ModFile to the collection.
 	 */
 	void addModFile(const ModFile &file);
 	/**
-	 * @brief clears the list.
+	 * @brief Clear the collection.
 	 */
 	void clear();
 	/**
-	 * @brief find file providing its filename.
+	 * @brief Get the ModFile basing on its filename.
 	 */
 	ModFile findFileName(const QString &fileName) const;
 	/**
-	 * @brief returns the first ModFile on the list.
+	 * @brief Get the first ModFile in the collection.
 	 */
 	ModFile first() const;
 	/**
-	 * @brief returns true if list is empty.
+	 * @brief True if the collection is empty.
 	 */
 	bool isEmpty() const;
 	/**
-	 * @brief returns a QList with all the modFiles stored.
+	 * @brief Converts the collection to a QList.
+	 *
+	 * The order of the ModFile objects is unspecified.
 	 */
 	QList<ModFile> modFiles() const;
 	/**
-	 * @brief removes the ModFile that is provided to the function.
-	 * Note that only the FileName has to mach.
+	 * @brief Remove the ModFile from the collection basing on
+	 * ModFile::fileName().
 	 */
 	void removeModFile(const ModFile &file);
 

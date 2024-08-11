@@ -28,12 +28,11 @@
 namespace WadseekerLib
 {
 /**
- * The kind of message that is transferred.
+ * The type of a transferred message; a log level.
  *
  * Wadseeker library emits messages as strings accompanied with this
- * type enum. The message type should be treated as a log level,
- * although its numerical values are meaningless and should not be used
- * for sorting.
+ * enum. The message type should be treated as a log level, although its
+ * numerical values are meaningless and should not be used for sorting.
  */
 enum MessageType
 {

@@ -30,20 +30,14 @@
 class Link;
 
 /**
- * @brief Parses URLs and splits them to groups of interest.
- *
- * This class operates on a list of URLs to divide them into groups.
- *
- * URLs are parsed to the Wadseeker needs. Direct links to files are extracted
- * as one group and links to subsites where the files may possibly reside
- * are extracted as the other group.
+ * @brief A utility function-bag for working with URLs.
  */
 class UrlParser
 {
 public:
 	static bool hasSameHost(const QUrl &url1, const QUrl &url2);
 	/**
-	 * @brief Checks if URL is a direct link to one of the filenames.
+	 * @brief Check if URL is a direct link to one of the filenames.
 	 *
 	 * @return True if it's safe to assume that URL leads to one of the
 	 *         files specified on the wantedFilenames list.
@@ -53,19 +47,20 @@ public:
 	static bool isWadnameTemplateUrl(const QString &url);
 	static QUrl resolveWadnameTemplateUrl(QString url, const QString &wadname);
 	/**
-	 * @brief Checks if URLs are the same. Ignores character case.
+	 * @brief Check if URLs are the same; ignores character case.
 	 */
 	static bool urlEqualsCaseInsensitive(QUrl url1, QUrl url2);
 
 	UrlParser(const QList<Link> &links);
 
 	/**
-	 * @brief Extracts a list of URLs leading directly to any of the
+	 * @brief Extract a list of URLs leading directly to any of the
 	 *        wanted files.
 	 *
+	 * The URLs are extracted from the list of URLs passed to the constructor.
+	 *
 	 * @param wantedFilenames
-	 *      A list of filenames we wish to extract from the URLs specified
-	 *      in the constructor.
+	 *      A list of filenames we wish to look for.
 	 * @param baseUrl
 	 *      Relative URLs will be converted to absolute
 	 *      URLs using this URL as a base
@@ -75,10 +70,13 @@ public:
 	 */
 	QList<Link> directLinks(const QStringList &wantedFilenames, const QUrl &baseUrl);
 
+	/**
+	 * @brief Check if the URL scheme points to an FTP.
+	 */
 	static bool isFtpUrl(const QUrl &url);
 
 	/**
-	 * Check if the URL scheme points to a WWW resource.
+	 * @brief Check if the URL scheme points to a WWW resource.
 	 *
 	 * In truth, the allowed schemes are narrowed down to "http",
 	 * "https" and "ftp". The web has technically more protocols, but

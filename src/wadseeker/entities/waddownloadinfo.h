@@ -34,7 +34,7 @@ class ModFile;
 class Checksum;
 
 /**
- * @brief Holds information about unique WAD download.
+ * @brief Tracks WAD info and provides tools useful for WAD download.
  *
  * @deprecated This class is not useful outside the Wadseeker library,
  * and will be unexported in Wadseeker 3.0.
@@ -49,51 +49,57 @@ public:
 	operator ModFile() const;
 
 	/**
-	 * @brief Gets name for the archive that may contain the mentioned file.
+	 * @brief Get name for the archive that may contain the mentioned file.
 	 *
-	 * @b NOTE: If isArchive() returns true this will return the same value
+	 * **NOTE:** If isArchive() returns true, this will return the same value
 	 * as name().
 	 *
 	 * @param suffix
-	 *      Archive's extensions without the '.' character. For example
-	 *      "zip" or "7z".
+	 *     Archive's extensions without the '.' character. For example
+	 *     "zip" or "7z".
 	 */
 	QString archiveName(const QString &suffix) const;
 
 	/**
-	 * @brief Gets the name() minus the extension.
+	 * @brief Get the name() minus the extension.
 	 */
 	QString basename() const;
 
 	/**
-	 * @brief Recognizes if download is an archive basing on the extension
-	 * in the name specified in the constructor.
+	 * @brief Recognize if download is an archive basing on the extension
+	 * in the name().
 	 */
 	bool isArchive() const;
 
 	bool isValid() const;
 
+	// TODO doing the thing as described here is a bad idea, because
+	// it will match `file.wad == file.pk3`, so let's remove this function
+	// once this class is unexported.
 	/**
-	 * @brief Checks if filename is the same WAD as this object.
+	 * @brief Check if filename is the same WAD.
 	 *
 	 * The check is done by comparing the basenames parts of the filename
 	 * with suffixes stripped.
 	 */
 	bool isFilenameIndicatingSameWad(const QString &filename) const;
 
+	/**
+	 * @brief The name of the WAD, as specified in the constructor.
+	 */
 	const QString &name() const;
 
 	/**
 	 * @brief Check if name() values match.
 	 *
-	 * Check is case-insensitive.
+	 * The check is case-insensitive.
 	 */
 	bool operator==(const WadDownloadInfo &other) const;
 
 	/**
 	 * @brief Check if name() values mismatch.
 	 *
-	 * Check is case-insensitive.
+	 * The check is case-insensitive.
 	 */
 	bool operator!=(const WadDownloadInfo &other) const;
 
@@ -108,23 +114,23 @@ public:
 	QStringList possibleArchiveNames() const;
 
 	/**
-	 * @brief Return all possible names under which these file could be found.
+	 * @brief Return all possible names under which this file could be found.
 	 *
 	 * This includes possibleArchiveNames() and the name(), without duplicates.
 	 */
 	QStringList possibleFilenames() const;
 
 	/**
-	 * @brief Size of the file.
+	 * @brief Set the size of the file.
 	 *
 	 * @param size
-	 *      Size of the file in bytes if known. If unknown
-	 *      then a negative value should be set.
+	 *     Size of the file in bytes if known. If unknown,
+	 *     then a negative value should be set.
 	 */
 	void setSize(qint64 size);
 
 	/**
-	 * @brief Size of the file if known.
+	 * @brief Size of the file, if known.
 	 *
 	 * @return Size of the file in bytes if known. If unknown
 	 *         then a negative value is returned.
@@ -134,14 +140,19 @@ public:
 	/**
 	 * @brief List of checksums known.
 	 *
-	 * @return List of all known checksums for the desired wad.
+	 * @return All known checksums for this WAD.
 	 */
 	const QList<Checksum> &checksums() const;
 
 	/**
-	 * @brief Verifies if a file has the same checksums as the wad.
+	 * @brief Verify if a file has the same checksums as the WAD.
+	 *
+	 * If the current WAD has no checksums, then this function will
+	 * always return `true`.
 	 *
 	 * @param path - Path to the file.
+	 *
+	 * @return False if the file at path has a different checksum.
 	 */
 	bool validFile(const QString &path) const;
 private:

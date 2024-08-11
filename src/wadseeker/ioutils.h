@@ -30,11 +30,10 @@ class IOUtils
 {
 public:
 	/**
-	 * @brief Copies contents of one QIODevice to the other.
+	 * @brief Copy bytes read from one QIODevice to the other.
 	 *
-	 * @b Note:
-	 * IODevices must be open before the method is called.
-	 * IODevices are not closed when copy operation finishes.
+	 * IO devices must be open before the method is called.
+	 * IO devices are not closed when copy operation finishes.
 	 * There are no seek operations performed. Data is read from src
 	 * current position and written to dst current position.
 	 *

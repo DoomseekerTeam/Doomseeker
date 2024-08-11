@@ -47,7 +47,7 @@ class LinkResourceMatcher
 {
 public:
 	/**
-	 * Checks if Link leads to any of the seeked files.
+	 * @brief Check if Link leads to any of the seeked files.
 	 *
 	 * It may happen that a single link potentially matches more than
 	 * one file, so a list is returned
@@ -57,7 +57,7 @@ public:
 	 * @param link
 	 *     The link we wish to match.
 	 *
-	 * @return One or more match struct. If nothing matches, empty
+	 * @return One or more match struct. If nothing matches, empty.
 	 */
 	static QList<LinkResourceMatch> matchLink(
 		const QList<FileSeekInfo> &seekedFiles,

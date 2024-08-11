@@ -43,9 +43,9 @@ public:
 	Http(const QNetworkReply *pReply);
 
 	/**
-	 * @brief Extracts attachment name form contentDisposition() list.
+	 * @brief Extract the attachment name from contentDisposition() list.
 	 *
-	 * Attachment must be present - hasAttachment() must return true.
+	 * Attachment must be present -- hasAttachment() must return true.
 	 * Attachment name is located as the next element on the content
 	 * disposition list.
 	 *
@@ -55,9 +55,9 @@ public:
 	QString attachmentName() const;
 
 	/**
-	 * @brief Splits "Content-Disposition" by ';' delimiter.
+	 * @brief Get "Content-Disposition" split by the `';'` delimiter.
 	 *
-	 * Returned values are trimmed.
+	 * The returned values are trimmed of white-space.
 	 */
 	QStringList contentDisposition() const;
 
@@ -72,7 +72,7 @@ public:
 	QString contentType() const;
 
 	/**
-	 * @brief Checks for "attachment" value in contentDisposition() list.
+	 * @brief Check for "attachment" value in contentDisposition() list.
 	 */
 	bool hasAttachment() const;
 
@@ -89,7 +89,11 @@ public:
 	bool isHtmlContentType() const;
 
 	/**
-	 * @brief Extracts filename from URL.
+	 * @brief Extract the filename from URL.
+	 *
+	 * The filename is extracted from URL's path. If the filename
+	 * exists somewhere in the URL's query, it won't be extracted
+	 * properly.
 	 */
 	QString urlFilename() const;
 

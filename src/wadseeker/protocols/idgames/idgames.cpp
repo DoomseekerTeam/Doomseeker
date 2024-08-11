@@ -106,7 +106,7 @@ void Idgames::extractAndEmitLinks(QByteArray &pageData, const QUrl &pageUrl)
 	HtmlParser html(pageData);
 	QList<Link> links = html.linksFromHtml();
 
-	// Extrat URLs of interest from <A HREFs>
+	// Extract URLs of interest from <A HREFs>
 	UrlParser urlParser(links);
 
 	QStringList possibleFilenames;

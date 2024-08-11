@@ -46,12 +46,12 @@ public:
 	static QStringList knownWadExtensions();
 
 	/**
-	 * @brief Checks if passed argument is on
+	 * @brief Check if the passed argument is on
 	 *        the supportedArchiveExtensions() list.
 	 *
 	 * Check is case-insensitive.
 	 *
-	 * @return True if suffix is on the list.
+	 * @return True if it's on the list.
 	 */
 	static bool isSupportedArchiveExtension(const QString &suffix);
 
@@ -61,7 +61,7 @@ public:
 	static QStringList supportedArchiveExtensions();
 
 	/**
-	 * @brief WWW User Agent used for HTTP communications.
+	 * @brief WWW User-Agent used for HTTP communications.
 	 */
 	static QString userAgent();
 
@@ -71,7 +71,7 @@ public:
 	static QString version();
 
 	/**
-	 * @brief Development dates.
+	 * @brief The years in which Wadseeker was worked on.
 	 */
 	static QString yearSpan();
 };

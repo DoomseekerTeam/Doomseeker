@@ -31,7 +31,7 @@ class WWW;
 class WebQuery;
 
 /**
- * Keep the history of Web crawling.
+ * @brief Keep the history of Web crawling.
  */
 class WebCrawl
 {

@@ -31,6 +31,13 @@ class QByteArray;
 class QIODevice;
 class QFileInfo;
 
+/**
+ * @brief An abstract archive extractor.
+ *
+ * This class is a base for archive extractors. It provides a factory
+ * method openArchive() that detects the archive type and creates a
+ * specific instance of the UnArchive subclass for this archive.
+ */
 class WADSEEKER_API UnArchive : public QObject
 {
 	Q_OBJECT
@@ -40,7 +47,7 @@ public:
 	virtual ~UnArchive() override;
 
 	/**
-	 * @brief Extracts file from specified entry to a specified path.
+	 * @brief Extract file from specified entry to a specified path.
 	 *
 	 * @param file
 	 *      File index retrieved by findFileEntry() method.
@@ -61,7 +68,7 @@ public:
 	virtual QString fileNameFromIndex(int file) = 0;
 
 	/**
-	 * @brief Finds index of file entry basing on specified entry name.
+	 * @brief Find index of file entry basing on specified entry name.
 	 *
 	 * The extracted index can be used in extract() method to retrieve the
 	 * file's data.
@@ -82,16 +89,16 @@ public:
 	virtual bool isValid() = 0;
 
 	/**
-	 * @brief Opens an archive stored in undefined QIODevice.
+	 * @brief Open an archive stored in undefined QIODevice.
 	 *
 	 * @b WARNING:
-	 * UnArchive will not take ownership of the dataStream QIODevice.
-	 * The device needs to be deleted manually.
+	 * UnArchive does not take the ownership of the dataStream QIODevice
+	 * and will not close it.
 	 */
 	static UnArchive *openArchive(const QFileInfo &fi, QIODevice *dataStream);
 
 	/**
-	 * @brief Opens an archive stored in the known path in the
+	 * @brief Open an archive stored in the known path in the
 	 *        file system.
 	 */
 	static UnArchive *openArchive(const QString &filename);
@@ -106,7 +113,7 @@ private:
 	static UnArchive *detectArchive(const QFileInfo &fi, QIODevice * &device);
 
 	/**
-	 * @brief If true will cause delete of stream QIODevice.
+	 * @brief If true, will cause delete of stream QIODevice.
 	 */
 	bool bHasIODeviceOwnership;
 };

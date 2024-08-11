@@ -32,7 +32,8 @@ class QIODevice;
 class WebCrawl;
 
 /**
- * A collector for seek links in the incoming QIODevices.
+ * @brief Processes the incoming QIODevices, looking for any links they may
+ * provide.
  *
  * This object is asynchronous. It accepts a QIODevice and returns
  * immediately. Each QIODevice is identified by its source URL, which

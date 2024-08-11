@@ -28,7 +28,7 @@
 class IdgamesResult;
 
 /**
- * @brief Reply akin to QNetworkReply created by IdgamesClient.
+ * @brief Reply akin to QNetworkReply; created by IdgamesClient.
  */
 class IdgamesReply : public QObject
 {

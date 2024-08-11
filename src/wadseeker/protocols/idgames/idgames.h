@@ -33,6 +33,9 @@
 
 class WadDownloadInfo;
 
+/**
+ * @brief The /idgames Archive query session.
+ */
 class Idgames : public QObject
 {
 	Q_OBJECT
@@ -41,8 +44,9 @@ public:
 	static QString defaultIdgamesUrl();
 
 	/**
-	 * Creates object to handle the /idgames Archive.
-	 * @param idgamesPage - base address of the /idgames Archive.
+	 * @brief Create the Idgames object.
+	 *
+	 * @param idgamesPage - the base address of the /idgames Archive.
 	 */
 	Idgames(const QString &idgamesPage);
 	~Idgames() override;
@@ -56,7 +60,7 @@ public:
 	void setUserAgent(const QString &userAgent);
 
 	/**
-	 * Entry method.
+	 * @brief Launch the search; this is the entry method.
 	 */
 	void startSearch();
 
@@ -110,13 +114,10 @@ private:
 	PrivData *d;
 
 	/**
-	 * @brief Extracts WAD download links from specified page.
+	 * @brief Extract WAD download links from the specified page.
 	 *
-	 * Each link is emitted through fileUrlFound() signal.
-	 *
-	 * ATM only one link will be emitted - the link Germany mirror FTP
-	 * server (as it comes first on the page). There's nothing worst than
-	 * have multiple links to the same invalid file.
+	 * All links are considered mirrors to the same file and are emitted
+	 * through fileLinksFound() signal.
 	 *
 	 * @param pageData - HTML code of the page.
 	 * @param pageUrl - URL to the page.
@@ -124,12 +125,7 @@ private:
 	void extractAndEmitLinks(QByteArray &pageData, const QUrl &pageUrl);
 
 	void queryIdgamesApi();
-
-	/**
-	 * @brief Starts network query using specified URL.
-	 */
 	void startNetworkQuery(const QUrl &url);
-
 	QString zipName() const;
 
 private slots:

@@ -32,7 +32,11 @@
 class Checksum;
 
 /**
- * @brief Class to store all necessary (and optional) information of a mod.
+ * @brief A file belonging to a mod.
+ *
+ * This class describes a file that is part of a mod. It's centered
+ * around the name of the file and its integrity checksums, but also can
+ * provide info on the mod itself.
  */
 class WADSEEKER_API ModFile
 {
@@ -44,56 +48,60 @@ public:
 	ModFile &operator=(const ModFile &other);
 
 	/**
-	 * @brief returns the name of the file that contains the mod.
+	 * @brief The name of the mod file.
 	 */
 	const QString &fileName() const;
 	/**
-	 * @brief Sets the name of the file containing the mod.
+	 * @brief Set the name of the mod file.
 	 */
 	void setFileName(const QString &) const;
 
 	/**
-	 * @brief returns the pretty name of the mod.
+	 * @brief The title, or *pretty name*, of the mod.
 	 */
 	const QString &name() const;
 	/**
-	 * @brief Sets a pretty name of the mod.
+	 * @brief Set the title of the mod.
 	 */
 	void setName(const QString &) const;
 
 	/**
-	 * @brief returns the description for the mod.
+	 * @brief Description of the mod.
 	 */
 	const QString &description() const;
 	/**
-	 * @brief Sets a description for the mod.
+	 * @brief Set a description of the mod.
 	 */
 	void setDescription(const QString &) const;
 
 	/**
-	 * @brief returns the list of checksums accepted for the mod.
+	 * @brief List of checksums that verify the correctness of this file.
+	 *
+	 * This is a list because more than one hashing algorithm can be
+	 * supported. There should not be two Checksum structs on the list
+	 * with the same algorithm.
 	 */
 	const QList<Checksum> &checksums() const;
 	/**
-	 * @brief Sets a list of checksums accepted for the mod.
+	 * @brief Set a list of checksums that verify the correctness of this file.
 	 */
 	void setChecksums(const QList<Checksum> &) const;
 
 	/**
-	 * @brief returns the known url to download the mod.
+	 * @brief The known URL to download the mod.
 	 */
 	const QUrl &url() const;
 	/**
-	 * @brief Sets a known url to download the mod.
+	 * @brief Set the known URL to download the mod.
 	 */
 	void setUrl(const QUrl &) const;
 
 	/**
-	 * @brief returns the version for the mod.
+	 * @brief The version of the mod.
 	 */
 	const QString &version() const;
 	/**
-	 * @brief Sets a version for the mod.
+	 * @brief Set the version of the mod.
 	 */
 	void setVersion(const QString &) const;
 
