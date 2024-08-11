@@ -67,6 +67,9 @@ multiple authors colliding with each other. (#4110)
 - Wadseeker GUI: show Wadseeker logs more like actual logs: use a fixed-width
 font, present the logging level and who wrote a given log line (Doomseeker or
 Wadseeker).
+- Wadseeker: revise the doxygen documentation, correcting the outdated
+information and rephrasing the text for better clarity. Populate the doc's
+main page with info on how Wadseeker works.
 - Wadseeker: rewrite the internals of the lib so that it becomes
 a better netizen.
 - Wadseeker: upgrade the LZMA SDK to version 23.01.
