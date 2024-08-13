@@ -405,7 +405,7 @@ QString DemoStore::mkDemoFullPath(DemoRecord::Control control, const EnginePlugi
 	demo.time = QDateTime::currentDateTime();
 	demo.game = plugin.nameCanonical();
 
-	const bool hasExtension = isMultiplayer
+	const bool extensionAddedByGame = isMultiplayer
 		? plugin.data()->multiplayerDemoExtensionAutomatic
 		: plugin.data()->demoExtensionAutomatic;
 
@@ -413,17 +413,17 @@ QString DemoStore::mkDemoFullPath(DemoRecord::Control control, const EnginePlugi
 	{
 	case DemoRecord::Managed:
 	{
-		QFileInfo demoPath(d->root.filePath(hasExtension
-			? demo.managedName()
-			: demo.managedNameNoExtension()));
+		QFileInfo demoPath(d->root.filePath(extensionAddedByGame
+			? demo.managedNameNoExtension()
+			: demo.managedName()));
 		if (FileUtils::mkpath(demoPath.dir()).isError())
 			return QString();
 		return demoPath.absoluteFilePath();
 	}
 	case DemoRecord::Unmanaged:
-		return hasExtension
-			? demo.exportedName()
-			: demo.exportedNameNoExtension();
+		return extensionAddedByGame
+			? demo.exportedNameNoExtension()
+			: demo.exportedName();
 	case DemoRecord::NoDemo:
 		return QString();
 	default:
