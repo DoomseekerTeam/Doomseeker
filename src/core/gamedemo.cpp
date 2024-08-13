@@ -403,7 +403,7 @@ QString DemoStore::mkDemoFullPath(DemoRecord::Control control, const EnginePlugi
 		: plugin.data()->demoExtension);
 	demo.author = gConfig.doomseeker.realPlayerName();
 	demo.time = QDateTime::currentDateTime();
-	demo.game = plugin.data()->canonicalName;
+	demo.game = plugin.nameCanonical();
 
 	const bool hasExtension = isMultiplayer
 		? plugin.data()->multiplayerDemoExtensionAutomatic
@@ -469,7 +469,7 @@ void DemoStore::saveDemoMetaData(const QString &demoName, const EnginePlugin &pl
 
 	GameDemo demo;
 	demo.imprintPath(demoFileName);
-	demo.game = plugin.data()->canonicalName;
+	demo.game = plugin.nameCanonical();
 	demo.author = gConfig.doomseeker.realPlayerName();
 	demo.demopath = demoFileName;
 	demo.iwad = iwad;

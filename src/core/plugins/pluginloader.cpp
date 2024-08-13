@@ -289,7 +289,7 @@ int PluginLoader::pluginIndexFromName(const QString &name) const
 	// Try the canonical name first.
 	for (int i = 0; i < d->plugins.size(); ++i)
 	{
-		if (d->plugins[i]->info()->data()->canonicalName == name)
+		if (d->plugins[i]->info()->nameCanonical() == name)
 			return i;
 	}
 
@@ -314,7 +314,7 @@ int PluginLoader::pluginIndexFromName(const QString &name) const
 	// Try a mangled canonical name second.
 	for (int i = 0; i < d->plugins.size(); ++i)
 	{
-		QString mangledCanonical = QString(d->plugins[i]->info()->data()->canonicalName)
+		QString mangledCanonical = QString(d->plugins[i]->info()->nameCanonical())
 			.replace(" ", "")
 			.replace("_", "")
 			.toLower();
