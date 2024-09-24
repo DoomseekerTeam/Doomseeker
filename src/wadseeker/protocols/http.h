@@ -89,6 +89,11 @@ public:
 	bool isHtmlContentType() const;
 
 	/**
+	 * @brief True if Content-Type is not defined.
+	 */
+	bool isUnknownContentType() const;
+
+	/**
 	 * @brief Extract the filename from URL.
 	 *
 	 * The filename is extracted from URL's path. If the filename

@@ -146,8 +146,13 @@ void WebQuery::onMetaDataChanged()
 			this->m_resourceType = WebResourceType::Html;
 			emit foundType(this->m_resourceType);
 		}
-		else if (http.isApplicationContentType())
+		else if (http.isApplicationContentType()
+			|| http.isUnknownContentType())
 		{
+			// The HTTP server may not always the Content-Type header,
+			// e.g. this is the case with pk3 files. If the header is
+			// not present, let's assume that the content is Binary and
+			// then deal with it later on.
 			this->m_state = WebQuery::Recognized;
 			this->m_resourceType = WebResourceType::Binary;
 			emit foundType(this->m_resourceType);

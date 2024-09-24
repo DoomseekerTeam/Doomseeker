@@ -104,6 +104,11 @@ bool Http::isHtmlContentType() const
 	return contentType().contains("text/html");
 }
 
+bool Http::isUnknownContentType() const
+{
+	return contentType().isEmpty();
+}
+
 QString Http::urlFilename() const
 {
 	const QUrl &url = pReply->request().url();
