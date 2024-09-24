@@ -48,7 +48,9 @@
 #include <QStandardItemModel>
 #include <QStandardPaths>
 #include <QString>
+
 #include <cstdint>
+#include <functional>
 
 namespace
 {
@@ -549,16 +551,21 @@ void DemoManagerDlg::updatePreview()
 	static const QString PAR = "<p style=\"margin: 0px 0px 0px 10px\">";
 	static const QString ENDPAR = "</p>";
 
+	static const auto header = [](const QString &text) { return "<b>" + text + ":</b>"; };
+
 	// Try to get the "display" name of the plugin.
 	EnginePlugin *plugin = gPlugins->info(selectedDemo.game);
 	QString gameName = plugin != nullptr ? plugin->data()->name : selectedDemo.game;
 
-	QString text = "<b>" + tr("Game") + ":</b>" + PAR + gameName + ENDPAR;
+	QString text = header(tr("Game")) + PAR + gameName;
+	if (!selectedDemo.gameVersion.isEmpty())
+		text += QString(" (%1)").arg(selectedDemo.gameVersion);
+	text += ENDPAR;
 	if (!selectedDemo.author.isEmpty())
 	{
-		text += "<b>" + tr("Author") + ":</b>" + PAR + selectedDemo.author + ENDPAR;
+		text += header(tr("Author")) + PAR + selectedDemo.author + ENDPAR;
 	}
-	text += "<b>" + tr("WADs / mods") + ":</b>" + PAR;
+	text += header(tr("WADs / mods")) + PAR;
 	text += selectedDemo.iwad + "<br />";
 	for (const PWad &wad : selectedDemo.wads)
 	{

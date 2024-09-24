@@ -50,7 +50,9 @@ struct GameDemo
 	/// Who recorded this demo.
 	QString author;
 	/// The canonical name of the plugin for the game (port, engine) from which the demo was recorded.
-	QString game; // TODO make it canonical
+	QString game;
+	/// The version of the game that was used to record the demo.
+	QString gameVersion;
 	/// Date and time when the demo was recorded.
 	QDateTime time;
 	/// IWAD used to record this demo.
@@ -268,9 +270,12 @@ public:
 	 * @param isMultiplayer
 	 *     Is the game running in the multiplayer mode (`true`), or
 	 *     singleplayer (`false`).
+	 * @param gameVersion
+	 *     The version of the game that was used to record the demo.
 	 */
 	void saveDemoMetaData(const QString &demoName, const EnginePlugin &plugin,
-		const QString &iwad, const QList<PWad> &pwads, const bool isMultiplayer);
+		const QString &iwad, const QList<PWad> &pwads, const bool isMultiplayer,
+		const QString &gameVersion = QString());
 
 	/**
 	 * Populate GameDemo struct with the demo metadata at path.

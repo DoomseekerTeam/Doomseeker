@@ -454,7 +454,8 @@ const QDir &DemoStore::root() const
 }
 
 void DemoStore::saveDemoMetaData(const QString &demoName, const EnginePlugin &plugin,
-	const QString &iwad, const QList<PWad> &pwads, const bool isMultiplayer)
+	const QString &iwad, const QList<PWad> &pwads, const bool isMultiplayer,
+	const QString &gameVersion)
 {
 	// If the extension is automatic we need to add it here
 	bool isDemoExtensionAutomatic = isMultiplayer ?
@@ -470,6 +471,7 @@ void DemoStore::saveDemoMetaData(const QString &demoName, const EnginePlugin &pl
 	GameDemo demo;
 	demo.imprintPath(demoFileName);
 	demo.game = plugin.nameCanonical();
+	demo.gameVersion = gameVersion;
 	demo.author = gConfig.doomseeker.realPlayerName();
 	demo.demopath = demoFileName;
 	demo.iwad = iwad;
@@ -491,6 +493,7 @@ void DemoStore::saveDemoMetaData(const GameDemo &demo, const QString &path)
 
 	metaSection.setValue("author", demo.author);
 	metaSection.setValue("game", demo.game);
+	metaSection.setValue("gameVersion", demo.gameVersion);
 	metaSection.setValue("createdtime", DateTime::toISO8601(demo.time));
 
 	metaSection.setValue("iwad", demo.iwad.toLower());
@@ -544,6 +547,7 @@ static void loadDemoMetaDataFromIniV2(Ini &metaData, GameDemo &demo)
 {
 	demo.author = metaData.retrieveSetting(SECTION_META, "author").valueString();
 	demo.game = metaData.retrieveSetting(SECTION_META, "game").valueString();
+	demo.gameVersion = metaData.retrieveSetting(SECTION_META, "gameVersion").valueString();
 	demo.time = QDateTime::fromString(metaData.retrieveSetting(SECTION_META, "createdtime").valueString(), Qt::ISODate);
 	demo.iwad = metaData.retrieveSetting(SECTION_META, "iwad").valueString();
 	QVariantList wads = QJsonDocument::fromJson(metaData.retrieveSetting(SECTION_META, "wads").valueString().toUtf8()).toVariant().toList();

@@ -312,7 +312,7 @@ void JoinCommandLineBuilder::obtainJoinCommandLine()
 		if (d->demo == DemoRecord::Managed)
 		{
 			d->demoStore.saveDemoMetaData(d->demoName, *d->server->plugin(),
-				d->server->iwad(), d->server->wads(), true);
+				d->server->iwad(), d->server->wads(), true, d->server->gameVersion());
 		}
 		break;
 
