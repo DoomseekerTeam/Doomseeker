@@ -759,7 +759,7 @@ void SeekSession::stopIdgames()
 void SeekSession::startNextCrawl(CrawlGoal goal)
 {
 	// Sort the crawls by priority before going through them.
-	std::sort(d->crawls.begin(), d->crawls.end(),
+	std::stable_sort(d->crawls.begin(), d->crawls.end(),
 		[](const WebCrawl &c1, const WebCrawl &c2)
 		{ return c1.priority() < c2.priority(); });
 	for (auto it = d->crawls.begin(); it != d->crawls.end();)
