@@ -163,11 +163,12 @@ public:
 	 * @brief Idgames objects that will handle each file
 	 *        separately.
 	 *
-	 * Each file is probed one-at-a-time on the idgames page. This
+	 * Each file is probed one-at-a-time on the /idgames page. This
 	 * was designed to prevent creating too many request to the
-	 * idgamesx page.
+	 * /idgames page.
 	 */
 	QList<QSharedPointer<Idgames>> idgamesClients;
+	QSharedPointer<Idgames> inflightIdgames;
 
 	// The seekers.
 	QScopedPointer<WWW> www;
@@ -302,6 +303,11 @@ void SeekSession::crawl()
 
 	if (!isEverythingFound())
 	{
+		if (d->inflightIdgames == nullptr && !d->idgamesClients.isEmpty())
+		{
+			startNextIdgamesClient();
+		}
+
 		if (d->inflight.countByGoal(CrawlGoal::Download) < d->params.maxConcurrentDownloads)
 		{
 			startNextCrawl(CrawlGoal::Download);
@@ -320,7 +326,14 @@ void SeekSession::crawl()
 
 void SeekSession::fileMirrorLinksFound(const QString &filename, QList<QUrl> urls)
 {
-	urls = d->urlHistory.sieve(urls);
+	// Filter out URLs that have been visited already.
+	for (auto it = urls.begin(); it != urls.end();)
+	{
+		if (d->urlHistory.contains(*it))
+			it = urls.erase(it);
+		else
+			++it;
+	}
 
 	if (!urls.isEmpty())
 	{
@@ -349,29 +362,15 @@ void SeekSession::finish(SeekResult result)
 	emit seekFinished(result);
 }
 
-void SeekSession::idgamesClientFinished(Idgames *pEmitter)
+void SeekSession::idgamesClientFinished()
 {
-	emit message(tr("/idgames client for file \"%1\" has finished.").arg(pEmitter->file().name()),
+	emit message(tr("/idgames client for file \"%1\" has finished.")
+		.arg(d->inflightIdgames->file().name()),
 		WadseekerLib::NoticeImportant);
 
-	for (auto idgames : d->idgamesClients)
-	{
-		if (idgames.data() == pEmitter)
-		{
-			d->idgamesClients.removeOne(idgames);
-			break;
-		}
-	}
-
-	if (!d->aborting)
-	{
-		startNextIdgamesClient();
-	}
-
+	d->inflightIdgames.reset(nullptr);
 	if (d->idgamesClients.isEmpty())
-	{
 		emit serviceFinished("idgames");
-	}
 	d->crawler.start(0);
 }
 
@@ -393,7 +392,7 @@ bool SeekSession::isDownloadingFile(const ModFile &file) const
 bool SeekSession::isWorking() const
 {
 	if (!d->inflight.isEmpty()
-		|| !d->idgamesClients.isEmpty())
+		|| d->inflightIdgames != nullptr)
 	{
 		return true;
 	}
@@ -402,6 +401,7 @@ bool SeekSession::isWorking() const
 		return false;
 
 	return !d->crawls.isEmpty()
+		|| !d->idgamesClients.isEmpty()
 		|| d->linkSeeker->isWorking();
 }
 
@@ -734,12 +734,12 @@ void SeekSession::startIdgames()
 
 void SeekSession::startNextIdgamesClient()
 {
-	if (!d->aborting && !d->idgamesClients.isEmpty())
+	if (!d->idgamesClients.isEmpty())
 	{
-		QSharedPointer<Idgames> idgames = d->idgamesClients.first();
+		QSharedPointer<Idgames> idgames = d->idgamesClients.takeFirst();
+		d->inflightIdgames = idgames;
 		idgames->startSearch();
 	}
-	concludeIfAllFinished();
 }
 
 void SeekSession::stopAll()
@@ -751,13 +751,9 @@ void SeekSession::stopAll()
 
 void SeekSession::stopIdgames()
 {
-	if (d->idgamesClients.isEmpty())
-	{
-		return;
-	}
-	QSharedPointer<Idgames> current = d->idgamesClients.takeFirst();
 	d->idgamesClients.clear();
-	current->abort();
+	if (d->inflightIdgames != nullptr)
+		d->inflightIdgames->abort();
 }
 
 void SeekSession::startNextCrawl(CrawlGoal goal)

@@ -176,7 +176,7 @@ private slots:
 	void crawl();
 
 	void fileMirrorLinksFound(const QString &filename, QList<QUrl> urls);
-	void idgamesClientFinished(Idgames *pEmitter);
+	void idgamesClientFinished();
 
 	void onLinkSeekFinished();
 	void onLinkSeekFound(const WebCrawl &crawl, const Link &link);
