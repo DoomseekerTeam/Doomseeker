@@ -86,6 +86,8 @@ public:
 		QString localization;
 		QString mainWindowState;
 		QByteArray mainWindowGeometry;
+		QByteArray demoManagerGeometry;
+		QByteArray demoManagerSplitterState;
 		unsigned queryAutoRefreshEverySeconds;
 		QString playerName;
 		QString previousCreateServerConfigDir;

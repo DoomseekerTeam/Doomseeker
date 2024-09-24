@@ -406,6 +406,8 @@ void DoomseekerConfig::DoomseekerCfg::load(IniSection &section)
 	this->lanServersColor = (const QString &)section["LanServersColor"];
 	this->mainWindowState = (const QString &)section["MainWindowState"];
 	this->mainWindowGeometry = section.value("MainWindowGeometry", "").toByteArray();
+	this->demoManagerGeometry = section.value("DemoManagerGeometry").toByteArray();
+	this->demoManagerSplitterState = section.value("DemoManagerSplitterState").toByteArray();
 	this->queryAutoRefreshEverySeconds = section["QueryAutoRefreshEverySeconds"];
 	d->querySpeed.intervalBetweenServers = section["QueryServerInterval"];
 	d->querySpeed.delayBetweenSingleServerAttempts = section["QueryServerTimeout"];
@@ -506,6 +508,8 @@ void DoomseekerConfig::DoomseekerCfg::save(IniSection &section)
 	section["LanServersColor"] = this->lanServersColor;
 	section["MainWindowState"] = this->mainWindowState;
 	section.setValue("MainWindowGeometry", this->mainWindowGeometry);
+	section.setValue("DemoManagerGeometry", this->demoManagerGeometry);
+	section.setValue("DemoManagerSplitterState", this->demoManagerSplitterState);
 	section["QueryAutoRefreshEverySeconds"] = this->queryAutoRefreshEverySeconds;
 	section["QueryServerInterval"] = this->querySpeed().intervalBetweenServers;
 	section["QueryServerTimeout"] = this->querySpeed().delayBetweenSingleServerAttempts;

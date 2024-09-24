@@ -1081,7 +1081,10 @@ void MainWindow::menuManageDemos()
 {
 	DemoManagerDlg dm;
 	dm.setWindowIcon(this->windowIcon());
+	if (!gConfig.doomseeker.demoManagerGeometry.isEmpty())
+		dm.restoreGeometry(gConfig.doomseeker.demoManagerGeometry);
 	dm.exec();
+	gConfig.doomseeker.demoManagerGeometry = dm.saveGeometry();
 }
 
 void MainWindow::menuOptionsConfigure()

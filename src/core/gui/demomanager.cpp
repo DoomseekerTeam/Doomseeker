@@ -45,6 +45,8 @@
 #include <QMenu>
 #include <QMessageBox>
 #include <QModelIndex>
+#include <QPointer>
+#include <QSplitter>
 #include <QStandardItemModel>
 #include <QStandardPaths>
 #include <QString>
@@ -179,6 +181,7 @@ DClass<DemoManagerDlg> : public Ui::DemoManagerDlg
 public:
 	DemoStore demoStore;
 	DemoModel *demoModel;
+	QPointer<QSplitter> splitter;
 
 	QModelIndex currentIndex() const
 	{
@@ -194,6 +197,13 @@ DemoManagerDlg::DemoManagerDlg()
 	CommonGUI::setupDialog(*this);
 	d->demoStore = DemoStore();
 
+	d->splitter = new QSplitter(Qt::Horizontal, this);
+	d->splitter->addWidget(d->demoTable);
+	d->splitter->addWidget(d->previewArea);
+	d->splitter->setStretchFactor(0, 1);
+	d->horizontalLayout->addWidget(d->splitter);
+	d->splitter->restoreState(gConfig.doomseeker.demoManagerSplitterState);
+
 	auto *menu = new QMenu(this);
 	menu->addAction(tr("Export plain demo file"),
 		this, SLOT(exportSelectedPlain()));
@@ -206,6 +216,7 @@ DemoManagerDlg::DemoManagerDlg()
 	d->demoTable->setColumnWidth(DemoModel::ColGame, 24);
 
 	auto *header = d->demoTable->horizontalHeader();
+	header->setSectionResizeMode(DemoModel::ColCreatedTime, QHeaderView::ResizeToContents);
 	header->setSectionResizeMode(DemoModel::ColGame, QHeaderView::ResizeToContents);
 
 	adjustDemoList();
@@ -218,6 +229,7 @@ DemoManagerDlg::DemoManagerDlg()
 
 DemoManagerDlg::~DemoManagerDlg()
 {
+	gConfig.doomseeker.demoManagerSplitterState = d->splitter->saveState();
 }
 
 void DemoManagerDlg::adjustDemoList()
