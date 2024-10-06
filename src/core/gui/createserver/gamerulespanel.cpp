@@ -24,6 +24,7 @@
 #include "ui_gamerulespanel.h"
 
 #include "gui/createserver/gamecvaredit.h"
+#include "gui/createserver/hostmodetraits.h"
 #include "ini/ini.h"
 #include "plugins/engineplugin.h"
 #include "serverapi/gamecreateparams.h"
@@ -51,7 +52,7 @@ DClass<GameRulesPanel> : public Ui::GameRulesPanel
 public:
 	bool anythingAvailable;
 	const EnginePlugin *engine;
-	GameCreateParams::HostMode hostMode;
+	HostModeTraits hostMode;
 	GameMode gameMode;
 	QList<GameCVar> gameModifiers;
 	QList<std::shared_ptr<CVarUi> > cvarWidgets;
@@ -66,7 +67,6 @@ GameRulesPanel::GameRulesPanel(QWidget *parent)
 	d->setupUi(this);
 	d->anythingAvailable = true;
 	d->engine = nullptr;
-	d->hostMode = GameCreateParams::Host;
 }
 
 GameRulesPanel::~GameRulesPanel()
@@ -112,7 +112,7 @@ void GameRulesPanel::applyModeToUi()
 
 	d->extraSettingsBox->setVisible(!d->cvarWidgets.isEmpty());
 
-	bool slotLimitsBoxAvailable = d->hostMode == GameCreateParams::Host && engineAllowsSlotsLimits;
+	bool slotLimitsBoxAvailable = d->hostMode.isCreatingServer() && engineAllowsSlotsLimits;
 	d->hostLimitsBox->setVisible(slotLimitsBoxAvailable);
 	d->mapListBox->setVisible(engineHasMapList);
 

@@ -262,7 +262,7 @@
    <sender>btnCommandLine</sender>
    <signal>clicked()</signal>
    <receiver>CreateServerDialog</receiver>
-   <slot>showStartGameCommandLine()</slot>
+   <slot>showCommandLine()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>588</x>

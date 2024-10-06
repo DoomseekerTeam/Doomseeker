@@ -61,7 +61,7 @@ QDialog *CreateServerDialogApi::dialog() const
 bool CreateServerDialogApi::fillInCommandLineArguments(QString &executable, QStringList &args)
 {
 	assert(d->dialog);
-	return d->dialog->commandLineArguments(executable, args, false, CreateServerDialog::CommandLinePurpose::Run);
+	return d->dialog->commandLineArguments(executable, args, CreateServerDialog::CommandLinePurpose::Run);
 }
 
 void CreateServerDialogApi::makeRemoteGameSetup(const EnginePlugin *plugin)

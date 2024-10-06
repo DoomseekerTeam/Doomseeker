@@ -31,6 +31,7 @@
 #include "gamedemo.h"
 #include "gui/commongui.h"
 #include "gui/configuration/doomseekerconfigurationdialog.h"
+#include "gui/createserver/hostmodetraits.h"
 #include "gui/widgets/createserverdialogpage.h"
 #include "ini/ini.h"
 #include "ini/settingsproviderqt.h"
@@ -39,7 +40,6 @@
 #include "serverapi/gamehost.h"
 #include "serverapi/message.h"
 
-#include <cassert>
 #include <QFileDialog>
 #include <QKeySequence>
 #include <QMenuBar>
@@ -52,36 +52,12 @@ DClass<CreateServerDialog> : public Ui::CreateServerDialog
 public:
 	QList<CreateServerDialogPage *> currentCustomPages;
 	EnginePlugin *currentEngine;
-	GameCreateParams::HostMode hostMode;
+	HostModeTraits hostMode;
 	DemoStore demoStore;
 
 	QMenu *modeMenu;
 	QAction *hostModeAction;
 	QAction *offlineModeAction;
-
-	bool canLoadHostModeFromConfig() const
-	{
-		return hostMode == GameCreateParams::Host
-			|| hostMode == GameCreateParams::Offline;
-	}
-
-	QString hostModeCfgName() const
-	{
-		switch (hostMode)
-		{
-		default:
-		case GameCreateParams::Host: return "host";
-		case GameCreateParams::Offline: return "offline";
-		}
-	}
-
-	GameCreateParams::HostMode hostModeFromCfgName(const QString &name)
-	{
-		if (name == "offline")
-			return GameCreateParams::Offline;
-		// Default to Host if there's any other value.
-		return GameCreateParams::Host;
-	}
 };
 
 DPointered(CreateServerDialog)
@@ -94,12 +70,6 @@ CreateServerDialog::CreateServerDialog(GameCreateParams::HostMode hostMode, QWid
 	CommonGUI::setupDialog(*this);
 	// Have the window delete itself
 	setAttribute(Qt::WA_DeleteOnClose);
-	assert(hostMode == GameCreateParams::Offline
-		|| hostMode == GameCreateParams::Host
-		|| hostMode == GameCreateParams::Remote);
-
-	// Get rid of the useless '?' button from the title bar.
-	setWindowFlags(windowFlags() & (~Qt::WindowContextHelpButtonHint));
 
 	d->currentEngine = nullptr;
 	d->hostMode = hostMode;
@@ -133,34 +103,35 @@ void CreateServerDialog::applyModeToUi()
 	d->rulesPanel->setupForHostMode(d->hostMode);
 	initServerTab();
 
-	d->modeMenu->setEnabled(d->hostMode != GameCreateParams::Remote);
+	d->modeMenu->setEnabled(d->hostMode.canChangeMode());
 	d->hostModeAction->setChecked(d->hostMode == GameCreateParams::Host);
 	d->offlineModeAction->setChecked(d->hostMode == GameCreateParams::Offline);
 
-	if (d->hostMode == GameCreateParams::Host)
-		d->btnStart->setText(tr("Host server"));
-	else
-		d->btnStart->setText(tr("Play"));
-
-	QString windowTitle;
-	switch (d->hostMode)
+	switch (d->hostMode.mode)
 	{
-	case GameCreateParams::Remote:
-		windowTitle = tr("Doomseeker - Setup Remote Game");
+	case GameCreateParams::Demo:
+		setWindowTitle(tr("Doomseeker - Play Demo"));
+		d->btnStart->setText(tr("Play demo"));
 		break;
 	case GameCreateParams::Host:
-		windowTitle = tr("Doomseeker - Host Online Game");
+		setWindowTitle(tr("Doomseeker - Host Online Game"));
+		d->btnStart->setText(tr("Host server"));
 		break;
 	case GameCreateParams::Offline:
-		windowTitle = tr("Doomseeker - Play Offline Game");
+		setWindowTitle(tr("Doomseeker - Play Offline Game"));
+		d->btnStart->setText(tr("Play"));
+		break;
+	case GameCreateParams::Remote:
+		setWindowTitle(tr("Doomseeker - Setup Remote Game"));
+		d->btnStart->setText(tr("Play online"));
 		break;
 	default:
-		windowTitle = tr("Doomseeker - [Unhandled Host Mode]");
+		setWindowTitle(tr("Doomseeker - Create Game"));
+		d->btnStart->setText(tr("Create game"));
 		break;
 	}
-	setWindowTitle(windowTitle);
 
-	d->btnCommandLine->setVisible(d->hostMode != GameCreateParams::Remote);
+	d->btnCommandLine->setVisible(d->hostMode.canShowCommandLine());
 }
 
 void CreateServerDialog::changeToHostMode()
@@ -176,7 +147,7 @@ void CreateServerDialog::changeToOfflineMode()
 }
 
 bool CreateServerDialog::commandLineArguments(QString &executable, QStringList &args,
-	bool offline, CommandLinePurpose purpose)
+	CommandLinePurpose purpose)
 {
 	const QString errorCapt = tr("Doomseeker - create game");
 	if (d->currentEngine == nullptr)
@@ -186,7 +157,7 @@ bool CreateServerDialog::commandLineArguments(QString &executable, QStringList &
 	}
 
 	GameCreateParams gameParams;
-	if (createHostInfo(gameParams, offline, purpose))
+	if (createHostInfo(gameParams, purpose))
 	{
 		CommandLineInfo cli;
 		QString error;
@@ -211,7 +182,7 @@ bool CreateServerDialog::commandLineArguments(QString &executable, QStringList &
 	return false;
 }
 
-bool CreateServerDialog::createHostInfo(GameCreateParams &params, bool offline, CommandLinePurpose purpose)
+bool CreateServerDialog::createHostInfo(GameCreateParams &params, CommandLinePurpose purpose)
 {
 	params.setHostMode(d->hostMode);
 	d->generalSetupPanel->fillInParams(params);
@@ -224,12 +195,12 @@ bool CreateServerDialog::createHostInfo(GameCreateParams &params, bool offline, 
 	d->serverPanel->fillInParams(params);
 	d->rulesPanel->fillInParams(params);
 
-	return createHostInfoDemoRecord(params, offline, purpose);
+	return createHostInfoDemoRecord(params, purpose);
 }
 
-bool CreateServerDialog::createHostInfoDemoRecord(GameCreateParams &params, bool offline, CommandLinePurpose purpose)
+bool CreateServerDialog::createHostInfoDemoRecord(GameCreateParams &params, CommandLinePurpose purpose)
 {
-	if (gConfig.doomseeker.bRecordDemo && offline)
+	if (gConfig.doomseeker.bRecordDemo && d->hostMode.canRecordDemo())
 	{
 		const DemoRecord::Control demoMode = purpose == CommandLinePurpose::Run
 			? DemoRecord::Managed : DemoRecord::Unmanaged;
@@ -317,7 +288,7 @@ void CreateServerDialog::initServerTab()
 	if (d->currentEngine != nullptr)
 		d->serverPanel->setupForEngine(d->currentEngine);
 	d->tabWidget->setTabEnabled(d->tabWidget->indexOf(d->tabServer),
-		d->serverPanel->isAnythingAvailable() && d->hostMode != GameCreateParams::Offline);
+		d->serverPanel->isAnythingAvailable() && d->hostMode.isSettingUpOnlineGame());
 }
 
 void CreateServerDialog::initRules()
@@ -342,9 +313,9 @@ bool CreateServerDialog::loadConfig(const QString &filename, bool loadingPreviou
 
 	d->customParamsPanel->loadConfig(ini);
 
-	if (d->canLoadHostModeFromConfig())
+	if (d->hostMode.canChangeMode())
 	{
-		d->hostMode = d->hostModeFromCfgName(ini.section("General")["hostMode"]);
+		d->hostMode = HostModeTraits::fromCfgName(ini.section("General")["hostMode"]);
 		applyModeToUi();
 	}
 
@@ -389,7 +360,7 @@ bool CreateServerDialog::fillInParamsFromPluginPages(GameCreateParams &params)
 	return true;
 }
 
-void CreateServerDialog::runGame(bool offline)
+void CreateServerDialog::runGame()
 {
 	const QString errorCapt = tr("Doomseeker - create game");
 	if (d->currentEngine == nullptr)
@@ -399,7 +370,7 @@ void CreateServerDialog::runGame(bool offline)
 	}
 
 	GameCreateParams gameParams;
-	if (createHostInfo(gameParams, offline, CommandLinePurpose::Run))
+	if (createHostInfo(gameParams, CommandLinePurpose::Run))
 	{
 		QString error;
 
@@ -434,7 +405,7 @@ bool CreateServerDialog::saveConfig(const QString &filename)
 
 	d->customParamsPanel->saveConfig(ini);
 
-	ini.section("General")["hostMode"] = d->hostModeCfgName();
+	ini.section("General")["hostMode"] = d->hostMode.cfgName();
 
 	if (settingsFile.isWritable())
 	{
@@ -487,17 +458,17 @@ void CreateServerDialog::showConfiguration()
 	d->generalSetupPanel->reloadAppConfig();
 }
 
-void CreateServerDialog::showCommandLine(bool offline)
+void CreateServerDialog::showCommandLine()
 {
 	QString executable;
 	QStringList args;
-	if (commandLineArguments(executable, args, offline, CommandLinePurpose::Show))
+	if (commandLineArguments(executable, args, CommandLinePurpose::Show))
 	{
 		// Lines below directly modify the passed values.
 		CommandLine::escapeExecutable(executable);
 		CommandLine::escapeArgs(args);
 
-		QString title = offline ?
+		QString title = !d->hostMode.isCreatingServer() ?
 			tr("Run game command line:") :
 			tr("Host server command line:");
 		CopyTextDlg ctd(executable + " " + args.join(" "), title, this);
@@ -536,15 +507,13 @@ void CreateServerDialog::showSaveConfig()
 	}
 }
 
-void CreateServerDialog::showStartGameCommandLine()
-{
-	showCommandLine(d->hostMode == GameCreateParams::Offline);
-}
-
 void CreateServerDialog::startGame()
 {
+	// TODO this should probably be controlled by a separate
+	// setting where the plugin would tell the box if the box can
+	// start the game or if it must let the plugin do it.
 	if (d->hostMode != GameCreateParams::Remote)
-		runGame(d->hostMode == GameCreateParams::Offline);
+		runGame();
 	else
 		accept();
 }

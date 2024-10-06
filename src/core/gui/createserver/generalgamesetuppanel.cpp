@@ -24,7 +24,7 @@
 #include "ui_generalgamesetuppanel.h"
 
 #include "configuration/doomseekerconfig.h"
-#include "filefilter.h"
+#include "gui/createserver/hostmodetraits.h"
 #include "gui/createserver/maplistpanel.h"
 #include "gui/createserverdialog.h"
 #include "ini/ini.h"
@@ -44,7 +44,7 @@ DClass<GeneralGameSetupPanel> : public Ui::GeneralGameSetupPanel
 {
 public:
 	EnginePlugin *currentEngine;
-	GameCreateParams::HostMode hostMode;
+	HostModeTraits hostMode;
 	bool iwadSetExplicitly;
 	CreateServerDialog *parentDialog;
 
@@ -66,7 +66,6 @@ GeneralGameSetupPanel::GeneralGameSetupPanel(QWidget *parent)
 	: QWidget(parent)
 {
 	d->setupUi(this);
-	d->hostMode = GameCreateParams::Host;
 	d->iwadSetExplicitly = false;
 	d->parentDialog = nullptr;
 
@@ -130,7 +129,7 @@ void GeneralGameSetupPanel::loadConfig(Ini &config, bool loadingPrevious)
 	const EnginePlugin *prevEngine = d->currentEngine;
 	QString configEngineName = general["engine"];
 	bool engineChanged = false;
-	if (d->hostMode != GameCreateParams::Remote)
+	if (d->hostMode.canChangeGame())
 	{
 		if (!setEngine(configEngineName))
 			return;
@@ -139,11 +138,10 @@ void GeneralGameSetupPanel::loadConfig(Ini &config, bool loadingPrevious)
 
 	// Executables
 	bool changeExecutable = engineChanged || !d->cbLockExecutable->isChecked();
-	if (d->hostMode == GameCreateParams::Remote)
+	if (!d->hostMode.canChangeGame())
 	{
-		// If we're configuring a remote game the engine cannot be changed.
-		// Don't substitute the executable when the config that is being
-		// loaded is for a different game.
+		// If we can't change the engine, also don't substitute the executable
+		// when the config that is being loaded is for a different game.
 		auto *plugin = gPlugins->plugin(gPlugins->pluginIndexFromName(configEngineName));
 		if (plugin == nullptr || d->currentEngine != plugin->info())
 			changeExecutable = false;
@@ -297,7 +295,7 @@ void GeneralGameSetupPanel::setupForHostMode(GameCreateParams::HostMode hostMode
 {
 	d->hostMode = hostMode;
 
-	d->cboEngine->setDisabled(hostMode == GameCreateParams::Remote);
+	d->cboEngine->setDisabled(!d->hostMode.canChangeGame());
 
 	d->hostExecutableInput->hide();
 	d->offlineExecutableInput->hide();
@@ -310,16 +308,16 @@ void GeneralGameSetupPanel::setupForHostMode(GameCreateParams::HostMode hostMode
 	case GameCreateParams::Remote: d->remoteExecutableInput->show(); break;
 	}
 
-	d->labelServerName->setVisible(hostMode == GameCreateParams::Host);
-	d->leServerName->setVisible(hostMode == GameCreateParams::Host);
-	d->labelPort->setVisible(hostMode == GameCreateParams::Host);
-	d->portArea->setVisible(hostMode == GameCreateParams::Host);
-	d->hostModeSpacer->setVisible(hostMode == GameCreateParams::Host);
-	d->broadcastOptionsArea->setVisible(hostMode == GameCreateParams::Host);
+	d->labelServerName->setVisible(d->hostMode.isCreatingServer());
+	d->leServerName->setVisible(d->hostMode.isCreatingServer());
+	d->labelPort->setVisible(d->hostMode.isCreatingServer());
+	d->portArea->setVisible(d->hostMode.isCreatingServer());
+	d->hostModeSpacer->setVisible(d->hostMode.isCreatingServer());
+	d->broadcastOptionsArea->setVisible(d->hostMode.isCreatingServer());
 
 	// Insert/remove operations are necessary to get rid of extra
 	// spacing remaining when hiding form elements.
-	if (hostMode == GameCreateParams::Host)
+	if (d->hostMode.isCreatingServer())
 	{
 		d->formLayout->insertRow(d->serverNameRow, d->labelServerName, d->leServerName);
 		d->formLayout->insertRow(d->portRow, d->labelPort, d->portArea);
@@ -360,7 +358,7 @@ QString GeneralGameSetupPanel::mapName() const
 
 QString GeneralGameSetupPanel::pathToExe()
 {
-	switch (d->hostMode)
+	switch (d->hostMode.mode)
 	{
 	default:
 	case GameCreateParams::Host: return d->hostExecutableInput->path();

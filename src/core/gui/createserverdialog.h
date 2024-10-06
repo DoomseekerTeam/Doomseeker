@@ -52,7 +52,7 @@ public:
 	virtual ~CreateServerDialog();
 
 	bool commandLineArguments(QString &executable, QStringList &args,
-		bool offline, CommandLinePurpose purpose);
+		CommandLinePurpose purpose);
 	void makeRemoteGameSetupDialog(EnginePlugin *plugin);
 	MapListPanel *mapListPanel();
 	QString mapName() const;
@@ -71,10 +71,10 @@ private slots:
 	 */
 	void initEngineSpecific(EnginePlugin *engineInfo);
 	void initGamemodeSpecific(const GameMode &gameMode);
+	void showCommandLine();
 	void showConfiguration();
 	void showLoadConfig();
 	void showSaveConfig();
-	void showStartGameCommandLine();
 	void startGame();
 
 private:
@@ -95,8 +95,8 @@ private:
 	 * parameters obtain new information after this method is called.
 	 * @return false if fail.
 	 */
-	bool createHostInfo(GameCreateParams &params, bool offline, CommandLinePurpose purpose);
-	bool createHostInfoDemoRecord(GameCreateParams &params, bool offline, CommandLinePurpose purpose);
+	bool createHostInfo(GameCreateParams &params, CommandLinePurpose purpose);
+	bool createHostInfoDemoRecord(GameCreateParams &params, CommandLinePurpose purpose);
 
 	GameMode currentGameMode() const;
 
@@ -115,10 +115,9 @@ private:
 	void initRules();
 
 	bool loadConfig(const QString &filename, bool loadingPrevious);
-	void runGame(bool offline);
+	void runGame();
 	bool saveConfig(const QString &filename);
 	void setupMenu();
-	void showCommandLine(bool offline);
 };
 
 #endif
