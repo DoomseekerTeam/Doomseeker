@@ -118,6 +118,7 @@ set(HEADER_FILES
 	gui/createserver/gameexecutablepicker.h
 	gui/createserver/gamerulespanel.h
 	gui/createserver/generalgamesetuppanel.h
+	gui/createserver/hostmodetraits.h
 	gui/createserver/iwadandwadspickerdialog.h
 	gui/createserver/iwadpicker.h
 	gui/createserver/logdirectorypicker.h
