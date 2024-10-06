@@ -10,16 +10,18 @@ and this project does not adhere to
 
 ## [unreleased]
 ### Added
+- Demo playback and recording features (#4110):
+    - Demo playback can now be setup in the usual "Create Game" dialog box.
+    - Demos can be exported with Doomseeker's metadata.
+    - Import external demos to Doomseeker's demo manager. The import/export
+      features facilitate demo sharing.
+    - Save the demo's created time in the metadata file with timezone info.
+    - Also save the demo's game as plugin's canonical name in the metadata file.
+    - The recorded demos will now have their author's name saved in their
+      metadata. Your name can be configured in Doomseeker's config box in the
+      new "Games" page (the tree section for "Games" was there since forever
+      already, but now it finally has an actual page).
 - Server filtering by the IP address. (#4117)
-- Export demos with Doomseeker metadata. (#4110)
-- Import external demos to Doomseeker's demo manager. (#4110)
-- Save the demo's created time in the metadata file with timezone info. (#4110)
-- Also save the demo's game as plugin's canonical name in the metadata
-file. (#4110)
-- The recorded demos will now have their author's name saved in their
-metadata. The name can be configured in Doomseeker's config box in the
-new "Games" page (the tree section for Games was already there since
-forever, but now it finally has an actual page). (#4110)
 - A compilation option to make the IP2C auto-updates disabled by default:
 `DOOMSEEKER_IP2C_AUTOUPDATE_DEFAULT`. (#3732)
 - El Salvador and Macao country flags.

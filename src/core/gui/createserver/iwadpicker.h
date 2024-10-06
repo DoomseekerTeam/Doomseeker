@@ -42,6 +42,7 @@ public:
 	QString currentIwad() const;
 	void loadIwads();
 	void setIwadByName(const QString &iwad);
+	void setIwadByPath(const QString &iwadPath);
 
 private:
 	DPtr<IwadPicker> d;

@@ -72,6 +72,11 @@ public:
 		return mode;
 	}
 
+	bool canChangeAnyGameRules() const
+	{
+		return mode != GameCreateParams::Demo;
+	}
+
 	/**
 	 * Is changing the game allowed for this hosting mode?
 	 */

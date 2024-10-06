@@ -26,6 +26,8 @@
 #include "fileutils.h"
 #include "gamedemo.h"
 #include "gui/commongui.h"
+#include "gui/createserver/wadspicker.h"
+#include "gui/createserverdialog.h"
 #include "gui/demometadatadialog.h"
 #include "pathfinder/pathfinder.h"
 #include "pathfinder/wadpathfinder.h"
@@ -52,7 +54,6 @@
 #include <QString>
 
 #include <cstdint>
-#include <functional>
 
 namespace
 {
@@ -497,7 +498,7 @@ void DemoManagerDlg::playDemo(const QString &demoName)
 	WadPathFinder wadFinder = WadPathFinder(pf);
 
 	QStringList missingWads;
-	QStringList wadPaths;
+	QList<PickedGameFile> wadPaths;
 
 	QList<PWad> wads = demo.wads;
 	wads.prepend(PWad(demo.iwad));
@@ -506,11 +507,15 @@ void DemoManagerDlg::playDemo(const QString &demoName)
 	{
 		WadFindResult findResult = wadFinder.find(wad.name());
 		if (findResult.isValid())
-			wadPaths << findResult.path();
+			wadPaths << PickedGameFile(findResult.path(), wad.isOptional());
 		else if (!wad.isOptional())
 			missingWads << wad.name();
 	}
 
+	// Report missing files and abort.
+	//
+	// TODO with the CreateServerDialog being in use now (Doomseeker 1.5),
+	// we could allow the user to locate the missing files on their own.
 	if (!missingWads.isEmpty())
 	{
 		QMessageBox::critical(this, tr("Files not found"),
@@ -518,21 +523,13 @@ void DemoManagerDlg::playDemo(const QString &demoName)
 		return;
 	}
 
-	// Play the demo
-	GameCreateParams params;
-	params.setDemoPath(QFileInfo(demo.demopath).absoluteFilePath());
-	params.setIwadPath(wadPaths[0]);
-	params.setPwadsPaths(wadPaths.mid(1));
-	params.setHostMode(GameCreateParams::Demo);
-	params.setExecutablePath(binPath);
+	const QString iwad = wadPaths[0].path;
+	const QList<PickedGameFile> pwads = wadPaths.mid(1);
 
-	GameHost *gameRunner = plugin->gameHost();
-	Message message = gameRunner->host(params);
-
-	if (message.isError())
-		QMessageBox::critical(this, tr("Doomseeker - error"), message.contents());
-
-	delete gameRunner;
+	CreateServerDialog csd(GameCreateParams::Demo, this);
+	csd.setAttribute(Qt::WA_DeleteOnClose, false);
+	csd.makeDemoPlaybackSetupDialog(plugin, demo, iwad, pwads);
+	csd.exec();
 }
 
 void DemoManagerDlg::itemSelected(const QModelIndex &index)

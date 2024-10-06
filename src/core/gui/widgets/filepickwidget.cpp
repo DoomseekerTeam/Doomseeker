@@ -51,6 +51,7 @@ FilePickWidget::FilePickWidget(QWidget *parent)
 	d->neighbourStrategy = QSharedPointer<NeighbourStrategy>(new NeighbourStrategy);
 	d->lblWarning->hide();
 	d->btnBrowse->setIcon(style()->standardIcon(QStyle::SP_DirOpenIcon));
+	d->btnFind->hide();
 	this->connect(d->lePath, SIGNAL(editingFinished()), SLOT(emitPathChangedIfChanged()));
 	this->connect(d->lePath, SIGNAL(textEdited(QString)), SLOT(trackEdit()));
 }
@@ -101,6 +102,16 @@ void FilePickWidget::setFile(const GameFile &file)
 void FilePickWidget::setNeighbourStrategy(QSharedPointer<NeighbourStrategy> strategy)
 {
 	d->neighbourStrategy = strategy;
+}
+
+void FilePickWidget::setTitleVisible(bool visible)
+{
+	d->lblTitle->setVisible(visible);
+}
+
+void FilePickWidget::setPath(const QString &path)
+{
+	d->lePath->setText(path);
 }
 
 QString FilePickWidget::path() const

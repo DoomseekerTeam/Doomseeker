@@ -34,6 +34,7 @@ class GameCreateParams;
 class GameFileList;
 class GameMode;
 class Ini;
+struct PickedGameFile;
 
 class GeneralGameSetupPanel : public QWidget
 {
@@ -53,7 +54,10 @@ public:
 	void setupForEngine(EnginePlugin *engine);
 	void setupForHostMode(GameCreateParams::HostMode hostMode);
 	void setCreateServerDialog(CreateServerDialog *dialog);
+	void setDemoPath(const QString &demoPath);
 	void setIwadByName(const QString &iwad);
+	void setIwadByPath(const QString &iwadPath);
+	void setPwads(const QList<PickedGameFile> &pwads);
 	QStringList getAllWadPaths() const;
 
 signals:

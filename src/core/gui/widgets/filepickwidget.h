@@ -52,6 +52,9 @@ public:
 	bool isEmpty() const;
 	void setFile(const GameFile &file);
 	void setNeighbourStrategy(QSharedPointer<NeighbourStrategy> strategy);
+	void setTitleVisible(bool visible);
+
+	void setPath(const QString &path);
 	QString path() const;
 
 	void load(const IniSection &cfg);

@@ -46,11 +46,16 @@ public:
 	EnginePlugin *currentEngine;
 	HostModeTraits hostMode;
 	bool iwadSetExplicitly;
+	bool pwadsSetExplicitly;
 	CreateServerDialog *parentDialog;
 
+	int demoRow;
 	int serverNameRow;
 	int portRow;
 	int hostModeSpacerRow;
+	int gamemodeRow;
+	int difficultyRow;
+	int mapRow;
 
 	bool isValidExecutable(const QString &executablePath)
 	{
@@ -67,15 +72,23 @@ GeneralGameSetupPanel::GeneralGameSetupPanel(QWidget *parent)
 {
 	d->setupUi(this);
 	d->iwadSetExplicitly = false;
+	d->pwadsSetExplicitly = false;
 	d->parentDialog = nullptr;
 
+	d->demoPlayerExecutableInput->setAllowedExecutables(GameFile::Offline);
 	d->hostExecutableInput->setAllowedExecutables(GameFile::Server);
 	d->offlineExecutableInput->setAllowedExecutables(GameFile::Offline);
 	d->remoteExecutableInput->setAllowedExecutables(GameFile::Client);
 
+	d->demoPicker->setTitleVisible(false);
+
+	d->formLayout->getWidgetPosition(d->demoPicker, &d->demoRow, nullptr);
 	d->formLayout->getWidgetPosition(d->leServerName, &d->serverNameRow, nullptr);
 	d->formLayout->getWidgetPosition(d->portArea, &d->portRow, nullptr);
 	d->formLayout->getWidgetPosition(d->hostModeSpacer, &d->hostModeSpacerRow, nullptr);
+	d->formLayout->getWidgetPosition(d->cboGamemode, &d->gamemodeRow, nullptr);
+	d->formLayout->getWidgetPosition(d->cboDifficulty, &d->difficultyRow, nullptr);
+	d->formLayout->getWidgetPosition(d->mapPanel, &d->mapRow, nullptr);
 
 	this->connect(d->cboEngine, SIGNAL(currentPluginChanged(EnginePlugin*)),
 		SIGNAL(pluginChanged(EnginePlugin*)));
@@ -98,6 +111,7 @@ QStringList GeneralGameSetupPanel::getAllWadPaths() const
 
 void GeneralGameSetupPanel::fillInParams(GameCreateParams &params)
 {
+	params.setDemoPath(gDoomseekerTemplatedPathResolver().resolve(d->demoPicker->path()));
 	params.setExecutablePath(gDoomseekerTemplatedPathResolver().resolve(pathToExe()));
 	params.setIwadPath(gDoomseekerTemplatedPathResolver().resolve(d->iwadPicker->currentIwad()));
 	params.setLoggingPath(gDoomseekerTemplatedPathResolver().resolve(d->logDirectoryPicker->validatedCurrentPath()));
@@ -149,6 +163,10 @@ void GeneralGameSetupPanel::loadConfig(Ini &config, bool loadingPrevious)
 
 	if (changeExecutable)
 	{
+		QString demoPlayerExecutablePath = *general["demoPlayerExecutable"];
+		if (d->isValidExecutable(demoPlayerExecutablePath))
+			d->demoPlayerExecutableInput->setPath(demoPlayerExecutablePath);
+
 		QString hostExecutablePath = *general["hostExecutable"];
 		if (d->isValidExecutable(hostExecutablePath))
 			d->hostExecutableInput->setPath(hostExecutablePath);
@@ -181,20 +199,23 @@ void GeneralGameSetupPanel::loadConfig(Ini &config, bool loadingPrevious)
 	d->logDirectoryPicker->setLoggingEnabled(general["logEnabled"]);
 	d->logDirectoryPicker->setPathAndUpdate(general["logDir"]);
 
-	QList<PickedGameFile> files;
-	QStringList filesPaths = general["pwads"].valueString().split(";");
-	QList<QString> optionalFilesTokens = general["pwadsOptional"].valueString().split(";");
-	for (int i = 0; i < filesPaths.length(); ++i)
+	if (!(loadingPrevious && d->pwadsSetExplicitly))
 	{
-		PickedGameFile file;
-		file.path = filesPaths[i];
-		if (i < optionalFilesTokens.length())
+		QList<PickedGameFile> files;
+		QStringList filesPaths = general["pwads"].valueString().split(";");
+		QList<QString> optionalFilesTokens = general["pwadsOptional"].valueString().split(";");
+		for (int i = 0; i < filesPaths.length(); ++i)
 		{
-			file.optional = (optionalFilesTokens[i] != "0");
+			PickedGameFile file;
+			file.path = filesPaths[i];
+			if (i < optionalFilesTokens.length())
+			{
+				file.optional = (optionalFilesTokens[i] != "0");
+			}
+			files << file;
 		}
-		files << file;
+		d->wadsPicker->setFiles(files);
 	}
-	d->wadsPicker->setFiles(files);
 
 	d->cbBroadcastToLAN->setChecked(general["broadcastToLAN"]);
 	d->cbBroadcastToMaster->setChecked(general["broadcastToMaster"]);
@@ -209,6 +230,7 @@ void GeneralGameSetupPanel::saveConfig(Ini &config)
 {
 	IniSection general = config.section("General");
 	general["engine"] = d->cboEngine->currentText();
+	general["demoPlayerExecutable"] = d->demoPlayerExecutableInput->path();
 	general["hostExecutable"] = d->hostExecutableInput->path();
 	general["offlineExecutable"] = d->offlineExecutableInput->path();
 	general["remoteExecutable"] = d->remoteExecutableInput->path();
@@ -240,6 +262,7 @@ void GeneralGameSetupPanel::saveConfig(Ini &config)
 
 void GeneralGameSetupPanel::reloadAppConfig()
 {
+	d->demoPlayerExecutableInput->reloadExecutables();
 	d->hostExecutableInput->reloadExecutables();
 	d->offlineExecutableInput->reloadExecutables();
 	d->remoteExecutableInput->reloadExecutables();
@@ -276,6 +299,7 @@ void GeneralGameSetupPanel::setupForEngine(EnginePlugin *engine)
 	d->upnpArea->setVisible(engine->data()->allowsUpnp);
 	d->spinUpnpPort->setVisible(engine->data()->allowsUpnpPort);
 
+	d->demoPlayerExecutableInput->setPlugin(engine);
 	d->hostExecutableInput->setPlugin(engine);
 	d->offlineExecutableInput->setPlugin(engine);
 	d->remoteExecutableInput->setPlugin(engine);
@@ -297,27 +321,30 @@ void GeneralGameSetupPanel::setupForHostMode(GameCreateParams::HostMode hostMode
 
 	d->cboEngine->setDisabled(!d->hostMode.canChangeGame());
 
+	d->demoPlayerExecutableInput->hide();
 	d->hostExecutableInput->hide();
 	d->offlineExecutableInput->hide();
 	d->remoteExecutableInput->hide();
 	switch (hostMode)
 	{
+	case GameCreateParams::Demo: d->demoPlayerExecutableInput->show(); break;
 	default:
 	case GameCreateParams::Host: d->hostExecutableInput->show(); break;
 	case GameCreateParams::Offline: d->offlineExecutableInput->show(); break;
 	case GameCreateParams::Remote: d->remoteExecutableInput->show(); break;
 	}
 
-	d->labelServerName->setVisible(d->hostMode.isCreatingServer());
-	d->leServerName->setVisible(d->hostMode.isCreatingServer());
-	d->labelPort->setVisible(d->hostMode.isCreatingServer());
-	d->portArea->setVisible(d->hostMode.isCreatingServer());
-	d->hostModeSpacer->setVisible(d->hostMode.isCreatingServer());
-	d->broadcastOptionsArea->setVisible(d->hostMode.isCreatingServer());
+	const bool canSetupServer = d->hostMode.isCreatingServer() && d->hostMode.canChangeAnyGameRules();
+	d->labelServerName->setVisible(canSetupServer);
+	d->leServerName->setVisible(canSetupServer);
+	d->labelPort->setVisible(canSetupServer);
+	d->portArea->setVisible(canSetupServer);
+	d->hostModeSpacer->setVisible(canSetupServer);
+	d->broadcastOptionsArea->setVisible(canSetupServer);
 
 	// Insert/remove operations are necessary to get rid of extra
 	// spacing remaining when hiding form elements.
-	if (d->hostMode.isCreatingServer())
+	if (canSetupServer)
 	{
 		d->formLayout->insertRow(d->serverNameRow, d->labelServerName, d->leServerName);
 		d->formLayout->insertRow(d->portRow, d->labelPort, d->portArea);
@@ -332,6 +359,42 @@ void GeneralGameSetupPanel::setupForHostMode(GameCreateParams::HostMode hostMode
 		d->formLayout->removeWidget(d->portArea);
 		d->formLayout->removeWidget(d->hostModeSpacer);
 	}
+
+	d->labelDemo->setVisible(d->hostMode == GameCreateParams::Demo);
+	d->demoPicker->setVisible(d->hostMode == GameCreateParams::Demo);
+
+	if (d->hostMode == GameCreateParams::Demo)
+	{
+		d->formLayout->insertRow(d->demoRow, d->labelDemo, d->demoPicker);
+	}
+	else
+	{
+		d->formLayout->removeWidget(d->labelDemo);
+		d->formLayout->removeWidget(d->demoPicker);
+	}
+
+	d->labelGamemode->setVisible(d->hostMode.canChangeAnyGameRules());
+	d->cboGamemode->setVisible(d->hostMode.canChangeAnyGameRules());
+	d->labelDifficulty->setVisible(d->hostMode.canChangeAnyGameRules());;
+	d->cboDifficulty->setVisible(d->hostMode.canChangeAnyGameRules());
+	d->labelMap->setVisible(d->hostMode.canChangeAnyGameRules());
+	d->mapPanel->setVisible(d->hostMode.canChangeAnyGameRules());
+
+	if (d->hostMode.canChangeAnyGameRules())
+	{
+		d->formLayout->insertRow(d->gamemodeRow, d->labelGamemode, d->cboGamemode);
+		d->formLayout->insertRow(d->difficultyRow, d->labelDifficulty, d->cboDifficulty);
+		d->formLayout->insertRow(d->mapRow, d->labelMap, d->mapPanel);
+	}
+	else
+	{
+		d->formLayout->removeWidget(d->labelGamemode);
+		d->formLayout->removeWidget(d->cboGamemode);
+		d->formLayout->removeWidget(d->labelDifficulty);
+		d->formLayout->removeWidget(d->cboDifficulty);
+		d->formLayout->removeWidget(d->labelMap);
+		d->formLayout->removeWidget(d->mapPanel);
+	}
 }
 
 void GeneralGameSetupPanel::setCreateServerDialog(CreateServerDialog *dialog)
@@ -339,10 +402,27 @@ void GeneralGameSetupPanel::setCreateServerDialog(CreateServerDialog *dialog)
 	d->parentDialog = dialog;
 }
 
+void GeneralGameSetupPanel::setDemoPath(const QString &demoPath)
+{
+	d->demoPicker->setPath(demoPath);
+}
+
 void GeneralGameSetupPanel::setIwadByName(const QString &iwad)
 {
 	d->iwadSetExplicitly = true;
 	d->iwadPicker->setIwadByName(iwad);
+}
+
+void GeneralGameSetupPanel::setIwadByPath(const QString &iwadPath)
+{
+	d->iwadSetExplicitly = true;
+	d->iwadPicker->setIwadByPath(iwadPath);
+}
+
+void GeneralGameSetupPanel::setPwads(const QList<PickedGameFile> &pwads)
+{
+	d->pwadsSetExplicitly = true;
+	d->wadsPicker->setFiles(pwads);
 }
 
 void GeneralGameSetupPanel::showEvent(QShowEvent *event)
@@ -360,6 +440,7 @@ QString GeneralGameSetupPanel::pathToExe()
 {
 	switch (d->hostMode.mode)
 	{
+	case GameCreateParams::Demo: return d->demoPlayerExecutableInput->path();
 	default:
 	case GameCreateParams::Host: return d->hostExecutableInput->path();
 	case GameCreateParams::Offline: return d->offlineExecutableInput->path();

@@ -136,3 +136,17 @@ void IwadPicker::setIwadByName(const QString &iwad)
 		d->cboIwad->setCurrentIndex(d->cboIwad->count() - 1);
 	}
 }
+
+void IwadPicker::setIwadByPath(const QString &iwadPath)
+{
+	for (int i = 0; i < d->cboIwad->count(); ++i)
+	{
+		if (d->cboIwad->itemText(i).compare(iwadPath, Qt::CaseInsensitive) == 0)
+		{
+			d->cboIwad->setCurrentIndex(i);
+			return;
+		}
+	}
+	d->cboIwad->addItem(iwadPath);
+	d->cboIwad->setCurrentIndex(d->cboIwad->count() - 1);
+}

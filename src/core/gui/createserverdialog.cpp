@@ -44,6 +44,7 @@
 #include <QKeySequence>
 #include <QMenuBar>
 #include <QMessageBox>
+#include <QScopedPointer>
 #include <QStyle>
 #include <QTimer>
 
@@ -192,8 +193,14 @@ bool CreateServerDialog::createHostInfo(GameCreateParams &params, CommandLinePur
 		return false;
 
 	d->customParamsPanel->fillInParams(params);
-	d->serverPanel->fillInParams(params);
-	d->rulesPanel->fillInParams(params);
+	if (d->hostMode.canChangeAnyGameRules())
+	{
+		if (d->hostMode.isCreatingServer())
+		{
+			d->serverPanel->fillInParams(params);
+		}
+		d->rulesPanel->fillInParams(params);
+	}
 
 	return createHostInfoDemoRecord(params, purpose);
 }
@@ -240,7 +247,8 @@ void CreateServerDialog::firstLoadConfigTimer()
 
 void CreateServerDialog::initDMFlagsTabs()
 {
-	bool flagsAdded = d->dmflagsPanel->initDMFlagsTabs(d->currentEngine);
+	bool flagsAdded = d->hostMode.canChangeAnyGameRules() &&
+		d->dmflagsPanel->initDMFlagsTabs(d->currentEngine);
 	int tabIndex = d->tabWidget->indexOf(d->tabFlags);
 	if (flagsAdded && tabIndex < 0)
 		d->tabWidget->insertTab(d->tabWidget->indexOf(d->tabCustomParameters), d->tabFlags, tr("Flags"));
@@ -269,6 +277,9 @@ void CreateServerDialog::initEngineSpecificPages(EnginePlugin *engine)
 		delete page;
 	d->currentCustomPages.clear();
 
+	if (!d->hostMode.canChangeAnyGameRules())
+		return;
+
 	// Add new custom pages to the dialog.
 	d->currentCustomPages = engine->createServerDialogPages(this);
 	for (CreateServerDialogPage *page : d->currentCustomPages)
@@ -288,13 +299,17 @@ void CreateServerDialog::initServerTab()
 	if (d->currentEngine != nullptr)
 		d->serverPanel->setupForEngine(d->currentEngine);
 	d->tabWidget->setTabEnabled(d->tabWidget->indexOf(d->tabServer),
-		d->serverPanel->isAnythingAvailable() && d->hostMode.isSettingUpOnlineGame());
+		d->serverPanel->isAnythingAvailable()
+		&& d->hostMode.isSettingUpOnlineGame()
+		&& d->hostMode.canChangeAnyGameRules());
 }
 
 void CreateServerDialog::initRules()
 {
 	d->rulesPanel->setupForEngine(d->currentEngine, currentGameMode());
-	d->tabWidget->setTabEnabled(d->tabWidget->indexOf(d->tabRules), d->rulesPanel->isAnythingAvailable());
+	d->tabWidget->setTabEnabled(d->tabWidget->indexOf(d->tabRules),
+		d->rulesPanel->isAnythingAvailable()
+		&& d->hostMode.canChangeAnyGameRules());
 }
 
 bool CreateServerDialog::loadConfig(const QString &filename, bool loadingPrevious)
@@ -322,11 +337,20 @@ bool CreateServerDialog::loadConfig(const QString &filename, bool loadingPreviou
 	return true;
 }
 
+void CreateServerDialog::makeDemoPlaybackSetupDialog(EnginePlugin *plugin,
+	const GameDemo &demo, const QString &iwad, const QList<PickedGameFile> &wads)
+{
+	initEngineSpecific(plugin);
+	switchToMode(GameCreateParams::Demo);
+	d->generalSetupPanel->setDemoPath(demo.demopath);
+	d->generalSetupPanel->setIwadByPath(iwad);
+	d->generalSetupPanel->setPwads(wads);
+}
+
 void CreateServerDialog::makeRemoteGameSetupDialog(EnginePlugin *plugin)
 {
 	initEngineSpecific(plugin);
-	d->hostMode = GameCreateParams::Remote;
-	applyModeToUi();
+	switchToMode(GameCreateParams::Remote);
 }
 
 MapListPanel *CreateServerDialog::mapListPanel()
@@ -372,15 +396,13 @@ void CreateServerDialog::runGame()
 	GameCreateParams gameParams;
 	if (createHostInfo(gameParams, CommandLinePurpose::Run))
 	{
-		QString error;
-
-		GameHost *gameRunner = d->currentEngine->gameHost();
+		QScopedPointer<GameHost> gameRunner(d->currentEngine->gameHost());
 		Message message = gameRunner->host(gameParams);
 
-		delete gameRunner;
-
 		if (message.isError())
-			QMessageBox::critical(nullptr, tr("Doomseeker - error"), message.contents());
+		{
+			QMessageBox::critical(nullptr, errorCapt, message.contents());
+		}
 		else
 		{
 			QString tmpGameConfigPath = gDefaultDataPaths->programsDataDirectoryPath() + TEMP_GAME_CONFIG_FILENAME;
@@ -516,4 +538,10 @@ void CreateServerDialog::startGame()
 		runGame();
 	else
 		accept();
+}
+
+void CreateServerDialog::switchToMode(GameCreateParams::HostMode mode)
+{
+	d->hostMode = mode;
+	applyModeToUi();
 }

@@ -48,6 +48,19 @@
      <item row="1" column="1">
       <layout class="QHBoxLayout" name="horizontalLayout_7">
        <item>
+        <widget class="GameExecutablePicker" name="demoPlayerExecutableInput" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::WheelFocus</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="GameExecutablePicker" name="hostExecutableInput" native="true">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -121,28 +134,28 @@
        </property>
       </spacer>
      </item>
-     <item row="4" column="0">
+     <item row="5" column="0">
       <widget class="QLabel" name="labelServerName">
        <property name="text">
         <string>Server name:</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="1">
+     <item row="5" column="1">
       <widget class="QLineEdit" name="leServerName">
        <property name="text">
         <string>Started from Doomseeker</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="0">
+     <item row="6" column="0">
       <widget class="QLabel" name="labelPort">
        <property name="text">
         <string>Port:</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="1">
+     <item row="6" column="1">
       <widget class="QWidget" name="portArea" native="true">
        <layout class="QHBoxLayout" name="horizontalLayout_81">
         <property name="leftMargin">
@@ -186,24 +199,24 @@
        </layout>
       </widget>
      </item>
-     <item row="7" column="0">
-      <widget class="QLabel" name="label_2">
+     <item row="8" column="0">
+      <widget class="QLabel" name="labelGamemode">
        <property name="text">
         <string>Game mode:</string>
        </property>
       </widget>
      </item>
-     <item row="7" column="1">
+     <item row="8" column="1">
       <widget class="QComboBox" name="cboGamemode"/>
      </item>
-     <item row="8" column="0">
+     <item row="9" column="0">
       <widget class="QLabel" name="labelDifficulty">
        <property name="text">
         <string>Difficulty:</string>
        </property>
       </widget>
      </item>
-     <item row="8" column="1">
+     <item row="9" column="1">
       <widget class="QComboBox" name="cboDifficulty">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -213,56 +226,24 @@
        </property>
       </widget>
      </item>
-     <item row="9" column="0">
-      <widget class="QLabel" name="label_10">
+     <item row="10" column="0">
+      <widget class="QLabel" name="labelMap">
        <property name="text">
         <string>Map:</string>
        </property>
       </widget>
      </item>
-     <item row="9" column="1">
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QLineEdit" name="leMap"/>
-       </item>
-       <item>
-        <widget class="QLabel" name="lblMapWarning">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>20</width>
-           <height>20</height>
-          </size>
-         </property>
-         <property name="toolTip">
-          <string>This map isn't present on the map list. The game may misbehave.</string>
-         </property>
-         <property name="pixmap">
-          <pixmap resource="../../../../media/resources.qrc">:/icons/exclamation.png</pixmap>
-         </property>
-         <property name="scaledContents">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="10" column="0">
+     <item row="11" column="0">
       <widget class="QLabel" name="labelIwad">
        <property name="text">
         <string>IWAD:</string>
        </property>
       </widget>
      </item>
-     <item row="10" column="1">
+     <item row="11" column="1">
       <widget class="IwadPicker" name="iwadPicker" native="true"/>
      </item>
-     <item row="6" column="0">
+     <item row="7" column="0">
       <widget class="QWidget" name="hostModeSpacer" native="true">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -282,6 +263,50 @@
          <height>20</height>
         </size>
        </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="labelDemo">
+       <property name="text">
+        <string>Demo:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="FilePickWidget" name="demoPicker" native="true"/>
+     </item>
+     <item row="10" column="1">
+      <widget class="QWidget" name="mapPanel" native="true">
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLineEdit" name="leMap"/>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblMapWarning">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>This map isn't present on the map list. The game may misbehave.</string>
+          </property>
+          <property name="pixmap">
+           <pixmap resource="../../../../media/resources.qrc">:/icons/exclamation.png</pixmap>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </item>
     </layout>
@@ -414,6 +439,12 @@
    <header location="global">gui/createserver/logdirectorypicker.h</header>
    <container>1</container>
   </customwidget>
+  <customwidget>
+   <class>FilePickWidget</class>
+   <extends>QWidget</extends>
+   <header>gui/widgets/filepickwidget.h</header>
+   <container>1</container>
+  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>cboEngine</tabstop>
@@ -449,22 +480,6 @@
     <hint type="destinationlabel">
      <x>597</x>
      <y>211</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>leMap</sender>
-   <signal>textChanged(QString)</signal>
-   <receiver>GeneralGameSetupPanel</receiver>
-   <slot>updateMapWarningVisibility()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>320</x>
-     <y>200</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>297</x>
-     <y>191</y>
     </hint>
    </hints>
   </connection>

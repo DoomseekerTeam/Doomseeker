@@ -27,12 +27,16 @@
 #include "serverapi/gamecreateparams.h"
 #include "serverapi/serverstructs.h"
 #include <QDialog>
+#include <QList>
+#include <QString>
 
 class CreateServerDialogPage;
 class EnginePlugin;
 class GameCreateParams;
+struct GameDemo;
 class MapListPanel;
 class Message;
+struct PickedGameFile;
 class Server;
 
 /**
@@ -53,6 +57,8 @@ public:
 
 	bool commandLineArguments(QString &executable, QStringList &args,
 		CommandLinePurpose purpose);
+	void makeDemoPlaybackSetupDialog(EnginePlugin *plugin, const GameDemo &demo,
+		const QString &iwad, const QList<PickedGameFile> &wads);
 	void makeRemoteGameSetupDialog(EnginePlugin *plugin);
 	MapListPanel *mapListPanel();
 	QString mapName() const;
@@ -118,6 +124,7 @@ private:
 	void runGame();
 	bool saveConfig(const QString &filename);
 	void setupMenu();
+	void switchToMode(GameCreateParams::HostMode mode);
 };
 
 #endif
