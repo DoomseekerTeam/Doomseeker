@@ -23,8 +23,6 @@
 #include "zandronumengineplugin.h"
 #include "zandronumgamehost.h"
 #include "zandronumgameinfo.h"
-#include "zandronumgamerunner.h"
-#include "zandronumserver.h"
 #include <serverapi/gamecreateparams.h>
 
 #include <QFileInfo>
@@ -59,16 +57,20 @@ void ZandronumGameHost::addDMFlags()
 
 void ZandronumGameHost::addExtra()
 {
-	args() << "+alwaysapplydmflags" << QString::number(1);
-
-	if (params().skill() != Skill::UNDEFINED)
-		args() << "-skill" << QString::number(params().skill() + 1); // from 1 to 5
-
 	if (!params().loggingPath().isEmpty())
 	{
 		// Zandronum suffixes a date plus a ".log" extension. We'll add a prefix.
 		args() << "+logfile" << QFileInfo(params().loggingPath()).absoluteFilePath() + "/Zandronum";
 	}
+
+	if (params().hostMode() == GameCreateParams::Demo)
+		return;
+
+	args() << "+alwaysapplydmflags" << QString::number(1);
+
+	if (params().skill() != Skill::UNDEFINED)
+		args() << "-skill" << QString::number(params().skill() + 1); // from 1 to 5
+
 
 	QString gameModeStr;
 	switch (params().gameMode().index())

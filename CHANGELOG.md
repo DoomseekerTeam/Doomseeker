@@ -76,6 +76,9 @@ main page with info on how Wadseeker works.
 a better netizen.
 - Wadseeker: upgrade the LZMA SDK to version 23.01.
 - Wadseeker: website dudoomers.com changed to audrealms.org. (#4131)
+- Q-Zandronum, Zandronum: the command line for launching a demo
+playback will now be bereft of arguments that wouldn't affect the
+playback anyway.
 
 ### Deprecated
 - Wadseeker: `WADSEEKER_API` unused in Doomseeker:
