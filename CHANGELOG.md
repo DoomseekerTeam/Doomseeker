@@ -107,6 +107,12 @@ complaints from server owners that Wadseeker strains their servers. This was
 fixed by completely rewriting the Wadseeker's internals.
 - Q-Zandronum, Zandronum: single-player demos will now be recorded with
 the correct `.lmp` extension.
+- Q-Zandronum, Zandronum: LAN broadcast servers were having their addresses
+stored as IPv4-mapped IPv6, causing an IPv6 address being passed to the game's
+command line when trying to connect to those servers, and the game failing to
+handle this properly. This was happening in environments where IPv4 connectivity
+was used otherwise. These IPv4-mapped IPv6 addresses shall be converted to
+explicit IPv4 addresses now. (#4191)
 
 ## [1.4.1] - 2023-03-12
 ### Added

@@ -25,7 +25,9 @@
 #include "zandronumqengineplugin.h"
 #include "zandronumqserver.h"
 #include <log.h>
+#include <QAbstractSocket>
 #include <QElapsedTimer>
+#include <QHostAddress>
 #include <QTimer>
 #include <QUdpSocket>
 #include <serverapi/server.h>
@@ -140,6 +142,18 @@ void ZandronumqBroadcast::readAllPendingDatagrams()
 		{
 			// just drop the packets
 			continue;
+		}
+
+		// Qt may provide us with an IPv4-mapped IPv6 address, so
+		// convert it to an explicit IPv4 if it's a mapped IPv4.
+		if (sender.protocol() == QAbstractSocket::IPv6Protocol)
+		{
+			bool isMapped = false;
+			quint32 ipv4 = sender.toIPv4Address(&isMapped);
+			if (isMapped)
+			{
+				sender = QHostAddress(ipv4);
+			}
 		}
 
 		ServerPtr server = ZandronumqEnginePlugin::staticInstance()->server(sender, senderPort);
