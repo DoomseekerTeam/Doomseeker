@@ -33,7 +33,7 @@
    <item>
     <widget class="QLineEdit" name="lePlayerName">
      <property name="text">
-      <string>$USERNAME</string>
+      <string notr="true">$USERNAME</string>
      </property>
     </widget>
    </item>
