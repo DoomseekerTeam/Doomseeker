@@ -19,7 +19,17 @@
         <translation>Przeglądaj</translation>
     </message>
     <message>
-        <location filename="../enginezandronumconfigbox.cpp" line="66"/>
+        <location filename="../enginezandronumconfigbox.cpp" line="63"/>
+        <source>Segmented server query (requires Zandronum 3.2-alpha)</source>
+        <translation>Segmentowana odpowiedź serwera (wymaga Zandronum conajmniej 3.2-alpha)</translation>
+    </message>
+    <message>
+        <location filename="../enginezandronumconfigbox.cpp" line="64"/>
+        <source>&lt;p&gt;When enabled, the servers will be asked to provide their info in segments. Enable this if you experience problems when refreshing servers that host a lot of WADs or players. These servers send a lot of data, and enabling this asks them to send this data split between several packets.&lt;/p&gt;&lt;p&gt;This feature requires the server to host at least a Zandronum 3.2-alpha version.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Po włączeniu, serwery gier będą proszone o podawanie informacji o sobie w segmentach. Włącz to jeśli występują problemy z odświeżaniem serwerów, na których jest wielu graczy lub wiele WADów. Takie serwery wysyłają dużo danych, a ta opcja prosi je o podzielenie tych danych na mniejsze pakiety.&lt;/p&gt;&lt;p&gt;Opcja ta wymaga, aby serwer korzystał z Zandronum w wersji conajmniej 3.2-alpha.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../enginezandronumconfigbox.cpp" line="77"/>
         <source>Doomseeker - choose Zandronum testing directory</source>
         <translation>Doomseeker - wybierz katalog testowy dla Zandronum</translation>
     </message>
@@ -1396,7 +1406,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../zandronumserver.h" line="72"/>
+        <location filename="../zandronumserver.h" line="76"/>
         <source>&lt;&lt; Unknown &gt;&gt;</source>
         <translation>&lt;&lt; Nieznana &gt;&gt;</translation>
     </message>
@@ -2893,12 +2903,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ZandronumBroadcast</name>
     <message>
-        <location filename="../zandronumbroadcast.cpp" line="115"/>
+        <location filename="../zandronumbroadcast.cpp" line="117"/>
         <source>Listening to Zandronum&apos;s LAN servers broadcasts on port %1.</source>
         <translation>Nasłuchuję rozgłoszeń serwerów LAN Zandronum na porcie %1.</translation>
     </message>
     <message>
-        <location filename="../zandronumbroadcast.cpp" line="121"/>
+        <location filename="../zandronumbroadcast.cpp" line="123"/>
         <source>Failed to bind Zandronum&apos;s LAN broadcasts listening socket on port %1. Will keep retrying silently.</source>
         <translation>Nie udało się rozpocząć nasłuchu rozgłoszeń LAN dla Zandronum na porcie %1. Będą podejmowane ciche próby naprawy.</translation>
     </message>
@@ -3035,31 +3045,31 @@ Doomseeker może zainstalować grę, jeśli chcesz.</translation>
         <translation>Nie udało się wypakować: %1</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="376"/>
+        <location filename="../zandronumbinaries.cpp" line="375"/>
         <source>%1
  should be a script file but is a directory!</source>
         <translation>%1
  powinien być plikiem skryptowym, ale jest katalogiem!</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="385"/>
+        <location filename="../zandronumbinaries.cpp" line="384"/>
         <source>You don&apos;t have permissions to execute file: %1
 </source>
         <translation>Nie masz uprawnień aby uruchomić plik: %1
 </translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="432"/>
+        <location filename="../zandronumbinaries.cpp" line="425"/>
         <source>Couldn&apos;t open batch file &quot;%1&quot; for writing</source>
         <translation>Nie można otworzyć pliku skryptowego &quot;%1&quot; do zapisu</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="439"/>
+        <location filename="../zandronumbinaries.cpp" line="432"/>
         <source>Error while writing batch file &quot;%1&quot;</source>
         <translation>Błąd podczas zapisywania pliku skryptowego &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="449"/>
+        <location filename="../zandronumbinaries.cpp" line="442"/>
         <source>Cannot set permissions for file:
 %1</source>
         <translation>Nie można ustawić uprawnień plikowi:
@@ -3237,22 +3247,22 @@ Doomseeker może zainstalować grę, jeśli chcesz.</translation>
 <context>
     <name>ZandronumServer</name>
     <message>
-        <location filename="../zandronumserver.cpp" line="112"/>
+        <location filename="../zandronumserver.cpp" line="163"/>
         <source>Blue</source>
         <translation>Niebieska</translation>
     </message>
     <message>
-        <location filename="../zandronumserver.cpp" line="113"/>
+        <location filename="../zandronumserver.cpp" line="164"/>
         <source>Red</source>
         <translation>Czerwona</translation>
     </message>
     <message>
-        <location filename="../zandronumserver.cpp" line="114"/>
+        <location filename="../zandronumserver.cpp" line="165"/>
         <source>Green</source>
         <translation>Zielona</translation>
     </message>
     <message>
-        <location filename="../zandronumserver.cpp" line="115"/>
+        <location filename="../zandronumserver.cpp" line="166"/>
         <source>Gold</source>
         <translation>Złota</translation>
     </message>

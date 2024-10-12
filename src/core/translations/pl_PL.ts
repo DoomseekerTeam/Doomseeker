@@ -267,22 +267,22 @@ https://dev.maxmind.com/geoip/geoip2/geolite2/</translation>
 <context>
     <name>AddBuddyDlg</name>
     <message>
-        <location filename="../gui/dockBuddiesList.cpp" line="290"/>
+        <location filename="../gui/dockBuddiesList.cpp" line="300"/>
         <source>Invalid Pattern</source>
         <translation>Nieprawidłowy wzorzec</translation>
     </message>
     <message>
-        <location filename="../gui/dockBuddiesList.cpp" line="290"/>
+        <location filename="../gui/dockBuddiesList.cpp" line="300"/>
         <source>The pattern you have specified is invalid.</source>
         <translation>Podany wzorzec nie jest prawidłowy.</translation>
     </message>
     <message>
-        <location filename="../gui/dockBuddiesList.cpp" line="309"/>
+        <location filename="../gui/dockBuddiesList.cpp" line="319"/>
         <source>The asterisk (*) can be used as a wild card.</source>
         <translation>Gwiazdka (*) dopasowuje dowolny tekst.</translation>
     </message>
     <message>
-        <location filename="../gui/dockBuddiesList.cpp" line="313"/>
+        <location filename="../gui/dockBuddiesList.cpp" line="323"/>
         <source>Use the Regular Expression format.</source>
         <translation>Użyj Wyrażenia Regularnego (RegExp).</translation>
     </message>
@@ -339,9 +339,8 @@ https://dev.maxmind.com/geoip/geoip2/geolite2/</translation>
 <context>
     <name>AutoUpdater</name>
     <message>
-        <location filename="../updater/autoupdater.cpp" line="160"/>
         <source>Detected update for package &quot;%1&quot; from version &quot;%2&quot; to version &quot;%3&quot;.</source>
-        <translation>Wykryto aktualizację pakietu &quot;%1&quot; z wersji &quot;%2&quot; do wersji &quot;%3&quot;.</translation>
+        <translation type="vanished">Wykryto aktualizację pakietu &quot;%1&quot; z wersji &quot;%2&quot; do wersji &quot;%3&quot;.</translation>
     </message>
     <message>
         <location filename="../updater/autoupdater.cpp" line="195"/>
@@ -696,32 +695,32 @@ https://dev.maxmind.com/geoip/geoip2/geolite2/</translation>
 <context>
     <name>CFGCustomServers</name>
     <message>
-        <location filename="../gui/configuration/cfgcustomservers.cpp" line="89"/>
+        <location filename="../gui/configuration/cfgcustomservers.cpp" line="87"/>
         <source>Toggle enabled state</source>
         <translation>Włącz/wyłącz</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgcustomservers.cpp" line="114"/>
+        <location filename="../gui/configuration/cfgcustomservers.cpp" line="112"/>
         <source>Doomseeker - pinned servers</source>
         <translation>Doomseeker - serwery przypięte</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgcustomservers.cpp" line="128"/>
+        <location filename="../gui/configuration/cfgcustomservers.cpp" line="126"/>
         <source>Port must be within range 1 - 65535</source>
         <translation>Port musi być w zakresie 1 - 65535</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgcustomservers.cpp" line="132"/>
+        <location filename="../gui/configuration/cfgcustomservers.cpp" line="130"/>
         <source>Unimplemented behavior!</source>
         <translation>Niezaimplementowana funkcja!</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgcustomservers.cpp" line="207"/>
+        <location filename="../gui/configuration/cfgcustomservers.cpp" line="205"/>
         <source>Host</source>
         <translation>Host</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgcustomservers.cpp" line="207"/>
+        <location filename="../gui/configuration/cfgcustomservers.cpp" line="205"/>
         <source>Port</source>
         <translation>Port</translation>
     </message>
@@ -888,31 +887,55 @@ https://dev.maxmind.com/geoip/geoip2/geolite2/</translation>
         <translation>Usuń</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgfilepaths.ui" line="123"/>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="132"/>
         <source>&lt;p&gt;If selected Doomseeker will attempt to find the files used on a particular server when the mouse cursor is hovered over the WADs and IWAD columns. This requires a hard drive access to search in all the directories specified above each time a new tooltip is generated. If it takes too long to create such tooltip, you may try disabling this option.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Po włączeniu tej opcji, Doomseeker będzie wyszukiwał na dysku pliki używane na poszczególnych serwerach zawsze gdy zawiesisz kursor myszy nad kolumną WADów albo IWADa. To wymaga dostępu do dysku twardego i będzie przeszukiwać wszystkie katalogi podane powyżej, za każdym razem, gdy będzie trzeba wygenerować nowy dymek z podpowiedzią. Jeżeli generowanie tych dymków okaże się zbyt długotrwałe, możesz spróbować wyłączyć tą opcję.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgfilepaths.ui" line="133"/>
         <source>&lt;p&gt;If selected Doomseeker will attempt to check the integrity of the local WADs, compared to the ones used on a particular server. This requires a hard drive access to read the entirety of the WADs. If it takes too long to join servers, you may want to disable this feature.&lt;/p&gt;
 &lt;p&gt;This setting is used when joining a server and when clicking the &amp;quot;Find missing WADs&amp;quot; button in the context menu.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Po włączeniu tej opcji, Doomseeker będzie sprawdzać spójność lokalnych WADów, porównując je do tych używanych na serwerze gry. To wymaga dostępu do dysku twardego i odczytania każdego WADa w całości. Jeżeli okaże się to zbyt długotrwałe, możesz spróbować wyłączyć tą opcję.&lt;/p&gt;
+        <translation type="vanished">&lt;p&gt;Po włączeniu tej opcji, Doomseeker będzie sprawdzać spójność lokalnych WADów, porównując je do tych używanych na serwerze gry. To wymaga dostępu do dysku twardego i odczytania każdego WADa w całości. Jeżeli okaże się to zbyt długotrwałe, możesz spróbować wyłączyć tą opcję.&lt;/p&gt;
 &lt;p&gt;Doomseeker robi to gdy dołączasz się do serwera, a także gdy używasz akcji &quot;Odszukaj brakujące WADy&quot; z menu kontekstowego serwera.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgfilepaths.ui" line="144"/>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="153"/>
         <source>Resolve $PLACEHOLDERS in paths</source>
         <translation>Zamieniaj $WZORCE w ścieżkach</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgfilepaths.ui" line="126"/>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="135"/>
         <source>Tell me where are my WADs located</source>
         <translation>Mów mi, gdzie znajdują się moje WADy</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfgfilepaths.ui" line="137"/>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="142"/>
+        <source>&lt;p&gt;If selected Doomseeker will attempt to check the integrity of the local WADs, compared to the ones used on a particular server. This requires a hard drive access to read the entirety of the WADs. It also requires the checksums to be downloaded from the servers, causing more network traffic. If it takes too long to join servers, or there are problems with the server refresh, you may want to disable this feature.&lt;/p&gt;
+&lt;p&gt;This setting is used when joining a server and when clicking the &amp;quot;Find missing WADs&amp;quot; button in the context menu.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Po włączeniu tej opcji, Doomseeker będzie sprawdzać spójność lokalnych WADów, porównując je do tych używanych na serwerze gry. To wymaga dostępu do dysku twardego i odczytywania każdego WADa w całości. Musi też pobierać sumy kontrolne plików z serwerów gry, co zwiększa zużycie łącza. Jeżeli uznasz, że wpływa to negatywnie na wydajność dołączania do serwera, albo powoduje problemy z odświeżaniem serwerów, to możesz spróbować wyłączyć tą opcję.&lt;/p&gt;
+&lt;p&gt;Doomseeker używa tej opcji, gdy dołączasz się do serwera, a także gdy używasz akcji &quot;Odszukaj brakujące WADy&quot; z menu kontekstowego serwera.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfgfilepaths.ui" line="146"/>
         <source>Check the integrity of local WADs</source>
         <translation>Sprawdzaj spójność WADów na dysku</translation>
+    </message>
+</context>
+<context>
+    <name>CFGGames</name>
+    <message>
+        <location filename="../gui/configuration/cfggames.ui" line="29"/>
+        <source>Player name:</source>
+        <translation>Nazwa gracza:</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfggames.ui" line="43"/>
+        <source>This is currently used only for recording demos. It&apos;s attached to each demo you record. Set this to $USERNAME to use your Operating System&apos;s username.</source>
+        <translation>Nazwa gracza jest póki co używana jedynie podczas nagrywania demo. Doomseeker dopisuje ją do nagrania. Wpisz tu $USERNAME, aby Doomseeker pobierał nazwę użytkownika z twojego Systemu Operacyjnego.</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfggames.h" line="43"/>
+        <source>Games</source>
+        <translation>Gry</translation>
     </message>
 </context>
 <context>
@@ -1153,7 +1176,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Uwaga:&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt; hasła są przechowywane w pliku konfiguracyjnym jako zwykły tekst.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="81"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="82"/>
         <source>These commands have violated the IRC maximum byte number limit (%1):
 
 </source>
@@ -1162,7 +1185,7 @@ p, li { white-space: pre-wrap; }
 </translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="83"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="84"/>
         <source>
 
 If saved, the script may not run properly.
@@ -1175,7 +1198,7 @@ Ten skrypt może nie zadziałać poprawnie.
 Czy chcesz zapisać skrypt mimo wszystko?</translation>
     </message>
     <message numerus="yes">
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="88"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="89"/>
         <source>
 
 ... and %n more ...</source>
@@ -1192,34 +1215,34 @@ Czy chcesz zapisać skrypt mimo wszystko?</translation>
         </translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="91"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="92"/>
         <source>Doomseeker - IRC Commands Problem</source>
         <translation>Doomseeker - problem z komendami IRC</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="115"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="117"/>
         <source>	%1 (...)</source>
         <translation>	%1 (...)</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="217"/>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="223"/>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="232"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="219"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="225"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="234"/>
         <source>Invalid IRC network description</source>
         <translation>Nieprawidłowy opis sieci IRC</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="218"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="220"/>
         <source>Network description cannot be empty.</source>
         <translation>Opis sieci nie może być pusty.</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="224"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="226"/>
         <source>There already is a network with such description.</source>
         <translation>Już istnieje sieć o takim opisie.</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="229"/>
+        <location filename="../gui/configuration/irc/cfgircdefinenetworkdialog.cpp" line="231"/>
         <source>Network description is invalid.
 
 Only letters, digits, spaces and &quot;%1&quot; are allowed.</source>
@@ -1673,6 +1696,11 @@ p, li { white-space: pre-wrap; }
         <source>Critical error:</source>
         <translation>Błąd krytyczny:</translation>
     </message>
+    <message>
+        <location filename="../gui/configuration/cfgwadseekerappearance.ui" line="81"/>
+        <source>Navigation:</source>
+        <translation>Nawigacja:</translation>
+    </message>
 </context>
 <context>
     <name>CFGWadseekerGeneral</name>
@@ -1907,9 +1935,8 @@ p, li { white-space: pre-wrap; }
         <translation>Logi chata nie zostaną przeniesione z &quot;%1&quot; do &quot;%2&quot;, ponieważ katalog &quot;%2&quot; już istnieje.</translation>
     </message>
     <message>
-        <location filename="../irc/chatlogs.cpp" line="94"/>
         <source>Failed to transfer chat from &quot;%1&quot; to &quot;%2&quot;</source>
-        <translation>Błąd przenoszenia chata z &quot;%1&quot; do &quot;%2&quot;</translation>
+        <translation type="vanished">Błąd przenoszenia chata z &quot;%1&quot; do &quot;%2&quot;</translation>
     </message>
     <message>
         <location filename="../irc/chatlogs.cpp" line="98"/>
@@ -2206,9 +2233,8 @@ p, li { white-space: pre-wrap; }
         <translation>Doomseeker - dołączanie do gry</translation>
     </message>
     <message>
-        <location filename="../connectionhandler.cpp" line="177"/>
         <source>Error while launching game &quot;%2&quot; for server &quot;%1&quot;: %3</source>
-        <translation>Błąd uruchamiania gry &quot;%2&quot; dla serwera &quot;%1&quot;: %3</translation>
+        <translation type="vanished">Błąd uruchamiania gry &quot;%2&quot; dla serwera &quot;%1&quot;: %3</translation>
     </message>
     <message>
         <location filename="../connectionhandler.cpp" line="179"/>
@@ -2259,52 +2285,76 @@ p, li { white-space: pre-wrap; }
         <translation>Nie można zapisać konfiguracji gry!</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="179"/>
-        <location filename="../gui/createserverdialog.cpp" line="387"/>
+        <location filename="../gui/createserverdialog.cpp" line="153"/>
+        <location filename="../gui/createserverdialog.cpp" line="389"/>
         <source>Doomseeker - create game</source>
         <translation>Doomseeker - tworzenie gry</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="139"/>
+        <location filename="../gui/createserverdialog.cpp" line="114"/>
+        <source>Doomseeker - Play Demo</source>
+        <translation>Doomseeker - odtwórz demo</translation>
+    </message>
+    <message>
+        <location filename="../gui/createserverdialog.cpp" line="115"/>
+        <source>Play demo</source>
+        <translation>Odtwórz demo</translation>
+    </message>
+    <message>
+        <location filename="../gui/createserverdialog.cpp" line="119"/>
         <source>Host server</source>
         <translation>Załóż serwer</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="141"/>
+        <location filename="../gui/createserverdialog.cpp" line="123"/>
         <source>Play</source>
         <translation>Graj</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="147"/>
+        <location filename="../gui/createserverdialog.cpp" line="126"/>
         <source>Doomseeker - Setup Remote Game</source>
         <translation>Doomseeker - skonfiguruj zdalną grę</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="150"/>
+        <location filename="../gui/createserverdialog.cpp" line="118"/>
         <source>Doomseeker - Host Online Game</source>
         <translation>Doomseeker - załóż grę online</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="153"/>
+        <location filename="../gui/createserverdialog.cpp" line="122"/>
         <source>Doomseeker - Play Offline Game</source>
         <translation>Doomseeker - graj offline</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="156"/>
         <source>Doomseeker - [Unhandled Host Mode]</source>
-        <translation>Doomseeker - [nieobsługiwany tryb hostowania]</translation>
+        <translation type="vanished">Doomseeker - [nieobsługiwany tryb hostowania]</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="182"/>
-        <location filename="../gui/createserverdialog.cpp" line="390"/>
+        <location filename="../gui/createserverdialog.cpp" line="156"/>
+        <location filename="../gui/createserverdialog.cpp" line="392"/>
         <source>No game selected</source>
         <translation>Nie wybrano gry</translation>
     </message>
     <message>
         <location filename="../gui/createserverdialog.ui" line="69"/>
-        <location filename="../gui/createserverdialog.cpp" line="268"/>
+        <location filename="../gui/createserverdialog.cpp" line="254"/>
         <source>Flags</source>
         <translation>Flagi</translation>
+    </message>
+    <message>
+        <location filename="../gui/createserverdialog.cpp" line="127"/>
+        <source>Play online</source>
+        <translation>Graj online</translation>
+    </message>
+    <message>
+        <location filename="../gui/createserverdialog.cpp" line="130"/>
+        <source>Doomseeker - Create Game</source>
+        <translation>Doomseeker - tworzenie gry</translation>
+    </message>
+    <message>
+        <location filename="../gui/createserverdialog.cpp" line="131"/>
+        <source>Create game</source>
+        <translation>Stwórz grę</translation>
     </message>
     <message>
         <location filename="../gui/createserverdialog.cpp" line="449"/>
@@ -2352,8 +2402,7 @@ p, li { white-space: pre-wrap; }
         <translation>Wiersz poleceń do uruchomienia serwera:</translation>
     </message>
     <message>
-        <location filename="../gui/createserverdialog.cpp" line="199"/>
-        <location filename="../gui/createserverdialog.cpp" line="405"/>
+        <location filename="../gui/createserverdialog.cpp" line="173"/>
         <source>Doomseeker - error</source>
         <translation>Doomseeker - błąd</translation>
     </message>
@@ -2451,27 +2500,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DefaultDifficultyProvider</name>
     <message>
-        <location filename="../plugins/enginedefaults.h" line="37"/>
+        <location filename="../plugins/enginedefaults.h" line="41"/>
         <source>1 - I&apos;m too young to die</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../plugins/enginedefaults.h" line="38"/>
+        <location filename="../plugins/enginedefaults.h" line="42"/>
         <source>2 - Hey, not too rough</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../plugins/enginedefaults.h" line="39"/>
+        <location filename="../plugins/enginedefaults.h" line="43"/>
         <source>3 - Hurt me plenty</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../plugins/enginedefaults.h" line="40"/>
+        <location filename="../plugins/enginedefaults.h" line="44"/>
         <source>4 - Ultra-violence</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../plugins/enginedefaults.h" line="41"/>
+        <location filename="../plugins/enginedefaults.h" line="45"/>
         <source>5 - NIGHTMARE!</source>
         <translation></translation>
     </message>
@@ -2479,89 +2528,261 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DemoManagerDlg</name>
     <message>
-        <location filename="../gui/demomanager.ui" line="61"/>
+        <location filename="../gui/demomanager.ui" line="134"/>
         <source>Play</source>
         <translation>Odtwarzaj</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.ui" line="88"/>
+        <location filename="../gui/demomanager.ui" line="161"/>
         <source>Remove</source>
         <translation>Usuń</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.ui" line="112"/>
-        <source>Export</source>
-        <translation>Eksportuj</translation>
+        <location filename="../gui/demomanager.ui" line="185"/>
+        <source>Import</source>
+        <translation>Importuj</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="249"/>
+        <location filename="../gui/demomanager.ui" line="192"/>
+        <source>Export ...</source>
+        <translation>Eksportuj ...</translation>
+    </message>
+    <message>
+        <source>Export</source>
+        <translation type="vanished">Eksportuj</translation>
+    </message>
+    <message>
+        <location filename="../gui/demomanager.cpp" line="360"/>
+        <location filename="../gui/demomanager.cpp" line="383"/>
         <source>Unable to save</source>
         <translation>Błąd zapisu</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="249"/>
+        <location filename="../gui/demomanager.cpp" line="360"/>
+        <location filename="../gui/demomanager.cpp" line="384"/>
         <source>Could not write to the specified location.</source>
         <translation>Nie można zapisywać do podanego miejsca.</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="191"/>
+        <location filename="../gui/demomanager.cpp" line="283"/>
         <source>Remove demo?</source>
         <translation>Usunąć demo?</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="192"/>
+        <location filename="../gui/demomanager.cpp" line="284"/>
         <source>Are you sure you want to remove the selected demo?</source>
         <translation>Czy jesteś pewien, że chcesz usunąć wybrane demo?</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="178"/>
+        <location filename="../gui/demomanager.cpp" line="272"/>
         <source>Unable to remove</source>
         <translation>Błąd usuwania</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="178"/>
+        <location filename="../gui/demomanager.cpp" line="228"/>
+        <source>Export plain demo file</source>
+        <translation>Eksportuj zwykły plik demo</translation>
+    </message>
+    <message>
+        <location filename="../gui/demomanager.cpp" line="230"/>
+        <source>Export with Doomseeker metadata ...</source>
+        <translation>Eksportuj z metadanymi Doomseekera ...</translation>
+    </message>
+    <message>
+        <location filename="../gui/demomanager.cpp" line="272"/>
         <source>Could not remove the selected demo.</source>
         <translation>Nie można usunąć wybranego dema.</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="273"/>
+        <location filename="../gui/demomanager.cpp" line="328"/>
+        <source>Demo export</source>
+        <translation>Eksport demo</translation>
+    </message>
+    <message>
+        <location filename="../gui/demomanager.cpp" line="329"/>
+        <source>The exported files already exist at the specified directory. Overwrite?
+
+%1</source>
+        <translation>Eksportowane pliki już istnieją w podanym katalogu. Nadpisać?
+
+%1</translation>
+    </message>
+    <message>
+        <location filename="../gui/demomanager.cpp" line="398"/>
+        <source>Import demo</source>
+        <translation>Importuj demo</translation>
+    </message>
+    <message>
+        <location filename="../gui/demomanager.cpp" line="400"/>
+        <source>Demo files (%1)</source>
+        <translation>Pliki demo (%1)</translation>
+    </message>
+    <message>
+        <location filename="../gui/demomanager.cpp" line="410"/>
+        <source>Import game demo</source>
+        <translation>Importuj demo gry</translation>
+    </message>
+    <message>
+        <location filename="../gui/demomanager.cpp" line="429"/>
+        <source>It looks like this demo is already imported. Overwrite anyway?</source>
+        <translation>Zdaje się, że to demo jest już zaimportowane. Czy nadpisać mimo wszystko?</translation>
+    </message>
+    <message>
+        <location filename="../gui/demomanager.cpp" line="433"/>
+        <source>Another demo with this metadata already exists. Overwrite?</source>
+        <translation>Inne demo z tymi samymi metadanymi już istnieje. Nadpisać?</translation>
+    </message>
+    <message>
+        <location filename="../gui/demomanager.cpp" line="435"/>
+        <source>Existing: %1
+New: %2
+</source>
+        <translation>Istniejące: %1
+Nowe: %2
+</translation>
+    </message>
+    <message>
+        <location filename="../gui/demomanager.cpp" line="441"/>
+        <location filename="../gui/demomanager.cpp" line="451"/>
+        <source>Demo import</source>
+        <translation>Import demo</translation>
+    </message>
+    <message>
+        <location filename="../gui/demomanager.cpp" line="442"/>
+        <source>%1
+
+%2</source>
+        <translation>%1
+
+%2</translation>
+    </message>
+    <message>
+        <location filename="../gui/demomanager.cpp" line="452"/>
+        <source>Could not import the selected demo.</source>
+        <translation>Import wybranego demo nie powiódł się.</translation>
+    </message>
+    <message>
+        <location filename="../gui/demomanager.cpp" line="465"/>
+        <source>%1 %L2 B (MD5: %3)</source>
+        <translation>%1 %L2 B (MD5: %3)</translation>
+    </message>
+    <message>
+        <location filename="../gui/demomanager.cpp" line="493"/>
         <source>No plugin</source>
         <translation>Brak wtyczki</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="274"/>
+        <location filename="../gui/demomanager.cpp" line="494"/>
         <source>The &quot;%1&quot; plugin does not appear to be loaded.</source>
         <translation>Wtyczka &quot;%1&quot; nie jest załadowana.</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="302"/>
+        <location filename="../gui/demomanager.cpp" line="529"/>
         <source>Files not found</source>
         <translation>Pliki nie odnalezione</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="303"/>
+        <location filename="../gui/demomanager.cpp" line="530"/>
         <source>The following files could not be located: </source>
         <translation>Następujące pliki nie mogły zostać odnalezione: </translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="327"/>
+        <location filename="../gui/demomanager.cpp" line="577"/>
+        <source>Game</source>
+        <translation>Gra</translation>
+    </message>
+    <message>
+        <location filename="../gui/demomanager.cpp" line="583"/>
+        <source>Author</source>
+        <translation>Autor</translation>
+    </message>
+    <message>
+        <location filename="../gui/demomanager.cpp" line="585"/>
+        <source>WADs / mods</source>
+        <translation>WADy / mody</translation>
+    </message>
+    <message>
         <source>Doomseeker - error</source>
-        <translation>Doomseeker - błąd</translation>
+        <translation type="vanished">Doomseeker - błąd</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="352"/>
         <source>Port</source>
-        <translation>Port</translation>
+        <translation type="vanished">Port</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="353"/>
         <source>WADs</source>
-        <translation>WADy</translation>
+        <translation type="vanished">WADy</translation>
     </message>
     <message>
         <location filename="../gui/demomanager.ui" line="17"/>
         <source>Demo Manager</source>
         <translation>Menadżer dem</translation>
+    </message>
+</context>
+<context>
+    <name>DemoMetaDataDialog</name>
+    <message>
+        <location filename="../gui/demometadatadialog.ui" line="14"/>
+        <source>Game Demo</source>
+        <translation>Demo gry</translation>
+    </message>
+    <message>
+        <location filename="../gui/demometadatadialog.ui" line="22"/>
+        <source>Game:</source>
+        <translation>Gra:</translation>
+    </message>
+    <message>
+        <location filename="../gui/demometadatadialog.ui" line="29"/>
+        <source>Created time:</source>
+        <translation>Czas utworzenia:</translation>
+    </message>
+    <message>
+        <location filename="../gui/demometadatadialog.ui" line="49"/>
+        <source>yyyy-MM-dd HH:mm:ss</source>
+        <translation>yyyy-MM-dd HH:mm:ss</translation>
+    </message>
+    <message>
+        <location filename="../gui/demometadatadialog.ui" line="59"/>
+        <source>IWAD:</source>
+        <translation>IWAD:</translation>
+    </message>
+    <message>
+        <location filename="../gui/demometadatadialog.ui" line="69"/>
+        <source>Author:</source>
+        <translation>Autor:</translation>
+    </message>
+    <message>
+        <location filename="../gui/demometadatadialog.ui" line="76"/>
+        <source>Game version:</source>
+        <translation>Wersja gry:</translation>
+    </message>
+    <message>
+        <location filename="../gui/demometadatadialog.ui" line="88"/>
+        <source>WADs and other game files:</source>
+        <translation>WADy i inne pliki:</translation>
+    </message>
+</context>
+<context>
+    <name>DemoModel</name>
+    <message>
+        <location filename="../gui/demomanager.cpp" line="83"/>
+        <source>Created Time</source>
+        <translation>Czas utworzenia</translation>
+    </message>
+    <message>
+        <location filename="../gui/demomanager.cpp" line="83"/>
+        <source>Author</source>
+        <translation>Autor</translation>
+    </message>
+    <message>
+        <location filename="../gui/demomanager.cpp" line="83"/>
+        <source>IWAD</source>
+        <translation>IWAD</translation>
+    </message>
+    <message>
+        <location filename="../gui/demomanager.cpp" line="83"/>
+        <source>WADs</source>
+        <translation>WADy</translation>
     </message>
 </context>
 <context>
@@ -2593,13 +2814,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/dockBuddiesList.ui" line="149"/>
-        <location filename="../gui/dockBuddiesList.cpp" line="188"/>
+        <location filename="../gui/dockBuddiesList.cpp" line="198"/>
         <source>Add</source>
         <translation>Dodaj</translation>
     </message>
     <message>
         <location filename="../gui/dockBuddiesList.ui" line="160"/>
-        <location filename="../gui/dockBuddiesList.cpp" line="194"/>
+        <location filename="../gui/dockBuddiesList.cpp" line="204"/>
         <source>Remove</source>
         <translation>Usuń</translation>
     </message>
@@ -2622,19 +2843,18 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DoomseekerConfigurationDialog</name>
     <message>
-        <location filename="../gui/configuration/doomseekerconfigurationdialog.cpp" line="108"/>
+        <location filename="../gui/configuration/doomseekerconfigurationdialog.cpp" line="112"/>
         <source>Settings saved!</source>
         <translation>Zapisano ustawienia!</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/doomseekerconfigurationdialog.cpp" line="110"/>
+        <location filename="../gui/configuration/doomseekerconfigurationdialog.cpp" line="114"/>
         <source>Settings save failed!</source>
         <translation>Zapis ustawień nie powiódł się!</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/doomseekerconfigurationdialog.cpp" line="115"/>
         <source>Games</source>
-        <translation>Gry</translation>
+        <translation type="vanished">Gry</translation>
     </message>
 </context>
 <context>
@@ -2685,6 +2905,14 @@ Musisz użyć przycisku przeglądaj.</translation>
         <location filename="../gui/configuration/engineconfigpage.ui" line="129"/>
         <source>Masterserver address:</source>
         <translation>Adres masterserwera:</translation>
+    </message>
+</context>
+<context>
+    <name>EnginePluginComboBox</name>
+    <message>
+        <location filename="../gui/widgets/engineplugincombobox.cpp" line="81"/>
+        <source>%1 (unknown)</source>
+        <translation>%1 (nieznany)</translation>
     </message>
 </context>
 <context>
@@ -2761,22 +2989,22 @@ jest katalogiem lub nie istnieje.</translation>
         <translation>Znajdź</translation>
     </message>
     <message>
-        <location filename="../gui/widgets/filepickwidget.cpp" line="65"/>
+        <location filename="../gui/widgets/filepickwidget.cpp" line="66"/>
         <source>Doomseeker - choose executable file</source>
         <translation>Doomseeker - wybierz plik wykonywalny</translation>
     </message>
     <message>
-        <location filename="../gui/widgets/filepickwidget.cpp" line="97"/>
+        <location filename="../gui/widgets/filepickwidget.cpp" line="98"/>
         <source>Path to %1 executable:</source>
         <translation>Ścieżka do pliku wykonywalnego - %1:</translation>
     </message>
     <message>
-        <location filename="../gui/widgets/filepickwidget.cpp" line="148"/>
+        <location filename="../gui/widgets/filepickwidget.cpp" line="159"/>
         <source>File doesn&apos;t exist.</source>
         <translation>Plik nie istnieje.</translation>
     </message>
     <message>
-        <location filename="../gui/widgets/filepickwidget.cpp" line="151"/>
+        <location filename="../gui/widgets/filepickwidget.cpp" line="162"/>
         <source>This is a directory.</source>
         <translation>To jest katalog.</translation>
     </message>
@@ -2980,17 +3208,17 @@ Plik wykonywalny: %3</translation>
 <context>
     <name>GameDemoTr</name>
     <message>
-        <location filename="../gamedemo.cpp" line="46"/>
+        <location filename="../gamedemo.cpp" line="53"/>
         <source>Doomseeker - Record Demo</source>
         <translation>Doomseeker - Nagraj demo</translation>
     </message>
     <message>
-        <location filename="../gamedemo.cpp" line="54"/>
+        <location filename="../gamedemo.cpp" line="61"/>
         <source>Error: %1</source>
         <translation>Błąd: %1</translation>
     </message>
     <message>
-        <location filename="../gamedemo.cpp" line="56"/>
+        <location filename="../gamedemo.cpp" line="63"/>
         <source>The demo storage directory doesn&apos;t exist and cannot be created!%1
 
 %2</source>
@@ -2999,7 +3227,7 @@ Plik wykonywalny: %3</translation>
 %2</translation>
     </message>
     <message>
-        <location filename="../gamedemo.cpp" line="62"/>
+        <location filename="../gamedemo.cpp" line="69"/>
         <source>The demo storage directory exists but lacks the necessary permissions!
 
 %1</source>
@@ -3094,24 +3322,24 @@ Plik wykonywalny: %3</translation>
 <context>
     <name>GameHost</name>
     <message>
-        <location filename="../serverapi/gamehost.cpp" line="149"/>
+        <location filename="../serverapi/gamehost.cpp" line="151"/>
         <source>IWAD is not set</source>
         <translation>IWAD nie jest ustawiony</translation>
     </message>
     <message>
-        <location filename="../serverapi/gamehost.cpp" line="157"/>
+        <location filename="../serverapi/gamehost.cpp" line="159"/>
         <source>IWAD Path error:
 &quot;%1&quot; doesn&apos;t exist or is a directory!</source>
         <translation>Błąd ściezki do IWADa:
 &quot;%1&quot; nie istnieje lub jest katalogiem!</translation>
     </message>
     <message>
-        <location filename="../serverapi/gamehost.cpp" line="438"/>
+        <location filename="../serverapi/gamehost.cpp" line="440"/>
         <source>The game executable is not set.</source>
         <translation>Nie skonfigurowano pliku wykonywalnego gry.</translation>
     </message>
     <message>
-        <location filename="../serverapi/gamehost.cpp" line="445"/>
+        <location filename="../serverapi/gamehost.cpp" line="447"/>
         <source>The executable
 %1
 doesn&apos;t exist or is not a file.</source>
@@ -3126,7 +3354,7 @@ doesn&apos;t exist or is not a file.</source>
 nie istnieje lub nie jest plikiem.</translation>
     </message>
     <message>
-        <location filename="../serverapi/gamehost.cpp" line="461"/>
+        <location filename="../serverapi/gamehost.cpp" line="463"/>
         <source>PWAD path error:
 &quot;%1&quot; doesn&apos;t exist!</source>
         <translation>Błąd ścieżki do PWADa:
@@ -3136,27 +3364,27 @@ nie istnieje lub nie jest plikiem.</translation>
 <context>
     <name>GameInfoTip</name>
     <message>
-        <location filename="../serverapi/tooltips/gameinfotip.cpp" line="61"/>
+        <location filename="../serverapi/tooltips/gameinfotip.cpp" line="67"/>
         <source>Players</source>
         <translation>Graczy</translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/gameinfotip.cpp" line="66"/>
+        <location filename="../serverapi/tooltips/gameinfotip.cpp" line="72"/>
         <source>%1 / %2 (%3 can join)</source>
         <translation>%1 / %2 (%3 może się dołączyć)</translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/gameinfotip.cpp" line="88"/>
+        <location filename="../serverapi/tooltips/gameinfotip.cpp" line="96"/>
         <source>Scorelimit</source>
         <translation>Limit punktów</translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/gameinfotip.cpp" line="122"/>
+        <location filename="../serverapi/tooltips/gameinfotip.cpp" line="131"/>
         <source>Timelimit</source>
         <translation>Limit czasu</translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/gameinfotip.cpp" line="129"/>
+        <location filename="../serverapi/tooltips/gameinfotip.cpp" line="138"/>
         <source>(%1 left)</source>
         <translation>(pozostało %1)</translation>
     </message>
@@ -3207,18 +3435,18 @@ nie istnieje lub nie jest plikiem.</translation>
 <context>
     <name>GeneralGameSetupPanel</name>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="238"/>
-        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="267"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="280"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="310"/>
         <source>&lt; NONE &gt;</source>
         <translation>&lt; BRAK &gt;</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="377"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="477"/>
         <source>Doomseeker - load server config</source>
         <translation>Doomseeker - wczytaj konfigurację serwera</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="378"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="478"/>
         <source>Plugin for engine &quot;%1&quot; is not present!</source>
         <translation>Wtyczka dla gry &quot;%1&quot; nie jest załadowana!</translation>
     </message>
@@ -3233,92 +3461,97 @@ nie istnieje lub nie jest plikiem.</translation>
         <translation>Plik wykonywalny:</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="92"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="105"/>
         <source>If locked, executable won&apos;t change when new config for the same engine is loaded</source>
         <translation>Zaklucz, aby zachować ten plik wykonywalny po załadowaniu innej konfiguracji dla tej samej gry</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="95"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="108"/>
         <source>Lock</source>
         <translation>Zaklucz</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="104"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="117"/>
         <source>Logging:</source>
         <translation>Logowanie:</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="127"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="140"/>
         <source>Server name:</source>
         <translation>Nazwa serwera:</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="134"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="147"/>
         <source>Started from Doomseeker</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="141"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="154"/>
         <source>Port:</source>
         <translation>Port:</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="182"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="195"/>
         <source>Allow the game to choose port</source>
         <translation>Pozwól grze wybrać port</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="192"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="205"/>
         <source>Game mode:</source>
         <translation>Tryb gry:</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="219"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="232"/>
         <source>Map:</source>
         <translation>Mapa:</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="243"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="271"/>
+        <source>Demo:</source>
+        <translation>Demo:</translation>
+    </message>
+    <message>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="299"/>
         <source>This map isn&apos;t present on the map list. The game may misbehave.</source>
         <translation>Tej mapy nie ma na liście map. Gra może zachować się dziwnie.</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="258"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="239"/>
         <source>IWAD:</source>
         <translation>IWAD:</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="292"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="317"/>
         <source>Additional WADs and files (check the required ones):</source>
         <translation>Dodatkowe WADy i pliki (zaznacz te wymagane):</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="202"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="215"/>
         <source>Difficulty:</source>
         <translation>Poziom trudności:</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="359"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="384"/>
         <source>If checked, the game will try to tell your router to forward necessary ports.</source>
         <translation>Zaznacz by gra poprosiła Twój router o automatyczne przekierowanie niezbędnych portów.</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="362"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="387"/>
         <source>UPnP</source>
         <translation>UPnP</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="372"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="397"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;UPnP port. Set this to 0 to let Doomseeker or game decide.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Port UPnP. Ustaw tutaj 0 aby pozwolić Doomseekerowi albo grze wybrać własny.&lt;/p&gt;&lt;/body&gt;&lt;/html</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="324"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="349"/>
         <source>Broadcast to LAN</source>
         <translation>Opublikuj po LANie</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="334"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="359"/>
         <source>Broadcast to master</source>
         <translation>Opublikuj na masterze</translation>
     </message>
@@ -3341,10 +3574,14 @@ nie istnieje lub nie jest plikiem.</translation>
         <translation>URL</translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/generalinfotip.cpp" line="64"/>
+        <location filename="../serverapi/tooltips/generalinfotip.cpp" line="59"/>
+        <source>Location</source>
+        <translation>Miejsce</translation>
+    </message>
+    <message>
         <source>Location: %1
 </source>
-        <translation>Lokacja: %1
+        <translation type="vanished">Lokacja: %1
 </translation>
     </message>
 </context>
@@ -3379,1227 +3616,1227 @@ nie istnieje lub nie jest plikiem.</translation>
 <context>
     <name>IP2CCountryTr</name>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="56"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="57"/>
         <source>Aruba</source>
         <translation>Aruba</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="57"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="58"/>
         <source>Afghanistan</source>
         <translation>Afganistan</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="58"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="59"/>
         <source>Angola</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="59"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="60"/>
         <source>Anguilla</source>
-        <translation type="unfinished"></translation>
+        <translation>Anguilla</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="60"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="61"/>
         <source>Albania</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="61"/>
-        <source>Andorra</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="62"/>
-        <source>Netherlands Antilles</source>
-        <translation type="unfinished"></translation>
+        <source>Andorra</source>
+        <translation>Andora</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="63"/>
+        <source>Netherlands Antilles</source>
+        <translation>Antyle Holenderskie</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="64"/>
         <source>United Arab Emirates</source>
         <translation>Zjednoczone Emiraty Arabskie</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="64"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="65"/>
         <source>Argentina</source>
         <translation>Argentyna</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="65"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="66"/>
         <source>Armenia</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="66"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="67"/>
         <source>American Samoa</source>
-        <translation type="unfinished"></translation>
+        <translation>Samoa Amerykańskie</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="67"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="68"/>
         <source>Antarctica</source>
         <translation>Antarktyka</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="68"/>
-        <source>French Southern Territories</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="69"/>
-        <source>Antigua and Barbuda</source>
-        <translation type="unfinished"></translation>
+        <source>French Southern Territories</source>
+        <translation>Francuskie Terytoria Południowe</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="70"/>
+        <source>Antigua and Barbuda</source>
+        <translation>Antigua i Barbuda</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="71"/>
         <source>Australia</source>
         <translation>Australia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="71"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="72"/>
         <source>Austria</source>
         <translation>Austria</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="72"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="73"/>
         <source>Azerbaijan</source>
         <translation>Azerbejdżan</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="73"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="74"/>
         <source>Burundi</source>
-        <translation type="unfinished"></translation>
+        <translation>Burundi</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="74"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="75"/>
         <source>Belgium</source>
         <translation>Belgia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="75"/>
-        <source>Benin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="76"/>
-        <source>Burkina Faso</source>
-        <translation type="unfinished"></translation>
+        <source>Benin</source>
+        <translation>Benin</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="77"/>
+        <source>Burkina Faso</source>
+        <translation>Burkina Faso</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="78"/>
         <source>Bangladesh</source>
         <translation>Bangladesz</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="78"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="79"/>
         <source>Bulgaria</source>
         <translation>Bułgaria</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="79"/>
-        <source>Bahrain</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="80"/>
-        <source>Bahamas</source>
-        <translation type="unfinished"></translation>
+        <source>Bahrain</source>
+        <translation>Bahrajn</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="81"/>
+        <source>Bahamas</source>
+        <translation>Bahamy</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="82"/>
         <source>Bosnia and Herzegovina</source>
         <translation>Bośnia i Hercegowina</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="82"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="83"/>
         <source>Belarus</source>
         <translation>Białoruś</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="83"/>
-        <source>Belize</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="84"/>
-        <source>Bermuda</source>
-        <translation type="unfinished"></translation>
+        <source>Belize</source>
+        <translation>Belize</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="85"/>
+        <source>Bermuda</source>
+        <translation>Bermudy</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="86"/>
         <source>Bolivia</source>
         <translation>Boliwia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="86"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="87"/>
         <source>Brazil</source>
         <translation>Brazylia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="87"/>
-        <source>Barbados</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="88"/>
-        <source>Brunei</source>
-        <translation type="unfinished"></translation>
+        <source>Barbados</source>
+        <translation>Barbados</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="89"/>
-        <source>Bhutan</source>
-        <translation type="unfinished"></translation>
+        <source>Brunei</source>
+        <translation>Brunei</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="90"/>
-        <source>Bouvet Island</source>
-        <translation type="unfinished"></translation>
+        <source>Bhutan</source>
+        <translation>Bhutan</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="91"/>
-        <source>Botswana</source>
-        <translation type="unfinished"></translation>
+        <source>Bouvet Island</source>
+        <translation>Wyspa Bouveta</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="92"/>
-        <source>Central African Republic</source>
-        <translation type="unfinished"></translation>
+        <source>Botswana</source>
+        <translation>Botswana</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="93"/>
+        <source>Central African Republic</source>
+        <translation>Republika Środkowoafrykańska</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="94"/>
         <source>Canada</source>
         <translation>Kanada</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="94"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="95"/>
         <source>Cocos (Keeling) Islands</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyspy Kokosowe</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="95"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="96"/>
         <source>Switzerland</source>
         <translation>Szwajcaria</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="96"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="97"/>
         <source>Chile</source>
         <translation>Chile</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="97"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="98"/>
         <source>China</source>
         <translation>Chiny</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="98"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="99"/>
         <source>Ivory Coast</source>
         <translation>Wybrzeże Kości Słoniowej</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="99"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="100"/>
         <source>Cameroon</source>
         <translation>Kamerun</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="100"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="101"/>
         <source>Congo, the Democratic Republic of the</source>
-        <translation type="unfinished"></translation>
+        <translation>Demokratyczna Republika Konga</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="101"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="102"/>
         <source>Congo</source>
         <translation>Kongo</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="102"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="103"/>
         <source>Cook Islands</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyspy Cooka</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="103"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="104"/>
         <source>Colombia</source>
         <translation>Kolumbia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="104"/>
-        <source>Comoros</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="105"/>
-        <source>Cape Verde</source>
-        <translation type="unfinished"></translation>
+        <source>Comoros</source>
+        <translation>Komory</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="106"/>
-        <source>Costa Rica</source>
-        <translation type="unfinished"></translation>
+        <source>Cape Verde</source>
+        <translation>Republika Zielonego Przylądka</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="107"/>
+        <source>Costa Rica</source>
+        <translation>Kostaryka</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="108"/>
         <source>Cuba</source>
         <translation>Kuba</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="108"/>
-        <source>Christmas Island</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="109"/>
-        <source>Cayman Islands</source>
-        <translation type="unfinished"></translation>
+        <source>Christmas Island</source>
+        <translation>Wyspa Bożego Narodzenia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="110"/>
+        <source>Cayman Islands</source>
+        <translation>Kajmany</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="111"/>
         <source>Cyprus</source>
         <translation>Cypr</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="111"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="112"/>
         <source>Czech Republic</source>
         <translation>Republika Czeska</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="112"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="113"/>
         <source>Germany</source>
         <translation>Niemcy</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="113"/>
-        <source>Djibouti</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="114"/>
-        <source>Dominica</source>
-        <translation type="unfinished"></translation>
+        <source>Djibouti</source>
+        <translation>Dżibuti</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="115"/>
+        <source>Dominica</source>
+        <translation>Dominika</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="116"/>
         <source>Denmark</source>
         <translation>Dania</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="116"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="117"/>
         <source>Dominican Republic</source>
-        <translation type="unfinished"></translation>
+        <translation>Republika Dominikańska</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="117"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="118"/>
         <source>Algeria</source>
         <translation>Algieria</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="118"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="119"/>
         <source>Ecuador</source>
         <translation>Ekwador</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="119"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="120"/>
         <source>Egypt</source>
         <translation>Egipt</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="120"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="121"/>
         <source>Eritrea</source>
         <translation>Erytrea</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="121"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="122"/>
         <source>Western Sahara</source>
-        <translation type="unfinished"></translation>
+        <translation>Sahara Zachodnia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="122"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="123"/>
         <source>Spain</source>
         <translation>Hiszpania</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="123"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="124"/>
         <source>Estonia</source>
         <translation>Estonia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="124"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="125"/>
         <source>Ethiopia</source>
         <translation>Etiopia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="125"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="126"/>
         <source>European Union</source>
         <translation>Unia Europejska</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="126"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="127"/>
         <source>Finland</source>
         <translation>Finlandia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="127"/>
-        <source>Fiji</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="128"/>
-        <source>Falkland Islands (Malvinas)</source>
-        <translation type="unfinished"></translation>
+        <source>Fiji</source>
+        <translation>Fidżi</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="129"/>
+        <source>Falkland Islands (Malvinas)</source>
+        <translation>Falklandy (Malwiny)</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="130"/>
         <source>France</source>
         <translation>Francja</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="130"/>
-        <source>Faroe Islands</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="131"/>
-        <source>Micronesia, Federated States of</source>
-        <translation type="unfinished"></translation>
+        <source>Faroe Islands</source>
+        <translation>Wyspy Owcze</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="132"/>
+        <source>Micronesia, Federated States of</source>
+        <translation>Sfederowane Stany Mikronezji</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="133"/>
         <source>Gabon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="133"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="134"/>
         <source>United Kingdom</source>
         <translation>Zjednoczone Królestwo</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="134"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="135"/>
         <source>Georgia</source>
         <translation>Gruzja</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="135"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="136"/>
         <source>Guernsey</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="136"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="137"/>
         <source>Ghana</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="137"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="138"/>
         <source>Gibraltar</source>
         <translation>Gibraltar</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="138"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="139"/>
         <source>Guinea</source>
         <translation>Gwinea</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="139"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="140"/>
         <source>Guadeloupe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="140"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="141"/>
         <source>Gambia</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="141"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="142"/>
         <source>Guinea-Bissau</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="142"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="143"/>
         <source>Equatorial Guinea</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="143"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="144"/>
         <source>Greece</source>
         <translation>Grecja</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="144"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="145"/>
         <source>Grenada</source>
         <translation>Grenada</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="145"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="146"/>
         <source>Greenland</source>
         <translation>Grenlandia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="146"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="147"/>
         <source>Guatemala</source>
         <translation>Gwatemala</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="147"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="148"/>
         <source>French Guiana</source>
-        <translation type="unfinished"></translation>
+        <translation>Gujana Francuska</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="148"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="149"/>
         <source>Guam</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="149"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="150"/>
         <source>Guyana</source>
-        <translation type="unfinished"></translation>
+        <translation>Gujana</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="150"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="151"/>
         <source>Hong Kong</source>
         <translation>Hong Kong</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="151"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="152"/>
         <source>Heard Island and McDonald Islands</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="152"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="153"/>
         <source>Honduras</source>
         <translation>Honduras</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="153"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="154"/>
         <source>Croatia</source>
         <translation>Chorwacja</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="154"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="155"/>
         <source>Haiti</source>
         <translation>Haiti</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="155"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="156"/>
         <source>Hungary</source>
         <translation>Węgry</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="156"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="157"/>
         <source>Indonesia</source>
         <translation>Indonezja</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="157"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="158"/>
         <source>Isle of Man</source>
         <translation>Wyspa Man</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="158"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="159"/>
         <source>India</source>
         <translation>Indie</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="159"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="160"/>
         <source>British Indian Ocean Territory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="160"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="161"/>
         <source>Ireland</source>
         <translation>Irlandia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="161"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="162"/>
         <source>Iran, Islamic Republic of</source>
         <translation>Iran</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="162"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="163"/>
         <source>Iraq</source>
         <translation>Irak</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="163"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="164"/>
         <source>Iceland</source>
         <translation>Islandia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="164"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="165"/>
         <source>Israel</source>
         <translation>Izrael</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="165"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="166"/>
         <source>Italy</source>
         <translation>Włochy</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="166"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="167"/>
         <source>Jamaica</source>
         <translation>Jamajka</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="167"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="168"/>
         <source>Jersey</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="168"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="169"/>
         <source>Jordan</source>
         <translation>Jordan</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="169"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="170"/>
         <source>Japan</source>
         <translation>Japonia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="170"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="171"/>
         <source>Kazakhstan</source>
         <translation>Kazachstan</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="171"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="172"/>
         <source>Kenya</source>
         <translation>Kenia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="172"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="173"/>
         <source>Kyrgyzstan</source>
         <translation>Kirgistan</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="173"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="174"/>
         <source>Cambodia</source>
         <translation>Kambodża</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="174"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="175"/>
         <source>Kiribati</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="175"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="176"/>
         <source>Saint Kitts and Nevis</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="176"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="177"/>
         <source>South Korea</source>
         <translation>Korea Południowa</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="177"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="178"/>
         <source>Kuwait</source>
         <translation>Kuwejt</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="178"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="179"/>
         <source>Lao People&apos;s Democratic Republic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="179"/>
-        <source>Lebanon</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="180"/>
-        <source>Liberia</source>
-        <translation type="unfinished"></translation>
+        <source>Lebanon</source>
+        <translation>Liban</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="181"/>
-        <source>Libya</source>
-        <translation type="unfinished"></translation>
+        <source>Liberia</source>
+        <translation>Liberia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="182"/>
+        <source>Libya</source>
+        <translation>Libia</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="183"/>
         <source>Saint Lucia</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="183"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="184"/>
         <source>Liechtenstein</source>
         <translation>Liechtenstein</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="184"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="185"/>
         <source>Sri Lanka</source>
-        <translation type="unfinished"></translation>
+        <translation>Sri Lanka</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="185"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="186"/>
         <source>Lesotho</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="186"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="187"/>
         <source>Lithuania</source>
         <translation>Litwa</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="187"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="188"/>
         <source>Luxembourg</source>
         <translation>Luksemburg</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="188"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="189"/>
         <source>Latvia</source>
         <translation>Łotwa</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="189"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="190"/>
         <source>Macao</source>
-        <translation type="unfinished"></translation>
+        <translation>Makau</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="190"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="191"/>
         <source>Morocco</source>
         <translation>Maroko</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="191"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="192"/>
         <source>Monaco</source>
         <translation>Monako</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="192"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="193"/>
         <source>Moldova, Republic of</source>
         <translation>Mołdawia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="193"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="194"/>
         <source>Madagascar</source>
         <translation>Madagaskar</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="194"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="195"/>
         <source>Maldives</source>
         <translation>Malediwy</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="195"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="196"/>
         <source>Mexico</source>
         <translation>Meksyk</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="196"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="197"/>
         <source>Marshall Islands</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="197"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="198"/>
         <source>Macedonia, the former Yugoslav Republic of</source>
         <translation>Macedonia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="198"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="199"/>
         <source>Mali</source>
-        <translation type="unfinished"></translation>
+        <translation>Mali</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="199"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="200"/>
         <source>Malta</source>
         <translation>Malta</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="200"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="201"/>
         <source>Myanmar</source>
-        <translation type="unfinished"></translation>
+        <translation>Mjanma</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="201"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="202"/>
         <source>Montenegro</source>
         <translation>Czarnogóra</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="202"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="203"/>
         <source>Mongolia</source>
         <translation>Mongolia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="203"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="204"/>
         <source>Northern Mariana Islands</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="204"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="205"/>
         <source>Mozambique</source>
         <translation>Mozambik</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="205"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="206"/>
         <source>Mauritania</source>
         <translation>Mauretania</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="206"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="207"/>
         <source>Montserrat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="207"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="208"/>
         <source>Martinique</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="208"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="209"/>
         <source>Mauritius</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="209"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="210"/>
         <source>Malawi</source>
-        <translation type="unfinished"></translation>
+        <translation>Malawi</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="210"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="211"/>
         <source>Malaysia</source>
         <translation>Malezja</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="211"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="212"/>
         <source>Mayotte</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="212"/>
-        <source>Namibia</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="213"/>
-        <source>New Caledonia</source>
-        <translation type="unfinished"></translation>
+        <source>Namibia</source>
+        <translation>Namibia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="214"/>
-        <source>Niger</source>
-        <translation type="unfinished"></translation>
+        <source>New Caledonia</source>
+        <translation>Nowa Kalidonia</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="215"/>
+        <source>Niger</source>
+        <translation>Niger</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="216"/>
         <source>Norfolk Island</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="216"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="217"/>
         <source>Nigeria</source>
         <translation>Nigeria</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="217"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="218"/>
         <source>Nicaragua</source>
-        <translation type="unfinished"></translation>
+        <translation>Nikaragua</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="218"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="219"/>
         <source>Niue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="219"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="220"/>
         <source>Netherlands</source>
         <translation>Holandia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="220"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="221"/>
         <source>Norway</source>
         <translation>Norwegia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="221"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="222"/>
         <source>Nepal</source>
         <translation>Nepal</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="222"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="223"/>
         <source>Nauru</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="223"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="224"/>
         <source>New Zealand</source>
         <translation>Nowa Zelandia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="224"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="225"/>
         <source>Oman</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="225"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="226"/>
         <source>Pakistan</source>
         <translation>Pakistan</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="226"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="227"/>
         <source>Panama</source>
         <translation>Panama</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="227"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="228"/>
         <source>Pitcairn</source>
-        <translation type="unfinished"></translation>
+        <translation>Pitcairn</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="228"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="229"/>
         <source>Peru</source>
         <translation>Peru</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="229"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="230"/>
         <source>Philippines</source>
         <translation>Filipiny</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="230"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="231"/>
         <source>Palau</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="231"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="232"/>
         <source>Papua New Guinea</source>
         <translation>Papua Nowa Gwinea</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="232"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="233"/>
         <source>Poland</source>
         <translation>Polska</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="233"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="234"/>
         <source>Puerto Rico</source>
         <translation>Portoryko</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="234"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="235"/>
         <source>Korea, Democratic People&apos;s Republic of</source>
         <translation>Korea Północna</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="235"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="236"/>
         <source>Portugal</source>
         <translation>Portugalia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="236"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="237"/>
         <source>Paraguay</source>
         <translation>Paragwaj</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="237"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="238"/>
         <source>Palestinian Territory, Occupied</source>
         <translation>Palestyna</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="238"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="239"/>
         <source>French Polynesia</source>
-        <translation type="unfinished"></translation>
+        <translation>Polinezja Francuska</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="239"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="240"/>
         <source>Qatar</source>
         <translation>Katar</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="240"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="241"/>
         <source>Réunion</source>
-        <translation type="unfinished"></translation>
+        <translation>Reunion</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="241"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="242"/>
         <source>Romania</source>
         <translation>Rumunia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="242"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="243"/>
         <source>Russian Federation</source>
         <translation>Rosja</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="243"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="244"/>
         <source>Rwanda</source>
         <translation>Rwanda</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="244"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="245"/>
         <source>Saudi Arabia</source>
         <translation>Arabia Saudyjska</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="245"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="246"/>
         <source>Sudan</source>
         <translation>Sudan</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="246"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="247"/>
         <source>Senegal</source>
         <translation>Senegal</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="247"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="248"/>
         <source>Singapore</source>
         <translation>Singapur</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="248"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="249"/>
         <source>South Georgia and the South Sandwich Islands</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="249"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="250"/>
         <source>Saint Helena, Ascension and Tristan da Cunha</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="250"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="251"/>
         <source>Svalbard and Jan Mayen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="251"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="252"/>
         <source>Solomon Islands</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyspy Salomona</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="252"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="253"/>
         <source>Sierra Leone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="253"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="254"/>
         <source>El Salvador</source>
-        <translation type="unfinished"></translation>
+        <translation>Salwador</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="254"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="255"/>
         <source>San Marino</source>
         <translation>San Marino</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="255"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="256"/>
         <source>Somalia</source>
         <translation>Somalia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="256"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="257"/>
         <source>Saint Pierre and Miquelon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="257"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="258"/>
         <source>Serbia</source>
         <translation>Serbia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="258"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="259"/>
         <source>South Sudan</source>
         <translation>Południowy Sudan</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="259"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="260"/>
         <source>Sao Tome and Principe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="260"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="261"/>
         <source>Suriname</source>
         <translation>Surinam</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="261"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="262"/>
         <source>Slovakia</source>
         <translation>Słowacja</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="262"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="263"/>
         <source>Slovenia</source>
         <translation>Słowenia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="263"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="264"/>
         <source>Sweden</source>
         <translation>Szwecja</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="264"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="265"/>
         <source>Swaziland</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="265"/>
-        <source>Seychelles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="266"/>
-        <source>Syrian Arab Republic</source>
-        <translation type="unfinished"></translation>
+        <source>Seychelles</source>
+        <translation>Seszele</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="267"/>
-        <source>Turks and Caicos Islands</source>
-        <translation type="unfinished"></translation>
+        <source>Syrian Arab Republic</source>
+        <translation>Syryjska Republika Arabska</translation>
     </message>
     <message>
         <location filename="../ip2c/ip2ccountry.cpp" line="268"/>
+        <source>Turks and Caicos Islands</source>
+        <translation>Turks i Caicos</translation>
+    </message>
+    <message>
+        <location filename="../ip2c/ip2ccountry.cpp" line="269"/>
         <source>Chad</source>
         <translation>Czad</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="269"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="270"/>
         <source>Togo</source>
-        <translation type="unfinished"></translation>
+        <translation>Togo</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="270"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="271"/>
         <source>Thailand</source>
         <translation>Tajlandia</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="271"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="272"/>
         <source>Tajikistan</source>
         <translation>Tadżykistan</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="272"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="273"/>
         <source>Tokelau</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="273"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="274"/>
         <source>Turkmenistan</source>
         <translation>Turkmenistan</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="274"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="275"/>
         <source>Timor-Leste</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="275"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="276"/>
         <source>Tonga</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="276"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="277"/>
         <source>Trinidad and Tobago</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="277"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="278"/>
         <source>Tunisia</source>
         <translation>Tunezja</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="278"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="279"/>
         <source>Turkey</source>
         <translation>Turcja</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="279"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="280"/>
         <source>Tuvalu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="280"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="281"/>
         <source>Taiwan</source>
         <translation>Tajwan</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="281"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="282"/>
         <source>Tanzania, United Republic of</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="282"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="283"/>
         <source>Uganda</source>
         <translation>Uganda</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="283"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="284"/>
         <source>Ukraine</source>
         <translation>Ukraina</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="284"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="285"/>
         <source>United States Minor Outlying Islands</source>
         <translation>Dalekie Wyspy Mniejsze Stanów Zjednoczonych</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="285"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="286"/>
         <source>Uruguay</source>
         <translation>Urugwaj</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="286"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="287"/>
         <source>United States</source>
         <translation>Stany Zjednoczone</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="287"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="288"/>
         <source>Uzbekistan</source>
         <translation>Uzbekistan</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="288"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="289"/>
         <source>Holy See (Vatican City State)</source>
-        <translation type="unfinished"></translation>
+        <translation>Stolica Apostolska (Watykan)</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="289"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="290"/>
         <source>Saint Vincent and the Grenadines</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="290"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="291"/>
         <source>Venezuela</source>
         <translation>Wenezuela</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="291"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="292"/>
         <source>Virgin Islands, British</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="292"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="293"/>
         <source>Virgin Islands, U.S.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="293"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="294"/>
         <source>Vietnam</source>
         <translation>Wietnam</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="294"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="295"/>
         <source>Vanuatu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="295"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="296"/>
         <source>Wallis and Futuna</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="296"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="297"/>
         <source>Samoa</source>
         <translation>Samoa</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="297"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="298"/>
         <source>Yemen</source>
         <translation>Jemen</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="298"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="299"/>
         <source>South Africa</source>
         <translation>Południowa Afryka</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="299"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="300"/>
         <source>Zambia</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2ccountry.cpp" line="300"/>
+        <location filename="../ip2c/ip2ccountry.cpp" line="301"/>
         <source>Zimbabwe</source>
         <translation>Zimbabwe</translation>
     </message>
@@ -5619,41 +5856,50 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>JoinCommandLineBuilder</name>
     <message>
-        <location filename="../joincommandlinebuilder.cpp" line="122"/>
+        <location filename="../joincommandlinebuilder.cpp" line="116"/>
+        <source>Demo set for recording, but couldn&apos;t prepare its save path.
+
+%1</source>
+        <translation>Włączono nagrywanie demo, ale nie powiodło się przygotowanie ścieżki pod jego zapis.
+
+%1</translation>
+    </message>
+    <message>
+        <location filename="../joincommandlinebuilder.cpp" line="133"/>
         <source>This server is still refreshing.
 Please wait until it is finished.</source>
         <translation>Ten serwer jest nadal odświeżany.
 Poczekaj na zakończenie.</translation>
     </message>
     <message>
-        <location filename="../joincommandlinebuilder.cpp" line="123"/>
+        <location filename="../joincommandlinebuilder.cpp" line="134"/>
         <source>Attempted to obtain a join command line for a &quot;%1&quot; server that is under refresh.</source>
         <translation>Próba stworzenia komendy dołączenia do serwera &quot;%1&quot;, który wciąż jest odświeżany.</translation>
     </message>
     <message>
-        <location filename="../joincommandlinebuilder.cpp" line="130"/>
+        <location filename="../joincommandlinebuilder.cpp" line="141"/>
         <source>Data for this server is not available.
 Operation failed.</source>
         <translation>Dane tego serwera są niedostępne.
 Operacja nieudana.</translation>
     </message>
     <message>
-        <location filename="../joincommandlinebuilder.cpp" line="131"/>
+        <location filename="../joincommandlinebuilder.cpp" line="142"/>
         <source>Attempted to obtain a join command line for an unknown server &quot;%1&quot;</source>
         <translation>Próba stworzenia komendy dołączenia do nieznanego serwera &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../joincommandlinebuilder.cpp" line="172"/>
+        <location filename="../joincommandlinebuilder.cpp" line="183"/>
         <source>Unknown error.</source>
         <translation>Nieznany błąd.</translation>
     </message>
     <message>
-        <location filename="../joincommandlinebuilder.cpp" line="176"/>
+        <location filename="../joincommandlinebuilder.cpp" line="187"/>
         <source>Error when obtaining join parameters for server &quot;%1&quot;, game &quot;%2&quot;: %3</source>
         <translation>Błąd otrzymywania parametrów dołączenia do serwera &quot;%1&quot;, gra &quot;%2&quot;: %3</translation>
     </message>
     <message>
-        <location filename="../joincommandlinebuilder.cpp" line="347"/>
+        <location filename="../joincommandlinebuilder.cpp" line="358"/>
         <source>Game installation failure</source>
         <translation>Błąd instalacji gry</translation>
     </message>
@@ -5661,7 +5907,7 @@ Operacja nieudana.</translation>
 <context>
     <name>Log</name>
     <message>
-        <location filename="../fileutils.cpp" line="164"/>
+        <location filename="../fileutils.cpp" line="175"/>
         <source>Failed to remove: %1</source>
         <translation>Nie można usunąć: %1</translation>
     </message>
@@ -5978,40 +6224,40 @@ Operacja nieudana.</translation>
         <translation>Serwery</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1472"/>
+        <location filename="../gui/mainwindow.cpp" line="1475"/>
         <source>Failed to build the command line:
 %1</source>
         <translation>Nie udało się stworzyć wiersza poleceń:
 %1</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1581"/>
+        <location filename="../gui/mainwindow.cpp" line="1584"/>
         <source>Generic servers: %1
 </source>
         <translation>Serwery ogólne: %1
 </translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1582"/>
+        <location filename="../gui/mainwindow.cpp" line="1585"/>
         <source>Custom servers: %1
 </source>
         <translation>Serwery własne: %1
 </translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1583"/>
+        <location filename="../gui/mainwindow.cpp" line="1586"/>
         <source>LAN servers: %1
 </source>
         <translation>Serwery LAN: %1
 </translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1584"/>
+        <location filename="../gui/mainwindow.cpp" line="1587"/>
         <source>Human players: %1</source>
         <translation>Graczy: %1</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1596"/>
+        <location filename="../gui/mainwindow.cpp" line="1599"/>
         <source>Finished refreshing. Servers on the list: %1 (+%2 custom, +%3 LAN). Players: %4.</source>
         <translation>Ukończono odświeżanie. Serwerów na liście: %1 (+%2 własnych, +%3 LAN). Graczy: %4.</translation>
     </message>
@@ -6049,42 +6295,42 @@ Operacja nieudana.</translation>
 %1</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1133"/>
+        <location filename="../gui/mainwindow.cpp" line="1136"/>
         <source>Welcome to Doomseeker</source>
         <translation>Witaj w programie Doomseeker</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1134"/>
+        <location filename="../gui/mainwindow.cpp" line="1137"/>
         <source>Before you start browsing for servers, please ensure that Doomseeker is properly configured.</source>
         <translation>Zanim zaczniesz przeglądać serwery, proszę poświęć chwilę aby skonfigurować Doomseekera.</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1151"/>
+        <location filename="../gui/mainwindow.cpp" line="1154"/>
         <source>Program update detection &amp; download finished with status: [%1] %2</source>
         <translation>Wykrywanie i pobieranie aktualizacji programu ukończone ze statusem: [%1] %2</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1161"/>
+        <location filename="../gui/mainwindow.cpp" line="1164"/>
         <source>Updates will be installed on next program start.</source>
         <translation>Aktualizacje zostaną zainstalowane przy następnym starcie programu.</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1167"/>
+        <location filename="../gui/mainwindow.cpp" line="1170"/>
         <source>Update channel was changed during update process. Discarding update.</source>
         <translation>Kanał aktualizacji został zmieniony w trakcie jej trwania. Porzucam aktualizację.</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1206"/>
+        <location filename="../gui/mainwindow.cpp" line="1209"/>
         <source>Query on startup warning: No master servers are enabled in the Query menu.</source>
         <translation>Ostrzeżenie odświeżenia na starcie: żaden master serwer nie jest włączony w menu &quot;Odświeżanie&quot;.</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1230"/>
+        <location filename="../gui/mainwindow.cpp" line="1233"/>
         <source>Doomseeker critical error</source>
         <translation>Doomseeker - błąd krytyczny</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1223"/>
+        <location filename="../gui/mainwindow.cpp" line="1226"/>
         <source>Doomseeker was unable to find any plugin libraries.
 Although the application will still work it will not be possible to fetch any server info or launch any game.
 
@@ -6111,44 +6357,44 @@ Aby naprawić ten błąd możesz spróbować pobrać Doomseekera jeszcze raz ze 
         <translation>Wystąpił nieznany błąd.</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1270"/>
+        <location filename="../gui/mainwindow.cpp" line="1273"/>
         <source>Querying...</source>
         <translation>Odświeżanie...</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1279"/>
+        <location filename="../gui/mainwindow.cpp" line="1282"/>
         <source>Done</source>
         <translation>Ukończono</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1361"/>
+        <location filename="../gui/mainwindow.cpp" line="1364"/>
         <source>Main Toolbar</source>
         <translation>Główny pasek narzędziowy</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1366"/>
+        <location filename="../gui/mainwindow.cpp" line="1369"/>
         <source>Get Servers</source>
         <translation>Pobierz serwery</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1400"/>
+        <location filename="../gui/mainwindow.cpp" line="1403"/>
         <source>Search:</source>
         <translation>Szukaj:</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1486"/>
+        <location filename="../gui/mainwindow.cpp" line="1489"/>
         <source>Update installation problem:
 %1</source>
         <translation>Problem podczas instalowania aktualizacji:
 %1</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1489"/>
+        <location filename="../gui/mainwindow.cpp" line="1492"/>
         <source>Update installation failed.</source>
         <translation>Instalacja aktualizacji zakończona niepowodzeniem.</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1491"/>
+        <location filename="../gui/mainwindow.cpp" line="1494"/>
         <source>%1
 
 Remaining updates have been discarded.</source>
@@ -6157,7 +6403,7 @@ Remaining updates have been discarded.</source>
 Pozostałe aktualizacje zostały porzucone.</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1498"/>
+        <location filename="../gui/mainwindow.cpp" line="1501"/>
         <source>Update install problem:
 %1
 
@@ -6168,8 +6414,8 @@ Remaining updates have been discarded.</source>
 Pozostałe aktualizacje zostały porzucone.</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1490"/>
-        <location filename="../gui/mainwindow.cpp" line="1499"/>
+        <location filename="../gui/mainwindow.cpp" line="1493"/>
+        <location filename="../gui/mainwindow.cpp" line="1502"/>
         <source>Doomseeker - Auto Update problem</source>
         <translation>Doomseeker - Problem automatycznej aktualizacji</translation>
     </message>
@@ -6189,7 +6435,7 @@ Pozostałe aktualizacje zostały porzucone.</translation>
         <translation>CTRL+D</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1471"/>
+        <location filename="../gui/mainwindow.cpp" line="1474"/>
         <source>Doomseeker - show join command line</source>
         <translation>Doomseeker - pokaż wiersz poleceń do dołączenia</translation>
     </message>
@@ -6675,39 +6921,62 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
 <context>
     <name>PlayerTable</name>
     <message>
-        <location filename="../serverapi/tooltips/playertable.cpp" line="87"/>
+        <location filename="../serverapi/tooltips/playertable.cpp" line="211"/>
         <source>BOT</source>
         <translation>BOT</translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/playertable.cpp" line="91"/>
+        <location filename="../serverapi/tooltips/playertable.cpp" line="215"/>
         <source>SPECTATOR</source>
         <translation>WIDZ</translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/playertable.cpp" line="159"/>
         <source>Team</source>
-        <translation>Drużyna</translation>
+        <translation type="vanished">Drużyna</translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/playertable.cpp" line="160"/>
+        <location filename="../serverapi/tooltips/playertable.cpp" line="146"/>
+        <source>Bots</source>
+        <translation>Boty</translation>
+    </message>
+    <message>
+        <location filename="../serverapi/tooltips/playertable.cpp" line="151"/>
+        <source>Spectators</source>
+        <translation>Widzowie</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../serverapi/tooltips/playertable.cpp" line="239"/>
+        <source>(and %n more ...)</source>
+        <translation>
+            <numerusform>(i jeszcze %n)</numerusform>
+            <numerusform>(i jeszcze %n)</numerusform>
+            <numerusform>(i jeszcze %n)</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../serverapi/tooltips/playertable.cpp" line="254"/>
         <source>Player</source>
         <translation>Gracz</translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/playertable.cpp" line="161"/>
+        <location filename="../serverapi/tooltips/playertable.cpp" line="255"/>
         <source>Score</source>
         <translation>Punkty</translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/playertable.cpp" line="162"/>
+        <location filename="../serverapi/tooltips/playertable.cpp" line="256"/>
         <source>Ping</source>
         <translation>Ping</translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/playertable.cpp" line="163"/>
+        <location filename="../serverapi/tooltips/playertable.cpp" line="257"/>
         <source>Status</source>
         <translation>Status</translation>
+    </message>
+    <message>
+        <location filename="../serverapi/tooltips/playertable.cpp" line="288"/>
+        <source>Team %1</source>
+        <translation>Drużyna %1</translation>
     </message>
 </context>
 <context>
@@ -6752,17 +7021,17 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../configuration/doomseekerconfig.cpp" line="112"/>
+        <location filename="../configuration/doomseekerconfig.cpp" line="114"/>
         <source>DoomseekerConfig.iniSectionForPlugin(): empty plugin name has been specified, returning dummy IniSection.</source>
         <translation>DoomseekerConfig.iniSectionForPlugin(): podano pustą nazwę wtyczki, zwracam atrapę IniSection.</translation>
     </message>
     <message>
-        <location filename="../configuration/doomseekerconfig.cpp" line="118"/>
+        <location filename="../configuration/doomseekerconfig.cpp" line="120"/>
         <source>DoomseekerConfig.iniSectionForPlugin(): plugin name is invalid: %1</source>
         <translation>DoomseekerConfig.iniSectionForPlugin(): błędna nazwa wtyczki: %1</translation>
     </message>
     <message>
-        <location filename="../configuration/doomseekerconfig.cpp" line="211"/>
+        <location filename="../configuration/doomseekerconfig.cpp" line="213"/>
         <source>Setting INI file: %1</source>
         <translation>Ustawienie pliku INI: %1</translation>
     </message>
@@ -7009,78 +7278,125 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
         <translation>Szczegóły serwera</translation>
     </message>
     <message>
-        <location filename="../gui/serverdetailsdock.ui" line="33"/>
+        <location filename="../gui/serverdetailsdock.ui" line="47"/>
+        <source>Server:</source>
+        <translation>Serwer:</translation>
+    </message>
+    <message>
+        <location filename="../gui/serverdetailsdock.ui" line="54"/>
         <source>&lt;server&gt;</source>
         <translation>&lt;serwer&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/serverdetailsdock.ui" line="70"/>
+        <source>General</source>
+        <translation>Ogólne</translation>
+    </message>
+    <message>
+        <location filename="../gui/serverdetailsdock.ui" line="96"/>
+        <source>Players</source>
+        <translation>Gracze</translation>
+    </message>
+    <message>
+        <location filename="../gui/serverdetailsdock.ui" line="122"/>
+        <source>Flags</source>
+        <translation>Flagi</translation>
+    </message>
+    <message>
+        <location filename="../gui/serverdetailsdock.cpp" line="72"/>
+        <source>No server selected.</source>
+        <translation>Nie wybrano serwera.</translation>
+    </message>
+    <message>
+        <location filename="../gui/serverdetailsdock.cpp" line="92"/>
+        <source>&lt;b&gt;Address:&lt;/b&gt; %1
+</source>
+        <translation>&lt;b&gt;Adres:&lt;/b&gt; %1
+</translation>
+    </message>
+    <message>
+        <location filename="../gui/serverdetailsdock.cpp" line="105"/>
+        <source>No players on this server.</source>
+        <translation>Nie ma graczy na tym serwerze.</translation>
+    </message>
+    <message>
+        <location filename="../gui/serverdetailsdock.cpp" line="111"/>
+        <source>DMFlags unknown or no DMFlags set.</source>
+        <translation>Nieznane DMFlagi, albo żadne nie są ustawione.</translation>
     </message>
 </context>
 <context>
     <name>ServerFilterBuilderMenu</name>
     <message>
-        <location filename="../gui/widgets/serverfilterbuildermenu.cpp" line="47"/>
+        <location filename="../gui/widgets/serverfilterbuildermenu.cpp" line="48"/>
         <source>Build server filter ...</source>
         <translation>Buduj filtr serwerów ...</translation>
     </message>
     <message>
-        <location filename="../gui/widgets/serverfilterbuildermenu.cpp" line="53"/>
+        <location filename="../gui/widgets/serverfilterbuildermenu.cpp" line="55"/>
         <source>Show only servers with ping lower than %1</source>
         <translation>Pokaż tylko serwery z pingiem poniżej %1</translation>
     </message>
     <message>
-        <location filename="../gui/widgets/serverfilterbuildermenu.cpp" line="57"/>
+        <location filename="../gui/widgets/serverfilterbuildermenu.cpp" line="59"/>
         <source>Filter by game mode &quot;%1&quot;</source>
         <translation>Filtruj po trybie gry &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../gui/widgets/serverfilterbuildermenu.cpp" line="62"/>
+        <location filename="../gui/widgets/serverfilterbuildermenu.cpp" line="64"/>
         <source>Hide game mode &quot;%1&quot;</source>
         <translation>Ukryj tryb gry &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../gui/widgets/serverfilterbuildermenu.cpp" line="66"/>
+        <location filename="../gui/widgets/serverfilterbuildermenu.cpp" line="68"/>
         <source>Include WAD ...</source>
         <translation>Z WADem ...</translation>
     </message>
     <message>
-        <location filename="../gui/widgets/serverfilterbuildermenu.cpp" line="67"/>
+        <location filename="../gui/widgets/serverfilterbuildermenu.cpp" line="69"/>
         <source>Exclude WAD ...</source>
         <translation>Bez WADa ...</translation>
+    </message>
+    <message>
+        <location filename="../gui/widgets/serverfilterbuildermenu.cpp" line="85"/>
+        <source>Filter by address</source>
+        <translation>Filtruj po adresie</translation>
     </message>
 </context>
 <context>
     <name>ServerFilterDock</name>
     <message>
-        <location filename="../gui/serverfilterdock.cpp" line="135"/>
+        <location filename="../gui/serverfilterdock.cpp" line="151"/>
         <source>Server &amp;filter</source>
         <translation>&amp;Filtr serwerów</translation>
     </message>
     <message>
-        <location filename="../gui/serverfilterdock.cpp" line="136"/>
+        <location filename="../gui/serverfilterdock.cpp" line="152"/>
         <source>CTRL+F</source>
         <translation>CTRL+F</translation>
     </message>
     <message>
-        <location filename="../gui/serverfilterdock.cpp" line="279"/>
+        <location filename="../gui/serverfilterdock.cpp" line="296"/>
         <source>[no filter]</source>
         <translation>[brak filtra]</translation>
     </message>
     <message>
-        <location filename="../gui/serverfilterdock.cpp" line="329"/>
+        <location filename="../gui/serverfilterdock.cpp" line="348"/>
         <source>Doomseeker - Remove filter preset</source>
         <translation>Doomseeker - Usuń zapisany filtr</translation>
     </message>
     <message>
-        <location filename="../gui/serverfilterdock.cpp" line="330"/>
+        <location filename="../gui/serverfilterdock.cpp" line="349"/>
         <source>Are you sure you wish to remove the filter preset &quot;%1&quot;?</source>
         <translation>Czy jesteś pewien, że chcesz usunąć zapisany filtr &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="../gui/serverfilterdock.cpp" line="343"/>
+        <location filename="../gui/serverfilterdock.cpp" line="362"/>
         <source>Doomseeker - Save filter preset</source>
         <translation>Doomseeker - Zapisz filtr</translation>
     </message>
     <message>
-        <location filename="../gui/serverfilterdock.cpp" line="344"/>
+        <location filename="../gui/serverfilterdock.cpp" line="363"/>
         <source>Enter name for the filter preset (will overwrite if exists):</source>
         <translation>Wprowadź nazwę dla zapisanego filtru (zostanie nadpisany jeśli istnieje):</translation>
     </message>
@@ -7126,7 +7442,7 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
     </message>
     <message>
         <location filename="../gui/serverfilterdock.ui" line="51"/>
-        <location filename="../gui/serverfilterdock.cpp" line="279"/>
+        <location filename="../gui/serverfilterdock.cpp" line="296"/>
         <source>[custom]</source>
         <translation>[własny]</translation>
     </message>
@@ -7167,61 +7483,71 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
     </message>
     <message>
         <location filename="../gui/serverfilterdock.ui" line="259"/>
+        <source>Addresses:</source>
+        <translation>Adresy:</translation>
+    </message>
+    <message>
+        <location filename="../gui/serverfilterdock.ui" line="266"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Only servers that match these addresses will be displayed. Multiple addresses can be separated by commas (&lt;span style=&quot; font-weight:600;&quot;&gt;,&lt;/span&gt;). Subnets are supported by using the &lt;span style=&quot; font-weight:600;&quot;&gt;ADDR/N&lt;/span&gt; format where &lt;span style=&quot; font-weight:600;&quot;&gt;N&lt;/span&gt; can be a subnet mask or a numerical value for the subnet mask. For IPv4 the subnet can also be specified by omitting the octets. &lt;span style=&quot; font-weight:600;&quot;&gt;192.168.0&lt;/span&gt;, &lt;span style=&quot; font-weight:600;&quot;&gt;192.168.0.0/24&lt;/span&gt; and &lt;span style=&quot; font-weight:600;&quot;&gt;192.168.0.0/255.255.255.0&lt;/span&gt; are all the same.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Będą wyświetlane tylko serwery z tymi adresami. Można podać kilka adresów, rozdzielając je przecinkami (&lt;span style=&quot; font-weight:600;&quot;&gt;,&lt;/span&gt;). Można też podawać podsieci wg formatu &lt;span style=&quot; font-weight:600;&quot;&gt;ADDR/N&lt;/span&gt;, gdzie &lt;span style=&quot; font-weight:600;&quot;&gt;N&lt;/span&gt; to może być albo maska podsieci, albo ilość bitów sieci w danej podsieci. W przypadku adresów IPv4, podsieć można też podać poprzez pominięcie dalszych oktetów. &lt;span style=&quot; font-weight:600;&quot;&gt;192.168.0&lt;/span&gt;, &lt;span style=&quot; font-weight:600;&quot;&gt;192.168.0.0/24&lt;/span&gt;, oraz &lt;span style=&quot; font-weight:600;&quot;&gt;192.168.0.0/255.255.255.0&lt;/span&gt; oznaczają to samo.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/serverfilterdock.ui" line="273"/>
         <source>Show full servers</source>
         <translation>Pokaż pełne serwery</translation>
     </message>
     <message>
-        <location filename="../gui/serverfilterdock.ui" line="269"/>
+        <location filename="../gui/serverfilterdock.ui" line="283"/>
         <source>Show empty servers</source>
         <translation>Pokaż puste serwery</translation>
     </message>
     <message>
-        <location filename="../gui/serverfilterdock.ui" line="279"/>
+        <location filename="../gui/serverfilterdock.ui" line="293"/>
         <source>Show password protected servers</source>
         <translation>Pokaż serwery chronione hasłami</translation>
     </message>
     <message>
-        <location filename="../gui/serverfilterdock.ui" line="289"/>
+        <location filename="../gui/serverfilterdock.ui" line="303"/>
         <source>Show only valid servers</source>
         <translation>Pokaż tylko prawidłowe serwery</translation>
     </message>
     <message>
-        <location filename="../gui/serverfilterdock.ui" line="311"/>
+        <location filename="../gui/serverfilterdock.ui" line="325"/>
         <source>Show the servers you were banned from.</source>
         <translation>Pokaż serwery na których zostałeś zbanowany.</translation>
     </message>
     <message>
-        <location filename="../gui/serverfilterdock.ui" line="314"/>
+        <location filename="../gui/serverfilterdock.ui" line="328"/>
         <source>Show banned servers</source>
         <translation>Pokaż serwery z banem</translation>
     </message>
     <message>
-        <location filename="../gui/serverfilterdock.ui" line="324"/>
+        <location filename="../gui/serverfilterdock.ui" line="338"/>
         <source>Show the &quot;Refreshed too soon&quot; servers.</source>
         <translation>Pokaż serwery &quot;Odświeżono zbyt szybko&quot;.</translation>
     </message>
     <message>
-        <location filename="../gui/serverfilterdock.ui" line="327"/>
+        <location filename="../gui/serverfilterdock.ui" line="341"/>
         <source>Show &quot;too soon&quot; servers</source>
         <translation>Pokaż serwery &quot;zbyt szybko&quot;</translation>
     </message>
     <message>
-        <location filename="../gui/serverfilterdock.ui" line="337"/>
+        <location filename="../gui/serverfilterdock.ui" line="351"/>
         <source>&lt;p&gt;Show the servers that didn&apos;t respond at all or returned a bad response.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Pokaż serwery, które w ogóle nie odpowiedziały, lub odpowiedziały błędnie.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/serverfilterdock.ui" line="340"/>
+        <location filename="../gui/serverfilterdock.ui" line="354"/>
         <source>Show not responding servers</source>
         <translation>Pokaż serwery bez odpowiedzi</translation>
     </message>
     <message>
-        <location filename="../gui/serverfilterdock.ui" line="353"/>
+        <location filename="../gui/serverfilterdock.ui" line="367"/>
         <source>Show testing servers</source>
         <translation>Pokaż serwery testujące</translation>
     </message>
     <message>
-        <location filename="../gui/serverfilterdock.ui" line="376"/>
+        <location filename="../gui/serverfilterdock.ui" line="390"/>
         <source>Reset filter</source>
         <translation>Zresetuj filtr</translation>
     </message>
@@ -7229,12 +7555,12 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
 <context>
     <name>ServerList</name>
     <message>
-        <location filename="../gui/serverlist.cpp" line="217"/>
+        <location filename="../gui/serverlist.cpp" line="223"/>
         <source>Unhandled behavior in ServerList::contextMenuTriggered()</source>
         <translation>Nieobsłużone zachowanie w ServerList::contextMenuTriggered()</translation>
     </message>
     <message>
-        <location filename="../gui/serverlist.cpp" line="216"/>
+        <location filename="../gui/serverlist.cpp" line="222"/>
         <source>Doomseeker - context menu warning</source>
         <translation>Doomseeker - ostrzeżenie o menu kontekstowym</translation>
     </message>
@@ -7373,32 +7699,32 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
 <context>
     <name>ServerListRowHandler</name>
     <message>
-        <location filename="../gui/models/serverlistrowhandler.cpp" line="268"/>
+        <location filename="../gui/models/serverlistrowhandler.cpp" line="269"/>
         <source>&lt;ERROR&gt;</source>
         <translation>&lt;BŁĄD&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/models/serverlistrowhandler.cpp" line="280"/>
+        <location filename="../gui/models/serverlistrowhandler.cpp" line="281"/>
         <source>You are banned from this server!</source>
         <translation>Jesteś zbanowany z tego serwera!</translation>
     </message>
     <message>
-        <location filename="../gui/models/serverlistrowhandler.cpp" line="339"/>
+        <location filename="../gui/models/serverlistrowhandler.cpp" line="340"/>
         <source>&lt;REFRESHING&gt;</source>
         <translation>&lt;ODŚWIEŻANIE&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/models/serverlistrowhandler.cpp" line="349"/>
+        <location filename="../gui/models/serverlistrowhandler.cpp" line="350"/>
         <source>&lt;NO RESPONSE&gt;</source>
         <translation>&lt;BRAK ODPOWIEDZI&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/models/serverlistrowhandler.cpp" line="361"/>
+        <location filename="../gui/models/serverlistrowhandler.cpp" line="362"/>
         <source>&lt;Refreshed too soon, wait a while and try again&gt;</source>
         <translation>&lt;Odświeżono zbyt szybko, poczekaj chwilę i spróbuj ponownie&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/models/serverlistrowhandler.cpp" line="415"/>
+        <location filename="../gui/models/serverlistrowhandler.cpp" line="416"/>
         <source>Unknown server response (%1): %2:%3</source>
         <translation>Nieznany typ odpowiedzi serwera (%1): %2:%3</translation>
     </message>
@@ -7412,17 +7738,17 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
     </message>
     <message>
         <location filename="../serverapi/tooltips/servertooltip.cpp" line="64"/>
-        <location filename="../serverapi/tooltips/servertooltip.cpp" line="174"/>
+        <location filename="../serverapi/tooltips/servertooltip.cpp" line="175"/>
         <source>MISSING</source>
         <translation>BRAKUJE</translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/servertooltip.cpp" line="169"/>
+        <location filename="../serverapi/tooltips/servertooltip.cpp" line="170"/>
         <source>OPTIONAL</source>
         <translation>OPCJONALNY</translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/servertooltip.cpp" line="179"/>
+        <location filename="../serverapi/tooltips/servertooltip.cpp" line="180"/>
         <source>ALIAS</source>
         <translation>ZAMIENNIK</translation>
     </message>
@@ -7600,9 +7926,14 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
 <context>
     <name>WadsPicker</name>
     <message>
-        <location filename="../gui/createserver/wadspicker.cpp" line="115"/>
+        <location filename="../gui/createserver/wadspicker.cpp" line="114"/>
         <source>Doomseeker - Add file(s)</source>
         <translation>Doomseeker - Dodaj plik(i)</translation>
+    </message>
+    <message>
+        <location filename="../gui/createserver/wadspicker.cpp" line="164"/>
+        <source>%1 MISSING</source>
+        <translation>%1 NIE ISTNIEJE</translation>
     </message>
     <message>
         <location filename="../gui/createserver/wadspicker.ui" line="50"/>
@@ -7648,47 +7979,76 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
         <source>Remove</source>
         <translation>Usuń</translation>
     </message>
+    <message>
+        <location filename="../gui/createserver/wadspicker.cpp" line="62"/>
+        <source>Check paths</source>
+        <translation>Sprawdź ścieżki</translation>
+    </message>
 </context>
 <context>
     <name>WadseekerInterface</name>
     <message>
-        <location filename="../gui/wadseekerinterface.cpp" line="73"/>
+        <location filename="../gui/wadseekerinterface.cpp" line="123"/>
         <source>Downloading WADs for server &quot;%1&quot;</source>
         <translation>Pobieranie WADów dla serwera &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../gui/wadseekerinterface.cpp" line="84"/>
+        <location filename="../gui/wadseekerinterface.cpp" line="134"/>
         <source>Aborting service: %1</source>
         <translation>Przerywam usługę: %1</translation>
     </message>
     <message>
-        <location filename="../gui/wadseekerinterface.cpp" line="90"/>
+        <location filename="../gui/wadseekerinterface.cpp" line="140"/>
         <source>Aborting site: %1</source>
         <translation>Przerywam stronę: %1</translation>
     </message>
     <message>
-        <location filename="../gui/wadseekerinterface.cpp" line="125"/>
+        <location filename="../gui/wadseekerinterface.cpp" line="194"/>
         <source>All done. Success.</source>
         <translation>Wszystkie zakończone. Sukces.</translation>
     </message>
     <message>
-        <location filename="../gui/wadseekerinterface.cpp" line="144"/>
+        <location filename="../gui/wadseekerinterface.cpp" line="213"/>
         <source>All done. Fail.</source>
         <translation>Wszystkie zakończone. Porażka.</translation>
     </message>
     <message>
-        <location filename="../gui/wadseekerinterface.cpp" line="272"/>
-        <source>CRITICAL ERROR: %1</source>
-        <translation>BŁĄD KRYTYCZNY: %1</translation>
+        <location filename="../gui/wadseekerinterface.cpp" line="349"/>
+        <source>CRIT</source>
+        <translation>KRYT</translation>
     </message>
     <message>
-        <location filename="../gui/wadseekerinterface.cpp" line="283"/>
+        <location filename="../gui/wadseekerinterface.cpp" line="353"/>
+        <source>ERROR</source>
+        <translation>BŁĄD</translation>
+    </message>
+    <message>
+        <location filename="../gui/wadseekerinterface.cpp" line="357"/>
+        <source>INFO</source>
+        <translation>INFO</translation>
+    </message>
+    <message>
+        <location filename="../gui/wadseekerinterface.cpp" line="361"/>
+        <source>NOTI</source>
+        <translation>WAŻN</translation>
+    </message>
+    <message>
+        <location filename="../gui/wadseekerinterface.cpp" line="365"/>
+        <source>NAVI</source>
+        <translation>NAWI</translation>
+    </message>
+    <message>
+        <source>CRITICAL ERROR: %1</source>
+        <translation type="vanished">BŁĄD KRYTYCZNY: %1</translation>
+    </message>
+    <message>
         <source>Error: %1</source>
-        <translation>Błąd: %1</translation>
+        <translation type="vanished">Błąd: %1</translation>
     </message>
     <message>
         <location filename="../gui/wadseekerinterface.ui" line="14"/>
-        <location filename="../gui/wadseekerinterface.cpp" line="357"/>
+        <location filename="../gui/wadseekerinterface.cpp" line="224"/>
+        <location filename="../gui/wadseekerinterface.cpp" line="398"/>
         <source>Wadseeker</source>
         <translation></translation>
     </message>
@@ -7707,17 +8067,17 @@ Jeżeli nie masz tego pliku, a należy on do gry w sprzedaży, to musisz kupić 
         <translation type="vanished">Zamknij</translation>
     </message>
     <message>
-        <location filename="../gui/wadseekerinterface.cpp" line="519"/>
+        <location filename="../gui/wadseekerinterface.cpp" line="557"/>
         <source>[%1%] Wadseeker</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../gui/wadseekerinterface.cpp" line="567"/>
+        <location filename="../gui/wadseekerinterface.cpp" line="605"/>
         <source>Context menu error</source>
         <translation>Błąd menu kontekstowego</translation>
     </message>
     <message>
-        <location filename="../gui/wadseekerinterface.cpp" line="567"/>
+        <location filename="../gui/wadseekerinterface.cpp" line="605"/>
         <source>Unknown action selected.</source>
         <translation>Wybrano nieznaną akcję.</translation>
     </message>
@@ -7804,26 +8164,26 @@ Przejrzyj konfigurację, albo skorzystaj z pomocy online dostępnej z menu Pomoc
     <message>
         <location filename="../gui/widgets/wadseekerwadstable.cpp" line="68"/>
         <location filename="../gui/widgets/wadseekerwadstable.cpp" line="69"/>
-        <location filename="../gui/widgets/wadseekerwadstable.cpp" line="126"/>
-        <location filename="../gui/widgets/wadseekerwadstable.cpp" line="127"/>
-        <location filename="../gui/widgets/wadseekerwadstable.cpp" line="304"/>
-        <location filename="../gui/widgets/wadseekerwadstable.cpp" line="312"/>
+        <location filename="../gui/widgets/wadseekerwadstable.cpp" line="129"/>
+        <location filename="../gui/widgets/wadseekerwadstable.cpp" line="130"/>
+        <location filename="../gui/widgets/wadseekerwadstable.cpp" line="307"/>
+        <location filename="../gui/widgets/wadseekerwadstable.cpp" line="315"/>
         <source>N/A</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../gui/widgets/wadseekerwadstable.cpp" line="129"/>
-        <location filename="../gui/widgets/wadseekerwadstable.cpp" line="130"/>
+        <location filename="../gui/widgets/wadseekerwadstable.cpp" line="132"/>
+        <location filename="../gui/widgets/wadseekerwadstable.cpp" line="133"/>
         <source>Awaiting URLs</source>
         <translation>Oczekiwanie na linki</translation>
     </message>
     <message>
-        <location filename="../gui/widgets/wadseekerwadstable.cpp" line="189"/>
+        <location filename="../gui/widgets/wadseekerwadstable.cpp" line="192"/>
         <source>Done</source>
         <translation>Ukończono</translation>
     </message>
     <message>
-        <location filename="../gui/widgets/wadseekerwadstable.cpp" line="321"/>
+        <location filename="../gui/widgets/wadseekerwadstable.cpp" line="324"/>
         <source>Skip current URL</source>
         <translation>Pomiń obecny link</translation>
     </message>
