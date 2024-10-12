@@ -188,6 +188,25 @@ public:
 	{
 		return this->demoTable->selectionModel()->currentIndex();
 	}
+
+	QString askForExportPath(QWidget *parent, QString proposedName) const
+	{
+		QDir proposedDir = FileUtils::dirOrDir(
+			gConfig.doomseeker.previousDemoExportDir,
+			QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation).first());
+
+		QString exportPath;
+		QFileDialog saveDialog(parent);
+		saveDialog.setAcceptMode(QFileDialog::AcceptSave);
+		saveDialog.selectFile(proposedName);
+		saveDialog.setDirectory(proposedDir);
+		if (saveDialog.exec() == QDialog::Accepted)
+		{
+			exportPath = saveDialog.selectedFiles().first();
+			gConfig.doomseeker.previousDemoExportDir = QFileInfo(exportPath).path();
+		}
+		return exportPath;
+	}
 };
 
 DPointered(DemoManagerDlg)
@@ -286,17 +305,9 @@ void DemoManagerDlg::exportSelectedDoomseeker()
 
 	// Omit Doomseeker's path portablization here, because the feature
 	// is explicitly called "export".
-	QDir proposedDir = FileUtils::dirOrDir(
-		gConfig.doomseeker.previousDemoExportDir,
-		QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation).first());
-
-	const QString exportPath = QFileDialog::getSaveFileName(this,
-		tr("Select demo export directory"),
-		proposedDir.filePath(selectedDemo.exportedName()));
+	QString exportPath = d->askForExportPath(this, selectedDemo.exportedName());
 	if (exportPath.isEmpty())
 		return;
-
-	gConfig.doomseeker.previousDemoExportDir = QFileInfo(exportPath).path();
 
 	QFile demoFile(selectedDemo.demopath);
 	QFile metaFile(DemoStore::metafile(selectedDemo.demopath));
@@ -360,20 +371,17 @@ void DemoManagerDlg::exportSelectedPlain()
 
 	// Omit Doomseeker's path portablization here, because the feature
 	// is explicitly called "export".
-	QDir dir = FileUtils::dirOrDir(
-		gConfig.doomseeker.previousDemoExportDir,
-		QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation).first());
+	QString exportPath = d->askForExportPath(this, selectedDemo.exportedName());
+	if (exportPath.isEmpty())
+		return;
 
-	QFileDialog saveDialog(this);
-	saveDialog.setAcceptMode(QFileDialog::AcceptSave);
-	saveDialog.selectFile(selectedDemo.exportedName());
-	saveDialog.setDirectory(dir);
-	if (saveDialog.exec() == QDialog::Accepted)
+	// Copy the demo to the new location.
+	if (QFile::exists(exportPath))
+		QFile::remove(exportPath);
+	if (!QFile::copy(selectedDemo.demopath, exportPath))
 	{
-		gConfig.doomseeker.previousDemoExportDir = QFileInfo(saveDialog.selectedFiles().first()).path();
-		// Copy the demo to the new location.
-		if (!QFile::copy(selectedDemo.demopath, saveDialog.selectedFiles().first()))
-			QMessageBox::critical(this, tr("Unable to save"), tr("Could not write to the specified location."));
+		QMessageBox::critical(this, tr("Unable to save"),
+			tr("Could not write to the specified location."));
 	}
 }
 
