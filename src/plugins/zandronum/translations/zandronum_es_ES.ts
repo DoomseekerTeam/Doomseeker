@@ -19,11 +19,21 @@
         <translation>Cercar</translation>
     </message>
     <message>
+        <location filename="../enginezandronumconfigbox.cpp" line="63"/>
+        <source>Segmented server query (requires Zandronum 3.2-alpha)</source>
+        <translation>Consulta el servidor en paquetes fraccionados (requiere Zandronum 3.2-alpha)</translation>
+    </message>
+    <message>
+        <location filename="../enginezandronumconfigbox.cpp" line="64"/>
+        <source>&lt;p&gt;When enabled, the servers will be asked to provide their info in segments. Enable this if you experience problems when refreshing servers that host a lot of WADs or players. These servers send a lot of data, and enabling this asks them to send this data split between several packets.&lt;/p&gt;&lt;p&gt;This feature requires the server to host at least a Zandronum 3.2-alpha version.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Cuando está activado, se pedirá a los servidores que proporcionen su información por segmentos. Actívelo si tiene problemas al actualizar servidores que alojan muchos WADs o jugadores. Estos servidores envían muchos datos y, al activarlo, les pide que envíen estos datos divididos entre varios paquetes.&lt;/p&gt;&lt;p&gt;Esta función requiere que el servidor utilice una versión mínima de Zandronum 3.2-alpha.&lt;/p&gt;</translation>
+    </message>
+    <message>
         <source>Allow servers to display my country</source>
         <translation type="vanished">Permitir que los servidores muestren mi país</translation>
     </message>
     <message>
-        <location filename="../enginezandronumconfigbox.cpp" line="66"/>
+        <location filename="../enginezandronumconfigbox.cpp" line="77"/>
         <source>Doomseeker - choose Zandronum testing directory</source>
         <translation>Doomseeker - elija el directorio de pruebas de Zandronum</translation>
     </message>
@@ -1468,7 +1478,7 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">Max. vidas:</translation>
     </message>
     <message>
-        <location filename="../zandronumserver.h" line="72"/>
+        <location filename="../zandronumserver.h" line="76"/>
         <source>&lt;&lt; Unknown &gt;&gt;</source>
         <translation>&lt;&lt; Desconocido &gt;&gt;</translation>
     </message>
@@ -2969,12 +2979,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ZandronumBroadcast</name>
     <message>
-        <location filename="../zandronumbroadcast.cpp" line="115"/>
+        <location filename="../zandronumbroadcast.cpp" line="117"/>
         <source>Listening to Zandronum&apos;s LAN servers broadcasts on port %1.</source>
         <translation>Buscando transmisiones de servidores Zandronum en LAN en el puerto %1.</translation>
     </message>
     <message>
-        <location filename="../zandronumbroadcast.cpp" line="121"/>
+        <location filename="../zandronumbroadcast.cpp" line="123"/>
         <source>Failed to bind Zandronum&apos;s LAN broadcasts listening socket on port %1. Will keep retrying silently.</source>
         <translation>Error al enlazar la conexión de escucha de las transmisiones LAN de Zandronum en el puerto %1. Seguiremos reintentándolo en silencio.</translation>
     </message>
@@ -3121,31 +3131,31 @@ Doomseeker puede instalar el juego allí igualmente si lo desea.</translation>
         <translation>Error al desempaquetar: %1</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="376"/>
+        <location filename="../zandronumbinaries.cpp" line="375"/>
         <source>%1
  should be a script file but is a directory!</source>
         <translation>%1
  debería ser un script, pero es un directorio!</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="385"/>
+        <location filename="../zandronumbinaries.cpp" line="384"/>
         <source>You don&apos;t have permissions to execute file: %1
 </source>
         <translation>No tienes permisos para ejecutar el archivo: %1
 </translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="432"/>
+        <location filename="../zandronumbinaries.cpp" line="425"/>
         <source>Couldn&apos;t open batch file &quot;%1&quot; for writing</source>
         <translation>No se pudo abrir el script &quot;%1&quot; para escribir</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="439"/>
+        <location filename="../zandronumbinaries.cpp" line="432"/>
         <source>Error while writing batch file &quot;%1&quot;</source>
         <translation>Error al escribir el script &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="449"/>
+        <location filename="../zandronumbinaries.cpp" line="442"/>
         <source>Cannot set permissions for file:
 %1</source>
         <translation>No se pueden definir los permisos para el archivo:
@@ -3326,22 +3336,22 @@ Doomseeker puede instalar el juego allí igualmente si lo desea.</translation>
 <context>
     <name>ZandronumServer</name>
     <message>
-        <location filename="../zandronumserver.cpp" line="112"/>
+        <location filename="../zandronumserver.cpp" line="163"/>
         <source>Blue</source>
         <translation>Azul</translation>
     </message>
     <message>
-        <location filename="../zandronumserver.cpp" line="113"/>
+        <location filename="../zandronumserver.cpp" line="164"/>
         <source>Red</source>
         <translation>Rojo</translation>
     </message>
     <message>
-        <location filename="../zandronumserver.cpp" line="114"/>
+        <location filename="../zandronumserver.cpp" line="165"/>
         <source>Green</source>
         <translation>Verde</translation>
     </message>
     <message>
-        <location filename="../zandronumserver.cpp" line="115"/>
+        <location filename="../zandronumserver.cpp" line="166"/>
         <source>Gold</source>
         <translation>Oro</translation>
     </message>

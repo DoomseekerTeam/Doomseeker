@@ -34,27 +34,27 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.cpp" line="164"/>
+        <location filename="../createserverdialogpages/flagspage.cpp" line="163"/>
         <source>Default</source>
         <translation>Per defecte</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.cpp" line="165"/>
+        <location filename="../createserverdialogpages/flagspage.cpp" line="164"/>
         <source>No</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.cpp" line="166"/>
+        <location filename="../createserverdialogpages/flagspage.cpp" line="165"/>
         <source>Yes</source>
         <translation>Si</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.cpp" line="276"/>
+        <location filename="../createserverdialogpages/flagspage.cpp" line="275"/>
         <source>Unknown Q-Zandronum version in the config. Reverting to default.</source>
         <translation>Versió desconeguda de Q-Zandronum en la configuració. Revertint a la versió per defecte.</translation>
     </message>
     <message>
-        <location filename="../createserverdialogpages/flagspage.cpp" line="303"/>
+        <location filename="../createserverdialogpages/flagspage.cpp" line="302"/>
         <source>Tried to set unknown Q-Zandronum version. Reverting to default.</source>
         <translation>S&apos;ha intentat definir una versió desconeguda de Q-Zandronum. Revertint a la versió per defecte.</translation>
     </message>
@@ -1263,32 +1263,32 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../zandronumqengineplugin.cpp" line="137"/>
+        <location filename="../zandronumqengineplugin.cpp" line="139"/>
         <source>Time limit:</source>
         <translation>Límit de temps:</translation>
     </message>
     <message>
-        <location filename="../zandronumqengineplugin.cpp" line="145"/>
+        <location filename="../zandronumqengineplugin.cpp" line="147"/>
         <source>Frag limit:</source>
         <translation>Límit de frags:</translation>
     </message>
     <message>
-        <location filename="../zandronumqengineplugin.cpp" line="156"/>
+        <location filename="../zandronumqengineplugin.cpp" line="158"/>
         <source>Point limit:</source>
         <translation>Límit de punts:</translation>
     </message>
     <message>
-        <location filename="../zandronumqengineplugin.cpp" line="163"/>
+        <location filename="../zandronumqengineplugin.cpp" line="165"/>
         <source>Win limit:</source>
         <translation>Límit de victòries:</translation>
     </message>
     <message>
-        <location filename="../zandronumqengineplugin.cpp" line="168"/>
+        <location filename="../zandronumqengineplugin.cpp" line="170"/>
         <source>Duel limit:</source>
         <translation>Límit de duels:</translation>
     </message>
     <message>
-        <location filename="../zandronumqengineplugin.cpp" line="171"/>
+        <location filename="../zandronumqengineplugin.cpp" line="173"/>
         <source>Max. lives:</source>
         <translation>Max. vides:</translation>
     </message>
@@ -1435,12 +1435,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ZandronumqBroadcast</name>
     <message>
-        <location filename="../zandronumqbroadcast.cpp" line="115"/>
+        <location filename="../zandronumqbroadcast.cpp" line="117"/>
         <source>Listening to Q-Zandronum&apos;s LAN servers broadcasts on port %1.</source>
         <translation>Escoltant les emissions de servidors LAN de Q-Zandronum al port %1.</translation>
     </message>
     <message>
-        <location filename="../zandronumqbroadcast.cpp" line="121"/>
+        <location filename="../zandronumqbroadcast.cpp" line="123"/>
         <source>Failed to bind Q-Zandronum&apos;s LAN broadcasts listening socket on port %1. Will keep retrying silently.</source>
         <translation>Error en enllaçar les emissions dels servidors LAN de Q-Zandronum al port d&apos;escolta %1. Se seguirà intentant de fons.</translation>
     </message>
@@ -1622,22 +1622,22 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ZandronumqServer</name>
     <message>
-        <location filename="../zandronumqserver.cpp" line="110"/>
+        <location filename="../zandronumqserver.cpp" line="114"/>
         <source>Blue</source>
         <translation>Blau</translation>
     </message>
     <message>
-        <location filename="../zandronumqserver.cpp" line="111"/>
+        <location filename="../zandronumqserver.cpp" line="115"/>
         <source>Red</source>
         <translation>Vermell</translation>
     </message>
     <message>
-        <location filename="../zandronumqserver.cpp" line="112"/>
+        <location filename="../zandronumqserver.cpp" line="116"/>
         <source>Green</source>
         <translation>Verd</translation>
     </message>
     <message>
-        <location filename="../zandronumqserver.cpp" line="113"/>
+        <location filename="../zandronumqserver.cpp" line="117"/>
         <source>Gold</source>
         <translation>Or</translation>
     </message>
