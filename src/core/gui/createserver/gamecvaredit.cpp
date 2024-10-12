@@ -37,6 +37,7 @@ namespace
 class Edit
 {
 public:
+	virtual ~Edit() = default;
 	virtual bool externalLabel() const { return true; }
 	virtual void setValue(const QVariant &value) = 0;
 	virtual QVariant value() const = 0;

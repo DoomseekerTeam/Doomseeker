@@ -175,7 +175,7 @@ const QList<Checksum> &WadDownloadInfo::checksums() const
 
 bool WadDownloadInfo::validFile(const QString &path) const
 {
-	for (const Checksum checksum : d->checksums)
+	for (const Checksum &checksum : d->checksums)
 	{
 		if (Hash::hashFile(path, checksum.algorithm()) != checksum.hash())
 		{

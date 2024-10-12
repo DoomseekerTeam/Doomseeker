@@ -176,7 +176,7 @@ QString PathFinder::findFile(const QString &fileName) const
 PathFinderResult PathFinder::findFiles(const QStringList &files) const
 {
 	PathFinderResult result;
-	for (const QString file : files)
+	for (const QString &file : files)
 	{
 		QString filePath = findFile(file);
 		if (filePath.isNull())

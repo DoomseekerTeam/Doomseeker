@@ -528,7 +528,7 @@ void PWad::addChecksum(const QByteArray &hash, const QCryptographicHash::Algorit
 
 bool PWad::validFile(const QString &path) const
 {
-	for (const Checksum checksum : d->checksums)
+	for (const Checksum &checksum : d->checksums)
 	{
 		if (Hash::hashFile(path, checksum.algorithm()) != checksum.hash())
 		{

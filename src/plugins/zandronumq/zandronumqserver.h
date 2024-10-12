@@ -154,8 +154,8 @@ public:
 
 	RConProtocol *rcon() override;
 
-	QRgb teamColor(unsigned team) const;
-	QString teamName(unsigned team) const;
+	QRgb teamColor(int team) const override;
+	QString teamName(int team) const override;
 
 	PathFinder wadPathFinder() override;
 

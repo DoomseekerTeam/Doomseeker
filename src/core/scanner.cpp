@@ -74,7 +74,7 @@ static const char *const TokenNames[TK_NumSpecialTokens] =
 	"Logical Or",
 	"Equals",
 	"Not Equals",
-	"Greater Than or Equals"
+	"Greater Than or Equals",
 	"Less Than or Equals",
 	"Left Shift",
 	"Right Shift",

@@ -33,7 +33,7 @@ void GameConfigErrorBox::show(EnginePlugin *game, const QString &title,
 	const QString &message, bool showConfigureButton, QWidget *parent)
 {
 	QMessageBox msgBox(QMessageBox::Critical, title, message, QMessageBox::NoButton, parent);
-	QPushButton *btnConfigure;
+	QPushButton *btnConfigure = nullptr;
 	if (showConfigureButton)
 	{
 		btnConfigure = new QPushButton(

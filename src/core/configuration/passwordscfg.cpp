@@ -217,7 +217,7 @@ void PasswordsCfg::setServerPasswords(const QList<ServerPassword> &val)
 void PasswordsCfg::storeServerPasswords(const QList<ServerPassword> &val)
 {
 	QVariantList vars;
-	for (const ServerPassword obj : val)
+	for (const ServerPassword &obj : val)
 	{
 		vars << obj.serializeQVariant();
 	}

@@ -1015,7 +1015,7 @@ void SeekSession::startSeek()
 	// Start doing the job.
 	d->status = SeekStatus::Running;
 	emit seekStarted(filteredWadsList);
-	for (const ModFile &wad : d->wads)
+	for (const ModFile wad : d->wads)
 	{
 		auto seeked = d->seekedFiles.findByName(wad.fileName());
 		if (seeked != d->seekedFiles.end())

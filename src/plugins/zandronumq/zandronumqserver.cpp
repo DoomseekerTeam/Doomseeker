@@ -666,7 +666,7 @@ QByteArray ZandronumqServer::createSendRequest()
 #undef ENCODED_CHALLENGE_BUFFER_SIZE
 }
 
-QRgb ZandronumqServer::teamColor(unsigned team) const
+QRgb ZandronumqServer::teamColor(int team) const
 {
 	if (team >= ST_MAX_TEAMS)
 		return Server::teamColor(team);
@@ -674,7 +674,7 @@ QRgb ZandronumqServer::teamColor(unsigned team) const
 	return teamInfo[team].color().rgb();
 }
 
-QString ZandronumqServer::teamName(unsigned team) const
+QString ZandronumqServer::teamName(int team) const
 {
 	if (team == 255)
 		return "NO TEAM";

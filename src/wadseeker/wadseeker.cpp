@@ -292,7 +292,7 @@ bool Wadseeker::startSeek(const ModSet &wads)
 
 	// A noble idea of reporting 404 links to the site owners...
 	connect(session, &SeekSession::badUrlDetected,
-		this, [this](const QUrl&)
+		this, [](const QUrl&)
 		{
 			// TODO this currently does nothing
 		});
