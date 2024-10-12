@@ -206,9 +206,9 @@ DemoManagerDlg::DemoManagerDlg()
 	d->splitter->restoreState(gConfig.doomseeker.demoManagerSplitterState);
 
 	auto *menu = new QMenu(this);
-	menu->addAction(tr("Export plain demo file"),
+	menu->addAction(DemoManagerDlg::tr("Export plain demo file"),
 		this, SLOT(exportSelectedPlain()));
-	menu->addAction(tr("Export with Doomseeker metadata ..."),
+	menu->addAction(DemoManagerDlg::tr("Export with Doomseeker metadata ..."),
 		this, SLOT(exportSelectedDoomseeker()));
 	d->btnExport->setMenu(menu);
 
