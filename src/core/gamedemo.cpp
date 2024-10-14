@@ -140,7 +140,7 @@ static void loadDemoMetaDataFromFilenameV1(const QString &path, GameDemo &demo)
  */
 static void loadDemoMetaDataFromFilenameV2(const QString &path, GameDemo &demo)
 {
-	QFileInfo fileinfo = path;
+	QFileInfo fileinfo(path);
 
 	// Get the player info from the directory.
 	QDir yearDir = fileinfo.dir();

@@ -310,7 +310,7 @@
  <slots>
   <slot>initGamemodeSpecific(GameMode)</slot>
   <slot>initEngineSpecific(EnginePlugin*)</slot>
-  <slot>showStartGameCommandLine()</slot>
+  <slot>showCommandLine()</slot>
   <slot>startGame()</slot>
  </slots>
 </ui>

@@ -168,18 +168,17 @@ QString PlayerTable::createPlayerRows(const PlayersList &playerList, int maxShow
 		// If we can't display everyone, sort them so that buddies are first
 		// and bots are last.
 		sorted = playerList.players();
-		// std::sort() crashes here!
-		qSort(sorted.begin(), sorted.end(),
+		std::sort(sorted.begin(), sorted.end(),
 			[buddiesList](const Player &p1, const Player &p2)
 			{
 				if (buddiesList != nullptr)
 				{
 					if (buddiesList->isBuddy(p1) && !buddiesList->isBuddy(p2))
-						return false;
+						return true;
 				}
 				if (!p1.isBot() && p2.isBot())
-					return false;
-				return true;
+					return true;
+				return false;
 			});
 		players = &sorted;
 	}
