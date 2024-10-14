@@ -47,7 +47,9 @@ Application::Application(int &argc, char **argv)
 	d->mainWindow = nullptr;
 	d->running = true;
 	setApplicationName(NAME);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 7, 0)
 	setDesktopFileName("org.drdteam.Doomseeker");
+#endif
 
 	// http://blog.qt.io/blog/2013/04/25/retina-display-support-for-mac-os-ios-and-x11/
 	setAttribute(Qt::AA_UseHighDpiPixmaps);
