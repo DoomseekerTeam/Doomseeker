@@ -276,6 +276,16 @@ void EnginePlugin::init(const char *name, const char *const icon[], ...)
 	}
 
 	va_end(va);
+
+	if (d->canonicalName.isEmpty())
+	{
+		// If the plugin did not specify its canonical name, we shall
+		// derive it from its human name.
+		QString canonicalName(data()->name);
+		d->canonicalName = canonicalName
+			.toLower()
+			.replace(QRegularExpression("\\s"), "_");
+	}
 }
 
 void EnginePlugin::masterHost(QString &host, unsigned short &port) const
@@ -286,18 +296,7 @@ void EnginePlugin::masterHost(QString &host, unsigned short &port) const
 
 QString EnginePlugin::nameCanonical() const
 {
-	if (!d->canonicalName.isEmpty())
-	{
-		return d->canonicalName;
-	}
-	else
-	{
-		// Derive.
-		QString name = data()->name;
-		name = name.toLower();
-		name = name.replace(QRegularExpression("\\s"), "_");
-		return name;
-	}
+	return d->canonicalName;
 }
 
 ServerPtr EnginePlugin::server(const QHostAddress &address, unsigned short port) const
