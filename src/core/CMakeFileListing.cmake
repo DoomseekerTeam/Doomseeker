@@ -276,6 +276,7 @@ set(HEADER_FILES
 	serverapi/polymorphism.h
 	serverapi/rconprotocol.h
 	serverapi/server.h
+	serverapi/serverid.h
 	serverapi/serverlistcounttracker.h
 	serverapi/serverptr.h
 	serverapi/serverstructs.h

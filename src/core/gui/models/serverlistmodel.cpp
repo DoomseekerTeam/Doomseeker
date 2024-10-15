@@ -30,6 +30,7 @@
 #include "gui/widgets/serverlistview.h"
 #include "log.h"
 #include "serverapi/server.h"
+#include "serverapi/serverid.h"
 #include <QItemDelegate>
 #include <QTime>
 
@@ -62,12 +63,12 @@ int ServerListModel::addServer(ServerPtr server)
 
 ServerPtr ServerListModel::findSameServer(const Server *server)
 {
-	CustomServerInfo serverInfo = CustomServerInfo::fromServer(server);
+	const ServerRuntimeId serverInfo = ServerRuntimeId::fromServer(server);
 	for (int i = 0; i < rowCount(); ++i)
 	{
 		ServerPtr serverOnList = serverFromList(i);
-		CustomServerInfo serverOnListInfo = CustomServerInfo::fromServer(serverOnList.data());
-		if (serverOnListInfo.isSameServer(serverInfo))
+		const ServerRuntimeId serverOnListInfo = ServerRuntimeId::fromServer(serverOnList.data());
+		if (serverOnListInfo == serverInfo)
 			return serverOnList;
 	}
 	return ServerPtr();
