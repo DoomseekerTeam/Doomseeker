@@ -67,6 +67,7 @@ bool IP2CParserV3::parse(IP2CParser &self, QIODevice &dataBase)
 			break;
 		default:
 			stream.skipRawData(size);
+			break;
 		}
 	}
 

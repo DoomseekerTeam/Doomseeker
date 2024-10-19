@@ -81,12 +81,12 @@ public:
 	 *
 	 * The call is asynchronous as the locally stored database is compared
 	 * against the one hosted online on Doomseeker's web page. Once it
-	 * completes, an updateNeeded() signal is emitted.
+	 * completes, an updateCheckFinished() signal is emitted.
 	 *
 	 * @param filePath - Path to the file. It is assumed that this is the
 	 *     IP2Country database file.
 	 */
-	void needsUpdate(const QString &filePath);
+	void startUpdateCheck(const QString &filePath);
 
 
 	/**
@@ -122,7 +122,7 @@ signals:
 	/**
 	 * @brief Emitted status is one of UpdateStatus enum values.
 	 */
-	void updateNeeded(int status);
+	void updateCheckFinished(int status);
 
 private:
 	static const QUrl dbChecksumUrl();

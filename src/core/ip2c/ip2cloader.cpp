@@ -103,14 +103,14 @@ IP2CLoader::IP2CLoader(IP2C &ip2c, QObject *parent)
 		this, &IP2CLoader::onUpdateFinished);
 	connect(d->ip2cUpdater.data(), &IP2CUpdater::downloadProgress,
 		this, &IP2CLoader::downloadProgress);
-	connect(d->ip2cUpdater.data(), &IP2CUpdater::updateNeeded,
+	connect(d->ip2cUpdater.data(), &IP2CUpdater::updateCheckFinished,
 		this, &IP2CLoader::onUpdateNeeded);
 }
 
 void IP2CLoader::load()
 {
 	if (gConfig.doomseeker.bIP2CountryAutoUpdate)
-		d->ip2cUpdater->needsUpdate(DoomseekerFilePaths::ip2cDatabaseAny());
+		d->ip2cUpdater->startUpdateCheck(DoomseekerFilePaths::ip2cDatabaseAny());
 
 	if (d->isParsing())
 		return;

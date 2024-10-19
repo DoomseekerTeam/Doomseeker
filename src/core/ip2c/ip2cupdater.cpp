@@ -66,7 +66,7 @@ void IP2CUpdater::checksumDownloadFinished()
 	{
 		gLog << tr("IP2C checksum check network error: %1").arg(pCurrentNetworkReply->errorString());
 		abort();
-		emit updateNeeded(UpdateCheckError);
+		emit updateCheckFinished(UpdateCheckError);
 		return;
 	}
 
@@ -89,7 +89,7 @@ void IP2CUpdater::checksumDownloadFinished()
 	bool needed = localMd5 != remoteMd5;
 	if (needed)
 		gLog << tr("IP2C update needed.");
-	emit updateNeeded(needed ? UpdateNeeded : UpToDate);
+	emit updateCheckFinished(needed ? UpdateNeeded : UpToDate);
 }
 
 const QUrl IP2CUpdater::dbChecksumUrl()
@@ -194,12 +194,12 @@ bool IP2CUpdater::isWorking() const
 	return pCurrentNetworkReply != nullptr;
 }
 
-void IP2CUpdater::needsUpdate(const QString &filePath)
+void IP2CUpdater::startUpdateCheck(const QString &filePath)
 {
 	QFile file(filePath);
 	if (!file.exists())
 	{
-		emit updateNeeded(UpdateNeeded);
+		emit updateCheckFinished(UpdateNeeded);
 		return;
 	}
 

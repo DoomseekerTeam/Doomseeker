@@ -53,7 +53,7 @@ IP2CUpdateBox::IP2CUpdateBox(QWidget *parent)
 	d->btnClose->hide();
 
 	d->ip2cUpdater = new IP2CUpdater(this);
-	this->connect(d->ip2cUpdater, SIGNAL(updateNeeded(int)), SLOT(updateInfo(int)));
+	this->connect(d->ip2cUpdater, SIGNAL(updateCheckFinished(int)), SLOT(updateInfo(int)));
 
 	start();
 	this->adjustSize();
@@ -86,7 +86,7 @@ void IP2CUpdateBox::start()
 		d->lblDatabaseStatus->setText(tr("Verifying checksum ..."));
 		d->updateInfoPanel->hide();
 		d->btnUpdate->hide();
-		d->ip2cUpdater->needsUpdate(filePath);
+		d->ip2cUpdater->startUpdateCheck(filePath);
 	}
 	else
 	{
