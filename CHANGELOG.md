@@ -79,6 +79,9 @@ a better netizen.
 - Q-Zandronum, Zandronum: the command line for launching a demo
 playback will now be bereft of arguments that wouldn't affect the
 playback anyway.
+- Zandronum: clarify the popup message when a testing binary ovewrite
+is about to occur; the first sentence says now that the program wants
+to install the binaries.
 
 ### Deprecated
 - Wadseeker: `WADSEEKER_API` unused in Doomseeker:

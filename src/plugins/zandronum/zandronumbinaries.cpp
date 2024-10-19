@@ -162,7 +162,11 @@ bool ZandronumClientExeFile::askToInstallTestingVersion(QWidget *parent) const
 	const QString installPath = gDoomseekerTemplatedPathResolver().resolve(testingVersionInstallPath());
 	if (d->isNonEmptyDir(installPath))
 	{
-		question = tr("<p>Installation of testing binaries for version %1 "
+		question = tr(
+			"<p>Zandronum testing version %1 can be installed, but files "
+			"already exist at the target directory.</p>"
+			).arg(testingVersion());
+		question += tr("<p>Installation of testing binaries for version %1 "
 			"can potentially <b>overwrite</b> your files.</p>"
 			"<p>Game will be installed to:<br>%2</p>"
 			"<p>Do you want Doomseeker to extract Zandronum files, potentially "
