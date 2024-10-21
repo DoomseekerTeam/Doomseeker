@@ -146,6 +146,19 @@ QByteArray DataStreamOperatorWrapper::readRawMaxUntilByte(char stopByte, qint64 
 	return result;
 }
 
+QString DataStreamOperatorWrapper::readUtf8CString()
+{
+	auto raw = readRawUntilByte('\0');
+	// Qt6 no longer strips the null terminator when converting from QByteArray
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+	if (raw.isEmpty())
+		return {};
+	if (raw.back() == '\0')
+		return QString::fromUtf8(QByteArrayView(raw).chopped(1));
+#endif
+	return QString::fromUtf8(raw);
+}
+
 qint64 DataStreamOperatorWrapper::remaining() const
 {
 	return d->s->device()->size() - d->s->device()->pos();

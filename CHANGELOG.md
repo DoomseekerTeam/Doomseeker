@@ -100,6 +100,7 @@ were loaded if they were interleaved during demo recording. (#4110)
 - Paths to the managed demos store should not be template-resolved, because
 it's not user-configurable (#3262).
 - Application icon was missing under Wayland.
+- Parsing of IP2C now works correctly under Qt6.
 - Wadseeker GUI: in a hypothetical situation where the lib would inform about
 a progress on an empty filename, the program would crash. Protect against that.
 - Wadseeker: spell "the /idgames Archive" correctly, like the Archive itself

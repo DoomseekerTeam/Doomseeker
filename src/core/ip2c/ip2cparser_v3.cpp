@@ -88,7 +88,7 @@ bool IP2CParserV3::readSectionIpv4(IP2CParser &self, QByteArray &&section)
 
 	while (stream.hasRemaining())
 	{
-		QString countryCode = QString::fromUtf8(stream.readRawUntilByte('\0'));
+		auto countryCode = stream.readUtf8CString();
 
 		// Base entry for each IP read from the file
 		IP2CRange baseEntry;
@@ -126,10 +126,10 @@ bool IP2CParserV3::readSectionLegalNotice(IP2CParser &self, QByteArray &&section
 
 	while (stream.hasRemaining())
 	{
-		auto locale = QString::fromUtf8(stream.readRawUntilByte('\0'));
+		auto locale = stream.readUtf8CString();
 		if (stream.hasRemaining())
 		{
-			auto text = QString::fromUtf8(stream.readRawUntilByte('\0'));
+			auto text = stream.readUtf8CString();
 			self.licences_.insert(std::move(locale), std::move(text));
 		}
 		else
@@ -145,6 +145,6 @@ bool IP2CParserV3::readSectionUrl(IP2CParser &self, QByteArray &&section)
 	QDataStream dstream(&buffer);
 	dstream.setByteOrder(QDataStream::LittleEndian);
 	DataStreamOperatorWrapper stream(&dstream);
-	self.url_ = QString::fromUtf8(DataStreamOperatorWrapper(&dstream).readRawUntilByte('\0'));
+	self.url_ = DataStreamOperatorWrapper(&dstream).readUtf8CString();
 	return true;
 }

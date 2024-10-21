@@ -123,6 +123,11 @@ public:
 	QByteArray readRawMaxUntilByte(char stopByte, qint64 length);
 
 	/**
+	 * @brief Reads a null terminated Utf8 string.
+	 */
+	QString readUtf8CString();
+
+	/**
 	 * @brief Returns a remaining amount of bytes from the underlying
 	 * QIODevice.
 	 *

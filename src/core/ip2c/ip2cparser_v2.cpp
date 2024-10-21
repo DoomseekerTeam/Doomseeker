@@ -54,8 +54,8 @@ bool IP2CParserV2::readSectionIpv4(IP2CParser &self, DataStreamOperatorWrapper &
 	{
 		// Discard the first field as it is the country name. As of Doomseeker
 		// 1.3.3, the country names and their alpha-3 codes are hardcoded.
-		QString::fromUtf8(stream.readRawUntilByte('\0'));
-		QString countryCode = QString::fromUtf8(stream.readRawUntilByte('\0'));
+		stream.readUtf8CString();
+		QString countryCode = stream.readUtf8CString();
 
 		// Base entry for each IP read from the file
 		IP2CRange baseEntry;
