@@ -78,13 +78,9 @@ public:
 	IP2C *ip2c;
 	IP2CParserThread *parserThread;
 	QScopedPointer<IP2CUpdater> ip2cUpdater;
+	bool parsingInProgress;
 	bool updateInProgress;
 	bool inFallbackMode;
-
-	bool isParsing() const
-	{
-		return parserThread != nullptr && parserThread->isRunning();
-	}
 };
 
 DPointeredNoCopy(IP2CLoader)
@@ -95,6 +91,7 @@ IP2CLoader::IP2CLoader(IP2C &ip2c, QObject *parent)
 {
 	d->ip2c = &ip2c;
 	d->parserThread = nullptr;
+	d->parsingInProgress = false;
 	d->updateInProgress = false;
 	d->inFallbackMode = false;
 
@@ -112,7 +109,7 @@ void IP2CLoader::load()
 	if (gConfig.doomseeker.bIP2CountryAutoUpdate)
 		d->ip2cUpdater->startUpdateCheck(DoomseekerFilePaths::ip2cDatabaseAny());
 
-	if (d->isParsing())
+	if (d->parsingInProgress)
 		return;
 
 	QString filePath = DoomseekerFilePaths::ip2cDatabaseAny();
@@ -160,7 +157,7 @@ void IP2CLoader::onUpdateNeeded(int status)
 void IP2CLoader::update()
 {
 	d->updateInProgress = true;
-	if (!d->isParsing())
+	if (!d->parsingInProgress)
 	{
 		gLog << tr("Starting IP2C update.");
 		IP2C::instance()->setDataAccessLockEnabled(true);
@@ -189,6 +186,7 @@ void IP2CLoader::onUpdateFinished(const QByteArray &downloadedData)
 
 void IP2CLoader::onParsingFinished()
 {
+	d->parsingInProgress = false;
 	auto finally = [this]() {
 		if (d->updateInProgress) {
 			// Retrigger the update.
@@ -257,7 +255,7 @@ void IP2CLoader::onParsingFinished()
 
 void IP2CLoader::ip2cJobsFinished()
 {
-	if (!d->ip2cUpdater->isWorking() && !d->isParsing() && !d->updateInProgress)
+	if (!d->ip2cUpdater->isWorking() && !d->parsingInProgress && !d->updateInProgress)
 	{
 		d->ip2c->setDataAccessLockEnabled(false);
 		emit finished();
@@ -272,6 +270,7 @@ void IP2CLoader::ip2cReadDatabase(const QString &filePath)
 		d->parserThread->disconnect(this);
 	}
 
+	d->parsingInProgress = true;
 	d->parserThread = new IP2CParserThread(filePath);
 	connect(d->parserThread, &IP2CParserThread::finished,
 		this, &IP2CLoader::onParsingFinished);
