@@ -8,7 +8,7 @@ This file follows the format of
 and this project does not adhere to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [unreleased]
+## [1.5.0]
 ### Added
 - Demo playback and recording features (#4110):
     - Demo playback can now be setup in the usual "Create Game" dialog box.
@@ -939,6 +939,7 @@ without any warranty.
 
 
 [unreleased]: https://bitbucket.org/Doomseeker/doomseeker/commits/all
+[1.5.0]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.5.0
 [1.4.1]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.4.1
 [1.4]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.4
 [1.3.3]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.3.3
