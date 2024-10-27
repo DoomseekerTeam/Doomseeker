@@ -1414,17 +1414,17 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>TestingProgressDialog</name>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="453"/>
+        <location filename="../zandronumbinaries.cpp" line="457"/>
         <source>Downloading testing binaries...</source>
         <translation>Pobieram binarki testowe ...</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="453"/>
+        <location filename="../zandronumbinaries.cpp" line="457"/>
         <source>Cancel</source>
         <translation>Anuluj</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="463"/>
+        <location filename="../zandronumbinaries.cpp" line="467"/>
         <source>Doomseeker</source>
         <translation>Doomseeker</translation>
     </message>
@@ -2953,11 +2953,16 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../zandronumbinaries.cpp" line="165"/>
+        <source>&lt;p&gt;Zandronum testing version %1 can be installed, but files already exist at the target directory.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Istnieje możliwość instalacji testowej wersji Zandronum %1, ale w docelowym katalogu istnieją już pliki.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../zandronumbinaries.cpp" line="169"/>
         <source>&lt;p&gt;Installation of testing binaries for version %1 can potentially &lt;b&gt;overwrite&lt;/b&gt; your files.&lt;/p&gt;&lt;p&gt;Game will be installed to:&lt;br&gt;%2&lt;/p&gt;&lt;p&gt;Do you want Doomseeker to extract Zandronum files, potentially &lt;b&gt;overwriting existing ones&lt;/b&gt;, and to copy all your configuration files from your base directory?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Instalacja binarek testowych dla wersji %1 może potencjalnie &lt;b&gt;nadpisać&lt;/b&gt; Twoje pliki.&lt;/p&gt;&lt;p&gt;Gra zostanie zainstalowana pod ścieżką:&lt;br&gt;%2&lt;/p&gt;&lt;p&gt;Czy chcesz aby Doomseeker wypakował pliki Zandronum, potencjalnie &lt;b&gt;nadpisując już istniejące&lt;/b&gt;, oraz aby skopiował wszystkie Twoje pliki konfiguracyjne z katalogu bazowego?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="176"/>
+        <location filename="../zandronumbinaries.cpp" line="180"/>
         <source>Zandronum testing version %1 can be installed.
 
 Game will be installed to:
@@ -2972,17 +2977,17 @@ Gra zostanie zainstalowana do:
 Czy chcesz, aby Doomseeker zainstalował tą wersję i skopiował wszystkie Twoje pliki konfiguracyjne z katalogu bazowego?</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="183"/>
+        <location filename="../zandronumbinaries.cpp" line="187"/>
         <source>Doomseeker - install Zandronum testing version</source>
         <translation>Doomseeker - instalacja testowej wersji Zandronum</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="209"/>
+        <location filename="../zandronumbinaries.cpp" line="213"/>
         <source>No testing directory configured for Zandronum</source>
         <translation>Nie skonfigurowano katalogu testowego dla Zandronum</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="219"/>
+        <location filename="../zandronumbinaries.cpp" line="223"/>
         <source>%1
 doesn&apos;t exist.
 You need to install new testing binaries.</source>
@@ -2991,7 +2996,7 @@ nie istnieje.
 Musisz zainstalować nowe binarki testowe.</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="226"/>
+        <location filename="../zandronumbinaries.cpp" line="230"/>
         <source>%1
 exists but is NOT a directory.
 Cannot proceed.</source>
@@ -3000,7 +3005,7 @@ istnieje ale NIE JEST katalogiem.
 Nie można kontynuować.</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="235"/>
+        <location filename="../zandronumbinaries.cpp" line="239"/>
         <source>%1
 exists but doesn&apos;t contain a Zandronum executable.
 
@@ -3011,17 +3016,17 @@ istnieje, ale nie zawiera pliku wykonywalnego Zandronum.
 Doomseeker może zainstalować grę, jeśli chcesz.</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="306"/>
+        <location filename="../zandronumbinaries.cpp" line="310"/>
         <source>Downloading Zandronum testing binary from URL: %1</source>
         <translation>Pobieram binarkę testową Zandronum z URLa: %1</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="311"/>
+        <location filename="../zandronumbinaries.cpp" line="315"/>
         <source>Doomseeker - download failed</source>
         <translation>Doomseeker - pobieranie nie powiodło się</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="312"/>
+        <location filename="../zandronumbinaries.cpp" line="316"/>
         <source>Failed to download testing binary.
 
 %1</source>
@@ -3030,46 +3035,46 @@ Doomseeker może zainstalować grę, jeśli chcesz.</translation>
 %1</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="336"/>
+        <location filename="../zandronumbinaries.cpp" line="340"/>
         <source>Unpacking file: %1</source>
         <translation>Wypakowuję plik: %1</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="348"/>
+        <location filename="../zandronumbinaries.cpp" line="352"/>
         <source>Doomseeker - unpack failed</source>
         <translation>Doomseeker - błąd wypakowania</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="349"/>
+        <location filename="../zandronumbinaries.cpp" line="353"/>
         <source>Failed to unpack: %1</source>
         <translation>Nie udało się wypakować: %1</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="375"/>
+        <location filename="../zandronumbinaries.cpp" line="379"/>
         <source>%1
  should be a script file but is a directory!</source>
         <translation>%1
  powinien być plikiem skryptowym, ale jest katalogiem!</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="384"/>
+        <location filename="../zandronumbinaries.cpp" line="388"/>
         <source>You don&apos;t have permissions to execute file: %1
 </source>
         <translation>Nie masz uprawnień aby uruchomić plik: %1
 </translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="425"/>
+        <location filename="../zandronumbinaries.cpp" line="429"/>
         <source>Couldn&apos;t open batch file &quot;%1&quot; for writing</source>
         <translation>Nie można otworzyć pliku skryptowego &quot;%1&quot; do zapisu</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="432"/>
+        <location filename="../zandronumbinaries.cpp" line="436"/>
         <source>Error while writing batch file &quot;%1&quot;</source>
         <translation>Błąd podczas zapisywania pliku skryptowego &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../zandronumbinaries.cpp" line="442"/>
+        <location filename="../zandronumbinaries.cpp" line="446"/>
         <source>Cannot set permissions for file:
 %1</source>
         <translation>Nie można ustawić uprawnień plikowi:
