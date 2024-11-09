@@ -70,8 +70,8 @@ void GameExecutablePicker::browse()
 {
 	showWarning("");
 	QString dialogDir = gConfig.doomseeker.previousCreateServerExecDir;
-	QString path = QFileDialog::getOpenFileName(this, tr("Doomseeker - Browse executable"),
-		dialogDir, FileFilter::executableFilesFilter());
+	QString path = QFileDialog::getOpenFileName(this, tr("Doomseeker - browse executable"),
+		dialogDir, FileFilterList::executableOrAll().toSemicolonFilter());
 
 	if (!path.isEmpty())
 	{

@@ -62,8 +62,8 @@ void IwadAndWadsPickerDialog::setExecutables(const QStringList &paths)
 
 void IwadAndWadsPickerDialog::browseExecutable()
 {
-	QString path = QFileDialog::getOpenFileName(this, tr("Doomseeker - Browse executable"),
-		executable(), FileFilter::executableFilesFilter());
+	QString path = QFileDialog::getOpenFileName(this, tr("Doomseeker - browse executable"),
+		executable(), FileFilterList::executableOrAll().toSemicolonFilter());
 	if (!path.isEmpty())
 	{
 		d->executableInput->setCurrentText(path);

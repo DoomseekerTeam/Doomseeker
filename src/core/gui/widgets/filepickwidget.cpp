@@ -40,6 +40,9 @@ public:
 	bool changed;
 	GameFile file;
 	QSharedPointer< ::FilePickWidget::NeighbourStrategy> neighbourStrategy;
+
+	FileFilterList browseFileFilters;
+	QString browseTitle;
 };
 DPointered(FilePickWidget)
 
@@ -54,6 +57,9 @@ FilePickWidget::FilePickWidget(QWidget *parent)
 	d->btnFind->hide();
 	this->connect(d->lePath, SIGNAL(editingFinished()), SLOT(emitPathChangedIfChanged()));
 	this->connect(d->lePath, SIGNAL(textEdited(QString)), SLOT(trackEdit()));
+
+	d->browseFileFilters.add(FileFilter::allFiles());
+	d->browseTitle = tr("Doomseeker - browse");
 }
 
 FilePickWidget::~FilePickWidget()
@@ -62,9 +68,8 @@ FilePickWidget::~FilePickWidget()
 
 void FilePickWidget::browsePath()
 {
-	QString filepath = QFileDialog::getOpenFileName(this,
-		tr("Doomseeker - choose executable file"),
-		d->lePath->text(), FileFilter::executableFilesFilter());
+	QString filepath = QFileDialog::getOpenFileName(this, d->browseTitle,
+		d->lePath->text(), d->browseFileFilters.toSemicolonFilter());
 	if (!filepath.isEmpty())
 	{
 		d->lePath->setText(gDefaultDataPaths->portablizePath(filepath));
@@ -90,6 +95,16 @@ void FilePickWidget::findPath()
 bool FilePickWidget::isEmpty() const
 {
 	return path().trimmed().isEmpty();
+}
+
+void FilePickWidget::setBrowseFileFilters(const FileFilterList &fileFilters)
+{
+	d->browseFileFilters = fileFilters;
+}
+
+void FilePickWidget::setBrowseTitle(const QString &title)
+{
+	d->browseTitle = title;
 }
 
 void FilePickWidget::setFile(const GameFile &file)

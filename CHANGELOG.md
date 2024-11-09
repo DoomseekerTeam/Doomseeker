@@ -10,6 +10,8 @@ and this project does not adhere to
 
 ## [unreleased]
 ### Fixed
+- Use the proper demo file filter when browsing for demo files,
+  not the executable file filter. (#4435)
 - Demos paths handling in `--portable` mode. (#4437)
 
 ## [1.5.0]

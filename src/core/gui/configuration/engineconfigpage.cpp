@@ -161,6 +161,8 @@ void EngineConfigPage::makeFileBrowsers()
 		auto widget = new FilePickWidget(d->exePickArea);
 		widget->setFile(file);
 		widget->setNeighbourStrategy(neighbours);
+		widget->setBrowseFileFilters(FileFilterList::executableOrAll());
+		widget->setBrowseTitle(tr("Doomseeker - browse executable"));
 		this->connect(widget, SIGNAL(findFailed()), SLOT(showFindFailError()));
 		this->connect(widget, SIGNAL(pathChanged()), SLOT(autoFindNeighbouringPaths()));
 		this->connect(widget, SIGNAL(pathChanged()), SIGNAL(validationRequested()));

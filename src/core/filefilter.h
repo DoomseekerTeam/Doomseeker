@@ -25,14 +25,60 @@
 
 #include <QObject>
 #include <QString>
+#include <QStringList>
 
 class FileFilter : public QObject
 {
 	Q_OBJECT
 
 public:
-	static QString allFilesFilter();
-	static QString executableFilesFilter();
+	static QString allFiles();
+	static QString demos();
+	static QString executables();
+};
+
+class FileFilterList
+{
+public:
+	FileFilterList(const QStringList &filters = {})
+	{
+		this->filters = filters;
+	}
+
+	FileFilterList(const QString &filter)
+	{
+		if (!filter.isEmpty())
+			this->filters << filter;
+	}
+
+	static FileFilterList executableOrAll()
+	{
+		return FileFilterList()
+			.add(FileFilter::executables())
+			.add(FileFilter::allFiles());
+	}
+
+	FileFilterList &add(const QString &filter)
+	{
+		this->filters << filter;
+		return *this;
+	}
+
+	QStringList toStringList() const
+	{
+		QStringList out = this->filters;
+		out.removeAll(QString(""));
+		out.removeDuplicates();
+		return out;
+	}
+
+	QString toSemicolonFilter() const
+	{
+		return toStringList().join(";;");
+	}
+
+private:
+	QStringList filters;
 };
 
 #endif

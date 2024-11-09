@@ -22,17 +22,25 @@
 //------------------------------------------------------------------------------
 #include "filefilter.h"
 
-QString FileFilter::allFilesFilter()
+#include "gamedemo.h"
+
+QString FileFilter::allFiles()
 {
 	return tr("All files (*)");
 }
 
-QString FileFilter::executableFilesFilter()
+QString FileFilter::demos()
+{
+	QStringList demoFilters = DemoStore::demoFileFilters();
+	return tr("Demos (%1)").arg(demoFilters.join(" "));
+}
+
+QString FileFilter::executables()
 {
 	#if defined(Q_OS_WIN32)
-	return tr("Runnable files (*.exe;*.bat;*.com);;") + allFilesFilter();
+	return tr("Executables (*.exe *.bat *.com)");
 	#else
 	// Other platforms do not have an extension for their binary files.
-	return allFilesFilter();
+	return allFiles();
 	#endif
 }

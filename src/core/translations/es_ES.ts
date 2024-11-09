@@ -3343,8 +3343,8 @@ es un directorio o no existe.</translation>
     </message>
     <message>
         <location filename="../filefilter.cpp" line="33"/>
-        <source>Runnable files (*.exe;*.bat;*.com);;</source>
-        <translation>Archivos ejecutables (*.exe;*.bat;*.com);;</translation>
+        <source>Executables (*.exe *.bat *.com)</source>
+        <translation>Archivos ejecutables (*.exe *.bat *.com)</translation>
     </message>
 </context>
 <context>
@@ -3661,8 +3661,8 @@ Ejecutable: %3</translation>
     <name>GameExecutablePicker</name>
     <message>
         <location filename="../gui/createserver/gameexecutablepicker.cpp" line="73"/>
-        <source>Doomseeker - Browse executable</source>
-        <translation>Doomseeker - Buscar ejecutable</translation>
+        <source>Doomseeker - browse executable</source>
+        <translation>Doomseeker - buscar ejecutable</translation>
     </message>
     <message>
         <location filename="../gui/createserver/gameexecutablepicker.cpp" line="115"/>
@@ -6261,8 +6261,8 @@ p, li { white-space: pre-wrap; }
     <name>IwadAndWadsPickerDialog</name>
     <message>
         <location filename="../gui/createserver/iwadandwadspickerdialog.cpp" line="65"/>
-        <source>Doomseeker - Browse executable</source>
-        <translation>Doomseeker - Buscar ejecutable</translation>
+        <source>Doomseeker - browse executable</source>
+        <translation>Doomseeker - buscar ejecutable</translation>
     </message>
     <message>
         <location filename="../gui/createserver/iwadandwadspickerdialog.ui" line="14"/>

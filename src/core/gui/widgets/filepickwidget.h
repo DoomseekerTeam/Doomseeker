@@ -24,9 +24,12 @@
 #define id36ca3802_cdbb_4c12_b4fe_eafa3bc1f790
 
 #include "dptr.h"
+#include <QString>
+#include <QStringList>
 #include <QSharedPointer>
 #include <QWidget>
 
+class FileFilterList;
 class GameFile;
 class IniSection;
 
@@ -50,6 +53,8 @@ public:
 	~FilePickWidget() override;
 
 	bool isEmpty() const;
+	void setBrowseFileFilters(const FileFilterList &fileFilters);
+	void setBrowseTitle(const QString &title);
 	void setFile(const GameFile &file);
 	void setNeighbourStrategy(QSharedPointer<NeighbourStrategy> strategy);
 	void setTitleVisible(bool visible);

@@ -33,6 +33,7 @@
 #include "serverapi/gamecreateparams.h"
 #include "serverapi/gameexefactory.h"
 #include "serverapi/gamefile.h"
+#include "filefilter.h"
 #include "templatedpathresolver.h"
 #include <cassert>
 #include <QFileDialog>
@@ -81,6 +82,8 @@ GeneralGameSetupPanel::GeneralGameSetupPanel(QWidget *parent)
 	d->remoteExecutableInput->setAllowedExecutables(GameFile::Client);
 
 	d->demoPicker->setTitleVisible(false);
+	d->demoPicker->setBrowseFileFilters(FileFilter::demos());
+	d->demoPicker->setBrowseTitle(tr("Doomseeker - browse demo"));
 
 	d->formLayout->getWidgetPosition(d->demoPicker, &d->demoRow, nullptr);
 	d->formLayout->getWidgetPosition(d->leServerName, &d->serverNameRow, nullptr);

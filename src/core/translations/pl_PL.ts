@@ -2958,8 +2958,8 @@ jest katalogiem lub nie istnieje.</translation>
     </message>
     <message>
         <location filename="../filefilter.cpp" line="33"/>
-        <source>Runnable files (*.exe;*.bat;*.com);;</source>
-        <translation>Pliki wykonywalne (*.exe;*.bat;*.com);;</translation>
+        <source>Executables (*.exe *.bat *.com)</source>
+        <translation>Pliki wykonywalne (*.exe *.bat *.com)</translation>
     </message>
 </context>
 <context>
@@ -3271,8 +3271,8 @@ Plik wykonywalny: %3</translation>
     <name>GameExecutablePicker</name>
     <message>
         <location filename="../gui/createserver/gameexecutablepicker.cpp" line="73"/>
-        <source>Doomseeker - Browse executable</source>
-        <translation>Doomseeker - Przeglądaj plik wykonywalny</translation>
+        <source>Doomseeker - browse executable</source>
+        <translation>Doomseeker - przeglądaj plik wykonywalny</translation>
     </message>
     <message>
         <location filename="../gui/createserver/gameexecutablepicker.cpp" line="115"/>
@@ -5832,8 +5832,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/createserver/iwadandwadspickerdialog.cpp" line="65"/>
-        <source>Doomseeker - Browse executable</source>
-        <translation>Doomseeker - Przeglądaj plik wykonywalny</translation>
+        <source>Doomseeker - browse executable</source>
+        <translation>Doomseeker - przeglądaj plik wykonywalny</translation>
     </message>
 </context>
 <context>
