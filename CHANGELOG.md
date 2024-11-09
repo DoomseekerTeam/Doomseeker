@@ -13,6 +13,7 @@ and this project does not adhere to
 - Use the proper demo file filter when browsing for demo files,
   not the executable file filter. (#4435)
 - Demos paths handling in `--portable` mode. (#4437)
+- Fix misaligned layout for "Map" field in the "Create Game" box. (#4438)
 
 ## [1.5.0]
 ### Added
