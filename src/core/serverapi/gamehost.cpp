@@ -112,7 +112,7 @@ void GameHost::addDemoPlaybackIfApplicable()
 	if (params().hostMode() == GameCreateParams::Demo)
 	{
 		args() << argForDemoPlayback();
-		args() << params().demoPath();
+		args() << QFileInfo(params().demoPath()).absoluteFilePath();
 	}
 }
 
@@ -122,7 +122,7 @@ void GameHost::addDemoRecordIfApplicable()
 		&& params().demoRecord() != DemoRecord::NoDemo)
 	{
 		args() << argForDemoRecord();
-		args() << params().demoPath();
+		args() << QFileInfo(params().demoPath()).absoluteFilePath();
 	}
 }
 

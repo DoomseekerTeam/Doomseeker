@@ -8,6 +8,10 @@ This file follows the format of
 and this project does not adhere to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+### Fixed
+- Demos paths handling in `--portable` mode. (#4437)
+
 ## [1.5.0]
 ### Added
 - Demo playback and recording features (#4110):

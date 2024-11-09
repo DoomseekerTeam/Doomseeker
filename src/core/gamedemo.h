@@ -251,6 +251,19 @@ public:
 	bool removeManagedDemo(const QString &name);
 
 	/**
+	 * Remove the managed demo at path.
+	 *
+	 * It also removes the metadata file if it exists.
+	 *
+	 * @param name
+	 *     Direct path to either the demo file or its metadata file.
+	 *
+	 * @return `true` if the demo was removed successfully (or if it
+	 * didn't exist in the first place). `false` if removal failed.
+	 */
+	static bool removeManagedDemoAtPath(const QString &path);
+
+	/**
 	 * The dir where demos are saved.
 	 */
 	const QDir &root() const;

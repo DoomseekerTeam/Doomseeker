@@ -117,12 +117,12 @@ public:
 		appendRow(QList<QStandardItem *> {itemGame, itemCreatedTime, itemAuthor, itemIwad, itemWads});
 	}
 
-	QString demoNameFromIndex(const QModelIndex &index) const
+	QString demoPathFromIndex(const QModelIndex &index) const
 	{
-		return index.isValid() ? demoNameFromRow(index.row()) : QString();
+		return index.isValid() ? demoPathFromRow(index.row()) : QString();
 	}
 
-	QString demoNameFromRow(int row) const
+	QString demoPathFromRow(int row) const
 	{
 		if (row >= this->rowCount())
 			return QString();
@@ -268,7 +268,7 @@ void DemoManagerDlg::adjustDemoList()
 
 bool DemoManagerDlg::doRemoveDemo(const QString &file)
 {
-	if (!d->demoStore.removeManagedDemo(file))
+	if (!DemoStore::removeManagedDemoAtPath(file))
 		QMessageBox::critical(this, tr("Unable to remove"), tr("Could not remove the selected demo."));
 	else
 	{
@@ -287,8 +287,8 @@ void DemoManagerDlg::deleteSelected()
 		QModelIndex index = d->currentIndex();
 		if (index.isValid())
 		{
-			const QString &demoName = d->demoModel->demoNameFromIndex(index);
-			if (doRemoveDemo(demoName))
+			const QString &demoPath = d->demoModel->demoPathFromIndex(index);
+			if (doRemoveDemo(demoPath))
 			{
 				d->demoModel->removeRow(index.row());
 			}
@@ -298,10 +298,10 @@ void DemoManagerDlg::deleteSelected()
 
 void DemoManagerDlg::exportSelectedDoomseeker()
 {
-	QString demoName = d->demoModel->demoNameFromIndex(d->demoTable->currentIndex());
-	if (demoName.isEmpty())
+	QString demoPath = d->demoModel->demoPathFromIndex(d->demoTable->currentIndex());
+	if (demoPath.isEmpty())
 		return;
-	GameDemo selectedDemo = d->demoStore.loadManagedGameDemo(demoName);
+	GameDemo selectedDemo = DemoStore::loadGameDemo(demoPath);
 
 	// Omit Doomseeker's path portablization here, because the feature
 	// is explicitly called "export".
@@ -364,10 +364,10 @@ void DemoManagerDlg::exportSelectedDoomseeker()
 
 void DemoManagerDlg::exportSelectedPlain()
 {
-	QString demoName = d->demoModel->demoNameFromIndex(d->demoTable->currentIndex());
-	if (demoName.isEmpty())
+	QString demoPath = d->demoModel->demoPathFromIndex(d->demoTable->currentIndex());
+	if (demoPath.isEmpty())
 		return;
-	GameDemo selectedDemo = d->demoStore.loadManagedGameDemo(demoName);
+	GameDemo selectedDemo = DemoStore::loadGameDemo(demoPath);
 
 	// Omit Doomseeker's path portablization here, because the feature
 	// is explicitly called "export".
@@ -470,21 +470,21 @@ QString DemoManagerDlg::labelDemoFile(QFileInfo &file, const QByteArray &md5)
 
 void DemoManagerDlg::itemDoubleClicked(const QModelIndex &index)
 {
-	QString demoName = d->demoModel->demoNameFromIndex(index);
-	if (!demoName.isEmpty())
-		playDemo(demoName);
+	QString demoPath = d->demoModel->demoPathFromIndex(index);
+	if (!demoPath.isEmpty())
+		playDemo(demoPath);
 }
 
 void DemoManagerDlg::playSelected()
 {
-	QString demoName = d->demoModel->demoNameFromIndex(d->demoTable->currentIndex());
-	if (!demoName.isEmpty())
-		playDemo(demoName);
+	QString demoPath = d->demoModel->demoPathFromIndex(d->demoTable->currentIndex());
+	if (!demoPath.isEmpty())
+		playDemo(demoPath);
 }
 
-void DemoManagerDlg::playDemo(const QString &demoName)
+void DemoManagerDlg::playDemo(const QString &demoPath)
 {
-	GameDemo demo = d->demoStore.loadManagedGameDemo(demoName);
+	GameDemo demo = DemoStore::loadGameDemo(demoPath);
 
 	// Look for the plugin used to record.
 	EnginePlugin *plugin = gPlugins->info(demo.game);
@@ -557,13 +557,13 @@ void DemoManagerDlg::updateUiSelectionState()
 
 void DemoManagerDlg::updatePreview()
 {
-	QString demoName = d->demoModel->demoNameFromIndex(d->demoTable->currentIndex());
-	if (demoName.isEmpty())
+	QString demoPath = d->demoModel->demoPathFromIndex(d->demoTable->currentIndex());
+	if (demoPath.isEmpty())
 	{
 		d->preview->setText("");
 		return;
 	}
-	GameDemo selectedDemo = d->demoStore.loadManagedGameDemo(demoName);
+	GameDemo selectedDemo = DemoStore::loadGameDemo(demoPath);
 
 	static const QString PAR = "<p style=\"margin: 0px 0px 0px 10px\">";
 	static const QString ENDPAR = "</p>";

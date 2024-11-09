@@ -278,6 +278,19 @@ static const QString METAFILE_SUFFIX = "ini";
 static const QString SECTION_DOOMSEEKER = "doomseeker";
 static const QString SECTION_META = "meta";
 
+/**
+ * Get demopath from demopath or metadata file path.
+ *
+ * - If `path` leads to a demo metadata file, convert it to a demo path.
+ * - If `path` leads to any other file, return it as-is.
+ */
+static QString demopath(const QString &path)
+{
+	return path.endsWith("." + METAFILE_SUFFIX)
+		? path.left(path.length() - (1 + METAFILE_SUFFIX.length()))
+		: path;
+}
+
 DClass<DemoStore>
 {
 public:
@@ -434,7 +447,12 @@ QString DemoStore::mkDemoFullPath(DemoRecord::Control control, const EnginePlugi
 
 bool DemoStore::removeManagedDemo(const QString &name)
 {
-	QFile demoFile(d->root.filePath(name));
+	return removeManagedDemoAtPath(d->root.filePath(name));
+}
+
+bool DemoStore::removeManagedDemoAtPath(const QString &path)
+{
+	QFile demoFile(::demopath(path));
 	if (demoFile.exists())
 	{
 		if (!demoFile.remove())
@@ -587,9 +605,7 @@ static void loadDemoMetaDataFromIni(const QString &path, GameDemo &demo)
 GameDemo DemoStore::loadGameDemo(const QString &path)
 {
 	GameDemo demo;
-	demo.demopath = path.endsWith("." + METAFILE_SUFFIX)
-		? path.left(path.length() - (1 + METAFILE_SUFFIX.length()))
-		: path;
+	demo.demopath = ::demopath(path);
 	demo.imprintPath(demo.demopath);
 	loadDemoMetaDataFromIni(demo.demopath, demo);
 	return demo;
