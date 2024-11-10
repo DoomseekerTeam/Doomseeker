@@ -82,7 +82,7 @@ GeneralGameSetupPanel::GeneralGameSetupPanel(QWidget *parent)
 	d->remoteExecutableInput->setAllowedExecutables(GameFile::Client);
 
 	d->demoPicker->setTitleVisible(false);
-	d->demoPicker->setBrowseFileFilters(FileFilter::demos());
+	d->demoPicker->setBrowseFileFilters(FileFilterList(FileFilter::demos()).all());
 	d->demoPicker->setBrowseTitle(tr("Doomseeker - browse demo"));
 
 	d->formLayout->getWidgetPosition(d->demoPicker, &d->demoRow, nullptr);

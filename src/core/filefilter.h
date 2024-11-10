@@ -64,6 +64,8 @@ public:
 		return *this;
 	}
 
+	FileFilterList &all() { return add(FileFilter::allFiles()); }
+
 	QStringList toStringList() const
 	{
 		QStringList out = this->filters;
