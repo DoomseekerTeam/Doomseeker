@@ -9,6 +9,11 @@ and this project does not adhere to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [unreleased]
+### Changed
+- "Use OS username" for player name is now configurable via a radio button,
+not via a special `$USERNAME` string. I should remember that this is a GUI
+app ...
+
 ### Fixed
 - Use the proper demo file filter when browsing for demo files,
   not the executable file filter. (#4435)
