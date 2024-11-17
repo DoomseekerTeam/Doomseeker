@@ -266,7 +266,7 @@ public:
 
 DPointered(DoomseekerConfig::DoomseekerCfg)
 
-const QString DoomseekerConfig::DoomseekerCfg::OS_USERNAME_TMPL = "$USERNAME";
+static const QString OS_USERNAME_TMPL = "$USERNAME";
 const QString DoomseekerConfig::DoomseekerCfg::SECTION_NAME = "Doomseeker";
 
 DoomseekerConfig::DoomseekerCfg::DoomseekerCfg()
@@ -298,7 +298,8 @@ DoomseekerConfig::DoomseekerCfg::DoomseekerCfg()
 	this->mainWindowGeometry = "";
 	this->queryAutoRefreshEverySeconds = 180;
 	setQuerySpeed(QuerySpeed::aggressive());
-	this->playerName = OS_USERNAME_TMPL;
+	this->playerNameChoice = PNC_OS;
+	this->playerName = "Player";
 	this->previousCreateServerConfigDir = "";
 	this->previousCreateServerExecDir = "";
 	this->previousCreateServerLogDir = "";
@@ -360,6 +361,7 @@ void DoomseekerConfig::DoomseekerCfg::init(IniSection &section)
 	section.createSetting("BuddyServersColor", this->buddyServersColor);
 	section.createSetting("CustomServersColor", this->customServersColor);
 	section.createSetting("LanServersColor", this->lanServersColor);
+	// don't create PlayerNameChoice or else 1.5.0 -> 1.5.1 migration won't work
 	section.createSetting("PlayerName", this->playerName);
 	section.createSetting("QueryAutoRefreshEverySeconds", this->queryAutoRefreshEverySeconds);
 	section.createSetting("QueryServerInterval", this->querySpeed().intervalBetweenServers);
@@ -412,7 +414,6 @@ void DoomseekerConfig::DoomseekerCfg::load(IniSection &section)
 	d->querySpeed.intervalBetweenServers = section["QueryServerInterval"];
 	d->querySpeed.delayBetweenSingleServerAttempts = section["QueryServerTimeout"];
 	d->querySpeed.attemptsPerServer = section["QueryAttemptsPerServer"];
-	this->playerName = (const QString &)section["PlayerName"];
 	this->previousCreateServerConfigDir = (const QString &)section["PreviousCreateServerConfigDir"];
 	this->previousCreateServerExecDir = (const QString &)section["PreviousCreateServerExecDir"];
 	this->previousCreateServerLogDir = (const QString &)section["PreviousCreateServerLogDir"];
@@ -479,6 +480,42 @@ void DoomseekerConfig::DoomseekerCfg::load(IniSection &section)
 		// Backward compatibility, pre 1.2.
 		this->buddies = readPre1Point2BuddiesList(section["BuddiesList"]);
 	}
+
+	// Player name compatibility
+	//
+	// PlayerName setting was introduced in version 1.5.0 with a special value
+	// $USERNAME, which was converted to PlayerNameChoice in 1.5.1. If user
+	// is upgrading and there's no PlayerNameChoice in the settings, yet, then
+	// interpret it basing on that special value.
+	this->playerName = (const QString &)section["PlayerName"];
+	if (section.hasSetting("PlayerNameChoice"))
+	{
+		const int playerNameChoiceCode = section["PlayerNameChoice"].value().toInt();
+		switch (playerNameChoiceCode)
+		{
+		case PNC_OS:
+		case PNC_Custom:
+			this->playerNameChoice = static_cast<PlayerNameChoice>(playerNameChoiceCode);
+			break;
+		default:
+			this->playerNameChoice = PNC_OS;
+			break;
+		}
+	}
+	else
+	{
+		// migrate
+		if (this->playerName == OS_USERNAME_TMPL)
+		{
+			this->playerName = "Player";
+			this->playerNameChoice = PNC_OS;
+		}
+		else
+		{
+			this->playerNameChoice = PNC_Custom;
+		}
+	}
+	// End of player name compatibility
 }
 
 void DoomseekerConfig::DoomseekerCfg::save(IniSection &section)
@@ -515,6 +552,7 @@ void DoomseekerConfig::DoomseekerCfg::save(IniSection &section)
 	section["QueryServerTimeout"] = this->querySpeed().delayBetweenSingleServerAttempts;
 	section["QueryAttemptsPerServer"] = this->querySpeed().attemptsPerServer;
 	section["PlayerName"] = this->playerName;
+	section["PlayerNameChoice"] = static_cast<int>(this->playerNameChoice);
 	section["PreviousCreateServerConfigDir"] = this->previousCreateServerConfigDir;
 	section["PreviousCreateServerExecDir"] = this->previousCreateServerExecDir;
 	section["PreviousCreateServerLogDir"] = this->previousCreateServerLogDir;
@@ -564,7 +602,7 @@ void DoomseekerConfig::DoomseekerCfg::setQuerySpeed(const QuerySpeed &val)
 
 QString DoomseekerConfig::DoomseekerCfg::realPlayerName() const
 {
-	if (this->playerName == OS_USERNAME_TMPL)
+	if (this->playerNameChoice == PNC_OS)
 	{
 		QString osUser = OsInfo::username();
 		if (!osUser.isEmpty())

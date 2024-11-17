@@ -29,6 +29,8 @@
 DClass<CFGGames> : public Ui::CFGGames {};
 DPointered(CFGGames)
 
+static const QVariant SPECIAL_OS_USERNAME = 1;
+
 CFGGames::CFGGames(QWidget *parent)
 	: ConfigPage(parent)
 {
@@ -41,10 +43,24 @@ CFGGames::~CFGGames()
 
 void CFGGames::readSettings()
 {
+	switch (gConfig.doomseeker.playerNameChoice)
+	{
+	case DoomseekerConfig::DoomseekerCfg::PNC_OS:
+	default:
+		d->rbUseOSUsername->setChecked(true);
+		break;
+	case DoomseekerConfig::DoomseekerCfg::PNC_Custom:
+		d->rbCustomUsername->setChecked(true);
+		break;
+	}
 	d->lePlayerName->setText(gConfig.doomseeker.playerName);
 }
 
 void CFGGames::saveSettings()
 {
+	if (d->rbCustomUsername->isChecked())
+		gConfig.doomseeker.playerNameChoice = DoomseekerConfig::DoomseekerCfg::PNC_Custom;
+	else
+		gConfig.doomseeker.playerNameChoice = DoomseekerConfig::DoomseekerCfg::PNC_OS;
 	gConfig.doomseeker.playerName = d->lePlayerName->text().trimmed();
 }

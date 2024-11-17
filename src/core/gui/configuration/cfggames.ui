@@ -31,16 +31,36 @@
     </widget>
    </item>
    <item>
-    <widget class="QLineEdit" name="lePlayerName">
+    <widget class="QRadioButton" name="rbUseOSUsername">
      <property name="text">
-      <string notr="true">$USERNAME</string>
+      <string>Use Operating System's username</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="rbCustomUsername">
+     <property name="text">
+      <string>Custom:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="lePlayerName">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="text">
+      <string>Player</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="QLabel" name="labelUsernameTip">
      <property name="text">
-      <string>This is currently used only for recording demos. It's attached to each demo you record. Set this to $USERNAME to use your Operating System's username.</string>
+      <string>This is currently used only for recording demos. It's attached to each demo you record.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -63,5 +83,22 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>rbCustomUsername</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lePlayerName</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>58</x>
+     <y>67</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>69</x>
+     <y>95</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

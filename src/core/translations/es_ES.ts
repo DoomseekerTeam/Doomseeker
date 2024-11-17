@@ -1101,8 +1101,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/configuration/cfggames.ui" line="43"/>
-        <source>This is currently used only for recording demos. It&apos;s attached to each demo you record. Set this to $USERNAME to use your Operating System&apos;s username.</source>
-        <translation>Actualmente sólo se utiliza para grabar demos. Se adjunta a cada demo que graba. Escriba $USERNAME para utilizar el nombre de usuario de su sistema operativo.</translation>
+        <source>This is currently used only for recording demos. It&apos;s attached to each demo you record.</source>
+        <translation>Actualmente sólo se utiliza para grabar demos. Se adjunta a cada demo que graba.</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfggames.h" line="43"/>

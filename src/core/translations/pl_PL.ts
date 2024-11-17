@@ -929,8 +929,8 @@ https://dev.maxmind.com/geoip/geoip2/geolite2/</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfggames.ui" line="43"/>
-        <source>This is currently used only for recording demos. It&apos;s attached to each demo you record. Set this to $USERNAME to use your Operating System&apos;s username.</source>
-        <translation>Nazwa gracza jest póki co używana jedynie podczas nagrywania demo. Doomseeker dopisuje ją do nagrania. Wpisz tu $USERNAME, aby Doomseeker pobierał nazwę użytkownika z twojego Systemu Operacyjnego.</translation>
+        <source>This is currently used only for recording demos. It&apos;s attached to each demo you record.</source>
+        <translation>Nazwa gracza jest póki co używana jedynie podczas nagrywania demo. Doomseeker dopisuje ją do nagrania.</translation>
     </message>
     <message>
         <location filename="../gui/configuration/cfggames.h" line="43"/>

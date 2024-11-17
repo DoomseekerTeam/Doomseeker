@@ -56,7 +56,14 @@ public:
 	class DoomseekerCfg
 	{
 	public:
-		static const QString OS_USERNAME_TMPL;
+		enum PlayerNameChoice
+		{
+			/// User configures their own player name.
+			PNC_Custom = 1,
+			/// Get the player name from the Operating System.
+			PNC_OS = 2,
+		};
+
 		static const QString SECTION_NAME;
 
 		bool bBotsAreNotPlayers;
@@ -89,6 +96,7 @@ public:
 		QByteArray demoManagerGeometry;
 		QByteArray demoManagerSplitterState;
 		unsigned queryAutoRefreshEverySeconds;
+		PlayerNameChoice playerNameChoice;
 		QString playerName;
 		QString previousCreateServerConfigDir;
 		QString previousCreateServerExecDir;
