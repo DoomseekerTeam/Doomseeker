@@ -34,6 +34,7 @@ class FileFilter : public QObject
 public:
 	static QString allFiles();
 	static QString demos();
+	static QString demosWithIni();
 	static QString executables();
 };
 

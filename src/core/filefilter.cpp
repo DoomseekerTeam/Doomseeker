@@ -35,6 +35,14 @@ QString FileFilter::demos()
 	return tr("Demos (%1)").arg(demoFilters.join(" "));
 }
 
+QString FileFilter::demosWithIni()
+{
+	QStringList demoFilters = DemoStore::demoFileFilters();
+	demoFilters << "*.ini";
+	demoFilters.removeDuplicates();
+	return tr("Demos (%1)").arg(demoFilters.join(" "));
+}
+
 QString FileFilter::executables()
 {
 	#if defined(Q_OS_WIN32)

@@ -23,6 +23,7 @@
 #include "demomanager.h"
 
 #include "configuration/doomseekerconfig.h"
+#include "filefilter.h"
 #include "fileutils.h"
 #include "gamedemo.h"
 #include "gui/commongui.h"
@@ -227,7 +228,7 @@ DemoManagerDlg::DemoManagerDlg()
 	auto *menu = new QMenu(this);
 	menu->addAction(DemoManagerDlg::tr("Export plain demo file"),
 		this, SLOT(exportSelectedPlain()));
-	menu->addAction(DemoManagerDlg::tr("Export with Doomseeker metadata ..."),
+	menu->addAction(DemoManagerDlg::tr("Export with Doomseeker metadata"),
 		this, SLOT(exportSelectedDoomseeker()));
 	d->btnExport->setMenu(menu);
 
@@ -387,17 +388,13 @@ void DemoManagerDlg::exportSelectedPlain()
 
 void DemoManagerDlg::importDemo()
 {
-	// Get valid extensions
-	QStringList demoExtensions = DemoStore::demoFileFilters();
-	demoExtensions << "*.ini";
-
 	QDir proposedDir = FileUtils::dirOrDir(
 		gConfig.doomseeker.previousDemoExportDir,
 		QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation).first());
 
 	QString selectedFile = QFileDialog::getOpenFileName(this, tr("Import demo"),
 		proposedDir.path(),
-		tr("Demo files (%1)").arg(demoExtensions.join(" ")));
+		FileFilter::demosWithIni());
 	if (selectedFile.isEmpty())
 		return;
 

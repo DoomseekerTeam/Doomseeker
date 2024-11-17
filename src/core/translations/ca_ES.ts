@@ -2726,8 +2726,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/demomanager.cpp" line="230"/>
-        <source>Export with Doomseeker metadata ...</source>
-        <translation>Exporta amb metadades de Doomseeker...</translation>
+        <source>Export with Doomseeker metadata</source>
+        <translation>Exporta amb metadades de Doomseeker</translation>
     </message>
     <message>
         <location filename="../gui/demomanager.cpp" line="272"/>
@@ -2782,7 +2782,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/demomanager.cpp" line="400"/>
-        <source>Demo files (%1)</source>
+        <source>Demos (%1)</source>
         <translation>Arxius demo (%1)</translation>
     </message>
     <message>
