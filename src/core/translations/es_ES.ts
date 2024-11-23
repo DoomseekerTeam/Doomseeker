@@ -1100,7 +1100,22 @@ p, li { white-space: pre-wrap; }
         <translation>Nombre del jugador:</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfggames.ui" line="43"/>
+        <location filename="../gui/configuration/cfggames.ui" line="36"/>
+        <source>Use Operating System&apos;s username</source>
+        <translation>Utilizar el nombre de usuario del sistema operativo</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfggames.ui" line="46"/>
+        <source>Custom:</source>
+        <translation>Customizado:</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfggames.ui" line="56"/>
+        <source>Player</source>
+        <translation>Jugador</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfggames.ui" line="63"/>
         <source>This is currently used only for recording demos. It&apos;s attached to each demo you record.</source>
         <translation>Actualmente sólo se utiliza para grabar demos. Se adjunta a cada demo que graba.</translation>
     </message>
@@ -2873,42 +2888,42 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">¿Seguro que quieres eliminar la demo seleccionada?</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="228"/>
+        <location filename="../gui/demomanager.cpp" line="229"/>
         <source>Export plain demo file</source>
         <translation>Exporta archivo &amp;quot;demo&amp;quot; sencillo</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="230"/>
+        <location filename="../gui/demomanager.cpp" line="231"/>
         <source>Export with Doomseeker metadata</source>
         <translation>Exporta con metadatos de Doomseeker</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="272"/>
+        <location filename="../gui/demomanager.cpp" line="273"/>
         <source>Unable to remove</source>
         <translation>Incapaz de eliminar</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="272"/>
+        <location filename="../gui/demomanager.cpp" line="273"/>
         <source>Could not remove the selected demo.</source>
         <translation>No se pudo borrar la demo seleccionada.</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="283"/>
+        <location filename="../gui/demomanager.cpp" line="284"/>
         <source>Remove demo?</source>
         <translation>Eliminar demo?</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="284"/>
+        <location filename="../gui/demomanager.cpp" line="285"/>
         <source>Are you sure you want to remove the selected demo?</source>
         <translation>¿Seguro que quieres eliminar la demo seleccionada?</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="328"/>
+        <location filename="../gui/demomanager.cpp" line="329"/>
         <source>Demo export</source>
         <translation>Exportar Demo</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="329"/>
+        <location filename="../gui/demomanager.cpp" line="330"/>
         <source>The exported files already exist at the specified directory. Overwrite?
 
 %1</source>
@@ -2917,44 +2932,43 @@ p, li { white-space: pre-wrap; }
 %1</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="360"/>
-        <location filename="../gui/demomanager.cpp" line="383"/>
+        <location filename="../gui/demomanager.cpp" line="361"/>
+        <location filename="../gui/demomanager.cpp" line="384"/>
         <source>Unable to save</source>
         <translation>Error de escritura</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="360"/>
-        <location filename="../gui/demomanager.cpp" line="384"/>
+        <location filename="../gui/demomanager.cpp" line="361"/>
+        <location filename="../gui/demomanager.cpp" line="385"/>
         <source>Could not write to the specified location.</source>
         <translation>No se pudo escribir en la ubicación especificada.</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="398"/>
+        <location filename="../gui/demomanager.cpp" line="395"/>
         <source>Import demo</source>
         <translation>Importar Demo</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="400"/>
         <source>Demos (%1)</source>
-        <translation>Archivos demo (%1)</translation>
+        <translation type="vanished">Archivos demo (%1)</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="410"/>
+        <location filename="../gui/demomanager.cpp" line="407"/>
         <source>Import game demo</source>
         <translation>Importar juego demo</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="429"/>
+        <location filename="../gui/demomanager.cpp" line="426"/>
         <source>It looks like this demo is already imported. Overwrite anyway?</source>
         <translation>Parece que esa demo ya está importada. ¿Sobreescribir?</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="433"/>
+        <location filename="../gui/demomanager.cpp" line="430"/>
         <source>Another demo with this metadata already exists. Overwrite?</source>
         <translation>Ya existe otra demo con estos metadatos. ¿Sobreescribir?</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="435"/>
+        <location filename="../gui/demomanager.cpp" line="432"/>
         <source>Existing: %1
 New: %2
 </source>
@@ -2963,13 +2977,13 @@ Nuevo: %2
 </translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="441"/>
-        <location filename="../gui/demomanager.cpp" line="451"/>
+        <location filename="../gui/demomanager.cpp" line="438"/>
+        <location filename="../gui/demomanager.cpp" line="448"/>
         <source>Demo import</source>
         <translation>Importar Demo</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="442"/>
+        <location filename="../gui/demomanager.cpp" line="439"/>
         <source>%1
 
 %2</source>
@@ -2978,47 +2992,47 @@ Nuevo: %2
 %2</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="452"/>
+        <location filename="../gui/demomanager.cpp" line="449"/>
         <source>Could not import the selected demo.</source>
         <translation>No se pudo importar la demo seleccionada.</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="465"/>
+        <location filename="../gui/demomanager.cpp" line="462"/>
         <source>%1 %L2 B (MD5: %3)</source>
         <translation>%1 %L2 B (MD5: %3)</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="493"/>
+        <location filename="../gui/demomanager.cpp" line="490"/>
         <source>No plugin</source>
         <translation>Sin complementos</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="494"/>
+        <location filename="../gui/demomanager.cpp" line="491"/>
         <source>The &quot;%1&quot; plugin does not appear to be loaded.</source>
         <translation>El complemento &quot;%1&quot; no parece estar cargado.</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="529"/>
+        <location filename="../gui/demomanager.cpp" line="526"/>
         <source>Files not found</source>
         <translation>Archivos no encontrados</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="530"/>
+        <location filename="../gui/demomanager.cpp" line="527"/>
         <source>The following files could not be located: </source>
         <translation>Los siguientes archivos no pudieron ser localizados: </translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="577"/>
+        <location filename="../gui/demomanager.cpp" line="574"/>
         <source>Game</source>
         <translation>Juego</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="583"/>
+        <location filename="../gui/demomanager.cpp" line="580"/>
         <source>Author</source>
         <translation>Autor</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="585"/>
+        <location filename="../gui/demomanager.cpp" line="582"/>
         <source>WADs / mods</source>
         <translation>WADs / mods</translation>
     </message>
@@ -3114,22 +3128,22 @@ Nuevo: %2
 <context>
     <name>DemoModel</name>
     <message>
-        <location filename="../gui/demomanager.cpp" line="83"/>
+        <location filename="../gui/demomanager.cpp" line="84"/>
         <source>Created Time</source>
         <translation>Tiempo de creación</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="83"/>
+        <location filename="../gui/demomanager.cpp" line="84"/>
         <source>Author</source>
         <translation>Autor</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="83"/>
+        <location filename="../gui/demomanager.cpp" line="84"/>
         <source>IWAD</source>
         <translation>IWAD</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="83"/>
+        <location filename="../gui/demomanager.cpp" line="84"/>
         <source>WADs</source>
         <translation>WADs</translation>
     </message>
@@ -3225,14 +3239,19 @@ Nuevo: %2
 <context>
     <name>EngineConfigPage</name>
     <message>
-        <location filename="../gui/configuration/engineconfigpage.cpp" line="265"/>
+        <location filename="../gui/configuration/engineconfigpage.cpp" line="165"/>
+        <source>Doomseeker - browse executable</source>
+        <translation>Doomseeker - buscar ejecutable</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/engineconfigpage.cpp" line="267"/>
         <source>Failed to automatically find file.
 You may need to use the browse button.</source>
         <translation>Error al buscar el archivo automáticamente
 Es posible que necesite usar el botón Buscar.</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/engineconfigpage.cpp" line="270"/>
+        <location filename="../gui/configuration/engineconfigpage.cpp" line="272"/>
         <source>Game - %1</source>
         <translation>Juego - %1</translation>
     </message>
@@ -3337,12 +3356,18 @@ es un directorio o no existe.</translation>
         <translation type="vanished">Todos los archivos (*)</translation>
     </message>
     <message>
-        <location filename="../filefilter.cpp" line="27"/>
+        <location filename="../filefilter.cpp" line="29"/>
         <source>All files (*)</source>
         <translation>Todos los archivos (*)</translation>
     </message>
     <message>
-        <location filename="../filefilter.cpp" line="33"/>
+        <location filename="../filefilter.cpp" line="35"/>
+        <location filename="../filefilter.cpp" line="43"/>
+        <source>Demos (%1)</source>
+        <translation>Demos (%1)</translation>
+    </message>
+    <message>
+        <location filename="../filefilter.cpp" line="49"/>
         <source>Executables (*.exe *.bat *.com)</source>
         <translation>Archivos ejecutables (*.exe *.bat *.com)</translation>
     </message>
@@ -3350,22 +3375,21 @@ es un directorio o no existe.</translation>
 <context>
     <name>FilePickWidget</name>
     <message>
-        <location filename="../gui/widgets/filepickwidget.cpp" line="66"/>
         <source>Doomseeker - choose executable file</source>
-        <translation>Doomseeker - elija el archivo ejecutable</translation>
+        <translation type="vanished">Doomseeker - elija el archivo ejecutable</translation>
     </message>
     <message>
-        <location filename="../gui/widgets/filepickwidget.cpp" line="98"/>
+        <location filename="../gui/widgets/filepickwidget.cpp" line="113"/>
         <source>Path to %1 executable:</source>
         <translation>Ruta al ejecutable %1:</translation>
     </message>
     <message>
-        <location filename="../gui/widgets/filepickwidget.cpp" line="159"/>
+        <location filename="../gui/widgets/filepickwidget.cpp" line="174"/>
         <source>File doesn&apos;t exist.</source>
         <translation>El archivo no existe.</translation>
     </message>
     <message>
-        <location filename="../gui/widgets/filepickwidget.cpp" line="162"/>
+        <location filename="../gui/widgets/filepickwidget.cpp" line="177"/>
         <source>This is a directory.</source>
         <translation>Esto es un directorio.</translation>
     </message>
@@ -3853,18 +3877,18 @@ no existe o no es un archivo.</translation>
 <context>
     <name>GeneralGameSetupPanel</name>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="280"/>
-        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="310"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="283"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="313"/>
         <source>&lt; NONE &gt;</source>
         <translation>&lt; NADA &gt;</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="477"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="480"/>
         <source>Doomseeker - load server config</source>
         <translation>Doomseeker - cargar la configuración del servidor</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="478"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="481"/>
         <source>Plugin for engine &quot;%1&quot; is not present!</source>
         <translation>¡El complemento para el motor &quot;%1&quot; no está presente!</translation>
     </message>
@@ -3933,7 +3957,7 @@ no existe o no es un archivo.</translation>
         <translation>Demo:</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="299"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="311"/>
         <source>This map isn&apos;t present on the map list. The game may misbehave.</source>
         <translation>Este mapa no está presente en la lista de mapas. El juego puede comportarse de forma extraña.</translation>
     </message>
@@ -3943,7 +3967,7 @@ no existe o no es un archivo.</translation>
         <translation>IWAD:</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="317"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="329"/>
         <source>Additional WADs and files (check the required ones):</source>
         <translation>WADs y archivos adicionales (comprueba los que son requeridos):</translation>
     </message>
@@ -3957,27 +3981,27 @@ no existe o no es un archivo.</translation>
         <translation type="vanished">WADs y archivos adicionales (se requiere verificación):</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="349"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="361"/>
         <source>Broadcast to LAN</source>
         <translation>Emitir a la LAN</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="359"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="371"/>
         <source>Broadcast to master</source>
         <translation>Emitir a master</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="384"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="396"/>
         <source>If checked, the game will try to tell your router to forward necessary ports.</source>
         <translation>Si está marcado, el juego intentará decirle a su router que reenvíe los puertos necesarios.</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="387"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="399"/>
         <source>UPnP</source>
         <translation>UPnP</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="397"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="409"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;UPnP port. Set this to 0 to let Doomseeker or game decide.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;puerto UPnP. Establezca esto en 0 para permitir que Doomseeker o el juego decidan.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -5274,47 +5298,47 @@ no existe o no es un archivo.</translation>
         <translation type="vanished">El analizador IP2C sigue funcionando, esperando a que se detenga...</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="147"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="144"/>
         <source>IP2C update not needed.</source>
         <translation>Actualización de IP2C no necesaria.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="150"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="147"/>
         <source>IP2C update errored. See log for details.</source>
         <translation>La actualización de IP2C falló. Ver registro para más detalles.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="153"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="150"/>
         <source>IP2C update bugged out.</source>
         <translation>La actualización de IP2C muestra errores.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="165"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="162"/>
         <source>Starting IP2C update.</source>
         <translation>Iniciando la actualización de IP2C.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="202"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="200"/>
         <source>IP2C unable to retrieve the parsing result.</source>
         <translation>IP2C incapaz de recuperar el resultado del análisis.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="212"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="210"/>
         <source>Failed to read the IP2C fallback. Stopping.</source>
         <translation>Error al leer la base de datos IP2C de repuesto. Parando.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="216"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="214"/>
         <source>Failed to read the IP2C database. Reverting...</source>
         <translation>Error al leer la base de datos IP2C. Revirtiendo...</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="230"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="228"/>
         <source>Trying to use the preinstalled IP2C database.</source>
         <translation>Intentando usar la base de datos IP2C preinstalada.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="269"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="267"/>
         <source>IP2C database is being read. This may take some time.</source>
         <translation>La base de datos IP2C está siendo leída. Esto puede tomar algo de tiempo.</translation>
     </message>
@@ -5327,17 +5351,17 @@ no existe o no es un archivo.</translation>
         <translation type="vanished">La actualización de IP2C debe esperar hasta que finalice el análisis de la base de datos actual. Esperando 1 segundo.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="176"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="173"/>
         <source>IP2C database finished downloading.</source>
         <translation>La base de datos IP2C se terminó de descargar.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="180"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="177"/>
         <source>Unable to save IP2C database at path: %1</source>
         <translation>No se puede guardar la base de datos IP2C en la ruta: %1</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="185"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="182"/>
         <source>IP2C download has failed.</source>
         <translation>La descarga de IP2C ha fallado.</translation>
     </message>
@@ -5350,7 +5374,7 @@ no existe o no es un archivo.</translation>
         <translation type="vanished">Error al leer la base de datos IP2C. Revirtiendo...</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="221"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="219"/>
         <source>IP2C revert attempt failed. Nothing to go back to.</source>
         <translation>Intento de revertir IP2C fallido. Nada a lo que regresar.</translation>
     </message>
@@ -5359,12 +5383,12 @@ no existe o no es un archivo.</translation>
         <translation type="vanished">Intentando usar la base de datos IP2C preinstalada.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="129"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="126"/>
         <source>Did not find any IP2C database. IP2C functionality will be disabled.</source>
         <translation>No se encontró ninguna base de datos IP2C. La funcionalidad de IP2C estará deshabilitada.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="130"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="127"/>
         <source>You may install an IP2C database from the &quot;File&quot; menu.</source>
         <translation>Puede instalar una base de datos IP2C desde el menú &quot;Archivo&quot;.</translation>
     </message>
@@ -5373,7 +5397,7 @@ no existe o no es un archivo.</translation>
         <translation type="vanished">Usando la base de datos IP2C precompilada.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="250"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="248"/>
         <source>IP2C parsing finished.</source>
         <translation>El análisis de IP2C terminó.</translation>
     </message>
@@ -7462,12 +7486,12 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
 <context>
     <name>PlayerTable</name>
     <message>
-        <location filename="../serverapi/tooltips/playertable.cpp" line="211"/>
+        <location filename="../serverapi/tooltips/playertable.cpp" line="210"/>
         <source>BOT</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/playertable.cpp" line="215"/>
+        <location filename="../serverapi/tooltips/playertable.cpp" line="214"/>
         <source>SPECTATOR</source>
         <translation>ESPECTADOR</translation>
     </message>
@@ -7486,7 +7510,7 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
         <translation>Espectadores</translation>
     </message>
     <message numerus="yes">
-        <location filename="../serverapi/tooltips/playertable.cpp" line="239"/>
+        <location filename="../serverapi/tooltips/playertable.cpp" line="238"/>
         <source>(and %n more ...)</source>
         <translation>
             <numerusform>(y %n más...)</numerusform>
@@ -7494,27 +7518,27 @@ Si no tiene este archivo, y pertenece a un juego comercial, necesita comprar el 
         </translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/playertable.cpp" line="254"/>
+        <location filename="../serverapi/tooltips/playertable.cpp" line="253"/>
         <source>Player</source>
         <translation>Jugador</translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/playertable.cpp" line="255"/>
+        <location filename="../serverapi/tooltips/playertable.cpp" line="254"/>
         <source>Score</source>
         <translation>Puntuación</translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/playertable.cpp" line="256"/>
+        <location filename="../serverapi/tooltips/playertable.cpp" line="255"/>
         <source>Ping</source>
         <translation>Ping</translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/playertable.cpp" line="257"/>
+        <location filename="../serverapi/tooltips/playertable.cpp" line="256"/>
         <source>Status</source>
         <translation>Estado</translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/playertable.cpp" line="288"/>
+        <location filename="../serverapi/tooltips/playertable.cpp" line="287"/>
         <source>Team %1</source>
         <translation>Equipo %1</translation>
     </message>

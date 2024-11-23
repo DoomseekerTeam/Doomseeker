@@ -1040,7 +1040,22 @@ p, li { white-space: pre-wrap; }
         <translation>Nom del jugador:</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/cfggames.ui" line="43"/>
+        <location filename="../gui/configuration/cfggames.ui" line="36"/>
+        <source>Use Operating System&apos;s username</source>
+        <translation>Utilitzar el nom d&apos;usuari del sistema operatiu</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfggames.ui" line="46"/>
+        <source>Custom:</source>
+        <translation>Customitzat:</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfggames.ui" line="56"/>
+        <source>Player</source>
+        <translation>Jugador</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/cfggames.ui" line="63"/>
         <source>This is currently used only for recording demos. It&apos;s attached to each demo you record.</source>
         <translation>Actualment només s&apos;utilitza per gravar demos. S&apos;adjunta a cada demo que graveu.</translation>
     </message>
@@ -2720,42 +2735,42 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">¿Segur que vols eliminar la demo seleccionada?</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="228"/>
+        <location filename="../gui/demomanager.cpp" line="229"/>
         <source>Export plain demo file</source>
         <translation>Exporta fitxer &amp;quot;demo&amp;quot; senzill</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="230"/>
+        <location filename="../gui/demomanager.cpp" line="231"/>
         <source>Export with Doomseeker metadata</source>
         <translation>Exporta amb metadades de Doomseeker</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="272"/>
+        <location filename="../gui/demomanager.cpp" line="273"/>
         <source>Unable to remove</source>
         <translation>Incapaç de suprimir</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="272"/>
+        <location filename="../gui/demomanager.cpp" line="273"/>
         <source>Could not remove the selected demo.</source>
         <translation>No s&apos;ha pogut esborrar la demo seleccionada.</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="283"/>
+        <location filename="../gui/demomanager.cpp" line="284"/>
         <source>Remove demo?</source>
         <translation>Suprimir demo?</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="284"/>
+        <location filename="../gui/demomanager.cpp" line="285"/>
         <source>Are you sure you want to remove the selected demo?</source>
         <translation>¿Segur que vols suprimir la demo seleccionada?</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="328"/>
+        <location filename="../gui/demomanager.cpp" line="329"/>
         <source>Demo export</source>
         <translation>Exportar Demo</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="329"/>
+        <location filename="../gui/demomanager.cpp" line="330"/>
         <source>The exported files already exist at the specified directory. Overwrite?
 
 %1</source>
@@ -2764,44 +2779,43 @@ p, li { white-space: pre-wrap; }
 %1</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="360"/>
-        <location filename="../gui/demomanager.cpp" line="383"/>
+        <location filename="../gui/demomanager.cpp" line="361"/>
+        <location filename="../gui/demomanager.cpp" line="384"/>
         <source>Unable to save</source>
         <translation>Error d&apos;escriptura</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="360"/>
-        <location filename="../gui/demomanager.cpp" line="384"/>
+        <location filename="../gui/demomanager.cpp" line="361"/>
+        <location filename="../gui/demomanager.cpp" line="385"/>
         <source>Could not write to the specified location.</source>
         <translation>No s&apos;ha pogut escriure en la ubicació especificada.</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="398"/>
+        <location filename="../gui/demomanager.cpp" line="395"/>
         <source>Import demo</source>
         <translation>Importar Demo</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="400"/>
         <source>Demos (%1)</source>
-        <translation>Arxius demo (%1)</translation>
+        <translation type="vanished">Arxius demo (%1)</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="410"/>
+        <location filename="../gui/demomanager.cpp" line="407"/>
         <source>Import game demo</source>
         <translation>Importar joc Demo</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="429"/>
+        <location filename="../gui/demomanager.cpp" line="426"/>
         <source>It looks like this demo is already imported. Overwrite anyway?</source>
         <translation>Sembla que aquesta demo ja està importada. Sobreescriure?</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="433"/>
+        <location filename="../gui/demomanager.cpp" line="430"/>
         <source>Another demo with this metadata already exists. Overwrite?</source>
         <translation>Ja existeix una altra demo amb aquestes metadades. Sobreescriure?</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="435"/>
+        <location filename="../gui/demomanager.cpp" line="432"/>
         <source>Existing: %1
 New: %2
 </source>
@@ -2810,13 +2824,13 @@ Nou: %2
 </translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="441"/>
-        <location filename="../gui/demomanager.cpp" line="451"/>
+        <location filename="../gui/demomanager.cpp" line="438"/>
+        <location filename="../gui/demomanager.cpp" line="448"/>
         <source>Demo import</source>
         <translation>Importar Demo</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="442"/>
+        <location filename="../gui/demomanager.cpp" line="439"/>
         <source>%1
 
 %2</source>
@@ -2825,47 +2839,47 @@ Nou: %2
 %2</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="452"/>
+        <location filename="../gui/demomanager.cpp" line="449"/>
         <source>Could not import the selected demo.</source>
         <translation>No s&apos;ha pogut importar la demo seleccionada.</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="465"/>
+        <location filename="../gui/demomanager.cpp" line="462"/>
         <source>%1 %L2 B (MD5: %3)</source>
         <translation>%1 %L2 B (MD5: %3)</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="493"/>
+        <location filename="../gui/demomanager.cpp" line="490"/>
         <source>No plugin</source>
         <translation>Sense complements</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="494"/>
+        <location filename="../gui/demomanager.cpp" line="491"/>
         <source>The &quot;%1&quot; plugin does not appear to be loaded.</source>
         <translation>El complement &quot;%1&quot; no sembla estar carregat.</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="529"/>
+        <location filename="../gui/demomanager.cpp" line="526"/>
         <source>Files not found</source>
         <translation>Arxius no trobats</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="530"/>
+        <location filename="../gui/demomanager.cpp" line="527"/>
         <source>The following files could not be located: </source>
         <translation>Els següents fitxers no han estat localitzats: </translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="577"/>
+        <location filename="../gui/demomanager.cpp" line="574"/>
         <source>Game</source>
         <translation>Joc</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="583"/>
+        <location filename="../gui/demomanager.cpp" line="580"/>
         <source>Author</source>
         <translation>Autor</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="585"/>
+        <location filename="../gui/demomanager.cpp" line="582"/>
         <source>WADs / mods</source>
         <translation>WADs / mods</translation>
     </message>
@@ -2949,22 +2963,22 @@ Nou: %2
 <context>
     <name>DemoModel</name>
     <message>
-        <location filename="../gui/demomanager.cpp" line="83"/>
+        <location filename="../gui/demomanager.cpp" line="84"/>
         <source>Created Time</source>
         <translation>Temps de creació</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="83"/>
+        <location filename="../gui/demomanager.cpp" line="84"/>
         <source>Author</source>
         <translation>Autor</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="83"/>
+        <location filename="../gui/demomanager.cpp" line="84"/>
         <source>IWAD</source>
         <translation>IWAD</translation>
     </message>
     <message>
-        <location filename="../gui/demomanager.cpp" line="83"/>
+        <location filename="../gui/demomanager.cpp" line="84"/>
         <source>WADs</source>
         <translation>WADs</translation>
     </message>
@@ -3056,14 +3070,19 @@ Nou: %2
 <context>
     <name>EngineConfigPage</name>
     <message>
-        <location filename="../gui/configuration/engineconfigpage.cpp" line="265"/>
+        <location filename="../gui/configuration/engineconfigpage.cpp" line="165"/>
+        <source>Doomseeker - browse executable</source>
+        <translation>Doomseeker - cercar executable</translation>
+    </message>
+    <message>
+        <location filename="../gui/configuration/engineconfigpage.cpp" line="267"/>
         <source>Failed to automatically find file.
 You may need to use the browse button.</source>
         <translation>Error en buscar l&apos;arxiu automàticament
 És possible que necessiti utilitzar el botó Cerca.</translation>
     </message>
     <message>
-        <location filename="../gui/configuration/engineconfigpage.cpp" line="270"/>
+        <location filename="../gui/configuration/engineconfigpage.cpp" line="272"/>
         <source>Game - %1</source>
         <translation>Joc - %1</translation>
     </message>
@@ -3168,12 +3187,18 @@ is a directory or doesn&apos;t exist.</source>
         <translation type="vanished">Tots els fitxers (*)</translation>
     </message>
     <message>
-        <location filename="../filefilter.cpp" line="27"/>
+        <location filename="../filefilter.cpp" line="29"/>
         <source>All files (*)</source>
         <translation>Tots els fitxers (*)</translation>
     </message>
     <message>
-        <location filename="../filefilter.cpp" line="33"/>
+        <location filename="../filefilter.cpp" line="35"/>
+        <location filename="../filefilter.cpp" line="43"/>
+        <source>Demos (%1)</source>
+        <translation>Demos (%1)</translation>
+    </message>
+    <message>
+        <location filename="../filefilter.cpp" line="49"/>
         <source>Executables (*.exe *.bat *.com)</source>
         <translation>Arxius executables (*.exe *.bat *.com)</translation>
     </message>
@@ -3181,22 +3206,21 @@ is a directory or doesn&apos;t exist.</source>
 <context>
     <name>FilePickWidget</name>
     <message>
-        <location filename="../gui/widgets/filepickwidget.cpp" line="66"/>
         <source>Doomseeker - choose executable file</source>
-        <translation>Doomseeker - triï el fitxer executable</translation>
+        <translation type="vanished">Doomseeker - triï el fitxer executable</translation>
     </message>
     <message>
-        <location filename="../gui/widgets/filepickwidget.cpp" line="98"/>
+        <location filename="../gui/widgets/filepickwidget.cpp" line="113"/>
         <source>Path to %1 executable:</source>
         <translation>Ruta cap a l&apos;executable %1:</translation>
     </message>
     <message>
-        <location filename="../gui/widgets/filepickwidget.cpp" line="159"/>
+        <location filename="../gui/widgets/filepickwidget.cpp" line="174"/>
         <source>File doesn&apos;t exist.</source>
         <translation>El fitxer no existeix.</translation>
     </message>
     <message>
-        <location filename="../gui/widgets/filepickwidget.cpp" line="162"/>
+        <location filename="../gui/widgets/filepickwidget.cpp" line="177"/>
         <source>This is a directory.</source>
         <translation>Això és un directori.</translation>
     </message>
@@ -3672,18 +3696,18 @@ doesn&apos;t exist or is not a file.</source>
 <context>
     <name>GeneralGameSetupPanel</name>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="280"/>
-        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="310"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="283"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="313"/>
         <source>&lt; NONE &gt;</source>
         <translation>&lt; RES &gt;</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="477"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="480"/>
         <source>Doomseeker - load server config</source>
         <translation>Doomseeker - carregar la configuració del servidor</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="478"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.cpp" line="481"/>
         <source>Plugin for engine &quot;%1&quot; is not present!</source>
         <translation>El complement per al motor &quot;%1&quot; no està present!</translation>
     </message>
@@ -3753,7 +3777,7 @@ doesn&apos;t exist or is not a file.</source>
         <translation>Demo:</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="299"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="311"/>
         <source>This map isn&apos;t present on the map list. The game may misbehave.</source>
         <translation>Aquest mapa no està present a la llista de mapes. El joc pot comportar-se de forma estranya.</translation>
     </message>
@@ -3763,7 +3787,7 @@ doesn&apos;t exist or is not a file.</source>
         <translation>IWAD:</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="317"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="329"/>
         <source>Additional WADs and files (check the required ones):</source>
         <translation>WADs i arxius addicionals (Comprova els que són requerits):</translation>
     </message>
@@ -3772,27 +3796,27 @@ doesn&apos;t exist or is not a file.</source>
         <translation type="vanished">WADs i arxius addicionals (es requereix verificació):</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="349"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="361"/>
         <source>Broadcast to LAN</source>
         <translation>Emetre a la LAN</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="359"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="371"/>
         <source>Broadcast to master</source>
         <translation>Emetre a master</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="384"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="396"/>
         <source>If checked, the game will try to tell your router to forward necessary ports.</source>
         <translation>Si està marcat, el joc intentarà dir-li al seu router que reenviï els ports necessaris.</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="387"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="399"/>
         <source>UPnP</source>
         <translation>UPnP</translation>
     </message>
     <message>
-        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="397"/>
+        <location filename="../gui/createserver/generalgamesetuppanel.ui" line="409"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;UPnP port. Set this to 0 to let Doomseeker or game decide.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;port UPnP. Establiu això en 0 per permetre que Doomseeker o el joc decideixin.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -5089,47 +5113,47 @@ doesn&apos;t exist or is not a file.</source>
         <translation type="vanished">L&apos;analitzador IP2C segueix funcionant, esperant que s&apos;aturi ...</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="147"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="144"/>
         <source>IP2C update not needed.</source>
         <translation>Actualització de IP2C no necessària.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="150"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="147"/>
         <source>IP2C update errored. See log for details.</source>
         <translation>L&apos;actualització de IP2C va fallar. Veure registre per més detalls.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="153"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="150"/>
         <source>IP2C update bugged out.</source>
         <translation>L&apos;actualització de IP2C mostra errors.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="165"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="162"/>
         <source>Starting IP2C update.</source>
         <translation>Iniciant l&apos;actualització de IP2C.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="202"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="200"/>
         <source>IP2C unable to retrieve the parsing result.</source>
         <translation>IP2C incapaç de recuperar el resultat de lanàlisi.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="212"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="210"/>
         <source>Failed to read the IP2C fallback. Stopping.</source>
         <translation>Error en llegir la base de dades IP2C de recanvi. Parant.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="216"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="214"/>
         <source>Failed to read the IP2C database. Reverting...</source>
         <translation>Error en llegir la base de dades IP2C. Revertint ...</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="230"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="228"/>
         <source>Trying to use the preinstalled IP2C database.</source>
         <translation>Intentant utilitzar la base de dades IP2C preinstal·lada.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="269"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="267"/>
         <source>IP2C database is being read. This may take some time.</source>
         <translation>La base de dades IP2C està sent llegida. Això pot prendre una mica de temps.</translation>
     </message>
@@ -5142,17 +5166,17 @@ doesn&apos;t exist or is not a file.</source>
         <translation type="vanished">L&apos;actualització de IP2C ha d&apos;esperar fins que finalitzi l&apos;anàlisi de la base de dades actual. Esperant 1 segon.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="176"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="173"/>
         <source>IP2C database finished downloading.</source>
         <translation>La base de dades IP2C s&apos;ha acabat de descarregar.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="180"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="177"/>
         <source>Unable to save IP2C database at path: %1</source>
         <translation>No es pot desar la base de dades IP2C a la ruta: %1</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="185"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="182"/>
         <source>IP2C download has failed.</source>
         <translation>La descàrrega de IP2C ha fallat.</translation>
     </message>
@@ -5165,7 +5189,7 @@ doesn&apos;t exist or is not a file.</source>
         <translation type="vanished">Error en llegir la base de dades IP2C. Revertint ...</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="221"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="219"/>
         <source>IP2C revert attempt failed. Nothing to go back to.</source>
         <translation>Intent de revertir IP2C fallit. Res al que tornar.</translation>
     </message>
@@ -5174,7 +5198,7 @@ doesn&apos;t exist or is not a file.</source>
         <translation type="vanished">Intentant utilitzar la base de dades IP2C preinstal·lada.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="250"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="248"/>
         <source>IP2C parsing finished.</source>
         <translation>L&apos;anàlisi de IP2C ha acabat.</translation>
     </message>
@@ -5183,12 +5207,12 @@ doesn&apos;t exist or is not a file.</source>
         <translation type="vanished">Si us plau espera. La base de dades IP2C està sent llegida. Això pot prendre una mica de temps.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="129"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="126"/>
         <source>Did not find any IP2C database. IP2C functionality will be disabled.</source>
         <translation>No s&apos;ha trobat cap base de dades IP2C. La funcionalitat de IP2C estarà desactivada.</translation>
     </message>
     <message>
-        <location filename="../ip2c/ip2cloader.cpp" line="130"/>
+        <location filename="../ip2c/ip2cloader.cpp" line="127"/>
         <source>You may install an IP2C database from the &quot;File&quot; menu.</source>
         <translation>Pot instal·lar una base de dades IP2C des del menú &quot;Arxiu&quot;.</translation>
     </message>
@@ -7219,12 +7243,12 @@ Si no té aquest arxiu, i pertany a un joc comercial, necessita comprar el joc a
 <context>
     <name>PlayerTable</name>
     <message>
-        <location filename="../serverapi/tooltips/playertable.cpp" line="211"/>
+        <location filename="../serverapi/tooltips/playertable.cpp" line="210"/>
         <source>BOT</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/playertable.cpp" line="215"/>
+        <location filename="../serverapi/tooltips/playertable.cpp" line="214"/>
         <source>SPECTATOR</source>
         <translation>ESPECTADOR</translation>
     </message>
@@ -7243,7 +7267,7 @@ Si no té aquest arxiu, i pertany a un joc comercial, necessita comprar el joc a
         <translation>Espectadors</translation>
     </message>
     <message numerus="yes">
-        <location filename="../serverapi/tooltips/playertable.cpp" line="239"/>
+        <location filename="../serverapi/tooltips/playertable.cpp" line="238"/>
         <source>(and %n more ...)</source>
         <translation>
             <numerusform>(i %n més...)</numerusform>
@@ -7251,27 +7275,27 @@ Si no té aquest arxiu, i pertany a un joc comercial, necessita comprar el joc a
         </translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/playertable.cpp" line="254"/>
+        <location filename="../serverapi/tooltips/playertable.cpp" line="253"/>
         <source>Player</source>
         <translation>Jugador</translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/playertable.cpp" line="255"/>
+        <location filename="../serverapi/tooltips/playertable.cpp" line="254"/>
         <source>Score</source>
         <translation>Puntuació</translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/playertable.cpp" line="256"/>
+        <location filename="../serverapi/tooltips/playertable.cpp" line="255"/>
         <source>Ping</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/playertable.cpp" line="257"/>
+        <location filename="../serverapi/tooltips/playertable.cpp" line="256"/>
         <source>Status</source>
         <translation>Estat</translation>
     </message>
     <message>
-        <location filename="../serverapi/tooltips/playertable.cpp" line="288"/>
+        <location filename="../serverapi/tooltips/playertable.cpp" line="287"/>
         <source>Team %1</source>
         <translation>Equip %1</translation>
     </message>
