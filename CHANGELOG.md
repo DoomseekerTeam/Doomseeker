@@ -8,7 +8,7 @@ This file follows the format of
 and this project does not adhere to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [unreleased]
+## [1.5.1]
 ### Changed
 - "Use OS username" for player name is now configurable via a radio button,
 not via a special `$USERNAME` string. I should remember that this is a GUI
@@ -951,6 +951,7 @@ without any warranty.
 
 
 [unreleased]: https://bitbucket.org/Doomseeker/doomseeker/commits/all
+[1.5.1]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.5.1
 [1.5.0]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.5.0
 [1.4.1]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.4.1
 [1.4]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.4
