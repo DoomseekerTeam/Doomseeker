@@ -620,8 +620,14 @@ void SeekSession::onWwwFoundType(WebQuery *query, WebResourceType type)
 	{
 	case WebResourceType::Binary:
 		// Cool, continue.
+		emit message(tr("URL recognized as a binary file: %1")
+			.arg(query->url().toString()),
+			WadseekerLib::Navigation);
 		break;
 	case WebResourceType::Html:
+		emit message(tr("URL recognized as a HTML site: %1")
+			.arg(query->url().toString()),
+			WadseekerLib::Navigation);
 		d->linkSeeker->acceptHtml(crawl, &query->reply());
 		connect(&query->reply(), &QNetworkReply::finished,
 			d->linkSeeker.data(), std::bind(&LinkSeeker::conclude, d->linkSeeker.data(), &query->reply()));
