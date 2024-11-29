@@ -8,6 +8,12 @@ This file follows the format of
 and this project does not adhere to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Fixed
+- Wadseeker: files weren't sometimes installed despite being downloaded
+correctly because their filenames were compared case-sensitively, e.g.
+`SHOTGUN.WAD` would be considered different from `shotgun.wad`.
+
 ## [1.5.1]
 ### Changed
 - "Use OS username" for player name is now configurable via a radio button,

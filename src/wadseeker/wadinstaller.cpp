@@ -77,7 +77,7 @@ WadInstallerResult WadInstaller::install(const WadDownloadInfo &wad, QNetworkRep
 	}
 
 	// Now try to install the file under the downloaded filename.
-	if (filename == wad.name())
+	if (filename.compare(wad.name(), Qt::CaseInsensitive) == 0)
 	{
 		return installFile(wad, stream);
 	}
