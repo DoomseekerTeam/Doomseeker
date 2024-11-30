@@ -222,7 +222,7 @@ Server::Response ZandronumqServer::readRequest(const QByteArray &data)
 
 	// If response was equal to SERVER_GOOD, proceed to read data.
 	RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
-	setGameVersion(in.readRawUntilByte('\0'));
+	setGameVersion(in.readUtf8CString());
 
 	ZandronumqGameInfo::ZandronumqGameMode mode = ZandronumqGameInfo::GAMEMODE_COOPERATIVE;
 
@@ -235,26 +235,26 @@ Server::Response ZandronumqServer::readRequest(const QByteArray &data)
 	if ((flags & SQF_NAME) == SQF_NAME) // Check if SQF_NAME is inside flags var.
 	{
 		RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
-		setName(in.readRawUntilByte('\0'));
+		setName(in.readUtf8CString());
 		flags ^= SQF_NAME; // Remove SQF_NAME flag from the variable.
 	}
 
 	if ((flags & SQF_URL) == SQF_URL)
 	{
 		RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
-		setWebSite(in.readRawUntilByte('\0'));
+		setWebSite(in.readUtf8CString());
 		flags ^= SQF_URL;
 	}
 	if ((flags & SQF_EMAIL) == SQF_EMAIL)
 	{
 		RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
-		setEmail(in.readRawUntilByte('\0'));
+		setEmail(in.readUtf8CString());
 		flags ^= SQF_EMAIL;
 	}
 	if ((flags & SQF_MAPNAME) == SQF_MAPNAME)
 	{
 		RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
-		setMap(in.readRawUntilByte('\0'));
+		setMap(in.readUtf8CString());
 		flags ^= SQF_MAPNAME;
 	}
 
@@ -289,7 +289,7 @@ Server::Response ZandronumqServer::readRequest(const QByteArray &data)
 		for (int i = 0; i < numPwads; i++)
 		{
 			RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
-			QString wad = in.readRawUntilByte('\0');
+			auto wad = in.readUtf8CString();
 			addWad(wad);
 		}
 	}
@@ -324,7 +324,7 @@ Server::Response ZandronumqServer::readRequest(const QByteArray &data)
 	if ((flags & SQF_IWAD) == SQF_IWAD)
 	{
 		RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
-		setIwad(in.readRawUntilByte('\0'));
+		setIwad(in.readUtf8CString());
 		flags ^= SQF_IWAD;
 	}
 
@@ -449,7 +449,7 @@ Server::Response ZandronumqServer::readRequest(const QByteArray &data)
 				bool teammode = gameMode().isTeamGame();
 
 				RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
-				QString name = in.readRawUntilByte('\0');
+				auto name = in.readUtf8CString();
 
 				RETURN_BAD_IF_NOT_ENOUGH_DATA(2 + 2 + 1 + 1);
 				int score = in.readQInt16();
@@ -491,7 +491,7 @@ Server::Response ZandronumqServer::readRequest(const QByteArray &data)
 		for (unsigned i = 0; i < numTeams && i < ST_MAX_TEAMS; ++i)
 		{
 			RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
-			QString name = in.readRawUntilByte('\0');
+			auto name = in.readUtf8CString();
 			teamInfo[i].setName(tr(name.toUtf8().constData()));
 		}
 	}
@@ -574,7 +574,7 @@ Server::Response ZandronumqServer::readRequest(const QByteArray &data)
 		while (numDehs--)
 		{
 			RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
-			QString deh = in.readRawUntilByte('\0');
+			auto deh = in.readUtf8CString();
 			pwads << deh;
 		}
 		resetPwadsList(pwads);

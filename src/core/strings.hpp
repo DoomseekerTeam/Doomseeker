@@ -151,10 +151,13 @@ class MAIN_EXPORT Strings
 		 */
 		static QString normalizePath(QString path);
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 		/**
 		 * @brief This method calls DataStreamOperatorWrapper::readRawUntilByte() .
+		 * @deprecated Use DataStreamOperatorWrapper::readRawUntilByte or DataStreamOperatorWrapper::readUtf8CString.
 		 */
 		static QByteArray readUntilByte(QDataStream& stream, unsigned char stopByte);
+#endif
 
 		/**
 		 *	@brief Translates string in format "hostname:port" to atomic values.

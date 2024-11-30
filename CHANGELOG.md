@@ -13,6 +13,7 @@ and this project does not adhere to
 - Wadseeker: files weren't sometimes installed despite being downloaded
 correctly because their filenames were compared case-sensitively, e.g.
 `SHOTGUN.WAD` would be considered different from `shotgun.wad`.
+- Odamex, Q-Zandronum, Zandronum: Fixed string decoding issues in Qt6. (#4442)
 
 ## [1.5.1]
 ### Changed

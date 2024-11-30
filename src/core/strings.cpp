@@ -378,11 +378,13 @@ QString Strings::normalizePath(QString path)
 	return path;
 }
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 QByteArray Strings::readUntilByte(QDataStream &stream, unsigned char stopByte)
 {
 	DataStreamOperatorWrapper reader(&stream);
 	return reader.readRawUntilByte(stopByte);
 }
+#endif
 
 float Strings::scaleDataUnit(float bytes, DataUnit &outUnit)
 {

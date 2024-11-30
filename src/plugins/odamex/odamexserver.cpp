@@ -114,7 +114,7 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 	if (protocolVersion >= 7)
 	{
 		static const QString notFound = "HEAD-HASH-NOTFOUND";
-		QString revision(in.readRawUntilByte('\0'));
+		auto revision = in.readUtf8CString();
 		if (notFound != revision && !revision.isEmpty())
 			strVersion += QString(" %1").arg(revision);
 	}
@@ -130,7 +130,7 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 	short cvarCount = in.readQUInt8();
 	while (cvarCount-- > 0)
 	{
-		QString cvarName = in.readRawUntilByte('\0');
+		auto cvarName = in.readUtf8CString();
 		CHECK_POS;
 
 		enum CVarType
@@ -162,7 +162,7 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 			cvarValue = QString("%1").arg(in.readQInt32());
 			break;
 		default:
-			cvarValue = in.readRawUntilByte('\0');
+			cvarValue = in.readUtf8CString();
 			break;
 		}
 		CHECK_POS;
@@ -243,12 +243,12 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 	}
 	else
 	{
-		QString passwordHash = in.readRawUntilByte('\0');
+		auto passwordHash = in.readUtf8CString();
 		setLocked(!passwordHash.isEmpty());
 	}
 	CHECK_POS;
 
-	setMap(in.readRawUntilByte('\0'));
+	setMap(in.readUtf8CString());
 	CHECK_POS;
 
 	if (protocolVersion >= 6)
@@ -266,7 +266,7 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 		{
 			CHECK_POS;
 
-			QString teamName = in.readRawUntilByte('\0');
+			auto teamName = in.readUtf8CString();
 			in.skipRawData(6);
 		}
 	}
@@ -277,7 +277,7 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 	{
 		CHECK_POS;
 
-		QString patch = in.readRawUntilByte('\0');
+		auto patch = in.readUtf8CString();
 		dehPatches << patch;
 	}
 
@@ -287,7 +287,7 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 	{
 		CHECK_POS;
 
-		QString wad = in.readRawUntilByte('\0');
+		auto wad = in.readUtf8CString();
 		QByteArray hash = "";
 		CHECK_POS;
 		if (protocolVersion >= 4)
@@ -296,7 +296,7 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 			hash = in.readRaw(hashLength); //Add the hash of the wad.
 		}
 		else
-			in.readRawUntilByte('\0');
+			in.readUtf8CString();
 		if (i >= 2)
 		{
 			PWad pwad(wad, false);
@@ -313,7 +313,7 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 	{
 		CHECK_POS;
 
-		QString playerName = in.readRawUntilByte('\0');
+		auto playerName = in.readUtf8CString();
 
 		if (protocolVersion >= 2)
 		{

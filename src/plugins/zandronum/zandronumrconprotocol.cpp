@@ -248,7 +248,7 @@ void ZandronumRConProtocol::processEstablishingPacket(QIODevice &ioDevice)
 		break;
 	case SVRC_SALT:
 		setConnected(true);
-		salt = QString(in.readRawUntilByte('\0'));
+		salt = in.readUtf8CString();
 		pingTimer.start();
 		connectStage = ConnectPassword;
 		stepConnect();
@@ -290,7 +290,7 @@ void ZandronumRConProtocol::processPacket(QIODevice *ioDevice, bool initial, int
 			emit messageReceived(tr("-----")); // Just a delimiter.
 			connectStage = ConnectEstablished;
 			serverProtocolVersion = in.readQUInt8();
-			hostName = in.readRawUntilByte('\0');
+			hostName = in.readUtf8CString();
 			emit serverNameChanged(hostName);
 
 			int numUpdates = in.readQUInt8();
@@ -300,7 +300,7 @@ void ZandronumRConProtocol::processPacket(QIODevice *ioDevice, bool initial, int
 			int numStrings = in.readQUInt8();
 			while (numStrings-- > 0)
 			{
-				QString message = in.readRawUntilByte('\0');
+				auto message = in.readUtf8CString();
 				message.replace(colorCode, "\034\\1");
 				emit messageReceived(message.trimmed());
 			}
@@ -308,7 +308,7 @@ void ZandronumRConProtocol::processPacket(QIODevice *ioDevice, bool initial, int
 		}
 		case SVRC_MESSAGE:
 		{
-			QString message = QDateTime::currentDateTime().toString("[hh:mm:ss ap] ") + in.readRawUntilByte('\0');
+			auto message = QDateTime::currentDateTime().toString("[hh:mm:ss ap] ") + in.readUtf8CString();
 			message.replace(colorCode, "\034\\1");
 			emit messageReceived(message);
 			break;
@@ -322,7 +322,7 @@ void ZandronumRConProtocol::processPacket(QIODevice *ioDevice, bool initial, int
 				return;
 			case SVRCU_MAP:
 			{
-				QString map = in.readRawUntilByte('\0');
+				auto map = in.readUtf8CString();
 				break;
 			}
 			case SVRCU_ADMINCOUNT:
@@ -340,7 +340,7 @@ void ZandronumRConProtocol::processPacket(QIODevice *ioDevice, bool initial, int
 				this->playersMutable().clear();
 				while (players-- > 0)
 				{
-					QString player = in.readRawUntilByte('\0');
+					auto player = in.readUtf8CString();
 					this->playersMutable().append(Player(player, 0, 0));
 				}
 				emit playerListUpdated();
