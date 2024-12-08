@@ -1,14 +1,12 @@
-See also: NOTES.txt
-
 This directory contains a set of tools for preparing auto-updates.
 
- * build-update-kit-win32.rb
+ * build-update-kit.py
     A script with predefined package configurations. It's designed to
     automatically create packages that work with Doomseeker. Given a source
     directory and update channel name, it will generate packages for Doomseeker
     and all plugins. It will also generate the update-info.js file.
 
- * create-packages-win32.rb
+ * create-package.py
     Given a directory containing the set of files that make up a release,
     laid out as they are when installed and a JSON package config file,
     this tool generates a package.zip for the release

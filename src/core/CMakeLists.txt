@@ -381,11 +381,11 @@ if(USE_CPACK)
 endif()
 
 if(WIN32 OR APPLE)
-	find_program(RUBY_EXEC ruby)
+	find_program(PYTHON_EXEC python3)
 	if(NOT AUTOUPDATE_PACKAGE_DIRECTORY)
 		set(AUTOUPDATE_PACKAGE_DIRECTORY ${CMAKE_BUILD_DIR})
 	endif()
-	if(RUBY_EXEC)
+	if(PYTHON_EXEC)
 		set(INSTALL_TARGET "install")
 		if (CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "Clang")
 			set(INSTALL_TARGET "install/strip")
@@ -394,15 +394,15 @@ if(WIN32 OR APPLE)
 		add_custom_target(package_beta
 			COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR}
 				--target ${INSTALL_TARGET} --config ${CMAKE_CFG_INTDIR}
-			COMMAND ${RUBY_EXEC}
-				"${CMAKE_SOURCE_DIR}/tools/updateinstaller/tools/build-update-kit.rb"
+			COMMAND ${PYTHON_EXEC}
+				"${CMAKE_SOURCE_DIR}/tools/updateinstaller/tools/build-update-kit.py"
 				-c beta -i "${CMAKE_INSTALL_PREFIX}"
 			WORKING_DIRECTORY ${AUTOUPDATE_PACKAGE_DIRECTORY})
 		add_custom_target(package_stable
 			COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR}
 				--target ${INSTALL_TARGET} --config ${CMAKE_CFG_INTDIR}
-			COMMAND ${RUBY_EXEC}
-				"${CMAKE_SOURCE_DIR}/tools/updateinstaller/tools/build-update-kit.rb"
+			COMMAND ${PYTHON_EXEC}
+				"${CMAKE_SOURCE_DIR}/tools/updateinstaller/tools/build-update-kit.py"
 				-c stable -i "${CMAKE_INSTALL_PREFIX}"
 			WORKING_DIRECTORY ${AUTOUPDATE_PACKAGE_DIRECTORY})
 	endif()
