@@ -121,7 +121,8 @@ class Platforms(Enum):
             "Windows": cls.WIN32,
             "Darwin": cls.MACOSX
         }
-        return d.get(platform.system()).value
+        selected = d.get(platform.system())
+        return selected and selected.value
 
 
 @dataclass
@@ -233,9 +234,7 @@ def spawn_unique_dir(prefix: str) -> Path:
 def get_system_platform() -> Platform:
     sysplatform = Platforms.current()
     if sysplatform is None:
-        print("error: unsupported platform:", platform.system(),
-              file=sys.stderr)
-        sys.exit(1)
+        logger.error("unsupported platform: %s", platform.system())
     return sysplatform
 
 
@@ -262,7 +261,7 @@ def parse_args():
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
     argp.add_argument("-c", "--channel", dest="update_channel", required=True,
-                      action="store", choices=['beta', 'stable', 'sojourner'],
+                      action="store", choices=['beta', 'stable'],
                       help="update channel to create packages for")
     argp.add_argument("-i", "--input", dest="binary_dir", required=True,
                       type=Path,
@@ -278,8 +277,10 @@ def main() -> int:
     configure_logging(verbosity_to_loglevel(args.verbose, args.quiet))
 
     # Obtain version information from Doomseeker binary
-    platform = get_system_platform()
-    doomseeker_exe = args.binary_dir / platform.doomseeker_exe
+    target_platform = get_system_platform()
+    if not target_platform:
+        return EC_ERROR
+    doomseeker_exe = args.binary_dir / target_platform.doomseeker_exe
     version_info = obtain_version_information(doomseeker_exe)
     if not version_info:
         logger.error("No version information obtained from Doomseeker binary")
@@ -296,7 +297,7 @@ def main() -> int:
     output_dir = spawn_unique_dir(f"upkgs-{args.update_channel}")
 
     # Pack the actual packages from the version info
-    packages_output_dir = output_dir / platform.name / args.update_channel
+    packages_output_dir = output_dir / target_platform.name / args.update_channel
     logger.info("Packages output directory: %s", packages_output_dir)
     os.makedirs(packages_output_dir)
 
@@ -307,7 +308,7 @@ def main() -> int:
             logger.info("-- Skipping package: %s", pkg.name)
             continue
         try:
-            process_package(pkg, platform,
+            process_package(pkg, target_platform,
                             args.update_channel,
                             args.binary_dir,
                             packages_output_dir)
@@ -328,11 +329,11 @@ def main() -> int:
         # If at least one package was successful, create the update-info file.
         update_info_path = (
             output_dir /
-            f"update-info_{platform.name}_{args.update_channel}.js"
+            f"update-info_{target_platform.name}_{args.update_channel}.js"
         )
         logger.info("Creating update info file: %s", update_info_path)
         with update_info_path.open("w") as update_info_io:
-            dump_update_info(update_info_io, platform,
+            dump_update_info(update_info_io, target_platform,
                              args.update_channel, version_info)
     else:
         # Delete the output directory if all packages failed.
