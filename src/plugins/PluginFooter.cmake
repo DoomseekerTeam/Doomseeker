@@ -31,7 +31,7 @@ PRIVATE
 
 target_compile_definitions(${PLUGIN_NAME} PRIVATE "-DPLUGIN_VERSION=${PLUGIN_VERSION}")
 
-target_link_libraries(${PLUGIN_NAME} LINK_PUBLIC ${PLUGIN_LIBS} ${QT_LIBRARIES} doomseeker)
+target_link_libraries(${PLUGIN_NAME} PUBLIC ${PLUGIN_LIBS} ${QT_LIBRARIES} doomseeker)
 
 set_target_properties(${PLUGIN_NAME} PROPERTIES AUTOMOC ON AUTOUIC ON)
 

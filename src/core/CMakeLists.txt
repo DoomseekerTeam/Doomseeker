@@ -183,11 +183,11 @@ target_compile_definitions(doomseeker PRIVATE "-DINSTALL_PREFIX=\"${CMAKE_INSTAL
 add_dependencies(doomseeker revision_check)
 
 target_link_libraries(doomseeker
-LINK_PRIVATE
+PRIVATE
 	Wadseeker::wadseeker
 	ZLIB::ZLIB
 	${CMAKE_DL_LIBS}
-LINK_PUBLIC
+PUBLIC
 	${QT_LIBRARIES})
 
 # Copy translations

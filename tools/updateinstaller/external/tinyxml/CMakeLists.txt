@@ -1,9 +1,5 @@
 project(tinyxml)
 
-cmake_minimum_required(VERSION 2.6)
-
-Add_definitions(-DTIXML_USE_STL)
-
 set(SOURCES
   tinystr.cpp
   tinyxml.cpp
@@ -20,4 +16,6 @@ add_library(tinyxml
   ${SOURCES}
   ${HEADERS}
 )
+
+target_compile_definitions(tinyxml PRIVATE TIXML_USE_STL)
 

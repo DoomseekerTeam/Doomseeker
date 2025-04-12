@@ -19,7 +19,7 @@
 # Copyright (C) 2009 "Zalewa" <zalewapl@gmail.com>
 #------------------------------------------------------------------------------
 
-cmake_minimum_required(VERSION 3.5...3.21)
+cmake_minimum_required(VERSION 3.5...4.0)
 if(CMAKE_VERSION VERSION_LESS 3.12)
 	cmake_policy(VERSION ${CMAKE_VERSION})
 endif()
@@ -83,10 +83,6 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 		set(SKIP_INSTALL_ALL ON)
 		add_subdirectory( dependencies/zlib )
 		unset(SKIP_INSTALL_ALL)
-		set( ZLIB_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/zlib" )
-		set( ZLIB_INCLUDE_DIR "${ZLIB_INCLUDE_DIRS}" )
-		set( ZLIB_LIBRARIES ZLIB::ZLIB )
-		set( ZLIB_LIBRARY ZLIB::ZLIB )
 	endif()
 
 	if( BZIP2_FOUND AND NOT FORCE_INTERNAL_BZIP2 )
@@ -95,10 +91,6 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 		message( STATUS "Using internal bzip2 library" )
 		set( BZIP2_INTERNAL YES )
 		add_subdirectory( dependencies/bzip2 )
-		set( BZIP2_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/bzip2" )
-		set( BZIP2_INCLUDE_DIR "${BZIP2_INCLUDE_DIRS}" )
-		set( BZIP2_LIBRARIES bz2 )
-		set( BZIP2_LIBRARY bz2 )
 	endif()
 else()
 	if(NOT TARGET ZLIB::ZLIB)
@@ -215,7 +207,7 @@ INTERFACE
 )
 
 target_link_libraries(wadseeker
-LINK_PRIVATE
+PRIVATE
 	${QT_LIBRARIES}
 	${CMAKE_THREAD_LIBS_INIT}
 	BZip2::BZip2

@@ -1,4 +1,4 @@
-cmake_minimum_required( VERSION 2.8.12 )
+cmake_minimum_required( VERSION 3.5...4.0 )
 
 set( SOURCES
     blocksort.c
@@ -16,7 +16,7 @@ if( CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "Clang" )
 	target_compile_options( bz2 PRIVATE -Wall -Wextra -fomit-frame-pointer )
 	# [Doomseeker] MinGW-w64 + clang will not compile with -fPIC
 	if (NOT WIN32)
-		target_compile_options(bz2 PRIVATE -fPIC)
+		set_target_properties( bz2 PROPERTIES POSITION_INDEPENDENT_CODE ON )
 	endif()
 endif()
 
@@ -26,6 +26,8 @@ if (MSVC)
     target_compile_options( bz2_mt PRIVATE "/MT$<$<CONFIG:Debug>:d>" )
     target_compile_definitions( bz2_mt PRIVATE -DBZ_NO_STDIO )
     target_include_directories( bz2_mt INTERFACE ${CMAKE_CURRENT_SOURCE_DIR} )
+
+    add_library(BZip2::BZip2MT ALIAS bz2_mt)
 endif()
 
 add_library(BZip2::BZip2 ALIAS bz2)

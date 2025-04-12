@@ -1,5 +1,4 @@
-cmake_minimum_required(VERSION 2.4.4...3.15.0)
-set(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
+cmake_minimum_required(VERSION 3.5...4.0)
 
 project(zlib C)
 
@@ -160,7 +159,7 @@ if(MINGW)
                             -o ${CMAKE_CURRENT_BINARY_DIR}/zlib1rc.obj
                             -i ${CMAKE_CURRENT_SOURCE_DIR}/win32/zlib1.rc)
     set(ZLIB_DLL_SRCS ${CMAKE_CURRENT_BINARY_DIR}/zlib1rc.obj)
-endif(MINGW)
+endif()
 
 add_library(zlib SHARED ${ZLIB_SRCS} ${ZLIB_DLL_SRCS} ${ZLIB_PUBLIC_HDRS} ${ZLIB_PRIVATE_HDRS})
 target_include_directories(zlib PUBLIC ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR})

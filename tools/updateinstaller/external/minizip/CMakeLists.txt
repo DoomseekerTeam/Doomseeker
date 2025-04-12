@@ -1,11 +1,5 @@
 project(minizip)
 
-cmake_minimum_required(VERSION 2.6)
-
-if (UNIX)
-	find_package(ZLIB REQUIRED)
-endif()
-
 set (SOURCES
  ioapi.c
  unzip.c
@@ -18,33 +12,29 @@ set (HEADERS
  zip.h
 )
 
-if (APPLE)
-	# Mac OS X does not have fopen64()
-	# and several related functions as the standard fopen()
-	# calls are 64bit
-	add_definitions("-DUSE_FILE32API")
-endif()
-
-add_definitions("-DHAVE_BZIP2")
-
 add_library(minizip
  ${SOURCES}
  ${HEADERS}
 )
 
-# [BL] Doomseeker has copies of libbz2 and libz so we should use the ones we
-# built instead of the binary blobs.
-if (MSVC)
-	add_dependencies(minizip ZLIB::ZLIBMT)
-	target_link_libraries(minizip ZLIB::ZLIBMT bz2_mt)
+if (APPLE)
+	# Mac OS X does not have fopen64()
+	# and several related functions as the standard fopen()
+	# calls are 64bit
+	target_compile_definitions(minizip PRIVATE USE_FILE32API)
+endif()
+
+target_compile_definitions(minizip PRIVATE HAVE_BZIP2)
+
+if (TARGET ZLIB::ZLIBMT)
+	target_link_libraries(minizip PRIVATE ZLIB::ZLIBMT)
 else ()
-	if (ZLIB_INTERNAL)
-		add_dependencies(minizip ${ZLIB_LIBRARY})
-	endif ()
-	if (BZIP2_INTERNAL)
-		add_dependencies(minizip ${BZIP2_LIBRARY})
-	endif ()
-	target_link_libraries(minizip ${ZLIB_LIBRARIES} ${BZIP2_LIBRARIES})
+	target_link_libraries(minizip PRIVATE ZLIB::ZLIB)
+endif ()
+if (TARGET BZip2::BZip2MT)
+	target_link_libraries(minizip PRIVATE BZip2::BZip2MT)
+else ()
+	target_link_libraries(minizip PRIVATE BZip2::BZip2)
 endif ()
 
 #if (UNIX)
