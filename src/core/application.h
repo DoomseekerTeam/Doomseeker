@@ -105,6 +105,18 @@ public:
 	 */
 	const QStringList &originalArgs() const;
 
+	/**
+	 * @brief If true then program will install updates and restart
+	 *        instead of quitting if quit is requested.
+	 *
+	 * This flag is ignored if the program configuration states that
+	 * there are no updates to install.
+	 *
+	 * Default: false.
+	 */
+	bool isInstallUpdatesAndRestart() const;
+	void setInstallUpdatesAndRestart(bool);
+
 	void setMainWindow(MainWindow *mainWindow);
 	/**
 	 * @brief Makes isRunning() return false.

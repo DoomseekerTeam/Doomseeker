@@ -34,6 +34,7 @@ DClass<Application>
 public:
 	QPointer<MainWindow> mainWindow;
 	bool running;
+	bool installUpdatesAndRestart;
 	QStringList originalArgs;
 };
 
@@ -46,6 +47,7 @@ Application::Application(int &argc, char **argv)
 {
 	d->mainWindow = nullptr;
 	d->running = true;
+	d->installUpdatesAndRestart = false;
 	setApplicationName(NAME);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 7, 0)
 	setDesktopFileName("org.drdteam.Doomseeker");
@@ -106,6 +108,16 @@ Application *Application::instance()
 bool Application::isGameFileIntegrityCheckEnabled() const
 {
 	return gConfig.doomseeker.bCheckTheIntegrityOfWads;
+}
+
+bool Application::isInstallUpdatesAndRestart() const
+{
+	return d->installUpdatesAndRestart;
+}
+
+void Application::setInstallUpdatesAndRestart(bool b)
+{
+	d->installUpdatesAndRestart = b;
 }
 
 bool Application::isRunning() const

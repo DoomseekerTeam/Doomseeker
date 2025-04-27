@@ -233,7 +233,6 @@ set(HEADER_FILES
 	localization.h
 	localizationinfo.h
 	log.h
-	main.h
 	modreader.h
 	ntfsperm.h
 	osinfo.h
@@ -485,7 +484,6 @@ set(SOURCE_FILES
 	localization.cpp
 	localizationinfo.cpp
 	log.cpp
-	main.cpp
 	modreader.cpp
 	osinfo.cpp
 	pathfinder/caseinsensitivefsfileseeker.cpp

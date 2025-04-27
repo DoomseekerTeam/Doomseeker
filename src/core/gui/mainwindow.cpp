@@ -1293,7 +1293,7 @@ void MainWindow::refreshThreadEndsWork()
 
 void MainWindow::restartAndInstallUpdatesNow()
 {
-	Main::bInstallUpdatesAndRestart = true;
+	gApp->setInstallUpdatesAndRestart(true);
 	quitProgram();
 }
 

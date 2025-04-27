@@ -152,15 +152,25 @@ include("versiondefs.cmake")
 configure_file(versiondefs.h.in versiondefs.h)
 set(HEADER_FILES "${HEADER_FILES}" versiondefs.h)
 
-add_executable(doomseeker
+## Doomseeker object target
+add_library(doomseeker_obj OBJECT
 	${Doomseeker_SOURCE_DIR}/media/resources.qrc
 	${QM_FILES}
 	${UI_FILES}
 	${SOURCE_FILES}
 	${HEADER_FILES}
 )
+set_target_properties(doomseeker_obj PROPERTIES AUTOMOC ON AUTOUIC ON AUTORCC ON)
+target_link_libraries(doomseeker_obj
+PRIVATE
+	Wadseeker::wadseeker
+	ZLIB::ZLIB
+	${CMAKE_DL_LIBS}
+PUBLIC
+	${QT_LIBRARIES}
+)
 
-target_include_directories(doomseeker
+target_include_directories(doomseeker_obj
 PRIVATE
 	${CMAKE_CURRENT_SOURCE_DIR}/gui/
 	${CMAKE_CURRENT_BINARY_DIR}
@@ -169,26 +179,37 @@ PUBLIC
 )
 
 if(WITH_AUTOUPDATES)
-	target_compile_definitions(doomseeker PRIVATE -DWITH_AUTOUPDATES)
+	target_compile_definitions(doomseeker_obj PRIVATE -DWITH_AUTOUPDATES)
 endif()
 
 if (MSVC)
-	target_compile_definitions(doomseeker PRIVATE -D_CRT_SECURE_NO_WARNINGS)
+	target_compile_definitions(doomseeker_obj PRIVATE -D_CRT_SECURE_NO_WARNINGS)
 endif()
 
-target_compile_definitions(doomseeker PRIVATE "-DINSTALL_PREFIX=\"${CMAKE_INSTALL_PREFIX}\"" "-DINSTALL_LIBDIR=\"${CMAKE_INSTALL_LIBDIR}\"")
+target_compile_definitions(doomseeker_obj PRIVATE
+	"-DINSTALL_PREFIX=\"${CMAKE_INSTALL_PREFIX}\""
+	"-DINSTALL_LIBDIR=\"${CMAKE_INSTALL_LIBDIR}\""
+)
 
 # Make sure the vcs version file is created before we attempt to compile
 # Doomseeker.
-add_dependencies(doomseeker revision_check)
+add_dependencies(doomseeker_obj revision_check)
+
+## Doomseeker executable
+add_executable(doomseeker
+	main.cpp
+	main.h
+)
 
 target_link_libraries(doomseeker
-PRIVATE
-	Wadseeker::wadseeker
-	ZLIB::ZLIB
-	${CMAKE_DL_LIBS}
-PUBLIC
-	${QT_LIBRARIES})
+	PRIVATE Wadseeker::wadseeker
+	PUBLIC doomseeker_obj
+)
+
+target_compile_definitions(doomseeker PRIVATE
+	"-DINSTALL_PREFIX=\"${CMAKE_INSTALL_PREFIX}\""
+	"-DINSTALL_LIBDIR=\"${CMAKE_INSTALL_LIBDIR}\""
+)
 
 # Copy translations
 set(TRANSLATION_FILES_TO_COPY
