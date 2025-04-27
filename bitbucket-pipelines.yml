@@ -1,4 +1,4 @@
-image: doomseeker/doomseeker-build:latest
+image: doomseeker/doomseeker-build:ubuntu-20.04
 
 clone:
   depth: full
@@ -13,6 +13,7 @@ stepsDefined:
         - make -j$(nproc)
         - make install
         - QT_QPA_PLATFORM=offscreen ./doomseeker --tests
+        - QT_QPA_PLATFORM=offscreen ctest -V .
 
 pipelines:
   branches:
