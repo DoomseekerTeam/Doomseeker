@@ -46,7 +46,7 @@ void TestDateTime::iso8601_should_format_utc_epoch()
 	QCOMPARE(
 		DateTime::toISO8601(
 			QDateTime::fromMSecsSinceEpoch(0, Qt::UTC)),
-		"1970-01-01T00:00:00Z"
+		QString("1970-01-01T00:00:00Z")
 		);
 }
 
@@ -66,7 +66,7 @@ void TestDateTime::iso8601_should_format_a_named_timezone()
 		// When
 		QDateTime warsaw = QDateTime(QDate(2024, 07, 04), QTime(17, 00, 00), warsawZone);
 		// Then
-		QCOMPARE(DateTime::toISO8601(warsaw), "2024-07-04T17:00:00+02:00");
+		QCOMPARE(DateTime::toISO8601(warsaw), QString("2024-07-04T17:00:00+02:00"));
 	}
 	else
 	{
@@ -79,7 +79,7 @@ void TestDateTime::iso8601_should_format_an_offset_time()
 	// Given -- an offset time
 	QDateTime offsetM1 = QDateTime(QDate(2024, 07, 04), QTime(17, 00, 00), QTimeZone(-1 * 60 * 60));
 	// When/Then
-	QCOMPARE(DateTime::toISO8601(offsetM1), "2024-07-04T17:00:00-01:00");
+	QCOMPARE(DateTime::toISO8601(offsetM1), QString("2024-07-04T17:00:00-01:00"));
 }
 
 void TestDateTime::toPathFriendlyUtcIso8601_should_format_utc_epoch()
@@ -87,7 +87,7 @@ void TestDateTime::toPathFriendlyUtcIso8601_should_format_utc_epoch()
 	QCOMPARE(
 		DateTime::toPathFriendlyUTCISO8601(
 			QDateTime::fromMSecsSinceEpoch(0, Qt::UTC)),
-		"1970-01-01T000000Z"
+		QString("1970-01-01T000000Z")
 		);
 }
 
@@ -102,7 +102,7 @@ void TestDateTime::toPathFriendlyUtcIso8601_should_format_a_named_timezone()
 		// When
 		QDateTime warsaw = QDateTime(QDate(2024, 07, 04), QTime(17, 00, 00), warsawZone);
 		// Then
-		QCOMPARE(DateTime::toPathFriendlyUTCISO8601(warsaw), "2024-07-04T150000Z");
+		QCOMPARE(DateTime::toPathFriendlyUTCISO8601(warsaw), QString("2024-07-04T150000Z"));
 	}
 	else
 	{
@@ -115,7 +115,7 @@ void TestDateTime::toPathFriendlyUtcIso8601_should_format_an_offset_time()
 	// Given -- an offset time
 	QDateTime offsetM1 = QDateTime(QDate(2024, 07, 04), QTime(12, 37, 21), QTimeZone(-1 * 60 * 60));
 	// When/Then
-	QCOMPARE(DateTime::toPathFriendlyUTCISO8601(offsetM1), "2024-07-04T133721Z");
+	QCOMPARE(DateTime::toPathFriendlyUTCISO8601(offsetM1), QString("2024-07-04T133721Z"));
 }
 
 void TestDateTime::parsePathFriendlyUtcIso8601_should_parse_correctly()
