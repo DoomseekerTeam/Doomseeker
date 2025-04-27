@@ -21,7 +21,6 @@
 // Copyright (C) 2010 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
 #include "testruns.h"
-#include "tests/testdatetime.h"
 #include "tests/testfilesearchpath.h"
 #include "tests/testgamedemo.h"
 #include "tests/testini.h"
@@ -36,11 +35,6 @@ TestCore *TestRuns::pTestCore = nullptr;
 
 void TestRuns::callTests()
 {
-	// DateTime
-	pTestCore->executeTest(new TestDateTimeISO8601());
-	pTestCore->executeTest(new TestDateTimeToPathFriendlyUTCISO8601());
-	pTestCore->executeTest(new TestDateTimeParsePathFriendlyUTCISO8601());
-
 	// GameDemo
 	pTestCore->executeTest(new TestGameDemoExportedName());
 	pTestCore->executeTest(new TestGameDemoImprintPath());

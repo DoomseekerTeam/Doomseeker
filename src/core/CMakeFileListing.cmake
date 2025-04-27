@@ -295,7 +295,6 @@ set(HEADER_FILES
 	tests/asserts.h
 	tests/testbase.h
 	tests/testcore.h
-	tests/testdatetime.h
 	tests/testfilesearchpath.h
 	tests/testgamedemo.h
 	tests/testini.h
@@ -539,7 +538,6 @@ set(SOURCE_FILES
 	templatedpathresolver.cpp
 	tests/testbase.cpp
 	tests/testcore.cpp
-	tests/testdatetime.cpp
 	tests/testfilesearchpath.cpp
 	tests/testgamedemo.cpp
 	tests/testini.cpp

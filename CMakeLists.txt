@@ -137,6 +137,14 @@ add_subdirectory(tools/updaterevision)
 add_subdirectory(src/core)
 add_subdirectory(src/plugins)
 
+# Testing
+option(DOOMSEEKER_ENABLE_TESTS "Enable building automated tests" ON)
+if(DOOMSEEKER_ENABLE_TESTS)
+	enable_testing()
+	add_subdirectory(tests/core)
+endif()
+
+# Installation and packaging
 message(STATUS "'INSTALL' will dump files to \"${CMAKE_INSTALL_PREFIX}\"")
 
 if(USE_CPACK)
