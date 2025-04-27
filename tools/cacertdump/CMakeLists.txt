@@ -1,8 +1,5 @@
 # Public Domain. Authored by Zalewa <zalewapl@gmail.com>, 2017.
-cmake_minimum_required(VERSION 3.5...4.0)
-if(CMAKE_VERSION VERSION_LESS 3.12)
-	cmake_policy(VERSION ${CMAKE_VERSION})
-endif()
+cmake_minimum_required(VERSION 3.16...4.0)
 
 project(cacertdump)
 

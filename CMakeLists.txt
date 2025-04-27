@@ -18,10 +18,7 @@
 #------------------------------------------------------------------------------
 # Copyright (C) 2009 Braden "Blzut3" Obrzut <admin@maniacsvault.net>
 #------------------------------------------------------------------------------
-cmake_minimum_required(VERSION 3.5...4.0)
-if(CMAKE_VERSION VERSION_LESS 3.12)
-	cmake_policy(VERSION ${CMAKE_VERSION})
-endif()
+cmake_minimum_required(VERSION 3.16...4.0)
 
 project(Doomseeker)
 
@@ -39,14 +36,7 @@ else()
 	endif()
 endif()
 
-# We need a newer CPack version to get desirable results.
-# Note: CMake 3.11+ recommended for best results
-if(NOT CMAKE_VERSION VERSION_LESS "3.6.0")
-	set(USE_CPACK ON)
-else()
-	set(USE_CPACK OFF)
-endif()
-
+set(USE_CPACK ON)  # compatibility artifact from CMake <3.6; currently always ON
 if(USE_CPACK)
 	# Right now all we support is DEB, but we'll probably want to make this a
 	# user option later?

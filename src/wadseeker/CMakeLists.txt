@@ -19,10 +19,7 @@
 # Copyright (C) 2009 "Zalewa" <zalewapl@gmail.com>
 #------------------------------------------------------------------------------
 
-cmake_minimum_required(VERSION 3.5...4.0)
-if(CMAKE_VERSION VERSION_LESS 3.12)
-	cmake_policy(VERSION ${CMAKE_VERSION})
-endif()
+cmake_minimum_required(VERSION 3.16...4.0)
 
 project(Wadseeker)
 
@@ -258,67 +255,64 @@ endif()
 
 install(SCRIPT InstallHeaders.cmake COMPONENT wadseeker-dev)
 
-# We need a newer CPack version to get desirable results.
-if(NOT CMAKE_VERSION VERSION_LESS "3.6.0")
-	# CPack can autogenerate this file, but since we have a postprocessing step
-	# to correct the versions per component we're better off generating it
-	# manually. This means there will be a lintian error until that step is run.
-	configure_file(deb-extra/shlibs.in ${CMAKE_CURRENT_BINARY_DIR}/shlibs)
+# CPack can autogenerate this file, but since we have a postprocessing step
+# to correct the versions per component we're better off generating it
+# manually. This means there will be a lintian error until that step is run.
+configure_file(deb-extra/shlibs.in ${CMAKE_CURRENT_BINARY_DIR}/shlibs)
 
-	set(CPACK_PACKAGE_VERSION ${VERSION_STRING})
+set(CPACK_PACKAGE_VERSION ${VERSION_STRING})
 
-	set(CPACK_DEBIAN_FILE_NAME "DEB-DEFAULT")
-	set(CPACK_DEBIAN_WADSEEKER_PACKAGE_NAME "libwadseeker${WADSEEKER_SOVERSION}")
-	set(CPACK_DEBIAN_WADSEEKER_PACKAGE_CONTROL_EXTRA "${CMAKE_CURRENT_SOURCE_DIR}/deb-extra/triggers;${CMAKE_CURRENT_BINARY_DIR}/shlibs")
-	set(CPACK_DEBIAN_WADSEEKER_PACKAGE_SECTION "libs")
-	set(CPACK_COMPONENT_WADSEEKER_DESCRIPTION "Library for locating and downloading Doom mods.\n Searching is done against a given list of common servers including the id\n games archive. Wadseeker is based around Qt core and does not provide a GUI\n itself.")
-	set(CPACK_DEBIAN_WADSEEKER-DEV_PACKAGE_NAME "libwadseeker-dev")
-	set(CPACK_DEBIAN_WADSEEKER-DEV_PACKAGE_DEPENDS "${CPACK_DEBIAN_WADSEEKER_PACKAGE_NAME}, qtbase5-dev")
-	set(CPACK_DEBIAN_WADSEEKER-DEV_PACKAGE_SECTION "libdevel")
-	set(CPACK_COMPONENT_WADSEEKER-DEV_DESCRIPTION "Header files for libwadseeker.\n Wadseeker is a library for locating and downloading Doom mods.")
-	if(NOT CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
-		set(CPACK_DEBIAN_WADSEEKER_PACKAGE_NAME ${CPACK_DEBIAN_WADSEEKER_PACKAGE_NAME} PARENT_SCOPE)
-		set(CPACK_DEBIAN_WADSEEKER_PACKAGE_CONTROL_EXTRA ${CPACK_DEBIAN_WADSEEKER_PACKAGE_CONTROL_EXTRA} PARENT_SCOPE)
-		set(CPACK_DEBIAN_WADSEEKER_PACKAGE_SECTION ${CPACK_DEBIAN_WADSEEKER_PACKAGE_SECTION} PARENT_SCOPE)
-		set(CPACK_COMPONENT_WADSEEKER_DESCRIPTION ${CPACK_COMPONENT_WADSEEKER_DESCRIPTION} PARENT_SCOPE)
-		set(CPACK_DEBIAN_WADSEEKER-DEV_PACKAGE_NAME ${CPACK_DEBIAN_WADSEEKER-DEV_PACKAGE_NAME} PARENT_SCOPE)
-		set(CPACK_DEBIAN_WADSEEKER-DEV_PACKAGE_DEPENDS ${CPACK_DEBIAN_WADSEEKER-DEV_PACKAGE_DEPENDS} PARENT_SCOPE)
-		set(CPACK_DEBIAN_WADSEEKER-DEV_PACKAGE_SECTION ${CPACK_DEBIAN_WADSEEKER-DEV_PACKAGE_SECTION} PARENT_SCOPE)
-		set(CPACK_COMPONENT_WADSEEKER-DEV_DESCRIPTION ${CPACK_COMPONENT_WADSEEKER-DEV_DESCRIPTION} PARENT_SCOPE)
+set(CPACK_DEBIAN_FILE_NAME "DEB-DEFAULT")
+set(CPACK_DEBIAN_WADSEEKER_PACKAGE_NAME "libwadseeker${WADSEEKER_SOVERSION}")
+set(CPACK_DEBIAN_WADSEEKER_PACKAGE_CONTROL_EXTRA "${CMAKE_CURRENT_SOURCE_DIR}/deb-extra/triggers;${CMAKE_CURRENT_BINARY_DIR}/shlibs")
+set(CPACK_DEBIAN_WADSEEKER_PACKAGE_SECTION "libs")
+set(CPACK_COMPONENT_WADSEEKER_DESCRIPTION "Library for locating and downloading Doom mods.\n Searching is done against a given list of common servers including the id\n games archive. Wadseeker is based around Qt core and does not provide a GUI\n itself.")
+set(CPACK_DEBIAN_WADSEEKER-DEV_PACKAGE_NAME "libwadseeker-dev")
+set(CPACK_DEBIAN_WADSEEKER-DEV_PACKAGE_DEPENDS "${CPACK_DEBIAN_WADSEEKER_PACKAGE_NAME}, qtbase5-dev")
+set(CPACK_DEBIAN_WADSEEKER-DEV_PACKAGE_SECTION "libdevel")
+set(CPACK_COMPONENT_WADSEEKER-DEV_DESCRIPTION "Header files for libwadseeker.\n Wadseeker is a library for locating and downloading Doom mods.")
+if(NOT CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+	set(CPACK_DEBIAN_WADSEEKER_PACKAGE_NAME ${CPACK_DEBIAN_WADSEEKER_PACKAGE_NAME} PARENT_SCOPE)
+	set(CPACK_DEBIAN_WADSEEKER_PACKAGE_CONTROL_EXTRA ${CPACK_DEBIAN_WADSEEKER_PACKAGE_CONTROL_EXTRA} PARENT_SCOPE)
+	set(CPACK_DEBIAN_WADSEEKER_PACKAGE_SECTION ${CPACK_DEBIAN_WADSEEKER_PACKAGE_SECTION} PARENT_SCOPE)
+	set(CPACK_COMPONENT_WADSEEKER_DESCRIPTION ${CPACK_COMPONENT_WADSEEKER_DESCRIPTION} PARENT_SCOPE)
+	set(CPACK_DEBIAN_WADSEEKER-DEV_PACKAGE_NAME ${CPACK_DEBIAN_WADSEEKER-DEV_PACKAGE_NAME} PARENT_SCOPE)
+	set(CPACK_DEBIAN_WADSEEKER-DEV_PACKAGE_DEPENDS ${CPACK_DEBIAN_WADSEEKER-DEV_PACKAGE_DEPENDS} PARENT_SCOPE)
+	set(CPACK_DEBIAN_WADSEEKER-DEV_PACKAGE_SECTION ${CPACK_DEBIAN_WADSEEKER-DEV_PACKAGE_SECTION} PARENT_SCOPE)
+	set(CPACK_COMPONENT_WADSEEKER-DEV_DESCRIPTION ${CPACK_COMPONENT_WADSEEKER-DEV_DESCRIPTION} PARENT_SCOPE)
 
-		file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/CPackComponent.version" "${CPACK_DEBIAN_WADSEEKER_PACKAGE_NAME} ${VERSION_STRING}\n${CPACK_DEBIAN_WADSEEKER-DEV_PACKAGE_NAME} ${VERSION_STRING}\n")
-	else()
-		include(CPack)
-		include(CMakePackageConfigHelpers)
-		set(CONFIG_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/wadseeker")
+	file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/CPackComponent.version" "${CPACK_DEBIAN_WADSEEKER_PACKAGE_NAME} ${VERSION_STRING}\n${CPACK_DEBIAN_WADSEEKER-DEV_PACKAGE_NAME} ${VERSION_STRING}\n")
+else()
+	include(CPack)
+	include(CMakePackageConfigHelpers)
+	set(CONFIG_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/wadseeker")
 
-		set(generated_dir "${CMAKE_CURRENT_BINARY_DIR}/generated")
-		set(VERSION_CONFIG "${generated_dir}/wadseekerConfigVersion.cmake")
-		set(PROJECT_CONFIG "${generated_dir}/wadseekerConfig.cmake")
-		configure_package_config_file(wadseekerConfig.cmake.in
-			${PROJECT_CONFIG}
-			INSTALL_DESTINATION ${CONFIG_INSTALL_DIR}
-		)
-		write_basic_package_version_file (
-			${VERSION_CONFIG} COMPATIBILITY SameMajorVersion
-			VERSION ${VERSION_STRING}
-		)
+	set(generated_dir "${CMAKE_CURRENT_BINARY_DIR}/generated")
+	set(VERSION_CONFIG "${generated_dir}/wadseekerConfigVersion.cmake")
+	set(PROJECT_CONFIG "${generated_dir}/wadseekerConfig.cmake")
+	configure_package_config_file(wadseekerConfig.cmake.in
+		${PROJECT_CONFIG}
+		INSTALL_DESTINATION ${CONFIG_INSTALL_DIR}
+	)
+	write_basic_package_version_file (
+		${VERSION_CONFIG} COMPATIBILITY SameMajorVersion
+		VERSION ${VERSION_STRING}
+	)
 
-		install(
-			EXPORT ${TARGETS_EXPORT_NAME}
-			NAMESPACE ${PROJECT_NAME}::
-			DESTINATION ${CONFIG_INSTALL_DIR}
-		)
-		install(
-			FILES ${PROJECT_CONFIG} ${VERSION_CONFIG}
-			DESTINATION ${CONFIG_INSTALL_DIR}
-		)
-	endif()
-	cpack_add_component(wadseeker
-		DISPLAY_NAME libwadseeker
-		DESCRIPTION "Library for automatically locating and downloading mods for Doom."
-		REQUIRED)
-	if(COMMAND parent_scope_component)
-		parent_scope_component(wadseeker)
-	endif()
+	install(
+		EXPORT ${TARGETS_EXPORT_NAME}
+		NAMESPACE ${PROJECT_NAME}::
+		DESTINATION ${CONFIG_INSTALL_DIR}
+	)
+	install(
+		FILES ${PROJECT_CONFIG} ${VERSION_CONFIG}
+		DESTINATION ${CONFIG_INSTALL_DIR}
+	)
+endif()
+cpack_add_component(wadseeker
+	DISPLAY_NAME libwadseeker
+	DESCRIPTION "Library for automatically locating and downloading mods for Doom."
+	REQUIRED)
+if(COMMAND parent_scope_component)
+	parent_scope_component(wadseeker)
 endif()
