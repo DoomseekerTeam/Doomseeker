@@ -161,6 +161,7 @@ add_library(doomseeker_obj OBJECT
 	${HEADER_FILES}
 )
 set_target_properties(doomseeker_obj PROPERTIES AUTOMOC ON AUTOUIC ON AUTORCC ON)
+target_compile_definitions(doomseeker_obj PRIVATE doomseeker_EXPORTS)
 target_link_libraries(doomseeker_obj
 PRIVATE
 	Wadseeker::wadseeker
