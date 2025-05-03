@@ -3,3 +3,10 @@ build/*
 *~
 *.rej
 src/core/gitinfo.h
+
+# Python artifacts
+__pycache__/
+dist/
+*.egg-info
+.pytest_cache
+.venv
