@@ -57,11 +57,16 @@ function cmake_extract_var
 	declare Variable=$1
 	shift
 
-	# CMake's message command writes to stderr
-	cmake -P /dev/stdin <<-EOF 2>&1
+	# Running a CMake script from /dev/stdin makes CMake complain about
+	# inability to find BOM due to file not being seekable.
+	cmdfile=$(mktemp -p . cmakecmd.XXXXXXXXXX)
+	cat >"$cmdfile" <<-EOF
 		include($CMVarsFile)
 		message(\${$Variable})
 	EOF
+	# CMake's message command writes to stderr
+	cmake -P "$cmdfile" 2>&1
+	rm -f "$cmdfile" >/dev/null
 }
 
 # Build revision_check to pack in revision version information
