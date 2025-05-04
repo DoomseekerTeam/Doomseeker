@@ -94,7 +94,7 @@ WadseekerInterface::WadseekerInterface(const QString &output) : lastProgressRepo
 
 	// Connect our slots.
 	connect(&wadseeker, SIGNAL(allDone(bool)), this, SLOT(done()));
-	connect(&wadseeker, SIGNAL(fileDownloadProgress(const QString &, qint64, qint64)), this, SLOT(downloadProgress(const QString &, qint64, qint64)));
+	connect(&wadseeker, SIGNAL(fileDownloadProgress(const ModFile &, qint64, qint64)), this, SLOT(downloadProgress(const ModFile &, qint64, qint64)));
 	connect(&wadseeker, SIGNAL(message(const QString &, WadseekerLib::MessageType)), this, SLOT(recieveMessage(const QString &, WadseekerLib::MessageType)));
 }
 
@@ -114,14 +114,14 @@ void WadseekerInterface::done()
 	instance->exit(0);
 }
 
-void WadseekerInterface::downloadProgress(const QString &filename, qint64 done, qint64 total)
+void WadseekerInterface::downloadProgress(const ModFile &filename, qint64 done, qint64 total)
 {
 	// Prevent a divide by zero error.
 	if(total == 0)
 		return;
 
 	// Update the download progress indicator.
-	QString progress = QString("Download Progress %1: %2/%3 (%4%)").arg(filename).arg(done).arg(total).arg(done*100/total);
+	QString progress = QString("Download Progress %1: %2/%3 (%4%)").arg(filename.fileName()).arg(done).arg(total).arg(done*100/total);
 
 	cout << QString(lastProgressReportLength, '\b').toLatin1().constData();
 	cout << progress.toLatin1().constData();
