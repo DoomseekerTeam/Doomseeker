@@ -56,11 +56,14 @@ QTextStream logi(stderr);
 
 struct Args
 {
+	bool noDefaultSites;
+	bool noIdgames;
 	QString outputDir;
 	QStringList files;
+	QStringList sites;
 
 	Args()
-		: outputDir("./")
+		: noDefaultSites(false), noIdgames(false), outputDir("./")
 	{}
 };
 
@@ -76,6 +79,15 @@ Args parseArgs(QCoreApplication &app, QCommandLineParser &argp)
 	// Option collector: a convoluted way of not repeating
 	// the same code for each option.
 	QList<std::function<void(void)>> collectors;
+	auto addFlag = [&argp, &collectors](QStringList names, bool &variable, QString help)
+	{
+		QCommandLineOption opt(names, help);
+		argp.addOption(opt);
+		collectors << [&argp, opt, &variable]() {
+			variable = argp.isSet(opt);
+		};
+	};
+
 	auto addOption = [&argp, &collectors](QStringList names, QString valueName, QString &variable, QString help)
 	{
 		QCommandLineOption opt(names, help, valueName, variable);
@@ -85,9 +97,25 @@ Args parseArgs(QCoreApplication &app, QCommandLineParser &argp)
 		};
 	};
 
+	auto addListOption = [&argp, &collectors](QStringList names, QString valueName, QStringList &variable, QString help)
+	{
+		QCommandLineOption opt(names, help, valueName);
+		opt.setDefaultValues(variable);
+		argp.addOption(opt);
+		collectors << [&argp, opt, &variable]() {
+			variable << argp.value(opt);
+		};
+	};
+
 	// Add the options (with the '-' and '--') using the collector.
+	addFlag({"no-default-sites"}, args.noDefaultSites,
+		"Disable Wadseeker's built-in default sites.");
+	addFlag({"no-idgames"}, args.noIdgames,
+		"Disable the /idgames Archive.");
 	addOption({"o", "output"}, "dir", args.outputDir,
 		"Set the output directory.");
+	addListOption({"u", "url"}, "url", args.sites,
+		"Sites where to look for the files (multiple).");
 
 	// Files to seek go onto positional arguments.
 	argp.addPositionalArgument("files", "Files to seek.", "file [file...]");
@@ -126,8 +154,25 @@ int main(int argc, char* argv[])
 
 	// Create and configure the instance of Wadseeker now.
 	Wadseeker wadseeker;
-	// Load up the primary sites and set the output to the specified location.
-	wadseeker.setPrimarySitesToDefault();
+
+	// Load up the primary sites.
+	if (!args.sites.isEmpty())
+	{
+		QStringList sites = args.sites;
+		if (!args.noDefaultSites)
+		{
+			for (int i = 0; !Wadseeker::defaultSites[i].isEmpty(); ++i)
+				sites << Wadseeker::defaultSites[i];
+		}
+		wadseeker.setPrimarySites(sites);
+	}
+	else if (!args.noDefaultSites)
+	{
+		wadseeker.setPrimarySitesToDefault();
+	}
+	wadseeker.setIdgamesEnabled(!args.noIdgames);
+
+	// Set the output directory.
 	wadseeker.setTargetDirectory(args.outputDir);
 
 	// Create the Wadseeker interface and seek for the files.
