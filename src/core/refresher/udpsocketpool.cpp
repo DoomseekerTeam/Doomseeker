@@ -24,6 +24,7 @@
 
 #include "refresher/hostport.h"
 #include <QList>
+#include <QSet>
 #include <QUdpSocket>
 
 DClass<UdpSocketPool>

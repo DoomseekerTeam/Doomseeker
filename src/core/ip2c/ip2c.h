@@ -31,8 +31,10 @@
 #include <QHash>
 #include <QHostAddress>
 #include <QList>
+#include <QMap>
 #include <QMutex>
 #include <QPixmap>
+#include <QSet>
 #include <QString>
 
 class Server;
