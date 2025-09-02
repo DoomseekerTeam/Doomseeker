@@ -65,8 +65,6 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 		option(FORCE_INTERNAL_ZLIB "Use internal zlib" OFF)
 		option(FORCE_INTERNAL_BZIP2 "Use internal bzip2" OFF)
 
-		include(${CMAKE_SOURCE_DIR}/cmake/Modules/Macros.cmake)
-
 		if(NOT FORCE_INTERNAL_ZLIB)
 			find_package_ZLIB()
 		endif()
