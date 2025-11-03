@@ -70,37 +70,14 @@ enum GameMode : u8 {
     DOMINATION = 15,
 };
 
-fn is_teamgame(GameMode mode) {
-    match(mode)
-    {
-        (GameMode::TEAMPLAY
-            |GameMode::TEAMLMS
-            |GameMode::TEAMPOSSESSION
-            |GameMode::TEAMGAME
-            |GameMode::CTF
-            |GameMode::ONEFLAGCTF
-            |GameMode::SKULLTAG
-            |GameMode::DOMINATION): return true;
-    }
-    return false;
-};
-
-struct TeamPlayer {
+struct Player<auto flags> {
     char name[];
     u16 points;
     u16 ping;
     bool spectator;
     bool bot;
-    u8 team;
-    u8 minutes;
-};
-
-struct SoloPlayer {
-    char name[];
-    u16 points;
-    u16 ping;
-    bool spectator;
-    bool bot;
+    if (flags.SQF_TEAMINFO_NUMBER)
+        u8 team;
     u8 minutes;
 };
 
@@ -181,10 +158,7 @@ struct SQF<auto flags> {
     // or not.
     if (flags.SQF_PLAYERDATA)
     {
-        if (is_teamgame(gametype))
-            TeamPlayer players[numplayers];
-        else
-            SoloPlayer players[numplayers];
+        Player<flags> players[numplayers];
     }
     if (flags.SQF_TEAMINFO_NUMBER)
     {
@@ -194,7 +168,7 @@ struct SQF<auto flags> {
         if (flags.SQF_TEAMINFO_COLOR)
             u32 teamcolor[numteams];
         if (flags.SQF_TEAMINFO_SCORE)
-            u16 teamscore;
+            u16 teamscore[numteams];
     }
     if (flags.SQF_TESTING_SERVER)
     {
