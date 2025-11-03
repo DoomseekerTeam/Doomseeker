@@ -7,46 +7,48 @@
 // that the segments were already reassembled into the full packet.
 //
 // See: https://imhex.werwolv.net/
-enum SQFlag : u32 {
-    SQF_NAME = 0x00000001,
-    SQF_URL = 0x00000002,
-    SQF_EMAIL = 0x00000004,
-    SQF_MAPNAME = 0x00000008,
-    SQF_MAXCLIENTS = 0x00000010,
-    SQF_MAXPLAYERS = 0x00000020,
-    SQF_PWADS = 0x00000040,
-    SQF_GAMETYPE = 0x00000080,
-    SQF_GAMENAME = 0x00000100,
-    SQF_IWAD = 0x00000200,
-    SQF_FORCEPASSWORD = 0x00000400,
-    SQF_FORCEJOINPASSWORD = 0x00000800,
-    SQF_GAMESKILL = 0x00001000,
-    SQF_BOTSKILL = 0x00002000,
-    SQF_DMFLAGS = 0x00004000, // Deprecated
-    SQF_LIMITS = 0x00010000,
-    SQF_TEAMDAMAGE = 0x00020000,
-    SQF_TEAMSCORES = 0x00040000,
-    SQF_NUMPLAYERS = 0x00080000,
-    SQF_PLAYERDATA = 0x00100000,
-    SQF_TEAMINFO_NUMBER = 0x00200000,
-    SQF_TEAMINFO_NAME = 0x00400000,
-    SQF_TEAMINFO_COLOR = 0x00800000,
-    SQF_TEAMINFO_SCORE = 0x01000000,
-    SQF_TESTING_SERVER = 0x02000000,
-    SQF_DATA_MD5SUM = 0x04000000,
-    SQF_ALL_DMFLAGS = 0x08000000,
-    SQF_SECURITY_SETTINGS = 0x10000000,
-    SQF_OPTIONAL_WADS = 0x20000000,
-    SQF_DEH = 0x40000000,
-    SQF_EXTENDED_INFO = 0x80000000,
+bitfield SQFlag {
+    SQF_NAME : 1;
+    SQF_URL : 1;
+    SQF_EMAIL : 1;
+    SQF_MAPNAME : 1;
+    SQF_MAXCLIENTS : 1;
+    SQF_MAXPLAYERS : 1;
+    SQF_PWADS : 1;
+    SQF_GAMETYPE : 1;
+    SQF_GAMENAME : 1;
+    SQF_IWAD : 1;
+    SQF_FORCEPASSWORD : 1;
+    SQF_FORCEJOINPASSWORD : 1;
+    SQF_GAMESKILL : 1;
+    SQF_BOTSKILL : 1;
+    SQF_DMFLAGS : 1; // Deprecated
+    reserved0 : 1;
+    SQF_LIMITS : 1;
+    SQF_TEAMDAMAGE : 1;
+    SQF_TEAMSCORES : 1; // Deprecated
+    SQF_NUMPLAYERS : 1;
+    SQF_PLAYERDATA : 1;
+    SQF_TEAMINFO_NUMBER : 1;
+    SQF_TEAMINFO_NAME : 1;
+    SQF_TEAMINFO_COLOR : 1;
+    SQF_TEAMINFO_SCORE : 1;
+    SQF_TESTING_SERVER : 1;
+    SQF_DATA_MD5SUM : 1; // Deprecated
+    SQF_ALL_DMFLAGS : 1;
+    SQF_SECURITY_SETTINGS : 1;
+    SQF_OPTIONAL_WADS : 1;
+    SQF_DEH : 1;
+    SQF_EXTENDED_INFO : 1;
 };
 
-enum SQFlag2 : u32 {
-    SQF2_PWAD_HASHES = 0x00000001,
-    SQF2_COUNTRY = 0x00000002,
-    SQF2_GAMEMODE_NAME = 0x00000004,
-    SQF2_GAMEMODE_SHORTNAME = 0x00000008,
-    SQF2_VOICECHAT = 0x00000010,
+bitfield SQFlag2 {
+    SQF2_PWAD_HASHES : 1;
+    SQF2_COUNTRY : 1;
+    SQF2_GAMEMODE_NAME : 1;
+    SQF2_GAMEMODE_SHORTNAME : 1;
+    SQF2_VOICECHAT : 1;
+    reserved0 : 32 - 5;
 };
 
 enum GameMode : u8 {
@@ -105,7 +107,7 @@ struct SoloPlayer {
 struct PacketHeader {
     u32 time;
     char gameversion[];
-    u32 flags;
+    SQFlag flags;
 };
 
 struct Str {
@@ -113,48 +115,48 @@ struct Str {
 };
 
 struct SQF<auto flags> {
-    if (flags & SQFlag::SQF_NAME)
+    if (flags.SQF_NAME)
         char name[];
-    if (flags & SQFlag::SQF_URL)
+    if (flags.SQF_URL)
         char url[];
-    if (flags & SQFlag::SQF_EMAIL)
+    if (flags.SQF_EMAIL)
         char email[];
-    if (flags & SQFlag::SQF_MAPNAME)
+    if (flags.SQF_MAPNAME)
         char mapname[];
-    if (flags & SQFlag::SQF_MAXCLIENTS)
+    if (flags.SQF_MAXCLIENTS)
         u8 maxclients;
-    if (flags & SQFlag::SQF_MAXPLAYERS)
+    if (flags.SQF_MAXPLAYERS)
         u8 maxplayers;
-    if (flags & SQFlag::SQF_PWADS)
+    if (flags.SQF_PWADS)
     {
         u8 numpwads;
         Str pwads[numpwads];
     }
-    if (flags & SQFlag::SQF_GAMETYPE)
+    if (flags.SQF_GAMETYPE)
     {
         GameMode gametype;
         bool instagib;
         bool buckshot;
     }
-    if (flags & SQFlag::SQF_GAMENAME)
+    if (flags.SQF_GAMENAME)
         char gamename[];
-    if (flags & SQFlag::SQF_IWAD)
+    if (flags.SQF_IWAD)
         char iwad[];
-    if (flags & SQFlag::SQF_FORCEPASSWORD)
+    if (flags.SQF_FORCEPASSWORD)
         bool password;
-    if (flags & SQFlag::SQF_FORCEJOINPASSWORD)
+    if (flags.SQF_FORCEJOINPASSWORD)
         bool joinpassword;
-    if (flags & SQFlag::SQF_GAMESKILL)
+    if (flags.SQF_GAMESKILL)
         u8 gameskill;
-    if (flags & SQFlag::SQF_BOTSKILL)
+    if (flags.SQF_BOTSKILL)
         u8 botskill;
-    if (flags & SQFlag::SQF_DMFLAGS)
+    if (flags.SQF_DMFLAGS)
     {
         u32 dmflags1;
         u32 dmflags2;
         u32 compatflags;
     }
-    if (flags & SQFlag::SQF_LIMITS)
+    if (flags.SQF_LIMITS)
     {
         u16 fraglimit;
         u16 timelimit;
@@ -164,56 +166,56 @@ struct SQF<auto flags> {
         u16 pointlimit;
         u16 winlimit;
     }
-    if (flags & SQFlag::SQF_TEAMDAMAGE)
+    if (flags.SQF_TEAMDAMAGE)
         float teamdamage;
-    if (flags & SQFlag::SQF_TEAMSCORES)
+    if (flags.SQF_TEAMSCORES)
     {
         u16 bluescore;
         u16 redscore;
     }
-    if (flags & SQFlag::SQF_NUMPLAYERS)
+    if (flags.SQF_NUMPLAYERS)
         u8 numplayers;
     // SQF_PLAYERDATA is as independent as any other flag, but without
     // SQF_NUMPLAYERS, we don't know how many PLAYERDATA structs there
     // is, and without SQF_GAMETYPE we don't know if this is a team game
     // or not.
-    if (flags & SQFlag::SQF_PLAYERDATA)
+    if (flags.SQF_PLAYERDATA)
     {
         if (is_teamgame(gametype))
             TeamPlayer players[numplayers];
         else
             SoloPlayer players[numplayers];
     }
-    if (flags & SQFlag::SQF_TEAMINFO_NUMBER)
+    if (flags.SQF_TEAMINFO_NUMBER)
     {
         u8 numteams;
-        if (flags & SQFlag::SQF_TEAMINFO_NAME)
+        if (flags.SQF_TEAMINFO_NAME)
             Str teamname[numteams];
-        if (flags & SQFlag::SQF_TEAMINFO_COLOR)
+        if (flags.SQF_TEAMINFO_COLOR)
             u32 teamcolor[numteams];
-        if (flags & SQFlag::SQF_TEAMINFO_SCORE)
+        if (flags.SQF_TEAMINFO_SCORE)
             u16 teamscore;
     }
-    if (flags & SQFlag::SQF_TESTING_SERVER)
+    if (flags.SQF_TESTING_SERVER)
     {
         bool istesting;
         char testingarchive[];
     }
-    if (flags & SQFlag::SQF_DATA_MD5SUM)
+    if (flags.SQF_DATA_MD5SUM)
         char md5sum[];
-    if (flags & SQFlag::SQF_ALL_DMFLAGS)
+    if (flags.SQF_ALL_DMFLAGS)
     {
         u8 numdmflags;
         u32 dmflags[numdmflags];
     }
-    if (flags & SQFlag::SQF_SECURITY_SETTINGS)
+    if (flags.SQF_SECURITY_SETTINGS)
         bool masterbanlist;
-    if (flags & SQFlag::SQF_OPTIONAL_WADS)
+    if (flags.SQF_OPTIONAL_WADS)
     {
         u8 numoptional;
         u8 optionalindices[numoptional];
     }
-    if (flags & SQFlag::SQF_DEH)
+    if (flags.SQF_DEH)
     {
         u8 numdeh;
         Str dehs[numdeh];
@@ -221,18 +223,18 @@ struct SQF<auto flags> {
 };
 
 struct SQF2<auto flags> {
-    if (flags & SQFlag2::SQF2_PWAD_HASHES)
+    if (flags.SQF2_PWAD_HASHES)
     {
         u8 nwadhashes;
         Str wadhashes[nwadhashes];
     }
-    if (flags & SQFlag2::SQF2_COUNTRY)
+    if (flags.SQF2_COUNTRY)
         char country[3];
-    if (flags & SQFlag2::SQF2_GAMEMODE_NAME)
+    if (flags.SQF2_GAMEMODE_NAME)
         char gamemodename[];
-    if (flags & SQFlag2::SQF2_GAMEMODE_SHORTNAME)
+    if (flags.SQF2_GAMEMODE_SHORTNAME)
         char gamemodeshortname[];
-    if (flags & SQFlag2::SQF2_VOICECHAT)
+    if (flags.SQF2_VOICECHAT)
         bool voicechat;
 };
 
@@ -240,9 +242,9 @@ struct Packet {
     PacketHeader header;
 
     SQF<header.flags> sqf;
-    if (header.flags & SQFlag::SQF_EXTENDED_INFO)
+    if (header.flags.SQF_EXTENDED_INFO)
     {
-        u32 sqf2flags;
+        SQFlag2 sqf2flags;
         SQF2<sqf2flags> sqf2;
     }
 };
