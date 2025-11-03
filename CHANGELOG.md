@@ -9,6 +9,9 @@ and this project does not adhere to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Zandronum: honor the game mode name presented by the game servers. (#4107)
+
 ### Fixed
 - Wadseeker: files weren't sometimes installed despite being downloaded
 correctly because their filenames were compared case-sensitively, e.g.

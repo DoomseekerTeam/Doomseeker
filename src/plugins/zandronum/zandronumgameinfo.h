@@ -54,7 +54,7 @@ public:
 
 	enum ZandronumGameMode
 	{
-		GAMEMODE_COOPERATIVE,
+		GAMEMODE_COOPERATIVE = 0,
 		GAMEMODE_SURVIVAL,
 		GAMEMODE_INVASION,
 		GAMEMODE_DEATHMATCH,
@@ -86,6 +86,26 @@ public:
 	static QList<GameCVar> extraSettings(const GameMode &gameMode);
 	static QList<GameMode> gameModes();
 	static QList<GameCVar> gameModifiers();
+
+	/**
+	 * Try to translate a game mode name to one known by Doomseeker.
+	 *
+	 * This is a heuristic that tries to provide translated names when
+	 * the game server sends a name in English. It can handle completely
+	 * custom names and names of the standard game modes.
+	 *
+	 * 1. When the server sends a standard "Cooperative" in English, we shall provide
+	 *    Doomseeker's translation, and the GameMode is "Cooperative" too.
+	 * 2. When the server sends a standard "Deathmatch" but the GameMode indicates
+	 *    something else, such as "Cooperative", return translated "Deathmatch"
+	 *    anyway -- we assume that the server knows better.
+	 * 3. When server sends something custom, return it verbatim, even if it's
+	 *    just "Cooperative" again but in a language known to Doomseeker such
+	 *    as Spanish.
+	 * 4. When there is no name available, return the passed-in GameMode's.
+	 */
+	static QString tryDoomseekerizeGameModeName(
+		const GameMode &gameMode, const QString &name);
 };
 
 /**

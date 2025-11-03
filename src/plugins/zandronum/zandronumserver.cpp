@@ -420,7 +420,14 @@ Server::Response ZandronumServer::readAccumulatedSegments()
 	// Now parse the flags fields. Regardless of the response type, SQF1 always
 	// follows the initial packet info. The packet may contain more SQF types
 	// afterwards.
-	return readSqf1(stream);
+	Server::Response response = readSqf1(stream);
+
+	if (response == Server::RESPONSE_GOOD)
+	{
+		setGameMode(this->currentChallenge.gameModeInfo.resolvedGameMode());
+	}
+
+	return response;
 }
 
 Server::Response ZandronumServer::readSqf1(QDataStream &stream)
@@ -435,6 +442,7 @@ Server::Response ZandronumServer::readSqf1(QDataStream &stream)
 
 	quint32 flags = in.readQUInt32();
 	const bool hasTeams = (flags & SQF_TEAMINFO_NUMBER) == SQF_TEAMINFO_NUMBER;
+	this->currentChallenge.gameModeInfo.hasTeams = hasTeams;
 
 	if ((flags & SQF_NAME) == SQF_NAME)
 	{
@@ -492,29 +500,17 @@ Server::Response ZandronumServer::readSqf1(QDataStream &stream)
 	if ((flags & SQF_GAMETYPE) == SQF_GAMETYPE)
 	{
 		RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
-		qint8 modeCode = in.readQInt8();
+		const qint8 modeCode = in.readQInt8();
+		this->currentChallenge.gameModeInfo.code = modeCode;
 
-		if (modeCode < 0 || modeCode > NUM_ZANDRONUM_GAME_MODES)
+		const QList<GameMode> gameModes = ZandronumGameInfo::gameModes();
+		GameMode gameMode = GameMode::mkUnknown();
+		if (modeCode >= 0 && modeCode < gameModes.size())
 		{
-			modeCode = NUM_ZANDRONUM_GAME_MODES; // this will set the game mode to unknown
+			gameMode = gameModes[modeCode];
 		}
-
-		this->currentChallenge.gameMode = static_cast<ZandronumGameInfo::ZandronumGameMode>(modeCode);
-
-		GameMode gameMode = ZandronumGameInfo::gameModes()[this->currentChallenge.gameMode];
-		if (gameMode.isValid())
-		{
-			// Zandronum mods can override whether the game mode is team-based or not.
-			if (hasTeams)
-			{
-				gameMode = GameMode::teamGame(gameMode.index(), gameMode.name());
-			}
-			else
-			{
-				gameMode = GameMode::ffaGame(gameMode.index(), gameMode.name());
-			}
-			setGameMode(gameMode);
-		}
+		this->currentChallenge.gameModeInfo.gameMode = gameMode;
+		setGameMode(gameMode);
 
 		RETURN_BAD_IF_NOT_ENOUGH_DATA(2);
 		instagib = in.readQInt8() != 0;
@@ -587,7 +583,7 @@ Server::Response ZandronumServer::readSqf1(QDataStream &stream)
 		duelLimit = in.readQUInt16();
 		pointLimit = in.readQUInt16();
 		winLimit = in.readQUInt16();
-		switch (this->currentChallenge.gameMode)
+		switch (this->currentChallenge.gameModeInfo.code)
 		{
 		default:
 			setScoreLimit(fragLimit);
@@ -825,6 +821,13 @@ Server::Response ZandronumServer::readSqf2(QDataStream &stream)
 		setCountry(QString::fromLatin1(countryCode));
 	}
 
+	if ((flags & SQF2_GAMEMODE_NAME) == SQF2_GAMEMODE_NAME)
+	{
+		RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
+		QString gameModeName = in.readUtf8CString();
+		this->currentChallenge.gameModeInfo.serverSentName = gameModeName;
+	}
+
 	return RESPONSE_GOOD;
 }
 
@@ -1009,4 +1012,24 @@ PathFinder ZandronumServer::wadPathFinder()
 RConProtocol *ZandronumServer::rcon()
 {
 	return new ZandronumRConProtocol(self());
+}
+
+GameMode Challenge::CollectedGameModeInfo::resolvedGameMode()
+{
+	GameMode resolvedGameMode = gameMode;
+	// Zandronum mods can change the name of the game mode at will.
+	const QString resolvedGameModeName = ZandronumGameInfo::tryDoomseekerizeGameModeName(resolvedGameMode, serverSentName);
+	if (resolvedGameMode.isValid())
+	{
+		// Zandronum mods can override whether the game mode is team-based or not.
+		if (hasTeams)
+		{
+			resolvedGameMode = GameMode::teamGame(resolvedGameMode.index(), resolvedGameModeName);
+		}
+		else
+		{
+			resolvedGameMode = GameMode::ffaGame(resolvedGameMode.index(), resolvedGameModeName);
+		}
+	}
+	return resolvedGameMode;
 }

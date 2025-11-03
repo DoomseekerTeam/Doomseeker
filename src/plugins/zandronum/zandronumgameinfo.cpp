@@ -22,6 +22,61 @@
 //------------------------------------------------------------------------------
 #include "zandronumgameinfo.h"
 
+#include <QDebug>
+#include <QVector>
+
+namespace
+{
+GameMode findByZandronumEnglishName(const QString &name)
+{
+	static QVector<QString> englishNames;
+	if (englishNames.isEmpty())
+	{
+		englishNames
+			<< "Cooperative"
+			<< "Survival"
+			<< "Invasion"
+			<< "Deathmatch"
+			<< "Team Deathmatch"
+			<< "Duel"
+			<< "Terminator"
+			<< "Last Man Standing"
+			<< "Team Last Man Standing"
+			<< "Possession"
+			<< "Team Possession"
+			<< "Team Game"
+			<< "Capture the Flag"
+			<< "1-Flag CTF"
+			<< "Skulltag"
+			<< "Domination"
+		;
+	}
+
+	for (int i = 0; i < englishNames.size(); ++i)
+	{
+		if (englishNames[i].compare(name, Qt::CaseInsensitive) == 0)
+		{
+			const QList<GameMode> gameModes = ZandronumGameInfo::gameModes();
+			if (i >= 0 && i < gameModes.size())
+			{
+				return gameModes[i];
+			}
+			else
+			{
+				// We have a bug: lists are in desync.
+				qDebug() << "Matched game mode name" << name
+					<< "to Zandronum-English hardcoded name" << englishNames[i]
+					<< "at index" << i
+					<< "but there are only" << gameModes.size()
+					<< "available.";
+				break;
+			}
+		}
+	}
+	return GameMode();
+}
+}
+
 const QString ZandronumGameInfo::OPTION_GAMEVERSION = "GameVersion";
 
 QList<GameCVar> ZandronumGameInfo::extraSettings(const GameMode &gameMode)
@@ -92,7 +147,6 @@ QList<GameMode> ZandronumGameInfo::gameModes()
 	gameModesList << GameMode::teamGame(GAMEMODE_ONEFLAGCTF, tr("One Flag CTF"));
 	gameModesList << GameMode::teamGame(GAMEMODE_SKULLTAG, tr("Skulltag"));
 	gameModesList << GameMode::teamGame(GAMEMODE_DOMINATION, tr("Domination"));
-	gameModesList << GameMode::mkUnknown();
 	return gameModesList;
 }
 
@@ -102,6 +156,19 @@ QList<GameCVar> ZandronumGameInfo::gameModifiers()
 	gameModifiersList << GameCVar("Buckshot", "+buckshot");
 	gameModifiersList << GameCVar("Instagib", "+instagib");
 	return gameModifiersList;
+}
+
+QString ZandronumGameInfo::tryDoomseekerizeGameModeName(
+	const GameMode &gameMode, const QString &name)
+{
+	if (name.isEmpty())
+		return gameMode.name();
+
+	GameMode matchedMode = findByZandronumEnglishName(name);
+	if (matchedMode.isValid())
+		return matchedMode.name();
+
+	return name;
 }
 
 QString ZandronumAboutProvider::provide()

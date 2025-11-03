@@ -33,7 +33,6 @@
 #include <QString>
 #include <QVector>
 
-#define NUM_ZANDRONUM_GAME_MODES 16
 #define NUM_ZANDRONUM_GAME_MODIFIERS 2
 #define ST_MAX_TEAMS 4U
 
@@ -172,11 +171,21 @@ private:
 
 struct Challenge
 {
+	struct CollectedGameModeInfo
+	{
+		bool hasTeams = false;
+		uint8_t code = 0;
+		GameMode gameMode;
+		QString serverSentName;
+
+		GameMode resolvedGameMode();
+	};
+
 	SegmentedReply segments;
-	ZandronumGameInfo::ZandronumGameMode gameMode;
+	CollectedGameModeInfo gameModeInfo;
 	int numPlayers;
 
-	Challenge() : gameMode(ZandronumGameInfo::GAMEMODE_COOPERATIVE), numPlayers(0)
+	Challenge() : numPlayers(0)
 	{
 	}
 };
@@ -231,8 +240,11 @@ public:
 
 		SQF2_PWAD_HASHES = 0x00000001,
 		SQF2_COUNTRY = 0x00000002,
+		SQF2_GAMEMODE_NAME = 0x00000004,
+		SQF2_GAMEMODE_SHORTNAME = 0x00000008,
+		SQF2_VOICECHAT = 0x00000010,
 
-		SQF2_STANDARDQUERY = SQF2_PWAD_HASHES | SQF2_COUNTRY
+		SQF2_STANDARDQUERY = SQF2_PWAD_HASHES | SQF2_COUNTRY | SQF2_GAMEMODE_NAME
 	};
 
 	ZandronumServer(const QHostAddress &address, unsigned short port);
