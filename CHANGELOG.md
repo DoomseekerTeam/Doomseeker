@@ -14,6 +14,9 @@ and this project does not adhere to
 correctly because their filenames were compared case-sensitively, e.g.
 `SHOTGUN.WAD` would be considered different from `shotgun.wad`.
 - Odamex, Q-Zandronum, Zandronum: Fixed string decoding issues in Qt6. (#4442)
+- Zandronum: fix detection of game modes where the use of player teams
+has been changed by a game mod. This fixes a case where servers hosting such
+mods would resolve as `<ERROR>` after players joined the game. (#4571)
 
 ## [1.5.1]
 ### Changed
