@@ -19,6 +19,7 @@ class WadseekerApp:
     def run_with_site(
         self, url: list[str] | str,
         files: list[str] | str,
+        timeout: float = None,
     ) -> (int, str):
         if not isinstance(url, list):
             url = [url]
@@ -34,6 +35,7 @@ class WadseekerApp:
     def _run(
         self, options: list[str] = None,
         files: list[str] = None,
+        timeout: float = None,
     ) -> (int, str):
         options = options or []
         files = files or []
@@ -47,7 +49,11 @@ class WadseekerApp:
                 stdout=out,
                 stderr=subprocess.STDOUT,
             )
-            exitcode = process.wait()
+            try:
+                exitcode = process.wait(timeout=timeout)
+            except subprocess.TimeoutExpired:
+                process.kill()
+                exitcode = process.wait()
             out.flush()
             out.seek(0)
             output = out.read().decode("utf-8", errors="replace")

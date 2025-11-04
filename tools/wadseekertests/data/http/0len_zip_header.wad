@@ -1,0 +1,11 @@
+0len_zip_header.wad
+
+Not actually a WAD file.
+
+This one is archived in a zip file where the "compressed size"
+and "uncompressed size" attributes have been specifically zeroed
+in the file entry and the proper data is available only in the
+zip's central directory. Such zip file should extract properly.
+
+A real world zip file that is like that is John Romero's e1m8b:
+https://www.doomworld.com/idgames/levels/doom/Ports/d-f/e1m8b

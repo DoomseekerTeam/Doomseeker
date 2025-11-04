@@ -1,4 +1,3 @@
-import os
 from dataclasses import dataclass
 from pathlib import Path
 from urllib.parse import urljoin
@@ -16,7 +15,16 @@ class Endpoint:
 
 
 class Endpoints:
-    DIRECT_LINK = Endpoint("direct_link.html")
+    DIRECT_LINK_WAD = Endpoint("direct_link_wad.html")
+    DIRECT_LINK_ZIP = Endpoint("direct_link_zip.html")
+    LOOP_A = Endpoint("loop_a.html")
+    LOOP_B = Endpoint("loop_b.html")
+    MODBASE = Endpoint("modbase.html")
+    MODBASE_AND_EXTRA = Endpoint("modbase_and_extra.html")
+    MULTIFILE_MOD = Endpoint("multifile_mod.html")
+    WAD_IS_ELSEWHERE = Endpoint("wad_is_elsewhere.html")
+    ZEROLEN_ZIP_HEADER = Endpoint("0len_zip_header.html")
+    ZIP_IS_ELSEWHERE = Endpoint("zip_is_elsewhere.html")
 
 
 @dataclass
@@ -30,6 +38,14 @@ class File:
 
 class Files:
     PLAIN_WAD = File("wadseeker_plain.wad")
+    PLAIN_ZIP = File("wadseeker_plain.zip")
+    MODBASE_WAD = File("modbase.wad")  # doesn't actually exist
+    MODBASE_ZIP = File("modbase.zip")
+    MODEXTRA_WAD = File("modextra.wad")
+    MULTIFILE_MOD_WAD = File("multifile_mod.wad")
+    MULTIFILE_MOD_ZIP = File("multifile_mod.zip")
+    ZEROLEN_ZIP_HEADER_WAD = File("0len_zip_header.wad")
+    ZEROLEN_ZIP_HEADER_ZIP = File("0len_zip_header.zip")
 
 
 def test_e2econfig_sanity(e2econfig: E2EConfig):
@@ -42,10 +58,281 @@ def test_wadseeker_sanity(wadseeker: WadseekerApp):
     assert True
 
 
-def test_direct_link(e2econfig: E2EConfig, wadseeker: WadseekerApp):
-    """Should find the file on a HTML site when a direct link is present."""
-    site = Endpoints.DIRECT_LINK.resolve_url(e2econfig)
+def test_get_wad_from_html_direct_link(e2econfig: E2EConfig, wadseeker: WadseekerApp):
+    """Should find the file on a HTML site when a direct link to a WAD is present."""
+    # Given
+    site = Endpoints.DIRECT_LINK_WAD.resolve_url(e2econfig)
     assert not (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
+    # When
     exitcode, _ = wadseeker.run_with_site(site, Files.PLAIN_WAD.name)
+    # Then
     assert exitcode == wadseeker.EC.OK.value
     assert (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
+
+
+def test_get_wad_from_html_direct_link_different_case(e2econfig: E2EConfig, wadseeker: WadseekerApp):
+    """Should find the file on a HTML site when a direct link
+    to a WAD is present.
+
+    The catch: we want "FILE.WAD", but site has "file.wad".
+    """
+    # Given
+    site = Endpoints.DIRECT_LINK_WAD.resolve_url(e2econfig)
+    assert not (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
+    assert Files.PLAIN_WAD.name.upper() != Files.PLAIN_WAD.name
+    # When -- filename is upper-cased
+    exitcode, _ = wadseeker.run_with_site(site, Files.PLAIN_WAD.name.upper())
+    # Then
+    assert exitcode == wadseeker.EC.OK.value
+    assert (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
+
+
+def test_get_zip_from_html_direct_link(e2econfig: E2EConfig, wadseeker: WadseekerApp):
+    """Should find the file on a HTML site when a direct link to a ZIP is present.
+
+    This test expects a zip file to be downloaded and not extracted.
+    """
+    # Given
+    site = Endpoints.DIRECT_LINK_ZIP.resolve_url(e2econfig)
+    assert not (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
+    assert not (e2econfig.workpath / Files.PLAIN_ZIP.path).exists()
+    # When
+    exitcode, _ = wadseeker.run_with_site(site, Files.PLAIN_ZIP.name)
+    # Then
+    assert exitcode == wadseeker.EC.OK.value
+    assert not (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
+    assert (e2econfig.workpath / Files.PLAIN_ZIP.path).exists()
+
+
+def test_get_wad_directly(e2econfig: E2EConfig, wadseeker: WadseekerApp):
+    # Given
+    site = Endpoint(Files.PLAIN_WAD.name).resolve_url(e2econfig)
+    assert not (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
+    # When
+    exitcode, _ = wadseeker.run_with_site(site, Files.PLAIN_WAD.name)
+    # Then
+    assert exitcode == wadseeker.EC.OK.value
+    assert (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
+
+
+def test_get_wad_directly_different_case(e2econfig: E2EConfig, wadseeker: WadseekerApp):
+    # Given
+    site = Endpoint(Files.PLAIN_WAD.name).resolve_url(e2econfig)
+    assert not (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
+    assert Files.PLAIN_WAD.name.upper() != Files.PLAIN_WAD.name
+    # When
+    exitcode, _ = wadseeker.run_with_site(site, Files.PLAIN_WAD.name.upper())
+    # Then
+    assert exitcode == wadseeker.EC.OK.value
+    assert (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
+
+
+def test_get_zip_directly(e2econfig: E2EConfig, wadseeker: WadseekerApp):
+    # Given
+    site = Endpoint(Files.PLAIN_ZIP.name).resolve_url(e2econfig)
+    assert not (e2econfig.workpath / Files.PLAIN_ZIP.path).exists()
+    # When
+    exitcode, _ = wadseeker.run_with_site(site, Files.PLAIN_ZIP.name)
+    # Then
+    assert exitcode == wadseeker.EC.OK.value
+    assert (e2econfig.workpath / Files.PLAIN_ZIP.path).exists()
+
+
+def test_get_zip_directly_different_case(e2econfig: E2EConfig, wadseeker: WadseekerApp):
+    # Given
+    site = Endpoint(Files.PLAIN_ZIP.name).resolve_url(e2econfig)
+    assert not (e2econfig.workpath / Files.PLAIN_ZIP.path).exists()
+    assert Files.PLAIN_ZIP.name.upper() != Files.PLAIN_ZIP.name
+    # When
+    exitcode, _ = wadseeker.run_with_site(site, Files.PLAIN_ZIP.name.upper())
+    # Then
+    assert exitcode == wadseeker.EC.OK.value
+    assert (e2econfig.workpath / Files.PLAIN_ZIP.path).exists()
+
+
+def test_extract_wad_from_zip_got_directly(e2econfig: E2EConfig, wadseeker: WadseekerApp):
+    # Given
+    site = Endpoint(Files.PLAIN_ZIP.name).resolve_url(e2econfig)
+    assert not (e2econfig.workpath / Files.PLAIN_ZIP.path).exists()
+    # When
+    exitcode, _ = wadseeker.run_with_site(site, Files.PLAIN_WAD.name)
+    # Then
+    assert exitcode == wadseeker.EC.OK.value
+    assert not (e2econfig.workpath / Files.PLAIN_ZIP.path).exists()
+    assert (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
+
+
+def test_extract_wad_from_zip_got_directly_different_case(
+    e2econfig: E2EConfig,
+    wadseeker: WadseekerApp,
+):
+    # Given
+    site = Endpoint(Files.PLAIN_ZIP.name).resolve_url(e2econfig)
+    assert not (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
+    assert Files.PLAIN_WAD.name.upper() != Files.PLAIN_WAD.name
+    # When
+    exitcode, _ = wadseeker.run_with_site(site, Files.PLAIN_WAD.name.upper())
+    # Then
+    assert exitcode == wadseeker.EC.OK.value
+    assert not (e2econfig.workpath / Files.PLAIN_ZIP.path).exists()
+    assert (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
+
+
+def test_extract_wad_from_zip_of_same_name(
+    e2econfig: E2EConfig,
+    wadseeker: WadseekerApp,
+):
+    """When seeking a .wad, should download the .zip of the same
+    name and extract it.
+
+    The zip file should then be removed.
+    """
+    # Given
+    site = Endpoints.DIRECT_LINK_ZIP.resolve_url(e2econfig)
+    assert not (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
+    assert not (e2econfig.workpath / Files.PLAIN_ZIP.path).exists()
+    # When
+    exitcode, _ = wadseeker.run_with_site(site, Files.PLAIN_WAD.name)
+    # Then
+    assert exitcode == wadseeker.EC.OK.value
+    assert (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
+    assert not (e2econfig.workpath / Files.PLAIN_ZIP.path).exists()
+
+
+def test_extract_wad_from_zip_of_same_name_but_different_case(e2econfig: E2EConfig, wadseeker: WadseekerApp):
+    """When seeking a .wad, should download the .zip of the same
+    name and extract it.
+
+    The zip file should then be removed.
+
+    The catch: both the ZIP name and the WAD name are of different
+    case than the found ones.
+    """
+    # Given
+    site = Endpoints.DIRECT_LINK_ZIP.resolve_url(e2econfig)
+    assert not (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
+    assert not (e2econfig.workpath / Files.PLAIN_ZIP.path).exists()
+    assert Files.PLAIN_WAD.name.upper() != Files.PLAIN_WAD.name
+    assert Files.PLAIN_ZIP.name.upper() != Files.PLAIN_ZIP.name
+    # When
+    exitcode, _ = wadseeker.run_with_site(site, Files.PLAIN_WAD.name)
+    # Then
+    assert exitcode == wadseeker.EC.OK.value
+    assert (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
+    assert not (e2econfig.workpath / Files.PLAIN_ZIP.path).exists()
+
+
+def test_follow_a_wad_link_to_another_site(e2econfig: E2EConfig, wadseeker: WadseekerApp):
+    """This test encounters a link that leads to a different website that
+    should serve the WAD.
+
+    The link should be followed.
+    """
+    # Given
+    site = Endpoints.WAD_IS_ELSEWHERE.resolve_url(e2econfig)
+    assert not (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
+    # When
+    exitcode, _ = wadseeker.run_with_site(site, Files.PLAIN_WAD.name)
+    # Then
+    assert exitcode == wadseeker.EC.OK.value
+    assert (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
+
+
+def test_follow_a_zip_link_to_another_site_when_seeking_wad(e2econfig: E2EConfig, wadseeker: WadseekerApp):
+    """This test encounters a link that leads to a different website that
+    should serve the ZIP file that should contain the seeked WAD.
+
+    The link should be followed.
+    """
+    # Given
+    site = Endpoints.ZIP_IS_ELSEWHERE.resolve_url(e2econfig)
+    assert not (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
+    assert not (e2econfig.workpath / Files.PLAIN_ZIP.path).exists()
+    # When
+    exitcode, _ = wadseeker.run_with_site(site, Files.PLAIN_WAD.name)
+    # Then
+    assert exitcode == wadseeker.EC.OK.value
+    assert (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
+    assert not (e2econfig.workpath / Files.PLAIN_ZIP.path).exists()
+
+
+def test_extract_zip_with_0len_file_entry(e2econfig: E2EConfig, wadseeker: WadseekerApp):
+    """Retrieve a zip file with no info on sizes and CRC
+    in the file entry. This info is only in zip's central directory.
+
+    A real zip file like this is here:
+    https://www.doomworld.com/idgames/levels/doom/Ports/d-f/e1m8b
+    """
+    # Given
+    site = Endpoints.ZEROLEN_ZIP_HEADER.resolve_url(e2econfig)
+    assert not (e2econfig.workpath / Files.ZEROLEN_ZIP_HEADER_WAD.path).exists()
+    # When
+    exitcode, _ = wadseeker.run_with_site(site, Files.ZEROLEN_ZIP_HEADER_WAD.name)
+    # Then
+    assert exitcode == wadseeker.EC.OK.value
+    assert (e2econfig.workpath / Files.ZEROLEN_ZIP_HEADER_WAD.path).exists()
+
+
+def test_extract_multifile_mod(e2econfig: E2EConfig, wadseeker: WadseekerApp):
+    # Given
+    site = Endpoints.MULTIFILE_MOD.resolve_url(e2econfig)
+    files = [
+        Files.MULTIFILE_MOD_WAD,
+        Files.MODEXTRA_WAD,
+    ]
+    # When
+    exitcode, _ = wadseeker.run_with_site(site, [f.name for f in files])
+    # Then
+    assert exitcode == wadseeker.EC.OK.value
+    for file in files:
+        assert (e2econfig.workpath / file.path).exists()
+
+
+def test_extract_multifile_mod_but_the_main_file_is_missing(
+    e2econfig: E2EConfig,
+    wadseeker: WadseekerApp,
+):
+    """Wadseeker should fail, but still install the files it can find."""
+    # Given
+    site = Endpoints.MODBASE.resolve_url(e2econfig)
+    files = [
+        Files.MODBASE_WAD,
+        Files.MODEXTRA_WAD,
+    ]
+    # When
+    exitcode, _ = wadseeker.run_with_site(site, [f.name for f in files])
+    # Then
+    assert exitcode == wadseeker.EC.FAIL.value
+    assert not (e2econfig.workpath / Files.MODBASE_WAD.path).exists()
+    assert (e2econfig.workpath / Files.MODEXTRA_WAD.path).exists()
+
+
+def test_extract_multifile_mod_with_files_swapped(
+    e2econfig: E2EConfig,
+    wadseeker: WadseekerApp,
+):
+    """The individual archives have the files mixed up, but once all
+    archives are extracted, all the files are found."""
+    # Given
+    site = Endpoints.MODBASE_AND_EXTRA.resolve_url(e2econfig)
+    files = [
+        Files.MODBASE_WAD,
+        Files.MODEXTRA_WAD,
+    ]
+    # When
+    exitcode, _ = wadseeker.run_with_site(site, [f.name for f in files])
+    # Then
+    assert exitcode == wadseeker.EC.OK.value
+    assert (e2econfig.workpath / Files.MODBASE_WAD.path).exists()
+    assert (e2econfig.workpath / Files.MODEXTRA_WAD.path).exists()
+
+
+def test_should_exit_loops(e2econfig: E2EConfig, wadseeker: WadseekerApp):
+    """A broken site sends Wadseeker into a site navigation loop."""
+    # Given
+    site = Endpoints.LOOP_A.resolve_url(e2econfig)
+    # When
+    exitcode, _ = wadseeker.run_with_site(site, Files.PLAIN_WAD.name, timeout = 10.0)
+    # Then: failure is expected, but not a timeout
+    assert exitcode == wadseeker.EC.FAIL.value
+    assert not (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
