@@ -37,6 +37,8 @@ class File:
 
 
 class Files:
+    CDUP_WAD = File("cdup.wad")
+    CDUP_ZIP = File("cdup.zip")
     PLAIN_WAD = File("wadseeker_plain.wad")
     PLAIN_ZIP = File("wadseeker_plain.zip")
     MODBASE_WAD = File("modbase.wad")  # doesn't actually exist
@@ -44,6 +46,10 @@ class Files:
     MODEXTRA_WAD = File("modextra.wad")
     MULTIFILE_MOD_WAD = File("multifile_mod.wad")
     MULTIFILE_MOD_ZIP = File("multifile_mod.zip")
+    SUBDIR_WAD = File("subdir.wad")
+    SUBDIR_ZIP = File("subdir.zip")
+    SUBDIR_NONASCII_WAD = File("subdir_nonascii.wad")
+    SUBDIR_NONASCII_ZIP = File("subdir_nonascii.zip")
     ZEROLEN_ZIP_HEADER_WAD = File("0len_zip_header.wad")
     ZEROLEN_ZIP_HEADER_ZIP = File("0len_zip_header.zip")
 
@@ -325,6 +331,63 @@ def test_extract_multifile_mod_with_files_swapped(
     assert exitcode == wadseeker.EC.OK.value
     assert (e2econfig.workpath / Files.MODBASE_WAD.path).exists()
     assert (e2econfig.workpath / Files.MODEXTRA_WAD.path).exists()
+
+
+def test_extract_from_zip_subdirectory(
+    e2econfig: E2EConfig,
+    wadseeker: WadseekerApp,
+):
+    """WAD inside the archive is nested in a subdirectory."""
+    # Given
+    site = Endpoint(Files.SUBDIR_ZIP.name).resolve_url(e2econfig)
+    # When
+    exitcode, _ = wadseeker.run_with_site(site, Files.SUBDIR_WAD.name)
+    # Then
+    assert exitcode == wadseeker.EC.OK.value
+    assert (e2econfig.workpath / Files.SUBDIR_WAD.path).exists()
+
+
+def test_extract_from_zip_subdirectory_nonascii(
+    e2econfig: E2EConfig,
+    wadseeker: WadseekerApp,
+):
+    """WAD inside the archive is nested in a subdirectory.
+
+    The catch: the subdirectory name uses non-ascii characters.
+    """
+    # Given
+    site = Endpoint(Files.SUBDIR_NONASCII_ZIP.name).resolve_url(e2econfig)
+    # When
+    exitcode, _ = wadseeker.run_with_site(site, Files.SUBDIR_NONASCII_WAD.name)
+    # Then
+    assert exitcode == wadseeker.EC.OK.value
+    assert (e2econfig.workpath / Files.SUBDIR_NONASCII_WAD.path).exists()
+
+
+def test_extract_from_zip_with_path_traversal(
+    e2econfig: E2EConfig,
+    wadseeker: WadseekerApp,
+):
+    """The zip file contains a nasty surprise where the WAD
+    is placed in a directory named "..".
+
+    Wadseeker should just extract the WAD file to the target directory
+    regardless of the subdirectories in the archive, even if those
+    subdirectories are malicious.
+    """
+    # Given: the target directory should be in a subdir of the workpath
+    # because if things go wrong, the WAD will be extracted one directory
+    # above the target one.
+    subworkpath = e2econfig.workpath / "cdup_subdir"
+    subworkpath.mkdir()
+    site = Endpoint(Files.CDUP_ZIP.name).resolve_url(e2econfig)
+    wadseeker.outputdir = str(subworkpath)
+    # When
+    exitcode, _ = wadseeker.run_with_site(site, Files.CDUP_WAD.name)
+    # Then
+    assert exitcode == wadseeker.EC.OK.value
+    assert (subworkpath / Files.CDUP_WAD.path).exists()
+    assert not (e2econfig.workpath / Files.CDUP_WAD.path).exists()
 
 
 def test_should_exit_loops(e2econfig: E2EConfig, wadseeker: WadseekerApp):
