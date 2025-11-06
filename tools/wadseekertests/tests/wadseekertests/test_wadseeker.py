@@ -195,6 +195,33 @@ def test_extract_wad_from_zip_got_directly_different_case(
     assert (e2econfig.workpath / Files.PLAIN_WAD.with_uppername().path).exists()
 
 
+def test_extract_wad_from_zip_got_directly_but_zip_has_different_name(
+    e2econfig: E2EConfig,
+    wadseeker: WadseekerApp,
+):
+    """Look for "modextra.wad" in a directly linked "modbase.zip".
+
+    There may be a case where the server provides a direct download link to an
+    archive with name "mod.zip" and player already has "mod.wad", but the
+    archive has multiple files. Inside is a file "mod-extra-v512.wad"
+    that the player also needs, but won't find in a separate archive.
+
+    Downloading "mod.zip" when we already have a "mod.wad" may be a goose chase,
+    but there is no foresight in Wadseeker. If we need other files, the linked
+    archive may or may not have them, but we should give the server a little
+    benefit of the doubt and consider that the direct download link is put there
+    for a reason.
+
+    """
+    # Given
+    site = Endpoint(Files.MODBASE_ZIP.name).resolve_url(e2econfig)
+    # When
+    exitcode, _ = wadseeker.run_with_site(site, Files.MODEXTRA_WAD.name)
+    # Then
+    assert exitcode == wadseeker.EC.OK.value
+    assert (e2econfig.workpath / Files.MODEXTRA_WAD.path).exists()
+
+
 def test_extract_wad_from_zip_of_same_name(
     e2econfig: E2EConfig,
     wadseeker: WadseekerApp,
