@@ -329,8 +329,32 @@ def test_extract_multifile_mod_with_files_swapped(
     e2econfig: E2EConfig,
     wadseeker: WadseekerApp,
 ):
-    """The individual archives have the files mixed up, but once all
-    archives are extracted, all the files are found."""
+    """The individual archives have the files mixed up.
+
+    The endpoint here provides two archives that *technically* contain all the
+    files we wish to download, but archive "base" contains file "extra", and
+    archive "extra" contains file "base". It's a mix-up. This is an odd case
+    for Wadseeker, because Wadseeker avoids downloading files that it thinks
+    will not produce good results. A potentially "good result" file may be
+    discarded because its associated modfile was installed in some other manner
+    already.
+
+    So, with such a mix-up, when Wadseeker downloads one of the archives and
+    finds the other file there, it installs it, and then it may no longer want
+    to download the other archive, because it is associated with the file it has
+    just installed. It doesn't have any foresight that the other archive will
+    contain the previous file. Discarding such an archive is a valid result.
+
+    However, because all the files are *technically* there, the final valid
+    result may also be that all the files become installed by some chance.
+
+    So, in this test there are 3 possible valid results:
+
+    - (A) EC.OK; both files are installed.
+    - (B) EC.FAIL; only "base" file is installed.
+    - (C) EC.FAIL; only "extra" file is installed.
+
+    """
     # Given
     site = Endpoints.MODBASE_AND_EXTRA.resolve_url(e2econfig)
     files = [
@@ -340,9 +364,19 @@ def test_extract_multifile_mod_with_files_swapped(
     # When
     exitcode, _ = wadseeker.run_with_site(site, [f.name for f in files])
     # Then
-    assert exitcode == wadseeker.EC.OK.value
-    assert (e2econfig.workpath / Files.MODBASE_WAD.path).exists()
-    assert (e2econfig.workpath / Files.MODEXTRA_WAD.path).exists()
+    if exitcode == wadseeker.EC.OK.value:
+        # case (A)
+        assert (e2econfig.workpath / Files.MODBASE_WAD.path).exists()
+        assert (e2econfig.workpath / Files.MODEXTRA_WAD.path).exists()
+    else:
+        # case (B) or (C)
+        assert exitcode == wadseeker.EC.FAIL.value
+        if (e2econfig.workpath / Files.MODBASE_WAD.path).exists():
+            # case (B)
+            assert not (e2econfig.workpath / Files.MODEXTRA_WAD.path).exists()
+        else:
+            # case (C)
+            assert (e2econfig.workpath / Files.MODEXTRA_WAD.path).exists()
 
 
 def test_extract_from_zip_subdirectory(
