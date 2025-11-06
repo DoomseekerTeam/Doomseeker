@@ -177,7 +177,11 @@ int main(int argc, char* argv[])
 
 	// Create the Wadseeker interface and seek for the files.
 	WadseekerInterface wadseekerInterface(wadseeker);
-	wadseekerInterface.seek(args.files);
+	if (!wadseekerInterface.seek(args.files))
+	{
+		logi << "Failed to start the seek" << Qt::endl;
+		return EC_FAIL;
+	}
 
 	// Wait for Wadseeker to finish.
 	return app.exec();
@@ -198,13 +202,13 @@ WadseekerInterface::WadseekerInterface(Wadseeker &wadseeker)
 		this, &WadseekerInterface::receiveMessage);
 }
 
-void WadseekerInterface::seek(const QStringList &files)
+bool WadseekerInterface::seek(const QStringList &files)
 {
 	// Pass the wad list into wadseeker.
 	ModSet modSet;
 	for (auto file : files)
 		modSet.addModFile(file);
-	wadseeker.startSeek(modSet);
+	return wadseeker.startSeek(modSet);
 }
 
 void WadseekerInterface::done(bool success)

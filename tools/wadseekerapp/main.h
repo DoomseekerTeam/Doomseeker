@@ -45,7 +45,7 @@ class WadseekerInterface : public QObject
 public:
 	WadseekerInterface(Wadseeker &wadseeker);
 
-	void seek(const QStringList &files);
+	bool seek(const QStringList &files);
 
 private:
 	Wadseeker &wadseeker;
