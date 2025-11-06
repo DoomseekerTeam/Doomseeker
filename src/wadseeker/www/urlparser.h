@@ -50,6 +50,10 @@ public:
 	 * @brief Check if URLs are the same; ignores character case.
 	 */
 	static bool urlEqualsCaseInsensitive(QUrl url1, QUrl url2);
+	/**
+	 * @brief Get the filename from `QUrl.path()`.
+	 */
+	static QString urlFilename(const QUrl &url);
 
 	UrlParser(const QList<Link> &links);
 

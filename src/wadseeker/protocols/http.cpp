@@ -21,6 +21,7 @@
 // Copyright (C) 2011 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
 #include "http.h"
+#include "www/urlparser.h"
 #include "wwwseeker/htmlparser.h"
 
 #include <QFileInfo>
@@ -111,8 +112,5 @@ bool Http::isUnknownContentType() const
 
 QString Http::urlFilename() const
 {
-	const QUrl &url = pReply->request().url();
-	QFileInfo fileInfo(url.path());
-
-	return fileInfo.fileName();
+	return UrlParser::urlFilename(pReply->request().url());
 }

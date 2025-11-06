@@ -141,7 +141,21 @@ public:
 	WadDownloadInfoList::iterator findByName(const QString &name)
 	{
 		auto it = this->begin();
-		for (; it != this->end() && it->name() != name; ++it);
+		for (; it != this->end() && it->name().compare(name, Qt::CaseInsensitive) != 0; ++it);
+		return it;
+	}
+
+	WadDownloadInfoList::iterator findByNameOrArchiveName(const QString &name)
+	{
+		auto it = this->begin();
+		for (; it != this->end(); ++it)
+		{
+			QStringList possibleFilenames = it->possibleFilenames();
+			if (it->possibleFilenames().contains(name, Qt::CaseInsensitive))
+			{
+				return it;
+			}
+		}
 		return it;
 	}
 };
@@ -189,6 +203,7 @@ public:
 
 	// The seeked items.
 	WadDownloadInfoList seekedFiles;
+	WadDownloadInfoList foundFiles;
 	WadDownloadInfoList wads;
 
 	// The seeks in motion.
@@ -576,7 +591,10 @@ void SeekSession::onWwwFinished(WebQuery *query)
 							{
 								WadDownloadInfoList::iterator seekedFile = d->seekedFiles.findByName(wadInfo.fileName());
 								if (seekedFile != d->seekedFiles.end())
+								{
+									d->foundFiles << *seekedFile;
 									d->seekedFiles.erase(seekedFile);
+								}
 								emit message(tr("Installed WAD: %1 [%2 bytes]")
 									.arg(wadInfo.fileName())
 									.arg(wadInfo.size()),
@@ -781,7 +799,7 @@ void SeekSession::startNextCrawl(CrawlGoal goal)
 
 		// Also silently skip all crawls for files that have already been found.
 		if (!crawl.resource().isEmpty() &&
-			d->seekedFiles.findByName(crawl.resource()) == d->seekedFiles.end())
+			d->foundFiles.findByName(crawl.resource()) != d->foundFiles.end())
 		{
 			it = d->crawls.erase(it);
 			continue;
@@ -957,6 +975,7 @@ void SeekSession::startSeek()
 		return;
 	}
 
+	// Aggregate the list of seeked files.
 	ModSet filteredWadsList;
 	for (ModFile wad : d->params.seekedWads.modFiles())
 	{
@@ -973,6 +992,13 @@ void SeekSession::startSeek()
 
 		filteredWadsList.addModFile(wad);
 	}
+
+	WadDownloadInfoList wadDownloadInfoList;
+	for (const ModFile &wad : filteredWadsList.modFiles())
+		wadDownloadInfoList << WadDownloadInfo(wad);
+	d->seekedFiles = wadDownloadInfoList;
+	d->foundFiles.clear();
+	d->wads = wadDownloadInfoList;
 
 	if (filteredWadsList.isEmpty())
 	{
@@ -998,7 +1024,19 @@ void SeekSession::startSeek()
 		{
 			QUrl url(urlStr);
 			if (url.isValid())
-				d->crawls << WebCrawl(url, WebCrawl::UNNAMED_RESOURCE, priority);
+			{
+				// Some URLs may lead directly to the file we want. Let's try
+				// to identify them.
+				QString filenameFromUrl = UrlParser::urlFilename(url);
+				auto seekedIt = d->seekedFiles.findByNameOrArchiveName(filenameFromUrl);
+
+				QString resource = WebCrawl::UNNAMED_RESOURCE;
+				if (seekedIt != d->seekedFiles.end())
+				{
+					resource = seekedIt->name();
+				}
+				d->crawls << WebCrawl(url, resource, priority);
+			}
 		}
 	};
 
@@ -1007,12 +1045,7 @@ void SeekSession::startSeek()
 	for (QString url : d->params.sitesUrls)
 		addUrl(url, PRIORITY_SITE_URL);
 
-	WadDownloadInfoList wadDownloadInfoList;
-	for (const ModFile &wad : filteredWadsList.modFiles())
-		wadDownloadInfoList << WadDownloadInfo(wad);
-	d->seekedFiles = wadDownloadInfoList;
-	d->wads = wadDownloadInfoList;
-
+	// Setup /idgames client
 	if (d->params.bIdgamesEnabled)
 	{
 		setupIdgamesClients(wadDownloadInfoList);

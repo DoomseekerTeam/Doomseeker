@@ -16,6 +16,10 @@ and this project does not adhere to
 - Wadseeker: files weren't sometimes installed despite being downloaded
 correctly because their filenames were compared case-sensitively, e.g.
 `SHOTGUN.WAD` would be considered different from `shotgun.wad`.
+- Wadseeker: try to recognize if the seek process begins with a direct
+download URL and treat it as such instead of treating it like a HTML
+webcrawl. Such URLs should no longer fail with the "No interesting content"
+error message.
 - Odamex, Q-Zandronum, Zandronum: Fixed string decoding issues in Qt6. (#4442)
 - Zandronum: fix detection of game modes where the use of player teams
 has been changed by a game mod. This fixes a case where servers hosting such

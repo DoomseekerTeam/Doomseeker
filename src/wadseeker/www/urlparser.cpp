@@ -121,3 +121,8 @@ bool UrlParser::urlEqualsCaseInsensitive(QUrl url1, QUrl url2)
 
 	return url1 == url2;
 }
+
+QString UrlParser::urlFilename(const QUrl &url)
+{
+	return QFileInfo(url.path()).fileName();
+}
