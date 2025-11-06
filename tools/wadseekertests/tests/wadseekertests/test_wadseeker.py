@@ -29,11 +29,22 @@ class Endpoints:
 
 @dataclass
 class File:
-    name: str
+    strpath: str
+
+    @property
+    def name(self) -> str:
+        return self.path.name
+
+    @property
+    def parent(self) -> Path:
+        return self.path.parent
 
     @property
     def path(self) -> Path:
-        return Path(self.name)
+        return Path(self.strpath)
+
+    def with_uppername(self) -> "File":
+        return File(self.parent / self.name.upper())
 
 
 class Files:
@@ -90,7 +101,7 @@ def test_get_wad_from_html_direct_link_different_case(e2econfig: E2EConfig, wads
     exitcode, _ = wadseeker.run_with_site(site, Files.PLAIN_WAD.name.upper())
     # Then
     assert exitcode == wadseeker.EC.OK.value
-    assert (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
+    assert (e2econfig.workpath / Files.PLAIN_WAD.with_uppername().path).exists()
 
 
 def test_get_zip_from_html_direct_link(e2econfig: E2EConfig, wadseeker: WadseekerApp):
@@ -130,7 +141,7 @@ def test_get_wad_directly_different_case(e2econfig: E2EConfig, wadseeker: Wadsee
     exitcode, _ = wadseeker.run_with_site(site, Files.PLAIN_WAD.name.upper())
     # Then
     assert exitcode == wadseeker.EC.OK.value
-    assert (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
+    assert (e2econfig.workpath / Files.PLAIN_WAD.with_uppername().path).exists()
 
 
 def test_get_zip_directly(e2econfig: E2EConfig, wadseeker: WadseekerApp):
@@ -153,7 +164,7 @@ def test_get_zip_directly_different_case(e2econfig: E2EConfig, wadseeker: Wadsee
     exitcode, _ = wadseeker.run_with_site(site, Files.PLAIN_ZIP.name.upper())
     # Then
     assert exitcode == wadseeker.EC.OK.value
-    assert (e2econfig.workpath / Files.PLAIN_ZIP.path).exists()
+    assert (e2econfig.workpath / Files.PLAIN_ZIP.with_uppername().path).exists()
 
 
 def test_extract_wad_from_zip_got_directly(e2econfig: E2EConfig, wadseeker: WadseekerApp):
@@ -181,7 +192,7 @@ def test_extract_wad_from_zip_got_directly_different_case(
     # Then
     assert exitcode == wadseeker.EC.OK.value
     assert not (e2econfig.workpath / Files.PLAIN_ZIP.path).exists()
-    assert (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
+    assert (e2econfig.workpath / Files.PLAIN_WAD.with_uppername().path).exists()
 
 
 def test_extract_wad_from_zip_of_same_name(
@@ -226,6 +237,7 @@ def test_extract_wad_from_zip_of_same_name_but_different_case(e2econfig: E2EConf
     assert exitcode == wadseeker.EC.OK.value
     assert (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
     assert not (e2econfig.workpath / Files.PLAIN_ZIP.path).exists()
+    assert not (e2econfig.workpath / Files.PLAIN_ZIP.with_uppername().path).exists()
 
 
 def test_follow_a_wad_link_to_another_site(e2econfig: E2EConfig, wadseeker: WadseekerApp):

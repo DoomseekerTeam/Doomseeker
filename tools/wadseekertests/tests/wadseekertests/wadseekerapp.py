@@ -41,7 +41,7 @@ class WadseekerApp:
         files = files or []
         cmd = [self.exe.absolute()] + options + files
         cmd_quoted = [shlex.quote(str(arg)) for arg in cmd]
-        print("Popen: ", cmd_quoted, file=sys.stderr)
+        print("Popen:", " ".join(cmd_quoted), file=sys.stderr)
         with tempfile.TemporaryFile() as out:
             process = subprocess.Popen(
                 cmd,
