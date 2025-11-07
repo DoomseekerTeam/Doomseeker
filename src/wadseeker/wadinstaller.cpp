@@ -76,23 +76,28 @@ WadInstallerResult WadInstaller::install(const WadDownloadInfo &wad, QNetworkRep
 		}
 	}
 
-	// Now try to install the file under the downloaded filename.
+	// Now try to install the file under the seeked filename.
+	QList<WadInstallerResult> installResults;
 	if (filename.compare(wad.name(), Qt::CaseInsensitive) == 0)
 	{
-		return installFile(wad, stream);
+		installResults << installFile(wad, stream);
 	}
-	else
+
+	// If file is an archive, inspect its contents for possible
+	// files we might be seeking.
+	QFileInfo fileInfo(filename);
+	QScopedPointer<UnArchive> archive(UnArchive::openArchive(fileInfo, stream));
+	if (archive != nullptr)
 	{
-		// ... or try to unpack it from the archive.
-		QFileInfo fileInfo(filename);
-		QScopedPointer<UnArchive> archive(UnArchive::openArchive(fileInfo, stream));
-		if (archive == nullptr)
-		{
-			return WadInstallerResult::makeError(
-				tr("It's not the desired file nor an archive."));
-		}
-		return installArchive(*archive);
+		installResults << installArchive(*archive);
 	}
+
+	if (installResults.isEmpty())
+	{
+		return WadInstallerResult::makeError(
+			tr("It's not the desired file nor an archive."));
+	}
+	return WadInstallerResult::aggregate(installResults);
 }
 
 WadInstallerResult WadInstaller::installArchive(UnArchive &archive)
@@ -197,4 +202,32 @@ WadInstallerResult WadInstaller::makeSureDirPathExists(QDir &dir)
 	}
 
 	return WadInstallerResult();
+}
+
+/*
+  WadInstallerResult
+*/
+WadInstallerResult WadInstallerResult::aggregate(const QList<WadInstallerResult> &results)
+{
+	WadInstallerResult aggregate;
+	auto it = results.begin();
+	if (it != results.end())
+	{
+		aggregate = *it;
+		++it;
+	}
+	for (; it != results.end(); ++it)
+	{
+		for (const QFileInfo &installedWad : it->installedWads)
+		{
+			if (!aggregate.installedWads.contains(installedWad))
+				aggregate.installedWads << installedWad;
+		}
+
+		aggregate.errors.append(it->errors);
+		aggregate.errors.removeDuplicates();
+
+		aggregate.errorLevel = std::max(aggregate.errorLevel, it->errorLevel);
+	}
+	return aggregate;
 }

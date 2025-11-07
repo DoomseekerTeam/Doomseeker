@@ -34,6 +34,7 @@
 #include <QStringList>
 #include <QString>
 
+class QFileInfo;
 class QNetworkAccessManager;
 
 class Link;
@@ -159,8 +160,12 @@ signals:
 private:
 	DPtr<SeekSession> d;
 
+	void cancelAllMirrors(const QUrl &url);
 	void conclude();
+	/// Return true if the downloaded file has been processed.
+	bool concludeBinaryDownload(const QString &resource, QSharedPointer<WebQuery> query);
 	void concludeIfAllFinished();
+	void concludeFileInstallation(const QFileInfo &installedFile);
 	void finish(SeekResult result);
 	bool isAllFinished() const;
 	bool isEverythingFound() const;

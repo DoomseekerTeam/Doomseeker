@@ -42,9 +42,18 @@ class WadInstallerResult
 {
 public:
 	/**
+	 * @brief Combine multiple results into one.
+	 *
+	 * - installedWads are joined, with duplicates removed.
+	 * - errors are joined, with duplicates removed.
+	 * - The highest errorLevel is set.
+	 */
+	static WadInstallerResult aggregate(const QList<WadInstallerResult> &results);
+
+	/**
 	 * @brief Error reason if bError is true.
 	 */
-	QString error;
+	QStringList errors;
 
 	/**
 	 * @brief QFileInfo objects denoting installed WADs.
@@ -56,7 +65,7 @@ public:
 		WadInstallerResult result;
 
 		result.errorLevel = Critical;
-		result.error = error;
+		result.errors << error;
 
 		return result;
 	}
@@ -66,7 +75,7 @@ public:
 		WadInstallerResult result;
 
 		result.errorLevel = Normal;
-		result.error = error;
+		result.errors << error;
 
 		return result;
 	}
@@ -99,9 +108,9 @@ private:
 	// TODO reuse WadseekerLib::MessageType here?
 	enum ErrorLevel
 	{
-		None,
-		Normal,
-		Critical
+		None = 0,
+		Normal = 1,
+		Critical = 2,
 	};
 	ErrorLevel errorLevel;
 };

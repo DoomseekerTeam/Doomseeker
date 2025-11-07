@@ -277,6 +277,123 @@ void SeekSession::abort()
 	}
 }
 
+void SeekSession::cancelAllMirrors(const QUrl &url)
+{
+	QList<UrlMirror> mirrors = d->mirrors.mirrorsWithUrl(url);
+	for (const UrlMirror &mirror : mirrors)
+	{
+		for (const QUrl &mirrorUrl : mirror.urls)
+		{
+			d->urlHistory.insert(mirrorUrl);
+			auto crawl = d->crawls.findByUrl(mirrorUrl);
+			if (crawl != d->crawls.end())
+				d->crawls.erase(crawl);
+		}
+	}
+}
+
+bool SeekSession::concludeBinaryDownload(const QString &resource,
+	QSharedPointer<WebQuery> query)
+{
+	bool slurped = false;
+
+	// If the WebQuery is downloading something of binary type,
+	// it may be one of the resources we want.
+	WadDownloadInfo wadDownloadInfo;
+	if (!resource.isEmpty() && d->seekedFiles.contains(resource))
+	{
+		emit fileDownloadFinished(resource);
+		// Are we still looking for this resource?
+		WadDownloadInfoList::iterator it = d->wads.findByName(resource);
+		if (it != d->wads.end())
+			wadDownloadInfo = *it;
+	}
+
+	if (wadDownloadInfo.isValid())
+	{
+		emit message(tr("Attempting to install file \"%1\" of size %2 from URL: %3")
+			.arg(wadDownloadInfo.name())
+			.arg(query->reply().size())
+			.arg(query->url().toString()),
+			WadseekerLib::Notice);
+	}
+	else
+	{
+		// Even if the download doesn't strictly belong to any of the seeked
+		// resources, there is still some chance that the installer will extract
+		// some resources from it (e.g. when it's an archive).
+		emit message(tr("Processing download of size %1 from URL: %2")
+			.arg(query->reply().size())
+			.arg(query->url().toString()),
+			WadseekerLib::Notice);
+	}
+
+	// Recollect the list of still seeked resources (WADs).
+	WadDownloadInfoList stillSeekedWads;
+	for (const WadDownloadInfo &seekedWad : d->wads)
+	{
+		if (d->seekedFiles.findByName(seekedWad.name()) != d->seekedFiles.end())
+		{
+			stillSeekedWads << seekedWad;
+		}
+	}
+
+	// Attempt install.
+	WadInstaller installer(d->params.saveDirectoryPath, stillSeekedWads);
+	WadInstallerResult result = installer.install(wadDownloadInfo, query->reply());
+
+	// If anything was installed, we consider the download as processed
+	// and we also conclude the installation for those files.
+	slurped = !result.installedWads.isEmpty();
+	for (QFileInfo installedFile : result.installedWads)
+	{
+		concludeFileInstallation(installedFile);
+	}
+
+	// Errors may happen independently of the installed files.
+	if (result.isError())
+	{
+		// The file was downloaded just fine, but failed
+		// to install, so we should assume that all mirrors
+		// have the same file with the same exact problem.
+		// That's what mirrors are for, after all.
+		cancelAllMirrors(query->url());
+		QString errorMessage;
+		if (wadDownloadInfo.isValid())
+		{
+			errorMessage = tr("Errors when installing file \"%1\" from URL %2: %3")
+				.arg(wadDownloadInfo.name())
+				.arg(query->url().toString())
+				.arg(result.errors.join("; "));
+		}
+		else
+		{
+			errorMessage = tr("Errors when processing download from URL %1: %2")
+				.arg(query->url().toString())
+				.arg(result.errors.join("; "));
+		}
+		emit message(errorMessage,
+			result.isCriticalError() ? WadseekerLib::CriticalError : WadseekerLib::Error);
+	}
+	return slurped;
+}
+
+void SeekSession::concludeFileInstallation(const QFileInfo &installedFile)
+{
+	// All files that were successfully installed are removed from the seek.
+	WadDownloadInfoList::iterator seekedFile = d->seekedFiles.findByName(installedFile.fileName());
+	if (seekedFile != d->seekedFiles.end())
+	{
+		d->foundFiles << *seekedFile;
+		d->seekedFiles.erase(seekedFile);
+	}
+	emit message(tr("Installed file: %1 [%2 bytes]")
+		.arg(installedFile.fileName())
+		.arg(installedFile.size()),
+		WadseekerLib::NoticeImportant);
+	emit fileInstalled(installedFile.fileName());
+}
+
 void SeekSession::concludeIfAllFinished()
 {
 	if (isAllFinished())
@@ -475,7 +592,6 @@ void SeekSession::onWwwFinished(WebQuery *query)
 	emit siteFinished(query->url());
 
 	bool slurped = false; // has the query been used in any manner
-	// TODO refactor the Khufu Pyramid here.
 	if (inflightIt != d->inflight.end())
 	{
 		Inflight inflight = *inflightIt;
@@ -526,85 +642,7 @@ void SeekSession::onWwwFinished(WebQuery *query)
 			switch (query->resourceType())
 			{
 			case WebResourceType::Binary:
-				// If the WebQuery is downloading something of binary type, we
-				// may be interested in it, but only if we know it leads to one
-				// of the resources we seek.
-				if (!resource.isEmpty() && d->seekedFiles.contains(resource))
-				{
-					emit fileDownloadFinished(resource);
-					// Are we still looking for this resource?
-					//
-					// TODO even if we don't, but the downloaded item is an
-					// archive, we could try to look into it and see if other
-					// seeked resources are inside.
-					WadDownloadInfoList::iterator wad = d->wads.findByName(resource);
-					if (wad != d->wads.end())
-					{
-						emit message(tr("Attempting to install file %1 of size %2 from URL: %3")
-							.arg(resource)
-							.arg(query->reply().size())
-							.arg(query->url().toString()),
-							WadseekerLib::Notice);
-
-						// Recollect the list of the resources, but only those
-						// that haven't been found, yet.
-						WadDownloadInfoList stillSeekedWads;
-						for (const WadDownloadInfo &wad : d->wads)
-						{
-							if (d->seekedFiles.findByName(wad.name()) != d->seekedFiles.end())
-							{
-								stillSeekedWads << wad;
-							}
-						}
-
-						// Attempt install.
-						WadInstaller installer(d->params.saveDirectoryPath, stillSeekedWads);
-						WadInstallerResult result = installer.install(*wad, query->reply());
-						if (result.isError())
-						{
-							// The file was downloaded just fine, but failed
-							// to install, so we should assume that all mirrors
-							// have the same file with the same exact problem.
-							// That's what mirrors are for, after all.
-							QList<UrlMirror> mirrors = d->mirrors.mirrorsWithUrl(query->url());
-							for (const UrlMirror &mirror : mirrors)
-							{
-								for (const QUrl &url : mirror.urls)
-								{
-									d->urlHistory.insert(url);
-									auto crawl = d->crawls.findByUrl(url);
-									if (crawl != d->crawls.end())
-										d->crawls.erase(crawl);
-								}
-							}
-
-							emit message(tr("Failed to install file \"%1\" from URL %2: %3")
-								.arg(resource)
-								.arg(query->url().toString())
-								.arg(result.error),
-								result.isCriticalError() ? WadseekerLib::CriticalError : WadseekerLib::Error);
-						}
-						else
-						{
-							// All files that were successfully installed are removed from the seek.
-							for (QFileInfo wadInfo : result.installedWads)
-							{
-								WadDownloadInfoList::iterator seekedFile = d->seekedFiles.findByName(wadInfo.fileName());
-								if (seekedFile != d->seekedFiles.end())
-								{
-									d->foundFiles << *seekedFile;
-									d->seekedFiles.erase(seekedFile);
-								}
-								emit message(tr("Installed WAD: %1 [%2 bytes]")
-									.arg(wadInfo.fileName())
-									.arg(wadInfo.size()),
-									WadseekerLib::NoticeImportant);
-								emit fileInstalled(wadInfo.fileName());
-							}
-						}
-						slurped = true;
-					}
-				}
+				slurped = concludeBinaryDownload(resource, query);
 				break;
 			case WebResourceType::Html:
 				// The slurping began here as soon as the content type became known.
