@@ -43,6 +43,15 @@ class WadseekerInterface : public QObject
 	Q_OBJECT
 
 public:
+	enum State
+	{
+		S_PENDING,
+		S_RUNNING,
+		S_DONE_SUCCESS,
+		S_DONE_FAILURE,
+	};
+	State state;
+
 	WadseekerInterface(Wadseeker &wadseeker);
 
 	bool seek(const QStringList &files);

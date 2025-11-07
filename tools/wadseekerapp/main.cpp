@@ -184,14 +184,25 @@ int main(int argc, char* argv[])
 	}
 
 	// Wait for Wadseeker to finish.
-	return app.exec();
+	if (wadseekerInterface.state == WadseekerInterface::S_DONE_SUCCESS)
+	{
+		return EC_OK;
+	}
+	else if (wadseekerInterface.state == WadseekerInterface::S_DONE_FAILURE)
+	{
+		return EC_FAIL;
+	}
+	else
+	{
+		return app.exec();
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // WadseekerInterface handles the interations with the Wadseeker object.
 
 WadseekerInterface::WadseekerInterface(Wadseeker &wadseeker)
-	: wadseeker(wadseeker), lastProgressReportLength(0)
+	: state(S_PENDING), wadseeker(wadseeker), lastProgressReportLength(0)
 {
 	// Connect our slots.
 	connect(&wadseeker, &Wadseeker::allDone,
@@ -204,17 +215,22 @@ WadseekerInterface::WadseekerInterface(Wadseeker &wadseeker)
 
 bool WadseekerInterface::seek(const QStringList &files)
 {
+	this->state = S_RUNNING;
 	// Pass the wad list into wadseeker.
 	ModSet modSet;
 	for (auto file : files)
 		modSet.addModFile(file);
-	return wadseeker.startSeek(modSet);
+	bool started = wadseeker.startSeek(modSet);
+	if (!started)
+		this->state = S_DONE_FAILURE;
+	return started;
 }
 
 void WadseekerInterface::done(bool success)
 {
 	// We're done close the app.
 	logi << "DONE: " << (success ? "Success!" : "Fail!") << Qt::endl;
+	this->state = success ? S_DONE_SUCCESS : S_DONE_FAILURE;
 	QCoreApplication::instance()->exit(success ? EC_OK : EC_FAIL);
 }
 
