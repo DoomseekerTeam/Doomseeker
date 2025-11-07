@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from pathlib import Path
-from urllib.parse import urljoin
+from urllib.parse import urlencode, urljoin
 
 from wadseekertests.config import E2EConfig
 from wadseekertests.wadseekerapp import WadseekerApp
@@ -10,11 +10,17 @@ from wadseekertests.wadseekerapp import WadseekerApp
 class Endpoint:
     path: str
 
-    def resolve_url(self, e2econfig: E2EConfig):
-        return urljoin(e2econfig.http_url, self.path)
+    def resolve_url(self, e2econfig: E2EConfig, query: dict[str, str] = None) -> str:
+        url = urljoin(e2econfig.http_url, self.path)
+        if query:
+            url += "?" + urlencode(query)
+        return url
 
 
 class Endpoints:
+    ATTACHMENT = Endpoint("attachment")
+    ATTACHMENT_LINK_WAD = Endpoint("attachment_link_wad.html")
+    ATTACHMENT_LINK_ZIP = Endpoint("attachment_link_zip.html")
     DIRECT_LINK_WAD = Endpoint("direct_link_wad.html")
     DIRECT_LINK_ZIP = Endpoint("direct_link_zip.html")
     LOOP_A = Endpoint("loop_a.html")
@@ -461,6 +467,58 @@ def test_extract_from_zip_with_path_traversal(
     assert exitcode == wadseeker.EC.OK.value
     assert (subworkpath / Files.CDUP_WAD.path).exists()
     assert not (e2econfig.workpath / Files.CDUP_WAD.path).exists()
+
+
+def test_attachment_direct_wad(e2econfig: E2EConfig, wadseeker: WadseekerApp):
+    # Given
+    site = Endpoints.ATTACHMENT.resolve_url(e2econfig, query={
+        "file": Files.PLAIN_WAD.name
+    })
+    # When
+    exitcode, _ = wadseeker.run_with_site(site, Files.PLAIN_WAD.name)
+    # Then
+    assert exitcode == wadseeker.EC.OK.value
+    assert (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
+
+
+def test_attachment_extract_wad_from_direct_zip(
+    e2econfig: E2EConfig,
+    wadseeker: WadseekerApp,
+):
+    # Given
+    site = Endpoints.ATTACHMENT.resolve_url(e2econfig, query={
+        "file": Files.PLAIN_ZIP.name,
+    })
+    # When
+    exitcode, _ = wadseeker.run_with_site(site, Files.PLAIN_WAD.name)
+    # Then
+    assert exitcode == wadseeker.EC.OK.value
+    assert (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
+    assert not (e2econfig.workpath / Files.PLAIN_ZIP.path).exists()
+
+
+def test_attachment_wad_linked_from_html(e2econfig: E2EConfig, wadseeker: WadseekerApp):
+    # Given
+    site = Endpoints.ATTACHMENT_LINK_WAD.resolve_url(e2econfig)
+    # When
+    exitcode, _ = wadseeker.run_with_site(site, Files.PLAIN_WAD.name)
+    # Then
+    assert exitcode == wadseeker.EC.OK.value
+    assert (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
+
+
+def test_attachment_zip_linked_from_html_and_extracted(
+    e2econfig: E2EConfig,
+    wadseeker: WadseekerApp,
+):
+    # Given
+    site = Endpoints.ATTACHMENT_LINK_ZIP.resolve_url(e2econfig)
+    # When
+    exitcode, _ = wadseeker.run_with_site(site, Files.PLAIN_WAD.name)
+    # Then
+    assert exitcode == wadseeker.EC.OK.value
+    assert (e2econfig.workpath / Files.PLAIN_WAD.path).exists()
+    assert not (e2econfig.workpath / Files.PLAIN_ZIP.path).exists()
 
 
 def test_should_exit_loops(e2econfig: E2EConfig, wadseeker: WadseekerApp):

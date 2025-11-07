@@ -1,8 +1,11 @@
 import errno
+import mimetypes
 import socketserver
 import threading
 import http.server
+from http import HTTPStatus
 from pathlib import Path
+from urllib.parse import urlparse, parse_qs
 
 import pytest
 
@@ -18,6 +21,48 @@ class HTTPHandler(http.server.SimpleHTTPRequestHandler):
             directory=str(self.directory) if self.directory else None,
             **kwargs,
         )
+
+    def do_GET(self):
+        parsed_url = urlparse(self.path)
+        query = parse_qs(parsed_url.query)
+        if parsed_url.path == "/attachment":
+            return self.serve_attachment(query)
+        else:
+            return super().do_GET()
+
+    def serve_attachment(self, query: dict[str, list[str]]):
+        requested_file = query.get("file")[0]
+        if not requested_file:
+            return self.send_error(HTTPStatus.BAD_REQUEST)
+        # Safety check: the file must exist in the directory,
+        # but let's be case-insensitive here.
+        available_files = [e.name for e in Path(self.directory).iterdir()
+                           if e.is_file()]
+        requested_file = _find_str_case_insensitive(
+            available_files,
+            requested_file,
+        )
+        # Check if we had a match.
+        if requested_file is None:
+            return self.send_error(HTTPStatus.NOT_FOUND)
+        # Reconstruct path to the file for case-sensitive file systems.
+        filepath = Path(self.directory) / requested_file
+        # Send file now.
+        self.send_response(HTTPStatus.OK)
+        content_type = mimetypes.guess_type(filepath)[0] or "application/octet-stream"
+        self.send_header("Content-Type", content_type)
+        self.send_header("Content-Disposition", f'attachment; filename="{requested_file}"')
+        self.send_header("Content-Length", str(filepath.stat().st_size))
+        self.end_headers()
+        with filepath.open("rb") as file:
+            self.copyfile(file, self.wfile)
+
+
+def _find_str_case_insensitive(haystack: list[str], needle: str) -> str:
+    for candidate in haystack:
+        if candidate.casefold() == needle.casefold():
+            return candidate
+    return None
 
 
 @pytest.fixture(scope="session")
