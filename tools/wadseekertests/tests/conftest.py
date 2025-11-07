@@ -7,24 +7,23 @@ from pathlib import Path
 import pytest
 
 from wadseekertests.config import E2EConfig
+from wadseekertests.httpserver import httpserver
 from wadseekertests.wadseekerapp import WadseekerApp
 
 
 def pytest_addoption(parser):
     parser.addoption("--wadseeker-app", default="wadseeker", action="store",
                      help="Path to the Wadseeker app to test")
-    parser.addoption("--http-url", default="http://127.0.0.1/",
-                     help="Base URL to the HTTP server with test data")
 
 
 @pytest.fixture
-def e2econfig(pytestconfig) -> E2EConfig:
+def e2econfig(pytestconfig, httpserver) -> E2EConfig:
     workdir = tempfile.TemporaryDirectory(prefix="wadseeker-test")
     try:
         # Structurize options.
         config = E2EConfig(
             wadseeker_app=Path(pytestconfig.getoption("wadseeker_app")),
-            http_url=pytestconfig.getoption("http_url"),
+            http_url=httpserver,
             workdir=workdir,
         )
         # Validate config.

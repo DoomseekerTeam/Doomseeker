@@ -4,33 +4,17 @@
 
 1. Astral `uv` Python manager installed.
 2. A precompiled `wadseeker-app` from this repository.
-3. A base `http-url` to a HTTP service with predefined endpoints.
 
 ## Running
 
 Run in the directory with the `pyproject.toml` file:
 
 ```
-uv run pytest --wadseeker-app=<wadseekerapp> --http-url=<url>
+uv run pytest --wadseeker-app=<wadseekerapp>
 ```
 
-The standard pytest options (`-k`, `-s`) can also be used, but their
-documentation is out of scope for this doc.
-
-## Serving files
-
-At the moment you may navigate to the `./data/http` directory and
-run:
-
-```
-python3 -m http.server -b 127.0.0.1
-```
-
-Then adapt the `--http-url` argument to:
-
-```
-uv run pytest [...] --http-url=http://127.0.0.1:8000/
-```
+Use pytest options `-v` and `-s` to get more logs and `-k <pattern>`
+to limit the execution to the selected tests.
 
 ## How does it work?
 
@@ -38,6 +22,9 @@ Each test launches wadseekerapp set to bounce off a specific endpoint
 of the HTTP server where expected resources must be provided by this
 server. It then checks if the app behaved as expected at this endpoint.
 
+The HTTP server is self-hosted by the test framework for the runtime
+of the tests. The files are served from `data/http` directory. The
+server is bound to `127.0.0.1` with an auto-selected port.
 
 ## Copyright
 
