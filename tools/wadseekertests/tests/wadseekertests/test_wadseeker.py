@@ -23,6 +23,7 @@ class Endpoints:
     ATTACHMENT_LINK_ZIP = Endpoint("attachment_link_zip.html")
     DIRECT_LINK_WAD = Endpoint("direct_link_wad.html")
     DIRECT_LINK_ZIP = Endpoint("direct_link_zip.html")
+    DOOM2 = Endpoint("doom2.html")
     LOOP_A = Endpoint("loop_a.html")
     LOOP_B = Endpoint("loop_b.html")
     MODBASE = Endpoint("modbase.html")
@@ -56,6 +57,8 @@ class File:
 class Files:
     CDUP_WAD = File("cdup.wad")
     CDUP_ZIP = File("cdup.zip")
+    DOOM2_WAD = File("doom2.wad")
+    DOOM2_ZIP = File("doom2.zip")
     PLAIN_WAD = File("wadseeker_plain.wad")
     PLAIN_ZIP = File("wadseeker_plain.zip")
     MODBASE_WAD = File("modbase.wad")
@@ -555,6 +558,48 @@ def test_percent_wadname(e2econfig: E2EConfig, wadseeker: WadseekerApp):
     assert (e2econfig.workpath / Files.PLAIN_ZIP.name).exists()
     assert f"file={Files.PLAIN_WAD.name}" in output
     assert f"file={Files.PLAIN_ZIP.name}" in output
+
+
+def test_forbidden_direct_download(e2econfig: E2EConfig, wadseeker: WadseekerApp):
+    # Given
+    site = Endpoint(Files.DOOM2_WAD.name).resolve_url(e2econfig)
+    # When
+    exitcode, output = wadseeker.run_with_site(site, Files.DOOM2_WAD.name)
+    # Then
+    assert exitcode == wadseeker.EC.FAIL.value
+    assert not (e2econfig.workpath / Files.DOOM2_WAD.name).exists()
+
+
+def test_forbidden_direct_archive_download(e2econfig: E2EConfig, wadseeker: WadseekerApp):
+    # Given
+    site = Endpoint(Files.DOOM2_ZIP.name).resolve_url(e2econfig)
+    # When
+    exitcode, output = wadseeker.run_with_site(site, Files.DOOM2_WAD.name)
+    # Then
+    assert exitcode == wadseeker.EC.FAIL.value
+    assert not (e2econfig.workpath / Files.DOOM2_WAD.name).exists()
+
+
+def test_forbidden_site_download(e2econfig: E2EConfig, wadseeker: WadseekerApp):
+    # Given
+    site = Endpoints.DOOM2.resolve_url(e2econfig)
+    # When
+    exitcode, output = wadseeker.run_with_site(site, Files.DOOM2_WAD.name)
+    # Then
+    assert exitcode == wadseeker.EC.FAIL.value
+    assert not (e2econfig.workpath / Files.DOOM2_WAD.name).exists()
+
+
+def test_forbidden_attachment_download(e2econfig: E2EConfig, wadseeker: WadseekerApp):
+    # Given
+    site = Endpoints.ATTACHMENT.resolve_url(e2econfig, query={
+        "file": Files.DOOM2_WAD.name,
+    })
+    # When
+    exitcode, output = wadseeker.run_with_site(site, Files.DOOM2_WAD.name)
+    # Then
+    assert exitcode == wadseeker.EC.FAIL.value
+    assert not (e2econfig.workpath / Files.DOOM2_WAD.name).exists()
 
 
 def test_should_exit_loops(e2econfig: E2EConfig, wadseeker: WadseekerApp):
