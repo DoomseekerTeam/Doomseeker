@@ -536,6 +536,27 @@ def test_attachment_zip_linked_from_html_and_extracted(
     assert not (e2econfig.workpath / Files.PLAIN_ZIP.name).exists()
 
 
+def test_percent_wadname(e2econfig: E2EConfig, wadseeker: WadseekerApp):
+    """Test the automatic substitution of %WADNAME% template."""
+    # Given: the attachment content-dispoition doesn't need to be
+    # used here, but the endpoint is very convenient.
+    site = Endpoints.ATTACHMENT.resolve_url(e2econfig, query={
+        "file": "%WADNAME%",
+    })
+    site = site.replace("%25", "%")  # "decode" the % in %WADNAME%
+    # When: running with a templated URL and multiple files
+    exitcode, output = wadseeker.run_with_site(
+        site,
+        [Files.PLAIN_WAD.name, Files.PLAIN_ZIP.name],
+    )
+    # Then
+    assert exitcode == wadseeker.EC.OK.value
+    assert (e2econfig.workpath / Files.PLAIN_WAD.name).exists()
+    assert (e2econfig.workpath / Files.PLAIN_ZIP.name).exists()
+    assert f"file={Files.PLAIN_WAD.name}" in output
+    assert f"file={Files.PLAIN_ZIP.name}" in output
+
+
 def test_should_exit_loops(e2econfig: E2EConfig, wadseeker: WadseekerApp):
     """A broken site sends Wadseeker into a site navigation loop."""
     # Given
