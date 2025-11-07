@@ -61,6 +61,7 @@ class Files:
     MODBASE_WAD = File("modbase.wad")
     MODBASE_ZIP = File("modbase.zip")
     MODEXTRA_WAD = File("modextra.wad")
+    MODEXTRA_ZIP = File("modextra.zip")
     MULTIFILE_MOD_WAD = File("multifile_mod.wad")
     MULTIFILE_MOD_ZIP = File("multifile_mod.zip")
     SUBDIR_WAD = File("subdir.wad")
@@ -322,6 +323,20 @@ def test_extract_zip_with_0len_file_entry(e2econfig: E2EConfig, wadseeker: Wadse
     # Then
     assert exitcode == wadseeker.EC.OK.value
     assert (e2econfig.workpath / Files.ZEROLEN_ZIP_HEADER_WAD.name).exists()
+
+
+def test_get_multiple_files(e2econfig: E2EConfig, wadseeker: WadseekerApp):
+    # Given
+    site = Endpoints.MODBASE_AND_EXTRA.resolve_url(e2econfig)
+    # When
+    exitcode, _ = wadseeker.run_with_site(
+        site,
+        [Files.MODBASE_ZIP.name, Files.MODEXTRA_ZIP.name],
+    )
+    # Then
+    assert exitcode == wadseeker.EC.OK.value
+    assert (e2econfig.workpath / Files.MODBASE_ZIP.name).exists()
+    assert (e2econfig.workpath / Files.MODEXTRA_ZIP.name).exists()
 
 
 def test_extract_multifile_mod(e2econfig: E2EConfig, wadseeker: WadseekerApp):
