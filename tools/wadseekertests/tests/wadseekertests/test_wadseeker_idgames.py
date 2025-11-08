@@ -1,12 +1,15 @@
 import pytest
 
 from wadseekertests.config import E2EConfig
+from wadseekertests.file import File, FileChecksum
 from wadseekertests.wadseekerapp import WadseekerApp
 
 class IdgamesArchive:
     # This should be a relatively small file as to not
     # torment the archive with large downloads.
-    EXISTING_FILE = "bahdko1.wad"
+    EXISTING_FILE = File("bahdko1.wad", [
+        FileChecksum("md5", "89f5c2dfb1bcf0d36ef03dc205a4695f"),
+    ])
 
 
 @pytest.mark.idgames
@@ -14,10 +17,43 @@ def test_idgames_existing_file(e2econfig: E2EConfig, wadseeker: WadseekerApp):
     # Given
     file = IdgamesArchive.EXISTING_FILE
     # When
-    exitcode, _ = wadseeker.run_with_idgames(file)
+    exitcode, _ = wadseeker.run_with_idgames(file.name)
     # Then
     assert exitcode == wadseeker.EC.OK.value
-    assert (e2econfig.workpath / file).exists()
+    assert (e2econfig.workpath / file.name).exists()
+
+
+@pytest.mark.idgames
+def test_idgames_existing_file_with_valid_checksum(
+    e2econfig: E2EConfig,
+    wadseeker: WadseekerApp,
+):
+    # Given
+    file = IdgamesArchive.EXISTING_FILE
+    # When
+    exitcode, _ = wadseeker.run_with_idgames(file.namechecksum)
+    # Then
+    assert exitcode == wadseeker.EC.OK.value
+    assert (e2econfig.workpath / file.name).exists()
+
+
+@pytest.mark.idgames
+def test_idgames_existing_file_with_invalid_checksum(
+    e2econfig: E2EConfig,
+    wadseeker: WadseekerApp,
+):
+    # Given
+    file = File(
+        IdgamesArchive.EXISTING_FILE.strpath,
+        [
+            FileChecksum("md5", "ffffffffffffffffffffffffffffffff"),
+        ]
+    )
+    # When
+    exitcode, _ = wadseeker.run_with_idgames(file.namechecksum)
+    # Then
+    assert exitcode == wadseeker.EC.FAIL.value
+    assert not (e2econfig.workpath / file.name).exists()
 
 
 @pytest.mark.idgames
