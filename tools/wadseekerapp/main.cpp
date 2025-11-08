@@ -33,6 +33,8 @@
 #include "main.h"
 #include "wadseeker/wadseekermessagetype.h"
 
+#include <qcryptographichash.h>
+#include <wadseeker/entities/checksum.h>
 #include <wadseeker/entities/modset.h>
 #include <wadseeker/wadseekerversioninfo.h>
 #include <QCommandLineParser>
@@ -40,7 +42,6 @@
 #include <QStringList>
 #include <QTextStream>
 #include <functional>
-#include <iostream>
 #include <cstring>
 
 
@@ -118,7 +119,17 @@ Args parseArgs(QCoreApplication &app, QCommandLineParser &argp)
 		"Sites where to look for the files (multiple).");
 
 	// Files to seek go onto positional arguments.
-	argp.addPositionalArgument("files", "Files to seek.", "file [file...]");
+	argp.addPositionalArgument(
+		"files",
+		"Files to seek. Each file can have an optional checksum specified in format "
+		"<algorithm:hex>, where 'algorithm' is one of: md5, sha1, sha256, and 'hex' "
+		"is the checksum value expressed using hexadecimals.\n\n"
+		"Examples:\n"
+		"- myfirstlevel.wad\n"
+		"- mysecondlevel.wad:md5:787733ded5c97c5c2cbd120a5e9a8998\n"
+		,
+		"file[:checksum] [file...]"
+	);
 
 	// Process the command line and collect the arguments into a structure.
 	argp.process(app);
@@ -177,7 +188,12 @@ int main(int argc, char* argv[])
 
 	// Create the Wadseeker interface and seek for the files.
 	WadseekerInterface wadseekerInterface(wadseeker);
-	if (!wadseekerInterface.seek(args.files))
+	ModSet modSet;
+	if (!wadseekerInterface.parseFiles(args.files, modSet))
+	{
+		return EC_FAIL;
+	}
+	if (!wadseekerInterface.seek(modSet))
 	{
 		logi << "Failed to start the seek" << Qt::endl;
 		return EC_FAIL;
@@ -213,13 +229,79 @@ WadseekerInterface::WadseekerInterface(Wadseeker &wadseeker)
 		this, &WadseekerInterface::receiveMessage);
 }
 
-bool WadseekerInterface::seek(const QStringList &files)
+bool WadseekerInterface::parseFiles(const QStringList &files, ModSet &modSet)
+{
+	// Parse the files with potential checksums into a ModSet.
+	modSet.clear();
+	for (QString file : files)
+	{
+		// Collect the info about the file.
+		QStringList fileTokens = file.split(":");
+		QString fileName;
+		QList<Checksum> checksums;
+		// Valid formats are:
+		//
+		// 1. <filename>
+		// 2. <filename:algo:hex>
+		if (fileTokens.size() == 1)
+		{
+			fileName = fileTokens[0];
+		}
+		else if (fileTokens.size() == 3)
+		{
+			fileName = fileTokens[0];
+			const QString algoName = fileTokens[1].toLower();
+			const QByteArray hexvalue = fileTokens[2].toLower().toLatin1();
+
+			// Identify the checksum algorithm by name.
+			QCryptographicHash::Algorithm checksumAlgorithm = QCryptographicHash::Md5;
+			if (algoName == "md5")
+			{
+				checksumAlgorithm = QCryptographicHash::Md5;
+			}
+			else if (algoName == "sha1")
+			{
+				checksumAlgorithm = QCryptographicHash::Sha1;
+			}
+			else if (algoName == "sha256")
+			{
+				checksumAlgorithm = QCryptographicHash::Sha256;
+			}
+			else
+			{
+				logi << "Unknown checksum algorithm '" << algoName << "' for file: " << file;
+				return false;
+			}
+
+			// Convert the hexadecimal values into a byte array.
+			QByteArray checksumValue = QByteArray::fromHex(hexvalue);
+			if (checksumValue.toHex() != hexvalue)
+			{
+				logi << "Unable to parse hex value '" << hexvalue << "' for file: " << file;
+				return false;
+			}
+
+			checksums << Checksum(checksumValue, checksumAlgorithm);
+		}
+		else
+		{
+			logi << "File specified in invalid format: " << file << Qt::endl;
+			return false;
+		}
+
+		// Create ModFile structure from the collected info.
+		ModFile modFile(fileName);
+		modFile.setChecksums(checksums);
+		modSet.addModFile(modFile);
+	}
+	return true;
+}
+
+bool WadseekerInterface::seek(const ModSet &modSet)
 {
 	this->state = S_RUNNING;
+
 	// Pass the wad list into wadseeker.
-	ModSet modSet;
-	for (auto file : files)
-		modSet.addModFile(file);
 	bool started = wadseeker.startSeek(modSet);
 	if (!started)
 		this->state = S_DONE_FAILURE;

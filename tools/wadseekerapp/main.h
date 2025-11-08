@@ -54,7 +54,8 @@ public:
 
 	WadseekerInterface(Wadseeker &wadseeker);
 
-	bool seek(const QStringList &files);
+	bool parseFiles(const QStringList &files, /*out*/ ModSet &modSet);
+	bool seek(const ModSet &modSet);
 
 private:
 	Wadseeker &wadseeker;
