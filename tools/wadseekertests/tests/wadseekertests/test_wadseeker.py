@@ -23,6 +23,7 @@ class Endpoints:
     ATTACHMENT_LINK_ZIP = Endpoint("attachment_link_zip.html")
     DIRECT_LINK_WAD = Endpoint("direct_link_wad.html")
     DIRECT_LINK_ZIP = Endpoint("direct_link_zip.html")
+    DIRECT_LINK_7Z = Endpoint("direct_link_7z.html")
     DOOM2 = Endpoint("doom2.html")
     INFINITE_CRAWL = Endpoint("infinitecrawl")
     LOOP_A = Endpoint("loop_a.html")
@@ -62,6 +63,7 @@ class Files:
     DOOM2_ZIP = File("doom2.zip")
     PLAIN_WAD = File("wadseeker_plain.wad")
     PLAIN_ZIP = File("wadseeker_plain.zip")
+    PLAIN_7Z = File("wadseeker_plain.7z")
     MODBASE_WAD = File("modbase.wad")
     MODBASE_ZIP = File("modbase.zip")
     MODEXTRA_WAD = File("modextra.wad")
@@ -132,6 +134,23 @@ def test_get_zip_from_html_direct_link(e2econfig: E2EConfig, wadseeker: Wadseeke
     assert (e2econfig.workpath / Files.PLAIN_ZIP.name).exists()
 
 
+def test_get_7z_from_html_direct_link(e2econfig: E2EConfig, wadseeker: WadseekerApp):
+    """Should find the file on a HTML site when a direct link to a 7z is present.
+
+    This test expects a 7z file to be downloaded and not extracted.
+    """
+    # Given
+    site = Endpoints.DIRECT_LINK_7Z.resolve_url(e2econfig)
+    assert not (e2econfig.workpath / Files.PLAIN_WAD.name).exists()
+    assert not (e2econfig.workpath / Files.PLAIN_7Z.name).exists()
+    # When
+    exitcode, _ = wadseeker.run_with_site(site, Files.PLAIN_7Z.name)
+    # Then
+    assert exitcode == wadseeker.EC.OK.value
+    assert not (e2econfig.workpath / Files.PLAIN_WAD.name).exists()
+    assert (e2econfig.workpath / Files.PLAIN_7Z.name).exists()
+
+
 def test_get_wad_directly(e2econfig: E2EConfig, wadseeker: WadseekerApp):
     # Given
     site = Endpoint(Files.PLAIN_WAD.name).resolve_url(e2econfig)
@@ -187,6 +206,18 @@ def test_extract_wad_from_zip_got_directly(e2econfig: E2EConfig, wadseeker: Wads
     # Then
     assert exitcode == wadseeker.EC.OK.value
     assert not (e2econfig.workpath / Files.PLAIN_ZIP.name).exists()
+    assert (e2econfig.workpath / Files.PLAIN_WAD.name).exists()
+
+
+def test_extract_wad_from_7z_got_directly(e2econfig: E2EConfig, wadseeker: WadseekerApp):
+    # Given
+    site = Endpoint(Files.PLAIN_7Z.name).resolve_url(e2econfig)
+    assert not (e2econfig.workpath / Files.PLAIN_7Z.name).exists()
+    # When
+    exitcode, _ = wadseeker.run_with_site(site, Files.PLAIN_WAD.name)
+    # Then
+    assert exitcode == wadseeker.EC.OK.value
+    assert not (e2econfig.workpath / Files.PLAIN_7Z.name).exists()
     assert (e2econfig.workpath / Files.PLAIN_WAD.name).exists()
 
 
