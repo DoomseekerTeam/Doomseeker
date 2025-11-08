@@ -121,11 +121,27 @@ WadInstallerResult WadInstaller::installArchive(UnArchive &archive)
 		if (entryIndex >= 0)
 		{
 			// File was found in the archive. Attempt extraction.
-			QString filePath = installDir.absoluteFilePath(name);
-			if (archive.extract(entryIndex, filePath))
+			// Extract first to a temporary location because we will
+			// be confirming if the file is valid before we install it.
+			QTemporaryFile tempDest;
+			tempDest.setAutoRemove(false);
+			tempDest.open();
+			QString destPath = installDir.absoluteFilePath(name);
+			if (archive.extract(entryIndex, tempDest.fileName()))
 			{
-				// TODO implement the file checksum verification here!
-				result.installedWads << QFileInfo(filePath);
+				if (wad.validFile(tempDest.fileName()))
+				{
+					// A valid file can be moved to its final installation place.
+					QFile destFile(destPath);
+					if (destFile.exists())
+						destFile.remove();
+					if (tempDest.rename(destPath))
+						result.installedWads << QFileInfo(destFile);
+				}
+				else
+				{
+					tempDest.setAutoRemove(true);
+				}
 			}
 		}
 	}

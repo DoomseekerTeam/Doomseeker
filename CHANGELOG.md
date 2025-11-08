@@ -10,6 +10,8 @@ and this project does not adhere to
 
 ## [Unreleased]
 ### Added
+- Wadseeker: will now verify file checksums when extracting them from
+archives and when checksums are available.
 - Zandronum: honor the game mode name presented by the game servers. (#4107)
 
 ### Fixed
