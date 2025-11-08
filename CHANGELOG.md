@@ -27,9 +27,9 @@ when matching if the download belongs to any of the seeked files. This allows
 direct download URLs to be considered as "interesting content" when they are
 done via the `Content-Disposition` method. (#4468)
 - Odamex, Q-Zandronum, Zandronum: Fixed string decoding issues in Qt6. (#4442)
-- Zandronum: fix detection of game modes where the use of player teams
-has been changed by a game mod. This fixes a case where servers hosting such
-mods would resolve as `<ERROR>` after players joined the game. (#4571)
+- Q-Zandronum, Zandronum: fix detection of game modes where the use of player
+teams has been changed by a game mod. This fixes a case where servers hosting
+such mods would resolve as `<ERROR>` after players joined the game. (#4571)
 
 ## [1.5.1]
 ### Changed

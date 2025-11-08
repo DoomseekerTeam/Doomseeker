@@ -92,7 +92,6 @@ QList<GameMode> ZandronumqGameInfo::gameModes()
 	gameModesList << GameMode::teamGame(GAMEMODE_ONEFLAGCTF, tr("One Flag CTF"));
 	gameModesList << GameMode::teamGame(GAMEMODE_SKULLTAG, tr("Skulltag"));
 	gameModesList << GameMode::teamGame(GAMEMODE_DOMINATION, tr("Domination"));
-	gameModesList << GameMode::mkUnknown();
 	return gameModesList;
 }
 

@@ -29,7 +29,6 @@
 
 #include "serverapi/server.h"
 
-#define NUM_ZANDRONUMQ_GAME_MODES 16
 #define NUM_ZANDRONUMQ_GAME_MODIFIERS 2
 #define ST_MAX_TEAMS 4U
 

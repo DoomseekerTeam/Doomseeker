@@ -26,9 +26,7 @@
 #include "datastreamoperatorwrapper.h"
 #include "global.h"
 #include "huffman/huffman.h"
-#include "log.h"
 #include "zandronumqengineplugin.h"
-#include "zandronumqgamehost.h"
 #include "zandronumqgameinfo.h"
 #include "zandronumqgamerunner.h"
 #include "zandronumqrconprotocol.h"
@@ -232,6 +230,8 @@ Server::Response ZandronumqServer::readRequest(const QByteArray &data)
 	// See "if SQF_NAME" for an example.
 	RETURN_BAD_IF_NOT_ENOUGH_DATA(4);
 	quint32 flags = in.readQUInt32();
+	const bool hasTeams = (flags & SQF_TEAMINFO_NUMBER) == SQF_TEAMINFO_NUMBER;
+
 	if ((flags & SQF_NAME) == SQF_NAME) // Check if SQF_NAME is inside flags var.
 	{
 		RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
@@ -297,15 +297,29 @@ Server::Response ZandronumqServer::readRequest(const QByteArray &data)
 	if ((flags & SQF_GAMETYPE) == SQF_GAMETYPE)
 	{
 		RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
-		qint8 modeCode = in.readQInt8();
+		const qint8 modeCode = in.readQInt8();
+		mode = static_cast<ZandronumqGameInfo::ZandronumqGameMode>(modeCode);
 
-		if (modeCode > NUM_ZANDRONUMQ_GAME_MODES)
+		QList<GameMode> gameModes = ZandronumqGameInfo::gameModes();
+		GameMode gameMode = GameMode::mkUnknown();
+		if (modeCode >= 0 && modeCode < gameModes.size())
 		{
-			modeCode = NUM_ZANDRONUMQ_GAME_MODES; // this will set game mode to unknown
+			gameMode = gameModes[modeCode];
 		}
 
-		mode = static_cast<ZandronumqGameInfo::ZandronumqGameMode>(modeCode);
-		setGameMode(ZandronumqGameInfo::gameModes()[mode]);
+		if (gameMode.isValid())
+		{
+			// Q-Zandronum mods can override whether the game mode is team-based or not.
+			if (hasTeams)
+			{
+				gameMode = GameMode::teamGame(gameMode.index(), gameMode.name());
+			}
+			else
+			{
+				gameMode = GameMode::ffaGame(gameMode.index(), gameMode.name());
+			}
+			setGameMode(gameMode);
+		}
 
 		RETURN_BAD_IF_NOT_ENOUGH_DATA(2);
 		instagib = in.readQInt8() != 0;
@@ -445,9 +459,6 @@ Server::Response ZandronumqServer::readRequest(const QByteArray &data)
 			clearPlayersList(); // Erase previous players (if any)
 			for (int i = 0; i < numPlayers; i++)
 			{
-				// team isn't sent in non team modes.
-				bool teammode = gameMode().isTeamGame();
-
 				RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
 				auto name = in.readUtf8CString();
 
@@ -458,7 +469,7 @@ Server::Response ZandronumqServer::readRequest(const QByteArray &data)
 				bool bot = in.readQUInt8() != 0;
 
 				int team;
-				if (teammode)
+				if (hasTeams)
 				{
 					RETURN_BAD_IF_NOT_ENOUGH_DATA(1);
 					team = in.readQUInt8();
