@@ -9,6 +9,8 @@ from urllib.parse import urlparse, parse_qs
 
 import pytest
 
+from wadseekertests.datapath import DataPath, datapath
+
 PORT_RANGE = (8000, 9000)
 
 
@@ -81,7 +83,7 @@ def _find_str_case_insensitive(haystack: list[str], needle: str) -> str:
 
 
 @pytest.fixture(scope="session")
-def httpserver(request: pytest.FixtureRequest) -> str:
+def httpserver(datapath: DataPath) -> str:
     """Launch a HTTP server with test data and return a URL to it.
 
     The server is bound to 127.0.0.1, and the port is auto-selected.
@@ -89,7 +91,7 @@ def httpserver(request: pytest.FixtureRequest) -> str:
     host = "127.0.0.1"
 
     # Get the path to the directory with static HTTP test data.
-    http_static_dir: Path = request.config.rootpath / "data/http"
+    http_static_dir: Path = datapath.http
     if not http_static_dir.exists():
         raise FileNotFoundError(str(http_static_dir))
 

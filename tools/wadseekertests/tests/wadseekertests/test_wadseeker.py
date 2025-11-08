@@ -628,3 +628,24 @@ def test_should_exit_infinite_crawl(e2econfig: E2EConfig, wadseeker: WadseekerAp
     # Then
     assert exitcode == wadseeker.EC.FAIL.value
     assert not (e2econfig.workpath / Files.PLAIN_WAD.name).exists()
+
+
+def test_should_not_download_file_scheme_url(e2econfig: E2EConfig, wadseeker: WadseekerApp):
+    """Wadseeker should accept only ftp, http and https URL schemes.
+
+    Check what happens when Wadseeker receives a file:// URL scheme
+    that normally points to a valid file.
+    """
+    # Given
+    path_to_plain_wad = e2econfig.datapath.http / Files.PLAIN_WAD.path
+    if not path_to_plain_wad.exists():
+        raise FileNotFoundError(str(path_to_plain_wad))
+    site = f"file://{path_to_plain_wad}"
+    print("site:", site)
+    # When
+    exitcode, output = wadseeker.run_with_site(site, Files.PLAIN_WAD.name)
+    # Then
+    assert exitcode == wadseeker.EC.FAIL.value
+    assert not (e2econfig.workpath / Files.PLAIN_WAD.name).exists()
+    assert "ERR" in output
+    assert "Wadseeker is not handling URLs with scheme" in output

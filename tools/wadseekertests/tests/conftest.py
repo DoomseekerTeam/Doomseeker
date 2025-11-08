@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 from wadseekertests.config import E2EConfig
+from wadseekertests.datapath import DataPath, datapath
 from wadseekertests.httpserver import httpserver
 from wadseekertests.wadseekerapp import WadseekerApp
 
@@ -17,7 +18,7 @@ def pytest_addoption(parser):
 
 
 @pytest.fixture
-def e2econfig(pytestconfig, httpserver) -> E2EConfig:
+def e2econfig(pytestconfig, datapath: DataPath, httpserver: str) -> E2EConfig:
     workdir = tempfile.TemporaryDirectory(prefix="wadseeker-test")
     try:
         # Structurize options.
@@ -25,6 +26,7 @@ def e2econfig(pytestconfig, httpserver) -> E2EConfig:
             wadseeker_app=Path(pytestconfig.getoption("wadseeker_app")),
             http_url=httpserver,
             workdir=workdir,
+            datapath=datapath,
         )
         # Validate config.
         app_path = shutil.which(config.wadseeker_app)
