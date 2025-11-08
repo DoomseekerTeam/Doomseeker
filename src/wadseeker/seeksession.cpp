@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 #include "seeksession.h"
 
+#include "protocols/http.h"
 #include "protocols/idgames/idgames.h"
 #include "wadinstaller.h"
 #include "wadseeker.h"
@@ -299,12 +300,46 @@ bool SeekSession::concludeBinaryDownload(const QString &resource,
 
 	// If the WebQuery is downloading something of binary type,
 	// it may be one of the resources we want.
-	WadDownloadInfo wadDownloadInfo;
-	if (!resource.isEmpty() && d->seekedFiles.contains(resource))
+	QString resourceMatchedAgain;
+
+	// If the HTTP reply carries an attachment name, we shall
+	// give it more priority than what Wadseeker thinks is being
+	// downloaded as the "resource".
+	Http http(&query->reply());
+	if (http.hasAttachment())
+	{
+		const QString attachmentName = http.attachmentName().trimmed();
+		auto seekedIt = d->seekedFiles.findByNameOrArchiveName(attachmentName);
+		if (!attachmentName.isEmpty() && seekedIt != d->seekedFiles.end())
+		{
+			resourceMatchedAgain = seekedIt->name();
+		}
+	}
+
+	// Resource not matched via more specific means, so match it
+	// to whatever  Wadseeker thinks was downloaded.
+	if (resourceMatchedAgain.isEmpty()
+		&& !resource.isEmpty()
+		&& d->seekedFiles.contains(resource))
+	{
+		resourceMatchedAgain = resource;
+	}
+
+	// Inform about the downloads being completed, for two different files if needed.
+	if (!resource.isEmpty())
 	{
 		emit fileDownloadFinished(resource);
-		// Are we still looking for this resource?
-		WadDownloadInfoList::iterator it = d->wads.findByName(resource);
+	}
+	if (!resourceMatchedAgain.isEmpty() && resourceMatchedAgain != resource)
+	{
+		emit fileDownloadFinished(resourceMatchedAgain);
+	}
+
+	// Are we still looking for this resource?
+	WadDownloadInfo wadDownloadInfo;
+	if (!resourceMatchedAgain.isEmpty())
+	{
+		WadDownloadInfoList::iterator it = d->wads.findByName(resourceMatchedAgain);
 		if (it != d->wads.end())
 			wadDownloadInfo = *it;
 	}
