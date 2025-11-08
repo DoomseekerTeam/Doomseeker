@@ -15,12 +15,12 @@ or other method appropriate for given distro.
 zlib
 ----
 
-zlib 1.2.13 obtained from the original source and adapted
+zlib 1.3.1 obtained from the original source and adapted
 for Doomseeker purposes.
 
 Original source:
 https://www.zlib.net/
-(accessed 2023-07-28)
+(accessed 2024-09-24)
 
 Adaptation based on:
 zlib 1.2.7 convenience copy obtained from ZDoom's source code:
@@ -46,7 +46,7 @@ https://zdoom.org/files/zdoom/2.5/zdoom-2.5.0-src.7z
 (accessed 2023-07-28)
 
 --------------------------------------------------------------------
-Copyright (C) 2012 - 2023 The Doomseeker Team
+Copyright (C) 2012 - 2025 The Doomseeker Team
 
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright
