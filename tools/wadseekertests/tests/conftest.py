@@ -17,6 +17,20 @@ def pytest_addoption(parser):
                      help="Path to the Wadseeker app to test")
 
 
+def pytest_collection_modifyitems(config, items):
+    # Tests that require the /idgames archive are disabled by default.
+    _set_marker_as_explicit(config, items, "idgames")
+
+
+def _set_marker_as_explicit(config, items, marker: str) -> None:
+    if config.getoption("-m") and marker in config.getoption("-m"):
+        return
+    skip = pytest.mark.skip(reason=f"test must be enabled explicitly with '-m {marker}'")
+    for item in items:
+        if marker in item.keywords:
+            item.add_marker(skip)
+
+
 @pytest.fixture
 def e2econfig(pytestconfig, datapath: DataPath, httpserver: str) -> E2EConfig:
     workdir = tempfile.TemporaryDirectory(prefix="wadseeker-test")

@@ -32,6 +32,17 @@ class WadseekerApp:
             files=files
         )
 
+    def run_with_idgames(
+        self,
+        files: list[str] | str
+    ) -> (int, str):
+        if not isinstance(files, list):
+            files = [files]
+        return self._run(
+            options=["--no-default-sites"],
+            files=files
+        )
+
     def _run(
         self, options: list[str] = None,
         files: list[str] = None,
