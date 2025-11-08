@@ -24,6 +24,7 @@ class Endpoints:
     DIRECT_LINK_WAD = Endpoint("direct_link_wad.html")
     DIRECT_LINK_ZIP = Endpoint("direct_link_zip.html")
     DOOM2 = Endpoint("doom2.html")
+    INFINITE_CRAWL = Endpoint("infinitecrawl")
     LOOP_A = Endpoint("loop_a.html")
     LOOP_B = Endpoint("loop_b.html")
     MODBASE = Endpoint("modbase.html")
@@ -609,5 +610,21 @@ def test_should_exit_loops(e2econfig: E2EConfig, wadseeker: WadseekerApp):
     # When
     exitcode, _ = wadseeker.run_with_site(site, Files.PLAIN_WAD.name, timeout = 10.0)
     # Then: failure is expected, but not a timeout
+    assert exitcode == wadseeker.EC.FAIL.value
+    assert not (e2econfig.workpath / Files.PLAIN_WAD.name).exists()
+
+
+def test_should_exit_infinite_crawl(e2econfig: E2EConfig, wadseeker: WadseekerApp):
+    """Wadseeker should give up on a crawl that visits too many websites
+    and doesn't produce any file downloads.
+    """
+    # Given
+    site = Endpoints.INFINITE_CRAWL.resolve_url(e2econfig, query={
+        "file": Files.PLAIN_WAD.name,
+        "i": 0,
+    })
+    # When
+    exitcode, _ = wadseeker.run_with_site(site, Files.PLAIN_WAD.name, timeout = 10.0)
+    # Then
     assert exitcode == wadseeker.EC.FAIL.value
     assert not (e2econfig.workpath / Files.PLAIN_WAD.name).exists()

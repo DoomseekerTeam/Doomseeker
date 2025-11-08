@@ -22,16 +22,18 @@ class HTTPHandler(http.server.SimpleHTTPRequestHandler):
             **kwargs,
         )
 
-    def do_GET(self):
+    def do_GET(self) -> None:
         parsed_url = urlparse(self.path)
         query = parse_qs(parsed_url.query)
         if parsed_url.path == "/attachment":
             return self.serve_attachment(query)
+        elif parsed_url.path == "/infinitecrawl":
+            return self.serve_infinite_crawl(query)
         else:
             return super().do_GET()
 
-    def serve_attachment(self, query: dict[str, list[str]]):
-        requested_file = query.get("file")[0]
+    def serve_attachment(self, query: dict[str, list[str]]) -> None:
+        requested_file = query.get("file", [None])[0]
         if not requested_file:
             return self.send_error(HTTPStatus.BAD_REQUEST)
         # Safety check: the file must exist in the directory,
@@ -56,6 +58,19 @@ class HTTPHandler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
         with filepath.open("rb") as file:
             self.copyfile(file, self.wfile)
+
+    def serve_infinite_crawl(self, query: dict[str, list[str]]) -> None:
+        file = query.get("file", [None])[0]
+        if not file:
+            return self.send_error(HTTPStatus.BAD_REQUEST)
+        try:
+            iteration = int(query.get("i", [0])[0])
+        except ValueError:
+            return self.send_error(HTTPStatus.BAD_REQUEST)
+        self.send_response(HTTPStatus.OK)
+        self.send_header("Content-Type", "text/html")
+        self.end_headers()
+        self.wfile.write(f'<a href="?i={iteration + 1}&file={file}">{file}</a>'.encode("utf-8"))
 
 
 def _find_str_case_insensitive(haystack: list[str], needle: str) -> str:
