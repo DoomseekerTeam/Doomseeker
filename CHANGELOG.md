@@ -8,7 +8,7 @@ This file follows the format of
 and this project does not adhere to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.5.2]
 ### Added
 - Wadseeker: will now verify file checksums when extracting them from
 archives and when checksums are available.
@@ -968,7 +968,7 @@ archives. Fixes extraction of e1m4b.wad and e1m8b.wad. Thanks, John Romero!
 
 Copyright (this file)
 ---------------------
-Copyright (C) 2015, 2017 - 2024 The Doomseeker Team
+Copyright (C) 2015, 2017 - 2025 The Doomseeker Team
 
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright
@@ -977,6 +977,7 @@ without any warranty.
 
 
 [unreleased]: https://bitbucket.org/Doomseeker/doomseeker/commits/all
+[1.5.2]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.5.2
 [1.5.1]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.5.1
 [1.5.0]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.5.0
 [1.4.1]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.4.1
