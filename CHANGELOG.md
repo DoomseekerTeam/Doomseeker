@@ -14,6 +14,9 @@ and this project does not adhere to
 archives and when checksums are available.
 - Zandronum: honor the game mode name presented by the game servers. (#4107)
 
+### Changed
+- Wadseeker: upgrade the LZMA SDK to version 25.01.
+
 ### Fixed
 - Wadseeker: files weren't sometimes installed despite being downloaded
 correctly because their filenames were compared case-sensitively, e.g.
