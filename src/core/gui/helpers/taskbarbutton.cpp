@@ -24,7 +24,11 @@
 
 #include "gui/helpers/taskbarprogress.h"
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0)) && defined(Q_OS_WIN32)
+// Qt6: Qt's WinExtras, and thus QWinTaskbarButton and QWinTaskbarProgress, have
+// been removed in Qt6 and there's no replacement.
+//
+// See: QTBUG-94008, QTBUG-94009.
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0)) && (QT_VERSION < QT_VERSION_CHECK(6, 0, 0)) && defined(Q_OS_WIN32)
 #define WIN_TASKBAR
 #endif
 

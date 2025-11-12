@@ -29,7 +29,7 @@
 // just in case if we ever have another platform that supports similar
 // functionality, but let's worry about that when it comes to that.
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0)) && defined(Q_OS_WIN32)
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0)) && (QT_VERSION < QT_VERSION_CHECK(6, 0, 0)) && defined(Q_OS_WIN32)
 #define WIN_TASKBAR
 #endif
 
