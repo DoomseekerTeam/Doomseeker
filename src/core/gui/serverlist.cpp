@@ -359,7 +359,14 @@ void ServerList::mouseEntered(const QModelIndex &index)
 		break;
 	}
 
+#ifdef Q_OS_WIN
+	// Fix #4574 in Qt 5.7 on MS Windows. Doomseeker's main window would be sent
+	// to the top if mouse hovered over a server. This would cause other Doomseeker
+	// windows to be sent back, possibly hidden if Doomseeker was in full screen.
+	QToolTip::showText(QCursor::pos(), tooltip, nullptr);
+#else
 	QToolTip::showText(QCursor::pos(), tooltip, mainWindow);
+#endif
 }
 
 void ServerList::prepareServerTable()

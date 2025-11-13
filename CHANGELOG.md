@@ -10,6 +10,8 @@ and this project does not adhere to
 
 ## [unreleased]
 ### Fixed
+- Qt5.7 Windows: main window inappropriately sent to the top when mouse cursor
+hovers over a server and causes a tooltip to appear. (#4574)
 - Qt6: WAD reader will properly trim the `\0` NUL character from lump names.
 
 ## [1.5.2]
