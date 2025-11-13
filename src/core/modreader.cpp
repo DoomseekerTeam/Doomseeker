@@ -25,6 +25,7 @@
 
 #include "datastreamoperatorwrapper.h"
 #include "wadseeker/zip/unarchive.h"
+#include "strings.hpp"
 
 #include <QBuffer>
 #include <QDataStream>
@@ -91,7 +92,7 @@ bool WadReader::load()
 			DirectoryEntry dirEntry;
 			dirEntry.position = stream.readQInt32();
 			dirEntry.size = stream.readQInt32();
-			dirEntry.name = stream.readRaw(8);
+			dirEntry.name = QString::fromUtf8(Strings::trimmedNul(stream.readRaw(8)));
 			d->directory << dirEntry;
 		}
 	}

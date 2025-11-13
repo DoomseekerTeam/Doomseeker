@@ -187,6 +187,14 @@ class MAIN_EXPORT Strings
 		static QString& triml(QString& str, const QString& charList);
 
 		/**
+		 * Find the first occurrence of NUL (0x00) and return whatever is left of it.
+		 *
+		 * The NUL character itself is not returned, e.g. `ABBA\0\0BAAB` gets chopped
+		 * to just `ABBA`. If there is no NUL character, returns the copy of bytes.
+		 */
+		static QByteArray trimmedNul(QByteArray bytes);
+
+		/**
 		 * @brief Detects all links within a given string and wraps them in
 		 * &lt;a href&gt; tags.
 		 *

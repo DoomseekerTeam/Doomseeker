@@ -459,6 +459,12 @@ QString &Strings::triml(QString &str, const QString &charList)
 	return str.remove(0, i);
 }
 
+QByteArray Strings::trimmedNul(QByteArray bytes)
+{
+	int nulIndex = bytes.indexOf('\0');
+	return (nulIndex >= 0) ? bytes.left(nulIndex) : bytes;
+}
+
 QString Strings::wrapUrlsWithHtmlATags(const QString &str)
 {
 	static QString pluginSchemes;

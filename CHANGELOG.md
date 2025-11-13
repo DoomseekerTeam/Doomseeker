@@ -8,6 +8,10 @@ This file follows the format of
 and this project does not adhere to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+### Fixed
+- Qt6: WAD reader will properly trim the `\0` NUL character from lump names.
+
 ## [1.5.2]
 ### Added
 - Wadseeker: will now verify file checksums when extracting them from
