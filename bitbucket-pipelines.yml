@@ -3,24 +3,41 @@ image: doomseeker/doomseeker-build:latest
 clone:
   depth: full
 
-stepsDefined:
-  - Qt5Build: &qt5Build
-      name: Qt5 build
-      script:
-        - mkdir -p build_qt5
-        - cd build_qt5
-        - cmake -DCMAKE_CXX_FLAGS="-Wall -Werror=return-type" ..
-        - make -j$(nproc)
-        - make install
-        - QT_QPA_PLATFORM=offscreen ./doomseeker --tests
+definitions:
+  steps:
+    - step: &qt5-build-and-test
+        name: Qt5 build and test
+        script:
+          - mkdir -p build_qt5
+          - cd build_qt5
+          - cmake -DQt_PACKAGE=Qt5 -DCMAKE_CXX_FLAGS="-Wall -Werror=return-type" ..
+          - make -j$(nproc)
+          - make install
+          - QT_QPA_PLATFORM=offscreen ./doomseeker --tests
+    - step: &qt6-build-and-test
+        name: Qt6 build and test
+        script:
+          - mkdir -p build_qt6
+          - cd build_qt6
+          - cmake -DQt_PACKAGE=Qt6 -DCMAKE_CXX_FLAGS="-Wall -Werror=return-type" ..
+          - make -j$(nproc)
+          - make install
+          - QT_QPA_PLATFORM=offscreen ./doomseeker --tests
 
 pipelines:
   branches:
     master:
-      - step: *qt5Build
+      - parallel:
+          steps:
+            - step: *qt5-build-and-test
+            - step: *qt6-build-and-test
   custom:
     Qt5Build:
-      - step: *qt5Build
+      - step: *qt5-build-and-test
+    Qt6Build:
+      - step: *qt6-build-and-test
     AllBuilds:
       - parallel:
-        - step: *qt5Build
+          steps:
+            - step: *qt5-build-and-test
+            - step: *qt6-build-and-test
