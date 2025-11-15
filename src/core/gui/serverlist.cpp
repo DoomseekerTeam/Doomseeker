@@ -359,12 +359,13 @@ void ServerList::mouseEntered(const QModelIndex &index)
 		break;
 	}
 
-#ifdef Q_OS_WIN
+#if defined(Q_OS_WIN) && QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 	// Fix #4574 in Qt 5.7 on MS Windows. Doomseeker's main window would be sent
 	// to the top if mouse hovered over a server. This would cause other Doomseeker
 	// windows to be sent back, possibly hidden if Doomseeker was in full screen.
 	QToolTip::showText(QCursor::pos(), tooltip, nullptr);
 #else
+	// #4574 Qt 6.9.3 doesn't exhibit the same problem.
 	QToolTip::showText(QCursor::pos(), tooltip, mainWindow);
 #endif
 }
