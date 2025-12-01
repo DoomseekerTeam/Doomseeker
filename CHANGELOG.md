@@ -8,7 +8,7 @@ This file follows the format of
 and this project does not adhere to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [unreleased]
+## [1.5.3]
 ### Fixed
 - Qt5.7 Windows: main window inappropriately sent to the top when mouse cursor
 hovers over a server and causes a tooltip to appear. (#4574)
@@ -983,6 +983,7 @@ without any warranty.
 
 
 [unreleased]: https://bitbucket.org/Doomseeker/doomseeker/commits/all
+[1.5.3]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.5.3
 [1.5.2]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.5.2
 [1.5.1]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.5.1
 [1.5.0]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.5.0
