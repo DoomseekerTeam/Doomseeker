@@ -1,7 +1,7 @@
 # Changelog
 
 Visit this file cleanly formatted in repository:
-<https://bitbucket.org/Doomseeker/doomseeker/src/master/CHANGELOG.md>
+<https://github.com/DoomseekerTeam/Doomseeker/blob/master/CHANGELOG.md>
 
 This file follows the format of
 [Keep a Changelog 1.0.0](https://keepachangelog.com/en/1.0.0/),
@@ -982,18 +982,18 @@ notice and this notice are preserved.  This file is offered as-is,
 without any warranty.
 
 
-[unreleased]: https://bitbucket.org/Doomseeker/doomseeker/commits/all
-[1.5.3]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.5.3
-[1.5.2]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.5.2
-[1.5.1]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.5.1
-[1.5.0]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.5.0
-[1.4.1]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.4.1
-[1.4]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.4
-[1.3.3]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.3.3
-[1.3.2]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.3.2
-[1.3.1]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.3.1
-[1.3]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.3
-[1.2]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.2
-[1.1-p1]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.1-p1
-[1.1]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.1
-[1.0]: https://bitbucket.org/Doomseeker/doomseeker/commits/tag/1.0
+[unreleased]: https://github.com/DoomseekerTeam/Doomseeker/commits
+[1.5.3]: https://github.com/DoomseekerTeam/Doomseeker/commits/1.5.3
+[1.5.2]: https://github.com/DoomseekerTeam/Doomseeker/commits/1.5.2
+[1.5.1]: https://github.com/DoomseekerTeam/Doomseeker/commits/1.5.1
+[1.5.0]: https://github.com/DoomseekerTeam/Doomseeker/commits/1.5.0
+[1.4.1]: https://github.com/DoomseekerTeam/Doomseeker/commits/1.4.1
+[1.4]: https://github.com/DoomseekerTeam/Doomseeker/commits/1.4
+[1.3.3]: https://github.com/DoomseekerTeam/Doomseeker/commits/1.3.3
+[1.3.2]: https://github.com/DoomseekerTeam/Doomseeker/commits/1.3.2
+[1.3.1]: https://github.com/DoomseekerTeam/Doomseeker/commits/1.3.1
+[1.3]: https://github.com/DoomseekerTeam/Doomseeker/commits/1.3
+[1.2]: https://github.com/DoomseekerTeam/Doomseeker/commits/1.2
+[1.1-p1]: https://github.com/DoomseekerTeam/Doomseeker/commits/1.1-p1
+[1.1]: https://github.com/DoomseekerTeam/Doomseeker/commits/1.1
+[1.0]: https://github.com/DoomseekerTeam/Doomseeker/commits/1.0

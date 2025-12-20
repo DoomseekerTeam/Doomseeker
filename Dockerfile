@@ -29,6 +29,7 @@ FROM ubuntu:22.04
 # (Don't install build-essential to avoid getting the default gcc.)
 RUN apt-get update && \
 	DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y --no-install-recommends install \
+	ca-certificates \
 	cmake \
 	g++-10 \
 	gcc-10 \

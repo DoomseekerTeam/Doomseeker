@@ -83,7 +83,7 @@ supported platforms.
 Tools necessary to spawn this database are available in doomseeker-blobs
 repository available here:
 
-  https://bitbucket.org/Doomseeker/doomseeker-blobs/
+  https://github.com/DoomseekerTeam/Doomseeker-Blobs
 
 Spawn the IpToCountry.dat using tools provided in that repository,
 then in CMake specify path to it through option:

@@ -1,0 +1,38 @@
+name: Build
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        config:
+          - name: Linux Qt5
+            qt-version: 5
+          - name: Linux Qt6
+            qt-version: 6
+    name: ${{ matrix.config.name }}
+    runs-on: ubuntu-24.04
+    container:
+      image: docker.io/doomseeker/doomseeker-build
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Configure
+        run: cmake -S . -B build -DQt_PACKAGE=Qt${{ matrix.config.qt-version }} -DCMAKE_CXX_FLAGS="-Wall -Werror=return-type"
+
+      - name: Build
+        run: git config --global --add safe.directory "$PWD" && cmake --build build -j $(nproc) -v
+
+      - name: Install
+        run: cmake --install build --strip
+
+      - name: Test
+        working-directory: build
+        run: QT_QPA_PLATFORM=offscreen ./doomseeker --tests

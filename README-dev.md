@@ -47,13 +47,13 @@ MantisBT issue tracker either.)
 
 ----
 
-The sources for development are available through Git on Bitbucket:
-<https://bitbucket.org/Doomseeker/doomseeker>.
+The sources for development are available through Git on GitHub:
+<https://github.com/DoomseekerTeam/Doomseeker>.
 
 A typical way to get started is to clone the Git repository, using a
 Git client from command line.
 
-`git clone https://bitbucket.org/Doomseeker/doomseeker.git`
+`git clone https://github.com/DoomseekerTeam/Doomseeker.git`
 
 Refer to the manual of your client for information on interfacing with
 Git.
@@ -112,25 +112,21 @@ more modern C++ standard versions in the future.
 
 We'd love you to bring us *DOOM* by invading our mailboxes with patches. `;-)`
 
-### Bitbucket
+### GitHub
 
 > Push - Griefing Made Legal
 
 ----
 
 The preferred (or convenient way) way of contributing is to enter into an
-agreement with Atlassian Pty Ltd for an Atlassian account to use on
-[Bitbucket](https://bitbucket.org/). ([Terms of
-Service](https://www.atlassian.com/legal/cloud-terms-of-service) and [Privacy
-Policy](https://www.atlassian.com/legal/privacy-policy) may apply.)
+agreement with GitHub, Inc. for an GitHub account to use on
+[GitHub](https://github.com/). ([Terms of
+Service](https://docs.github.com/site-policy/github-terms/github-terms-of-service) and [Privacy
+Policy](https://docs.github.com/site-policy/privacy-policies/github-privacy-statement) may apply.)
 
-Bitbucket has documentation available online: [Tutorial: Learn about Bitbucket
-pull
-requests](https://confluence.atlassian.com/bitbucket/tutorial-learn-about-bitbucket-pull-requests-774243385.html).
-Specifically, [Clone and make a change on a new
-branch](https://confluence.atlassian.com/bitbucket/clone-and-make-a-change-on-a-new-branch-774243398.html)
-and [Create a pull request to merge your
-change](https://confluence.atlassian.com/bitbucket/create-a-pull-request-to-merge-your-change-774243413.html).
+GitHub has documentation available online: [Pull requests documentation](https://docs.github.com/en/pull-requests).
+Specifically, [Fork a repository](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo)
+and [Creating a pull request from a fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork).
 
 ### Issue tracker
 
