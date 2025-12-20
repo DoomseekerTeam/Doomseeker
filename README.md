@@ -1,6 +1,9 @@
 Doomseeker
 ==========
 
+> [!IMPORTANT]
+> Due to Atlassian [making changes that hinder open collaboration](https://community.atlassian.com/forums/Bitbucket-articles/Deprecation-of-Forked-Repositories-Outside-the-Parent-Workspace/ba-p/3155743), this project has moved to GitHub. The new repository is at: https://github.com/DoomseekerTeam/Doomseeker
+
 This is a cross platform server browser for Doom.  It supports, via a plugin-in
 architecture, a variety of source ports including Chocolate Doom, Odamex, and
 Zandronum.  This also includes the source code to Wadseeker a mod fetching
