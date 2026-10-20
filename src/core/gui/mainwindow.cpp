@@ -63,7 +63,6 @@
 #include "irc/configuration/ircconfig.h"
 #include "joincommandlinebuilder.h"
 #include "log.h"
-#include "main.h"
 #include "pathfinder/pathfinder.h"
 #include "pathfinder/wadpathfinder.h"
 #include "plugins/engineplugin.h"
@@ -1293,7 +1292,7 @@ void MainWindow::refreshThreadEndsWork()
 
 void MainWindow::restartAndInstallUpdatesNow()
 {
-	Main::bInstallUpdatesAndRestart = true;
+	gApp->setInstallUpdatesOnExit(true);
 	quitProgram();
 }
 

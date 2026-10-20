@@ -33,6 +33,10 @@ jobs:
       - name: Install
         run: cmake --install build --strip
 
-      - name: Test
+      - name: Unit tests
+        working-directory: build
+        run: ctest --output-on-failure -L unit
+
+      - name: Built-in tests
         working-directory: build
         run: QT_QPA_PLATFORM=offscreen ./doomseeker --tests

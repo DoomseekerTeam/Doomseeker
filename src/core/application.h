@@ -105,6 +105,14 @@ public:
 	 */
 	const QStringList &originalArgs() const;
 
+	/**
+	 * @brief Install pending updates and restart instead of quitting.
+	 *
+	 * Defaults to false. Ignored if there are no updates to install.
+	 */
+	bool shouldInstallUpdatesOnExit() const;
+	void setInstallUpdatesOnExit(bool install);
+
 	void setMainWindow(MainWindow *mainWindow);
 	/**
 	 * @brief Makes isRunning() return false.

@@ -34,6 +34,7 @@ DClass<Application>
 public:
 	QPointer<MainWindow> mainWindow;
 	bool running;
+	bool installUpdatesOnExit;
 	QStringList originalArgs;
 };
 
@@ -46,6 +47,7 @@ Application::Application(int &argc, char **argv)
 {
 	d->mainWindow = nullptr;
 	d->running = true;
+	d->installUpdatesOnExit = false;
 	setApplicationName(NAME);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 7, 0)
 	setDesktopFileName("org.drdteam.Doomseeker");
@@ -121,6 +123,16 @@ MainWindow *Application::mainWindow() const
 QWidget *Application::mainWindowAsQWidget() const
 {
 	return d->mainWindow.data();
+}
+
+bool Application::shouldInstallUpdatesOnExit() const
+{
+	return d->installUpdatesOnExit;
+}
+
+void Application::setInstallUpdatesOnExit(bool install)
+{
+	d->installUpdatesOnExit = install;
 }
 
 void Application::setMainWindow(MainWindow *mainWindow)

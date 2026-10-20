@@ -40,17 +40,6 @@ class Main : public QObject
 	Q_OBJECT
 
 public:
-	/**
-	 * @brief If true then program will install updates and restart
-	 *        instead of quitting if quit is requested.
-	 *
-	 * This flag is ignored if the program configuration states that
-	 * there are no updates to install.
-	 *
-	 * Default: false.
-	 */
-	static bool bInstallUpdatesAndRestart;
-
 	Main(int argc, char *argv[]);
 	~Main() override;
 

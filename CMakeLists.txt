@@ -18,12 +18,11 @@
 #------------------------------------------------------------------------------
 # Copyright (C) 2009 Braden "Blzut3" Obrzut <admin@maniacsvault.net>
 #------------------------------------------------------------------------------
-cmake_minimum_required(VERSION 3.5...4.0)
-if(CMAKE_VERSION VERSION_LESS 3.12)
-	cmake_policy(VERSION ${CMAKE_VERSION})
-endif()
+cmake_minimum_required(VERSION 3.12...4.0)
 
 project(Doomseeker)
+
+include(CTest)
 
 # Multiarch support
 if(UNIX AND NOT APPLE)
@@ -146,6 +145,10 @@ add_subdirectory(tools/updaterevision)
 
 add_subdirectory(src/core)
 add_subdirectory(src/plugins)
+
+if(BUILD_TESTING)
+	add_subdirectory(tests)
+endif()
 
 message(STATUS "'INSTALL' will dump files to \"${CMAKE_INSTALL_PREFIX}\"")
 

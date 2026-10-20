@@ -152,43 +152,80 @@ include("versiondefs.cmake")
 configure_file(versiondefs.h.in versiondefs.h)
 set(HEADER_FILES "${HEADER_FILES}" versiondefs.h)
 
+# Split the app building into a 'doomseeker_core' object library and the
+# actual executable 'doomseeker'. This allows to share code objects with
+# unit test programs without linking the application's entry point to them.
+set(CORE_SOURCE_FILES ${SOURCE_FILES})
+set(CORE_HEADER_FILES ${HEADER_FILES})
+list(FILTER CORE_SOURCE_FILES EXCLUDE REGEX "^(main\\.cpp|tests/.*)$")
+list(FILTER CORE_HEADER_FILES EXCLUDE REGEX "^(main\\.h|tests/.*)$")
+set(APP_SOURCE_FILES ${SOURCE_FILES})
+set(APP_HEADER_FILES ${HEADER_FILES})
+list(REMOVE_ITEM APP_SOURCE_FILES ${CORE_SOURCE_FILES})
+list(REMOVE_ITEM APP_HEADER_FILES ${CORE_HEADER_FILES})
+
+add_library(doomseeker_core OBJECT
+	${UI_FILES}
+	${CORE_SOURCE_FILES}
+	${CORE_HEADER_FILES}
+)
+set_target_properties(doomseeker_core PROPERTIES AUTOMOC ON AUTOUIC ON)
+
+# These objects are linked into executables, which provide the plugin API.
+if(WIN32)
+	target_compile_definitions(doomseeker_core PUBLIC doomseeker_EXPORTS)
+endif()
+
 add_executable(doomseeker
 	${Doomseeker_SOURCE_DIR}/media/resources.qrc
 	${QM_FILES}
-	${UI_FILES}
-	${SOURCE_FILES}
-	${HEADER_FILES}
+	${APP_SOURCE_FILES}
+	${APP_HEADER_FILES}
 )
 
-target_include_directories(doomseeker
-PRIVATE
+# Application-wide build settings, shared transitively with core consumers.
+add_library(doomseeker_build_config INTERFACE)
+target_include_directories(doomseeker_build_config
+INTERFACE
 	${CMAKE_CURRENT_SOURCE_DIR}/gui/
 	${CMAKE_CURRENT_BINARY_DIR}
-PUBLIC
 	${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 if(WITH_AUTOUPDATES)
-	target_compile_definitions(doomseeker PRIVATE -DWITH_AUTOUPDATES)
+	target_compile_definitions(doomseeker_build_config INTERFACE WITH_AUTOUPDATES)
 endif()
 
-if (MSVC)
-	target_compile_definitions(doomseeker PRIVATE -D_CRT_SECURE_NO_WARNINGS)
+if(MSVC)
+	target_compile_definitions(doomseeker_build_config INTERFACE _CRT_SECURE_NO_WARNINGS)
 endif()
 
-target_compile_definitions(doomseeker PRIVATE "-DINSTALL_PREFIX=\"${CMAKE_INSTALL_PREFIX}\"" "-DINSTALL_LIBDIR=\"${CMAKE_INSTALL_LIBDIR}\"")
+target_compile_definitions(doomseeker_build_config
+INTERFACE
+	"INSTALL_PREFIX=\"${CMAKE_INSTALL_PREFIX}\""
+	"INSTALL_LIBDIR=\"${CMAKE_INSTALL_LIBDIR}\""
+)
 
 # Make sure the vcs version file is created before we attempt to compile
 # Doomseeker.
-add_dependencies(doomseeker revision_check)
+add_dependencies(doomseeker_core revision_check)
 
-target_link_libraries(doomseeker
-PRIVATE
+target_link_libraries(doomseeker_core
+PUBLIC
+	doomseeker_build_config
 	Wadseeker::wadseeker
 	ZLIB::ZLIB
 	${CMAKE_DL_LIBS}
+	${QT_LIBRARIES}
+)
+
+target_link_libraries(doomseeker
+PRIVATE
+	doomseeker_core
 PUBLIC
-	${QT_LIBRARIES})
+	doomseeker_build_config
+	${QT_LIBRARIES}
+)
 
 # Copy translations
 set(TRANSLATION_FILES_TO_COPY

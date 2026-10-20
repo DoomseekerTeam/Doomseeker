@@ -71,9 +71,6 @@
 #include <unistd.h>
 #endif
 
-bool Main::bInstallUpdatesAndRestart = false;
-
-
 Main::Main(int argc, char *argv[])
 	: arguments(argv), argumentsCount(argc),
 	startCreateGame(false), startRcon(false)
@@ -243,7 +240,7 @@ int Main::run()
 	int returnCode = gApp->exec();
 
 	#ifdef WITH_AUTOUPDATES
-	if (bInstallUpdatesAndRestart)
+	if (gApp->shouldInstallUpdatesOnExit())
 	{
 		// Code must be reset because the install method
 		// doesn't do the actual installation if it's not equal to zero.

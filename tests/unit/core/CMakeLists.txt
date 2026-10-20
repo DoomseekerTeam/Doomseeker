@@ -1,0 +1,2 @@
+add_doomseeker_unit_test(strings LIBRARIES doomseeker_core)
+add_doomseeker_unit_test(utf8splitter LIBRARIES doomseeker_core)
