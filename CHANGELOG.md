@@ -8,6 +8,11 @@ This file follows the format of
 and this project does not adhere to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+### Fixed
+- Wadseeker: would fail to install files from archives if system temporary
+directory was on a different filesystem than the destination.
+
 ## [1.5.3]
 ### Fixed
 - Qt5.7 Windows: main window inappropriately sent to the top when mouse cursor

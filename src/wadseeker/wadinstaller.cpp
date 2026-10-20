@@ -109,7 +109,7 @@ WadInstallerResult WadInstaller::installArchive(UnArchive &archive)
 		return dirResult;
 	}
 
-	WadInstallerResult result;
+	QList<WadInstallerResult> results;
 	FileFind fileFinder(archive.files());
 
 	// We will try to find all requested WADs in the single archive.
@@ -121,32 +121,52 @@ WadInstallerResult WadInstaller::installArchive(UnArchive &archive)
 		if (entryIndex >= 0)
 		{
 			// File was found in the archive. Attempt extraction.
-			// Extract first to a temporary location because we will
+
+			// Extract first to a staged temporary location because we will
 			// be confirming if the file is valid before we install it.
-			QTemporaryFile tempDest;
-			tempDest.setAutoRemove(false);
-			tempDest.open();
-			QString destPath = installDir.absoluteFilePath(name);
-			if (archive.extract(entryIndex, tempDest.fileName()))
+			// Stage the file in the install directory, so that it can be
+			// installed via rename(). QTemporaryFile::rename() cannot rename
+			// files across a filesystem boundary.
+			QTemporaryFile tempDest(installDir.absoluteFilePath(".wadseeker-XXXXXX"));
+			if (!tempDest.open())
 			{
-				if (wad.validFile(tempDest.fileName()))
-				{
-					// A valid file can be moved to its final installation place.
-					QFile destFile(destPath);
-					if (destFile.exists())
-						destFile.remove();
-					if (tempDest.rename(destPath))
-						result.installedWads << QFileInfo(destFile);
-				}
-				else
-				{
-					tempDest.setAutoRemove(true);
-				}
+				results << WadInstallerResult::makeCriticalError(
+					tr("Failed to create a temporary file in directory \"%1\": %2")
+						.arg(installDir.absolutePath(), tempDest.errorString()));
+				continue;
 			}
+			tempDest.close();
+			if (!archive.extract(entryIndex, tempDest.fileName())
+				|| !wad.validFile(tempDest.fileName()))
+			{
+				continue;
+			}
+
+			// A valid file can be moved to its final installation place.
+			QString destPath = installDir.absoluteFilePath(name);
+			QFile destFile(destPath);
+			if (destFile.exists() && !destFile.remove())
+			{
+				results << WadInstallerResult::makeCriticalError(
+					tr("Failed to remove file \"%1\": %2")
+						.arg(destPath, destFile.errorString()));
+				continue;
+			}
+			if (!tempDest.rename(destPath))
+			{
+				results << WadInstallerResult::makeCriticalError(
+					tr("Failed to install file \"%1\": %2")
+						.arg(destPath, tempDest.errorString()));
+				continue;
+			}
+
+			// Keep the installed file; failed attempts are removed automatically.
+			tempDest.setAutoRemove(false);
+			results << WadInstallerResult::makeSuccess(QFileInfo(destPath));
 		}
 	}
 
-	return result;
+	return WadInstallerResult::aggregate(results);
 }
 
 WadInstallerResult WadInstaller::installFile(const WadDownloadInfo &wad, QIODevice *stream)

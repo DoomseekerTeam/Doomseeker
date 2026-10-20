@@ -2,6 +2,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from urllib.parse import urlencode, urljoin
 
+import pytest
+
 from wadseekertests.config import E2EConfig
 from wadseekertests.file import File, FileChecksum
 from wadseekertests.wadseekerapp import WadseekerApp
@@ -219,6 +221,88 @@ def test_extract_wad_from_zip_got_directly(e2econfig: E2EConfig, wadseeker: Wads
     assert exitcode == wadseeker.EC.OK.value
     assert not (e2econfig.workpath / Files.PLAIN_ZIP.name).exists()
     assert (e2econfig.workpath / Files.PLAIN_WAD.name).exists()
+
+
+@pytest.mark.parametrize("archive", [Files.PLAIN_ZIP, Files.PLAIN_7Z])
+def test_extract_wad_across_filesystems(
+    e2econfig: E2EConfig,
+    wadseeker: WadseekerApp,
+    monkeypatch,
+    archive: File,
+    other_fs_path: Path,
+):
+    """The system temporary directory and install directory may be on different
+    filesystems. Validate and install without leaving staging files behind.
+    """
+    # Given: temporary storage and the install directory on different filesystems
+    monkeypatch.setenv("TMPDIR", str(e2econfig.workpath))
+    site = Endpoint(archive.name).resolve_url(e2econfig)
+    wadseeker.outputdir = str(other_fs_path)
+
+    # When: extracting and installing a file with a valid checksum
+    exitcode, _ = wadseeker.run_with_site(site, Files.PLAIN_WAD.namechecksum)
+
+    # Then: the file is installed correctly and no staging files remain
+    assert exitcode == wadseeker.EC.OK.value
+    installed = other_fs_path / Files.PLAIN_WAD.name
+    expected = e2econfig.datapath.http / Files.PLAIN_WAD.path
+    assert installed.read_bytes() == expected.read_bytes()
+    assert list(other_fs_path.iterdir()) == [installed]
+    assert not list(e2econfig.workpath.iterdir())
+
+
+@pytest.mark.parametrize("valid_checksum", [True, False])
+def test_extract_wad_replaces_only_after_validation(
+    e2econfig: E2EConfig,
+    wadseeker: WadseekerApp,
+    monkeypatch,
+    valid_checksum: bool,
+):
+    # Given: an existing file and a replacement with a valid or invalid checksum
+    monkeypatch.setenv("TMPDIR", str(e2econfig.workpath))
+    destination = e2econfig.workpath / Files.PLAIN_WAD.name
+    original = b"Keep this file unless the replacement is valid"
+    destination.write_bytes(original)
+    requested = Files.PLAIN_WAD if valid_checksum else File(
+        Files.PLAIN_WAD.strpath,
+        [FileChecksum("md5", "ffffffffffffffffffffffffffffffff")],
+    )
+    site = Endpoint(Files.PLAIN_ZIP.name).resolve_url(e2econfig)
+
+    # When: attempting to install the replacement from an archive
+    exitcode, _ = wadseeker.run_with_site(site, requested.namechecksum)
+
+    # Then: only a valid replacement overwrites the original; staging is cleaned up
+    if valid_checksum:
+        assert exitcode == wadseeker.EC.OK.value
+        expected = e2econfig.datapath.http / Files.PLAIN_WAD.path
+        assert destination.read_bytes() == expected.read_bytes()
+    else:
+        assert exitcode == wadseeker.EC.FAIL.value
+        assert destination.read_bytes() == original
+    assert list(e2econfig.workpath.iterdir()) == [destination]
+
+
+def test_extract_wad_cannot_replace_directory(
+    e2econfig: E2EConfig,
+    wadseeker: WadseekerApp,
+    monkeypatch,
+):
+    """An installation failure must be reported and staging files cleaned up."""
+    # Given: a directory occupying the desired installation path
+    monkeypatch.setenv("TMPDIR", str(e2econfig.workpath))
+    destination = e2econfig.workpath / Files.PLAIN_WAD.name
+    destination.mkdir()
+    site = Endpoint(Files.PLAIN_ZIP.name).resolve_url(e2econfig)
+
+    # When: attempting to replace the directory with an extracted file
+    exitcode, output = wadseeker.run_with_site(site, Files.PLAIN_WAD.namechecksum)
+
+    # Then: the failure is reported, the directory survives, and staging is cleaned up
+    assert exitcode == wadseeker.EC.FAIL.value
+    assert "Failed to remove file" in output
+    assert destination.is_dir()
+    assert list(e2econfig.workpath.iterdir()) == [destination]
 
 
 def test_extract_wad_from_zip_got_directly_valid_checksum(
