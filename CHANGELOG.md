@@ -979,7 +979,7 @@ archives. Fixes extraction of e1m4b.wad and e1m8b.wad. Thanks, John Romero!
 
 Copyright (this file)
 ---------------------
-Copyright (C) 2015, 2017 - 2025 The Doomseeker Team
+Copyright (C) 2015, 2017 - 2026 The Doomseeker Team
 
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright

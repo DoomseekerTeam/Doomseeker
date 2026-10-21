@@ -87,5 +87,5 @@ QString Version::versionRevision()
 
 QString Version::yearSpan()
 {
-	return "2009 - 2025";
+	return "2009 - 2026";
 }
