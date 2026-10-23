@@ -76,8 +76,8 @@ void TestIRCISupportParser::userPrefixes()
 	const QByteArray queriedModes("ohav");
 	for (int i = 0; i < 4; ++i)
 	{
-		QCOMPARE(prefixes.modeForPrefix(queriedPrefixes[i]), expectedModes[i]);
-		QCOMPARE(prefixes.prefixForMode(queriedModes[i]), expectedPrefixes[i]);
+		QCOMPARE(prefixes.modeForPrefix(queriedPrefixes[i]), expectedModes.at(i));
+		QCOMPARE(prefixes.prefixForMode(queriedModes[i]), expectedPrefixes.at(i));
 	}
 }
 

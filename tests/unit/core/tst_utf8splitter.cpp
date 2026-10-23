@@ -46,10 +46,10 @@ void TestUtf8Splitter::splitPreservesCharacters()
 	QCOMPARE(result.size(), 2);
 	QCOMPARE(result[0].size(), 384);
 	QCOMPARE(result[1].size(), 116);
-	QCOMPARE(static_cast<unsigned char>(result[0][382]), 0xc4);
-	QCOMPARE(static_cast<unsigned char>(result[0][383]), 0x85);
-	QCOMPARE(static_cast<unsigned char>(result[1][0]), 0xc4);
-	QCOMPARE(static_cast<unsigned char>(result[1][1]), 0x85);
+	QCOMPARE(static_cast<int>(static_cast<unsigned char>(result[0][382])), 0xc4);
+	QCOMPARE(static_cast<int>(static_cast<unsigned char>(result[0][383])), 0x85);
+	QCOMPARE(static_cast<int>(static_cast<unsigned char>(result[1][0])), 0xc4);
+	QCOMPARE(static_cast<int>(static_cast<unsigned char>(result[1][1])), 0x85);
 	QCOMPARE(result[0] + result[1], encoded);
 }
 
