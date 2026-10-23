@@ -30,10 +30,11 @@ configuration you built).
 - Name sources `tst_<subject>.cpp` and create one executable per subject.
 - Follow the directory hierarchy with CMake files. Parent files add child
   directories; leaf files register tests with
-  `add_doomseeker_unit_test(<subject> LIBRARIES <targets...>)`.
-- The function derives target names `doomseeker_test_<component>_<subject>`
+  `add_unit_test(<subject> LIBRARIES <targets...>)`, defined in
+  [`cmake/Modules/Tests.cmake`](../cmake/Modules/Tests.cmake).
+- The function derives target names `unit_test_<component>_<subject>`
   and CTest entries `unit.<component>.<subject>` from the directory hierarchy.
-  For example, the strings suite is `doomseeker_test_core_strings` and
+  For example, the strings suite is `unit_test_core_strings` and
   `unit.core.strings`.
 - CTest entries receive the `unit` and top-level component labels and a
   30-second timeout.

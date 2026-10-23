@@ -26,6 +26,10 @@ endif()
 
 project(Wadseeker)
 
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+	include(CTest)
+endif()
+
 if (MSVC)
 	set(CMAKE_SHARED_LIBRARY_PREFIX "lib")
 endif ()
@@ -192,9 +196,9 @@ set(HEADER_FILES
 )
 
 add_library(wadseeker SHARED ${WADSEEKER_FILES} ${HEADER_FILES})
-if(NOT CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
-	add_library(Wadseeker::wadseeker ALIAS wadseeker)
-endif()
+# Let consumers, including unit tests, use the same target name in both
+# standalone and Doomseeker builds.
+add_library(Wadseeker::wadseeker ALIAS wadseeker)
 
 target_include_directories(wadseeker
 PRIVATE
@@ -255,6 +259,14 @@ elseif(WIN32)
 endif()
 
 install(SCRIPT InstallHeaders.cmake COMPONENT wadseeker-dev)
+
+# Ticket #4538: when Wadseeker is built as a part of Doomseeker's
+# solution, the tests are configured from it already.
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND BUILD_TESTING)
+	find_package(${Qt_PACKAGE} COMPONENTS Test REQUIRED)
+	include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules/Tests.cmake")
+	add_subdirectory(tests/unit/wadseeker)
+endif()
 
 # We need a newer CPack version to get desirable results.
 if(NOT CMAKE_VERSION VERSION_LESS "3.6.0")
