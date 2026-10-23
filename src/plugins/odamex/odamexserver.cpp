@@ -187,46 +187,7 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 			cvars.insert(cvarName, cvarValue);
 	}
 
-	/*
-	  Define the gamemode.
-	  From: https://github.com/odamex/odamex/blob/f0e0416fc42ef06ce8ff1f1c462df6a69fc65fd1/common/g_gametype.cpp#L53
-	  Do not use g_gametypename.
-	*/
-	setGameMode([&]()
-	{
-		return OdamexGameMode::derived()[([&]()
-		{
-			unsigned int mode = cvars.value("sv_gametype", "0").toUInt();
-			unsigned int lives = cvars.value("g_lives", "0").toUInt();
-			bool sides = cvars.value("g_sides", "0").toUInt();
-			if (mode == OdamexGameMode::BASE_COOPERATIVE && lives > 0)
-				return OdamexGameMode::DERIVED_SURVIVAL;
-			else if (mode == OdamexGameMode::BASE_COOPERATIVE)
-				return OdamexGameMode::DERIVED_COOPERATIVE;
-			else if (mode == OdamexGameMode::BASE_DEATHMATCH && lives > 0)
-				return OdamexGameMode::DERIVED_LAST_MARINE_STANDING;
-			else if (mode == OdamexGameMode::BASE_DEATHMATCH && maxPlayers() <= 2)
-				return OdamexGameMode::DERIVED_DUEL;
-			else if (mode == OdamexGameMode::BASE_DEATHMATCH)
-				return OdamexGameMode::DERIVED_DEATHMATCH;
-			else if (mode == OdamexGameMode::BASE_TEAM_DEATHMATCH && lives > 0)
-				return OdamexGameMode::DERIVED_TEAM_LAST_MARINE_STANDING;
-			else if (mode == OdamexGameMode::BASE_TEAM_DEATHMATCH)
-				return OdamexGameMode::DERIVED_TEAM_DEATHMATCH;
-			else if (mode == OdamexGameMode::BASE_CTF && sides)
-				return OdamexGameMode::DERIVED_ATTACK_DEFEND_CTF;
-			else if (mode == OdamexGameMode::BASE_CTF && lives > 0)
-				return OdamexGameMode::DERIVED_LMS_CTF;
-			else if (mode == OdamexGameMode::BASE_CTF)
-				return OdamexGameMode::DERIVED_CAPTURE_THE_FLAG;
-			else if (mode == OdamexGameMode::BASE_HORDE && lives > 0)
-				return OdamexGameMode::DERIVED_SURVIVAL_HORDE;
-			else if (mode == OdamexGameMode::BASE_HORDE)
-				return OdamexGameMode::DERIVED_HORDE;
-			else
-				return OdamexGameMode::DERIVED_COOPERATIVE; // Arbitrary default
-		}())];
-	}());
+	setGameMode(OdamexGameMode::fromServerSettings(cvars, maxPlayers()));
 
 	if (webSite().isEmpty() && !additionalWebSites().isEmpty())
 	{

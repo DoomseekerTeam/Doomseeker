@@ -20,6 +20,7 @@
 #------------------------------------------------------------------------------
 
 add_subdirectory(core)
+add_subdirectory(plugins)
 if(WADSEEKER_INTERNAL)
 	add_subdirectory(wadseeker)
 endif()

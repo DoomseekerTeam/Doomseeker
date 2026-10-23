@@ -12,6 +12,12 @@ From your build directory, run all unit tests with:
 ctest --output-on-failure -L unit
 ```
 
+To run only plugin unit tests:
+
+```sh
+ctest --output-on-failure -L plugins
+```
+
 To run a specific suite, select it by name:
 
 ```sh
@@ -32,6 +38,10 @@ configuration you built).
   directories; leaf files register tests with
   `add_unit_test(<subject> LIBRARIES <targets...>)`, defined in
   [`cmake/Modules/Tests.cmake`](../cmake/Modules/Tests.cmake).
+- Register plugin tests with
+  `add_plugin_unit_test(<plugin-target> <subject> [SOURCES <files...>])`.
+  This links Doomseeker core and the plugin's shared build configuration.
+  Only enabled plugins have their test suites registered.
 - The function derives target names `unit_test_<component>_<subject>`
   and CTest entries `unit.<component>.<subject>` from the directory hierarchy.
   For example, the strings suite is `unit_test_core_strings` and

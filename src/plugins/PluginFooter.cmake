@@ -23,15 +23,23 @@
 
 add_doomseeker_plugin(${PLUGIN_NAME})
 
-target_include_directories(${PLUGIN_NAME}
-PRIVATE
+# Share compilation settings.
+add_library(${PLUGIN_NAME}_build_config INTERFACE)
+target_include_directories(${PLUGIN_NAME}_build_config
+INTERFACE
 	${CMAKE_CURRENT_SOURCE_DIR}
-	${CMAKE_CURRENT_BINARY_DIR} 
+	${CMAKE_CURRENT_BINARY_DIR}
 )
 
-target_compile_definitions(${PLUGIN_NAME} PRIVATE "-DPLUGIN_VERSION=${PLUGIN_VERSION}")
+target_compile_definitions(${PLUGIN_NAME}_build_config INTERFACE "PLUGIN_VERSION=${PLUGIN_VERSION}")
+target_link_libraries(${PLUGIN_NAME}_build_config
+INTERFACE
+	${PLUGIN_LIBS}
+	${QT_LIBRARIES}
+	doomseeker_build_config
+)
 
-target_link_libraries(${PLUGIN_NAME} PUBLIC ${PLUGIN_LIBS} ${QT_LIBRARIES} doomseeker)
+target_link_libraries(${PLUGIN_NAME} PUBLIC ${PLUGIN_NAME}_build_config doomseeker)
 
 set_target_properties(${PLUGIN_NAME} PROPERTIES AUTOMOC ON AUTOUIC ON)
 
