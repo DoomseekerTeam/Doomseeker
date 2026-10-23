@@ -1,0 +1,1 @@
+add_doomseeker_unit_test(ircisupportparser LIBRARIES doomseeker_core)

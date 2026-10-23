@@ -1,0 +1,1 @@
+add_doomseeker_unit_test(filesearchpath LIBRARIES doomseeker_core)

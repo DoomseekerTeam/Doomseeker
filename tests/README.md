@@ -26,11 +26,11 @@ configuration you built).
 - Mirror `src/` below `tests/unit/`: core tests belong in `unit/core/`, plugin
   tests in `unit/plugins/<plugin>/`, and Wadseeker unit tests in
   `unit/wadseeker/`.
+- Store fixture files (test data) in `_testdata/`.
 - Name sources `tst_<subject>.cpp` and create one executable per subject.
 - Follow the directory hierarchy with CMake files. Parent files add child
   directories; leaf files register tests with
-  `add_doomseeker_unit_test(<subject> LIBRARIES <targets...>)`, for example
-  `add_doomseeker_unit_test(strings LIBRARIES doomseeker_core)`.
+  `add_doomseeker_unit_test(<subject> LIBRARIES <targets...>)`.
 - The function derives target names `doomseeker_test_<component>_<subject>`
   and CTest entries `unit.<component>.<subject>` from the directory hierarchy.
   For example, the strings suite is `doomseeker_test_core_strings` and

@@ -1,0 +1,5 @@
+<RCC>
+	<qresource prefix="/tests/modreader">
+		<file>7zedWadsTest.7z</file>
+	</qresource>
+</RCC>

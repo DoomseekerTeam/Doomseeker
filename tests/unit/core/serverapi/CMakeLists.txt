@@ -1,0 +1,1 @@
+add_doomseeker_unit_test(player LIBRARIES doomseeker_core)
