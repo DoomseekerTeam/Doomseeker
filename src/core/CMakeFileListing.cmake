@@ -293,20 +293,6 @@ set(HEADER_FILES
 	speedcalculator.h
 	strings.hpp
 	templatedpathresolver.h
-	tests/asserts.h
-	tests/testbase.h
-	tests/testcore.h
-	tests/testdatetime.h
-	tests/testfilesearchpath.h
-	tests/testgamedemo.h
-	tests/testini.h
-	tests/testircisupportparser.h
-	tests/testmodreader.h
-	tests/testplayer.h
-	tests/testruns.h
-	tests/teststrings.h
-	tests/testtemplatedpathresolver.h
-	tests/testutf8splitter.h
 	updater/autoupdater.h
 	updater/updatechannel.h
 	updater/updateinstaller.h
@@ -539,19 +525,6 @@ set(SOURCE_FILES
 	speedcalculator.cpp
 	strings.cpp
 	templatedpathresolver.cpp
-	tests/testbase.cpp
-	tests/testcore.cpp
-	tests/testdatetime.cpp
-	tests/testfilesearchpath.cpp
-	tests/testgamedemo.cpp
-	tests/testini.cpp
-	tests/testircisupportparser.cpp
-	tests/testmodreader.cpp
-	tests/testplayer.cpp
-	tests/testruns.cpp
-	tests/teststrings.cpp
-	tests/testtemplatedpathresolver.cpp
-	tests/testutf8splitter.cpp
 	updater/autoupdater.cpp
 	updater/updatechannel.cpp
 	updater/updateinstaller.cpp

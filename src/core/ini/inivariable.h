@@ -139,9 +139,6 @@ public:
 	QVariant value() const;
 
 private:
-	friend class TestReadINIVariable;
-	friend class TestReadINIList;
-
 	DPtr<IniVariable> d;
 };
 

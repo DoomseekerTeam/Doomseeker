@@ -69,7 +69,6 @@ private:
 
 	void createMainWindow();
 
-	int runTestMode();
 	int runVersionDump();
 
 	void initCaCerts();
@@ -106,7 +105,6 @@ private:
 	int argumentsCount;
 	QString baseDir;
 	bool bIsFirstRun;
-	bool bTestMode;
 	bool bVersionDump;
 	QString versionDumpFile;
 	QStringList dataDirectories;

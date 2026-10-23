@@ -62,7 +62,6 @@
 #include "serverapi/server.h"
 #include "serverapi/server.h"
 #include "strings.hpp"
-#include "tests/testruns.h"
 #include "updater/updateinstaller.h"
 #include "versiondump.h"
 #include "wadseeker/wadseeker.h"
@@ -81,7 +80,6 @@ Main::Main(int argc, char *argv[])
 		"");
 	#endif
 	bIsFirstRun = false;
-	bTestMode = false;
 	bPortableMode = false;
 	bVersionDump = false;
 	logVerbosity = LV_Default;
@@ -172,11 +170,6 @@ int Main::run()
 	}
 	PluginUrlHandler::registerAll();
 
-	if (bTestMode)
-	{
-		return runTestMode();
-	}
-
 	initMainConfig();
 	#ifdef WITH_AUTOUPDATES
 	// Handle pending update installations.
@@ -256,34 +249,6 @@ int Main::run()
 	#endif
 
 	return returnCode;
-}
-
-int Main::runTestMode()
-{
-	// Setup
-	gLog << "Entering test mode.";
-	gLog << "";
-	TestCore testCore;
-
-	// Call tests here.
-	TestRuns::pTestCore = &testCore;
-	TestRuns::callTests();
-
-	// Summary
-	QString strSucceded   = "Tests succeeded: %1";
-	QString strFailed     = "Tests failed:    %1";
-	QString strPercentage = "Pass percentage: %1%";
-
-	float passPercentage = (float)testCore.numTestsSucceeded() / (float)testCore.numTests();
-	passPercentage *= 100.0f;
-
-	gLog << "==== TESTS SUMMARY: ====";
-	gLog << strSucceded.arg(testCore.numTestsSucceeded(), 6);
-	gLog << strFailed.arg(testCore.numTestsFailed(), 6);
-	gLog << strPercentage.arg(passPercentage, 6, 'f', 2);
-	gLog << "==== Done.          ====";
-
-	return testCore.numTestsFailed();
 }
 
 int Main::runVersionDump()
@@ -689,10 +654,6 @@ bool Main::interpretCommandLineParameters()
 		{
 			logVerbosity = LV_Quiet;
 		}
-		else if (strcmp(arg, "--tests") == 0)
-		{
-			bTestMode = true;
-		}
 		else if (strcmp(arg, "--verbose") == 0)
 		{
 			logVerbosity = LV_Verbose;
@@ -739,8 +700,6 @@ void Main::setupRefreshingThread()
 
 bool Main::shouldLogToStderr() const
 {
-	if (bTestMode)
-		return logVerbosity != LV_Quiet;
 	if (bVersionDump)
 		return logVerbosity == LV_Verbose;
 	return logVerbosity != LV_Quiet;
