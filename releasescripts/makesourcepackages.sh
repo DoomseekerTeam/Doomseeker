@@ -83,7 +83,7 @@ function create_vcs_info
 
 	(
 		cd "$BuildDir" &&
-			cmake "$SrcDir" &&
+			cmake -DBUILD_TESTING=OFF "$SrcDir" &&
 			cmake --build . -- revision_check
 	)
 	declare Ret=$?
