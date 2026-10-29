@@ -7,6 +7,9 @@
 // that the segments were already reassembled into the full packet.
 //
 // See: https://imhex.werwolv.net/
+
+#pragma endian little
+
 bitfield SQFlag {
     SQF_NAME : 1;
     SQF_URL : 1;
