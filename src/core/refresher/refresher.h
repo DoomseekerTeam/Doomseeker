@@ -29,6 +29,7 @@
 
 #define gRefresher (Refresher::instance())
 
+class EnginePlugin;
 class MasterClient;
 class Server;
 class QHostAddress;
@@ -107,6 +108,8 @@ private:
 	bool isAnythingToRefresh() const;
 	ServerPtr findRefreshingServer(const QHostAddress &address, unsigned short port);
 
+	const EnginePlugin *findPluginForDatagram(const QHostAddress &address, quint16 port);
+	void dumpPacket(const QHostAddress &address, quint16 port, const QByteArray &data);
 	void readPendingDatagram();
 
 	void startNewServerRefresh();

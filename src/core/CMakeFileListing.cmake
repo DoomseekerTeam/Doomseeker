@@ -254,6 +254,7 @@ set(HEADER_FILES
 	random.h
 	refresher/canrefreshserver.h
 	refresher/hostport.h
+	refresher/packetdumper.h
 	refresher/refresher.h
 	refresher/udpsocketpool.h
 	scanner.h
@@ -491,6 +492,7 @@ set(SOURCE_FILES
 	random.cpp
 	refresher/canrefreshserver.cpp
 	refresher/hostport.cpp
+	refresher/packetdumper.cpp
 	refresher/refresher.cpp
 	refresher/udpsocketpool.cpp
 	scanner.cpp

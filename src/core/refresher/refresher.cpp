@@ -25,13 +25,16 @@
 #include "configuration/doomseekerconfig.h"
 #include "configuration/queryspeed.h"
 #include "log.h"
+#include "plugins/engineplugin.h"
 #include "plugins/pluginloader.h"
 #include "refresher/canrefreshserver.h"
+#include "refresher/packetdumper.h"
 #include "refresher/udpsocketpool.h"
 #include "serverapi/masterclient.h"
 #include "serverapi/mastermanager.h"
 #include "serverapi/server.h"
 
+#include <QDir>
 #include <QElapsedTimer>
 #include <QHash>
 #include <QList>
@@ -323,11 +326,38 @@ void Refresher::readAllPendingDatagrams()
 	}
 }
 
+const EnginePlugin *Refresher::findPluginForDatagram(const QHostAddress &address, quint16 port)
+{
+	for (MasterClient *master : d->registeredMasters.keys())
+	{
+		if (master->isAddressSame(address, port))
+			return master->plugin();
+	}
+	const ServerPtr server = findRefreshingServer(address, port);
+	return server.isNull() ? nullptr : server->plugin();
+}
+
+void Refresher::dumpPacket(const QHostAddress &address, quint16 port, const QByteArray &data)
+{
+	const EnginePlugin *plugin = findPluginForDatagram(address, port);
+	const QString canonicalName = plugin != nullptr ? plugin->nameCanonical() : QString();
+	const QString subdirectory = canonicalName.isEmpty() ? "doomseeker" : "p-" + canonicalName;
+	PacketDumper::Options options;
+	options.directory = QDir(PacketDumper::defaultDirectory()).filePath(subdirectory);
+	PacketDumper::dump(address, port, PacketDumper::Direction::Recv, data, options);
+}
+
 void Refresher::readPendingDatagram()
 {
 	QHostAddress address;
 	quint16 port = 0;
 	QByteArray dataArray = d->socketPool.readNextDatagram(&address, &port);
+
+#if 0 // Developer packet capture.
+	// Save each raw UDP payload before parsing, including rejected replies.
+	// Plugins can call PacketDumper after decoding or reassembly instead.
+	dumpPacket(address, port, dataArray);
+#endif
 
 	if (tryReadDatagramByMasterClient(address, port, dataArray))
 	{
