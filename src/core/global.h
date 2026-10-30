@@ -67,8 +67,9 @@ static inline quint32 MAKEID(quint8 a, quint8 b, quint8 c, quint8 d)
 	return quint32(a) | (quint32(b) << 8) | (quint32(c) << 16) | (quint32(d) << 24);
 }
 
-// Now we set it up so symbols are properly exported/imported on Windows
-#ifdef Q_OS_WIN32
+// Now we set it up so symbols are properly exported/imported on Windows.
+// Statically linked plugins (such as in unit tests) do not cross a DLL boundary.
+#if defined(Q_OS_WIN32) && !defined(DOOMSEEKER_STATIC_PLUGINS)
 #ifdef doomseeker_EXPORTS
 #define MAIN_EXPORT __declspec(dllexport)
 #define PLUGIN_EXPORT __declspec(dllimport)

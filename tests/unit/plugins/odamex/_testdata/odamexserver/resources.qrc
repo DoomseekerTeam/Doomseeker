@@ -1,0 +1,12 @@
+<RCC>
+	<qresource prefix="/tests/odamexserver">
+		<!-- Cooperative server on MAP01 with one player. -->
+		<file>odamex_p7_one-player.bin</file>
+
+		<!--
+			Empty team-deathmatch server with two teams, a 10-minute time limit,
+			and TDMAX_B4.WAD.
+		-->
+		<file>odamex_p7_team-deathmatch.bin</file>
+	</qresource>
+</RCC>

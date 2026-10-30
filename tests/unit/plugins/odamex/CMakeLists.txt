@@ -19,6 +19,22 @@
 # Copyright (C) 2026 "Zalewa" <zalewapl@gmail.com>
 #------------------------------------------------------------------------------
 
+# Compile the real plugin implementation to satisfy OdamexServer's dependencies
+# without test doubles or loading a plugin module.
+add_plugin_unit_test(odamex odamexserver
+	SOURCES
+		"${Doomseeker_SOURCE_DIR}/src/plugins/odamex/odamexengineplugin.cpp"
+		"${Doomseeker_SOURCE_DIR}/src/plugins/odamex/odamexgamehost.cpp"
+		"${Doomseeker_SOURCE_DIR}/src/plugins/odamex/odamexgameinfo.cpp"
+		"${Doomseeker_SOURCE_DIR}/src/plugins/odamex/odamexgamemode.cpp"
+		"${Doomseeker_SOURCE_DIR}/src/plugins/odamex/odamexgamerunner.cpp"
+		"${Doomseeker_SOURCE_DIR}/src/plugins/odamex/odamexmasterclient.cpp"
+		"${Doomseeker_SOURCE_DIR}/src/plugins/odamex/odamexserver.cpp"
+		_testdata/odamexserver/resources.qrc
+)
+target_compile_definitions(unit_test_plugins_odamex_odamexserver
+	PRIVATE DOOMSEEKER_STATIC_PLUGINS)
+
 add_plugin_unit_test(odamex odamexgamemode
 	SOURCES
 		"${Doomseeker_SOURCE_DIR}/src/plugins/odamex/odamexgamemode.cpp"
