@@ -1,7 +1,7 @@
 # Odamex server reply fixtures
 
-The `.bin` files contain raw UDP reply payloads captured from Odamex game
-servers for use in parser tests.
+The `.bin` files contain raw Odamex game-server UDP reply payloads for parser
+tests. They include original captures and focused variants derived from them.
 
 Filenames follow `odamex_p<protocol-version>_<trait>.bin`:
 

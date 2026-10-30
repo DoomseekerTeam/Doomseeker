@@ -20,7 +20,7 @@
 #------------------------------------------------------------------------------
 
 set(PLUGIN_NAME odamex)
-set(PLUGIN_VERSION 44)
+set(PLUGIN_VERSION 45)
 include(../PluginHeader.cmake)
 
 set(ODAMEX_FILES

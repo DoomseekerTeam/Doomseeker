@@ -10,6 +10,11 @@ and this project does not adhere to
 
 ## [unreleased]
 ### Fixed
+- Odamex: server refreshes no longer keep stale settings when time or score
+limits are disabled, or when server names, administrator email addresses, and
+website/download links are cleared. This fixes servers appearing as `<ERROR>`
+after disabling their time limit (#4584) and prevents outdated or duplicated
+download links.
 - Wadseeker: would fail to install files from archives if system temporary
 directory was on a different filesystem than the destination.
 

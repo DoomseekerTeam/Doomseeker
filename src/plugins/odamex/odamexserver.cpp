@@ -126,7 +126,17 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 
 	CHECK_POS;
 
+	// Empty strings and zero-valued limits may be omitted from full replies.
+	// Clear their extracted properties as well as the raw CVar map below (#4584).
+	setEmail(QString());
+	setName(QString());
+	setScoreLimit(0);
+	setWebSite(QString());
+	setAdditionalWebSites(QStringList());
+	setTimeLimit(0);
+	setTimeLeft(0);
 	cvars.clear();
+
 	short cvarCount = in.readQUInt8();
 	while (cvarCount-- > 0)
 	{
