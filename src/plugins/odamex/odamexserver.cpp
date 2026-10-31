@@ -25,6 +25,9 @@
 #include <QBuffer>
 #include <QCryptographicHash>
 #include <QDataStream>
+#include <algorithm>
+#include <cmath>
+#include <limits>
 
 #include "datastreamoperatorwrapper.h"
 #include "odamexengineplugin.h"
@@ -137,6 +140,7 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 	setTimeLeft(0);
 	cvars.clear();
 
+	float replyTimeLimit = 0.0f;
 	short cvarCount = in.readQUInt8();
 	while (cvarCount-- > 0)
 	{
@@ -192,7 +196,18 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 		else if (cvarName == "sv_downloadsites")
 			setAdditionalWebSites(cvarValue.split(' '));
 		else if (cvarName == "sv_timelimit")
-			setTimeLimit(cvarValue.toUInt());
+		{
+			bool ok;
+			replyTimeLimit = cvarValue.toFloat(&ok);
+			if (!ok || !std::isfinite(replyTimeLimit) || replyTimeLimit < 0.0f)
+				return RESPONSE_BAD;
+
+			// The API stores whole minutes. Round up so a positive limit is not
+			// displayed as unlimited. Cap the result at the largest value that
+			// unsigned short can store.
+			const float maxMinutes = std::numeric_limits<unsigned short>::max();
+			setTimeLimit(static_cast<unsigned short>(std::min(std::ceil(replyTimeLimit), maxMinutes)));
+		}
 		else
 			cvars.insert(cvarName, cvarValue);
 	}
@@ -224,7 +239,23 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 
 	if (protocolVersion >= 6)
 	{
-		if (timeLimit() != 0)
+		// Whether the reply contains the two bytes for "time remaining" is separate
+		// from how the time limit is displayed.
+		//
+		// | Received time limit | Odamex rounds to | Time-remaining bytes included? | Doomseeker shows |
+		// +---------------------+------------------+--------------------------------+------------------+
+		// | 0.1 minutes         | 0                | No                             | 1 minute         |
+		// | 0.5 minutes         | 1                | Yes                            | 1 minute         |
+		// | 1.1 minutes         | 1                | Yes                            | 2 minutes        |
+		//
+		// Doomseeker rounds **up for display** because its API only stores whole minutes.
+		// We don't want a near-zero, but still positive limit to appear as "unlimited."
+		//
+		// But when reading the packet, we must follow **Odamex's rule**. For `0.1`, the
+		// displayed value is `1`, but the time-remaining bytes are absent. Using the
+		// displayed value to decide what to read would consume bytes belonging to the
+		// next section and misread the rest of the reply.
+		if (std::round(replyTimeLimit) != 0.0f)
 			setTimeLeft(in.readQUInt16());
 	}
 	else

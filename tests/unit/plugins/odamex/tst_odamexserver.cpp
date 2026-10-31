@@ -44,9 +44,22 @@ QByteArray byteCvar(const QByteArray &name, quint8 value)
 	return name + '\0' + char(2) + char(value);
 }
 
-// Synthetic protocol-7 reply for an empty cooperative server with no time limit.
-// Only the supplied CVars change between replies; all other fields stay fixed.
-QByteArray replyWithCvars(const QList<QByteArray> &cvars)
+QByteArray floatCvar(const QByteArray &name, const QString &value)
+{
+	return name + '\0' + char(5) + value.toUtf8() + '\0';
+}
+
+struct ReplyOptions
+{
+	bool hasTimeLeft = false;
+	quint16 timeLeft = 0;
+	bool populated = false;
+};
+
+// Synthetic protocol-7 cooperative reply; defaults to an empty, unlimited server.
+// Only the supplied CVars/options change; all other fields stay fixed.
+QByteArray replyWithCvars(const QList<QByteArray> &cvars,
+	const ReplyOptions &options = ReplyOptions())
 {
 	QByteArray data;
 	QDataStream out(&data, QIODevice::WriteOnly);
@@ -67,16 +80,32 @@ QByteArray replyWithCvars(const QList<QByteArray> &cvars)
 
 	out << quint8(0); // No password hash.
 	out.writeRawData("MAP01", sizeof("MAP01"));
-	out << quint8(0) // No patches.
-		<< quint8(2); // Engine WAD and IWAD.
+	if (options.hasTimeLeft)
+		out << options.timeLeft;
+	out << quint8(0); // No patches.
+	QList<QByteArray> wads{QByteArray("ODAMEX.WAD"), QByteArray("DOOM2.WAD")};
+	if (options.populated)
+		wads << QByteArray("FRACTIONAL.WAD");
+	out << quint8(wads.size());
 	const QByteArray hash(16, '\0');
-	for (const QByteArray &wad : {QByteArray("ODAMEX.WAD"), QByteArray("DOOM2.WAD")})
+	for (const QByteArray &wad : wads)
 	{
 		out.writeRawData(wad.constData(), wad.size() + 1);
 		out << quint8(hash.size());
 		out.writeRawData(hash.constData(), hash.size());
 	}
-	out << quint8(0); // No players.
+	out << quint8(options.populated ? 1 : 0);
+	if (options.populated)
+	{
+		out.writeRawData("Timer player", sizeof("Timer player"));
+		out << quint32(0xFF40CF00) // Player color, BGRA on the wire.
+			<< quint16(28) // Ping.
+			<< quint16(0) // Minutes in game.
+			<< quint8(0) // Not spectating.
+			<< qint16(0) // Frags.
+			<< quint16(0) // Kills.
+			<< quint16(0); // Deaths.
+	}
 	return data;
 }
 }
@@ -96,6 +125,10 @@ private slots:
 	void refreshAfterClearingSetting();
 	void refreshWebSites_data();
 	void refreshWebSites();
+	void parseFractionalTimeLimit_data();
+	void parseFractionalTimeLimit();
+	void rejectInvalidTimeLimit_data();
+	void rejectInvalidTimeLimit();
 };
 
 void TestOdamexServer::initTestCase()
@@ -489,6 +522,108 @@ void TestOdamexServer::refreshWebSites()
 			QCOMPARE(server.iwad(), QString("DOOM2.WAD"));
 		}
 	}
+}
+
+void TestOdamexServer::parseFractionalTimeLimit_data()
+{
+	QTest::addColumn<QString>("timeLimit");
+	QTest::addColumn<bool>("hasTimeLeft");
+	QTest::addColumn<int>("timeLeft");
+	QTest::addColumn<int>("expectedTimeLimit");
+
+	// Field presence follows the server's round-to-nearest rule. The display
+	// API stores whole minutes, rounded up so a positive limit is not unlimited.
+	QTest::newRow("omitted-limit") << QString() << false << 0 << 0;
+	QTest::newRow("zero") << QString("0") << false << 0 << 0;
+	QTest::newRow("integer") << QString("10") << true << 7 << 10;
+	QTest::newRow("decimal-integer") << QString("10.0") << true << 7 << 10;
+	QTest::newRow("below-half-minute") << QString("0.1") << false << 0 << 1;
+	QTest::newRow("just-below-half-minute") << QString("0.49999997") << false << 0 << 1;
+	QTest::newRow("half-minute") << QString("0.5") << true << 0 << 1;
+	QTest::newRow("above-half-minute") << QString("0.500001") << true << 0 << 1;
+	QTest::newRow("below-one-minute") << QString("0.999") << true << 0 << 1;
+	QTest::newRow("above-one-minute") << QString("1.1") << true << 1 << 2;
+	QTest::newRow("fractional-minutes") << QString("10.5") << true << 7 << 11;
+	QTest::newRow("below-server-maximum") << QString("1439.9") << true << 1439 << 1440;
+	QTest::newRow("server-maximum") << QString("1440") << true << 1440 << 1440;
+	QTest::newRow("scientific-notation") << QString("1e-05") << false << 0 << 1;
+
+	// Current servers cap limits at 1440 minutes. These synthetic oversized
+	// values check that the displayed limit stays at the API's maximum value.
+	QTest::newRow("display-maximum") << QString("65535") << true << 65535 << 65535;
+	QTest::newRow("above-display-maximum") << QString("65536") << true << 0 << 65535;
+	QTest::newRow("large-finite-limit") << QString("3.4e38") << true << 0 << 65535;
+}
+
+void TestOdamexServer::parseFractionalTimeLimit()
+{
+	// Given: a populated reply with an explicitly specified time-left layout.
+	// The fixtures do not derive field presence using the parser's conversion.
+	QFETCH(QString, timeLimit);
+	QFETCH(bool, hasTimeLeft);
+	QFETCH(int, timeLeft);
+	QFETCH(int, expectedTimeLimit);
+	QList<QByteArray> cvars;
+	if (!timeLimit.isEmpty())
+		cvars << floatCvar("sv_timelimit", timeLimit);
+	ReplyOptions options;
+	options.hasTimeLeft = hasTimeLeft;
+	options.timeLeft = quint16(timeLeft);
+	options.populated = true;
+	const QByteArray data = replyWithCvars(cvars, options);
+	const QScopedValueRollback<bool> disableLookup(gConfig.doomseeker.bLookupHosts, false);
+	OdamexServer server(QHostAddress("192.0.2.1"), 10666);
+
+	// When: parsing the reply on a fresh server, without any previous refresh state.
+	const Server::Response response = server.readRefreshQueryResponse(data);
+
+	// Then: the reply stays aligned through all file and player fields, even
+	// when a zero time-left field could otherwise be mistaken for empty lists.
+	QCOMPARE(response, Server::RESPONSE_GOOD);
+	QCOMPARE(server.map(), QString("MAP01"));
+	QCOMPARE(server.iwad(), QString("DOOM2.WAD"));
+	QCOMPARE(server.numWads(), 1);
+	QCOMPARE(server.wad(0).name(), QString("FRACTIONAL.WAD"));
+	const QList<Checksum> checksums = server.wad(0).checksums();
+	QCOMPARE(checksums.size(), 1);
+	QCOMPARE(checksums.first().algorithm(), QCryptographicHash::Md5);
+	QCOMPARE(checksums.first().hash(), QByteArray(16, '\0'));
+	QVERIFY(server.dehs().isEmpty());
+	QCOMPARE(server.players().size(), 1);
+	const Player &player = server.player(0);
+	QCOMPARE(player.name(), QString("Timer player"));
+	QCOMPARE(player.ping(), 28ul);
+	QCOMPARE(player.score(), 0l);
+	QCOMPARE(player.teamNum(), Player::TEAM_NONE);
+	QVERIFY(!player.isSpectating());
+	QCOMPARE(server.timeLimit(), expectedTimeLimit);
+	QCOMPARE(server.timeLeft(), timeLeft);
+}
+
+void TestOdamexServer::rejectInvalidTimeLimit_data()
+{
+	QTest::addColumn<QString>("timeLimit");
+	QTest::newRow("empty") << QString();
+	QTest::newRow("not-a-number") << QString("invalid");
+	QTest::newRow("negative") << QString("-1");
+	QTest::newRow("nan") << QString("nan");
+	QTest::newRow("infinity") << QString("inf");
+	QTest::newRow("float-overflow") << QString("1e1000");
+}
+
+void TestOdamexServer::rejectInvalidTimeLimit()
+{
+	// Given: a reply containing an invalid float, not an omitted zero limit.
+	QFETCH(QString, timeLimit);
+	const QByteArray data = replyWithCvars({floatCvar("sv_timelimit", timeLimit)});
+	const QScopedValueRollback<bool> disableLookup(gConfig.doomseeker.bLookupHosts, false);
+	OdamexServer server(QHostAddress("192.0.2.1"), 10666);
+
+	// When: converting the received limit to the model's integer representation.
+	const Server::Response response = server.readRefreshQueryResponse(data);
+
+	// Then: invalid or non-finite values are rejected, not converted to unlimited.
+	QCOMPARE(response, Server::RESPONSE_BAD);
 }
 
 QTEST_GUILESS_MAIN(TestOdamexServer)
