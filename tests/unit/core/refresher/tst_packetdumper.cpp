@@ -29,6 +29,7 @@
 #include <QRegularExpression>
 #include <QSet>
 #include <QTemporaryDir>
+#include <QTimeZone>
 #include <QtTest>
 
 #if QT_VERSION < 0x060000
@@ -70,6 +71,8 @@ void TestPacketDumper::dump_data()
 	const auto sent = PacketDumper::Direction::Sent;
 	QTest::newRow("ipv4-binary") << QHostAddress("192.0.2.1") << quint16(10666)
 		<< "raw" << "192.0.2.1_10666_recv_raw_" << binary << recv;
+	QTest::newRow("ipv4-zero") << QHostAddress("0.0.0.0") << quint16(10666)
+		<< "raw" << "0.0.0.0_10666_recv_raw_" << binary << recv;
 	QTest::newRow("ipv4-mapped-recv") << QHostAddress("::ffff:192.0.2.1") << quint16(10666)
 		<< "raw" << "192.0.2.1_10666_recv_raw_" << binary << recv;
 	QTest::newRow("ipv4-mapped-sent") << QHostAddress("::ffff:192.0.2.1") << quint16(10666)
@@ -78,8 +81,12 @@ void TestPacketDumper::dump_data()
 		<< "raw" << "192.0.2.1_10666_recv_raw_" << binary << recv;
 	QTest::newRow("ipv4-mapped-zero") << QHostAddress("::ffff:0.0.0.0") << quint16(10666)
 		<< "raw" << "0.0.0.0_10666_recv_raw_" << binary << recv;
+	QTest::newRow("ipv4-mapped-loopback") << QHostAddress("::ffff:127.0.0.1") << quint16(10666)
+		<< "raw" << "127.0.0.1_10666_recv_raw_" << binary << recv;
 	QTest::newRow("ipv6-loopback") << QHostAddress("::1") << quint16(15000)
 		<< "raw" << "__1_15000_recv_raw_" << binary << recv;
+	QTest::newRow("ipv6-compatible") << QHostAddress("::2") << quint16(15000)
+		<< "raw" << "__2_15000_recv_raw_" << binary << recv;
 	QTest::newRow("ipv6-unspecified") << QHostAddress("::") << quint16(15000)
 		<< "raw" << "___15000_recv_raw_" << binary << recv;
 	QTest::newRow("ipv6") << QHostAddress("2001:db8::1") << quint16(15000)
@@ -116,7 +123,7 @@ void TestPacketDumper::dump()
 	PacketDumper::Options options;
 	options.label = label;
 	options.directory = directory.path();
-	options.timestamp = QDateTime::fromString("2026-01-02T15:23:05.006+02:00", Qt::ISODateWithMs);
+	options.timestamp = QDateTime(QDate(2026, 1, 2), QTime(15, 23, 5, 6), QTimeZone(7200));
 	QVERIFY(options.timestamp.isValid());
 
 	// When: the dumper saves the supplied bytes with an explicit time instant.
@@ -146,7 +153,7 @@ void TestPacketDumper::repeatedCaptures()
 	const QHostAddress address("192.0.2.1");
 	PacketDumper::Options options;
 	options.directory = directory.path();
-	options.timestamp = QDateTime::fromString("2026-01-02T15:23:05.006Z", Qt::ISODateWithMs);
+	options.timestamp = QDateTime(QDate(2026, 1, 2), QTime(15, 23, 5, 6), QTimeZone(0));
 	QVERIFY(options.timestamp.isValid());
 	QStringList paths;
 	QList<QByteArray> payloads;

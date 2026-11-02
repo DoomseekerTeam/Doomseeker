@@ -155,13 +155,13 @@ void TestOdamexServer::parseOnePlayerReply()
 	QCOMPARE(server.gameVersion(), QString("12.3.0 HEAD, g98b37-12737"));
 	QCOMPARE(server.name(), QString("Untitled Odamex Server"));
 	QCOMPARE(server.email(), QString("email@domain.com"));
-	QCOMPARE(server.maxClients(), 4);
-	QCOMPARE(server.maxPlayers(), 4);
+	QCOMPARE(server.maxClients(), quint16(4));
+	QCOMPARE(server.maxPlayers(), quint16(4));
 	QCOMPARE(server.scoreLimit(), 5u);
 	QCOMPARE(server.gameMode().index(), int(GameMode::SGM_Cooperative));
 	QVERIFY(!server.isLocked());
 	QCOMPARE(server.map(), QString("MAP01"));
-	QCOMPARE(server.timeLimit(), 0);
+	QCOMPARE(server.timeLimit(), quint16(0));
 	QCOMPARE(server.iwad(), QString("DOOM2.WAD"));
 	QVERIFY(server.wads().isEmpty());
 	QVERIFY(server.dehs().isEmpty());
@@ -190,14 +190,14 @@ void TestOdamexServer::parseTeamDeathmatchReply()
 	QCOMPARE(response, Server::RESPONSE_GOOD);
 	QCOMPARE(server.gameVersion(), QString("12.3.0 stable, g13841-12833"));
 	QCOMPARE(server.name(), QString("Tower of Power - Friday Night Fragfest"));
-	QCOMPARE(server.maxClients(), 32);
-	QCOMPARE(server.maxPlayers(), 16);
+	QCOMPARE(server.maxClients(), quint16(32));
+	QCOMPARE(server.maxPlayers(), quint16(16));
 	QCOMPARE(server.gameMode().index(), int(GameMode::SGM_TeamDeathmatch));
 	QVERIFY(server.gameMode().isTeamGame());
 	QVERIFY(!server.isLocked());
 	QCOMPARE(server.map(), QString("MAP19"));
-	QCOMPARE(server.timeLimit(), 10);
-	QCOMPARE(server.timeLeft(), 0);
+	QCOMPARE(server.timeLimit(), quint16(10));
+	QCOMPARE(server.timeLeft(), quint16(0));
 	QCOMPARE(server.iwad(), QString("DOOM2.WAD"));
 	QVERIFY(server.dehs().isEmpty());
 	QCOMPARE(server.players().size(), 0);
@@ -319,7 +319,7 @@ void TestOdamexServer::refreshAfterDisablingTimeLimit()
 	OdamexServer freshServer(QHostAddress("192.0.2.1"), 10666);
 	QCOMPARE(freshServer.readRefreshQueryResponse(unlimitedData), Server::RESPONSE_GOOD);
 	QCOMPARE(freshServer.gameMode().index(), int(GameMode::SGM_Deathmatch));
-	QCOMPARE(freshServer.timeLimit(), 0);
+	QCOMPARE(freshServer.timeLimit(), quint16(0));
 	QCOMPARE(freshServer.map(), QString("MAP00"));
 	QCOMPARE(freshServer.iwad(), QString("DOOM2.WAD"));
 	QCOMPARE(freshServer.numWads(), 1);
@@ -329,7 +329,7 @@ void TestOdamexServer::refreshAfterDisablingTimeLimit()
 	OdamexServer server(QHostAddress("192.0.2.1"), 10666);
 	QCOMPARE(server.readRefreshQueryResponse(limitedData), Server::RESPONSE_GOOD);
 	QCOMPARE(server.gameMode().index(), int(GameMode::SGM_Deathmatch));
-	QCOMPARE(server.timeLimit(), 10);
+	QCOMPARE(server.timeLimit(), quint16(10));
 
 	// When: disabling the time limit, refreshing again, and restoring the limit.
 	for (bool timeLimited : {false, false, true})
@@ -340,8 +340,8 @@ void TestOdamexServer::refreshAfterDisablingTimeLimit()
 		// Then: every refresh succeeds and reflects the current reply, not old state.
 		QCOMPARE(response, Server::RESPONSE_GOOD);
 		QCOMPARE(server.gameMode().index(), int(GameMode::SGM_Deathmatch));
-		QCOMPARE(server.timeLimit(), timeLimited ? 10 : 0);
-		QCOMPARE(server.timeLeft(), 0);
+		QCOMPARE(server.timeLimit(), quint16(timeLimited ? 10 : 0));
+		QCOMPARE(server.timeLeft(), quint16(0));
 		QCOMPARE(server.map(), QString("MAP00"));
 		QCOMPARE(server.iwad(), QString("DOOM2.WAD"));
 		QCOMPARE(server.numWads(), 1);
@@ -410,8 +410,8 @@ void TestOdamexServer::refreshAfterClearingSetting()
 		QCOMPARE(server.name(), restored ? name : expectedName);
 		QCOMPARE(server.email(), restored ? email : expectedEmail);
 		QCOMPARE(server.scoreLimit(), restored ? 5u : expectedScoreLimit);
-		QCOMPARE(server.maxClients(), 4);
-		QCOMPARE(server.maxPlayers(), 4);
+		QCOMPARE(server.maxClients(), quint16(4));
+		QCOMPARE(server.maxPlayers(), quint16(4));
 		QCOMPARE(server.gameMode().index(), int(GameMode::SGM_Cooperative));
 		QCOMPARE(server.map(), QString("MAP01"));
 		QCOMPARE(server.iwad(), QString("DOOM2.WAD"));
@@ -596,8 +596,8 @@ void TestOdamexServer::parseFractionalTimeLimit()
 	QCOMPARE(player.score(), 0l);
 	QCOMPARE(player.teamNum(), Player::TEAM_NONE);
 	QVERIFY(!player.isSpectating());
-	QCOMPARE(server.timeLimit(), expectedTimeLimit);
-	QCOMPARE(server.timeLeft(), timeLeft);
+	QCOMPARE(int(server.timeLimit()), expectedTimeLimit);
+	QCOMPARE(int(server.timeLeft()), timeLeft);
 }
 
 void TestOdamexServer::rejectInvalidTimeLimit_data()

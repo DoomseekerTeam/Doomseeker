@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 #include "packetdumper.h"
 
+#include "iputils.h"
 #include "log.h"
 #include <QDateTime>
 #include <QDir>
@@ -61,9 +62,8 @@ QString PacketDumper::dump(const QHostAddress &address, quint16 port, Direction 
 
 	// Display IPv4 consistently even when a dual-stack socket reports it as
 	// IPv4-mapped IPv6. Genuine IPv6 addresses retain their representation.
-	const QHostAddress v4(address.toIPv4Address());
-	const QString host = address.isEqual(v4, QHostAddress::ConvertV4MappedToIPv4) ?
-		v4.toString() : address.toString();
+	const QString host = IpUtils::isIPv4Mapped(address) ?
+		QHostAddress(address.toIPv4Address()).toString() : address.toString();
 	const QDateTime timestamp = options.timestamp.isValid() ?
 		options.timestamp.toUTC() : QDateTime::currentDateTimeUtc();
 	const QString name = QString("%1_%2_%3_%4_%5_XXXXXX.bin")

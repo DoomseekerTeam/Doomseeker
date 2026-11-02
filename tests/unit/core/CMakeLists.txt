@@ -21,6 +21,7 @@
 
 add_unit_test(datetime LIBRARIES doomseeker_core)
 add_unit_test(gamedemo LIBRARIES doomseeker_core)
+add_unit_test(iputils LIBRARIES doomseeker_core)
 add_unit_test(modreader
 	LIBRARIES doomseeker_core
 	SOURCES _testdata/modreader/resources.qrc
