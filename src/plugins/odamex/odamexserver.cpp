@@ -72,7 +72,8 @@ QString OdamexServer::customDetails()
 	QMap<QString, QString>::ConstIterator iter = cvars.constBegin();
 	do
 	{
-		cvarList += QString("<li>%1 %2</li>").arg(iter.key()).arg(iter.value());
+		cvarList += QString("<li>%1 %2</li>")
+			.arg(iter.key().toHtmlEscaped(), iter.value().toHtmlEscaped());
 	} while (++iter != cvars.constEnd());
 	return cvarList + "</ul>";
 }

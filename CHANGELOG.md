@@ -18,6 +18,8 @@ download links.
 - Odamex: servers with fractional time limits no longer appear as `<ERROR>` or
 lose WAD/player information. Fractional limits are rounded up to whole minutes
 for display instead of being shown as unlimited.
+- Odamex: server-provided text in the server details is displayed literally,
+rather than being interpreted as HTML formatting.
 - Wadseeker: would fail to install files from archives if system temporary
 directory was on a different filesystem than the destination.
 

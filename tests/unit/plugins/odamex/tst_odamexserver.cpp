@@ -118,6 +118,8 @@ private slots:
 	void initTestCase();
 	void parseOnePlayerReply();
 	void parseTeamDeathmatchReply();
+	void customDetailsEscapeHtml_data();
+	void customDetailsEscapeHtml();
 	void refreshReplacesSnapshot_data();
 	void refreshReplacesSnapshot();
 	void refreshAfterDisablingTimeLimit();
@@ -209,6 +211,59 @@ void TestOdamexServer::parseTeamDeathmatchReply()
 	QCOMPARE(checksums.size(), 1);
 	QCOMPARE(checksums.first().algorithm(), QCryptographicHash::Md5);
 	QCOMPARE(checksums.first().hash(), QByteArray::fromHex("393d18269fe51ba7f94acd7ed75cd749"));
+}
+
+void TestOdamexServer::customDetailsEscapeHtml_data()
+{
+	QTest::addColumn<QByteArray>("name");
+	QTest::addColumn<QString>("value");
+	QTest::addColumn<QString>("expectedName");
+	QTest::addColumn<QString>("expectedValue");
+
+	QTest::newRow("plain-text")
+		<< QByteArray("sv_motd") << QString("A plain message")
+		<< QString("sv_motd") << QString("A plain message");
+	QTest::newRow("markup-in-value")
+		<< QByteArray("sv_motd")
+		<< QString("<b>Message</b><img src=\"https://example.invalid/image?a=1&b=2\">")
+		<< QString("sv_motd")
+		<< QString("&lt;b&gt;Message&lt;/b&gt;&lt;img src=&quot;"
+			"https://example.invalid/image?a=1&amp;b=2&quot;&gt;");
+	QTest::newRow("markup-in-name")
+		<< QByteArray("<b>name</b>&\"quoted\"") << QString("A plain message")
+		<< QString("&lt;b&gt;name&lt;/b&gt;&amp;&quot;quoted&quot;")
+		<< QString("A plain message");
+	QTest::newRow("literal-entities")
+		<< QByteArray("sv_motd") << QString("&lt;b&gt; &amp; &#60; \"quoted\" 'text'")
+		<< QString("sv_motd")
+		<< QString("&amp;lt;b&amp;gt; &amp;amp; &amp;#60; &quot;quoted&quot; 'text'");
+	QTest::newRow("markup-in-name-and-value")
+		<< QByteArray("<name>") << QString("<value>&")
+		<< QString("&lt;name&gt;") << QString("&lt;value&gt;&amp;");
+}
+
+void TestOdamexServer::customDetailsEscapeHtml()
+{
+	// Given: a full reply with a server-controlled CVar name and value.
+	QFETCH(QByteArray, name);
+	QFETCH(QString, value);
+	QFETCH(QString, expectedName);
+	QFETCH(QString, expectedValue);
+	const QByteArray data = replyWithCvars({stringCvar(name, value)});
+	const QString expectedHtml = "<ul><li>" + expectedName + ' ' + expectedValue + "</li></ul>";
+	const QScopedValueRollback<bool> disableLookup(gConfig.doomseeker.bLookupHosts, false);
+	OdamexServer server(QHostAddress("192.0.2.1"), 10666);
+
+	// When: parsing the reply and formatting its custom details.
+	const Server::Response response = server.readRefreshQueryResponse(data);
+	const QString details = server.customDetails();
+
+	// Then: server text is escaped, while Doomseeker's list markup remains intact.
+	QCOMPARE(response, Server::RESPONSE_GOOD);
+	QCOMPARE(details, expectedHtml);
+
+	// And sanity-check: repeated formatting does not mutate or double-escape the data.
+	QCOMPARE(server.customDetails(), expectedHtml);
 }
 
 void TestOdamexServer::refreshReplacesSnapshot_data()
