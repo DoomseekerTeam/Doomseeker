@@ -107,6 +107,7 @@ QString GameInfoTip::teamScoresHTML()
 		teamScores = "<tr><td colspan=\"2\">%1</td></tr>";
 		QString teams;
 		bool bPrependBar = false;
+		const QList<int> &scores = d->server->scores();
 		for (int i = 0; i < MAX_TEAMS; ++i)
 		{
 			if (d->server->players().numPlayersOnTeam(i) != 0)
@@ -116,7 +117,7 @@ QString GameInfoTip::teamScoresHTML()
 					teams += " | ";
 				}
 				teams += d->server->teamName(i).toHtmlEscaped()
-					+ ": " + QString::number(d->server->score(i));
+					+ ": " + QString::number(scores.value(i));
 				bPrependBar = true;
 			}
 		}

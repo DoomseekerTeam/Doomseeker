@@ -510,6 +510,10 @@ public:
 
 	/**
 	 * @brief Total score of a given team, by default team 0 is used.
+	 *
+	 * @deprecated Since Doomseeker 1.5.4. Use scores() instead. This getter
+	 * returns an unsigned value and therefore misrepresents negative team
+	 * scores as large positive values.
 	 */
 	unsigned int score(int team = 0) const;
 	/**

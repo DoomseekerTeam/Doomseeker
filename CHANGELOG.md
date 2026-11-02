@@ -10,6 +10,8 @@ and this project does not adhere to
 
 ## [unreleased]
 ### Fixed
+- Negative team scores in game information are displayed correctly instead of
+as very large positive numbers.
 - Odamex: server refreshes no longer keep stale settings when time or score
 limits are disabled, or when server names, administrator email addresses, and
 website/download links are cleared. This fixes servers appearing as `<ERROR>`

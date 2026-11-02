@@ -19,4 +19,5 @@
 # Copyright (C) 2026 "Zalewa" <zalewapl@gmail.com>
 #------------------------------------------------------------------------------
 
+add_unit_test(gameinfotip LIBRARIES doomseeker_core)
 add_unit_test(player LIBRARIES doomseeker_core)
