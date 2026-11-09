@@ -1129,14 +1129,6 @@ QProgressBar *MainWindow::mkStdProgressBarForStatusBar()
 	return pBar;
 }
 
-void MainWindow::notifyFirstRun()
-{
-	// On first run prompt configuration box.
-	QMessageBox::information(nullptr, tr("Welcome to Doomseeker"),
-		tr("Before you start browsing for servers, please ensure that Doomseeker is properly configured."));
-	d->menuActionConfigure->trigger();
-}
-
 void MainWindow::onAutoUpdaterDownloadAndInstallConfirmationRequest()
 {
 	d->updatesConfirmationWidget->show();

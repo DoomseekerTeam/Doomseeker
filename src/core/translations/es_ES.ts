@@ -6815,16 +6815,6 @@ Una de las ubicaciones adecuadas para los complementos es el directorio &quot;en
 %1</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1136"/>
-        <source>Welcome to Doomseeker</source>
-        <translation>Bienvenido a Doomseeker</translation>
-    </message>
-    <message>
-        <location filename="../gui/mainwindow.cpp" line="1137"/>
-        <source>Before you start browsing for servers, please ensure that Doomseeker is properly configured.</source>
-        <translation>Antes de comenzar a buscar servidores, asegúrese de que Doomseeker esté configurado correctamente.</translation>
-    </message>
-    <message>
         <location filename="../gui/mainwindow.cpp" line="1154"/>
         <source>Program update detection &amp; download finished with status: [%1] %2</source>
         <translation>La detección y descarga de la actualización del programa terminó con el estado: [%1] %2</translation>

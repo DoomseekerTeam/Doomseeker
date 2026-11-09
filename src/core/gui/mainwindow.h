@@ -62,8 +62,6 @@ public:
 
 	bool isEffectivelyActiveWindow() const;
 
-	void notifyFirstRun();
-
 	/**
 	 * @brief This should be set if program was started with
 	 *        "--update-failed" argument.

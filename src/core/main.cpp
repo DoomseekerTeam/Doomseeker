@@ -294,11 +294,6 @@ void Main::createMainWindow()
 
 	gApp->setMainWindow(new MainWindow(gApp));
 	gApp->mainWindow()->show();
-
-	if (bIsFirstRun)
-	{
-		gApp->mainWindow()->notifyFirstRun();
-	}
 }
 
 void Main::runCreateGame()

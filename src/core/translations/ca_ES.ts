@@ -6586,16 +6586,6 @@ Operació fallida.</translation>
 %1</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1136"/>
-        <source>Welcome to Doomseeker</source>
-        <translation>Benvingut a Doomseeker</translation>
-    </message>
-    <message>
-        <location filename="../gui/mainwindow.cpp" line="1137"/>
-        <source>Before you start browsing for servers, please ensure that Doomseeker is properly configured.</source>
-        <translation>Abans de començar a buscar servidors, assegureu-vos que Doomseeker estigui configurat correctament.</translation>
-    </message>
-    <message>
         <location filename="../gui/mainwindow.cpp" line="1154"/>
         <source>Program update detection &amp; download finished with status: [%1] %2</source>
         <translation>La detecció i descàrrega de l&apos;actualització del programa va acabar amb l&apos;estat: [%1] %2</translation>

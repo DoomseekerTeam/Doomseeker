@@ -9,6 +9,10 @@ and this project does not adhere to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [unreleased]
+### Changed
+- First launch no longer shows a welcome message or automatically opens the
+configuration dialog.
+
 ### Fixed
 - Negative team scores in game information are displayed correctly instead of
 as very large positive numbers.

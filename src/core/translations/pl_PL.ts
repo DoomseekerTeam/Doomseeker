@@ -6322,16 +6322,6 @@ Operacja nieudana.</translation>
 %1</translation>
     </message>
     <message>
-        <location filename="../gui/mainwindow.cpp" line="1136"/>
-        <source>Welcome to Doomseeker</source>
-        <translation>Witaj w programie Doomseeker</translation>
-    </message>
-    <message>
-        <location filename="../gui/mainwindow.cpp" line="1137"/>
-        <source>Before you start browsing for servers, please ensure that Doomseeker is properly configured.</source>
-        <translation>Zanim zaczniesz przeglądać serwery, proszę poświęć chwilę aby skonfigurować Doomseekera.</translation>
-    </message>
-    <message>
         <location filename="../gui/mainwindow.cpp" line="1154"/>
         <source>Program update detection &amp; download finished with status: [%1] %2</source>
         <translation>Wykrywanie i pobieranie aktualizacji programu ukończone ze statusem: [%1] %2</translation>
