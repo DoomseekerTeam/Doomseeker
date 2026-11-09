@@ -140,6 +140,10 @@ QString UpdateInstaller::processErrorCodeToStr(ProcessErrorCode code)
 
 UpdateInstaller::ErrorCode UpdateInstaller::startInstallation()
 {
+	#ifndef DOOMSEEKER_WITH_AUTOUPDATES
+	// Do not install previously downloaded updates in an updates-disabled build.
+	return EC_NothingToUpdate;
+	#else
 	QString scriptPath = AutoUpdater::updaterScriptPath();
 	QFile fileScript(scriptPath);
 	if (fileScript.exists())
@@ -170,6 +174,7 @@ UpdateInstaller::ErrorCode UpdateInstaller::startInstallation()
 		return EC_UpdatePackageMissing;
 	}
 	return EC_Ok;
+	#endif
 }
 
 bool UpdateInstaller::startUpdaterProcess(const QString &packagesDir,

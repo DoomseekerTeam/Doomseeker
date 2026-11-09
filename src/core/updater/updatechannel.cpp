@@ -29,7 +29,7 @@
 #elif defined(Q_OS_DARWIN)
 #define UPDATE_PLATFORM "macosx"
 #else
-#ifdef WITH_AUTOUPDATES
+#ifdef DOOMSEEKER_WITH_AUTOUPDATES
 #error "No platform for updater!"
 #else
 #define UPDATE_PLATFORM "none"

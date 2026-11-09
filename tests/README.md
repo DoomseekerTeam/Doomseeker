@@ -48,5 +48,9 @@ configuration you built).
   `unit.core.strings`.
 - CTest entries receive the `unit` and top-level component labels and a
   30-second timeout.
+- Windows test executables embed an `asInvoker` manifest from `windows/`.
+  This prevents UAC installer detection from requiring elevation for names
+  containing keywords such as `update`, so CTest can launch them normally.
+  See Microsoft's [installer detection documentation](https://learn.microsoft.com/en-us/windows/security/application-security/application-control/user-account-control/architecture) *(accessed: 2026-11-09)*.
 - Use Gherkin-style `Given`, `When`, and `Then` comment sections in all
   non-trivial tests to separate setup, execution, and assertions.

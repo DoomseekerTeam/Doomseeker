@@ -192,8 +192,8 @@ INTERFACE
 	${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-if(WITH_AUTOUPDATES)
-	target_compile_definitions(doomseeker_build_config INTERFACE WITH_AUTOUPDATES)
+if(DOOMSEEKER_WITH_AUTOUPDATES)
+	target_compile_definitions(doomseeker_build_config INTERFACE DOOMSEEKER_WITH_AUTOUPDATES)
 endif()
 
 if(MSVC)
@@ -417,7 +417,7 @@ if(USE_CPACK)
 	file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/CPackComponent.version" "doomseeker ${VERSION_STRING}\n")
 endif()
 
-if(WIN32 OR APPLE)
+if(DOOMSEEKER_WITH_AUTOUPDATES)
 	find_program(PYTHON_EXEC python3)
 	if(NOT AUTOUPDATE_PACKAGE_DIRECTORY)
 		set(AUTOUPDATE_PACKAGE_DIRECTORY ${CMAKE_BUILD_DIR})

@@ -39,7 +39,7 @@ CFGAutoUpdates::CFGAutoUpdates(QWidget *parent)
 {
 	d->setupUi(this);
 	// Hide if not supported on target platform.
-	#ifndef WITH_AUTOUPDATES
+	#ifndef DOOMSEEKER_WITH_AUTOUPDATES
 	d->programUpdateArea->hide();
 	#endif
 	layout()->setAlignment(Qt::AlignTop);

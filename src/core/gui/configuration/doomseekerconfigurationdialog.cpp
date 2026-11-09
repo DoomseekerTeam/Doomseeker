@@ -119,7 +119,7 @@ void DoomseekerConfigurationDialog::initOptionsList()
 	enginesRoot = addConfigPage(nullptr, new CFGGames(this));
 
 	addConfigPage(nullptr, new CFGAppearance(this));
-	#ifdef WITH_AUTOUPDATES
+	#ifdef DOOMSEEKER_WITH_AUTOUPDATES
 	addConfigPage(nullptr, new CFGAutoUpdates(this));
 	#endif
 

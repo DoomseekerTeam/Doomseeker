@@ -19,6 +19,10 @@
 # Copyright (C) 2026 "Zalewa" <zalewapl@gmail.com>
 #------------------------------------------------------------------------------
 
+if(NOT DOOMSEEKER_WITH_AUTOUPDATES)
+	add_unit_test(disabledupdates LIBRARIES doomseeker_core)
+endif()
+
 add_unit_test(datetime LIBRARIES doomseeker_core)
 add_unit_test(gamedemo LIBRARIES doomseeker_core)
 add_unit_test(iputils LIBRARIES doomseeker_core)

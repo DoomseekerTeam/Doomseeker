@@ -171,7 +171,7 @@ int Main::run()
 	PluginUrlHandler::registerAll();
 
 	initMainConfig();
-	#ifdef WITH_AUTOUPDATES
+	#ifdef DOOMSEEKER_WITH_AUTOUPDATES
 	// Handle pending update installations.
 	UpdateInstaller::ErrorCode updateInstallerResult
 		= (UpdateInstaller::ErrorCode)installPendingUpdates();
@@ -204,7 +204,7 @@ int Main::run()
 	{
 		setupRefreshingThread();
 		createMainWindow();
-		#ifdef WITH_AUTOUPDATES
+		#ifdef DOOMSEEKER_WITH_AUTOUPDATES
 		// Handle auto update: display update failure or start auto update
 		// check/download.
 		if (updateFailedCode != 0)
@@ -232,7 +232,7 @@ int Main::run()
 
 	int returnCode = gApp->exec();
 
-	#ifdef WITH_AUTOUPDATES
+	#ifdef DOOMSEEKER_WITH_AUTOUPDATES
 	if (gApp->shouldInstallUpdatesOnExit())
 	{
 		// Code must be reset because the install method

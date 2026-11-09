@@ -137,7 +137,15 @@ set(CMAKE_CXX_STANDARD 11)
 set(CXX_STANDARD_REQUIRED ON)
 
 if(WIN32)
-	set(WITH_AUTOUPDATES 1)
+	option(DOOMSEEKER_WITH_AUTOUPDATES "Enable automatic application updates" ON)
+else()
+	# Automatic application updates are supported only on Windows. Ignore
+	# command-line overrides and do not expose the option on other platforms.
+	unset(DOOMSEEKER_WITH_AUTOUPDATES CACHE)
+	set(DOOMSEEKER_WITH_AUTOUPDATES OFF)
+endif()
+
+if(DOOMSEEKER_WITH_AUTOUPDATES)
 	add_subdirectory(tools/updateinstaller)
 endif()
 

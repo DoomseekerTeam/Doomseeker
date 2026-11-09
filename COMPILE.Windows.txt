@@ -145,6 +145,19 @@ dumped directly to this directory.
 Procedures to spawn the optional IpToCountry.dat file are the same as
 for any other platform. Refer to the corresponding section in COMPILE.txt.
 A Python3 installation is required to spawn the database.
+
+6.3. Automatic application updates.
+
+Automatic application updates are enabled by default on Windows. To build
+without this feature, pass -DDOOMSEEKER_WITH_AUTOUPDATES=OFF when configuring
+from the command line.
+
+Disabling this option removes automatic updates from the interface and skips
+building the updater program. Doomseeker will not check for application updates,
+though some updater code may still be compiled in.
+
+This option is available only on Windows. Other platforms always disable
+application updates. IP2C database updates are not affected.
 ================================================================================
 7. Runtime dependencies.
 

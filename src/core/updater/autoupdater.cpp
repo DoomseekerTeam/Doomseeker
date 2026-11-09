@@ -409,6 +409,10 @@ void AutoUpdater::setRequireDownloadAndInstallConfirmation(bool b)
 
 void AutoUpdater::start()
 {
+	#ifndef DOOMSEEKER_WITH_AUTOUPDATES
+	// Keep this entry point inert even if a caller bypasses the disabled UI.
+	finishWithError(EC_Aborted);
+	#else
 	if (d->bStarted)
 	{
 		qDebug() << "Cannot start AutoUpdater more than once.";
@@ -446,6 +450,7 @@ void AutoUpdater::start()
 		SIGNAL(packageDownloadProgress(qint64,qint64)));
 	d->pNetworkReply = pReply;
 	emitOverallProgress(tr("Update info"));
+	#endif
 }
 
 void AutoUpdater::startNextPackageDownload()

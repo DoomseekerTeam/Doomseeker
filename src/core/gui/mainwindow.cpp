@@ -225,9 +225,10 @@ MainWindow::MainWindow(QApplication *application)
 	d->updatesConfirmationWidget->hide();
 	d->updatesDownloadedWidget->hide();
 
-	// Hide menu options which aren't supported on target platform.
-	#ifndef WITH_AUTOUPDATES
+	// Hide and disable updates when the build does not support them.
+	#ifndef DOOMSEEKER_WITH_AUTOUPDATES
 	d->menuActionCheckForUpdates->setVisible(false);
+	d->menuActionCheckForUpdates->setEnabled(false);
 	#endif
 
 	initIP2CUpdater();
@@ -404,6 +405,7 @@ void MainWindow::changeEvent(QEvent *event)
 
 void MainWindow::checkForUpdates(bool bUserTriggered)
 {
+	#ifdef DOOMSEEKER_WITH_AUTOUPDATES
 	if (d->autoUpdater != nullptr)
 	{
 		if (d->autoUpdater->isRunning())
@@ -462,6 +464,9 @@ void MainWindow::checkForUpdates(bool bUserTriggered)
 	d->autoUpdater->setRequireDownloadAndInstallConfirmation(bRequireConfirmation);
 	d->autoUpdaterStatusBarWidget->show();
 	d->autoUpdater->start();
+	#else
+	Q_UNUSED(bUserTriggered);
+	#endif
 }
 
 
