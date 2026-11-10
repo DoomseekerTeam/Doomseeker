@@ -90,6 +90,14 @@ then in CMake specify path to it through option:
 
   cmake -DDOOMSEEKER_IP2C_DAT=<path/to/IpToCountry.dat>
 
+IP2C automatic updates are enabled by default. To build without them, pass
+-DDOOMSEEKER_WITH_IP2C_AUTOUPDATES=OFF to CMake. Country lookups and manual
+database updates remain available, but the automatic update setting is hidden
+and Doomseeker will not check for IP2C updates on startup.
+
+DOOMSEEKER_IP2C_AUTOUPDATE_DEFAULT=OFF only changes the default setting for
+new configurations; it does not disable the feature.
+
 
 ----------------------------------------
 Copyright (C) 2010 The Doomseeker Team

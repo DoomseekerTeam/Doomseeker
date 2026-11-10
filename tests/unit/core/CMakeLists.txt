@@ -25,6 +25,10 @@ endif()
 
 add_unit_test(datetime LIBRARIES doomseeker_core)
 add_unit_test(gamedemo LIBRARIES doomseeker_core)
+add_unit_test(ip2cautoupdates LIBRARIES doomseeker_core)
+if(UNIX AND NOT APPLE)
+	set_tests_properties(unit.core.ip2cautoupdates PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
+endif()
 add_unit_test(iputils LIBRARIES doomseeker_core)
 add_unit_test(modreader
 	LIBRARIES doomseeker_core

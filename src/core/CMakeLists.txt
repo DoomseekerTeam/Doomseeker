@@ -44,6 +44,7 @@ else()
 	set(DEFAULT_NONFREE_INSTALL "no")
 endif()
 
+option(DOOMSEEKER_WITH_IP2C_AUTOUPDATES "Enable automatic IP2C database updates" ON)
 option(DOOMSEEKER_IP2C_AUTOUPDATE_DEFAULT "Configure if autoupdate of IP2C should be enabled by default in newly created configs" "yes")
 configure_file(doomseeker_copts.h.in doomseeker_copts.h)
 
@@ -194,6 +195,10 @@ INTERFACE
 
 if(DOOMSEEKER_WITH_AUTOUPDATES)
 	target_compile_definitions(doomseeker_build_config INTERFACE DOOMSEEKER_WITH_AUTOUPDATES)
+endif()
+
+if(DOOMSEEKER_WITH_IP2C_AUTOUPDATES)
+	target_compile_definitions(doomseeker_build_config INTERFACE DOOMSEEKER_WITH_IP2C_AUTOUPDATES)
 endif()
 
 if(MSVC)

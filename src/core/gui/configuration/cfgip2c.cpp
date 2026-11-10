@@ -33,6 +33,10 @@ CFGIP2C::CFGIP2C(QWidget *parent)
 	: ConfigPage(parent)
 {
 	d->setupUi(this);
+	#ifndef DOOMSEEKER_WITH_IP2C_AUTOUPDATES
+	d->cbAutoUpdate->hide();
+	d->cbAutoUpdate->setEnabled(false);
+	#endif
 }
 
 CFGIP2C::~CFGIP2C()

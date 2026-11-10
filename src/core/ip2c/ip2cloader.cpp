@@ -106,7 +106,11 @@ IP2CLoader::IP2CLoader(IP2C &ip2c, QObject *parent)
 
 void IP2CLoader::load()
 {
-	if (gConfig.doomseeker.bIP2CountryAutoUpdate)
+	bool autoUpdate = false;
+	#ifdef DOOMSEEKER_WITH_IP2C_AUTOUPDATES
+	autoUpdate = gConfig.doomseeker.bIP2CountryAutoUpdate;
+	#endif
+	if (autoUpdate)
 		d->ip2cUpdater->startUpdateCheck(DoomseekerFilePaths::ip2cDatabaseAny());
 
 	if (d->parsingInProgress)
@@ -121,7 +125,7 @@ void IP2CLoader::load()
 	}
 	else
 	{
-		if (!gConfig.doomseeker.bIP2CountryAutoUpdate)
+		if (!autoUpdate)
 		{
 			gLog << tr("Did not find any IP2C database. IP2C functionality will be disabled.");
 			gLog << tr("You may install an IP2C database from the \"File\" menu.");
