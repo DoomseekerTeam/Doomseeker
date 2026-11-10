@@ -193,14 +193,6 @@ INTERFACE
 	${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-if(DOOMSEEKER_WITH_AUTOUPDATES)
-	target_compile_definitions(doomseeker_build_config INTERFACE DOOMSEEKER_WITH_AUTOUPDATES)
-endif()
-
-if(DOOMSEEKER_WITH_IP2C_AUTOUPDATES)
-	target_compile_definitions(doomseeker_build_config INTERFACE DOOMSEEKER_WITH_IP2C_AUTOUPDATES)
-endif()
-
 if(MSVC)
 	target_compile_definitions(doomseeker_build_config INTERFACE _CRT_SECURE_NO_WARNINGS)
 endif()

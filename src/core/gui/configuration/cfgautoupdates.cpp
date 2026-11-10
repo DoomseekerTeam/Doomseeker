@@ -24,6 +24,7 @@
 #include "ui_cfgautoupdates.h"
 
 #include "configuration/doomseekerconfig.h"
+#include "doomseeker_copts.h"
 #include "log.h"
 #include "updater/updatechannel.h"
 #include <cassert>

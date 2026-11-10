@@ -28,5 +28,7 @@ Doomseeker Compile Options -- configured by CMake.
 */
 
 #cmakedefine01 DOOMSEEKER_IP2C_AUTOUPDATE_DEFAULT
+#cmakedefine DOOMSEEKER_WITH_AUTOUPDATES
+#cmakedefine DOOMSEEKER_WITH_IP2C_AUTOUPDATES
 
 #endif

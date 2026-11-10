@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 #include "updatechannel.h"
 
+#include "doomseeker_copts.h"
 #include <cassert>
 
 #if defined(Q_OS_WIN32)

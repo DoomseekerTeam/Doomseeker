@@ -24,6 +24,7 @@
 
 #include "configuration/doomseekerconfig.h"
 #include "datapaths.h"
+#include "doomseeker_copts.h"
 #include "log.h"
 #include "strings.hpp"
 #include "updater/updatechannel.h"

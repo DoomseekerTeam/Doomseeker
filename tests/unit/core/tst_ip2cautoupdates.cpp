@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 #include "configuration/doomseekerconfig.h"
 #include "datapaths.h"
+#include "doomseeker_copts.h"
 #include "doomseekerfilepaths.h"
 #include "gui/configuration/cfgip2c.h"
 #include "ip2c/ip2c.h"

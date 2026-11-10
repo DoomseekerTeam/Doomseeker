@@ -29,6 +29,7 @@
 #include "connectionhandler.h"
 #include "customservers.h"
 #include "datapaths.h"
+#include "doomseeker_copts.h"
 #include "doomseekerfilepaths.h"
 #include "fileutils.h"
 #include "gamedemo.h"

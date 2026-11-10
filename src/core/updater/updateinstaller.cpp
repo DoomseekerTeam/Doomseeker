@@ -25,6 +25,7 @@
 #include "application.h"
 #include "configuration/doomseekerconfig.h"
 #include "datapaths.h"
+#include "doomseeker_copts.h"
 #include "log.h"
 #include "main.h"
 #include "strings.hpp"

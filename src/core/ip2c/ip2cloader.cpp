@@ -23,6 +23,7 @@
 #include "ip2cloader.h"
 
 #include "configuration/doomseekerconfig.h"
+#include "doomseeker_copts.h"
 #include "doomseekerfilepaths.h"
 #include "global.h"
 #include "ip2c/ip2c.h"

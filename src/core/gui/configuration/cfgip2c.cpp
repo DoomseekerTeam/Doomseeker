@@ -23,6 +23,7 @@
 #include "cfgip2c.h"
 
 #include "configuration/doomseekerconfig.h"
+#include "doomseeker_copts.h"
 
 #include "ui_cfgip2c.h"
 

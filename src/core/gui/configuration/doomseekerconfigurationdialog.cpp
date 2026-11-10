@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 #include "application.h"
 #include "configuration/doomseekerconfig.h"
+#include "doomseeker_copts.h"
 #include "doomseekerconfigurationdialog.h"
 #include "gui/configuration/cfgappearance.h"
 #include "gui/configuration/cfgautoupdates.h"

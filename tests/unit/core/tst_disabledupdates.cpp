@@ -20,6 +20,7 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2026 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
+#include "doomseeker_copts.h"
 #include "updater/autoupdater.h"
 #include "updater/updatechannel.h"
 #include "updater/updateinstaller.h"

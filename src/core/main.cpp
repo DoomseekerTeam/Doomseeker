@@ -44,6 +44,7 @@
 #include "configuration/queryspeed.h"
 #include "connectionhandler.h"
 #include "datapaths.h"
+#include "doomseeker_copts.h"
 #include "doomseekerfilepaths.h"
 #include "fileutils.h"
 #include "gui/createserverdialog.h"
