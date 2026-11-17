@@ -24,7 +24,7 @@
 
 #include "configuration/doomseekerconfig.h"
 #include "datapaths.h"
-#include "doomseeker_copts.h"
+#include "doomseekerpolicy.h"
 #include "log.h"
 #include "strings.hpp"
 #include "updater/updatechannel.h"
@@ -410,10 +410,11 @@ void AutoUpdater::setRequireDownloadAndInstallConfirmation(bool b)
 
 void AutoUpdater::start()
 {
-	#ifndef DOOMSEEKER_WITH_AUTOUPDATES
-	// Keep this entry point inert even if a caller bypasses the disabled UI.
-	finishWithError(EC_Aborted);
-	#else
+	if (!gPolicy.isAutoUpdateAllowed())
+	{
+		finishWithError(EC_Aborted);
+		return;
+	}
 	if (d->bStarted)
 	{
 		qDebug() << "Cannot start AutoUpdater more than once.";
@@ -451,7 +452,6 @@ void AutoUpdater::start()
 		SIGNAL(packageDownloadProgress(qint64,qint64)));
 	d->pNetworkReply = pReply;
 	emitOverallProgress(tr("Update info"));
-	#endif
 }
 
 void AutoUpdater::startNextPackageDownload()

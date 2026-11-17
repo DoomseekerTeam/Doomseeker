@@ -23,8 +23,8 @@
 #include "ip2cloader.h"
 
 #include "configuration/doomseekerconfig.h"
-#include "doomseeker_copts.h"
 #include "doomseekerfilepaths.h"
+#include "doomseekerpolicy.h"
 #include "global.h"
 #include "ip2c/ip2c.h"
 #include "ip2c/ip2cparser.h"
@@ -107,10 +107,8 @@ IP2CLoader::IP2CLoader(IP2C &ip2c, QObject *parent)
 
 void IP2CLoader::load()
 {
-	bool autoUpdate = false;
-	#ifdef DOOMSEEKER_WITH_IP2C_AUTOUPDATES
-	autoUpdate = gConfig.doomseeker.bIP2CountryAutoUpdate;
-	#endif
+	const bool autoUpdate = gPolicy.isIP2CAutoUpdateAllowed()
+		&& gConfig.doomseeker.bIP2CountryAutoUpdate;
 	if (autoUpdate)
 		d->ip2cUpdater->startUpdateCheck(DoomseekerFilePaths::ip2cDatabaseAny());
 
@@ -129,7 +127,8 @@ void IP2CLoader::load()
 		if (!autoUpdate)
 		{
 			gLog << tr("Did not find any IP2C database. IP2C functionality will be disabled.");
-			gLog << tr("You may install an IP2C database from the \"File\" menu.");
+			if (gPolicy.isIP2CUpdateAllowed())
+				gLog << tr("You may install an IP2C database from the \"File\" menu.");
 		}
 		ip2cJobsFinished();
 	}

@@ -78,6 +78,7 @@ set(HEADER_FILES
 	datastreamoperatorwrapper.h
 	datetime.h
 	doomseekerfilepaths.h
+	doomseekerpolicy.h
 	dptr.h
 	filefilter.h
 	fileutils.h
@@ -326,6 +327,8 @@ set(SOURCE_FILES
 	datastreamoperatorwrapper.cpp
 	datetime.cpp
 	doomseekerfilepaths.cpp
+	doomseekerpolicy.cpp
+	doomseekerpolicycopts.cpp
 	filefilter.cpp
 	fileutils.cpp
 	gamedemo.cpp

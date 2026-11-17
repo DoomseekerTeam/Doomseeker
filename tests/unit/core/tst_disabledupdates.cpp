@@ -20,16 +20,12 @@
 //------------------------------------------------------------------------------
 // Copyright (C) 2026 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
-#include "doomseeker_copts.h"
+#include "doomseekerpolicy.h"
 #include "updater/autoupdater.h"
 #include "updater/updatechannel.h"
 #include "updater/updateinstaller.h"
 
 #include <QtTest>
-
-#ifdef DOOMSEEKER_WITH_AUTOUPDATES
-#error "These tests require automatic updates to be disabled."
-#endif
 
 class TestDisabledUpdates : public QObject
 {
@@ -39,6 +35,9 @@ private slots:
 	void updateCheck_data();
 	void updateCheck();
 	void pendingInstallation();
+
+private:
+	ScopedDoomseekerPolicy policy{DoomseekerPolicy::Builder().build()};
 };
 
 void TestDisabledUpdates::updateCheck_data()
@@ -51,7 +50,7 @@ void TestDisabledUpdates::updateCheck_data()
 
 void TestDisabledUpdates::updateCheck()
 {
-	// Given: an updater in a build without automatic updates, even with a
+	// Given: an updater with automatic updates disallowed by policy, even with a
 	// valid channel. No application data paths are initialized: disabled
 	// updates must not access update storage or proceed to a network request.
 	QFETCH(QString, channelName);

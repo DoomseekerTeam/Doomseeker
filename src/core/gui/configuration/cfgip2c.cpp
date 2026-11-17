@@ -23,7 +23,7 @@
 #include "cfgip2c.h"
 
 #include "configuration/doomseekerconfig.h"
-#include "doomseeker_copts.h"
+#include "doomseekerpolicy.h"
 
 #include "ui_cfgip2c.h"
 
@@ -34,10 +34,8 @@ CFGIP2C::CFGIP2C(QWidget *parent)
 	: ConfigPage(parent)
 {
 	d->setupUi(this);
-	#ifndef DOOMSEEKER_WITH_IP2C_AUTOUPDATES
-	d->cbAutoUpdate->hide();
-	d->cbAutoUpdate->setEnabled(false);
-	#endif
+	d->cbAutoUpdate->setVisible(gPolicy.isIP2CAutoUpdateAllowed());
+	d->cbAutoUpdate->setEnabled(gPolicy.isIP2CAutoUpdateAllowed());
 }
 
 CFGIP2C::~CFGIP2C()

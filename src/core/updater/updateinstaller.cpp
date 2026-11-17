@@ -25,7 +25,7 @@
 #include "application.h"
 #include "configuration/doomseekerconfig.h"
 #include "datapaths.h"
-#include "doomseeker_copts.h"
+#include "doomseekerpolicy.h"
 #include "log.h"
 #include "main.h"
 #include "strings.hpp"
@@ -141,10 +141,9 @@ QString UpdateInstaller::processErrorCodeToStr(ProcessErrorCode code)
 
 UpdateInstaller::ErrorCode UpdateInstaller::startInstallation()
 {
-	#ifndef DOOMSEEKER_WITH_AUTOUPDATES
-	// Do not install previously downloaded updates in an updates-disabled build.
-	return EC_NothingToUpdate;
-	#else
+	if (!gPolicy.isAutoUpdateAllowed())
+		return EC_NothingToUpdate;
+
 	QString scriptPath = AutoUpdater::updaterScriptPath();
 	QFile fileScript(scriptPath);
 	if (fileScript.exists())
@@ -175,7 +174,6 @@ UpdateInstaller::ErrorCode UpdateInstaller::startInstallation()
 		return EC_UpdatePackageMissing;
 	}
 	return EC_Ok;
-	#endif
 }
 
 bool UpdateInstaller::startUpdaterProcess(const QString &packagesDir,

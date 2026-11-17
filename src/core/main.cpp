@@ -44,8 +44,8 @@
 #include "configuration/queryspeed.h"
 #include "connectionhandler.h"
 #include "datapaths.h"
-#include "doomseeker_copts.h"
 #include "doomseekerfilepaths.h"
+#include "doomseekerpolicy.h"
 #include "fileutils.h"
 #include "gui/createserverdialog.h"
 #include "gui/mainwindow.h"
@@ -172,7 +172,6 @@ int Main::run()
 	PluginUrlHandler::registerAll();
 
 	initMainConfig();
-	#ifdef DOOMSEEKER_WITH_AUTOUPDATES
 	// Handle pending update installations.
 	UpdateInstaller::ErrorCode updateInstallerResult
 		= (UpdateInstaller::ErrorCode)installPendingUpdates();
@@ -180,7 +179,6 @@ int Main::run()
 	{
 		return 0;
 	}
-	#endif
 
 	initLocalizationsDefinitions();
 	initIP2C();
@@ -205,27 +203,28 @@ int Main::run()
 	{
 		setupRefreshingThread();
 		createMainWindow();
-		#ifdef DOOMSEEKER_WITH_AUTOUPDATES
-		// Handle auto update: display update failure or start auto update
-		// check/download.
-		if (updateFailedCode != 0)
+		if (gPolicy.isAutoUpdateAllowed())
 		{
-			// This is when updater program failed to install the update.
-			gApp->mainWindow()->setDisplayUpdaterProcessFailure(updateFailedCode);
-		}
-		else if (updateInstallerResult != UpdateInstaller::EC_NothingToUpdate)
-		{
-			// This is when Doomseeker failed to start the updater program.
-			gApp->mainWindow()->setDisplayUpdateInstallerError(updateInstallerResult);
-		}
-		else
-		{
-			if (gConfig.autoUpdates.updateMode != DoomseekerConfig::AutoUpdates::UM_Disabled)
+			// Handle auto update: display update failure or start auto update
+			// check/download.
+			if (updateFailedCode != 0)
 			{
-				QTimer::singleShot(0, gApp->mainWindow(), SLOT(checkForUpdatesAuto()));
+				// This is when updater program failed to install the update.
+				gApp->mainWindow()->setDisplayUpdaterProcessFailure(updateFailedCode);
+			}
+			else if (updateInstallerResult != UpdateInstaller::EC_NothingToUpdate)
+			{
+				// This is when Doomseeker failed to start the updater program.
+				gApp->mainWindow()->setDisplayUpdateInstallerError(updateInstallerResult);
+			}
+			else
+			{
+				if (gConfig.autoUpdates.updateMode != DoomseekerConfig::AutoUpdates::UM_Disabled)
+				{
+					QTimer::singleShot(0, gApp->mainWindow(), SLOT(checkForUpdatesAuto()));
+				}
 			}
 		}
-		#endif
 	}
 
 	gLog << tr("Init finished.");
@@ -233,8 +232,7 @@ int Main::run()
 
 	int returnCode = gApp->exec();
 
-	#ifdef DOOMSEEKER_WITH_AUTOUPDATES
-	if (gApp->shouldInstallUpdatesOnExit())
+	if (gPolicy.isAutoUpdateAllowed() && gApp->shouldInstallUpdatesOnExit())
 	{
 		// Code must be reset because the install method
 		// doesn't do the actual installation if it's not equal to zero.
@@ -247,7 +245,6 @@ int Main::run()
 				UpdateInstaller::errorCodeToStr((UpdateInstaller::ErrorCode)installResult));
 		}
 	}
-	#endif
 
 	return returnCode;
 }
@@ -532,6 +529,9 @@ void Main::initPluginConfig()
 
 int Main::installPendingUpdates()
 {
+	if (!gPolicy.isAutoUpdateAllowed())
+		return UpdateInstaller::EC_NothingToUpdate;
+
 	UpdateInstaller::ErrorCode updateInstallerResult = UpdateInstaller::EC_NothingToUpdate;
 	if (gConfig.autoUpdates.bPerformUpdateOnNextRun)
 	{
@@ -735,6 +735,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR szCmdLine
 		strcpy(argv[i], parameter.toUtf8().constData());
 	}
 
+	ScopedDoomseekerPolicy policy(DoomseekerPolicy::fromBuildOptions());
 	Main *pMain = new Main(argc, argv);
 	int returnValue = pMain->run();
 
@@ -754,6 +755,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR szCmdLine
 #else
 int main(int argc, char *argv[])
 {
+	ScopedDoomseekerPolicy policy(DoomseekerPolicy::fromBuildOptions());
 	Main *pMain = new Main(argc, argv);
 	int returnValue = pMain->run();
 

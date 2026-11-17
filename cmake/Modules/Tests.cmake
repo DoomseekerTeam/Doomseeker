@@ -25,10 +25,12 @@ get_filename_component(_unit_test_root "${CMAKE_CURRENT_LIST_DIR}/../../tests/un
 Add a Qt Test executable and register it with CTest.
 
     add_unit_test(<subject>
+        [NAME <name>]
         [LIBRARIES <libraries...>]
         [SOURCES <files...>])
 
 Use <subject> to select tst_<subject>.cpp in the calling directory.
+Use NAME to replace <subject> in target and test names for source-sharing variants.
 Use LIBRARIES to specify production libraries or targets to link.
 Use SOURCES to include additional sources or Qt resource collections;
 resolve relative paths against the calling directory.
@@ -47,7 +49,7 @@ heuristics from requiring elevation based on a test executable's name.
 Sets a 30-second timeout.
 ]]
 function(add_unit_test subject)
-	cmake_parse_arguments(args "" "" "LIBRARIES;SOURCES" ${ARGN})
+	cmake_parse_arguments(args "" "NAME" "LIBRARIES;SOURCES" ${ARGN})
 	if(args_UNPARSED_ARGUMENTS)
 		message(FATAL_ERROR "Unknown unit-test arguments: ${args_UNPARSED_ARGUMENTS}")
 	endif()
@@ -57,8 +59,11 @@ function(add_unit_test subject)
 	string(REPLACE "/" "_" target_namespace "${test_directory}")
 	string(REPLACE "/" "." test_namespace "${test_directory}")
 	string(REGEX MATCH "^[^/]+" component "${test_directory}")
-	set(target "unit_test_${target_namespace}_${subject}")
-	set(test_name "unit.${test_namespace}.${subject}")
+	if(NOT args_NAME)
+		set(args_NAME "${subject}")
+	endif()
+	set(target "unit_test_${target_namespace}_${args_NAME}")
+	set(test_name "unit.${test_namespace}.${args_NAME}")
 
 	add_executable(${target} tst_${subject}.cpp ${args_SOURCES})
 	set_target_properties(${target} PROPERTIES AUTOMOC ON AUTORCC ON)

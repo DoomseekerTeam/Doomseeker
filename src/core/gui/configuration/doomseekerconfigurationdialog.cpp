@@ -22,7 +22,7 @@
 //------------------------------------------------------------------------------
 #include "application.h"
 #include "configuration/doomseekerconfig.h"
-#include "doomseeker_copts.h"
+#include "doomseekerpolicy.h"
 #include "doomseekerconfigurationdialog.h"
 #include "gui/configuration/cfgappearance.h"
 #include "gui/configuration/cfgautoupdates.h"
@@ -120,9 +120,8 @@ void DoomseekerConfigurationDialog::initOptionsList()
 	enginesRoot = addConfigPage(nullptr, new CFGGames(this));
 
 	addConfigPage(nullptr, new CFGAppearance(this));
-	#ifdef DOOMSEEKER_WITH_AUTOUPDATES
-	addConfigPage(nullptr, new CFGAutoUpdates(this));
-	#endif
+	if (gPolicy.isAutoUpdateAllowed())
+		addConfigPage(nullptr, new CFGAutoUpdates(this));
 
 	customServersCfgBox = new CFGCustomServers(this);
 	addConfigPage(nullptr, customServersCfgBox);

@@ -44,7 +44,6 @@ else()
 	set(DEFAULT_NONFREE_INSTALL "no")
 endif()
 
-option(DOOMSEEKER_WITH_IP2C_AUTOUPDATES "Enable automatic IP2C database updates" ON)
 option(DOOMSEEKER_IP2C_AUTOUPDATE_DEFAULT "Configure if autoupdate of IP2C should be enabled by default in newly created configs" "yes")
 configure_file(doomseeker_copts.h.in doomseeker_copts.h)
 
@@ -414,7 +413,7 @@ if(USE_CPACK)
 	file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/CPackComponent.version" "doomseeker ${VERSION_STRING}\n")
 endif()
 
-if(DOOMSEEKER_WITH_AUTOUPDATES)
+if(DOOMSEEKER_WITH_AUTOUPDATES AND DOOMSEEKER_ALLOW_PROJECT_SERVICE_NETWORK_ACCESS)
 	find_program(PYTHON_EXEC python3)
 	if(NOT AUTOUPDATE_PACKAGE_DIRECTORY)
 		set(AUTOUPDATE_PACKAGE_DIRECTORY ${CMAKE_BUILD_DIR})

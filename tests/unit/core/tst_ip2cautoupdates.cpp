@@ -22,8 +22,8 @@
 //------------------------------------------------------------------------------
 #include "configuration/doomseekerconfig.h"
 #include "datapaths.h"
-#include "doomseeker_copts.h"
 #include "doomseekerfilepaths.h"
+#include "doomseekerpolicy.h"
 #include "gui/configuration/cfgip2c.h"
 #include "ip2c/ip2c.h"
 #include "ip2c/ip2cloader.h"
@@ -37,6 +37,7 @@
 #include <QScopedValueRollback>
 #include <QStandardPaths>
 #include <QTcpServer>
+#include <QTcpSocket>
 #include <QTemporaryDir>
 #include <QtTest>
 
@@ -66,13 +67,20 @@ private slots:
 	void initTestCase();
 	void cleanupTestCase();
 	void init();
+	void cleanup();
 	void load_data();
 	void load();
+	void configuration_data();
 	void configuration();
+	void manualUpdateCheck_data();
 	void manualUpdateCheck();
+	void manualDownload_data();
 	void manualDownload();
+	void manualLoaderUpdate_data();
+	void manualLoaderUpdate();
 
 private:
+	ScopedDoomseekerPolicy baseline{DoomseekerPolicy::Builder().build()};
 	QTemporaryDir storage;
 	QTcpServer proxy;
 	QNetworkProxy originalProxy;
@@ -115,25 +123,40 @@ void TestIP2CAutoUpdates::init()
 	IP2C::deinstantiate();
 }
 
+void TestIP2CAutoUpdates::cleanup()
+{
+	// Request owners have been destroyed before draining the isolated proxy.
+	while (proxy.hasPendingConnections())
+		delete proxy.nextPendingConnection();
+	IP2C::deinstantiate();
+}
+
 void TestIP2CAutoUpdates::load_data()
 {
+	QTest::addColumn<bool>("generalAllowed");
+	QTest::addColumn<bool>("automaticAllowed");
 	QTest::addColumn<bool>("autoUpdateSetting");
 	QTest::addColumn<bool>("hasDatabase");
-	QTest::newRow("setting-off-no-database") << false << false;
-	QTest::newRow("setting-off-local-database") << false << true;
-	#ifndef DOOMSEEKER_WITH_IP2C_AUTOUPDATES
-	QTest::newRow("setting-on-no-database") << true << false;
-	QTest::newRow("setting-on-local-database") << true << true;
-	#endif
+	QTest::newRow("general-denied-no-database") << false << true << true << false;
+	QTest::newRow("general-denied-local-database") << false << true << true << true;
+	QTest::newRow("automatic-denied-no-database") << true << false << true << false;
+	QTest::newRow("automatic-denied-local-database") << true << false << true << true;
+	QTest::newRow("setting-off-no-database") << true << true << false << false;
+	QTest::newRow("setting-off-local-database") << true << true << false << true;
 }
 
 void TestIP2CAutoUpdates::load()
 {
-	// Given: automatic updates are disabled by the user or the build, with or
+	// Given: automatic updates are disabled by the user or the policy, with or
 	// without an installed database. A saved preference must not override the
-	// build option.
+	// policy.
+	QFETCH(bool, generalAllowed);
+	QFETCH(bool, automaticAllowed);
 	QFETCH(bool, autoUpdateSetting);
 	QFETCH(bool, hasDatabase);
+	ScopedDoomseekerPolicy policy(DoomseekerPolicy::Builder()
+		.setIP2CUpdateAllowed(generalAllowed)
+		.setIP2CAutoUpdateAllowed(automaticAllowed).build());
 	QScopedValueRollback<bool> setting(
 		gConfig.doomseeker.bIP2CountryAutoUpdate, autoUpdateSetting);
 	if (hasDatabase)
@@ -170,9 +193,27 @@ void TestIP2CAutoUpdates::load()
 	QCOMPARE(gConfig.doomseeker.bIP2CountryAutoUpdate, autoUpdateSetting);
 }
 
+void TestIP2CAutoUpdates::configuration_data()
+{
+	QTest::addColumn<bool>("generalAllowed");
+	QTest::addColumn<bool>("automaticAllowed");
+	QTest::addColumn<bool>("expectedAutomatic");
+	QTest::newRow("deny-all") << false << false << false;
+	QTest::newRow("general-denied") << false << true << false;
+	QTest::newRow("manual-only") << true << false << false;
+	QTest::newRow("automatic-permitted") << true << true << true;
+}
+
 void TestIP2CAutoUpdates::configuration()
 {
-	// Given: a saved preference for automatic updates and the IP2C settings page.
+	// Given: explicit permissions, a saved automatic-update preference, and the
+	// IP2C settings page, constructed only after installing the policy.
+	QFETCH(bool, generalAllowed);
+	QFETCH(bool, automaticAllowed);
+	QFETCH(bool, expectedAutomatic);
+	ScopedDoomseekerPolicy policy(DoomseekerPolicy::Builder()
+		.setIP2CUpdateAllowed(generalAllowed)
+		.setIP2CAutoUpdateAllowed(automaticAllowed).build());
 	QScopedValueRollback<bool> autoUpdate(gConfig.doomseeker.bIP2CountryAutoUpdate, true);
 	QScopedValueRollback<bool> honorCountries(gConfig.doomseeker.bHonorServerCountries, true);
 	CFGIP2C page(nullptr);
@@ -182,16 +223,11 @@ void TestIP2CAutoUpdates::configuration()
 	auto *automatic = page.findChild<QCheckBox *>("cbAutoUpdate");
 	auto *honor = page.findChild<QCheckBox *>("cbHonorServerCountries");
 
-	// Then: only builds supporting automatic updates offer that setting.
+	// Then: automatic updates are offered only when the policy allows them.
 	QVERIFY(automatic != nullptr);
 	QVERIFY(honor != nullptr);
-	#ifdef DOOMSEEKER_WITH_IP2C_AUTOUPDATES
-	QVERIFY(!automatic->isHidden());
-	QVERIFY(automatic->isEnabled());
-	#else
-	QVERIFY(automatic->isHidden());
-	QVERIFY(!automatic->isEnabled());
-	#endif
+	QCOMPARE(!automatic->isHidden(), expectedAutomatic);
+	QCOMPARE(automatic->isEnabled(), expectedAutomatic);
 	QVERIFY(!honor->isHidden());
 	QVERIFY(honor->isEnabled());
 
@@ -206,31 +242,133 @@ void TestIP2CAutoUpdates::configuration()
 	QVERIFY(gConfig.doomseeker.bIP2CountryAutoUpdate);
 }
 
+void TestIP2CAutoUpdates::manualUpdateCheck_data()
+{
+	QTest::addColumn<bool>("generalAllowed");
+	QTest::addColumn<bool>("hasDatabase");
+	QTest::addColumn<bool>("expectedRequest");
+	QTest::addColumn<int>("expectedStatus");
+	QTest::newRow("denied-no-database")
+		<< false << false << false << int(IP2CUpdater::UpdateCheckError);
+	QTest::newRow("denied-local-database")
+		<< false << true << false << int(IP2CUpdater::UpdateCheckError);
+	QTest::newRow("allowed-no-database")
+		<< true << false << false << int(IP2CUpdater::UpdateNeeded);
+	// No synchronous status is expected while the proxy holds the request.
+	QTest::newRow("allowed-local-database") << true << true << true << -1;
+}
+
 void TestIP2CAutoUpdates::manualUpdateCheck()
 {
-	// Given: no local database and an updater used by the manual update dialog.
+	// Given: an updater used by the manual update dialog, with or without an
+	// installed database. Service restrictions must also cover checksum checks.
+	QFETCH(bool, generalAllowed);
+	QFETCH(bool, hasDatabase);
+	QFETCH(bool, expectedRequest);
+	QFETCH(int, expectedStatus);
+	ScopedDoomseekerPolicy policy(DoomseekerPolicy::Builder()
+		.setIP2CUpdateAllowed(generalAllowed).build());
+	if (hasDatabase)
+	{
+		QFile file(DoomseekerFilePaths::ip2cDatabase());
+		QVERIFY(file.open(QIODevice::WriteOnly));
+		const QByteArray data = databaseFixture();
+		QCOMPARE(file.write(data), qint64(data.size()));
+	}
 	IP2CUpdater updater;
 	QSignalSpy checked(&updater, SIGNAL(updateCheckFinished(int)));
 
 	// When: the user explicitly checks whether an update is needed.
 	updater.startUpdateCheck(DoomseekerFilePaths::ip2cDatabase());
 
-	// Then: the manual check still reports that a database needs downloading.
-	QCOMPARE(checked.count(), 1);
-	QCOMPARE(checked.at(0).at(0).toInt(), int(IP2CUpdater::UpdateNeeded));
-	QVERIFY(!updater.isWorking());
+	// Then: an allowed checksum request stays isolated at the local proxy until
+	// the updater is destroyed, before the scoped policy is restored. Other
+	// checks complete locally with the scenario's expected result.
+	if (expectedRequest)
+	{
+		QVERIFY(updater.isWorking());
+		QCOMPARE(checked.count(), 0);
+		QTRY_VERIFY(proxy.hasPendingConnections());
+	}
+	else
+	{
+		QCOMPARE(checked.count(), 1);
+		QCOMPARE(checked.at(0).at(0).toInt(), expectedStatus);
+		QVERIFY(!updater.isWorking());
+		QVERIFY(!proxy.hasPendingConnections());
+	}
+}
+
+void TestIP2CAutoUpdates::manualDownload_data()
+{
+	QTest::addColumn<bool>("generalAllowed");
+	QTest::newRow("denied") << false;
+	QTest::newRow("manual-only") << true;
 }
 
 void TestIP2CAutoUpdates::manualDownload()
 {
-	// Given: an updater for a user-requested database download.
+	// Given: explicit manual-update permission, with automatic updates disabled,
+	// and an updater for a user-requested database download.
+	QFETCH(bool, generalAllowed);
+	ScopedDoomseekerPolicy policy(DoomseekerPolicy::Builder()
+		.setIP2CUpdateAllowed(generalAllowed).build());
 	IP2CUpdater updater;
+	QSignalSpy downloaded(&updater, SIGNAL(databaseDownloadFinished(QByteArray)));
 
 	// When: a manual download is started.
 	updater.downloadDatabase(DoomseekerFilePaths::ip2cDatabase());
 
-	// Then: the request is allowed even when automatic updates are disabled.
-	QVERIFY(updater.isWorking());
+	// Then: the blanket service policy, not the automatic-update option,
+	// determines whether a manual download can start.
+	if (generalAllowed)
+	{
+		QVERIFY(updater.isWorking());
+		QCOMPARE(downloaded.count(), 0);
+		QTRY_VERIFY(proxy.hasPendingConnections());
+	}
+	else
+	{
+		QVERIFY(!updater.isWorking());
+		QCOMPARE(downloaded.count(), 1);
+		QVERIFY(downloaded.at(0).at(0).toByteArray().isEmpty());
+		QVERIFY(!proxy.hasPendingConnections());
+	}
+}
+
+void TestIP2CAutoUpdates::manualLoaderUpdate_data()
+{
+	manualDownload_data();
+}
+
+void TestIP2CAutoUpdates::manualLoaderUpdate()
+{
+	// Given: explicit manual-update permission and the loader used to install a
+	// manually requested database update. It is destroyed before policy restore.
+	QFETCH(bool, generalAllowed);
+	ScopedDoomseekerPolicy policy(DoomseekerPolicy::Builder()
+		.setIP2CUpdateAllowed(generalAllowed).build());
+	IP2C &ip2c = *IP2C::instance();
+	IP2CLoader loader(ip2c);
+	QSignalSpy finished(&loader, SIGNAL(finished()));
+
+	// When: a manual update is requested directly, bypassing the menu action.
+	loader.update();
+
+	// Then: an allowed download starts, while a refused download completes
+	// without leaving lookups locked or the loader waiting for a network reply.
+	if (generalAllowed)
+	{
+		QCOMPARE(finished.count(), 0);
+		QVERIFY(ip2c.isDataAccessLocked());
+		QTRY_VERIFY(proxy.hasPendingConnections());
+	}
+	else
+	{
+		QCOMPARE(finished.count(), 1);
+		QVERIFY(!ip2c.isDataAccessLocked());
+		QVERIFY(!proxy.hasPendingConnections());
+	}
 }
 
 QTEST_MAIN(TestIP2CAutoUpdates)

@@ -24,7 +24,7 @@
 #include "ui_cfgautoupdates.h"
 
 #include "configuration/doomseekerconfig.h"
-#include "doomseeker_copts.h"
+#include "doomseekerpolicy.h"
 #include "log.h"
 #include "updater/updatechannel.h"
 #include <cassert>
@@ -39,10 +39,7 @@ CFGAutoUpdates::CFGAutoUpdates(QWidget *parent)
 	: ConfigPage(parent)
 {
 	d->setupUi(this);
-	// Hide if not supported on target platform.
-	#ifndef DOOMSEEKER_WITH_AUTOUPDATES
-	d->programUpdateArea->hide();
-	#endif
+	d->programUpdateArea->setVisible(gPolicy.isAutoUpdateAllowed());
 	layout()->setAlignment(Qt::AlignTop);
 }
 

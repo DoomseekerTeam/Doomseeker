@@ -28,6 +28,7 @@
 #include <QTemporaryFile>
 #include <zlib.h>
 
+#include "doomseekerpolicy.h"
 #include "log.h"
 #include "version.h"
 
@@ -104,6 +105,11 @@ const QUrl IP2CUpdater::dbDownloadUrl()
 
 void IP2CUpdater::downloadDatabase(const QString &savePath)
 {
+	if (!gPolicy.isIP2CUpdateAllowed())
+	{
+		emit databaseDownloadFinished(QByteArray());
+		return;
+	}
 	this->lastAsyncCallPath = savePath;
 	get(dbDownloadUrl(), SLOT(downloadFinished()));
 }
@@ -196,6 +202,11 @@ bool IP2CUpdater::isWorking() const
 
 void IP2CUpdater::startUpdateCheck(const QString &filePath)
 {
+	if (!gPolicy.isIP2CUpdateAllowed())
+	{
+		emit updateCheckFinished(UpdateCheckError);
+		return;
+	}
 	QFile file(filePath);
 	if (!file.exists())
 	{

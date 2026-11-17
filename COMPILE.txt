@@ -68,6 +68,25 @@ The resulting 'doomseeker' executable will differ depending
 on this #define.
 
 
+Project services
+================
+
+To build without network access to Doomseeker's project services, pass
+-DDOOMSEEKER_ALLOW_PROJECT_SERVICE_NETWORK_ACCESS=OFF to CMake. This is a
+blanket option that is intended to cover current and future features.
+Setting this OFF disables:
+
+* Application updates.
+* IP2C database downloads, including manual IP2C updates.
+
+It takes precedence over the individual automatic-update options.
+
+Server queries, Wadseeker, Freedoom downloads, and other core networking are
+Doomseeker's primary features and cannot be disabled. They remain available. An
+installed IP2C database can still be used, and website links can still be opened
+in the browser.
+
+
 IP2C
 ====
 

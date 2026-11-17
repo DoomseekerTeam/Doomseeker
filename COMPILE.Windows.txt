@@ -153,11 +153,17 @@ without this feature, pass -DDOOMSEEKER_WITH_AUTOUPDATES=OFF when configuring
 from the command line.
 
 Disabling this option removes automatic updates from the interface and skips
-building the updater program. Doomseeker will not check for application updates,
-though some updater code may still be compiled in.
+building the standalone updater program. In-app updater code will still be
+compiled in, but will be dormant. The standalone updater program is built only
+when both this option and project-service access are enabled. IP2C database
+updates are not affected.
 
 This option is available only on Windows. Other platforms always disable
-application updates. IP2C database updates are not affected.
+application updates.
+
+DOOMSEEKER_ALLOW_PROJECT_SERVICE_NETWORK_ACCESS=OFF establishes a broader
+restriction on network access to Doomseeker's project services and also
+disables the autoupdater code.
 ================================================================================
 7. Runtime dependencies.
 

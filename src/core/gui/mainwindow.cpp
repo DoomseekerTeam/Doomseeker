@@ -29,8 +29,8 @@
 #include "connectionhandler.h"
 #include "customservers.h"
 #include "datapaths.h"
-#include "doomseeker_copts.h"
 #include "doomseekerfilepaths.h"
+#include "doomseekerpolicy.h"
 #include "fileutils.h"
 #include "gamedemo.h"
 #include "gui/aboutdialog.h"
@@ -226,11 +226,14 @@ MainWindow::MainWindow(QApplication *application)
 	d->updatesConfirmationWidget->hide();
 	d->updatesDownloadedWidget->hide();
 
-	// Hide and disable updates when the build does not support them.
-	#ifndef DOOMSEEKER_WITH_AUTOUPDATES
-	d->menuActionCheckForUpdates->setVisible(false);
-	d->menuActionCheckForUpdates->setEnabled(false);
-	#endif
+	// Hide and disable updates when the policy does not support them.
+	d->menuActionCheckForUpdates->setVisible(gPolicy.isAutoUpdateAllowed());
+	d->menuActionCheckForUpdates->setEnabled(gPolicy.isAutoUpdateAllowed());
+	if (!gPolicy.isIP2CUpdateAllowed())
+	{
+		d->menuActionUpdateIP2C->setVisible(false);
+		d->menuActionUpdateIP2C->setEnabled(false);
+	}
 
 	initIP2CUpdater();
 
@@ -406,7 +409,9 @@ void MainWindow::changeEvent(QEvent *event)
 
 void MainWindow::checkForUpdates(bool bUserTriggered)
 {
-	#ifdef DOOMSEEKER_WITH_AUTOUPDATES
+	if (!gPolicy.isAutoUpdateAllowed())
+		return;
+
 	if (d->autoUpdater != nullptr)
 	{
 		if (d->autoUpdater->isRunning())
@@ -465,9 +470,6 @@ void MainWindow::checkForUpdates(bool bUserTriggered)
 	d->autoUpdater->setRequireDownloadAndInstallConfirmation(bRequireConfirmation);
 	d->autoUpdaterStatusBarWidget->show();
 	d->autoUpdater->start();
-	#else
-	Q_UNUSED(bUserTriggered);
-	#endif
 }
 
 
@@ -950,7 +952,7 @@ void MainWindow::ip2cDownloadProgress(qint64 current, qint64 max)
 
 void MainWindow::ip2cJobsFinished()
 {
-	d->menuActionUpdateIP2C->setEnabled(true);
+	d->menuActionUpdateIP2C->setEnabled(gPolicy.isIP2CUpdateAllowed());
 	d->serverList->updateCountryFlags();
 	d->ip2cUpdateProgressBar->hide();
 
@@ -963,6 +965,9 @@ void MainWindow::ip2cJobsFinished()
 
 void MainWindow::ip2cStartUpdate()
 {
+	if (!gPolicy.isIP2CUpdateAllowed())
+		return;
+
 	if (d->ip2cLoader != nullptr)
 	{
 		// If update is currently in progress then prevent re-starting.
@@ -1104,6 +1109,9 @@ void MainWindow::menuRecordDemo()
 
 void MainWindow::menuUpdateIP2C()
 {
+	if (!gPolicy.isIP2CUpdateAllowed())
+		return;
+
 	IP2CUpdateBox updateBox(this);
 
 	connect(&updateBox, SIGNAL(accepted()), this, SLOT(ip2cStartUpdate()));

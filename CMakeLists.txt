@@ -136,6 +136,10 @@ endif()
 set(CMAKE_CXX_STANDARD 11)
 set(CXX_STANDARD_REQUIRED ON)
 
+option(DOOMSEEKER_ALLOW_PROJECT_SERVICE_NETWORK_ACCESS
+	"Allow network access to Doomseeker project services" ON)
+option(DOOMSEEKER_WITH_IP2C_AUTOUPDATES "Enable automatic IP2C database updates" ON)
+
 if(WIN32)
 	option(DOOMSEEKER_WITH_AUTOUPDATES "Enable automatic application updates" ON)
 else()
@@ -145,7 +149,7 @@ else()
 	set(DOOMSEEKER_WITH_AUTOUPDATES OFF)
 endif()
 
-if(DOOMSEEKER_WITH_AUTOUPDATES)
+if(DOOMSEEKER_WITH_AUTOUPDATES AND DOOMSEEKER_ALLOW_PROJECT_SERVICE_NETWORK_ACCESS)
 	add_subdirectory(tools/updateinstaller)
 endif()
 

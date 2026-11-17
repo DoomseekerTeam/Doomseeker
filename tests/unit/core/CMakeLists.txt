@@ -19,9 +19,7 @@
 # Copyright (C) 2026 "Zalewa" <zalewapl@gmail.com>
 #------------------------------------------------------------------------------
 
-if(NOT DOOMSEEKER_WITH_AUTOUPDATES)
-	add_unit_test(disabledupdates LIBRARIES doomseeker_core)
-endif()
+add_unit_test(disabledupdates LIBRARIES doomseeker_core)
 
 add_unit_test(datetime LIBRARIES doomseeker_core)
 add_unit_test(gamedemo LIBRARIES doomseeker_core)
@@ -34,6 +32,56 @@ add_unit_test(modreader
 	LIBRARIES doomseeker_core
 	SOURCES _testdata/modreader/resources.qrc
 )
+add_unit_test(doomseekerpolicy LIBRARIES doomseeker_core)
+
+# Compile the policy factory against selected copt combinations.
+function(add_policy_factory_test name)
+	cmake_parse_arguments(args ""
+		"PROJECT_SERVICE_ACCESS;APPLICATION_UPDATES;IP2C_AUTOUPDATES" "" ${ARGN})
+	if(args_UNPARSED_ARGUMENTS)
+		message(FATAL_ERROR "Unknown policy-factory test arguments: ${args_UNPARSED_ARGUMENTS}")
+	endif()
+	foreach(option PROJECT_SERVICE_ACCESS APPLICATION_UPDATES IP2C_AUTOUPDATES)
+		if(NOT DEFINED args_${option})
+			message(FATAL_ERROR "Policy-factory test ${name} requires ${option}")
+		endif()
+	endforeach()
+	set(DOOMSEEKER_ALLOW_PROJECT_SERVICE_NETWORK_ACCESS ${args_PROJECT_SERVICE_ACCESS})
+	set(DOOMSEEKER_WITH_AUTOUPDATES ${args_APPLICATION_UPDATES})
+	set(DOOMSEEKER_WITH_IP2C_AUTOUPDATES ${args_IP2C_AUTOUPDATES})
+	set(variant "doomseekerpolicycopts_${name}")
+	set(header_directory "${CMAKE_CURRENT_BINARY_DIR}/${variant}")
+	set(policy_sources "${PROJECT_SOURCE_DIR}/src/core")
+	configure_file("${policy_sources}/doomseeker_copts.h.in"
+		"${header_directory}/doomseeker_copts.h")
+	add_unit_test(doomseekerpolicycopts NAME ${variant}
+		LIBRARIES doomseeker_build_config
+		SOURCES "${policy_sources}/doomseekerpolicy.cpp"
+			"${policy_sources}/doomseekerpolicycopts.cpp"
+	)
+	target_include_directories(unit_test_core_${variant} BEFORE PRIVATE "${header_directory}")
+endfunction()
+
+# Cover full access, the blanket restriction overriding enabled individual
+# options, and individual restrictions preserving manual IP2C updates.
+# Keep representative cases instead of every combination so adding options
+# does not cause exponential growth in test executables.
+add_policy_factory_test(all_enabled
+	PROJECT_SERVICE_ACCESS ON
+	APPLICATION_UPDATES ON
+	IP2C_AUTOUPDATES ON
+)
+add_policy_factory_test(blanket_restriction
+	PROJECT_SERVICE_ACCESS OFF
+	APPLICATION_UPDATES ON
+	IP2C_AUTOUPDATES ON
+)
+add_policy_factory_test(individual_restrictions
+	PROJECT_SERVICE_ACCESS ON
+	APPLICATION_UPDATES OFF
+	IP2C_AUTOUPDATES OFF
+)
+
 add_unit_test(strings LIBRARIES doomseeker_core)
 add_unit_test(templatedpathresolver LIBRARIES doomseeker_core)
 add_unit_test(utf8splitter LIBRARIES doomseeker_core)

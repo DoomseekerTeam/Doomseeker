@@ -22,7 +22,6 @@
 //------------------------------------------------------------------------------
 #include "updatechannel.h"
 
-#include "doomseeker_copts.h"
 #include <cassert>
 
 #if defined(Q_OS_WIN32)
@@ -30,11 +29,7 @@
 #elif defined(Q_OS_DARWIN)
 #define UPDATE_PLATFORM "macosx"
 #else
-#ifdef DOOMSEEKER_WITH_AUTOUPDATES
-#error "No platform for updater!"
-#else
 #define UPDATE_PLATFORM "none"
-#endif
 #endif
 
 const QString CHANNEL_BETA = "beta";
