@@ -33,6 +33,8 @@ unlimited. Large frag limits and per-team player limits no longer appear as
 negative numbers in server details.
 - Odamex: game information shows the frag limit for Deathmatch and Team
 Deathmatch instead of showing an unrelated CTF score limit.
+- Odamex: incomplete replies are no longer accepted as successful server
+refreshes or used to add bogus entries to the master-server list.
 - Wadseeker: would fail to install files from archives if system temporary
 directory was on a different filesystem than the destination.
 

@@ -29,29 +29,25 @@
 #include <cmath>
 #include <limits>
 
-#include "datastreamoperatorwrapper.h"
 #include "odamexcvar.h"
 #include "odamexengineplugin.h"
 #include "odamexgamehost.h"
 #include "odamexgameinfo.h"
 #include "odamexgamemode.h"
 #include "odamexgamerunner.h"
+#include "odamexqueryreader.h"
 #include "plugins/engineplugin.h"
 #include "serverapi/playerslist.h"
 
-/// Macro that checks the readRequest() validity.
-#define CHECK_POS if (!in.hasRemaining()) \
-	{ \
-		return RESPONSE_BAD; \
-	}
-
-#define CHECK_POS_OFFSET(offset) if (in.remaining() < (offset)) \
+// Require the next field to be present and propagate errors from previous reads.
+#define REQUIRE_BYTES(size) if (inStream.status() != QDataStream::Ok || in.remaining() < (size)) \
 	{ \
 		return RESPONSE_BAD; \
 	}
 
 // Server challenge, max supported engine version and max protocol version
-#define SERVER_CHALLENGE    0x02, 0x10, 0x01, 0xAD, 0xFF, 0xFF, 0xFF, 0xFF, 7, 0, 0, 0, 0, 0, 0, 0
+constexpr quint8 MAX_KNOWN_PROTOCOL_VERSION = 7;
+#define SERVER_CHALLENGE    0x02, 0x10, 0x01, 0xAD, 0xFF, 0xFF, 0xFF, 0xFF, MAX_KNOWN_PROTOCOL_VERSION, 0, 0, 0, 0, 0, 0, 0
 
 #define SPECTATOR_INFO      0x01020304
 #define EXTRA_INFO          0x01020305
@@ -98,8 +94,8 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 	inStream.setByteOrder(QDataStream::LittleEndian);
 	DataStreamOperatorWrapper in(&inStream);
 
-	// Check the response code
-	int response = in.readQInt32();
+	REQUIRE_BYTES(12); // Response code, engine version and negotiated protocol.
+	const quint32 response = in.readQUInt32();
 	if ((response & 0xFFF00000) != 0xAD000000)
 		return RESPONSE_BAD;
 
@@ -111,9 +107,10 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 
 	unsigned int protocolVersion = in.readQUInt32();
 	if (protocolVersion >= 1)
-		in.skipRawData(8);
-
-	CHECK_POS;
+	{
+		REQUIRE_BYTES(8);
+		in.skipRawData(8); // Echoed token and the server's actual protocol.
+	}
 
 	// Do not impose an upper protocol-version bound here: protocol 8 or later
 	// may remain compatible with this layout and work without a client update.
@@ -122,17 +119,18 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 	if (protocolVersion >= 7)
 	{
 		static const QString notFound = "HEAD-HASH-NOTFOUND";
-		auto revision = in.readUtf8CString();
+		const QString revision = OdamexQuery::readCString(in);
 		if (notFound != revision && !revision.isEmpty())
 			strVersion += QString(" %1").arg(revision);
 	}
 	else
 	{
+		REQUIRE_BYTES(4);
 		strVersion += QString(" r%1").arg(in.readQUInt32());
 	}
-	setGameVersion(strVersion);
 
-	CHECK_POS;
+	REQUIRE_BYTES(1); // CVar count.
+	setGameVersion(strVersion);
 
 	// Empty strings and zero-valued limits may be omitted from full replies.
 	// Clear their extracted properties as well as the raw CVar map below (#4584).
@@ -150,8 +148,8 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 	short cvarCount = in.readQUInt8();
 	while (cvarCount-- > 0)
 	{
-		auto cvarName = in.readUtf8CString();
-		CHECK_POS;
+		const QString cvarName = OdamexQuery::readCString(in);
+		REQUIRE_BYTES(1); // Type byte, or the start of a legacy string value.
 
 		OdamexCvar::CvarType type = OdamexCvar::CvarType::String;
 		if (protocolVersion >= 5)
@@ -159,7 +157,7 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 
 		const auto interpretation = OdamexCvar::integerInterpretationFor(cvarName, type);
 		const QVariant cvarValue = OdamexCvar::readCvarValue(in, type, interpretation);
-		CHECK_POS;
+		REQUIRE_BYTES(1); // Next CVar or password hash.
 
 		if (cvarName == "sv_email")
 			setEmail(cvarValue.toString());
@@ -218,93 +216,76 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 		setAdditionalWebSites(list);
 	}
 
-	if (protocolVersion >= 4)
-	{
-		short hashLength = in.readQUInt8();
-		in.skipRawData(hashLength);
-		setLocked(hashLength > 0);
-	}
-	else
-	{
-		auto passwordHash = in.readUtf8CString();
-		setLocked(!passwordHash.isEmpty());
-	}
-	CHECK_POS;
+	const bool locked = protocolVersion >= 4 ? !OdamexQuery::readMd5(in).isEmpty()
+		: !OdamexQuery::readCString(in).isEmpty();
+	REQUIRE_BYTES(1); // Map string.
+	setLocked(locked);
+	setMap(OdamexQuery::readCString(in));
 
-	setMap(in.readUtf8CString());
-	CHECK_POS;
-
-	if (protocolVersion >= 6)
+	// In protocol 6 and later, whether the reply contains the two bytes for
+	// "time remaining" is separate from how the time limit is displayed.
+	//
+	// | Received time limit | Odamex rounds to | Time-remaining bytes included? | Doomseeker shows |
+	// +---------------------+------------------+--------------------------------+------------------+
+	// | 0.1 minutes         | 0                | No                             | 1 minute         |
+	// | 0.5 minutes         | 1                | Yes                            | 1 minute         |
+	// | 1.1 minutes         | 1                | Yes                            | 2 minutes        |
+	//
+	// Doomseeker rounds **up for display** because its API only stores whole minutes.
+	// We don't want a near-zero, but still positive limit to appear as "unlimited."
+	//
+	// But when reading the packet, we must follow **Odamex's rule**. For `0.1`, the
+	// displayed value is `1`, but the time-remaining bytes are absent. Using the
+	// displayed value to decide what to read would consume bytes belonging to the
+	// next section and misread the rest of the reply.
+	if (protocolVersion < 6 || std::round(replyTimeLimit) != 0.0f)
 	{
-		// Whether the reply contains the two bytes for "time remaining" is separate
-		// from how the time limit is displayed.
-		//
-		// | Received time limit | Odamex rounds to | Time-remaining bytes included? | Doomseeker shows |
-		// +---------------------+------------------+--------------------------------+------------------+
-		// | 0.1 minutes         | 0                | No                             | 1 minute         |
-		// | 0.5 minutes         | 1                | Yes                            | 1 minute         |
-		// | 1.1 minutes         | 1                | Yes                            | 2 minutes        |
-		//
-		// Doomseeker rounds **up for display** because its API only stores whole minutes.
-		// We don't want a near-zero, but still positive limit to appear as "unlimited."
-		//
-		// But when reading the packet, we must follow **Odamex's rule**. For `0.1`, the
-		// displayed value is `1`, but the time-remaining bytes are absent. Using the
-		// displayed value to decide what to read would consume bytes belonging to the
-		// next section and misread the rest of the reply.
-		if (std::round(replyTimeLimit) != 0.0f)
-			setTimeLeft(in.readQUInt16());
-	}
-	else
+		REQUIRE_BYTES(2);
 		setTimeLeft(in.readQUInt16());
+	}
 
 	// A reply may advertise fewer teams or switch to a non-team game. Clear
 	// scores that are not supplied by this snapshot as well as replacing points.
 	auto &teamScores = scoresMutable();
 	std::fill(teamScores.begin(), teamScores.end(), 0);
+	int teamCount = 0;
 	if (protocolVersion < 5 || gameMode().isTeamGame())
 	{
-		CHECK_POS;
-		const int teamCount = in.readQUInt8();
+		REQUIRE_BYTES(1);
+		teamCount = in.readQUInt8();
 		if (teamCount > teamScores.size())
 			return RESPONSE_BAD;
 		for (int i = 0; i < teamCount; ++i)
 		{
-			CHECK_POS;
-
-			auto teamName = in.readUtf8CString();
-			CHECK_POS_OFFSET(6);
+			OdamexQuery::readCString(in); // Team name.
+			REQUIRE_BYTES(6);
 			in.skipRawData(4); // Team color.
 			teamScores[i] = in.readQInt16();
 		}
 	}
 
+	REQUIRE_BYTES(1);
 	dehPatches.clear();
 	short patchCount = in.readQUInt8();
 	while (patchCount-- > 0)
 	{
-		CHECK_POS;
-
-		auto patch = in.readUtf8CString();
+		const QString patch = OdamexQuery::readCString(in);
+		REQUIRE_BYTES(0); // The patch name must be NUL-terminated.
 		dehPatches << patch;
 	}
 
+	REQUIRE_BYTES(1);
 	clearWads();
-	short wadCount = in.readQUInt8();
-	for (short i = 0; i < wadCount; i++)
+	const int wadCount = in.readQUInt8();
+	for (int i = 0; i < wadCount; ++i)
 	{
-		CHECK_POS;
-
-		auto wad = in.readUtf8CString();
-		QByteArray hash = "";
-		CHECK_POS;
+		const QString wad = OdamexQuery::readCString(in);
+		QByteArray hash;
 		if (protocolVersion >= 4)
-		{
-			short hashLength = in.readQUInt8();
-			hash = in.readRaw(hashLength); //Add the hash of the wad.
-		}
+			hash = OdamexQuery::readMd5(in);
 		else
-			in.readUtf8CString();
+			OdamexQuery::readCString(in); // Legacy textual hash, not stored.
+		REQUIRE_BYTES(0); // The WAD name and hash must both be complete.
 		if (i >= 2)
 		{
 			PWad pwad(wad, false);
@@ -315,40 +296,47 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 			setIwad(wad);
 	}
 
+	REQUIRE_BYTES(1);
 	clearPlayersList();
 	short playerCount = in.readQUInt8();
+	const bool teamGame = gameMode().isTeamGame();
+	const bool hasPlayerTeam = protocolVersion < 5 || teamGame;
+	const int colorBytes = protocolVersion >= 2 ? 4 : 0;
 	while (playerCount-- > 0)
 	{
-		CHECK_POS;
-
-		auto playerName = in.readUtf8CString();
-
-		if (protocolVersion >= 2)
-		{
-			CHECK_POS_OFFSET(4);
-			// Player color
-			in.skipRawData(4);
-		}
-
-		unsigned short teamIndex = Player::TEAM_NONE;
-		if (protocolVersion < 5 || gameMode().isTeamGame())
-		{
-			CHECK_POS_OFFSET(1);
-			teamIndex = in.readQUInt8();
-		}
-		CHECK_POS_OFFSET(11);
-		unsigned short ping = in.readQUInt16();
+		const QString playerName = OdamexQuery::readCString(in);
+		// Ping, time in game, spectator, frags, kills and deaths total 11 bytes.
+		REQUIRE_BYTES(colorBytes + (hasPlayerTeam ? 1 : 0) + 11);
+		if (colorBytes != 0)
+			in.skipRawData(colorBytes);
+		const int teamIndex = hasPlayerTeam ? in.readQUInt8() : Player::TEAM_NONE;
+		const quint16 ping = in.readQUInt16();
 		in.skipRawData(2);
-		bool spectator = in.readQUInt8();
-		int score = in.readQInt16();
+		const quint8 spectator = in.readQUInt8();
+		if (spectator > 1)
+			return RESPONSE_BAD;
+		const int score = in.readQInt16();
 		in.skipRawData(4);
 
-		Player::PlayerTeam team = gameMode().isTeamGame() ? static_cast<Player::PlayerTeam>(teamIndex) : Player::TEAM_NONE;
-		Player player(playerName, score, ping, team, spectator);
-		addPlayer(player);
+		Player::PlayerTeam team = Player::TEAM_NONE;
+		if (teamGame)
+		{
+			// Odamex 12.3.0 (common/teamdef.h) sends 4 for TEAM_NONE.
+			// A spectator may also retain a preference for an inactive team;
+			// only assign a team if the reply actually includes it.
+			constexpr int odamexNoTeam = 4;
+			if (teamIndex < teamCount)
+				team = static_cast<Player::PlayerTeam>(teamIndex);
+			else if (teamIndex != odamexNoTeam && teamIndex != Player::TEAM_NONE
+				&& !(spectator && teamIndex < teamScores.size()))
+				return RESPONSE_BAD;
+		}
+		addPlayer(Player(playerName, score, ping, team, spectator != 0));
 	}
 
-	return RESPONSE_GOOD;
+	// Ignore data after the declared player list. Servers can append fields
+	// without changing the layout we understand or bumping the protocol version.
+	return inStream.status() == QDataStream::Ok ? RESPONSE_GOOD : RESPONSE_BAD;
 }
 
 QByteArray OdamexServer::createSendRequest()

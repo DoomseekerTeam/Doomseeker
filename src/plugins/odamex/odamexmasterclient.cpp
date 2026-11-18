@@ -49,6 +49,12 @@ const EnginePlugin *OdamexMasterClient::plugin() const
 
 MasterClient::Response OdamexMasterClient::readMasterResponse(const QByteArray &data)
 {
+	// Challenge and count, followed by six bytes per IPv4 endpoint.
+	constexpr int headerSize = 4 + 2;
+	constexpr int endpointSize = 4 + 2;
+	if (data.size() < headerSize)
+		return RESPONSE_BAD;
+
 	// Decompress the response.
 	QBuffer ioBuffer;
 	ioBuffer.setData(data);
@@ -58,16 +64,19 @@ MasterClient::Response OdamexMasterClient::readMasterResponse(const QByteArray &
 	DataStreamOperatorWrapper in(&inStream);
 
 	// Check the response code
-	int response = in.readQUInt32();
-
-
+	const int response = in.readQUInt32();
 	if (response != MASTER_CHALLENGE)
+		return RESPONSE_BAD;
+
+	// Validate server count before changing the list. Ignore trailing
+	// bytes rather than treating them as additional servers.
+	int numServers = in.readQUInt16();
+	if (in.remaining() < numServers * endpointSize)
 		return RESPONSE_BAD;
 
 	// Make sure we have an empty list.
 	emptyServerList();
 
-	int numServers = in.readQUInt16();
 	for (; numServers > 0; numServers--)
 	{
 		// This might be able to be simplified a little bit...

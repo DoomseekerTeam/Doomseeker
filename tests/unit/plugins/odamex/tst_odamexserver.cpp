@@ -85,9 +85,14 @@ struct ReplyOptions
 	bool teamGame = false;
 	QList<int> teamScores;
 	quint32 protocolVersion = 7;
+	QByteArray passwordHash;
+	QList<QByteArray> patches;
+	QByteArray wadHash = QByteArray(16, '\0');
+	quint8 playerTeam = 0;
+	quint8 spectator = 0;
 };
 
-// Synthetic protocol-5/7 reply; defaults to an empty, unlimited cooperative server.
+// Synthetic reply using the protocol-5 or protocol-7 layout; defaults to an empty, unlimited cooperative server.
 // Only the supplied CVars/options change; all other fields stay fixed.
 QByteArray replyWithCvars(const QList<QByteArray> &cvars,
 	const ReplyOptions &options = ReplyOptions())
@@ -112,7 +117,8 @@ QByteArray replyWithCvars(const QList<QByteArray> &cvars,
 	for (const QByteArray &cvar : allCvars)
 		out.writeRawData(cvar.constData(), cvar.size());
 
-	out << quint8(0); // No password hash.
+	out << quint8(options.passwordHash.size());
+	out.writeRawData(options.passwordHash.constData(), options.passwordHash.size());
 	out.writeRawData("MAP01", sizeof("MAP01"));
 	if (options.hasTimeLeft || options.protocolVersion < 6)
 		out << options.timeLeft;
@@ -127,17 +133,18 @@ QByteArray replyWithCvars(const QList<QByteArray> &cvars,
 				<< qint16(options.teamScores[i]);
 		}
 	}
-	out << quint8(0); // No patches.
+	out << quint8(options.patches.size());
+	for (const QByteArray &patch : options.patches)
+		out.writeRawData(patch.constData(), patch.size() + 1);
 	QList<QByteArray> wads{QByteArray("ODAMEX.WAD"), QByteArray("DOOM2.WAD")};
 	if (options.populated)
 		wads << QByteArray("FRACTIONAL.WAD");
 	out << quint8(wads.size());
-	const QByteArray hash(16, '\0');
 	for (const QByteArray &wad : wads)
 	{
 		out.writeRawData(wad.constData(), wad.size() + 1);
-		out << quint8(hash.size());
-		out.writeRawData(hash.constData(), hash.size());
+		out << quint8(options.wadHash.size());
+		out.writeRawData(options.wadHash.constData(), options.wadHash.size());
 	}
 	// An empty team list cannot supply a valid team index for a player.
 	const bool hasPlayer = options.populated
@@ -148,10 +155,10 @@ QByteArray replyWithCvars(const QList<QByteArray> &cvars,
 		out.writeRawData("Timer player", sizeof("Timer player"));
 		out << quint32(0xFF40CF00); // Player color, BGRA on the wire.
 		if (options.teamGame)
-			out << quint8(0); // Blue team.
+			out << options.playerTeam;
 		out << quint16(28) // Ping.
 			<< quint16(0) // Minutes in game.
-			<< quint8(0) // Not spectating.
+			<< options.spectator
 			<< qint16(0) // Frags.
 			<< quint16(0) // Kills.
 			<< quint16(0); // Deaths.
@@ -185,6 +192,14 @@ private slots:
 	void rejectTooManyTeams();
 	void rejectTruncatedTeamScore_data();
 	void rejectTruncatedTeamScore();
+	void rejectIncompleteReply_data();
+	void rejectIncompleteReply();
+	void validateBinaryHashLengths_data();
+	void validateBinaryHashLengths();
+	void validateTeamPlayerFields_data();
+	void validateTeamPlayerFields();
+	void ignoreTrailingReplyData_data();
+	void ignoreTrailingReplyData();
 	void customDetailsEscapeHtml_data();
 	void customDetailsEscapeHtml();
 	void refreshReplacesSnapshot_data();
@@ -776,6 +791,163 @@ void TestOdamexServer::rejectTruncatedTeamScore()
 
 	// Then: a partial color/score must not be accepted as a complete snapshot.
 	QCOMPARE(response, Server::RESPONSE_BAD);
+}
+
+void TestOdamexServer::rejectIncompleteReply_data()
+{
+	QTest::addColumn<bool>("populated");
+	QTest::addColumn<bool>("emptyWadHash");
+	QTest::newRow("no-players") << false << false;
+	QTest::newRow("no-players-empty-wad-hash") << false << true;
+	QTest::newRow("with-player") << true << false;
+}
+
+void TestOdamexServer::rejectIncompleteReply()
+{
+	// Given: a valid reply with a password, time left, teams, a patch and WADs.
+	QFETCH(bool, populated);
+	QFETCH(bool, emptyWadHash);
+	ReplyOptions options;
+	options.populated = populated;
+	options.hasTimeLeft = true;
+	options.timeLeft = 9;
+	options.teamGame = true;
+	options.teamScores = {7, -1};
+	options.passwordHash = QByteArray(16, 'h');
+	options.patches = {QByteArray("RULES.DEH")};
+	if (emptyWadHash)
+		options.wadHash.clear();
+	const QByteArray complete = replyWithCvars({byteCvar("sv_gametype", 2),
+		floatCvar("sv_timelimit", "10"), integerCvar("g_lives", 3),
+		stringCvar("sv_hostname", "Truncation test")}, options);
+	const QScopedValueRollback<bool> disableLookup(gConfig.doomseeker.bLookupHosts, false);
+
+	for (int bytes = 0; bytes < complete.size(); ++bytes)
+	{
+		// When: parsing a prefix that ends at this byte boundary.
+		OdamexServer server(QHostAddress("192.0.2.1"), 10666);
+		const Server::Response response = server.readRefreshQueryResponse(complete.left(bytes));
+
+		// Then: no incomplete reply is accepted as a successful refresh.
+		QVERIFY2(response == Server::RESPONSE_BAD, qPrintable(QString(
+			"Accepted a %1-byte prefix of a %2-byte reply").arg(bytes).arg(complete.size())));
+	}
+
+	// And sanity-check: the complete reply still parses, including the final count.
+	OdamexServer server(QHostAddress("192.0.2.1"), 10666);
+	QCOMPARE(server.readRefreshQueryResponse(complete), Server::RESPONSE_GOOD);
+	QCOMPARE(server.players().size(), populated ? 1 : 0);
+}
+
+void TestOdamexServer::validateBinaryHashLengths_data()
+{
+	QTest::addColumn<int>("passwordLength");
+	QTest::addColumn<int>("wadLength");
+	QTest::addColumn<bool>("valid");
+	QTest::newRow("no-password") << 0 << 16 << true;
+	QTest::newRow("with-password") << 16 << 16 << true;
+	QTest::newRow("empty-wad-hash") << 0 << 0 << true;
+	QTest::newRow("short-password-hash") << 15 << 16 << false;
+	QTest::newRow("long-wad-hash") << 0 << 17 << false;
+}
+
+void TestOdamexServer::validateBinaryHashLengths()
+{
+	// Given: a complete reply with the specified digest lengths and bytes.
+	QFETCH(int, passwordLength);
+	QFETCH(int, wadLength);
+	QFETCH(bool, valid);
+	ReplyOptions options;
+	options.passwordHash = QByteArray(passwordLength, 'p');
+	options.wadHash = QByteArray(wadLength, 'w');
+	options.populated = true;
+	const QScopedValueRollback<bool> disableLookup(gConfig.doomseeker.bLookupHosts, false);
+	OdamexServer server(QHostAddress("192.0.2.1"), 10666);
+
+	// When: parsing the complete reply.
+	const Server::Response response = server.readRefreshQueryResponse(replyWithCvars({}, options));
+
+	// Then: MD5 fields must be empty or contain exactly one binary MD5 digest.
+	QCOMPARE(response, valid ? Server::RESPONSE_GOOD : Server::RESPONSE_BAD);
+	if (valid)
+	{
+		QCOMPARE(server.isLocked(), passwordLength != 0);
+		QCOMPARE(server.players().size(), 1);
+	}
+}
+
+void TestOdamexServer::validateTeamPlayerFields_data()
+{
+	QTest::addColumn<int>("team");
+	QTest::addColumn<int>("spectator");
+	QTest::addColumn<int>("expectedTeam"); // -1 indicates an invalid record.
+	QTest::newRow("red-player") << 1 << 0 << int(Player::TEAM_RED);
+	QTest::newRow("blue-spectator") << 0 << 1 << int(Player::TEAM_BLUE);
+	QTest::newRow("inactive-green-team-spectator") << 2 << 1 << int(Player::TEAM_NONE);
+	QTest::newRow("odamex-unassigned-spectator") << 4 << 1 << int(Player::TEAM_NONE);
+	QTest::newRow("ff-unassigned-spectator") << 255 << 1 << int(Player::TEAM_NONE);
+	QTest::newRow("inactive-green-team-player") << 2 << 0 << -1;
+	QTest::newRow("invalid-team") << 254 << 1 << -1;
+	QTest::newRow("invalid-spectator-flag") << 0 << 2 << -1;
+}
+
+void TestOdamexServer::validateTeamPlayerFields()
+{
+	// Given: a complete, populated two-team reply with these player fields.
+	QFETCH(int, team);
+	QFETCH(int, spectator);
+	QFETCH(int, expectedTeam);
+	ReplyOptions options;
+	options.populated = true;
+	options.teamGame = true;
+	options.teamScores = {0, 0};
+	options.playerTeam = quint8(team);
+	options.spectator = quint8(spectator);
+	const QScopedValueRollback<bool> disableLookup(gConfig.doomseeker.bLookupHosts, false);
+	OdamexServer server(QHostAddress("192.0.2.1"), 10666);
+
+	// When: reading the player through the refresh entry point.
+	const auto response = server.readRefreshQueryResponse(
+		replyWithCvars({byteCvar("sv_gametype", 2)}, options));
+
+	// Then: invalid player fields reject the reply, while spectators need not
+	// have an active team.
+	QCOMPARE(response, expectedTeam < 0 ? Server::RESPONSE_BAD : Server::RESPONSE_GOOD);
+	if (expectedTeam >= 0)
+	{
+		QCOMPARE(server.players().size(), 1);
+		QCOMPARE(int(server.player(0).teamNum()), expectedTeam);
+		QCOMPARE(server.player(0).isSpectating(), spectator == 1);
+	}
+}
+
+void TestOdamexServer::ignoreTrailingReplyData_data()
+{
+	QTest::addColumn<int>("protocolVersion");
+	QTest::newRow("legacy") << 5;
+	QTest::newRow("current") << 7;
+	QTest::newRow("later-same-layout") << 8;
+}
+
+void TestOdamexServer::ignoreTrailingReplyData()
+{
+	// Given: a complete reply with extra bytes after its last player record.
+	QFETCH(int, protocolVersion);
+	ReplyOptions options;
+	options.protocolVersion = quint32(protocolVersion);
+	options.populated = true;
+	const QByteArray data = replyWithCvars({}, options) + QByteArray::fromHex("0100ff");
+	const QScopedValueRollback<bool> disableLookup(gConfig.doomseeker.bLookupHosts, false);
+	OdamexServer server(QHostAddress("192.0.2.1"), 10666);
+
+	// When: reading the reply.
+	const auto response = server.readRefreshQueryResponse(data);
+
+	// Then: only the declared player is read, regardless of the protocol version.
+	QCOMPARE(response, Server::RESPONSE_GOOD);
+	QCOMPARE(server.players().size(), 1);
+	QCOMPARE(server.player(0).name(), QString("Timer player"));
+	QCOMPARE(server.player(0).ping(), 28ul);
 }
 
 void TestOdamexServer::customDetailsEscapeHtml_data()

@@ -20,7 +20,7 @@
 #------------------------------------------------------------------------------
 
 set(PLUGIN_NAME odamex)
-set(PLUGIN_VERSION 50)
+set(PLUGIN_VERSION 51)
 include(../PluginHeader.cmake)
 
 set(ODAMEX_FILES
@@ -42,6 +42,7 @@ set(HEADER_FILES
 	odamexgameinfo.h
 	odamexgamemode.h
 	odamexgamerunner.h
+	odamexqueryreader.h
 	odamexserver.h
 )
 

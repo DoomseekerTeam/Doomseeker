@@ -22,7 +22,7 @@
 //------------------------------------------------------------------------------
 #include "odamexcvar.h"
 
-#include "datastreamoperatorwrapper.h"
+#include "odamexqueryreader.h"
 #include <limits>
 
 namespace OdamexCvar
@@ -96,7 +96,7 @@ QVariant readCvarValue(DataStreamOperatorWrapper &in, CvarType type,
 	case CvarType::Float:
 	case CvarType::String:
 	default:
-		return in.readUtf8CString();
+		return OdamexQuery::readCString(in);
 	}
 }
 
