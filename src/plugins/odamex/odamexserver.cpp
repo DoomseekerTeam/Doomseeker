@@ -115,6 +115,10 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 
 	CHECK_POS;
 
+	// Do not impose an upper protocol-version bound here: protocol 8 or later
+	// may remain compatible with this layout and work without a client update.
+	// The >= checks select known fields, not an exclusive list of supported
+	// version numbers. A higher version alone is not a reason to reject a reply.
 	if (protocolVersion >= 7)
 	{
 		static const QString notFound = "HEAD-HASH-NOTFOUND";
