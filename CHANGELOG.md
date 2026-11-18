@@ -26,6 +26,8 @@ lose WAD/player information. Fractional limits are rounded up to whole minutes
 for display instead of being shown as unlimited.
 - Odamex: server-provided text in the server details is displayed literally,
 rather than being interpreted as HTML formatting.
+- Odamex: game information now shows the received team scores instead of always
+showing zero. Scores are refreshed correctly when teams or game modes change.
 - Wadseeker: would fail to install files from archives if system temporary
 directory was on a different filesystem than the destination.
 

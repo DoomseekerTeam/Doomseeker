@@ -54,9 +54,12 @@ struct ReplyOptions
 	bool hasTimeLeft = false;
 	quint16 timeLeft = 0;
 	bool populated = false;
+	bool teamGame = false;
+	QList<int> teamScores;
+	quint32 protocolVersion = 7;
 };
 
-// Synthetic protocol-7 cooperative reply; defaults to an empty, unlimited server.
+// Synthetic protocol-5/7 reply; defaults to an empty, unlimited cooperative server.
 // Only the supplied CVars/options change; all other fields stay fixed.
 QByteArray replyWithCvars(const QList<QByteArray> &cvars,
 	const ReplyOptions &options = ReplyOptions())
@@ -66,10 +69,13 @@ QByteArray replyWithCvars(const QList<QByteArray> &cvars,
 	out.setByteOrder(QDataStream::LittleEndian);
 	out << quint32(0xAD032003) // Information response.
 		<< quint32(12 * 256 + 30) // Engine version 12.3.0.
-		<< quint32(7) // Negotiated protocol.
+		<< options.protocolVersion // Negotiated protocol.
 		<< quint32(0) // Echoed token.
-		<< quint32(7) // Actual server protocol.
-		<< quint8(0); // Empty revision string.
+		<< options.protocolVersion; // Actual server protocol.
+	if (options.protocolVersion >= 7)
+		out << quint8(0); // Empty revision string.
+	else
+		out << quint32(0); // Numeric revision in the legacy layout.
 
 	const QList<QByteArray> allCvars = QList<QByteArray>{
 		byteCvar("sv_maxclients", 4), byteCvar("sv_maxplayers", 4)
@@ -80,8 +86,19 @@ QByteArray replyWithCvars(const QList<QByteArray> &cvars,
 
 	out << quint8(0); // No password hash.
 	out.writeRawData("MAP01", sizeof("MAP01"));
-	if (options.hasTimeLeft)
+	if (options.hasTimeLeft || options.protocolVersion < 6)
 		out << options.timeLeft;
+	if (options.teamGame)
+	{
+		out << quint8(options.teamScores.size());
+		for (int i = 0; i < options.teamScores.size(); ++i)
+		{
+			const QByteArray name = "Team " + QByteArray::number(i);
+			out.writeRawData(name.constData(), name.size() + 1);
+			out << quint32(0xFF123456) // Team color must not be mistaken for the score.
+				<< qint16(options.teamScores[i]);
+		}
+	}
 	out << quint8(0); // No patches.
 	QList<QByteArray> wads{QByteArray("ODAMEX.WAD"), QByteArray("DOOM2.WAD")};
 	if (options.populated)
@@ -94,12 +111,17 @@ QByteArray replyWithCvars(const QList<QByteArray> &cvars,
 		out << quint8(hash.size());
 		out.writeRawData(hash.constData(), hash.size());
 	}
-	out << quint8(options.populated ? 1 : 0);
-	if (options.populated)
+	// An empty team list cannot supply a valid team index for a player.
+	const bool hasPlayer = options.populated
+		&& (!options.teamGame || !options.teamScores.isEmpty());
+	out << quint8(hasPlayer ? 1 : 0);
+	if (hasPlayer)
 	{
 		out.writeRawData("Timer player", sizeof("Timer player"));
-		out << quint32(0xFF40CF00) // Player color, BGRA on the wire.
-			<< quint16(28) // Ping.
+		out << quint32(0xFF40CF00); // Player color, BGRA on the wire.
+		if (options.teamGame)
+			out << quint8(0); // Blue team.
+		out << quint16(28) // Ping.
 			<< quint16(0) // Minutes in game.
 			<< quint8(0) // Not spectating.
 			<< qint16(0) // Frags.
@@ -118,6 +140,13 @@ private slots:
 	void initTestCase();
 	void parseOnePlayerReply();
 	void parseTeamDeathmatchReply();
+	void parseTeamScores_data();
+	void parseTeamScores();
+	void refreshTeamScores_data();
+	void refreshTeamScores();
+	void rejectTooManyTeams();
+	void rejectTruncatedTeamScore_data();
+	void rejectTruncatedTeamScore();
 	void customDetailsEscapeHtml_data();
 	void customDetailsEscapeHtml();
 	void refreshReplacesSnapshot_data();
@@ -211,6 +240,190 @@ void TestOdamexServer::parseTeamDeathmatchReply()
 	QCOMPARE(checksums.size(), 1);
 	QCOMPARE(checksums.first().algorithm(), QCryptographicHash::Md5);
 	QCOMPARE(checksums.first().hash(), QByteArray::fromHex("393d18269fe51ba7f94acd7ed75cd749"));
+}
+
+void TestOdamexServer::parseTeamScores_data()
+{
+	QTest::addColumn<int>("gameType");
+	QTest::addColumn<bool>("sides");
+	QTest::addColumn<int>("protocolVersion");
+	QTest::addColumn<QList<int>>("teamScores");
+
+	QTest::newRow("team-deathmatch") << 2 << false << 7 << QList<int>{7, 12};
+	QTest::newRow("negative-scores") << 2 << false << 7 << QList<int>{-1, -12};
+	QTest::newRow("zero-scores") << 2 << false << 7 << QList<int>{0, 0};
+	QTest::newRow("capture-the-flag") << 3 << false << 7 << QList<int>{3, 9};
+	QTest::newRow("attack-defend-ctf") << 3 << true << 7 << QList<int>{4, -1};
+	QTest::newRow("three-teams") << 2 << false << 7 << QList<int>{7, -1, 12};
+	QTest::newRow("signed-wire-bounds") << 2 << false << 7 << QList<int>{-32768, 32767};
+	// Current Odamex has three teams; this synthetic control fills all API slots.
+	QTest::newRow("all-score-slots") << 2 << false << 7 << QList<int>{1, 2, 3, 4};
+	QTest::newRow("empty-team-list") << 2 << false << 7 << QList<int>{};
+	// Synthetic compatibility control, not a capture from a historical release.
+	QTest::newRow("legacy-protocol-5") << 2 << false << 5 << QList<int>{7, -1};
+}
+
+void TestOdamexServer::parseTeamScores()
+{
+	// Given: a populated team-game reply with signed 16-bit points after each color.
+	QFETCH(int, gameType);
+	QFETCH(bool, sides);
+	QFETCH(int, protocolVersion);
+	QFETCH(QList<int>, teamScores);
+	QList<QByteArray> cvars{byteCvar("sv_gametype", quint8(gameType))};
+	if (sides)
+		cvars << (QByteArray("g_sides") + '\0' + char(1)); // True boolean, no value bytes.
+	ReplyOptions options;
+	options.teamGame = true;
+	options.teamScores = teamScores;
+	options.protocolVersion = quint32(protocolVersion);
+	options.populated = true;
+	const QByteArray data = replyWithCvars(cvars, options);
+	QList<int> expectedScores = teamScores;
+	while (expectedScores.size() < MAX_TEAMS)
+		expectedScores << 0;
+	const QScopedValueRollback<bool> disableLookup(gConfig.doomseeker.bLookupHosts, false);
+	OdamexServer server(QHostAddress("192.0.2.1"), 10666);
+
+	// When: parsing the complete reply through the public refresh entry point.
+	const Server::Response response = server.readRefreshQueryResponse(data);
+
+	// Then: all team points retain their sign and unused score slots stay zero.
+	QCOMPARE(response, Server::RESPONSE_GOOD);
+	QVERIFY(server.gameMode().isTeamGame());
+	QCOMPARE(server.scores(), expectedScores);
+
+	// And sanity-check: team fields do not misalign the subsequent files or player.
+	QCOMPARE(server.iwad(), QString("DOOM2.WAD"));
+	QCOMPARE(server.numWads(), 1);
+	QCOMPARE(server.wad(0).name(), QString("FRACTIONAL.WAD"));
+	const QList<Checksum> checksums = server.wad(0).checksums();
+	QCOMPARE(checksums.size(), 1);
+	QCOMPARE(checksums.first().algorithm(), QCryptographicHash::Md5);
+	QCOMPARE(checksums.first().hash(), QByteArray(16, '\0'));
+	QCOMPARE(server.players().size(), teamScores.isEmpty() ? 0 : 1);
+	if (!teamScores.isEmpty())
+	{
+		QCOMPARE(server.player(0).name(), QString("Timer player"));
+		QCOMPARE(server.player(0).teamNum(), Player::TEAM_BLUE);
+		QCOMPARE(server.player(0).ping(), 28ul);
+	}
+}
+
+void TestOdamexServer::refreshTeamScores_data()
+{
+	QTest::addColumn<QList<int>>("previousScores");
+	QTest::addColumn<QList<int>>("currentScores");
+	QTest::addColumn<int>("currentGameType");
+
+	const QList<int> previous{7, -2, 12};
+	QTest::newRow("changed-scores") << previous << QList<int>{-1, 5, 4} << 2;
+	QTest::newRow("reset-to-zero") << previous << QList<int>{0, 0, 0} << 2;
+	QTest::newRow("fewer-teams") << previous << QList<int>{4, -1} << 2;
+	QTest::newRow("empty-team-list") << previous << QList<int>{} << 2;
+	QTest::newRow("cooperative") << previous << QList<int>{} << 0;
+	QTest::newRow("horde") << previous << QList<int>{} << 4;
+	QTest::newRow("clear-fourth-slot") << QList<int>{7, -2, 12, 5} << QList<int>{1, 2} << 2;
+}
+
+void TestOdamexServer::refreshTeamScores()
+{
+	// Given: replies changing only team scores/count or switching out of a team game.
+	QFETCH(QList<int>, previousScores);
+	QFETCH(QList<int>, currentScores);
+	QFETCH(int, currentGameType);
+	ReplyOptions previous;
+	previous.teamGame = true;
+	previous.teamScores = previousScores;
+	previous.populated = true;
+	ReplyOptions current;
+	current.teamGame = currentGameType == 2;
+	current.teamScores = currentScores;
+	current.populated = true;
+	const QByteArray previousData = replyWithCvars({byteCvar("sv_gametype", 2)}, previous);
+	const QByteArray currentData = replyWithCvars(
+		{byteCvar("sv_gametype", quint8(currentGameType))}, current);
+	QList<int> expectedPrevious = previousScores;
+	while (expectedPrevious.size() < MAX_TEAMS)
+		expectedPrevious << 0;
+	QList<int> expectedCurrent = currentScores;
+	while (expectedCurrent.size() < MAX_TEAMS)
+		expectedCurrent << 0;
+	const QScopedValueRollback<bool> disableLookup(gConfig.doomseeker.bLookupHosts, false);
+	OdamexServer server(QHostAddress("192.0.2.1"), 10666);
+
+	// And: the server already holds nonzero points, including later team slots.
+	QCOMPARE(server.readRefreshQueryResponse(previousData), Server::RESPONSE_GOOD);
+	QCOMPARE(server.scores(), expectedPrevious);
+
+	// When: replacing the snapshot, repeating it, and restoring the original teams.
+	for (bool restore : {false, false, true})
+	{
+		const Server::Response response = server.readRefreshQueryResponse(
+			restore ? previousData : currentData);
+
+		// Then: no scores survive from absent teams or an earlier game mode.
+		QCOMPARE(response, Server::RESPONSE_GOOD);
+		QCOMPARE(server.scores(), restore ? expectedPrevious : expectedCurrent);
+		QCOMPARE(server.gameMode().isTeamGame(), restore || current.teamGame);
+
+		// And sanity-check: files and player-team fields remain aligned after refresh.
+		QCOMPARE(server.iwad(), QString("DOOM2.WAD"));
+		QCOMPARE(server.numWads(), 1);
+		QCOMPARE(server.wad(0).name(), QString("FRACTIONAL.WAD"));
+		const bool hasPlayer = restore || !current.teamGame || !currentScores.isEmpty();
+		QCOMPARE(server.players().size(), hasPlayer ? 1 : 0);
+		if (hasPlayer)
+			QCOMPARE(server.player(0).teamNum(), restore || current.teamGame
+				? Player::TEAM_BLUE : Player::TEAM_NONE);
+	}
+}
+
+void TestOdamexServer::rejectTooManyTeams()
+{
+	// Given: a complete reply with more teams than the existing API can store.
+	ReplyOptions options;
+	options.teamGame = true;
+	for (int i = 0; i <= MAX_TEAMS; ++i)
+		options.teamScores << i + 1;
+	const QByteArray data = replyWithCvars({byteCvar("sv_gametype", 2)}, options);
+	const QScopedValueRollback<bool> disableLookup(gConfig.doomseeker.bLookupHosts, false);
+	OdamexServer server(QHostAddress("192.0.2.1"), 10666);
+
+	// When: parsing the unsupported team count.
+	const Server::Response response = server.readRefreshQueryResponse(data);
+
+	// Then: the reply is rejected instead of indexing beyond the score list.
+	QCOMPARE(response, Server::RESPONSE_BAD);
+}
+
+void TestOdamexServer::rejectTruncatedTeamScore_data()
+{
+	QTest::addColumn<int>("remainingTeamBytes");
+	for (int bytes = 0; bytes < 6; ++bytes)
+		QTest::newRow(qPrintable(QString("team-bytes-%1").arg(bytes))) << bytes;
+}
+
+void TestOdamexServer::rejectTruncatedTeamScore()
+{
+	// Given: the last team's four-byte color and two-byte score are incomplete.
+	QFETCH(int, remainingTeamBytes);
+	ReplyOptions options;
+	options.teamGame = true;
+	options.teamScores = {7, -1};
+	const QByteArray fullData = replyWithCvars({byteCvar("sv_gametype", 2)}, options);
+	const QByteArray lastTeamName("Team 1\0", 7);
+	const int nameOffset = fullData.indexOf(lastTeamName);
+	QVERIFY(nameOffset >= 0);
+	const QByteArray data = fullData.left(nameOffset + lastTeamName.size() + remainingTeamBytes);
+	const QScopedValueRollback<bool> disableLookup(gConfig.doomseeker.bLookupHosts, false);
+	OdamexServer server(QHostAddress("192.0.2.1"), 10666);
+
+	// When: parsing the truncated team record.
+	const Server::Response response = server.readRefreshQueryResponse(data);
+
+	// Then: a partial color/score must not be accepted as a complete snapshot.
+	QCOMPARE(response, Server::RESPONSE_BAD);
 }
 
 void TestOdamexServer::customDetailsEscapeHtml_data()

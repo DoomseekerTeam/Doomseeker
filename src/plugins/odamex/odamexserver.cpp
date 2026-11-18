@@ -262,15 +262,24 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 	else
 		setTimeLeft(in.readQUInt16());
 
+	// A reply may advertise fewer teams or switch to a non-team game. Clear
+	// scores that are not supplied by this snapshot as well as replacing points.
+	auto &teamScores = scoresMutable();
+	std::fill(teamScores.begin(), teamScores.end(), 0);
 	if (protocolVersion < 5 || gameMode().isTeamGame())
 	{
-		short teamCount = in.readQUInt8();
-		while (teamCount-- > 0)
+		CHECK_POS;
+		const int teamCount = in.readQUInt8();
+		if (teamCount > teamScores.size())
+			return RESPONSE_BAD;
+		for (int i = 0; i < teamCount; ++i)
 		{
 			CHECK_POS;
 
 			auto teamName = in.readUtf8CString();
-			in.skipRawData(6);
+			CHECK_POS_OFFSET(6);
+			in.skipRawData(4); // Team color.
+			teamScores[i] = in.readQInt16();
 		}
 	}
 
