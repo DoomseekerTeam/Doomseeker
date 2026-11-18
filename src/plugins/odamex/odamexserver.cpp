@@ -146,6 +146,7 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 	cvars.clear();
 
 	float replyTimeLimit = 0.0f;
+	unsigned int replyScoreLimit = 0;
 	short cvarCount = in.readQUInt8();
 	while (cvarCount-- > 0)
 	{
@@ -169,7 +170,7 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 		else if (cvarName == "sv_maxclients")
 			setMaxClients((quint8)OdamexCvar::valueToInt(cvarValue));
 		else if (cvarName == "sv_scorelimit")
-			setScoreLimit(OdamexCvar::valueToUInt(cvarValue));
+			replyScoreLimit = OdamexCvar::valueToUInt(cvarValue);
 		else if (cvarName == "sv_website")
 			setWebSite(cvarValue.toString());
 		else if (cvarName == "sv_downloadsites")
@@ -192,6 +193,23 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 	}
 
 	setGameMode(OdamexGameMode::fromServerSettings(cvars, maxPlayers()));
+
+	// Odamex 12.3.0 (common/g_gametype.cpp, G_UsesFraglimit/G_UsesScorelimit)
+	// selects the limit by base game type, even for variants with lives or sides.
+	// A server can advertise both settings (e.g. 20 frags and the default 5 CTF
+	// points).
+	switch (OdamexCvar::valueToUInt(cvars.value("sv_gametype")))
+	{
+	case OdamexGameMode::BASE_DEATHMATCH:
+	case OdamexGameMode::BASE_TEAM_DEATHMATCH:
+		setScoreLimit(OdamexCvar::valueToUInt(cvars.value("sv_fraglimit")));
+		break;
+	case OdamexGameMode::BASE_CTF:
+		setScoreLimit(replyScoreLimit);
+		break;
+	default:
+		break;
+	}
 
 	if (webSite().isEmpty() && !additionalWebSites().isEmpty())
 	{

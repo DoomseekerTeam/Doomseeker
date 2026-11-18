@@ -171,6 +171,9 @@ private slots:
 	void parseByteScoreLimit_data();
 	void parseByteScoreLimit();
 	void refreshByteScoreLimit();
+	void selectLimitByGameMode_data();
+	void selectLimitByGameMode();
+	void refreshLimitByGameMode();
 	void parseUnsignedLimitDetails_data();
 	void parseUnsignedLimitDetails();
 	void preserveSignedCvars();
@@ -223,7 +226,7 @@ void TestOdamexServer::parseOnePlayerReply()
 	QCOMPARE(server.email(), QString("email@domain.com"));
 	QCOMPARE(server.maxClients(), quint16(4));
 	QCOMPARE(server.maxPlayers(), quint16(4));
-	QCOMPARE(server.scoreLimit(), 5u);
+	QCOMPARE(server.scoreLimit(), 0u);
 	QCOMPARE(server.gameMode().index(), int(GameMode::SGM_Cooperative));
 	QVERIFY(!server.isLocked());
 	QCOMPARE(server.map(), QString("MAP01"));
@@ -259,6 +262,7 @@ void TestOdamexServer::parseTeamDeathmatchReply()
 	QCOMPARE(server.maxClients(), quint16(32));
 	QCOMPARE(server.maxPlayers(), quint16(16));
 	QCOMPARE(server.gameMode().index(), int(GameMode::SGM_TeamDeathmatch));
+	QCOMPARE(server.scoreLimit(), 50u);
 	QVERIFY(server.gameMode().isTeamGame());
 	QVERIFY(!server.isLocked());
 	QCOMPARE(server.map(), QString("MAP19"));
@@ -364,6 +368,106 @@ void TestOdamexServer::refreshByteScoreLimit()
 		QCOMPARE(server.numWads(), 1);
 		QCOMPARE(server.players().size(), 1);
 		QCOMPARE(server.player(0).teamNum(), Player::TEAM_BLUE);
+	}
+}
+
+void TestOdamexServer::selectLimitByGameMode_data()
+{
+	QTest::addColumn<int>("baseMode");
+	QTest::addColumn<QByteArray>("mutator");
+	QTest::addColumn<int>("expectedMode");
+	QTest::addColumn<unsigned int>("expectedLimit");
+
+	const QByteArray none;
+	const QByteArray lives = integerCvar("g_lives", 3);
+	QTest::newRow("cooperative") << 0 << none << int(GameMode::SGM_Cooperative) << 0u;
+	QTest::newRow("deathmatch") << 1 << none << int(GameMode::SGM_Deathmatch) << 40000u;
+	QTest::newRow("lms") << 1 << lives << int(OdamexGameMode::DERIVED_LAST_MARINE_STANDING)
+		<< 40000u;
+	QTest::newRow("team-deathmatch") << 2 << none << int(GameMode::SGM_TeamDeathmatch)
+		<< 40000u;
+	QTest::newRow("team-lms") << 2 << lives
+		<< int(OdamexGameMode::DERIVED_TEAM_LAST_MARINE_STANDING) << 40000u;
+	QTest::newRow("ctf") << 3 << none << int(GameMode::SGM_CTF) << 5u;
+	QTest::newRow("attack-defend-ctf") << 3 << booleanCvar("g_sides")
+		<< int(OdamexGameMode::DERIVED_ATTACK_DEFEND_CTF) << 5u;
+	QTest::newRow("lms-ctf") << 3 << lives << int(OdamexGameMode::DERIVED_LMS_CTF) << 5u;
+	QTest::newRow("horde") << 4 << none << int(OdamexGameMode::DERIVED_HORDE) << 0u;
+}
+
+void TestOdamexServer::selectLimitByGameMode()
+{
+	// Given: a server advertising both limits, regardless of whether it uses them.
+	QFETCH(int, baseMode);
+	QFETCH(QByteArray, mutator);
+	QFETCH(int, expectedMode);
+	QFETCH(unsigned int, expectedLimit);
+	QList<QByteArray> cvars{wordCvar("sv_fraglimit", 40000), byteCvar("sv_scorelimit", 5)};
+	if (baseMode != 0)
+		cvars << byteCvar("sv_gametype", quint8(baseMode));
+	if (!mutator.isEmpty())
+		cvars << mutator;
+	ReplyOptions options;
+	options.teamGame = baseMode == 2 || baseMode == 3;
+	options.teamScores = {0, 0};
+	const QScopedValueRollback<bool> disableLookup(gConfig.doomseeker.bLookupHosts, false);
+	OdamexServer server(QHostAddress("192.0.2.1"), 10666);
+
+	// When: parsing the server's reply.
+	const Server::Response response = server.readRefreshQueryResponse(replyWithCvars(cvars, options));
+
+	// Then: the browser's limit comes from the setting that applies to this mode.
+	QCOMPARE(response, Server::RESPONSE_GOOD);
+	QCOMPARE(server.gameMode().index(), expectedMode);
+	QCOMPARE(server.scoreLimit(), expectedLimit);
+}
+
+void TestOdamexServer::refreshLimitByGameMode()
+{
+	// Given: CTF and Deathmatch replies, with zero-valued limits omitted on the wire.
+	const auto reply = [](bool ctf, bool hasFragLimit, bool hasScoreLimit)
+	{
+		QList<QByteArray> cvars{byteCvar("sv_gametype", ctf ? 3 : 1)};
+		if (hasFragLimit)
+			cvars << wordCvar("sv_fraglimit", 20);
+		if (hasScoreLimit)
+			cvars << byteCvar("sv_scorelimit", 5);
+		ReplyOptions options;
+		options.teamGame = ctf;
+		options.teamScores = {0, 0};
+		return replyWithCvars(cvars, options);
+	};
+	const QScopedValueRollback<bool> disableLookup(gConfig.doomseeker.bLookupHosts, false);
+	OdamexServer server(QHostAddress("192.0.2.1"), 10666);
+
+	// And: the browser already shows the CTF score limit.
+	QCOMPARE(server.readRefreshQueryResponse(reply(true, true, true)), Server::RESPONSE_GOOD);
+	QCOMPARE(server.scoreLimit(), 5u);
+
+	struct Snapshot
+	{
+		bool ctf;
+		bool hasFragLimit;
+		bool hasScoreLimit;
+		unsigned int expectedLimit;
+	};
+	const QList<Snapshot> snapshots{
+		{false, true,  true,  20}, // Switch to Deathmatch with both settings unchanged.
+		{false, false, true,   0}, // Disable the frag limit; do not fall back to score.
+		{true,  true,  false,  0}, // Switch to CTF with no score limit; ignore frags.
+		{true,  true,  true,   5}, // Restore the score limit.
+	};
+	for (const Snapshot &snapshot : snapshots)
+	{
+		// When: refreshing after a mode or limit change.
+		const Server::Response response = server.readRefreshQueryResponse(
+			reply(snapshot.ctf, snapshot.hasFragLimit, snapshot.hasScoreLimit));
+
+		// Then: only the current mode's limit applies, even if it is omitted.
+		QCOMPARE(response, Server::RESPONSE_GOOD);
+		QCOMPARE(server.gameMode().index(),
+			int(snapshot.ctf ? GameMode::SGM_CTF : GameMode::SGM_Deathmatch));
+		QCOMPARE(server.scoreLimit(), snapshot.expectedLimit);
 	}
 }
 
@@ -899,12 +1003,15 @@ void TestOdamexServer::refreshAfterClearingSetting()
 	const QString email = "admin@example.invalid";
 	const QList<QByteArray> cvars{
 		stringCvar("sv_hostname", name), stringCvar("sv_email", email),
-		byteCvar("sv_scorelimit", 5)
+		byteCvar("sv_gametype", 3), byteCvar("sv_scorelimit", 5)
 	};
 	QList<QByteArray> clearedCvars = cvars;
 	QVERIFY(clearedCvars.removeOne(omittedCvar));
-	const QByteArray originalData = replyWithCvars(cvars);
-	const QByteArray clearedData = replyWithCvars(clearedCvars);
+	ReplyOptions options;
+	options.teamGame = true;
+	options.teamScores = {0, 0};
+	const QByteArray originalData = replyWithCvars(cvars, options);
+	const QByteArray clearedData = replyWithCvars(clearedCvars, options);
 	const QScopedValueRollback<bool> disableLookup(gConfig.doomseeker.bLookupHosts, false);
 
 	// And: the server already holds the original nonempty settings.
@@ -928,7 +1035,7 @@ void TestOdamexServer::refreshAfterClearingSetting()
 		QCOMPARE(server.scoreLimit(), restored ? 5u : expectedScoreLimit);
 		QCOMPARE(server.maxClients(), quint16(4));
 		QCOMPARE(server.maxPlayers(), quint16(4));
-		QCOMPARE(server.gameMode().index(), int(GameMode::SGM_Cooperative));
+		QCOMPARE(server.gameMode().index(), int(GameMode::SGM_CTF));
 		QCOMPARE(server.map(), QString("MAP01"));
 		QCOMPARE(server.iwad(), QString("DOOM2.WAD"));
 	}

@@ -31,6 +31,8 @@ showing zero. Scores are refreshed correctly when teams or game modes change.
 - Odamex: score limits from 128 to 255 are displayed correctly instead of as
 unlimited. Large frag limits and per-team player limits no longer appear as
 negative numbers in server details.
+- Odamex: game information shows the frag limit for Deathmatch and Team
+Deathmatch instead of showing an unrelated CTF score limit.
 - Wadseeker: would fail to install files from archives if system temporary
 directory was on a different filesystem than the destination.
 
