@@ -31,6 +31,8 @@ class TestOdamexGameMode : public QObject
 private slots:
 	void deathmatchClassification_data();
 	void deathmatchClassification();
+	void ctfSidesClassification_data();
+	void ctfSidesClassification();
 };
 
 void TestOdamexGameMode::deathmatchClassification_data()
@@ -51,7 +53,7 @@ void TestOdamexGameMode::deathmatchClassification()
 	QFETCH(uint, lives);
 	QFETCH(uint, maxPlayers);
 	QFETCH(int, expectedModeIndex);
-	const QMap<QString, QString> cvars = {
+	const QVariantMap cvars = {
 		{"sv_gametype", QString::number(OdamexGameMode::BASE_DEATHMATCH)},
 		{"g_lives", QString::number(lives)},
 	};
@@ -61,6 +63,38 @@ void TestOdamexGameMode::deathmatchClassification()
 
 	// Then: lives take precedence over Duel, which takes precedence over Deathmatch.
 	QCOMPARE(mode.index(), expectedModeIndex);
+}
+
+void TestOdamexGameMode::ctfSidesClassification_data()
+{
+	QTest::addColumn<QVariant>("sides");
+	QTest::addColumn<bool>("attackDefend");
+
+	QTest::newRow("boolean-true") << QVariant(true) << true;
+	QTest::newRow("boolean-false") << QVariant(false) << false;
+	QTest::newRow("omitted") << QVariant() << false;
+	QTest::newRow("legacy-enabled") << QVariant(QString("1")) << true;
+	QTest::newRow("legacy-disabled") << QVariant(QString("0")) << false;
+	QTest::newRow("invalid-text") << QVariant(QString("invalid")) << false;
+	QTest::newRow("negative-integer") << QVariant(-1) << false;
+}
+
+void TestOdamexGameMode::ctfSidesClassification()
+{
+	// Given: a CTF server whose sides setting is typed, legacy text, or absent.
+	QFETCH(QVariant, sides);
+	QFETCH(bool, attackDefend);
+	QVariantMap cvars{{"sv_gametype", int(OdamexGameMode::BASE_CTF)}};
+	if (sides.isValid())
+		cvars.insert("g_sides", sides);
+
+	// When: interpreting the server settings as a game mode.
+	const GameMode mode = OdamexGameMode::fromServerSettings(cvars, 8);
+
+	// Then: only enabled sides select Attack & Defend rather than ordinary CTF.
+	const int expected = attackDefend ? int(OdamexGameMode::DERIVED_ATTACK_DEFEND_CTF)
+		: int(GameMode::SGM_CTF);
+	QCOMPARE(mode.index(), expected);
 }
 
 QTEST_GUILESS_MAIN(TestOdamexGameMode)

@@ -21,6 +21,7 @@
 // Copyright (C) 2026 "Zalewa" <zalewapl@gmail.com>
 //------------------------------------------------------------------------------
 #include "odamexserver.h"
+#include "odamexgamemode.h"
 
 #include "configuration/doomseekerconfig.h"
 #include "datapaths.h"
@@ -28,9 +29,13 @@
 #include "wadseeker/entities/checksum.h"
 #include <QDataStream>
 #include <QFile>
+#include <QMap>
+#include <QRegularExpression>
 #include <QScopedValueRollback>
 #include <QStandardPaths>
+#include <QTextDocumentFragment>
 #include <QtTest>
+#include <limits>
 
 namespace
 {
@@ -39,9 +44,32 @@ QByteArray stringCvar(const QByteArray &name, const QString &value)
 	return name + '\0' + char(6) + value.toUtf8() + '\0';
 }
 
+QByteArray booleanCvar(const QByteArray &name)
+{
+	return name + '\0' + char(1);
+}
+
 QByteArray byteCvar(const QByteArray &name, quint8 value)
 {
 	return name + '\0' + char(2) + char(value);
+}
+
+QByteArray wordCvar(const QByteArray &name, quint16 value)
+{
+	QByteArray data = name + '\0' + char(3);
+	QDataStream out(&data, QIODevice::WriteOnly | QIODevice::Append);
+	out.setByteOrder(QDataStream::LittleEndian);
+	out << value;
+	return data;
+}
+
+QByteArray integerCvar(const QByteArray &name, qint32 value)
+{
+	QByteArray data = name + '\0' + char(4);
+	QDataStream out(&data, QIODevice::WriteOnly | QIODevice::Append);
+	out.setByteOrder(QDataStream::LittleEndian);
+	out << value;
+	return data;
 }
 
 QByteArray floatCvar(const QByteArray &name, const QString &value)
@@ -140,6 +168,13 @@ private slots:
 	void initTestCase();
 	void parseOnePlayerReply();
 	void parseTeamDeathmatchReply();
+	void parseByteScoreLimit_data();
+	void parseByteScoreLimit();
+	void refreshByteScoreLimit();
+	void parseUnsignedLimitDetails_data();
+	void parseUnsignedLimitDetails();
+	void preserveSignedCvars();
+	void parseBooleanCvars();
 	void parseTeamScores_data();
 	void parseTeamScores();
 	void refreshTeamScores_data();
@@ -240,6 +275,219 @@ void TestOdamexServer::parseTeamDeathmatchReply()
 	QCOMPARE(checksums.size(), 1);
 	QCOMPARE(checksums.first().algorithm(), QCryptographicHash::Md5);
 	QCOMPARE(checksums.first().hash(), QByteArray::fromHex("393d18269fe51ba7f94acd7ed75cd749"));
+}
+
+void TestOdamexServer::parseByteScoreLimit_data()
+{
+	QTest::addColumn<int>("protocolVersion");
+	QTest::addColumn<unsigned int>("scoreLimit");
+
+	for (int protocolVersion : {5, 7})
+	{
+		for (unsigned int scoreLimit : {0u, 1u, 5u, 127u, 128u, 254u, 255u})
+			QTest::newRow(qPrintable(QString("protocol-%1-limit-%2")
+				.arg(protocolVersion).arg(scoreLimit))) << protocolVersion << scoreLimit;
+	}
+}
+
+void TestOdamexServer::parseByteScoreLimit()
+{
+	// Given: Odamex declares sv_scorelimit as a byte in the range 0..255.
+	QFETCH(int, protocolVersion);
+	QFETCH(unsigned int, scoreLimit);
+	QList<QByteArray> cvars{byteCvar("sv_gametype", 3)}; // Capture the Flag.
+	if (scoreLimit != 0)
+		cvars << byteCvar("sv_scorelimit", quint8(scoreLimit)); // Zero is omitted by the server.
+	ReplyOptions options;
+	options.protocolVersion = quint32(protocolVersion);
+	options.teamGame = true;
+	options.teamScores = {0, 0};
+	options.populated = true;
+	const QByteArray data = replyWithCvars(cvars, options);
+	const QScopedValueRollback<bool> disableLookup(gConfig.doomseeker.bLookupHosts, false);
+	OdamexServer server(QHostAddress("192.0.2.1"), 10666);
+
+	// When: parsing the score limit through the real plugin's refresh entry point.
+	const Server::Response response = server.readRefreshQueryResponse(data);
+
+	// Then: the upper byte values remain positive limits, not zero/unlimited.
+	QCOMPARE(response, Server::RESPONSE_GOOD);
+	QCOMPARE(server.scoreLimit(), scoreLimit);
+
+	// And sanity-check: the byte read preserves subsequent team, file, and player fields.
+	QVERIFY(server.gameMode().isTeamGame());
+	QCOMPARE(server.scores(), (QList<int>{0, 0, 0, 0}));
+	QCOMPARE(server.iwad(), QString("DOOM2.WAD"));
+	QCOMPARE(server.numWads(), 1);
+	QCOMPARE(server.wad(0).name(), QString("FRACTIONAL.WAD"));
+	const QList<Checksum> checksums = server.wad(0).checksums();
+	QCOMPARE(checksums.size(), 1);
+	QCOMPARE(checksums.first().algorithm(), QCryptographicHash::Md5);
+	QCOMPARE(checksums.first().hash(), QByteArray(16, '\0'));
+	QCOMPARE(server.players().size(), 1);
+	QCOMPARE(server.player(0).teamNum(), Player::TEAM_BLUE);
+	QCOMPARE(server.player(0).ping(), 28ul);
+}
+
+void TestOdamexServer::refreshByteScoreLimit()
+{
+	// Given: otherwise identical CTF replies varying only the score-limit CVar.
+	ReplyOptions options;
+	options.teamGame = true;
+	options.teamScores = {0, 0};
+	options.populated = true;
+	const QList<QByteArray> baseCvars{byteCvar("sv_gametype", 3)};
+	const QByteArray initialData = replyWithCvars(
+		baseCvars + QList<QByteArray>{byteCvar("sv_scorelimit", 255)}, options);
+	const QScopedValueRollback<bool> disableLookup(gConfig.doomseeker.bLookupHosts, false);
+	OdamexServer server(QHostAddress("192.0.2.1"), 10666);
+
+	// And: the server already holds the maximum byte score limit.
+	QCOMPARE(server.readRefreshQueryResponse(initialData), Server::RESPONSE_GOOD);
+	QCOMPARE(server.scoreLimit(), 255u);
+
+	// When: changing, repeating, clearing, and restoring the score limit.
+	for (unsigned int scoreLimit : {128u, 128u, 0u, 255u, 127u, 0u})
+	{
+		QList<QByteArray> cvars = baseCvars;
+		if (scoreLimit != 0)
+			cvars << byteCvar("sv_scorelimit", quint8(scoreLimit));
+		const Server::Response response = server.readRefreshQueryResponse(
+			replyWithCvars(cvars, options));
+
+		// Then: each snapshot replaces the limit, including omission for unlimited.
+		QCOMPARE(response, Server::RESPONSE_GOOD);
+		QCOMPARE(server.scoreLimit(), scoreLimit);
+
+		// And sanity-check: the rest of the populated reply remains aligned.
+		QCOMPARE(server.iwad(), QString("DOOM2.WAD"));
+		QCOMPARE(server.numWads(), 1);
+		QCOMPARE(server.players().size(), 1);
+		QCOMPARE(server.player(0).teamNum(), Player::TEAM_BLUE);
+	}
+}
+
+void TestOdamexServer::parseUnsignedLimitDetails_data()
+{
+	QTest::addColumn<QString>("name");
+	QTest::addColumn<QByteArray>("cvar");
+	QTest::addColumn<int>("value");
+
+	for (int value : {1, 127, 128, 255})
+	{
+		QTest::newRow(qPrintable(QString("team-capacity-%1").arg(value)))
+			<< QString("sv_maxplayersperteam")
+			<< byteCvar("sv_maxplayersperteam", quint8(value)) << value;
+	}
+	for (int value : {1, 32767, 32768, 40000, 65535})
+	{
+		QTest::newRow(qPrintable(QString("frag-limit-%1").arg(value)))
+			<< QString("sv_fraglimit") << wordCvar("sv_fraglimit", quint16(value)) << value;
+	}
+}
+
+void TestOdamexServer::parseUnsignedLimitDetails()
+{
+	// Given: a populated team game advertising one limit with its server wire type.
+	QFETCH(QString, name);
+	QFETCH(QByteArray, cvar);
+	QFETCH(int, value);
+	ReplyOptions options;
+	options.teamGame = true;
+	options.teamScores = {0, 0};
+	options.populated = true;
+	const QByteArray data = replyWithCvars({byteCvar("sv_gametype", 2), cvar}, options);
+	const QScopedValueRollback<bool> disableLookup(gConfig.doomseeker.bLookupHosts, false);
+	OdamexServer server(QHostAddress("192.0.2.1"), 10666);
+
+	// When: parsing the reply and rendering its custom details.
+	const Server::Response response = server.readRefreshQueryResponse(data);
+	const QString text = QTextDocumentFragment::fromHtml(server.customDetails())
+		.toPlainText().simplified();
+
+	// Then: the displayed limit retains its value even when the high bit is set.
+	QCOMPARE(response, Server::RESPONSE_GOOD);
+	const QRegularExpression pattern(QString("\\b%1\\s+(-?\\d+)\\b")
+		.arg(QRegularExpression::escape(name)));
+	const QRegularExpressionMatch match = pattern.match(text);
+	QVERIFY2(match.hasMatch(), qPrintable(text));
+	QCOMPARE(match.captured(1).toInt(), value);
+
+	// And sanity-check: files and player fields following the CVars still align.
+	QCOMPARE(server.iwad(), QString("DOOM2.WAD"));
+	QCOMPARE(server.numWads(), 1);
+	QCOMPARE(server.wad(0).name(), QString("FRACTIONAL.WAD"));
+	QCOMPARE(server.players().size(), 1);
+	QCOMPARE(server.player(0).teamNum(), Player::TEAM_BLUE);
+	QCOMPARE(server.player(0).ping(), 28ul);
+}
+
+void TestOdamexServer::preserveSignedCvars()
+{
+	// Given: a legitimate negative byte sentinel and unknown integers using signed decoding.
+	const QByteArray data = replyWithCvars({
+		byteCvar("sv_scorelimit", 255),
+		byteCvar("g_thingfilter", 255), // Odamex permits -1, serialized as byte 0xFF.
+		byteCvar("unknown_byte", 128),
+		wordCvar("unknown_word", 32768),
+		integerCvar("unknown_integer_min", std::numeric_limits<qint32>::min()),
+		integerCvar("unknown_integer_negative", -1),
+		integerCvar("unknown_integer_max", std::numeric_limits<qint32>::max())
+	});
+	const QMap<QString, int> expected{
+		{"g_thingfilter", -1}, {"unknown_byte", -128}, {"unknown_word", -32768},
+		{"unknown_integer_min", std::numeric_limits<qint32>::min()},
+		{"unknown_integer_negative", -1},
+		{"unknown_integer_max", std::numeric_limits<qint32>::max()}
+	};
+	const QScopedValueRollback<bool> disableLookup(gConfig.doomseeker.bLookupHosts, false);
+	OdamexServer server(QHostAddress("192.0.2.1"), 10666);
+
+	// When: parsing these CVars alongside the score-limit exception.
+	const Server::Response response = server.readRefreshQueryResponse(data);
+	const QString text = QTextDocumentFragment::fromHtml(server.customDetails())
+		.toPlainText().simplified();
+
+	// Then: the exception does not change the generic signed interpretation.
+	QCOMPARE(response, Server::RESPONSE_GOOD);
+	for (auto iter = expected.constBegin(); iter != expected.constEnd(); ++iter)
+	{
+		const QRegularExpression pattern(QString("\\b%1\\s+(-?\\d+)\\b")
+			.arg(QRegularExpression::escape(iter.key())));
+		const QRegularExpressionMatch match = pattern.match(text);
+		QVERIFY2(match.hasMatch(), qPrintable(text));
+		QCOMPARE(match.captured(1).toInt(), iter.value());
+	}
+}
+
+void TestOdamexServer::parseBooleanCvars()
+{
+	// Given: Attack & Defend CTF with two true boolean CVars carrying no value bytes.
+	ReplyOptions options;
+	options.teamGame = true;
+	options.teamScores = {0, 0};
+	options.populated = true;
+	const QByteArray data = replyWithCvars({byteCvar("sv_gametype", 3),
+		booleanCvar("g_sides"), booleanCvar("sv_friendlyfire")}, options);
+	const QScopedValueRollback<bool> disableLookup(gConfig.doomseeker.bLookupHosts, false);
+	OdamexServer server(QHostAddress("192.0.2.1"), 10666);
+
+	// When: parsing the reply and producing server details.
+	const Server::Response response = server.readRefreshQueryResponse(data);
+	const QString text = QTextDocumentFragment::fromHtml(server.customDetails())
+		.toPlainText().simplified();
+
+	// Then: g_sides enables Attack & Defend and friendly fire is shown as true.
+	QCOMPARE(response, Server::RESPONSE_GOOD);
+	QCOMPARE(server.gameMode().index(), int(OdamexGameMode::DERIVED_ATTACK_DEFEND_CTF));
+	const QRegularExpression friendlyFire("\\bsv_friendlyfire\\s+true\\b");
+	QVERIFY2(friendlyFire.match(text).hasMatch(), qPrintable(text));
+
+	// And sanity-check: the following populated payload remains aligned.
+	QCOMPARE(server.iwad(), QString("DOOM2.WAD"));
+	QCOMPARE(server.numWads(), 1);
+	QCOMPARE(server.players().size(), 1);
+	QCOMPARE(server.player(0).teamNum(), Player::TEAM_BLUE);
 }
 
 void TestOdamexServer::parseTeamScores_data()

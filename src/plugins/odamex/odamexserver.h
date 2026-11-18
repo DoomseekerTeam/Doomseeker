@@ -24,7 +24,7 @@
 #ifndef __ODAMEXSERVER_H__
 #define __ODAMEXSERVER_H__
 
-#include <QMap>
+#include <QVariant>
 
 #include "serverapi/server.h"
 
@@ -55,7 +55,7 @@ protected:
 	Response readRequest(const QByteArray &data);
 	QByteArray createSendRequest();
 
-	QMap<QString, QString> cvars;
+	QVariantMap cvars;
 	short protocol;
 	QStringList dehPatches;
 };

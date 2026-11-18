@@ -22,6 +22,8 @@
 //------------------------------------------------------------------------------
 #include "odamexgamemode.h"
 
+#include "odamexcvar.h"
+
 const QList<GameMode> &OdamexGameMode::base()
 {
 	static QList<GameMode> modes;
@@ -36,7 +38,7 @@ const QList<GameMode> &OdamexGameMode::base()
 	return modes;
 }
 
-GameMode OdamexGameMode::fromServerSettings(const QMap<QString, QString> &cvars,
+GameMode OdamexGameMode::fromServerSettings(const QVariantMap &cvars,
 	unsigned int maxPlayers)
 {
 	/*
@@ -46,9 +48,13 @@ GameMode OdamexGameMode::fromServerSettings(const QMap<QString, QString> &cvars,
 	*/
 	const DerivedId derivedId = [&]()
 	{
-		unsigned int mode = cvars.value("sv_gametype", "0").toUInt();
-		unsigned int lives = cvars.value("g_lives", "0").toUInt();
-		bool sides = cvars.value("g_sides", "0").toUInt();
+		const uint mode = OdamexCvar::valueToUInt(cvars.value("sv_gametype"));
+		const uint lives = OdamexCvar::valueToUInt(cvars.value("g_lives"));
+		// Keep the numeric fallback for legacy replies: QVariant::toBool()
+		// would treat nonnumeric text such as "invalid" as true.
+		const QVariant sidesSetting = cvars.value("g_sides");
+		const bool sides = sidesSetting.userType() == QMetaType::Bool
+			? sidesSetting.toBool() : OdamexCvar::valueToUInt(sidesSetting) != 0;
 		if (mode == OdamexGameMode::BASE_COOPERATIVE && lives > 0)
 			return OdamexGameMode::DERIVED_SURVIVAL;
 		else if (mode == OdamexGameMode::BASE_COOPERATIVE)

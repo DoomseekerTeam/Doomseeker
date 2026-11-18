@@ -25,7 +25,7 @@
 
 #include <serverapi/serverstructs.h>
 #include <QObject>
-#include <QMap>
+#include <QVariant>
 
 class OdamexGameMode : public QObject
 {
@@ -78,7 +78,7 @@ public:
 	static const QList<GameMode> &derived();
 
 	/// Interpret server CVars and the player limit as a game mode.
-	static GameMode fromServerSettings(const QMap<QString, QString> &cvars,
+	static GameMode fromServerSettings(const QVariantMap &cvars,
 		unsigned int maxPlayers);
 
 private:

@@ -28,6 +28,9 @@ for display instead of being shown as unlimited.
 rather than being interpreted as HTML formatting.
 - Odamex: game information now shows the received team scores instead of always
 showing zero. Scores are refreshed correctly when teams or game modes change.
+- Odamex: score limits from 128 to 255 are displayed correctly instead of as
+unlimited. Large frag limits and per-team player limits no longer appear as
+negative numbers in server details.
 - Wadseeker: would fail to install files from archives if system temporary
 directory was on a different filesystem than the destination.
 

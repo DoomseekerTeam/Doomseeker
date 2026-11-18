@@ -30,6 +30,7 @@
 #include <limits>
 
 #include "datastreamoperatorwrapper.h"
+#include "odamexcvar.h"
 #include "odamexengineplugin.h"
 #include "odamexgamehost.h"
 #include "odamexgameinfo.h"
@@ -69,12 +70,11 @@ QString OdamexServer::customDetails()
 		return "";
 
 	QString cvarList("<ul>");
-	QMap<QString, QString>::ConstIterator iter = cvars.constBegin();
-	do
+	for (auto iter = cvars.constBegin(); iter != cvars.constEnd(); ++iter)
 	{
 		cvarList += QString("<li>%1 %2</li>")
-			.arg(iter.key().toHtmlEscaped(), iter.value().toHtmlEscaped());
-	} while (++iter != cvars.constEnd());
+			.arg(iter.key().toHtmlEscaped(), iter.value().toString().toHtmlEscaped());
+	}
 	return cvarList + "</ul>";
 }
 
@@ -152,54 +152,28 @@ Server::Response OdamexServer::readRequest(const QByteArray &data)
 		auto cvarName = in.readUtf8CString();
 		CHECK_POS;
 
-		enum CVarType
-		{
-			CVAR_BOOL = 1,
-			CVAR_INT8,
-			CVAR_INT16,
-			CVAR_INT32,
-			CVAR_FLOAT,
-			CVAR_STRING
-		};
-		CVarType type = CVAR_STRING;
+		OdamexCvar::CvarType type = OdamexCvar::CvarType::String;
 		if (protocolVersion >= 5)
-			type = static_cast<CVarType>(in.readQUInt8());
+			type = static_cast<OdamexCvar::CvarType>(in.readQUInt8());
 
-		QString cvarValue;
-		switch (type)
-		{
-		case CVAR_BOOL:
-			cvarValue = "1";
-			break;
-		case CVAR_INT8:
-			cvarValue = QString("%1").arg(in.readQInt8());
-			break;
-		case CVAR_INT16:
-			cvarValue = QString("%1").arg(in.readQInt16());
-			break;
-		case CVAR_INT32:
-			cvarValue = QString("%1").arg(in.readQInt32());
-			break;
-		default:
-			cvarValue = in.readUtf8CString();
-			break;
-		}
+		const auto interpretation = OdamexCvar::integerInterpretationFor(cvarName, type);
+		const QVariant cvarValue = OdamexCvar::readCvarValue(in, type, interpretation);
 		CHECK_POS;
 
 		if (cvarName == "sv_email")
-			setEmail(cvarValue);
+			setEmail(cvarValue.toString());
 		else if (cvarName == "sv_hostname")
-			setName(cvarValue);
+			setName(cvarValue.toString());
 		else if (cvarName == "sv_maxplayers")
-			setMaxPlayers((quint8)cvarValue.toInt());
+			setMaxPlayers((quint8)OdamexCvar::valueToInt(cvarValue));
 		else if (cvarName == "sv_maxclients")
-			setMaxClients((quint8)cvarValue.toInt());
+			setMaxClients((quint8)OdamexCvar::valueToInt(cvarValue));
 		else if (cvarName == "sv_scorelimit")
-			setScoreLimit(cvarValue.toUInt());
+			setScoreLimit(OdamexCvar::valueToUInt(cvarValue));
 		else if (cvarName == "sv_website")
-			setWebSite(cvarValue);
+			setWebSite(cvarValue.toString());
 		else if (cvarName == "sv_downloadsites")
-			setAdditionalWebSites(cvarValue.split(' '));
+			setAdditionalWebSites(cvarValue.toString().split(' '));
 		else if (cvarName == "sv_timelimit")
 		{
 			bool ok;

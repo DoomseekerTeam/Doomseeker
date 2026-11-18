@@ -20,10 +20,11 @@
 #------------------------------------------------------------------------------
 
 set(PLUGIN_NAME odamex)
-set(PLUGIN_VERSION 48)
+set(PLUGIN_VERSION 49)
 include(../PluginHeader.cmake)
 
 set(ODAMEX_FILES
+	odamexcvar.cpp
 	odamexengineplugin.cpp
 	odamexgamehost.cpp
 	odamexgameinfo.cpp
@@ -34,6 +35,7 @@ set(ODAMEX_FILES
 )
 
 set(HEADER_FILES
+	odamexcvar.h
 	odamexengineplugin.h
 	odamexmasterclient.h
 	odamexgamehost.h

@@ -23,6 +23,7 @@
 # without test doubles or loading a plugin module.
 add_plugin_unit_test(odamex odamexserver
 	SOURCES
+		"${Doomseeker_SOURCE_DIR}/src/plugins/odamex/odamexcvar.cpp"
 		"${Doomseeker_SOURCE_DIR}/src/plugins/odamex/odamexengineplugin.cpp"
 		"${Doomseeker_SOURCE_DIR}/src/plugins/odamex/odamexgamehost.cpp"
 		"${Doomseeker_SOURCE_DIR}/src/plugins/odamex/odamexgameinfo.cpp"
@@ -35,8 +36,14 @@ add_plugin_unit_test(odamex odamexserver
 target_compile_definitions(unit_test_plugins_odamex_odamexserver
 	PRIVATE DOOMSEEKER_STATIC_PLUGINS)
 
+add_plugin_unit_test(odamex odamexcvar
+	SOURCES
+		"${Doomseeker_SOURCE_DIR}/src/plugins/odamex/odamexcvar.cpp"
+)
+
 add_plugin_unit_test(odamex odamexgamemode
 	SOURCES
+		"${Doomseeker_SOURCE_DIR}/src/plugins/odamex/odamexcvar.cpp"
 		"${Doomseeker_SOURCE_DIR}/src/plugins/odamex/odamexgamemode.cpp"
 		"${Doomseeker_SOURCE_DIR}/src/plugins/odamex/odamexgamemode.h"
 )
