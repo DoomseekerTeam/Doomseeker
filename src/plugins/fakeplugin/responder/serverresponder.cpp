@@ -23,6 +23,7 @@
 #include "serverresponder.h"
 
 #include "responder/awaitingclient.h"
+#include "responder/responderrandom.h"
 #include <QTimer>
 #include <QUdpSocket>
 
@@ -82,7 +83,7 @@ void ServerResponder::readPendingDatagram()
 		if (!roll(d->responseFailChance))
 		{
 			d->awaitingClients.append(AwaitingClient(address, port));
-			int msec = 10 + qrand() % 300;
+			int msec = 10 + ResponderRandom::bounded(300);
 			QTimer::singleShot(msec, this, SLOT(respond()));
 		}
 	}
@@ -125,6 +126,6 @@ bool ServerResponder::roll(unsigned chance) const
 {
 	if (chance == 0)
 		return false;
-	const unsigned rolled = qrand() % MAX_CHANCE + 1;
+	const unsigned rolled = ResponderRandom::bounded(MAX_CHANCE) + 1;
 	return rolled <= chance;
 }

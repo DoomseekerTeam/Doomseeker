@@ -24,6 +24,7 @@
 
 #include "responder/awaitingclient.h"
 #include "responder/respondercfg.h"
+#include "responder/responderrandom.h"
 #include "responder/serverresponder.h"
 #include <log.h>
 #include <QTimer>
@@ -149,7 +150,7 @@ void MasterResponder::readPendingDatagram()
 	if (packet == "FAKE")
 	{
 		d->awaitingClients.append(AwaitingClient(address, port));
-		int msec = 10 + qrand() % 300;
+		int msec = 10 + ResponderRandom::bounded(300);
 		gLog << QString("FakePlugin, sending master response in: %1ms.").arg(msec);
 		QTimer::singleShot(msec, this, SLOT(respond()));
 	}

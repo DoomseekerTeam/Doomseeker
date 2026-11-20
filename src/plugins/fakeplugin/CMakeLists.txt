@@ -38,6 +38,7 @@ set(HEADER_FILES
 	responder/awaitingclient.h
 	responder/masterresponder.h
 	responder/respondercfg.h
+	responder/responderrandom.h
 	responder/serverresponder.h
 	pluginengineplugin.h
 	plugingamehost.h
