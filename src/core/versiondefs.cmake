@@ -27,7 +27,7 @@
 # Info used by version.cpp
 set(VERSION_STRING "1.5.3")
 
-# Info used by windows.rc
+# Info used by doomseeker.rc
 set(FILEVERSION_DEF "1,5,3,HG_REVISION_NUMBER")
 set(PRODUCTVERSION_DEF "1,5,3,HG_REVISION_NUMBER")
 set(FILEVERSION_STR_DEF "1.5.3.0")

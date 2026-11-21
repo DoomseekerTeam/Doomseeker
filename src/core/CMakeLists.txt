@@ -141,12 +141,6 @@ if (WIN32 AND ${Qt_PACKAGE}Widgets_FOUND)
 		${QT_TRANSLATIONS_DIR}/qtmultimedia_pl.qm)
 endif ()
 
-# windows.rc
-if(WIN32)
-	# compile the Windows resource file.  How we do this depends on the compiler.
-	set(SOURCE_FILES ${SOURCE_FILES} ${Doomseeker_SOURCE_DIR}/media/windows.rc)
-endif()
-
 # Generate versiondefs.h
 include("versiondefs.cmake")
 configure_file(versiondefs.h.in versiondefs.h)
@@ -182,6 +176,10 @@ add_executable(doomseeker
 	${APP_SOURCE_FILES}
 	${APP_HEADER_FILES}
 )
+
+if(WIN32)
+	target_sources(doomseeker PRIVATE "${Doomseeker_SOURCE_DIR}/media/doomseeker.rc")
+endif()
 
 # Application-wide build settings, shared transitively with core consumers.
 add_library(doomseeker_build_config INTERFACE)

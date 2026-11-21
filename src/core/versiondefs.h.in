@@ -33,14 +33,14 @@
 //
 // This file should only by included by following files:
 // - version.cpp
-// - windows.rc
+// - doomseeker.rc
 
 #include "gitinfo.h"
 
 // Info used by version.cpp
 #define VERSION_STRING "@VERSION_STRING@"
 
-// Info used by windows.rc
+// Info used by doomseeker.rc
 #define FILEVERSION_DEF @FILEVERSION_DEF@
 #define PRODUCTVERSION_DEF @PRODUCTVERSION_DEF@
 #define FILEVERSION_STR_DEF "@FILEVERSION_STR_DEF@"
