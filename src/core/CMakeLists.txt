@@ -286,44 +286,32 @@ if(WIN32)
 	# then program.exe will be dumped to "C:\Program Files\program.exe"
 	install(TARGETS doomseeker RUNTIME DESTINATION . COMPONENT doomseeker)
 	# Install Qt libraries.
-	if (${Qt_PACKAGE}Widgets_FOUND)
-		# Qt5*.dll
-		foreach(qtlib ${QT_LIBRARIES})
-			get_target_property(qtlib_location ${qtlib} LOCATION)
-			install(FILES ${qtlib_location} DESTINATION . COMPONENT doomseeker)
-		endforeach()
-		# plugins
-		execute_process(COMMAND ${QMAKE_EXEC} -query QT_INSTALL_PLUGINS
-			OUTPUT_VARIABLE QT_PLUGINS_DIR
-			OUTPUT_STRIP_TRAILING_WHITESPACE)
-		install(FILES ${QT_PLUGINS_DIR}/audio/qtaudio_windows.dll DESTINATION audio COMPONENT doomseeker)
-		install(FILES ${QT_PLUGINS_DIR}/platforms/qwindows.dll DESTINATION platforms COMPONENT doomseeker)
-		# Media
-		install_all_slot_styles()
-		# ICU (the 26.6 Megabyte bastard)
-		#
-		# Installation of ICU is optional. If you don't have ICU
-		# files, it's possible that your Qt installation doesn't
-		# need them. That's very good as ICU files weight about 30
-		# Megabytes and Doomseeker makes no use of them.
-		execute_process(COMMAND ${QMAKE_EXEC} -query QT_INSTALL_LIBEXECS
-			OUTPUT_VARIABLE QT_LIBEXECS_DIR
-			OUTPUT_STRIP_TRAILING_WHITESPACE)
-		install(FILES
-			${QT_LIBEXECS_DIR}/icuin53.dll
-			${QT_LIBEXECS_DIR}/icuuc53.dll
-			${QT_LIBEXECS_DIR}/icudt53.dll
-			DESTINATION . COMPONENT doomseeker OPTIONAL)
-	else()
-		get_filename_component(QT_DLL_DIR ${QT_QMAKE_EXECUTABLE} PATH)
-		set(QT_LIBS_RELEASE
-			${QT_DLL_DIR}/QtCore4.dll
-			${QT_DLL_DIR}/QtGui4.dll
-			${QT_DLL_DIR}/QtNetwork4.dll
-			${QT_DLL_DIR}/QtXml4.dll
-			)
-		install(FILES ${QT_LIBS_RELEASE} DESTINATION . COMPONENT doomseeker)
-	endif()
+	foreach(qtlib ${QT_LIBRARIES})
+		get_target_property(qtlib_location ${qtlib} LOCATION)
+		install(FILES ${qtlib_location} DESTINATION . COMPONENT doomseeker)
+	endforeach()
+	# plugins
+	execute_process(COMMAND ${QMAKE_EXEC} -query QT_INSTALL_PLUGINS
+		OUTPUT_VARIABLE QT_PLUGINS_DIR
+		OUTPUT_STRIP_TRAILING_WHITESPACE)
+	install(FILES ${QT_PLUGINS_DIR}/audio/qtaudio_windows.dll DESTINATION audio COMPONENT doomseeker)
+	install(FILES ${QT_PLUGINS_DIR}/platforms/qwindows.dll DESTINATION platforms COMPONENT doomseeker)
+	# Media
+	install_all_slot_styles()
+	# ICU (the 26.6 Megabyte bastard)
+	#
+	# Installation of ICU is optional. If you don't have ICU
+	# files, it's possible that your Qt installation doesn't
+	# need them. That's very good as ICU files weight about 30
+	# Megabytes and Doomseeker makes no use of them.
+	execute_process(COMMAND ${QMAKE_EXEC} -query QT_INSTALL_LIBEXECS
+		OUTPUT_VARIABLE QT_LIBEXECS_DIR
+		OUTPUT_STRIP_TRAILING_WHITESPACE)
+	install(FILES
+		${QT_LIBEXECS_DIR}/icuin53.dll
+		${QT_LIBEXECS_DIR}/icuuc53.dll
+		${QT_LIBEXECS_DIR}/icudt53.dll
+		DESTINATION . COMPONENT doomseeker OPTIONAL)
 	# Install .ico file. No idea what purpose would this serve but some
 	# programs come with their icons in the .ico file so why not.
 	install(FILES ${CMAKE_SOURCE_DIR}/media/icon_windows.ico DESTINATION .
