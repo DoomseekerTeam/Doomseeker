@@ -57,7 +57,7 @@ void OdamexGameHost::addExtra()
 			args() << "+addmap" << map;
 		}
 	}
-	args() << "+shufflemaplist" << QString::number( static_cast<int>(params().isRandomMapRotation()));
+	args() << "+sv_shufflemaplist" << QString::number( static_cast<int>(params().isRandomMapRotation()));
 
 	const int gameModeIdx = [&](){
 		for (int i = 0; i < OdamexGameMode::base().size(); ++i)
@@ -86,7 +86,7 @@ void OdamexGameHost::addHostModeParams()
 	args() << "+sv_hostname" << "\"" + params().name() + "\"";
 	args() << "+sv_maxclients" << QString::number(params().maxClients());
 	args() << "+sv_maxplayers" << QString::number(params().maxPlayers());
-	args() << "+sv_website" << "\"" + params().url() + "\"";
+	args() << "+sv_downloadsites" << "\"" + params().url() + "\"";
 
 	QString motd = params().motd();
 	args() << "+sv_motd" << "\"" + motd.replace("\n", "\\n") + "\"";

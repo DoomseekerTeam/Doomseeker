@@ -35,6 +35,9 @@ negative numbers in server details.
 Deathmatch instead of showing an unrelated CTF score limit.
 - Odamex: incomplete replies are no longer accepted as successful server
 refreshes or used to add bogus entries to the master-server list.
+- Odamex: use the correct hosting arguments for random map rotation and WAD
+download URLs (`+sv_shufflemaplist` and `+sv_downloadsites`), instead of
+unrecognized `+shufflemaplist` and `+sv_website`.
 - Wadseeker: would fail to install files from archives if system temporary
 directory was on a different filesystem than the destination.
 
